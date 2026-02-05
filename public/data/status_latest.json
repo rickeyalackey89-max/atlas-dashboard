@@ -1,10 +1,26 @@
 {
-  "report_datetime_local": "2026-02-04 07:45PM",
-  "pulled_at_local": "2026-02-04T18:54:20-06:00",
-  "source": "NBA injury report PDF (latest-of-day via season page scrape)",
-  "source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-02-04_07_45PM.pdf",
-  "pdf_sha1": "c297c1241817aba43db7bae45e1d25c319c3d93c",
-  "post_iael": true,
-  "post_line_recon": false,
-  "notes": "IAEL completed. Wire line-reconciliation + recommendations exporter to set post_line_recon=True and write recommended_latest.json."
+  "generated_at": "2026-02-05T08:37:28",
+  "latest_dir": "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all",
+  "ok": true,
+  "files": [
+    {
+      "name": "scored_legs.csv",
+      "exists": true,
+      "bytes": 878977,
+      "last_modified": "2026-02-05T08:20:13"
+    },
+    {
+      "name": "recommended_4leg.csv",
+      "exists": true,
+      "bytes": 13583,
+      "last_modified": "2026-02-05T08:20:13"
+    },
+    {
+      "name": "recommended_5leg.csv",
+      "exists": true,
+      "bytes": 16181,
+      "last_modified": "2026-02-05T08:20:13"
+    }
+  ],
+  "notes": "Status summarizes latest/all output presence + freshness for sanity checks."
 }
