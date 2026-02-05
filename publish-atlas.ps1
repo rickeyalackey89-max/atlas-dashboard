@@ -1,135 +1,129 @@
 # publish-atlas.ps1
-# Hardened publisher: pull-first, validate, fail-loud, then push.
+# Pull-first, export CSV->JSON into Dashboard, validate, commit, push.
 # Usage:
 #   powershell -ExecutionPolicy Bypass -File .\publish-atlas.ps1 "C:\Users\rick\projects\Atlas"
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-function Fail([string]$msg) {
-  Write-Host "ERROR: $msg" -ForegroundColor Red
-  exit 1
-}
+function Fail([string]$msg) { Write-Host "ERROR: $msg" -ForegroundColor Red; exit 1 }
+function Info([string]$msg) { Write-Host $msg -ForegroundColor Cyan }
+function Ok([string]$msg) { Write-Host $msg -ForegroundColor Green }
 
-function Info([string]$msg) {
-  Write-Host $msg -ForegroundColor Cyan
-}
-
-function Ok([string]$msg) {
-  Write-Host $msg -ForegroundColor Green
-}
-
-# --- Args (newborn-proof) ---
 $AtlasPath = $args[0]
 if (-not $AtlasPath) {
   Fail 'Usage: powershell -ExecutionPolicy Bypass -File .\publish-atlas.ps1 "C:\Path\To\Atlas"'
 }
 
-# Defaults (edit only if your folders differ)
 $DashboardDataPath = "public\data"
 
-# --- 0) Confirm we're in the AtlasDashboard git repo ---
+# --- 0) Ensure we're in AtlasDashboard repo ---
 $gitTop = (git rev-parse --show-toplevel 2>$null)
-if (-not $gitTop) { Fail "Not inside a git repository. cd into AtlasDashboard first." }
-
+if (-not $gitTop) { Fail "Not inside a git repo. cd into AtlasDashboard first." }
 Set-Location $gitTop
 Info "Repo root: $gitTop"
 
-# Ensure public exists (Cloudflare expects it)
-if (-not (Test-Path (Join-Path $gitTop "public"))) {
-  Fail "Missing 'public/' at repo root. Cloudflare build output expects it."
-}
-
-# Ensure target data dir exists
+if (-not (Test-Path (Join-Path $gitTop "public"))) { Fail "Missing public/ at repo root." }
 $targetDataDir = Join-Path $gitTop $DashboardDataPath
-if (-not (Test-Path $targetDataDir)) {
-  Fail "Dashboard data directory not found: $targetDataDir"
-}
+if (-not (Test-Path $targetDataDir)) { Fail "Dashboard data dir not found: $targetDataDir" }
 
-# Guard: refuse if merge/rebase in progress
+# Guard: no merge/rebase
 $gitDir = (git rev-parse --git-dir)
-$rebaseOrMergeInProgress = (
-  (Test-Path (Join-Path $gitDir "rebase-merge")) -or
-  (Test-Path (Join-Path $gitDir "rebase-apply")) -or
-  (Test-Path (Join-Path $gitDir "MERGE_HEAD"))
-)
-if ($rebaseOrMergeInProgress) {
+if ((Test-Path (Join-Path $gitDir "rebase-merge")) -or (Test-Path (Join-Path $gitDir "rebase-apply")) -or (Test-Path (Join-Path $gitDir "MERGE_HEAD"))) {
   Fail "Git merge/rebase in progress. Finish it before publishing."
 }
 
-# Guard: ensure working tree is clean BEFORE pull
-$statusPorcelain = (git status --porcelain)
-if ($statusPorcelain) {
-  Fail "Working tree not clean BEFORE pull. Commit/stash changes first.`n$statusPorcelain"
-}
+# Guard: clean before pull
+$status = (git status --porcelain)
+if ($status) { Fail "Working tree not clean BEFORE pull.`n$status" }
 
 # --- 1) Pull first ---
 Info "Pulling latest from origin/main (rebase)..."
 git pull --rebase
 
-# Double-check clean after pull
-$statusPorcelain = (git status --porcelain)
-if ($statusPorcelain) {
-  Fail "Working tree not clean AFTER pull. Resolve conflicts first.`n$statusPorcelain"
-}
+$status = (git status --porcelain)
+if ($status) { Fail "Working tree not clean AFTER pull.`n$status" }
 
-# --- 2) Locate Atlas latest/all JSON source ---
+# --- 2) Source directories in Atlas ---
 $atlasRoot = (Resolve-Path $AtlasPath).Path
-if (-not (Test-Path $atlasRoot)) { Fail "AtlasPath not found: $atlasRoot" }
+$latestAll = Join-Path $atlasRoot "data\output\latest\all"
+$latestRisky = Join-Path $latestAll "risky"
 
-$sourceDir = Join-Path $atlasRoot "data\output\latest\all"
-if (-not (Test-Path $sourceDir)) { Fail "Atlas latest/all path not found: $sourceDir" }
+if (-not (Test-Path $latestAll)) { Fail "Atlas latest/all not found: $latestAll" }
+if (-not (Test-Path $latestRisky)) { Fail "Atlas latest/all/risky not found: $latestRisky" }
 
-Info "Atlas latest/all source: $sourceDir"
-Info "Dashboard target data:   $targetDataDir"
+Info "Atlas latest/all:       $latestAll"
+Info "Atlas latest/all/risky: $latestRisky"
+Info "Dashboard target data:  $targetDataDir"
 
-# --- 3) Copy *_latest.json (fail if none found) ---
-$jsonFiles = Get-ChildItem -Path $sourceDir -Filter "*_latest.json" -File -ErrorAction Stop
-if (-not $jsonFiles -or $jsonFiles.Count -eq 0) {
-  Fail "No *_latest.json files found in: $sourceDir. Did Atlas export JSON to latest/all?"
+# --- 3) Helper: CSV -> JSON array of rows ---
+function Export-CsvToJson([string]$csvPath, [string]$jsonPath) {
+  if (-not (Test-Path $csvPath)) { Fail "Missing CSV: $csvPath" }
+  $rows = Import-Csv -Path $csvPath
+  $json = $rows | ConvertTo-Json -Depth 10
+  Set-Content -Path $jsonPath -Value $json -Encoding UTF8
 }
 
-Info ("Copying {0} JSON files..." -f $jsonFiles.Count)
-foreach ($f in $jsonFiles) {
-  Copy-Item -Path $f.FullName -Destination (Join-Path $targetDataDir $f.Name) -Force
+# --- 4) Export the 6 recommendation files ---
+$exports = @(
+  @{ csv = (Join-Path $latestAll "recommended_3leg.csv"); json = (Join-Path $targetDataDir "recommended_3leg_latest.json") }
+  @{ csv = (Join-Path $latestAll "recommended_4leg.csv"); json = (Join-Path $targetDataDir "recommended_4leg_latest.json") }
+  @{ csv = (Join-Path $latestAll "recommended_5leg.csv"); json = (Join-Path $targetDataDir "recommended_5leg_latest.json") }
+
+  @{ csv = (Join-Path $latestRisky "recommended_3leg.csv"); json = (Join-Path $targetDataDir "risky_recommended_3leg_latest.json") }
+  @{ csv = (Join-Path $latestRisky "recommended_4leg.csv"); json = (Join-Path $targetDataDir "risky_recommended_4leg_latest.json") }
+  @{ csv = (Join-Path $latestRisky "recommended_5leg.csv"); json = (Join-Path $targetDataDir "risky_recommended_5leg_latest.json") }
+)
+
+Info ("Exporting {0} CSVs -> JSON..." -f $exports.Count)
+foreach ($e in $exports) {
+  Export-CsvToJson -csvPath $e.csv -jsonPath $e.json
 }
 
-# --- 4) Validate JSON (parse + conflict markers) ---
+# --- 5) Write status_latest.json (freshness + file list) ---
+$filesStatus = @()
+foreach ($e in $exports) {
+  $j = Get-Item -Path $e.json
+  $filesStatus += @{
+    name = (Split-Path $e.json -Leaf)
+    exists = $true
+    bytes = $j.Length
+    last_modified = $j.LastWriteTime.ToString("s")
+  }
+}
+
+$statusObj = @{
+  generated_at = (Get-Date).ToUniversalTime().ToString("s") + "Z"
+  latest_dir = $latestAll
+  ok = $true
+  files = $filesStatus
+  notes = "Generated by publish-atlas.ps1 from Atlas CSV outputs."
+}
+
+$statusJsonPath = Join-Path $targetDataDir "status_latest.json"
+($statusObj | ConvertTo-Json -Depth 10) | Set-Content -Path $statusJsonPath -Encoding UTF8
+
+# --- 6) Validate JSON (parse + conflict markers) ---
 Info "Validating JSON integrity..."
-$targetJson = Get-ChildItem -Path $targetDataDir -Filter "*_latest.json" -File -ErrorAction Stop
-
-foreach ($f in $targetJson) {
-  $raw = Get-Content -Path $f.FullName -Raw
-
-  if ($raw -match '<<<<<<<|=======|>>>>>>>' ) {
-    Fail "Merge conflict markers found in JSON: $($f.FullName)"
-  }
-
-  try {
-    $null = $raw | ConvertFrom-Json
-  } catch {
-    Fail "Invalid JSON (parse failed): $($f.FullName)`n$($_.Exception.Message)"
-  }
+$toValidate = @($exports.json + $statusJsonPath)
+foreach ($p in $toValidate) {
+  $raw = Get-Content -Path $p -Raw
+  if ($raw -match '<<<<<<<|=======|>>>>>>>' ) { Fail "Merge conflict markers found: $p" }
+  try { $null = $raw | ConvertFrom-Json } catch { Fail "Invalid JSON: $p`n$($_.Exception.Message)" }
 }
-
 Ok "JSON validation passed."
 
-# --- 5) Commit + push if changes exist ---
+# --- 7) Commit + push if changes exist ---
 git add $DashboardDataPath
-
 $changes = (git diff --cached --name-only)
-if (-not $changes) {
-  Ok "No changes to publish (nothing staged). Exiting cleanly."
-  exit 0
-}
+if (-not $changes) { Ok "No changes to publish. Exiting cleanly."; exit 0 }
 
 $ts = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 $msg = "Publish Atlas data ($ts)"
-
 Info "Committing: $msg"
 git commit -m $msg
 
-Info "Pushing to origin/main..."
+Info "Pushing..."
 git push
 
-Ok "Publish complete. Cloudflare Pages should auto-deploy this commit."
+Ok "Publish complete. Cloudflare Pages will auto-deploy this commit."
