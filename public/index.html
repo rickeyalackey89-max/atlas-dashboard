@@ -1,31 +1,45 @@
-<div id="atlas-last-updated" style="padding:8px 12px;border:1px solid #ddd;border-radius:10px;display:inline-block;">
-  <div style="font-size:12px;opacity:0.7;">Last Updated</div>
-  <div id="atlas-last-updated-value" style="font-size:16px;font-weight:600;">—</div>
-</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Atlas Dashboard</title>
+    <style>
+      body { font-family: Arial, sans-serif; padding: 24px; }
+      .box { border: 3px solid black; padding: 16px; display: inline-block; border-radius: 10px; }
+      .big { font-size: 28px; font-weight: 800; }
+      .small { margin-top: 10px; font-size: 16px; }
+      code { background: #eee; padding: 2px 6px; border-radius: 6px; }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="big">✅ ATLAS IS LIVE</div>
+      <div class="small">If you see this, Cloudflare is serving <code>/public/index.html</code>.</div>
 
-<script>
-(async function () {
-  try {
-    const res = await fetch('/data/status_latest.json', { cache: 'no-store' });
-    if (!res.ok) throw new Error('Failed to fetch status_latest.json');
-    const status = await res.json();
+      <div class="small" style="margin-top:14px; opacity:.7;">Last Updated</div>
+      <div class="small" id="atlas-last-updated-value" style="font-weight:700;">Loading…</div>
+    </div>
 
-    const raw = status.generated_at || null;
-    const el = document.getElementById('atlas-last-updated-value');
+    <script>
+      (async function () {
+        try {
+          const res = await fetch('/data/status_latest.json', { cache: 'no-store' });
+          if (!res.ok) throw new Error('Failed to fetch /data/status_latest.json');
+          const status = await res.json();
 
-    if (!raw) {
-      el.textContent = 'Unknown';
-      return;
-    }
+          const raw = status.generated_at || null;
+          const el = document.getElementById('atlas-last-updated-value');
 
-    // Convert ISO -> local readable
-    const dt = new Date(raw);
-    el.textContent = isNaN(dt.getTime())
-      ? String(raw)
-      : dt.toLocaleString();
-  } catch (e) {
-    const el = document.getElementById('atlas-last-updated-value');
-    if (el) el.textContent = 'Unavailable';
-  }
-})();
-</script>
+          if (!raw) { el.textContent = 'Unknown'; return; }
+          const dt = new Date(raw);
+          el.textContent = isNaN(dt.getTime()) ? String(raw) : dt.toLocaleString();
+        } catch (e) {
+          const el = document.getElementById('atlas-last-updated-value');
+          el.textContent = 'Unavailable';
+          console.log(e);
+        }
+      })();
+    </script>
+  </body>
+</html>
