@@ -1,0 +1,31 @@
+<div id="atlas-last-updated" style="padding:8px 12px;border:1px solid #ddd;border-radius:10px;display:inline-block;">
+  <div style="font-size:12px;opacity:0.7;">Last Updated</div>
+  <div id="atlas-last-updated-value" style="font-size:16px;font-weight:600;">—</div>
+</div>
+
+<script>
+(async function () {
+  try {
+    const res = await fetch('/data/status_latest.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to fetch status_latest.json');
+    const status = await res.json();
+
+    const raw = status.generated_at || null;
+    const el = document.getElementById('atlas-last-updated-value');
+
+    if (!raw) {
+      el.textContent = 'Unknown';
+      return;
+    }
+
+    // Convert ISO -> local readable
+    const dt = new Date(raw);
+    el.textContent = isNaN(dt.getTime())
+      ? String(raw)
+      : dt.toLocaleString();
+  } catch (e) {
+    const el = document.getElementById('atlas-last-updated-value');
+    if (el) el.textContent = 'Unavailable';
+  }
+})();
+</script>
