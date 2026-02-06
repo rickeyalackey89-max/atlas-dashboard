@@ -178,6 +178,8 @@
             <div class="v" id="resultText">—</div>
             <div class="k" style="margin-top:10px">Notes</div>
             <div class="v" id="notesText">—</div>
+            <div class="k" style="margin-top:10px">Run source</div>
+            <div class="v" id="runSource">—</div>
           </div>
         </div>
 
@@ -389,19 +391,24 @@
       if(!res.ok){
         setStatus("off", "NOT OK");
         el("notesText").textContent = "Non-200 response.";
+        el("runSource").textContent = "—";
         return;
       }
       if(!parsed){
         setStatus("bad", "BAD JSON");
         el("notesText").textContent = "Response could not be parsed as JSON.";
+        el("runSource").textContent = "—";
         return;
       }
 
+      // STATUS BADGE IS BASED ON generated_at ONLY
       const gen = parsed.generated_at || null;
       el("generatedAt").textContent = gen ? formatLocal(gen) : "—";
       const ms = gen ? ageFrom(gen) : null;
       el("ageText").textContent = formatAge(ms);
+
       el("notesText").textContent = (parsed.notes && typeof parsed.notes === "string") ? parsed.notes : "—";
+      el("runSource").textContent = parsed.run_source || "unknown";
 
       const agingMs = 10*60*1000;
       const staleMs = 60*60*1000;
@@ -416,6 +423,7 @@
       setStatus("off", "ERROR");
       el("resultText").textContent = "Fetch error";
       el("notesText").textContent = String(e);
+      el("runSource").textContent = "—";
     }
   }
 
