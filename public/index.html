@@ -387,23 +387,93 @@
     return {ok:false, href:candidates[0], row:null, subtitle:"missing"};
   }
 
-  async function buildSlips(){
-    const grid = el("slipGrid");
-    grid.innerHTML = "";
+async function topRowFrom(file){
+  const {res, parsed} = await fetchJson(file + "?" + cacheBust());
+  if(!res.ok || !parsed) return {ok:false, row:null, subtitle:`${file.replace("/data/","")} · missing`};
 
-    let rec = {ok:false, list:[]};
-    try{ rec = await getListFromRecommendedLatest(); } catch(e){}
+  if(Array.isArray(parsed)) return {ok:true, row: parsed[0] || null, subtitle:`${file.replace("/data/","")} · rows: ${parsed.length}`};
+  if(parsed.data && Array.isArray(parsed.data)) return {ok:true, row: parsed.data[0] || null, subtitle:`${file.replace("/data/","")} · rows: ${parsed.data.length}`};
+  return {ok:true, row: parsed, subtitle:`${file.replace("/data/","")} · object`};
+}
 
-    // Recommended
-    let r3={row:null,count:0}, r4={row:null,count:0}, r5={row:null,count:0};
-    if(rec.ok){
-      r3 = pickFirstByLegCount(rec.list, 3);
-      r4 = pickFirstByLegCount(rec.list, 4);
-      r5 = pickFirstByLegCount(rec.list, 5);
-      el("slipHint").textContent = `recommended_latest.json rows: ${rec.list.length}`;
-    } else {
-      el("slipHint").textContent = `recommended_latest.json missing`;
-    }
+async function buildSlips(){
+  const grid = el("slipGrid");
+  grid.innerHTML = "";
+
+  // Recommended (direct per-leg files)
+  const rec3 = await topRowFrom("/data/recommended_3leg_latest.json");
+  const rec4 = await topRowFrom("/data/recommended_4leg_latest.json");
+  const rec5 = await topRowFrom("/data/recommended_5leg_latest.json");
+
+  // Risky (direct per-leg files)
+  const r3 = await topRowFrom("/data/risky_recommended_3leg_latest.json");
+  const r4 = await topRowFrom("/data/risky_recommended_4leg_latest.json");
+  const r5 = await topRowFrom("/data/risky_recommended_5leg_latest.json");
+
+  // Capper picks
+  const cap4 = await topRowFrom("/data/gamescript_best_4leg.json");
+  const cap5 = await topRowFrom("/data/gamescript_best_5leg.json");
+
+  el("slipHint").textContent = "Loaded per-leg recommended + risky + capper picks (or marked missing).";
+
+  // Feature best 4-leg recommended as the primary card
+  grid.appendChild(slipCard({
+    title:"Best 4-Leg (Recommended) — Primary",
+    href:"/data/recommended_4leg_latest.json",
+    row:rec4.row,
+    subtitle:rec4.subtitle,
+    featured:true
+  }));
+
+  grid.appendChild(slipCard({
+    title:"Best 3-Leg (Recommended)",
+    href:"/data/recommended_3leg_latest.json",
+    row:rec3.row,
+    subtitle:rec3.subtitle
+  }));
+
+  grid.appendChild(slipCard({
+    title:"Best 5-Leg (Recommended)",
+    href:"/data/recommended_5leg_latest.json",
+    row:rec5.row,
+    subtitle:rec5.subtitle
+  }));
+
+  grid.appendChild(slipCard({
+    title:"Best 3-Leg (Risky)",
+    href:"/data/risky_recommended_3leg_latest.json",
+    row:r3.row,
+    subtitle:r3.subtitle
+  }));
+
+  grid.appendChild(slipCard({
+    title:"Best 4-Leg (Risky)",
+    href:"/data/risky_recommended_4leg_latest.json",
+    row:r4.row,
+    subtitle:r4.subtitle
+  }));
+
+  grid.appendChild(slipCard({
+    title:"Best 5-Leg (Risky)",
+    href:"/data/risky_recommended_5leg_latest.json",
+    row:r5.row,
+    subtitle:r5.subtitle
+  }));
+
+  grid.appendChild(slipCard({
+    title:"Best 4-Leg (Capper Picks)",
+    href:"/data/gamescript_best_4leg.json",
+    row:cap4.row,
+    subtitle:cap4.subtitle
+  }));
+
+  grid.appendChild(slipCard({
+    title:"Best 5-Leg (Capper Picks)",
+    href:"/data/gamescript_best_5leg.json",
+    row:cap5.row,
+    subtitle:cap5.subtitle
+  }));
+}
 
     // Feature the best 4-leg recommended as the primary card
     grid.appendChild(slipCard({
