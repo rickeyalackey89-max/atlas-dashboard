@@ -6,32 +6,52 @@
   <title>Atlas Dashboard</title>
   <style>
     :root{
-      --bg1:#f7fafc;
-      --bg2:#eef6f1;
+      --bgA:#f7fafc;
+      --bgB:#eef6f1;
       --card:#ffffffcc;
+      --card2:#ffffffd9;
       --border:#e5e7eb;
       --text:#0f172a;
       --muted:#475569;
       --shadow:0 12px 30px rgba(2,6,23,.08);
-      --radius:16px;
+      --shadow2:0 10px 20px rgba(2,6,23,.06);
+      --radius:18px;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
       font-family:var(--sans);
       color:var(--text);
-      background: radial-gradient(1200px 700px at 20% 10%, #dbeafe 0%, transparent 60%),
-                  radial-gradient(1200px 700px at 80% 20%, #dcfce7 0%, transparent 55%),
-                  linear-gradient(180deg, var(--bg1), var(--bg2));
+      background:
+        radial-gradient(1200px 700px at 18% 10%, #dbeafe 0%, transparent 60%),
+        radial-gradient(1200px 700px at 82% 20%, #dcfce7 0%, transparent 55%),
+        linear-gradient(180deg, var(--bgA), var(--bgB));
       min-height:100vh;
     }
-    .wrap{max-width:1100px;margin:0 auto;padding:24px 18px 60px}
-    header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    h1{margin:0;font-size:28px;letter-spacing:-.02em}
-    .sub{margin-top:6px;color:var(--muted);font-size:13.5px}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:#fff;box-shadow:0 4px 14px rgba(2,6,23,.05);font-size:12px}
+    .wrap{max-width:1180px;margin:0 auto;padding:22px 16px 56px}
+    header{
+      position:sticky; top:0; z-index:10;
+      padding:14px 12px;
+      margin:-12px -12px 14px;
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.70));
+      backdrop-filter: blur(10px);
+      border:1px solid rgba(229,231,235,.8);
+      box-shadow:0 14px 30px rgba(2,6,23,.06);
+    }
+    .headRow{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+    h1{margin:0;font-size:26px;letter-spacing:-.02em}
+    .sub{margin-top:6px;color:var(--muted);font-size:13.5px;line-height:1.35}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--border);
+      background:#fff;box-shadow:0 4px 14px rgba(2,6,23,.05);
+      font-size:12px
+    }
     .dot{width:9px;height:9px;border-radius:99px;background:#94a3b8}
     .dot.live{background:#22c55e}
     .dot.aging{background:#f59e0b}
@@ -46,11 +66,13 @@
       border-radius:12px;
       cursor:pointer;
       font-size:13px;
-      box-shadow:0 10px 24px rgba(2,6,23,.06);
+      box-shadow:var(--shadow2);
+      transition:transform .06s ease, background .12s ease;
     }
+    button:active,.btn:active{transform:translateY(1px)}
     button:hover,.btn:hover{background:#fff}
-    .toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:18px}
+    .toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;user-select:none}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:10px}
     .card{
       grid-column:span 12;
       background:var(--card);
@@ -60,88 +82,122 @@
       padding:14px 14px 12px;
       backdrop-filter: blur(8px);
     }
-    .card h2{margin:0 0 10px;font-size:14px;color:#0b1220;letter-spacing:-.01em}
+    .card h2{margin:0 0 10px;font-size:13px;color:#0b1220;letter-spacing:-.01em;text-transform:uppercase}
     .row{display:flex;gap:14px;flex-wrap:wrap}
-    .kv{min-width:170px;flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:14px;background:#fff}
+    .kv{
+      min-width:170px;flex:1;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+    }
     .k{font-size:12px;color:var(--muted)}
-    .v{margin-top:6px;font-weight:650}
+    .v{margin-top:6px;font-weight:750}
     .mono{font-family:var(--mono);font-size:12px;white-space:pre-wrap;word-break:break-word}
     details{border-top:1px dashed rgba(148,163,184,.6);padding-top:12px;margin-top:12px}
     summary{cursor:pointer;color:var(--muted);font-size:13px}
     .slip-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
-    .slip{grid-column:span 12;padding:12px;border:1px solid var(--border);border-radius:14px;background:#fff}
-    @media(min-width:800px){ .slip{grid-column:span 6} }
-    .slip-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-    .slip-title{font-weight:750}
+    .slip{
+      grid-column:span 12;
+      padding:12px 12px 10px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:var(--card2);
+      box-shadow:0 8px 18px rgba(2,6,23,.05);
+    }
+    @media(min-width:900px){ .slip{grid-column:span 6} }
+    .slip.featured{
+      grid-column:span 12;
+      border-width:1px;
+      background:#fff;
+      box-shadow:0 14px 28px rgba(2,6,23,.08);
+    }
+    @media(min-width:900px){ .slip.featured{grid-column:span 12} }
+    .slip-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .slip-title{font-weight:850}
     .slip-meta{color:var(--muted);font-size:12px;margin-top:4px}
-    .slip-legs{margin-top:10px;font-size:13px;line-height:1.35}
+    .chipRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .chip{
+      font-size:12px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:#fff;
+      color:#0b1220;
+      display:inline-flex;
+      gap:6px;
+      align-items:center;
+    }
+    .chip b{font-weight:800}
+    .slip-legs{margin-top:10px;font-size:13px;line-height:1.38}
     .slip-legs code{font-family:var(--mono);font-size:12px}
-    .slip-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .slip-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
     a.btn{display:inline-flex;align-items:center;text-decoration:none;color:inherit}
-    .small{font-size:12px;color:var(--muted)}
+    .small{font-size:12px;color:var(--muted);margin-left:auto}
+    .sectionTitle{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+      margin:2px 0 12px
+    }
+    .sectionTitle .label{font-weight:800}
+    .sectionTitle .hint{color:var(--muted);font-size:12px}
+    .divider{height:1px;background:rgba(229,231,235,.9);margin:10px 0 12px;border-radius:999px}
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <div>
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-          <h1>Atlas Dashboard</h1>
-          <span class="pill" id="statusPill"><span class="dot off" id="statusDot"></span><span id="statusText">—</span></span>
+      <div class="headRow">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <h1>Atlas Dashboard</h1>
+            <span class="pill"><span class="dot off" id="statusDot"></span><span id="statusText">—</span></span>
+          </div>
+          <div class="sub">
+            Best-slip viewer for mobile. Recommended is derived from <code class="mono">/data/recommended_latest.json</code> (filtered by leg count).
+            Capper picks come from <code class="mono">/data/gamescript_best_4leg.json</code> and <code class="mono">/data/gamescript_best_5leg.json</code>.
+          </div>
         </div>
-        <div class="sub">
-          Health + “best slip” viewer. Recommended comes from <code class="mono">/data/recommended_latest.json</code>.
-          Capper picks come from <code class="mono">/data/gamescript_best_4leg.json</code> and <code class="mono">/data/gamescript_best_5leg.json</code>.
+
+        <div class="actions">
+          <button id="refreshBtn">Refresh</button>
+          <button id="copyParsedBtn">Copy parsed</button>
+          <button id="copyRawBtn">Copy raw</button>
+          <label class="toggle"><input type="checkbox" id="autoRefresh"/> Auto-refresh (30s)</label>
         </div>
-      </div>
-      <div class="actions">
-        <button id="refreshBtn">Refresh</button>
-        <button id="copyParsedBtn">Copy parsed</button>
-        <button id="copyRawBtn">Copy raw</button>
-        <label class="toggle"><input type="checkbox" id="autoRefresh"/> Auto-refresh (30s)</label>
       </div>
     </header>
 
     <section class="grid">
       <div class="card">
-        <h2>Fetch</h2>
+        <h2>Health</h2>
         <div class="row">
           <div class="kv">
-            <div class="k">Fetch URL</div>
-            <div class="v mono" id="fetchUrl">/data/status_latest.json</div>
-          </div>
-          <div class="kv">
-            <div class="k">Result</div>
-            <div class="v" id="resultText">—</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Status</h2>
-        <div class="row">
-          <div class="kv">
-            <div class="k">Last Updated (generated_at)</div>
+            <div class="k">generated_at</div>
             <div class="v" id="generatedAt">—</div>
             <div class="k" style="margin-top:10px">Age</div>
             <div class="v" id="ageText">—</div>
           </div>
           <div class="kv">
-            <div class="k">Notes</div>
+            <div class="k">Fetch</div>
+            <div class="v mono" id="fetchUrl">/data/status_latest.json</div>
+            <div class="k" style="margin-top:10px">Result · Last fetch</div>
+            <div class="v" id="resultText">—</div>
+            <div class="k" style="margin-top:10px">Notes</div>
             <div class="v" id="notesText">—</div>
-            <div class="k" style="margin-top:10px">Last fetch</div>
-            <div class="v" id="lastFetch">—</div>
           </div>
         </div>
 
-        <details open>
-          <summary>Best slips (recommended + risky + capper picks)</summary>
-          <div class="small" style="margin:10px 0 12px">
-            Recommended 3/4/5 are derived from <code class="mono">recommended_latest.json</code> (filtered by leg count).
-            Risky cards try multiple filenames and will show “missing” until your exporter publishes one.
+        <div class="divider"></div>
+
+        <div class="sectionTitle">
+          <div>
+            <div class="label">Best slips</div>
+            <div class="hint">Tap “Open JSON” to see the raw file. “Copy legs” is for quick entry.</div>
           </div>
-          <div class="slip-grid" id="slipGrid"></div>
-        </details>
+          <div class="hint" id="slipHint">—</div>
+        </div>
+
+        <div class="slip-grid" id="slipGrid"></div>
 
         <details>
           <summary>Parsed status JSON</summary>
@@ -199,9 +255,9 @@
     return n.toFixed(digits);
   }
 
-  function slipCard({title, href, row, subtitle}){
+  function slipCard({title, href, row, subtitle, featured=false}){
     const wrap = document.createElement("div");
-    wrap.className = "slip";
+    wrap.className = "slip" + (featured ? " featured" : "");
 
     const head = document.createElement("div");
     head.className = "slip-head";
@@ -218,21 +274,30 @@
 
     const right = document.createElement("div");
     right.className = "slip-meta";
-    if(row){
-      right.innerHTML = `EV <b>${fmt(row.ev_mult,3)}</b> · Hit <b>${pct(row.hit_prob)}</b>`;
-    } else {
-      right.textContent = "—";
-    }
+    right.innerHTML = row ? `EV <b>${fmt(row.ev_mult,3)}</b><br/>Hit <b>${pct(row.hit_prob)}</b>` : "—";
 
     head.appendChild(left); head.appendChild(right);
 
+    const chipRow = document.createElement("div");
+    chipRow.className = "chipRow";
+    if(row){
+      const tier = row.slip_agreement_tier || "—";
+      const frag = fmt(row.avg_fragility,4);
+      const tag = row.slip_tag_set || row.slip_tag || "—";
+      const start = row.slip_min_start_utc ? formatLocal(row.slip_min_start_utc) : "—";
+      chipRow.innerHTML = `
+        <span class="chip">Tier <b>${tier}</b></span>
+        <span class="chip">Frag <b>${frag}</b></span>
+        <span class="chip">Tag <b>${tag}</b></span>
+        <span class="chip">Earliest <b>${start}</b></span>
+      `;
+    } else {
+      chipRow.innerHTML = `<span class="chip">No data</span>`;
+    }
+
     const legs = document.createElement("div");
     legs.className = "slip-legs";
-    if(row && row.legs){
-      legs.innerHTML = `<code>${row.legs}</code>`;
-    } else {
-      legs.textContent = "Missing / no data";
-    }
+    legs.innerHTML = (row && row.legs) ? `<code>${row.legs}</code>` : "Missing / no data";
 
     const actions = document.createElement("div");
     actions.className = "slip-actions";
@@ -254,18 +319,13 @@
       actions.appendChild(copy);
     }
 
-    if(row){
-      const small = document.createElement("div");
-      small.className = "small";
-      const frag = fmt(row.avg_fragility,4);
-      const tier = row.slip_agreement_tier || "—";
-      const tag = row.slip_tag_set || row.slip_tag || "—";
-      const start = row.slip_min_start_utc ? formatLocal(row.slip_min_start_utc) : "—";
-      small.textContent = `Tier: ${tier} · Fragility: ${frag} · Tag: ${tag} · Earliest: ${start}`;
-      actions.appendChild(small);
-    }
+    const small = document.createElement("div");
+    small.className = "small";
+    small.textContent = subtitle || "";
+    actions.appendChild(small);
 
     wrap.appendChild(head);
+    wrap.appendChild(chipRow);
     wrap.appendChild(legs);
     wrap.appendChild(actions);
     return wrap;
@@ -294,6 +354,7 @@
   async function getCapper(file){
     const {res, parsed} = await fetchJson(file + "?" + cacheBust());
     if(!res.ok || !parsed) return {ok:false, row:null};
+    // Allow either array, {data:[...]}, or single object
     const row = Array.isArray(parsed) ? (parsed[0] || null)
               : (parsed.data && Array.isArray(parsed.data) ? (parsed.data[0] || null) : parsed);
     return {ok:true, row};
@@ -333,43 +394,52 @@
     let rec = {ok:false, list:[]};
     try{ rec = await getListFromRecommendedLatest(); } catch(e){}
 
+    // Recommended
+    let r3={row:null,count:0}, r4={row:null,count:0}, r5={row:null,count:0};
     if(rec.ok){
-      const r3 = pickFirstByLegCount(rec.list, 3);
-      const r4 = pickFirstByLegCount(rec.list, 4);
-      const r5 = pickFirstByLegCount(rec.list, 5);
-
-      grid.appendChild(slipCard({title:"Best 3-Leg (Recommended)", href:"/data/recommended_latest.json", row:r3.row, subtitle:`recommended_latest.json · 3-leg · rows: ${r3.count}`}));
-      grid.appendChild(slipCard({title:"Best 4-Leg (Recommended)", href:"/data/recommended_latest.json", row:r4.row, subtitle:`recommended_latest.json · 4-leg · rows: ${r4.count}`}));
-      grid.appendChild(slipCard({title:"Best 5-Leg (Recommended)", href:"/data/recommended_latest.json", row:r5.row, subtitle:`recommended_latest.json · 5-leg · rows: ${r5.count}`}));
+      r3 = pickFirstByLegCount(rec.list, 3);
+      r4 = pickFirstByLegCount(rec.list, 4);
+      r5 = pickFirstByLegCount(rec.list, 5);
+      el("slipHint").textContent = `recommended_latest.json rows: ${rec.list.length}`;
     } else {
-      grid.appendChild(slipCard({title:"Best 3-Leg (Recommended)", href:"/data/recommended_latest.json", row:null, subtitle:"recommended_latest.json · missing"}));
-      grid.appendChild(slipCard({title:"Best 4-Leg (Recommended)", href:"/data/recommended_latest.json", row:null, subtitle:"recommended_latest.json · missing"}));
-      grid.appendChild(slipCard({title:"Best 5-Leg (Recommended)", href:"/data/recommended_latest.json", row:null, subtitle:"recommended_latest.json · missing"}));
+      el("slipHint").textContent = `recommended_latest.json missing`;
     }
 
+    // Feature the best 4-leg recommended as the primary card
+    grid.appendChild(slipCard({
+      title:"Best 4-Leg (Recommended) — Primary",
+      href:"/data/recommended_latest.json",
+      row:r4.row,
+      subtitle: rec.ok ? `recommended_latest.json · 4-leg · rows: ${r4.count}` : "recommended_latest.json · missing",
+      featured:true
+    }));
+
+    // Other recommended
+    grid.appendChild(slipCard({title:"Best 3-Leg (Recommended)", href:"/data/recommended_latest.json", row:r3.row, subtitle: rec.ok ? `recommended_latest.json · 3-leg · rows: ${r3.count}` : "recommended_latest.json · missing"}));
+    grid.appendChild(slipCard({title:"Best 5-Leg (Recommended)", href:"/data/recommended_latest.json", row:r5.row, subtitle: rec.ok ? `recommended_latest.json · 5-leg · rows: ${r5.count}` : "recommended_latest.json · missing"}));
+
+    // Risky
     const risky3 = await getRiskyBest(3);
     const risky4 = await getRiskyBest(4);
     const risky5 = await getRiskyBest(5);
-
     grid.appendChild(slipCard({title:"Best 3-Leg (Risky)", href:risky3.href, row:risky3.row, subtitle:risky3.subtitle}));
     grid.appendChild(slipCard({title:"Best 4-Leg (Risky)", href:risky4.href, row:risky4.row, subtitle:risky4.subtitle}));
     grid.appendChild(slipCard({title:"Best 5-Leg (Risky)", href:risky5.href, row:risky5.row, subtitle:risky5.subtitle}));
 
+    // Capper picks
     const cap4 = await getCapper("/data/gamescript_best_4leg.json");
     const cap5 = await getCapper("/data/gamescript_best_5leg.json");
-
     grid.appendChild(slipCard({title:"Best 4-Leg (Capper Picks)", href:"/data/gamescript_best_4leg.json", row:cap4.row, subtitle:`gamescript_best_4leg.json${cap4.ok ? "" : " · missing"}`}));
     grid.appendChild(slipCard({title:"Best 5-Leg (Capper Picks)", href:"/data/gamescript_best_5leg.json", row:cap5.row, subtitle:`gamescript_best_5leg.json${cap5.ok ? "" : " · missing"}`}));
   }
 
   async function refresh(){
     el("fetchUrl").textContent = STATUS_URL + " (no-store)";
-    el("lastFetch").textContent = new Date().toLocaleString();
     const url = STATUS_URL + "?" + cacheBust();
 
     try{
       const {res, text, parsed} = await fetchJson(url);
-      el("resultText").textContent = "HTTP " + res.status;
+      el("resultText").textContent = `HTTP ${res.status} · ${new Date().toLocaleString()}`;
 
       state.raw = text;
       state.parsed = parsed;
@@ -392,9 +462,7 @@
       el("generatedAt").textContent = gen ? formatLocal(gen) : "—";
       const ms = gen ? ageFrom(gen) : null;
       el("ageText").textContent = formatAge(ms);
-
-      const note = (parsed.notes && typeof parsed.notes === "string") ? parsed.notes : "";
-      el("notesText").textContent = note || "—";
+      el("notesText").textContent = (parsed.notes && typeof parsed.notes === "string") ? parsed.notes : "—";
 
       const agingMs = 10*60*1000;
       const staleMs = 60*60*1000;
