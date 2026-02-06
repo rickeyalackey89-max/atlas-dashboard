@@ -1,522 +1,432 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Atlas Dashboard</title>
-    <meta name="color-scheme" content="light dark" />
-    <style>
-      :root{
-        --bg: #0b1020;
-        --panel: rgba(255,255,255,0.06);
-        --panel-2: rgba(255,255,255,0.08);
-        --text: rgba(255,255,255,0.92);
-        --muted: rgba(255,255,255,0.66);
-        --border: rgba(255,255,255,0.14);
-        --shadow: 0 18px 50px rgba(0,0,0,0.45);
-        --good: #22c55e;
-        --warn: #f59e0b;
-        --bad: #ef4444;
-        --info: #60a5fa;
-        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-        --radius: 16px;
-      }
-      @media (prefers-color-scheme: light){
-        :root{
-          --bg: #f6f7fb;
-          --panel: rgba(0,0,0,0.03);
-          --panel-2: rgba(0,0,0,0.045);
-          --text: rgba(0,0,0,0.88);
-          --muted: rgba(0,0,0,0.58);
-          --border: rgba(0,0,0,0.12);
-          --shadow: 0 18px 50px rgba(0,0,0,0.10);
-        }
-      }
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Atlas Dashboard</title>
+  <style>
+    :root{
+      --bg1:#f7fafc;
+      --bg2:#eef6f1;
+      --card:#ffffffcc;
+      --border:#e5e7eb;
+      --text:#0f172a;
+      --muted:#475569;
+      --shadow:0 12px 30px rgba(2,6,23,.08);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background: radial-gradient(1200px 700px at 20% 10%, #dbeafe 0%, transparent 60%),
+                  radial-gradient(1200px 700px at 80% 20%, #dcfce7 0%, transparent 55%),
+                  linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:24px 18px 60px}
+    header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    h1{margin:0;font-size:28px;letter-spacing:-.02em}
+    .sub{margin-top:6px;color:var(--muted);font-size:13.5px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:#fff;box-shadow:0 4px 14px rgba(2,6,23,.05);font-size:12px}
+    .dot{width:9px;height:9px;border-radius:99px;background:#94a3b8}
+    .dot.live{background:#22c55e}
+    .dot.aging{background:#f59e0b}
+    .dot.stale{background:#ef4444}
+    .dot.bad{background:#a855f7}
+    .dot.off{background:#64748b}
+    .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    button,.btn{
+      border:1px solid var(--border);
+      background:#ffffffc7;
+      padding:9px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:13px;
+      box-shadow:0 10px 24px rgba(2,6,23,.06);
+    }
+    button:hover,.btn:hover{background:#fff}
+    .toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:18px}
+    .card{
+      grid-column:span 12;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px 14px 12px;
+      backdrop-filter: blur(8px);
+    }
+    .card h2{margin:0 0 10px;font-size:14px;color:#0b1220;letter-spacing:-.01em}
+    .row{display:flex;gap:14px;flex-wrap:wrap}
+    .kv{min-width:170px;flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:14px;background:#fff}
+    .k{font-size:12px;color:var(--muted)}
+    .v{margin-top:6px;font-weight:650}
+    .mono{font-family:var(--mono);font-size:12px;white-space:pre-wrap;word-break:break-word}
+    details{border-top:1px dashed rgba(148,163,184,.6);padding-top:12px;margin-top:12px}
+    summary{cursor:pointer;color:var(--muted);font-size:13px}
+    .slip-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+    .slip{grid-column:span 12;padding:12px;border:1px solid var(--border);border-radius:14px;background:#fff}
+    @media(min-width:800px){
+      .slip{grid-column:span 6}
+    }
+    .slip-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .slip-title{font-weight:750}
+    .slip-meta{color:var(--muted);font-size:12px;margin-top:4px}
+    .slip-legs{margin-top:10px;font-size:13px;line-height:1.35}
+    .slip-legs code{font-family:var(--mono);font-size:12px}
+    .slip-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    a.btn{display:inline-flex;align-items:center;text-decoration:none;color:inherit}
+    .small{font-size:12px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <h1>Atlas Dashboard</h1>
+          <span class="pill" id="statusPill"><span class="dot off" id="statusDot"></span><span id="statusText">—</span></span>
+        </div>
+        <div class="sub">Health + “best slip” viewer. Pulls <code class="mono">/data/status_latest.json</code> and the recommended slip JSONs.</div>
+      </div>
+      <div class="actions">
+        <button id="refreshBtn">Refresh</button>
+        <button id="copyParsedBtn">Copy parsed</button>
+        <button id="copyRawBtn">Copy raw</button>
+        <label class="toggle"><input type="checkbox" id="autoRefresh"/> Auto-refresh (30s)</label>
+      </div>
+    </header>
 
-      *{ box-sizing: border-box; }
-      html, body { height: 100%; }
-      body{
-        margin: 0;
-        font-family: var(--sans);
-        color: var(--text);
-        background:
-          radial-gradient(1200px 700px at 15% 10%, rgba(96,165,250,0.25), transparent 55%),
-          radial-gradient(900px 600px at 85% 20%, rgba(34,197,94,0.18), transparent 55%),
-          radial-gradient(1100px 700px at 60% 90%, rgba(245,158,11,0.18), transparent 55%),
-          var(--bg);
-        padding: 28px 18px;
-      }
-
-      .wrap{ max-width: 1040px; margin: 0 auto; }
-      header{
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 14px;
-        margin-bottom: 14px;
-      }
-      .title{
-        display:flex;
-        align-items:center;
-        gap:12px;
-        flex-wrap:wrap;
-      }
-      h1{
-        margin: 0;
-        font-size: 22px;
-        letter-spacing: 0.2px;
-      }
-      .sub{
-        margin: 6px 0 0 0;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.35;
-      }
-
-      .card{
-        border: 1px solid var(--border);
-        background: linear-gradient(180deg, var(--panel), rgba(255,255,255,0.02));
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        overflow: hidden;
-      }
-
-      .topbar{
-        padding: 14px 16px;
-        border-bottom: 1px solid var(--border);
-        display:flex;
-        align-items:center;
-        justify-content: space-between;
-        gap: 12px;
-        flex-wrap: wrap;
-        background: rgba(255,255,255,0.02);
-      }
-
-      .pill{
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        padding: 6px 10px;
-        border-radius: 999px;
-        border: 1px solid var(--border);
-        background: rgba(255,255,255,0.03);
-        font-size: 12px;
-        color: var(--muted);
-        user-select: none;
-      }
-      .dot{
-        width:8px;height:8px;border-radius:999px;background: var(--info);
-        box-shadow: 0 0 0 4px rgba(96,165,250,0.16);
-      }
-      .pill.good .dot{ background: var(--good); box-shadow: 0 0 0 4px rgba(34,197,94,0.16); }
-      .pill.warn .dot{ background: var(--warn); box-shadow: 0 0 0 4px rgba(245,158,11,0.16); }
-      .pill.bad  .dot{ background: var(--bad);  box-shadow: 0 0 0 4px rgba(239,68,68,0.16); }
-      .pill strong{ color: var(--text); font-weight: 700; }
-
-      .controls{
-        display:flex;
-        align-items:center;
-        gap:10px;
-        flex-wrap: wrap;
-      }
-      button, .toggle{
-        border: 1px solid var(--border);
-        background: rgba(255,255,255,0.03);
-        color: var(--text);
-        padding: 8px 10px;
-        border-radius: 12px;
-        font-size: 13px;
-        cursor: pointer;
-      }
-      button:hover{ background: rgba(255,255,255,0.06); }
-      button:active{ transform: translateY(0.5px); }
-      button:disabled{ opacity:0.5; cursor:not-allowed; }
-
-      .toggle{
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        user-select:none;
-      }
-      input[type="checkbox"]{ width: 16px; height: 16px; }
-
-      .grid{
-        display:grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        padding: 14px 16px 16px 16px;
-      }
-      @media (max-width: 840px){
-        .grid{ grid-template-columns: 1fr; }
-      }
-
-      .kv{
-        border: 1px solid var(--border);
-        background: var(--panel-2);
-        border-radius: 14px;
-        padding: 12px;
-        min-height: 84px;
-      }
-      .label{
-        font-size: 12px;
-        color: var(--muted);
-        margin-bottom: 6px;
-      }
-      .value{
-        font-size: 14px;
-        font-weight: 650;
-        line-height: 1.35;
-        word-break: break-word;
-      }
-      .mono{ font-family: var(--mono); font-weight: 600; }
-
-      details{
-        border-top: 1px solid var(--border);
-      }
-      summary{
-        list-style: none;
-        cursor: pointer;
-        padding: 12px 16px;
-        display:flex;
-        align-items:center;
-        justify-content: space-between;
-        gap: 10px;
-      }
-      summary::-webkit-details-marker{ display:none; }
-      .chev{
-        width: 10px; height: 10px;
-        border-right: 2px solid var(--muted);
-        border-bottom: 2px solid var(--muted);
-        transform: rotate(-45deg);
-        transition: transform 140ms ease;
-        margin-left: 8px;
-        flex: 0 0 auto;
-      }
-      details[open] .chev{ transform: rotate(45deg); }
-
-      .panel{
-        padding: 0 16px 16px 16px;
-      }
-      pre{
-        margin: 0;
-        padding: 12px;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-        background: rgba(0,0,0,0.18);
-        overflow:auto;
-        max-height: 420px;
-        white-space: pre-wrap;
-        word-break: break-word;
-        font-family: var(--mono);
-        font-size: 12.5px;
-        line-height: 1.45;
-      }
-      @media (prefers-color-scheme: light){
-        pre{ background: rgba(0,0,0,0.04); }
-      }
-
-      .hint{
-        color: var(--muted);
-        font-size: 12px;
-        padding: 0 16px 14px 16px;
-      }
-
-      .toast{
-        position: fixed;
-        left: 50%;
-        bottom: 18px;
-        transform: translateX(-50%);
-        background: rgba(0,0,0,0.72);
-        color: #fff;
-        padding: 10px 12px;
-        border-radius: 999px;
-        font-size: 13px;
-        border: 1px solid rgba(255,255,255,0.18);
-        box-shadow: 0 18px 50px rgba(0,0,0,0.35);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 140ms ease, transform 140ms ease;
-      }
-      .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-2px); }
-      .sr{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
-    </style>
-  </head>
-
-  <body>
-    <div class="wrap">
-      <header>
-        <div>
-          <div class="title">
-            <h1>Atlas Dashboard</h1>
-            <div id="status-pill" class="pill"><span class="dot"></span><strong id="status-text">BOOTING</strong></div>
+    <section class="grid">
+      <div class="card">
+        <h2>Fetch</h2>
+        <div class="row">
+          <div class="kv">
+            <div class="k">Fetch URL</div>
+            <div class="v mono" id="fetchUrl">/data/status_latest.json</div>
           </div>
-          <p class="sub">
-            This page fetches <span class="mono">/data/status_latest.json</span> (no-store) and renders a quick health view.
-          </p>
+          <div class="kv">
+            <div class="k">Result</div>
+            <div class="v" id="resultText">—</div>
+          </div>
         </div>
-
-        <div class="controls">
-          <button id="refresh-btn" type="button">Refresh</button>
-          <button id="copy-parsed-btn" type="button" disabled>Copy parsed</button>
-          <button id="copy-raw-btn" type="button" disabled>Copy raw</button>
-          <label class="toggle" title="Auto-refresh every 30 seconds">
-            <input id="auto-refresh" type="checkbox" />
-            Auto-refresh (30s)
-          </label>
-        </div>
-      </header>
+      </div>
 
       <div class="card">
-        <div class="topbar">
-          <div class="pill" title="Request URL and cache-bust token">
-            <span class="dot" style="background: var(--info); box-shadow: 0 0 0 4px rgba(96,165,250,0.16)"></span>
-            <span>Fetch URL:</span>
-            <strong class="mono" id="fetch-url">/data/status_latest.json</strong>
-          </div>
-
-          <div class="pill" title="HTTP status from the last fetch">
-            <span class="dot" style="background: var(--info); box-shadow: 0 0 0 4px rgba(96,165,250,0.16)"></span>
-            <span>Result:</span>
-            <strong class="mono" id="fetch-result">Starting…</strong>
-          </div>
-        </div>
-
-        <div class="grid">
+        <h2>Status</h2>
+        <div class="row">
           <div class="kv">
-            <div class="label">Last Updated (generated_at)</div>
-            <div class="value" id="last-updated">—</div>
-            <div class="label" style="margin-top:10px;">Age</div>
-            <div class="value" id="age">—</div>
+            <div class="k">Last Updated (generated_at)</div>
+            <div class="v" id="generatedAt">—</div>
+            <div class="k" style="margin-top:10px">Age</div>
+            <div class="v" id="ageText">—</div>
           </div>
-
           <div class="kv">
-            <div class="label">Notes</div>
-            <div class="value" id="notes">
-              If this shows <span class="mono">NOT OK</span> or <span class="mono">BAD JSON</span>, open “Raw response” below.
-            </div>
-            <div class="label" style="margin-top:10px;">Last fetch</div>
-            <div class="value mono" id="fetched-at">—</div>
+            <div class="k">Notes</div>
+            <div class="v" id="notesText">—</div>
+            <div class="k" style="margin-top:10px">Last fetch</div>
+            <div class="v" id="lastFetch">—</div>
           </div>
         </div>
 
         <details open>
-          <summary>
-            <span><strong>Parsed JSON</strong> <span class="sr">toggle section</span></span>
-            <span class="chev" aria-hidden="true"></span>
-          </summary>
-          <div class="panel">
-            <pre id="json-box">—</pre>
+          <summary>Best slips (recommended + risky + capper picks)</summary>
+          <div class="small" style="margin:10px 0 12px">
+            Each card shows the top row from the corresponding JSON (or, for capper picks, top row filtered by leg count).
           </div>
+          <div class="slip-grid" id="slipGrid"></div>
         </details>
 
         <details>
-          <summary>
-            <span><strong>Raw response</strong> <span class="sr">toggle section</span></span>
-            <span class="chev" aria-hidden="true"></span>
-          </summary>
-          <div class="panel">
-            <pre id="raw-box">—</pre>
-          </div>
+          <summary>Parsed JSON</summary>
+          <pre class="mono" id="parsedJson">—</pre>
         </details>
-
-        <div class="hint">
-          Tip: this page uses <span class="mono">fetch(..., { cache: "no-store" })</span> plus a querystring cache-bust.
-        </div>
+        <details>
+          <summary>Raw response</summary>
+          <pre class="mono" id="rawJson">—</pre>
+        </details>
       </div>
-    </div>
+    </section>
+  </div>
 
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  const STATUS_URL = "/data/status_latest.json";
+  const cacheBust = () => "v=" + Date.now();
 
-    <script>
-      (function () {
-        const URL_BASE = "/data/status_latest.json";
-        const AUTO_REFRESH_MS = 30000;
+  const el = (id) => document.getElementById(id);
 
-        const statusPill = document.getElementById("status-pill");
-        const statusText = document.getElementById("status-text");
-        const fetchUrlEl = document.getElementById("fetch-url");
-        const fetchResultEl = document.getElementById("fetch-result");
-        const lastUpdatedEl = document.getElementById("last-updated");
-        const ageEl = document.getElementById("age");
-        const fetchedAtEl = document.getElementById("fetched-at");
-        const notesEl = document.getElementById("notes");
-        const jsonBoxEl = document.getElementById("json-box");
-        const rawBoxEl = document.getElementById("raw-box");
+  const state = {
+    raw: null,
+    parsed: null,
+    timer: null
+  };
 
-        const refreshBtn = document.getElementById("refresh-btn");
-        const copyParsedBtn = document.getElementById("copy-parsed-btn");
-        const copyRawBtn = document.getElementById("copy-raw-btn");
-        const autoRefreshEl = document.getElementById("auto-refresh");
-        const toastEl = document.getElementById("toast");
+  function formatLocal(dtStr){
+    if(!dtStr) return "—";
+    // supports ISO like 2026-02-06T02:18:29Z or with offset
+    const d = new Date(dtStr);
+    if(isNaN(d.getTime())) return dtStr;
+    return d.toLocaleString();
+  }
 
-        let lastParsed = null;
-        let lastRaw = "";
-        let timer = null;
+  function ageFrom(dtStr){
+    const d = new Date(dtStr);
+    if(isNaN(d.getTime())) return null;
+    const ms = Date.now() - d.getTime();
+    return ms;
+  }
 
-        function toast(msg) {
-          toastEl.textContent = msg;
-          toastEl.classList.add("show");
-          clearTimeout(toastEl._t);
-          toastEl._t = setTimeout(() => toastEl.classList.remove("show"), 1400);
-        }
+  function formatAge(ms){
+    if(ms == null) return "—";
+    const s = Math.max(0, Math.floor(ms/1000));
+    const h = Math.floor(s/3600);
+    const m = Math.floor((s%3600)/60);
+    return (h>0? (h+"h ") : "") + m + "m";
+  }
 
-        function setStatus(kind, text) {
-          statusPill.classList.remove("good", "warn", "bad");
-          statusText.textContent = text;
+  function setStatus(level, msg){
+    el("statusText").textContent = msg;
+    const dot = el("statusDot");
+    dot.className = "dot " + level;
+  }
 
-          // Default/info
-          let dotKind = "info";
-          if (kind === "good") statusPill.classList.add("good");
-          if (kind === "warn") statusPill.classList.add("warn");
-          if (kind === "bad")  statusPill.classList.add("bad");
-        }
+  function safeNum(x){
+    const n = Number(x);
+    return isFinite(n) ? n : null;
+  }
 
-        function fmtAge(ms) {
-          if (ms == null || !isFinite(ms)) return "—";
-          const s = Math.floor(ms / 1000);
-          if (s < 60) return s + "s";
-          const m = Math.floor(s / 60);
-          if (m < 60) return m + "m " + (s % 60) + "s";
-          const h = Math.floor(m / 60);
-          return h + "h " + (m % 60) + "m";
-        }
+  function pct(x){
+    const n = safeNum(x);
+    if(n == null) return "—";
+    return (n*100).toFixed(1) + "%";
+  }
 
-        async function runFetch() {
-          refreshBtn.disabled = true;
-          setStatus("warn", "FETCHING");
-          notesEl.textContent = "Request in flight…";
+  function fmt(x, digits=3){
+    const n = safeNum(x);
+    if(n == null) return "—";
+    return n.toFixed(digits);
+  }
 
-          const bust = Date.now();
-          const url = URL_BASE + "?v=" + bust;
-          fetchUrlEl.textContent = URL_BASE + " (v=" + bust + ")";
-          fetchedAtEl.textContent = new Date().toLocaleString();
+  function slipCard({title, href, row, subtitle}){
+    const wrap = document.createElement("div");
+    wrap.className = "slip";
 
-          try {
-            const res = await fetch(url, { cache: "no-store" });
-            fetchResultEl.textContent = "HTTP " + res.status + " " + res.statusText;
+    const head = document.createElement("div");
+    head.className = "slip-head";
 
-            const text = await res.text();
-            lastRaw = text || "(empty response)";
-            rawBoxEl.textContent = lastRaw;
+    const left = document.createElement("div");
+    const t = document.createElement("div");
+    t.className = "slip-title";
+    t.textContent = title;
+    const meta = document.createElement("div");
+    meta.className = "slip-meta";
+    meta.textContent = subtitle || "";
+    left.appendChild(t);
+    left.appendChild(meta);
 
-            copyRawBtn.disabled = !lastRaw;
+    const right = document.createElement("div");
+    right.className = "slip-meta";
+    if(row){
+      right.innerHTML = `EV <b>${fmt(row.ev_mult,3)}</b> · Hit <b>${pct(row.hit_prob)}</b>`;
+    } else {
+      right.textContent = "—";
+    }
 
-            if (!res.ok) {
-              setStatus("bad", "NOT OK");
-              notesEl.textContent = "Fetch returned a non-2xx status. See Raw response.";
-              lastUpdatedEl.textContent = "—";
-              ageEl.textContent = "—";
-              jsonBoxEl.textContent = "No JSON because fetch was not OK.";
-              lastParsed = null;
-              copyParsedBtn.disabled = true;
-              return;
-            }
+    head.appendChild(left);
+    head.appendChild(right);
 
-            // Parse JSON
-            let data;
-            try {
-              data = JSON.parse(text);
-            } catch (e) {
-              setStatus("bad", "BAD JSON");
-              notesEl.textContent = "Response body is not valid JSON. See Raw response.";
-              jsonBoxEl.textContent = "JSON parse error: " + e.message;
-              lastUpdatedEl.textContent = "—";
-              ageEl.textContent = "—";
-              lastParsed = null;
-              copyParsedBtn.disabled = true;
-              return;
-            }
+    const legs = document.createElement("div");
+    legs.className = "slip-legs";
+    if(row && row.legs){
+      legs.innerHTML = `<code>${row.legs}</code>`;
+    } else {
+      legs.textContent = "Missing / no data";
+    }
 
-            lastParsed = data;
-            copyParsedBtn.disabled = false;
-            jsonBoxEl.textContent = JSON.stringify(data, null, 2);
+    const actions = document.createElement("div");
+    actions.className = "slip-actions";
 
-            const raw = (data && data.generated_at) ? data.generated_at : null;
-            if (!raw) {
-              setStatus("warn", "NO generated_at");
-              notesEl.textContent = 'JSON parsed, but missing key "generated_at".';
-              lastUpdatedEl.textContent = 'Missing "generated_at" in JSON';
-              ageEl.textContent = "—";
-              return;
-            }
+    const open = document.createElement("a");
+    open.className = "btn";
+    open.href = href;
+    open.target = "_blank";
+    open.rel = "noopener";
+    open.textContent = "Open JSON";
+    actions.appendChild(open);
 
-            const dt = new Date(raw);
-            if (isNaN(dt.getTime())) {
-              setStatus("warn", "BAD DATE");
-              notesEl.textContent = 'JSON parsed, but "generated_at" is not a valid date.';
-              lastUpdatedEl.textContent = 'Invalid date: ' + String(raw);
-              ageEl.textContent = "—";
-              return;
-            }
+    if(row && row.legs){
+      const copy = document.createElement("button");
+      copy.textContent = "Copy legs";
+      copy.addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(row.legs); copy.textContent="Copied"; setTimeout(()=>copy.textContent="Copy legs", 900); } catch(e){}
+      });
+      actions.appendChild(copy);
+    }
 
-            const now = Date.now();
-            const ageMs = now - dt.getTime();
-            lastUpdatedEl.textContent = dt.toLocaleString();
-            ageEl.textContent = fmtAge(ageMs);
+    if(row){
+      const small = document.createElement("div");
+      small.className = "small";
+      const frag = fmt(row.avg_fragility,4);
+      const tier = row.slip_agreement_tier || "—";
+      const tag = row.slip_tag_set || row.slip_tag || "—";
+      const start = row.slip_min_start_utc ? formatLocal(row.slip_min_start_utc) : "—";
+      small.textContent = `Tier: ${tier} · Fragility: ${frag} · Tag: ${tag} · Earliest: ${start}`;
+      actions.appendChild(small);
+    }
 
-            // Heuristic: warn if older than 10 minutes, bad if older than 60 minutes
-            if (ageMs > 60 * 60 * 1000) {
-              setStatus("bad", "STALE");
-              notesEl.textContent = "Data is older than 60 minutes (stale).";
-            } else if (ageMs > 10 * 60 * 1000) {
-              setStatus("warn", "AGING");
-              notesEl.textContent = "Data is older than 10 minutes (check pipeline).";
+    wrap.appendChild(head);
+    wrap.appendChild(legs);
+    wrap.appendChild(actions);
+    return wrap;
+  }
+
+  async function fetchJson(url){
+    const res = await fetch(url, {cache:"no-store"});
+    const text = await res.text();
+    let parsed = null;
+    try { parsed = JSON.parse(text); } catch(e) {}
+    return {res, text, parsed};
+  }
+
+  async function buildSlips(){
+    const grid = el("slipGrid");
+    grid.innerHTML = "";
+
+    // Definitions:
+    const defs = [
+      { key:"rec3", title:"Best 3-Leg (Recommended)", file:"/data/recommended_3leg_latest.json" },
+      { key:"rec4", title:"Best 4-Leg (Recommended)", file:"/data/recommended_4leg_latest.json" },
+      { key:"rec5", title:"Best 5-Leg (Recommended)", file:"/data/recommended_5leg_latest.json" },
+
+      { key:"r3", title:"Best 3-Leg (Risky)", file:"/data/risky_recommended_3leg_latest.json" },
+      { key:"r4", title:"Best 4-Leg (Risky)", file:"/data/risky_recommended_4leg_latest.json" },
+      { key:"r5", title:"Best 5-Leg (Risky)", file:"/data/risky_recommended_5leg_latest.json" },
+
+      // Capper picks: come from recommended_latest.json filtered by n_legs
+      { key:"cap4", title:"Best 4-Leg (Capper Picks)", file:"/data/recommended_latest.json", filterLegs:4 },
+      { key:"cap5", title:"Best 5-Leg (Capper Picks)", file:"/data/recommended_latest.json", filterLegs:5 },
+    ];
+
+    for(const d of defs){
+      let row = null;
+      let subtitle = d.file.replace("/data/","");
+
+      try{
+        const {res, parsed} = await fetchJson(d.file + "?" + cacheBust());
+        if(res.ok && parsed){
+          if(Array.isArray(parsed)){
+            row = parsed[0] || null;
+            subtitle += ` · rows: ${parsed.length}`;
+          } else if(parsed.data && Array.isArray(parsed.data)){
+            // capper picks format
+            let list = parsed.data;
+            if(d.filterLegs){
+              list = list.filter(x => Number(x.n_legs) === Number(d.filterLegs));
+              subtitle += ` · filtered: ${d.filterLegs}-leg · rows: ${list.length}`;
             } else {
-              setStatus("good", "LIVE");
-              notesEl.textContent = "Fetch OK, JSON OK, generated_at looks healthy.";
+              subtitle += ` · rows: ${list.length}`;
             }
-
-          } catch (e) {
-            setStatus("bad", "CRASH");
-            fetchResultEl.textContent = "Fetch crashed: " + (e && e.message ? e.message : String(e));
-            notesEl.textContent = "Network or CORS error. If running locally, confirm the dev server serves /data/*.json.";
-            lastUpdatedEl.textContent = "—";
-            ageEl.textContent = "—";
-            jsonBoxEl.textContent = "—";
-            rawBoxEl.textContent = "—";
-            lastParsed = null;
-            copyParsedBtn.disabled = true;
-            copyRawBtn.disabled = true;
-          } finally {
-            refreshBtn.disabled = false;
+            row = list[0] || null;
           }
+        } else {
+          subtitle += " · missing";
         }
+      } catch(e){
+        subtitle += " · error";
+      }
 
-        refreshBtn.addEventListener("click", runFetch);
+      grid.appendChild(slipCard({title:d.title, href:d.file, row, subtitle}));
+    }
+  }
 
-        copyParsedBtn.addEventListener("click", async () => {
-          try{
-            await navigator.clipboard.writeText(JSON.stringify(lastParsed, null, 2));
-            toast("Copied parsed JSON");
-          } catch(e){
-            toast("Copy failed (clipboard blocked)");
-          }
-        });
+  async function refresh(){
+    el("fetchUrl").textContent = STATUS_URL + " (no-store)";
+    el("lastFetch").textContent = new Date().toLocaleString();
 
-        copyRawBtn.addEventListener("click", async () => {
-          try{
-            await navigator.clipboard.writeText(String(lastRaw || ""));
-            toast("Copied raw response");
-          } catch(e){
-            toast("Copy failed (clipboard blocked)");
-          }
-        });
+    const url = STATUS_URL + "?" + cacheBust();
 
-        autoRefreshEl.addEventListener("change", () => {
-          if (autoRefreshEl.checked) {
-            timer = setInterval(runFetch, AUTO_REFRESH_MS);
-            toast("Auto-refresh on");
-          } else {
-            clearInterval(timer);
-            timer = null;
-            toast("Auto-refresh off");
-          }
-        });
+    try{
+      const {res, text, parsed} = await fetchJson(url);
+      el("resultText").textContent = "HTTP " + res.status;
 
-        // initial
-        runFetch();
-      })();
-    </script>
-  </body>
+      state.raw = text;
+      state.parsed = parsed;
+
+      el("rawJson").textContent = text || "—";
+      el("parsedJson").textContent = parsed ? JSON.stringify(parsed, null, 2) : "—";
+
+      if(!res.ok){
+        setStatus("off", "NOT OK");
+        el("notesText").textContent = "Non-200 response.";
+        return;
+      }
+      if(!parsed){
+        setStatus("bad", "BAD JSON");
+        el("notesText").textContent = "Response could not be parsed as JSON.";
+        return;
+      }
+
+      const gen = parsed.generated_at || null;
+      el("generatedAt").textContent = gen ? formatLocal(gen) : "—";
+
+      const ms = gen ? ageFrom(gen) : null;
+      el("ageText").textContent = formatAge(ms);
+
+      let note = (parsed.notes && typeof parsed.notes === "string") ? parsed.notes : "";
+      el("notesText").textContent = note || "—";
+
+      // Status thresholds
+      const agingMs = 10*60*1000;
+      const staleMs = 60*60*1000;
+
+      if(ms == null){
+        setStatus("bad", "NO TIME");
+      } else if(ms < agingMs){
+        setStatus("live", "LIVE");
+      } else if(ms < staleMs){
+        setStatus("aging", "AGING");
+      } else {
+        setStatus("stale", "STALE");
+      }
+
+      // Build best slips section
+      await buildSlips();
+
+    } catch(e){
+      setStatus("off", "ERROR");
+      el("resultText").textContent = "Fetch error";
+      el("notesText").textContent = String(e);
+    }
+  }
+
+  el("refreshBtn").addEventListener("click", refresh);
+  el("copyParsedBtn").addEventListener("click", async () => {
+    try{
+      if(state.parsed) await navigator.clipboard.writeText(JSON.stringify(state.parsed, null, 2));
+    } catch(e){}
+  });
+  el("copyRawBtn").addEventListener("click", async () => {
+    try{
+      if(state.raw) await navigator.clipboard.writeText(state.raw);
+    } catch(e){}
+  });
+  el("autoRefresh").addEventListener("change", (ev) => {
+    if(ev.target.checked){
+      state.timer = setInterval(refresh, 30000);
+    } else {
+      if(state.timer) clearInterval(state.timer);
+      state.timer = null;
+    }
+  });
+
+  // initial load
+  refresh();
+})();
+</script>
+</body>
 </html>
