@@ -20,7 +20,6 @@
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
       margin:0;
       font-family:var(--sans);
@@ -58,6 +57,7 @@
     .dot.stale{background:#ef4444}
     .dot.bad{background:#a855f7}
     .dot.off{background:#64748b}
+
     .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     button,.btn{
       border:1px solid var(--border);
@@ -72,6 +72,7 @@
     button:active,.btn:active{transform:translateY(1px)}
     button:hover,.btn:hover{background:#fff}
     .toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;user-select:none}
+
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:10px}
     .card{
       grid-column:span 12;
@@ -94,8 +95,12 @@
     .k{font-size:12px;color:var(--muted)}
     .v{margin-top:6px;font-weight:750}
     .mono{font-family:var(--mono);font-size:12px;white-space:pre-wrap;word-break:break-word}
-    details{border-top:1px dashed rgba(148,163,184,.6);padding-top:12px;margin-top:12px}
-    summary{cursor:pointer;color:var(--muted);font-size:13px}
+
+    .divider{height:1px;background:rgba(229,231,235,.9);margin:10px 0 12px;border-radius:999px}
+    .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:2px 0 12px}
+    .sectionTitle .label{font-weight:800}
+    .sectionTitle .hint{color:var(--muted);font-size:12px}
+
     .slip-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
     .slip{
       grid-column:span 12;
@@ -108,25 +113,17 @@
     @media(min-width:900px){ .slip{grid-column:span 6} }
     .slip.featured{
       grid-column:span 12;
-      border-width:1px;
       background:#fff;
       box-shadow:0 14px 28px rgba(2,6,23,.08);
     }
-    @media(min-width:900px){ .slip.featured{grid-column:span 12} }
     .slip-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
     .slip-title{font-weight:850}
     .slip-meta{color:var(--muted);font-size:12px;margin-top:4px}
     .chipRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
     .chip{
-      font-size:12px;
-      padding:4px 8px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:#fff;
-      color:#0b1220;
-      display:inline-flex;
-      gap:6px;
-      align-items:center;
+      font-size:12px;padding:4px 8px;border-radius:999px;
+      border:1px solid var(--border);background:#fff;color:#0b1220;
+      display:inline-flex;gap:6px;align-items:center;
     }
     .chip b{font-weight:800}
     .slip-legs{margin-top:10px;font-size:13px;line-height:1.38}
@@ -134,13 +131,9 @@
     .slip-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
     a.btn{display:inline-flex;align-items:center;text-decoration:none;color:inherit}
     .small{font-size:12px;color:var(--muted);margin-left:auto}
-    .sectionTitle{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-      margin:2px 0 12px
-    }
-    .sectionTitle .label{font-weight:800}
-    .sectionTitle .hint{color:var(--muted);font-size:12px}
-    .divider{height:1px;background:rgba(229,231,235,.9);margin:10px 0 12px;border-radius:999px}
+
+    details{border-top:1px dashed rgba(148,163,184,.6);padding-top:12px;margin-top:12px}
+    summary{cursor:pointer;color:var(--muted);font-size:13px}
   </style>
 </head>
 <body>
@@ -153,8 +146,9 @@
             <span class="pill"><span class="dot off" id="statusDot"></span><span id="statusText">—</span></span>
           </div>
           <div class="sub">
-            Best-slip viewer for mobile. Recommended is derived from <code class="mono">/data/recommended_latest.json</code> (filtered by leg count).
-            Capper picks come from <code class="mono">/data/gamescript_best_4leg.json</code> and <code class="mono">/data/gamescript_best_5leg.json</code>.
+            Recommended: <code class="mono">/data/recommended_3leg_latest.json</code>, <code class="mono">4leg</code>, <code class="mono">5leg</code>.
+            Risky: <code class="mono">/data/risky_recommended_*leg_latest.json</code>.
+            Capper: <code class="mono">/data/gamescript_best_4leg.json</code>, <code class="mono">/data/gamescript_best_5leg.json</code>.
           </div>
         </div>
 
@@ -192,7 +186,7 @@
         <div class="sectionTitle">
           <div>
             <div class="label">Best slips</div>
-            <div class="hint">Tap “Open JSON” to see the raw file. “Copy legs” is for quick entry.</div>
+            <div class="hint">Top row from each JSON. “Copy legs” is for quick entry.</div>
           </div>
           <div class="hint" id="slipHint">—</div>
         </div>
@@ -215,6 +209,7 @@
 (function(){
   const STATUS_URL = "/data/status_latest.json";
   const cacheBust = () => "v=" + Date.now();
+
   const el = (id) => document.getElementById(id);
   const state = { raw: null, parsed: null, timer: null };
 
@@ -339,168 +334,42 @@
     return {res, text, parsed};
   }
 
-  function pickFirstByLegCount(list, n){
-    const filtered = list.filter(x => Number(x.n_legs) === Number(n));
-    return { row: filtered[0] || null, count: filtered.length };
-  }
-
-  async function getListFromRecommendedLatest(){
-    const {res, parsed} = await fetchJson("/data/recommended_latest.json?" + cacheBust());
-    if(!res.ok || !parsed) return {ok:false, list:[]};
-    const list = Array.isArray(parsed) ? parsed : (Array.isArray(parsed.data) ? parsed.data : []);
-    return {ok:true, list};
-  }
-
-  async function getCapper(file){
+  async function topRowFrom(file){
     const {res, parsed} = await fetchJson(file + "?" + cacheBust());
-    if(!res.ok || !parsed) return {ok:false, row:null};
-    // Allow either array, {data:[...]}, or single object
-    const row = Array.isArray(parsed) ? (parsed[0] || null)
-              : (parsed.data && Array.isArray(parsed.data) ? (parsed.data[0] || null) : parsed);
-    return {ok:true, row};
+    if(!res.ok || !parsed) return {ok:false, row:null, subtitle:`${file.replace("/data/","")} · missing`};
+
+    if(Array.isArray(parsed)) return {ok:true, row: parsed[0] || null, subtitle:`${file.replace("/data/","")} · rows: ${parsed.length}`};
+    if(parsed.data && Array.isArray(parsed.data)) return {ok:true, row: parsed.data[0] || null, subtitle:`${file.replace("/data/","")} · rows: ${parsed.data.length}`};
+    return {ok:true, row: parsed, subtitle:`${file.replace("/data/","")} · object`};
   }
 
-  async function getRiskyBest(n){
-    const candidates = [
-      `/data/risky_recommended_${n}leg_latest.json`,
-      `/data/risky_recommended_${n}leg.json`,
-      `/data/risky/recommended_${n}leg_latest.json`,
-      `/data/risky/recommended_${n}leg.json`,
-      `/data/risky_recommended_latest.json`,
-      `/data/risky/recommended_latest.json`,
-    ];
+  async function buildSlips(){
+    const grid = el("slipGrid");
+    grid.innerHTML = "";
 
-    for(const c of candidates){
-      try{
-        const {res, parsed} = await fetchJson(c + "?" + cacheBust());
-        if(!res.ok || !parsed) continue;
+    const rec3 = await topRowFrom("/data/recommended_3leg_latest.json");
+    const rec4 = await topRowFrom("/data/recommended_4leg_latest.json");
+    const rec5 = await topRowFrom("/data/recommended_5leg_latest.json");
 
-        if(Array.isArray(parsed)){
-          return {ok:true, href:c, row: parsed[0] || null, subtitle:`${c.replace("/data/","")} · rows: ${parsed.length}`};
-        }
-        if(parsed.data && Array.isArray(parsed.data)){
-          const {row, count} = pickFirstByLegCount(parsed.data, n);
-          return {ok:true, href:c, row, subtitle:`${c.replace("/data/","")} · ${n}-leg · rows: ${count}`};
-        }
-      } catch(e){}
-    }
-    return {ok:false, href:candidates[0], row:null, subtitle:"missing"};
-  }
+    const r3 = await topRowFrom("/data/risky_recommended_3leg_latest.json");
+    const r4 = await topRowFrom("/data/risky_recommended_4leg_latest.json");
+    const r5 = await topRowFrom("/data/risky_recommended_5leg_latest.json");
 
-async function topRowFrom(file){
-  const {res, parsed} = await fetchJson(file + "?" + cacheBust());
-  if(!res.ok || !parsed) return {ok:false, row:null, subtitle:`${file.replace("/data/","")} · missing`};
+    const cap4 = await topRowFrom("/data/gamescript_best_4leg.json");
+    const cap5 = await topRowFrom("/data/gamescript_best_5leg.json");
 
-  if(Array.isArray(parsed)) return {ok:true, row: parsed[0] || null, subtitle:`${file.replace("/data/","")} · rows: ${parsed.length}`};
-  if(parsed.data && Array.isArray(parsed.data)) return {ok:true, row: parsed.data[0] || null, subtitle:`${file.replace("/data/","")} · rows: ${parsed.data.length}`};
-  return {ok:true, row: parsed, subtitle:`${file.replace("/data/","")} · object`};
-}
+    el("slipHint").textContent = "Loaded per-leg recommended + risky + capper picks (or marked missing).";
 
-async function buildSlips(){
-  const grid = el("slipGrid");
-  grid.innerHTML = "";
+    grid.appendChild(slipCard({title:"Best 4-Leg (Recommended) — Primary", href:"/data/recommended_4leg_latest.json", row:rec4.row, subtitle:rec4.subtitle, featured:true}));
+    grid.appendChild(slipCard({title:"Best 3-Leg (Recommended)", href:"/data/recommended_3leg_latest.json", row:rec3.row, subtitle:rec3.subtitle}));
+    grid.appendChild(slipCard({title:"Best 5-Leg (Recommended)", href:"/data/recommended_5leg_latest.json", row:rec5.row, subtitle:rec5.subtitle}));
 
-  // Recommended (direct per-leg files)
-  const rec3 = await topRowFrom("/data/recommended_3leg_latest.json");
-  const rec4 = await topRowFrom("/data/recommended_4leg_latest.json");
-  const rec5 = await topRowFrom("/data/recommended_5leg_latest.json");
+    grid.appendChild(slipCard({title:"Best 3-Leg (Risky)", href:"/data/risky_recommended_3leg_latest.json", row:r3.row, subtitle:r3.subtitle}));
+    grid.appendChild(slipCard({title:"Best 4-Leg (Risky)", href:"/data/risky_recommended_4leg_latest.json", row:r4.row, subtitle:r4.subtitle}));
+    grid.appendChild(slipCard({title:"Best 5-Leg (Risky)", href:"/data/risky_recommended_5leg_latest.json", row:r5.row, subtitle:r5.subtitle}));
 
-  // Risky (direct per-leg files)
-  const r3 = await topRowFrom("/data/risky_recommended_3leg_latest.json");
-  const r4 = await topRowFrom("/data/risky_recommended_4leg_latest.json");
-  const r5 = await topRowFrom("/data/risky_recommended_5leg_latest.json");
-
-  // Capper picks
-  const cap4 = await topRowFrom("/data/gamescript_best_4leg.json");
-  const cap5 = await topRowFrom("/data/gamescript_best_5leg.json");
-
-  el("slipHint").textContent = "Loaded per-leg recommended + risky + capper picks (or marked missing).";
-
-  // Feature best 4-leg recommended as the primary card
-  grid.appendChild(slipCard({
-    title:"Best 4-Leg (Recommended) — Primary",
-    href:"/data/recommended_4leg_latest.json",
-    row:rec4.row,
-    subtitle:rec4.subtitle,
-    featured:true
-  }));
-
-  grid.appendChild(slipCard({
-    title:"Best 3-Leg (Recommended)",
-    href:"/data/recommended_3leg_latest.json",
-    row:rec3.row,
-    subtitle:rec3.subtitle
-  }));
-
-  grid.appendChild(slipCard({
-    title:"Best 5-Leg (Recommended)",
-    href:"/data/recommended_5leg_latest.json",
-    row:rec5.row,
-    subtitle:rec5.subtitle
-  }));
-
-  grid.appendChild(slipCard({
-    title:"Best 3-Leg (Risky)",
-    href:"/data/risky_recommended_3leg_latest.json",
-    row:r3.row,
-    subtitle:r3.subtitle
-  }));
-
-  grid.appendChild(slipCard({
-    title:"Best 4-Leg (Risky)",
-    href:"/data/risky_recommended_4leg_latest.json",
-    row:r4.row,
-    subtitle:r4.subtitle
-  }));
-
-  grid.appendChild(slipCard({
-    title:"Best 5-Leg (Risky)",
-    href:"/data/risky_recommended_5leg_latest.json",
-    row:r5.row,
-    subtitle:r5.subtitle
-  }));
-
-  grid.appendChild(slipCard({
-    title:"Best 4-Leg (Capper Picks)",
-    href:"/data/gamescript_best_4leg.json",
-    row:cap4.row,
-    subtitle:cap4.subtitle
-  }));
-
-  grid.appendChild(slipCard({
-    title:"Best 5-Leg (Capper Picks)",
-    href:"/data/gamescript_best_5leg.json",
-    row:cap5.row,
-    subtitle:cap5.subtitle
-  }));
-}
-
-    // Feature the best 4-leg recommended as the primary card
-    grid.appendChild(slipCard({
-      title:"Best 4-Leg (Recommended) — Primary",
-      href:"/data/recommended_latest.json",
-      row:r4.row,
-      subtitle: rec.ok ? `recommended_latest.json · 4-leg · rows: ${r4.count}` : "recommended_latest.json · missing",
-      featured:true
-    }));
-
-    // Other recommended
-    grid.appendChild(slipCard({title:"Best 3-Leg (Recommended)", href:"/data/recommended_latest.json", row:r3.row, subtitle: rec.ok ? `recommended_latest.json · 3-leg · rows: ${r3.count}` : "recommended_latest.json · missing"}));
-    grid.appendChild(slipCard({title:"Best 5-Leg (Recommended)", href:"/data/recommended_latest.json", row:r5.row, subtitle: rec.ok ? `recommended_latest.json · 5-leg · rows: ${r5.count}` : "recommended_latest.json · missing"}));
-
-    // Risky
-    const risky3 = await getRiskyBest(3);
-    const risky4 = await getRiskyBest(4);
-    const risky5 = await getRiskyBest(5);
-    grid.appendChild(slipCard({title:"Best 3-Leg (Risky)", href:risky3.href, row:risky3.row, subtitle:risky3.subtitle}));
-    grid.appendChild(slipCard({title:"Best 4-Leg (Risky)", href:risky4.href, row:risky4.row, subtitle:risky4.subtitle}));
-    grid.appendChild(slipCard({title:"Best 5-Leg (Risky)", href:risky5.href, row:risky5.row, subtitle:risky5.subtitle}));
-
-    // Capper picks
-    const cap4 = await getCapper("/data/gamescript_best_4leg.json");
-    const cap5 = await getCapper("/data/gamescript_best_5leg.json");
-    grid.appendChild(slipCard({title:"Best 4-Leg (Capper Picks)", href:"/data/gamescript_best_4leg.json", row:cap4.row, subtitle:`gamescript_best_4leg.json${cap4.ok ? "" : " · missing"}`}));
-    grid.appendChild(slipCard({title:"Best 5-Leg (Capper Picks)", href:"/data/gamescript_best_5leg.json", row:cap5.row, subtitle:`gamescript_best_5leg.json${cap5.ok ? "" : " · missing"}`}));
+    grid.appendChild(slipCard({title:"Best 4-Leg (Capper Picks)", href:"/data/gamescript_best_4leg.json", row:cap4.row, subtitle:cap4.subtitle}));
+    grid.appendChild(slipCard({title:"Best 5-Leg (Capper Picks)", href:"/data/gamescript_best_5leg.json", row:cap5.row, subtitle:cap5.subtitle}));
   }
 
   async function refresh(){
