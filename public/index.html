@@ -4,126 +4,518 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Atlas Dashboard</title>
+    <meta name="color-scheme" content="light dark" />
     <style>
-      body { font-family: Arial, sans-serif; padding: 24px; }
-      .card { border: 2px solid #000; border-radius: 12px; padding: 16px; max-width: 900px; }
-      .title { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
-      .row { margin-top: 10px; }
-      .label { font-size: 12px; opacity: 0.7; }
-      .value { font-size: 16px; font-weight: 700; margin-top: 4px; }
-      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-      .box { border: 1px solid #ddd; border-radius: 10px; padding: 10px; background: #fafafa; white-space: pre-wrap; word-break: break-word; }
-      .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; border: 1px solid #000; font-size: 12px; margin-left: 8px; }
-      .muted { opacity: 0.7; }
+      :root{
+        --bg: #0b1020;
+        --panel: rgba(255,255,255,0.06);
+        --panel-2: rgba(255,255,255,0.08);
+        --text: rgba(255,255,255,0.92);
+        --muted: rgba(255,255,255,0.66);
+        --border: rgba(255,255,255,0.14);
+        --shadow: 0 18px 50px rgba(0,0,0,0.45);
+        --good: #22c55e;
+        --warn: #f59e0b;
+        --bad: #ef4444;
+        --info: #60a5fa;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+        --radius: 16px;
+      }
+      @media (prefers-color-scheme: light){
+        :root{
+          --bg: #f6f7fb;
+          --panel: rgba(0,0,0,0.03);
+          --panel-2: rgba(0,0,0,0.045);
+          --text: rgba(0,0,0,0.88);
+          --muted: rgba(0,0,0,0.58);
+          --border: rgba(0,0,0,0.12);
+          --shadow: 0 18px 50px rgba(0,0,0,0.10);
+        }
+      }
+
+      *{ box-sizing: border-box; }
+      html, body { height: 100%; }
+      body{
+        margin: 0;
+        font-family: var(--sans);
+        color: var(--text);
+        background:
+          radial-gradient(1200px 700px at 15% 10%, rgba(96,165,250,0.25), transparent 55%),
+          radial-gradient(900px 600px at 85% 20%, rgba(34,197,94,0.18), transparent 55%),
+          radial-gradient(1100px 700px at 60% 90%, rgba(245,158,11,0.18), transparent 55%),
+          var(--bg);
+        padding: 28px 18px;
+      }
+
+      .wrap{ max-width: 1040px; margin: 0 auto; }
+      header{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+      .title{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        flex-wrap:wrap;
+      }
+      h1{
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: 0.2px;
+      }
+      .sub{
+        margin: 6px 0 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .card{
+        border: 1px solid var(--border);
+        background: linear-gradient(180deg, var(--panel), rgba(255,255,255,0.02));
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .topbar{
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border);
+        display:flex;
+        align-items:center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        background: rgba(255,255,255,0.02);
+      }
+
+      .pill{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.03);
+        font-size: 12px;
+        color: var(--muted);
+        user-select: none;
+      }
+      .dot{
+        width:8px;height:8px;border-radius:999px;background: var(--info);
+        box-shadow: 0 0 0 4px rgba(96,165,250,0.16);
+      }
+      .pill.good .dot{ background: var(--good); box-shadow: 0 0 0 4px rgba(34,197,94,0.16); }
+      .pill.warn .dot{ background: var(--warn); box-shadow: 0 0 0 4px rgba(245,158,11,0.16); }
+      .pill.bad  .dot{ background: var(--bad);  box-shadow: 0 0 0 4px rgba(239,68,68,0.16); }
+      .pill strong{ color: var(--text); font-weight: 700; }
+
+      .controls{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        flex-wrap: wrap;
+      }
+      button, .toggle{
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.03);
+        color: var(--text);
+        padding: 8px 10px;
+        border-radius: 12px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      button:hover{ background: rgba(255,255,255,0.06); }
+      button:active{ transform: translateY(0.5px); }
+      button:disabled{ opacity:0.5; cursor:not-allowed; }
+
+      .toggle{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        user-select:none;
+      }
+      input[type="checkbox"]{ width: 16px; height: 16px; }
+
+      .grid{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 14px 16px 16px 16px;
+      }
+      @media (max-width: 840px){
+        .grid{ grid-template-columns: 1fr; }
+      }
+
+      .kv{
+        border: 1px solid var(--border);
+        background: var(--panel-2);
+        border-radius: 14px;
+        padding: 12px;
+        min-height: 84px;
+      }
+      .label{
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .value{
+        font-size: 14px;
+        font-weight: 650;
+        line-height: 1.35;
+        word-break: break-word;
+      }
+      .mono{ font-family: var(--mono); font-weight: 600; }
+
+      details{
+        border-top: 1px solid var(--border);
+      }
+      summary{
+        list-style: none;
+        cursor: pointer;
+        padding: 12px 16px;
+        display:flex;
+        align-items:center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      summary::-webkit-details-marker{ display:none; }
+      .chev{
+        width: 10px; height: 10px;
+        border-right: 2px solid var(--muted);
+        border-bottom: 2px solid var(--muted);
+        transform: rotate(-45deg);
+        transition: transform 140ms ease;
+        margin-left: 8px;
+        flex: 0 0 auto;
+      }
+      details[open] .chev{ transform: rotate(45deg); }
+
+      .panel{
+        padding: 0 16px 16px 16px;
+      }
+      pre{
+        margin: 0;
+        padding: 12px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(0,0,0,0.18);
+        overflow:auto;
+        max-height: 420px;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        line-height: 1.45;
+      }
+      @media (prefers-color-scheme: light){
+        pre{ background: rgba(0,0,0,0.04); }
+      }
+
+      .hint{
+        color: var(--muted);
+        font-size: 12px;
+        padding: 0 16px 14px 16px;
+      }
+
+      .toast{
+        position: fixed;
+        left: 50%;
+        bottom: 18px;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.72);
+        color: #fff;
+        padding: 10px 12px;
+        border-radius: 999px;
+        font-size: 13px;
+        border: 1px solid rgba(255,255,255,0.18);
+        box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 140ms ease, transform 140ms ease;
+      }
+      .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-2px); }
+      .sr{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
     </style>
   </head>
 
   <body>
-    <div class="card">
-      <div class="title">
-        Atlas Dashboard
-        <span id="status-pill" class="pill">BOOTING</span>
-      </div>
-
-      <div class="row">
-        <div class="label">What this page is doing</div>
-        <div class="value muted">
-          Loading <span class="mono">/data/status_latest.json</span> and displaying the results below.
+    <div class="wrap">
+      <header>
+        <div>
+          <div class="title">
+            <h1>Atlas Dashboard</h1>
+            <div id="status-pill" class="pill"><span class="dot"></span><strong id="status-text">BOOTING</strong></div>
+          </div>
+          <p class="sub">
+            This page fetches <span class="mono">/data/status_latest.json</span> (no-store) and renders a quick health view.
+          </p>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="label">Fetch URL</div>
-        <div class="value mono" id="fetch-url">/data/status_latest.json</div>
-      </div>
+        <div class="controls">
+          <button id="refresh-btn" type="button">Refresh</button>
+          <button id="copy-parsed-btn" type="button" disabled>Copy parsed</button>
+          <button id="copy-raw-btn" type="button" disabled>Copy raw</button>
+          <label class="toggle" title="Auto-refresh every 30 seconds">
+            <input id="auto-refresh" type="checkbox" />
+            Auto-refresh (30s)
+          </label>
+        </div>
+      </header>
 
-      <div class="row">
-        <div class="label">Fetch result</div>
-        <div class="value mono" id="fetch-result">Starting…</div>
-      </div>
+      <div class="card">
+        <div class="topbar">
+          <div class="pill" title="Request URL and cache-bust token">
+            <span class="dot" style="background: var(--info); box-shadow: 0 0 0 4px rgba(96,165,250,0.16)"></span>
+            <span>Fetch URL:</span>
+            <strong class="mono" id="fetch-url">/data/status_latest.json</strong>
+          </div>
 
-      <div class="row">
-        <div class="label">Last Updated (from JSON key: generated_at)</div>
-        <div class="value" id="last-updated">—</div>
-      </div>
+          <div class="pill" title="HTTP status from the last fetch">
+            <span class="dot" style="background: var(--info); box-shadow: 0 0 0 4px rgba(96,165,250,0.16)"></span>
+            <span>Result:</span>
+            <strong class="mono" id="fetch-result">Starting…</strong>
+          </div>
+        </div>
 
-      <div class="row">
-        <div class="label">Parsed JSON (if available)</div>
-        <div class="box mono" id="json-box">—</div>
-      </div>
+        <div class="grid">
+          <div class="kv">
+            <div class="label">Last Updated (generated_at)</div>
+            <div class="value" id="last-updated">—</div>
+            <div class="label" style="margin-top:10px;">Age</div>
+            <div class="value" id="age">—</div>
+          </div>
 
-      <div class="row">
-        <div class="label">Raw response (first 500 chars)</div>
-        <div class="box mono" id="raw-box">—</div>
+          <div class="kv">
+            <div class="label">Notes</div>
+            <div class="value" id="notes">
+              If this shows <span class="mono">NOT OK</span> or <span class="mono">BAD JSON</span>, open “Raw response” below.
+            </div>
+            <div class="label" style="margin-top:10px;">Last fetch</div>
+            <div class="value mono" id="fetched-at">—</div>
+          </div>
+        </div>
+
+        <details open>
+          <summary>
+            <span><strong>Parsed JSON</strong> <span class="sr">toggle section</span></span>
+            <span class="chev" aria-hidden="true"></span>
+          </summary>
+          <div class="panel">
+            <pre id="json-box">—</pre>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <span><strong>Raw response</strong> <span class="sr">toggle section</span></span>
+            <span class="chev" aria-hidden="true"></span>
+          </summary>
+          <div class="panel">
+            <pre id="raw-box">—</pre>
+          </div>
+        </details>
+
+        <div class="hint">
+          Tip: this page uses <span class="mono">fetch(..., { cache: "no-store" })</span> plus a querystring cache-bust.
+        </div>
       </div>
     </div>
 
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
     <script>
-      (async function () {
-        const url = '/data/status_latest.json';
+      (function () {
+        const URL_BASE = "/data/status_latest.json";
+        const AUTO_REFRESH_MS = 30000;
 
-        const pill = document.getElementById('status-pill');
-        const fetchUrlEl = document.getElementById('fetch-url');
-        const fetchResultEl = document.getElementById('fetch-result');
-        const lastUpdatedEl = document.getElementById('last-updated');
-        const jsonBoxEl = document.getElementById('json-box');
-        const rawBoxEl = document.getElementById('raw-box');
+        const statusPill = document.getElementById("status-pill");
+        const statusText = document.getElementById("status-text");
+        const fetchUrlEl = document.getElementById("fetch-url");
+        const fetchResultEl = document.getElementById("fetch-result");
+        const lastUpdatedEl = document.getElementById("last-updated");
+        const ageEl = document.getElementById("age");
+        const fetchedAtEl = document.getElementById("fetched-at");
+        const notesEl = document.getElementById("notes");
+        const jsonBoxEl = document.getElementById("json-box");
+        const rawBoxEl = document.getElementById("raw-box");
 
-        fetchUrlEl.textContent = url + '  (cache-bust: ' + Date.now() + ')';
+        const refreshBtn = document.getElementById("refresh-btn");
+        const copyParsedBtn = document.getElementById("copy-parsed-btn");
+        const copyRawBtn = document.getElementById("copy-raw-btn");
+        const autoRefreshEl = document.getElementById("auto-refresh");
+        const toastEl = document.getElementById("toast");
 
-        try {
-          const res = await fetch(url + '?v=' + Date.now(), { cache: 'no-store' });
+        let lastParsed = null;
+        let lastRaw = "";
+        let timer = null;
 
-          fetchResultEl.textContent = `HTTP ${res.status} ${res.statusText}`;
-          pill.textContent = res.ok ? 'OK' : 'NOT OK';
-
-          const text = await res.text();
-          rawBoxEl.textContent = text.slice(0, 500) || '(empty response)';
-
-          if (!res.ok) {
-            lastUpdatedEl.textContent = '—';
-            jsonBoxEl.textContent = 'No JSON because fetch was not OK.';
-            return;
-          }
-
-          // Try parse JSON
-          let data;
-          try {
-            data = JSON.parse(text);
-          } catch (e) {
-            pill.textContent = 'BAD JSON';
-            fetchResultEl.textContent += ' | JSON parse failed';
-            jsonBoxEl.textContent = 'JSON parse error: ' + e.message;
-            lastUpdatedEl.textContent = '—';
-            return;
-          }
-
-          jsonBoxEl.textContent = JSON.stringify(data, null, 2);
-
-          // Pull out generated_at if present
-          const raw = (data && data.generated_at) ? data.generated_at : null;
-          if (!raw) {
-            lastUpdatedEl.textContent = 'Missing "generated_at" in JSON';
-            pill.textContent = 'NO generated_at';
-            return;
-          }
-
-          const dt = new Date(raw);
-          if (isNaN(dt.getTime())) {
-            lastUpdatedEl.textContent = 'generated_at exists but is not a valid date: ' + String(raw);
-            pill.textContent = 'BAD DATE';
-            return;
-          }
-
-          lastUpdatedEl.textContent = dt.toLocaleString();
-          pill.textContent = 'LIVE';
-        } catch (e) {
-          pill.textContent = 'CRASH';
-          fetchResultEl.textContent = 'Fetch crashed: ' + (e && e.message ? e.message : String(e));
-          lastUpdatedEl.textContent = '—';
-          jsonBoxEl.textContent = '—';
-          rawBoxEl.textContent = '—';
+        function toast(msg) {
+          toastEl.textContent = msg;
+          toastEl.classList.add("show");
+          clearTimeout(toastEl._t);
+          toastEl._t = setTimeout(() => toastEl.classList.remove("show"), 1400);
         }
+
+        function setStatus(kind, text) {
+          statusPill.classList.remove("good", "warn", "bad");
+          statusText.textContent = text;
+
+          // Default/info
+          let dotKind = "info";
+          if (kind === "good") statusPill.classList.add("good");
+          if (kind === "warn") statusPill.classList.add("warn");
+          if (kind === "bad")  statusPill.classList.add("bad");
+        }
+
+        function fmtAge(ms) {
+          if (ms == null || !isFinite(ms)) return "—";
+          const s = Math.floor(ms / 1000);
+          if (s < 60) return s + "s";
+          const m = Math.floor(s / 60);
+          if (m < 60) return m + "m " + (s % 60) + "s";
+          const h = Math.floor(m / 60);
+          return h + "h " + (m % 60) + "m";
+        }
+
+        async function runFetch() {
+          refreshBtn.disabled = true;
+          setStatus("warn", "FETCHING");
+          notesEl.textContent = "Request in flight…";
+
+          const bust = Date.now();
+          const url = URL_BASE + "?v=" + bust;
+          fetchUrlEl.textContent = URL_BASE + " (v=" + bust + ")";
+          fetchedAtEl.textContent = new Date().toLocaleString();
+
+          try {
+            const res = await fetch(url, { cache: "no-store" });
+            fetchResultEl.textContent = "HTTP " + res.status + " " + res.statusText;
+
+            const text = await res.text();
+            lastRaw = text || "(empty response)";
+            rawBoxEl.textContent = lastRaw;
+
+            copyRawBtn.disabled = !lastRaw;
+
+            if (!res.ok) {
+              setStatus("bad", "NOT OK");
+              notesEl.textContent = "Fetch returned a non-2xx status. See Raw response.";
+              lastUpdatedEl.textContent = "—";
+              ageEl.textContent = "—";
+              jsonBoxEl.textContent = "No JSON because fetch was not OK.";
+              lastParsed = null;
+              copyParsedBtn.disabled = true;
+              return;
+            }
+
+            // Parse JSON
+            let data;
+            try {
+              data = JSON.parse(text);
+            } catch (e) {
+              setStatus("bad", "BAD JSON");
+              notesEl.textContent = "Response body is not valid JSON. See Raw response.";
+              jsonBoxEl.textContent = "JSON parse error: " + e.message;
+              lastUpdatedEl.textContent = "—";
+              ageEl.textContent = "—";
+              lastParsed = null;
+              copyParsedBtn.disabled = true;
+              return;
+            }
+
+            lastParsed = data;
+            copyParsedBtn.disabled = false;
+            jsonBoxEl.textContent = JSON.stringify(data, null, 2);
+
+            const raw = (data && data.generated_at) ? data.generated_at : null;
+            if (!raw) {
+              setStatus("warn", "NO generated_at");
+              notesEl.textContent = 'JSON parsed, but missing key "generated_at".';
+              lastUpdatedEl.textContent = 'Missing "generated_at" in JSON';
+              ageEl.textContent = "—";
+              return;
+            }
+
+            const dt = new Date(raw);
+            if (isNaN(dt.getTime())) {
+              setStatus("warn", "BAD DATE");
+              notesEl.textContent = 'JSON parsed, but "generated_at" is not a valid date.';
+              lastUpdatedEl.textContent = 'Invalid date: ' + String(raw);
+              ageEl.textContent = "—";
+              return;
+            }
+
+            const now = Date.now();
+            const ageMs = now - dt.getTime();
+            lastUpdatedEl.textContent = dt.toLocaleString();
+            ageEl.textContent = fmtAge(ageMs);
+
+            // Heuristic: warn if older than 10 minutes, bad if older than 60 minutes
+            if (ageMs > 60 * 60 * 1000) {
+              setStatus("bad", "STALE");
+              notesEl.textContent = "Data is older than 60 minutes (stale).";
+            } else if (ageMs > 10 * 60 * 1000) {
+              setStatus("warn", "AGING");
+              notesEl.textContent = "Data is older than 10 minutes (check pipeline).";
+            } else {
+              setStatus("good", "LIVE");
+              notesEl.textContent = "Fetch OK, JSON OK, generated_at looks healthy.";
+            }
+
+          } catch (e) {
+            setStatus("bad", "CRASH");
+            fetchResultEl.textContent = "Fetch crashed: " + (e && e.message ? e.message : String(e));
+            notesEl.textContent = "Network or CORS error. If running locally, confirm the dev server serves /data/*.json.";
+            lastUpdatedEl.textContent = "—";
+            ageEl.textContent = "—";
+            jsonBoxEl.textContent = "—";
+            rawBoxEl.textContent = "—";
+            lastParsed = null;
+            copyParsedBtn.disabled = true;
+            copyRawBtn.disabled = true;
+          } finally {
+            refreshBtn.disabled = false;
+          }
+        }
+
+        refreshBtn.addEventListener("click", runFetch);
+
+        copyParsedBtn.addEventListener("click", async () => {
+          try{
+            await navigator.clipboard.writeText(JSON.stringify(lastParsed, null, 2));
+            toast("Copied parsed JSON");
+          } catch(e){
+            toast("Copy failed (clipboard blocked)");
+          }
+        });
+
+        copyRawBtn.addEventListener("click", async () => {
+          try{
+            await navigator.clipboard.writeText(String(lastRaw || ""));
+            toast("Copied raw response");
+          } catch(e){
+            toast("Copy failed (clipboard blocked)");
+          }
+        });
+
+        autoRefreshEl.addEventListener("change", () => {
+          if (autoRefreshEl.checked) {
+            timer = setInterval(runFetch, AUTO_REFRESH_MS);
+            toast("Auto-refresh on");
+          } else {
+            clearInterval(timer);
+            timer = null;
+            toast("Auto-refresh off");
+          }
+        });
+
+        // initial
+        runFetch();
       })();
     </script>
   </body>
