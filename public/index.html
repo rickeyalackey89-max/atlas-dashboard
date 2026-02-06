@@ -70,9 +70,7 @@
     summary{cursor:pointer;color:var(--muted);font-size:13px}
     .slip-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
     .slip{grid-column:span 12;padding:12px;border:1px solid var(--border);border-radius:14px;background:#fff}
-    @media(min-width:800px){
-      .slip{grid-column:span 6}
-    }
+    @media(min-width:800px){ .slip{grid-column:span 6} }
     .slip-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
     .slip-title{font-weight:750}
     .slip-meta{color:var(--muted);font-size:12px;margin-top:4px}
@@ -91,7 +89,10 @@
           <h1>Atlas Dashboard</h1>
           <span class="pill" id="statusPill"><span class="dot off" id="statusDot"></span><span id="statusText">—</span></span>
         </div>
-        <div class="sub">Health + “best slip” viewer. Pulls <code class="mono">/data/status_latest.json</code> and the recommended slip JSONs.</div>
+        <div class="sub">
+          Health + “best slip” viewer. Recommended comes from <code class="mono">/data/recommended_latest.json</code>.
+          Capper picks come from <code class="mono">/data/gamescript_best_4leg.json</code> and <code class="mono">/data/gamescript_best_5leg.json</code>.
+        </div>
       </div>
       <div class="actions">
         <button id="refreshBtn">Refresh</button>
@@ -136,17 +137,18 @@
         <details open>
           <summary>Best slips (recommended + risky + capper picks)</summary>
           <div class="small" style="margin:10px 0 12px">
-            Each card shows the top row from the corresponding JSON (or, for capper picks, top row filtered by leg count).
+            Recommended 3/4/5 are derived from <code class="mono">recommended_latest.json</code> (filtered by leg count).
+            Risky cards try multiple filenames and will show “missing” until your exporter publishes one.
           </div>
           <div class="slip-grid" id="slipGrid"></div>
         </details>
 
         <details>
-          <summary>Parsed JSON</summary>
+          <summary>Parsed status JSON</summary>
           <pre class="mono" id="parsedJson">—</pre>
         </details>
         <details>
-          <summary>Raw response</summary>
+          <summary>Raw status response</summary>
           <pre class="mono" id="rawJson">—</pre>
         </details>
       </div>
@@ -157,30 +159,20 @@
 (function(){
   const STATUS_URL = "/data/status_latest.json";
   const cacheBust = () => "v=" + Date.now();
-
   const el = (id) => document.getElementById(id);
-
-  const state = {
-    raw: null,
-    parsed: null,
-    timer: null
-  };
+  const state = { raw: null, parsed: null, timer: null };
 
   function formatLocal(dtStr){
     if(!dtStr) return "—";
-    // supports ISO like 2026-02-06T02:18:29Z or with offset
     const d = new Date(dtStr);
     if(isNaN(d.getTime())) return dtStr;
     return d.toLocaleString();
   }
-
   function ageFrom(dtStr){
     const d = new Date(dtStr);
     if(isNaN(d.getTime())) return null;
-    const ms = Date.now() - d.getTime();
-    return ms;
+    return Date.now() - d.getTime();
   }
-
   function formatAge(ms){
     if(ms == null) return "—";
     const s = Math.max(0, Math.floor(ms/1000));
@@ -188,24 +180,19 @@
     const m = Math.floor((s%3600)/60);
     return (h>0? (h+"h ") : "") + m + "m";
   }
-
   function setStatus(level, msg){
     el("statusText").textContent = msg;
-    const dot = el("statusDot");
-    dot.className = "dot " + level;
+    el("statusDot").className = "dot " + level;
   }
-
   function safeNum(x){
     const n = Number(x);
     return isFinite(n) ? n : null;
   }
-
   function pct(x){
     const n = safeNum(x);
     if(n == null) return "—";
     return (n*100).toFixed(1) + "%";
   }
-
   function fmt(x, digits=3){
     const n = safeNum(x);
     if(n == null) return "—";
@@ -223,11 +210,11 @@
     const t = document.createElement("div");
     t.className = "slip-title";
     t.textContent = title;
+
     const meta = document.createElement("div");
     meta.className = "slip-meta";
     meta.textContent = subtitle || "";
-    left.appendChild(t);
-    left.appendChild(meta);
+    left.appendChild(t); left.appendChild(meta);
 
     const right = document.createElement("div");
     right.className = "slip-meta";
@@ -237,8 +224,7 @@
       right.textContent = "—";
     }
 
-    head.appendChild(left);
-    head.appendChild(right);
+    head.appendChild(left); head.appendChild(right);
 
     const legs = document.createElement("div");
     legs.className = "slip-legs";
@@ -293,61 +279,92 @@
     return {res, text, parsed};
   }
 
+  function pickFirstByLegCount(list, n){
+    const filtered = list.filter(x => Number(x.n_legs) === Number(n));
+    return { row: filtered[0] || null, count: filtered.length };
+  }
+
+  async function getListFromRecommendedLatest(){
+    const {res, parsed} = await fetchJson("/data/recommended_latest.json?" + cacheBust());
+    if(!res.ok || !parsed) return {ok:false, list:[]};
+    const list = Array.isArray(parsed) ? parsed : (Array.isArray(parsed.data) ? parsed.data : []);
+    return {ok:true, list};
+  }
+
+  async function getCapper(file){
+    const {res, parsed} = await fetchJson(file + "?" + cacheBust());
+    if(!res.ok || !parsed) return {ok:false, row:null};
+    const row = Array.isArray(parsed) ? (parsed[0] || null)
+              : (parsed.data && Array.isArray(parsed.data) ? (parsed.data[0] || null) : parsed);
+    return {ok:true, row};
+  }
+
+  async function getRiskyBest(n){
+    const candidates = [
+      `/data/risky_recommended_${n}leg_latest.json`,
+      `/data/risky_recommended_${n}leg.json`,
+      `/data/risky/recommended_${n}leg_latest.json`,
+      `/data/risky/recommended_${n}leg.json`,
+      `/data/risky_recommended_latest.json`,
+      `/data/risky/recommended_latest.json`,
+    ];
+
+    for(const c of candidates){
+      try{
+        const {res, parsed} = await fetchJson(c + "?" + cacheBust());
+        if(!res.ok || !parsed) continue;
+
+        if(Array.isArray(parsed)){
+          return {ok:true, href:c, row: parsed[0] || null, subtitle:`${c.replace("/data/","")} · rows: ${parsed.length}`};
+        }
+        if(parsed.data && Array.isArray(parsed.data)){
+          const {row, count} = pickFirstByLegCount(parsed.data, n);
+          return {ok:true, href:c, row, subtitle:`${c.replace("/data/","")} · ${n}-leg · rows: ${count}`};
+        }
+      } catch(e){}
+    }
+    return {ok:false, href:candidates[0], row:null, subtitle:"missing"};
+  }
+
   async function buildSlips(){
     const grid = el("slipGrid");
     grid.innerHTML = "";
 
-    // Definitions:
-    const defs = [
-      { key:"rec3", title:"Best 3-Leg (Recommended)", file:"/data/recommended_3leg_latest.json" },
-      { key:"rec4", title:"Best 4-Leg (Recommended)", file:"/data/recommended_4leg_latest.json" },
-      { key:"rec5", title:"Best 5-Leg (Recommended)", file:"/data/recommended_5leg_latest.json" },
+    let rec = {ok:false, list:[]};
+    try{ rec = await getListFromRecommendedLatest(); } catch(e){}
 
-      { key:"r3", title:"Best 3-Leg (Risky)", file:"/data/risky_recommended_3leg_latest.json" },
-      { key:"r4", title:"Best 4-Leg (Risky)", file:"/data/risky_recommended_4leg_latest.json" },
-      { key:"r5", title:"Best 5-Leg (Risky)", file:"/data/risky_recommended_5leg_latest.json" },
+    if(rec.ok){
+      const r3 = pickFirstByLegCount(rec.list, 3);
+      const r4 = pickFirstByLegCount(rec.list, 4);
+      const r5 = pickFirstByLegCount(rec.list, 5);
 
-      // Capper picks: come from recommended_latest.json filtered by n_legs
-      { key:"cap4", title:"Best 4-Leg (Capper Picks)", file:"/data/recommended_latest.json", filterLegs:4 },
-      { key:"cap5", title:"Best 5-Leg (Capper Picks)", file:"/data/recommended_latest.json", filterLegs:5 },
-    ];
-
-    for(const d of defs){
-      let row = null;
-      let subtitle = d.file.replace("/data/","");
-
-      try{
-        const {res, parsed} = await fetchJson(d.file + "?" + cacheBust());
-        if(res.ok && parsed){
-          if(Array.isArray(parsed)){
-            row = parsed[0] || null;
-            subtitle += ` · rows: ${parsed.length}`;
-          } else if(parsed.data && Array.isArray(parsed.data)){
-            // capper picks format
-            let list = parsed.data;
-            if(d.filterLegs){
-              list = list.filter(x => Number(x.n_legs) === Number(d.filterLegs));
-              subtitle += ` · filtered: ${d.filterLegs}-leg · rows: ${list.length}`;
-            } else {
-              subtitle += ` · rows: ${list.length}`;
-            }
-            row = list[0] || null;
-          }
-        } else {
-          subtitle += " · missing";
-        }
-      } catch(e){
-        subtitle += " · error";
-      }
-
-      grid.appendChild(slipCard({title:d.title, href:d.file, row, subtitle}));
+      grid.appendChild(slipCard({title:"Best 3-Leg (Recommended)", href:"/data/recommended_latest.json", row:r3.row, subtitle:`recommended_latest.json · 3-leg · rows: ${r3.count}`}));
+      grid.appendChild(slipCard({title:"Best 4-Leg (Recommended)", href:"/data/recommended_latest.json", row:r4.row, subtitle:`recommended_latest.json · 4-leg · rows: ${r4.count}`}));
+      grid.appendChild(slipCard({title:"Best 5-Leg (Recommended)", href:"/data/recommended_latest.json", row:r5.row, subtitle:`recommended_latest.json · 5-leg · rows: ${r5.count}`}));
+    } else {
+      grid.appendChild(slipCard({title:"Best 3-Leg (Recommended)", href:"/data/recommended_latest.json", row:null, subtitle:"recommended_latest.json · missing"}));
+      grid.appendChild(slipCard({title:"Best 4-Leg (Recommended)", href:"/data/recommended_latest.json", row:null, subtitle:"recommended_latest.json · missing"}));
+      grid.appendChild(slipCard({title:"Best 5-Leg (Recommended)", href:"/data/recommended_latest.json", row:null, subtitle:"recommended_latest.json · missing"}));
     }
+
+    const risky3 = await getRiskyBest(3);
+    const risky4 = await getRiskyBest(4);
+    const risky5 = await getRiskyBest(5);
+
+    grid.appendChild(slipCard({title:"Best 3-Leg (Risky)", href:risky3.href, row:risky3.row, subtitle:risky3.subtitle}));
+    grid.appendChild(slipCard({title:"Best 4-Leg (Risky)", href:risky4.href, row:risky4.row, subtitle:risky4.subtitle}));
+    grid.appendChild(slipCard({title:"Best 5-Leg (Risky)", href:risky5.href, row:risky5.row, subtitle:risky5.subtitle}));
+
+    const cap4 = await getCapper("/data/gamescript_best_4leg.json");
+    const cap5 = await getCapper("/data/gamescript_best_5leg.json");
+
+    grid.appendChild(slipCard({title:"Best 4-Leg (Capper Picks)", href:"/data/gamescript_best_4leg.json", row:cap4.row, subtitle:`gamescript_best_4leg.json${cap4.ok ? "" : " · missing"}`}));
+    grid.appendChild(slipCard({title:"Best 5-Leg (Capper Picks)", href:"/data/gamescript_best_5leg.json", row:cap5.row, subtitle:`gamescript_best_5leg.json${cap5.ok ? "" : " · missing"}`}));
   }
 
   async function refresh(){
     el("fetchUrl").textContent = STATUS_URL + " (no-store)";
     el("lastFetch").textContent = new Date().toLocaleString();
-
     const url = STATUS_URL + "?" + cacheBust();
 
     try{
@@ -373,30 +390,21 @@
 
       const gen = parsed.generated_at || null;
       el("generatedAt").textContent = gen ? formatLocal(gen) : "—";
-
       const ms = gen ? ageFrom(gen) : null;
       el("ageText").textContent = formatAge(ms);
 
-      let note = (parsed.notes && typeof parsed.notes === "string") ? parsed.notes : "";
+      const note = (parsed.notes && typeof parsed.notes === "string") ? parsed.notes : "";
       el("notesText").textContent = note || "—";
 
-      // Status thresholds
       const agingMs = 10*60*1000;
       const staleMs = 60*60*1000;
 
-      if(ms == null){
-        setStatus("bad", "NO TIME");
-      } else if(ms < agingMs){
-        setStatus("live", "LIVE");
-      } else if(ms < staleMs){
-        setStatus("aging", "AGING");
-      } else {
-        setStatus("stale", "STALE");
-      }
+      if(ms == null) setStatus("bad", "NO TIME");
+      else if(ms < agingMs) setStatus("live", "LIVE");
+      else if(ms < staleMs) setStatus("aging", "AGING");
+      else setStatus("stale", "STALE");
 
-      // Build best slips section
       await buildSlips();
-
     } catch(e){
       setStatus("off", "ERROR");
       el("resultText").textContent = "Fetch error";
@@ -406,25 +414,16 @@
 
   el("refreshBtn").addEventListener("click", refresh);
   el("copyParsedBtn").addEventListener("click", async () => {
-    try{
-      if(state.parsed) await navigator.clipboard.writeText(JSON.stringify(state.parsed, null, 2));
-    } catch(e){}
+    try{ if(state.parsed) await navigator.clipboard.writeText(JSON.stringify(state.parsed, null, 2)); } catch(e){}
   });
   el("copyRawBtn").addEventListener("click", async () => {
-    try{
-      if(state.raw) await navigator.clipboard.writeText(state.raw);
-    } catch(e){}
+    try{ if(state.raw) await navigator.clipboard.writeText(state.raw); } catch(e){}
   });
   el("autoRefresh").addEventListener("change", (ev) => {
-    if(ev.target.checked){
-      state.timer = setInterval(refresh, 30000);
-    } else {
-      if(state.timer) clearInterval(state.timer);
-      state.timer = null;
-    }
+    if(ev.target.checked) state.timer = setInterval(refresh, 30000);
+    else { if(state.timer) clearInterval(state.timer); state.timer = null; }
   });
 
-  // initial load
   refresh();
 })();
 </script>
