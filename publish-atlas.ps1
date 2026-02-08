@@ -33,8 +33,28 @@ if ((Test-Path (Join-Path $gitDir "rebase-merge")) -or (Test-Path (Join-Path $gi
   Fail "Git merge/rebase in progress. Finish it before publishing."
 }
 
-# Guard: clean before pull
+# Guard: generated data should never block publishing.
+# If ONLY dashboard data files are dirty, auto-revert them to restore a clean tree.
 $status = (git status --porcelain)
+if ($status) {
+  $lines = @($status -split "`n") | Where-Object { $_ -and $_.Trim().Length -gt 0 }
+  $onlyDashboardData = $true
+  foreach ($l in $lines) {
+    # porcelain format: "XY path" (path starts at index 3)
+    $p = $l.Substring(3).Trim()
+    if (-not ($p -like "public/data/*")) {
+      $onlyDashboardData = $false
+      break
+    }
+  }
+  if ($onlyDashboardData) {
+    Info "Working tree has local changes only under public/data/. Reverting generated artifacts..."
+    git restore --worktree --staged $DashboardDataPath 2>$null
+    $status = (git status --porcelain)
+  }
+}
+
+# Guard: clean before pull
 if ($status) { Fail "Working tree not clean BEFORE pull.`n$status" }
 
 # --- 1) Pull first ---
@@ -47,13 +67,19 @@ if ($status) { Fail "Working tree not clean AFTER pull.`n$status" }
 # --- 2) Source directories in Atlas ---
 $atlasRoot = (Resolve-Path $AtlasPath).Path
 $latestAll = Join-Path $atlasRoot "data\output\latest\all"
-$latestRisky = Join-Path $latestAll "risky"
+$latestWindfall = Join-Path $latestAll "Windfall"
+$latestRisky = Join-Path $latestAll "risky"   # legacy (may not exist)
 
 if (-not (Test-Path $latestAll)) { Fail "Atlas latest/all not found: $latestAll" }
-if (-not (Test-Path $latestRisky)) { Fail "Atlas latest/all/risky not found: $latestRisky" }
+if (-not (Test-Path $latestWindfall)) { Fail "Atlas latest/all/Windfall not found: $latestWindfall" }
 
 Info "Atlas latest/all:       $latestAll"
-Info "Atlas latest/all/risky: $latestRisky"
+Info "Atlas latest/all/Windfall: $latestWindfall"
+if (Test-Path $latestRisky) {
+  Info "Atlas latest/all/risky (legacy): $latestRisky"
+} else {
+  Info "Atlas latest/all/risky (legacy): (missing)"
+}
 Info "Dashboard target data:  $targetDataDir"
 
 # --- 3) Helper: CSV -> JSON array of rows ---
@@ -64,40 +90,59 @@ function Export-CsvToJson([string]$csvPath, [string]$jsonPath) {
   Set-Content -Path $jsonPath -Value $json -Encoding UTF8
 }
 
-# --- 4) Export the 6 recommendation files ---
-$exports = @(
-  @{ csv = (Join-Path $latestAll "recommended_3leg.csv"); json = (Join-Path $targetDataDir "recommended_3leg_latest.json") }
-  @{ csv = (Join-Path $latestAll "recommended_4leg.csv"); json = (Join-Path $targetDataDir "recommended_4leg_latest.json") }
-  @{ csv = (Join-Path $latestAll "recommended_5leg.csv"); json = (Join-Path $targetDataDir "recommended_5leg_latest.json") }
+function Write-EmptyJsonArray([string]$jsonPath) {
+  Set-Content -Path $jsonPath -Value "[]" -Encoding UTF8
+}
 
-  @{ csv = (Join-Path $latestRisky "recommended_3leg.csv"); json = (Join-Path $targetDataDir "risky_recommended_3leg_latest.json") }
-  @{ csv = (Join-Path $latestRisky "recommended_4leg.csv"); json = (Join-Path $targetDataDir "risky_recommended_4leg_latest.json") }
-  @{ csv = (Join-Path $latestRisky "recommended_5leg.csv"); json = (Join-Path $targetDataDir "risky_recommended_5leg_latest.json") }
+# --- 4) Export recommendations (Windfall-only contract) ---
+# Keep legacy risky JSON outputs as empty arrays for backwards compatibility.
+$exports = @(
+  @{ csv = (Join-Path $latestWindfall "recommended_3leg.csv"); json = (Join-Path $targetDataDir "recommended_3leg_latest.json"); required = $true }
+  @{ csv = (Join-Path $latestWindfall "recommended_4leg.csv"); json = (Join-Path $targetDataDir "recommended_4leg_latest.json"); required = $true }
+  @{ csv = (Join-Path $latestWindfall "recommended_5leg.csv"); json = (Join-Path $targetDataDir "recommended_5leg_latest.json"); required = $true }
+
+  # Legacy risky outputs: Atlas is Windfall-only now, so publish empty arrays.
+  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_3leg_latest.json"); required = $false }
+  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_4leg_latest.json"); required = $false }
+  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_5leg_latest.json"); required = $false }
 )
 
-Info ("Exporting {0} CSVs -> JSON..." -f $exports.Count)
+Info ("Exporting {0} outputs -> JSON..." -f $exports.Count)
 foreach ($e in $exports) {
-  Export-CsvToJson -csvPath $e.csv -jsonPath $e.json
+  if ($e.csv -and (Test-Path $e.csv)) {
+    Export-CsvToJson -csvPath $e.csv -jsonPath $e.json
+  } else {
+    Write-EmptyJsonArray -jsonPath $e.json
+  }
 }
 
 # --- 5) Write status_latest.json (freshness + file list) ---
 $filesStatus = @()
 foreach ($e in $exports) {
-  $j = Get-Item -Path $e.json
-  $filesStatus += @{
-    name = (Split-Path $e.json -Leaf)
-    exists = $true
-    bytes = $j.Length
-    last_modified = $j.LastWriteTime.ToString("s")
+  if (Test-Path $e.json) {
+    $j = Get-Item -Path $e.json
+    $filesStatus += @{
+      name = (Split-Path $e.json -Leaf)
+      exists = $true
+      bytes = $j.Length
+      last_modified = $j.LastWriteTime.ToString("s")
+    }
+  } else {
+    $filesStatus += @{
+      name = (Split-Path $e.json -Leaf)
+      exists = $false
+      bytes = 0
+      last_modified = $null
+    }
   }
 }
 
 $statusObj = @{
   generated_at = (Get-Date).ToUniversalTime().ToString("s") + "Z"
-  latest_dir = $latestAll
+  latest_dir = $latestWindfall
   ok = $true
   files = $filesStatus
-  notes = "Generated by publish-atlas.ps1 from Atlas CSV outputs."
+  notes = "Generated by publish-atlas.ps1 from Atlas Windfall CSV outputs. Legacy risky JSONs are published as empty arrays."
 }
 
 $statusJsonPath = Join-Path $targetDataDir "status_latest.json"
