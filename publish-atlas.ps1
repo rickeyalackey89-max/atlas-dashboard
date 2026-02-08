@@ -38,13 +38,13 @@ function Resolve-RepoRoot([string]$startDir) {
 }
 
 function GitOut([string]$repoRoot, [string[]]$gitArgs) {
-  $out = & git -C $repoRoot @gitArgs 2>&1
-  if ($LASTEXITCODE -ne 0) {
+  # Run git normally (avoid PS5.1 stderr capture issues)
+  & git -C $repoRoot @gitArgs
+  $code = $LASTEXITCODE
+  if ($code -ne 0) {
     $joined = ($gitArgs -join " ")
-    Fail ("git failed: git -C `"$repoRoot`" $joined`n$out")
+    Fail ("git failed (exit $code): git -C `"$repoRoot`" $joined")
   }
-  return $out
-}
 
 function Get-GitPorcelain([string]$repoRoot) {
   $out = & git -C $repoRoot status --porcelain 2>$null
