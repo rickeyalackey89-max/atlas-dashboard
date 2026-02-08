@@ -68,19 +68,37 @@ if ($status) { Fail "Working tree not clean AFTER pull.`n$status" }
 $atlasRoot = (Resolve-Path $AtlasPath).Path
 $latestAll = Join-Path $atlasRoot "data\output\latest\all"
 $latestWindfall = Join-Path $latestAll "Windfall"
-$latestRisky = Join-Path $latestAll "risky"   # legacy (may not exist)
+$latestSystem   = Join-Path $latestAll "System"
+$latestAI       = Join-Path $latestAll "AI"
+$latestCapper   = Join-Path $latestAll "Capper"
+$latestRisky    = Join-Path $latestAll "risky"   # legacy (may not exist)
 
 if (-not (Test-Path $latestAll)) { Fail "Atlas latest/all not found: $latestAll" }
+if (-not (Test-Path $latestSystem)) { Fail "Atlas latest/all/System not found: $latestSystem" }
 if (-not (Test-Path $latestWindfall)) { Fail "Atlas latest/all/Windfall not found: $latestWindfall" }
 
-Info "Atlas latest/all:       $latestAll"
+Info "Atlas latest/all:          $latestAll"
+Info "Atlas latest/all/System:   $latestSystem"
 Info "Atlas latest/all/Windfall: $latestWindfall"
+
+if (Test-Path $latestAI) {
+  Info "Atlas latest/all/AI:       $latestAI"
+} else {
+  Info "Atlas latest/all/AI:       (missing)"
+}
+if (Test-Path $latestCapper) {
+  Info "Atlas latest/all/Capper:   $latestCapper"
+} else {
+  Info "Atlas latest/all/Capper:   (missing)"
+}
+
 if (Test-Path $latestRisky) {
   Info "Atlas latest/all/risky (legacy): $latestRisky"
 } else {
   Info "Atlas latest/all/risky (legacy): (missing)"
 }
-Info "Dashboard target data:  $targetDataDir"
+Info "Dashboard target data:     $targetDataDir"
+
 
 # --- 3) Helper: CSV -> JSON array of rows ---
 function Export-CsvToJson([string]$csvPath, [string]$jsonPath) {
@@ -94,29 +112,100 @@ function Write-EmptyJsonArray([string]$jsonPath) {
   Set-Content -Path $jsonPath -Value "[]" -Encoding UTF8
 }
 
-# --- 4) Export recommendations (Windfall-only contract) ---
-# Keep legacy risky JSON outputs as empty arrays for backwards compatibility.
-$exports = @(
-  @{ csv = (Join-Path $latestWindfall "recommended_3leg.csv"); json = (Join-Path $targetDataDir "recommended_3leg_latest.json"); required = $true }
-  @{ csv = (Join-Path $latestWindfall "recommended_4leg.csv"); json = (Join-Path $targetDataDir "recommended_4leg_latest.json"); required = $true }
-  @{ csv = (Join-Path $latestWindfall "recommended_5leg.csv"); json = (Join-Path $targetDataDir "recommended_5leg_latest.json"); required = $true }
+# --- 4) Export recommendations (3 groups) ---
+#   1) Atlas (System): base model picks (standard modifiers / light rules)
+#   2) Windfall: tier-mix rules (G/S/D) for higher payout optional bets
+#   3) GameScript: external human+AI picks scored by Atlas math, no tier skew
+#
+# We keep legacy risky JSON outputs as empty arrays for backwards compatibility.
 
-  # Legacy risky outputs: Atlas is Windfall-only now, so publish empty arrays.
-  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_3leg_latest.json"); required = $false }
-  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_4leg_latest.json"); required = $false }
-  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_5leg_latest.json"); required = $false }
+function Export-CsvToJsonIfExists([string]$csvPath, [string]$jsonPath) {
+  if (-not (Test-Path $csvPath)) { Write-EmptyJsonArray -jsonPath $jsonPath; return }
+  Export-CsvToJson -csvPath $csvPath -jsonPath $jsonPath
+}
+
+function Export-CombinedExternalToJson([string[]]$csvPaths, [string]$jsonPath) {
+  $all = @()
+  foreach ($p in $csvPaths) {
+    if (Test-Path $p) {
+      $rows = Import-Csv -Path $p
+      foreach ($r in $rows) {
+        # annotate provenance
+        $r | Add-Member -NotePropertyName "_source_csv" -NotePropertyValue (Split-Path $p -Leaf) -Force
+        $all += $r
+      }
+    }
+  }
+
+  if (-not $all -or $all.Count -eq 0) {
+    Write-EmptyJsonArray -jsonPath $jsonPath
+    return
+  }
+
+  # sort best-first: hit_prob desc, then ev_mult desc (numeric-safe)
+  $sorted =
+    $all | Sort-Object `
+      @{ Expression = { try { [double]$_.hit_prob } catch { -1 } }; Descending = $true }, `
+      @{ Expression = { try { [double]$_.ev_mult }  catch { -1 } }; Descending = $true }
+
+  ($sorted | ConvertTo-Json -Depth 10) | Set-Content -Path $jsonPath -Encoding UTF8
+}
+
+$exports = @(
+  # Atlas System (base)
+  @{ csv = (Join-Path $latestSystem "recommended_3leg.csv");  json = (Join-Path $targetDataDir "recommended_3leg_latest.json"); required = $true;  group = "atlas_system" }
+  @{ csv = (Join-Path $latestSystem "recommended_4leg.csv");  json = (Join-Path $targetDataDir "recommended_4leg_latest.json"); required = $true;  group = "atlas_system" }
+  @{ csv = (Join-Path $latestSystem "recommended_5leg.csv");  json = (Join-Path $targetDataDir "recommended_5leg_latest.json"); required = $true;  group = "atlas_system" }
+
+  # Windfall (tier-mix)
+  @{ csv = (Join-Path $latestWindfall "recommended_3leg.csv"); json = (Join-Path $targetDataDir "windfall_recommended_3leg_latest.json"); required = $true; group = "windfall" }
+  @{ csv = (Join-Path $latestWindfall "recommended_4leg.csv"); json = (Join-Path $targetDataDir "windfall_recommended_4leg_latest.json"); required = $true; group = "windfall" }
+  @{ csv = (Join-Path $latestWindfall "recommended_5leg.csv"); json = (Join-Path $targetDataDir "windfall_recommended_5leg_latest.json"); required = $true; group = "windfall" }
+
+  # GameScript (external picks scored by Atlas math) — combined AI + Capper if present
+  @{ csv = ""; json = (Join-Path $targetDataDir "gamescript_best_3leg.json"); required = $false; group = "gamescript" }
+  @{ csv = ""; json = (Join-Path $targetDataDir "gamescript_best_4leg.json"); required = $false; group = "gamescript" }
+  @{ csv = ""; json = (Join-Path $targetDataDir "gamescript_best_5leg.json"); required = $false; group = "gamescript" }
+
+  # Legacy risky outputs: publish empty arrays.
+  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_3leg_latest.json"); required = $false; group = "legacy_risky" }
+  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_4leg_latest.json"); required = $false; group = "legacy_risky" }
+  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_5leg_latest.json"); required = $false; group = "legacy_risky" }
 )
 
 Info ("Exporting {0} outputs -> JSON..." -f $exports.Count)
+
+# export atlas + windfall
 foreach ($e in $exports) {
-  if ($e.csv -and (Test-Path $e.csv)) {
-    Export-CsvToJson -csvPath $e.csv -jsonPath $e.json
-  } else {
-    Write-EmptyJsonArray -jsonPath $e.json
+  if ($e.group -eq "atlas_system" -or $e.group -eq "windfall") {
+    Export-CsvToJsonIfExists -csvPath $e.csv -jsonPath $e.json
   }
 }
 
+# export gamescript combined
+Export-CombinedExternalToJson -csvPaths @(
+  (Join-Path $latestAI "recommended_3leg.csv"),
+  (Join-Path $latestCapper "recommended_3leg.csv")
+) -jsonPath (Join-Path $targetDataDir "gamescript_best_3leg.json")
+
+Export-CombinedExternalToJson -csvPaths @(
+  (Join-Path $latestAI "recommended_4leg.csv"),
+  (Join-Path $latestCapper "recommended_4leg.csv")
+) -jsonPath (Join-Path $targetDataDir "gamescript_best_4leg.json")
+
+Export-CombinedExternalToJson -csvPaths @(
+  (Join-Path $latestAI "recommended_5leg.csv"),
+  (Join-Path $latestCapper "recommended_5leg.csv")
+) -jsonPath (Join-Path $targetDataDir "gamescript_best_5leg.json")
+
+# legacy risky = empty
+Write-EmptyJsonArray -jsonPath (Join-Path $targetDataDir "risky_recommended_3leg_latest.json")
+Write-EmptyJsonArray -jsonPath (Join-Path $targetDataDir "risky_recommended_4leg_latest.json")
+Write-EmptyJsonArray -jsonPath (Join-Path $targetDataDir "risky_recommended_5leg_latest.json")
+
 # --- 5) Write status_latest.json (freshness + file list) ---
+# --- freshness + file list ---
+
 $filesStatus = @()
 foreach ($e in $exports) {
   if (Test-Path $e.json) {
@@ -139,10 +228,14 @@ foreach ($e in $exports) {
 
 $statusObj = @{
   generated_at = (Get-Date).ToUniversalTime().ToString("s") + "Z"
-  latest_dir = $latestWindfall
   ok = $true
+  atlas_latest_all = $latestAll
+  atlas_latest_system = $latestSystem
+  atlas_latest_windfall = $latestWindfall
+  atlas_latest_ai = (if (Test-Path $latestAI) { $latestAI } else { $null })
+  atlas_latest_capper = (if (Test-Path $latestCapper) { $latestCapper } else { $null })
   files = $filesStatus
-  notes = "Generated by publish-atlas.ps1 from Atlas Windfall CSV outputs. Legacy risky JSONs are published as empty arrays."
+  notes = "Published 3 groups: Atlas System (recommended_*), Windfall (windfall_recommended_*), and GameScript (gamescript_best_*) combined from AI+Capper when available. Legacy risky JSONs are published as empty arrays."
 }
 
 $statusJsonPath = Join-Path $targetDataDir "status_latest.json"

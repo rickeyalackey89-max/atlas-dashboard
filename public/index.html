@@ -102,6 +102,11 @@
     .sectionTitle .hint{color:var(--muted);font-size:12px}
 
     .slip-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+
+    .sectionHeader{grid-column:span 12;padding:2px 2px 0;margin-top:6px}
+    .sectionHeaderTitle{font-weight:900;font-size:14px;letter-spacing:-.01em;color:#0b1220}
+    .sectionHeaderSub{font-size:12px;color:var(--muted);margin-top:2px}
+
     .slip{
       grid-column:span 12;
       padding:12px 12px 10px;
@@ -146,9 +151,12 @@
             <span class="pill"><span class="dot off" id="statusDot"></span><span id="statusText">—</span></span>
           </div>
           <div class="sub">
-            Recommended: <code class="mono">/data/recommended_3leg_latest.json</code>, <code class="mono">4leg</code>, <code class="mono">5leg</code>.
-            Risky: <code class="mono">/data/risky_recommended_*leg_latest.json</code>.
-            Capper: <code class="mono">/data/gamescript_best_4leg.json</code>, <code class="mono">/data/gamescript_best_5leg.json</code>.
+            Atlas System: <code class="mono">/data/recommended_3leg_latest.json</code>, <code class="mono">4leg</code>, <code class="mono">5leg</code>.
+            Windfall: <code class="mono">/data/windfall_recommended_*leg_latest.json</code>.
+            GameScript: <code class="mono">/data/gamescript_best_3leg.json</code>, <code class="mono">gamescript_best_4leg.json</code>, <code class="mono">gamescript_best_5leg.json</code>.
+          </div>
+        </div>
+json</code>, <code class="mono">/data/gamescript_best_5leg.json</code>.
           </div>
         </div>
 
@@ -349,31 +357,38 @@
     const grid = el("slipGrid");
     grid.innerHTML = "";
 
-    const rec3 = await topRowFrom("/data/recommended_3leg_latest.json");
-    const rec4 = await topRowFrom("/data/recommended_4leg_latest.json");
-    const rec5 = await topRowFrom("/data/recommended_5leg_latest.json");
+    const atlas3 = await topRowFrom("/data/recommended_3leg_latest.json");
+    const atlas4 = await topRowFrom("/data/recommended_4leg_latest.json");
+    const atlas5 = await topRowFrom("/data/recommended_5leg_latest.json");
 
-    const r3 = await topRowFrom("/data/risky_recommended_3leg_latest.json");
-    const r4 = await topRowFrom("/data/risky_recommended_4leg_latest.json");
-    const r5 = await topRowFrom("/data/risky_recommended_5leg_latest.json");
+    const wf3 = await topRowFrom("/data/windfall_recommended_3leg_latest.json");
+    const wf4 = await topRowFrom("/data/windfall_recommended_4leg_latest.json");
+    const wf5 = await topRowFrom("/data/windfall_recommended_5leg_latest.json");
 
-    const cap4 = await topRowFrom("/data/gamescript_best_4leg.json");
-    const cap5 = await topRowFrom("/data/gamescript_best_5leg.json");
+    const gs3 = await topRowFrom("/data/gamescript_best_3leg.json");
+    const gs4 = await topRowFrom("/data/gamescript_best_4leg.json");
+    const gs5 = await topRowFrom("/data/gamescript_best_5leg.json");
 
-    el("slipHint").textContent = "Loaded per-leg recommended + risky + capper picks (or marked missing).";
+    el("slipHint").textContent = "Loaded Atlas System + Windfall + GameScript picks (missing feeds are shown as unavailable).";
 
-    grid.appendChild(slipCard({title:"Best 4-Leg (Recommended) — Primary", href:"/data/recommended_4leg_latest.json", row:rec4.row, subtitle:rec4.subtitle, featured:true}));
-    grid.appendChild(slipCard({title:"Best 3-Leg (Recommended)", href:"/data/recommended_3leg_latest.json", row:rec3.row, subtitle:rec3.subtitle}));
-    grid.appendChild(slipCard({title:"Best 5-Leg (Recommended)", href:"/data/recommended_5leg_latest.json", row:rec5.row, subtitle:rec5.subtitle}));
+    // ---- Atlas System (base model) ----
+    grid.appendChild(sectionHeader("Atlas — System Picks", "Best picks from the base model (standard modifiers / light rules)."));
+    grid.appendChild(slipCard({title:"Best 4-Leg — Primary", href:"/data/recommended_4leg_latest.json", row:atlas4.row, subtitle:atlas4.subtitle, featured:true}));
+    grid.appendChild(slipCard({title:"Best 3-Leg", href:"/data/recommended_3leg_latest.json", row:atlas3.row, subtitle:atlas3.subtitle}));
+    grid.appendChild(slipCard({title:"Best 5-Leg", href:"/data/recommended_5leg_latest.json", row:atlas5.row, subtitle:atlas5.subtitle}));
 
-    grid.appendChild(slipCard({title:"Best 3-Leg (Risky)", href:"/data/risky_recommended_3leg_latest.json", row:r3.row, subtitle:r3.subtitle}));
-    grid.appendChild(slipCard({title:"Best 4-Leg (Risky)", href:"/data/risky_recommended_4leg_latest.json", row:r4.row, subtitle:r4.subtitle}));
-    grid.appendChild(slipCard({title:"Best 5-Leg (Risky)", href:"/data/risky_recommended_5leg_latest.json", row:r5.row, subtitle:r5.subtitle}));
+    // ---- Windfall (tier-mix) ----
+    grid.appendChild(sectionHeader("Windfall — Tier Mix Picks", "Optional higher-payout slips with Goblin/Standard/Demon composition rules."));
+    grid.appendChild(slipCard({title:"Best 4-Leg (Windfall)", href:"/data/windfall_recommended_4leg_latest.json", row:wf4.row, subtitle:wf4.subtitle}));
+    grid.appendChild(slipCard({title:"Best 3-Leg (Windfall)", href:"/data/windfall_recommended_3leg_latest.json", row:wf3.row, subtitle:wf3.subtitle}));
+    grid.appendChild(slipCard({title:"Best 5-Leg (Windfall)", href:"/data/windfall_recommended_5leg_latest.json", row:wf5.row, subtitle:wf5.subtitle}));
 
-    grid.appendChild(slipCard({title:"Best 4-Leg (Capper Picks)", href:"/data/gamescript_best_4leg.json", row:cap4.row, subtitle:cap4.subtitle}));
-    grid.appendChild(slipCard({title:"Best 5-Leg (Capper Picks)", href:"/data/gamescript_best_5leg.json", row:cap5.row, subtitle:cap5.subtitle}));
+    // ---- GameScript (external human+AI picks scored by Atlas math) ----
+    grid.appendChild(sectionHeader("GameScript — External Picks", "Human/AI suggested legs re-scored by Atlas math; no tier rules or skew—just best available combos."));
+    grid.appendChild(slipCard({title:"Best 4-Leg (GameScript)", href:"/data/gamescript_best_4leg.json", row:gs4.row, subtitle:gs4.subtitle}));
+    grid.appendChild(slipCard({title:"Best 3-Leg (GameScript)", href:"/data/gamescript_best_3leg.json", row:gs3.row, subtitle:gs3.subtitle}));
+    grid.appendChild(slipCard({title:"Best 5-Leg (GameScript)", href:"/data/gamescript_best_5leg.json", row:gs5.row, subtitle:gs5.subtitle}));
   }
-
   async function refresh(){
     el("fetchUrl").textContent = STATUS_URL + " (no-store)";
     const url = STATUS_URL + "?" + cacheBust();
