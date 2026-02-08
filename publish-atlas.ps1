@@ -232,8 +232,8 @@ $statusObj = @{
   atlas_latest_all = $latestAll
   atlas_latest_system = $latestSystem
   atlas_latest_windfall = $latestWindfall
-  atlas_latest_ai = (if (Test-Path $latestAI) { $latestAI } else { $null })
-  atlas_latest_capper = (if (Test-Path $latestCapper) { $latestCapper } else { $null })
+  atlas_latest_ai = $(if (Test-Path $latestAI) { $latestAI } else { $null })
+  atlas_latest_capper = $(if (Test-Path $latestCapper) { $latestCapper } else { $null })
   files = $filesStatus
   notes = "Published 3 groups: Atlas System (recommended_*), Windfall (windfall_recommended_*), and GameScript (gamescript_best_*) combined from AI+Capper when available. Legacy risky JSONs are published as empty arrays."
 }
