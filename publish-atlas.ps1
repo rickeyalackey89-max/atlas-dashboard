@@ -37,10 +37,10 @@ function Resolve-RepoRoot([string]$startDir) {
   return $null
 }
 
-function GitOut([string]$repoRoot, [string[]]$args) {
-  $out = & git -C $repoRoot @args 2>&1
+function GitOut([string]$repoRoot, [string[]]$gitArgs) {
+  $out = & git -C $repoRoot @gitArgs 2>&1
   if ($LASTEXITCODE -ne 0) {
-    $joined = ($args -join " ")
+    $joined = ($gitArgs -join " ")
     Fail ("git failed: git -C `"$repoRoot`" $joined`n$out")
   }
   return $out
