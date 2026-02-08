@@ -1,267 +1,300 @@
-# publish-atlas.ps1
-# Pull-first, export CSV->JSON into Dashboard, validate, commit, push.
-# Usage:
-#   powershell -ExecutionPolicy Bypass -File .\publish-atlas.ps1 "C:\Users\rick\projects\Atlas"
+<#
+publish-atlas.ps1 (PowerShell 5.1)
 
-Set-StrictMode -Version Latest
-$ErrorActionPreference = 'Stop'
+Usage:
+  powershell -ExecutionPolicy Bypass -File .\publish-atlas.ps1 "..\Atlas"
 
-function Fail([string]$msg) { Write-Host "ERROR: $msg" -ForegroundColor Red; exit 1 }
-function Info([string]$msg) { Write-Host $msg -ForegroundColor Cyan }
-function Ok([string]$msg) { Write-Host $msg -ForegroundColor Green }
+Contract:
+  1) Atlas System  -> public/data/recommended_{3,4,5}leg_latest.json
+  2) Windfall      -> public/data/windfall_recommended_{3,4,5}leg_latest.json
+  3) GameScript    -> public/data/gamescript_best_{3,4,5}leg.json (AI + Capper combined)
+  Legacy risky JSONs written as empty arrays for compatibility.
 
-$AtlasPath = $args[0]
-if (-not $AtlasPath) {
-  Fail 'Usage: powershell -ExecutionPolicy Bypass -File .\publish-atlas.ps1 "C:\Path\To\Atlas"'
-}
+Git hygiene:
+  - Only auto-cleans public/data
+  - If anything else is dirty, script stops.
+#>
 
-$DashboardDataPath = "public\data"
-
-# --- 0) Ensure we're in AtlasDashboard repo ---
-$gitTop = (git rev-parse --show-toplevel 2>$null)
-if (-not $gitTop) { Fail "Not inside a git repo. cd into AtlasDashboard first." }
-Set-Location $gitTop
-Info "Repo root: $gitTop"
-
-if (-not (Test-Path (Join-Path $gitTop "public"))) { Fail "Missing public/ at repo root." }
-$targetDataDir = Join-Path $gitTop $DashboardDataPath
-if (-not (Test-Path $targetDataDir)) { Fail "Dashboard data dir not found: $targetDataDir" }
-
-# Guard: no merge/rebase
-$gitDir = (git rev-parse --git-dir)
-if ((Test-Path (Join-Path $gitDir "rebase-merge")) -or (Test-Path (Join-Path $gitDir "rebase-apply")) -or (Test-Path (Join-Path $gitDir "MERGE_HEAD"))) {
-  Fail "Git merge/rebase in progress. Finish it before publishing."
-}
-
-# Guard: generated data should never block publishing.
-# If ONLY dashboard data files are dirty, auto-revert them to restore a clean tree.
-$status = (git status --porcelain)
-if ($status) {
-  $lines = @($status -split "`n") | Where-Object { $_ -and $_.Trim().Length -gt 0 }
-  $onlyDashboardData = $true
-  foreach ($l in $lines) {
-    # porcelain format: "XY path" (path starts at index 3)
-    $p = $l.Substring(3).Trim()
-    if (-not ($p -like "public/data/*")) {
-      $onlyDashboardData = $false
-      break
-    }
-  }
-  if ($onlyDashboardData) {
-    Info "Working tree has local changes only under public/data/. Reverting generated artifacts..."
-    git restore --worktree --staged $DashboardDataPath 2>$null
-    $status = (git status --porcelain)
-  }
-}
-
-# Guard: clean before pull
-if ($status) { Fail "Working tree not clean BEFORE pull.`n$status" }
-
-# --- 1) Pull first ---
-Info "Pulling latest from origin/main (rebase)..."
-git pull --rebase
-
-$status = (git status --porcelain)
-if ($status) { Fail "Working tree not clean AFTER pull.`n$status" }
-
-# --- 2) Source directories in Atlas ---
-$atlasRoot = (Resolve-Path $AtlasPath).Path
-$latestAll = Join-Path $atlasRoot "data\output\latest\all"
-$latestWindfall = Join-Path $latestAll "Windfall"
-$latestSystem   = Join-Path $latestAll "System"
-$latestAI       = Join-Path $latestAll "AI"
-$latestCapper   = Join-Path $latestAll "Capper"
-$latestRisky    = Join-Path $latestAll "risky"   # legacy (may not exist)
-
-if (-not (Test-Path $latestAll)) { Fail "Atlas latest/all not found: $latestAll" }
-if (-not (Test-Path $latestSystem)) { Fail "Atlas latest/all/System not found: $latestSystem" }
-if (-not (Test-Path $latestWindfall)) { Fail "Atlas latest/all/Windfall not found: $latestWindfall" }
-
-Info "Atlas latest/all:          $latestAll"
-Info "Atlas latest/all/System:   $latestSystem"
-Info "Atlas latest/all/Windfall: $latestWindfall"
-
-if (Test-Path $latestAI) {
-  Info "Atlas latest/all/AI:       $latestAI"
-} else {
-  Info "Atlas latest/all/AI:       (missing)"
-}
-if (Test-Path $latestCapper) {
-  Info "Atlas latest/all/Capper:   $latestCapper"
-} else {
-  Info "Atlas latest/all/Capper:   (missing)"
-}
-
-if (Test-Path $latestRisky) {
-  Info "Atlas latest/all/risky (legacy): $latestRisky"
-} else {
-  Info "Atlas latest/all/risky (legacy): (missing)"
-}
-Info "Dashboard target data:     $targetDataDir"
-
-
-# --- 3) Helper: CSV -> JSON array of rows ---
-function Export-CsvToJson([string]$csvPath, [string]$jsonPath) {
-  if (-not (Test-Path $csvPath)) { Fail "Missing CSV: $csvPath" }
-  $rows = Import-Csv -Path $csvPath
-  $json = $rows | ConvertTo-Json -Depth 10
-  Set-Content -Path $jsonPath -Value $json -Encoding UTF8
-}
-
-function Write-EmptyJsonArray([string]$jsonPath) {
-  Set-Content -Path $jsonPath -Value "[]" -Encoding UTF8
-}
-
-# --- 4) Export recommendations (3 groups) ---
-#   1) Atlas (System): base model picks (standard modifiers / light rules)
-#   2) Windfall: tier-mix rules (G/S/D) for higher payout optional bets
-#   3) GameScript: external human+AI picks scored by Atlas math, no tier skew
-#
-# We keep legacy risky JSON outputs as empty arrays for backwards compatibility.
-
-function Export-CsvToJsonIfExists([string]$csvPath, [string]$jsonPath) {
-  if (-not (Test-Path $csvPath)) { Write-EmptyJsonArray -jsonPath $jsonPath; return }
-  Export-CsvToJson -csvPath $csvPath -jsonPath $jsonPath
-}
-
-function Export-CombinedExternalToJson([string[]]$csvPaths, [string]$jsonPath) {
-  $all = @()
-  foreach ($p in $csvPaths) {
-    if (Test-Path $p) {
-      $rows = Import-Csv -Path $p
-      foreach ($r in $rows) {
-        # annotate provenance
-        $r | Add-Member -NotePropertyName "_source_csv" -NotePropertyValue (Split-Path $p -Leaf) -Force
-        $all += $r
-      }
-    }
-  }
-
-  if (-not $all -or $all.Count -eq 0) {
-    Write-EmptyJsonArray -jsonPath $jsonPath
-    return
-  }
-
-  # sort best-first: hit_prob desc, then ev_mult desc (numeric-safe)
-  $sorted =
-    $all | Sort-Object `
-      @{ Expression = { try { [double]$_.hit_prob } catch { -1 } }; Descending = $true }, `
-      @{ Expression = { try { [double]$_.ev_mult }  catch { -1 } }; Descending = $true }
-
-  ($sorted | ConvertTo-Json -Depth 10) | Set-Content -Path $jsonPath -Encoding UTF8
-}
-
-$exports = @(
-  # Atlas System (base)
-  @{ csv = (Join-Path $latestSystem "recommended_3leg.csv");  json = (Join-Path $targetDataDir "recommended_3leg_latest.json"); required = $true;  group = "atlas_system" }
-  @{ csv = (Join-Path $latestSystem "recommended_4leg.csv");  json = (Join-Path $targetDataDir "recommended_4leg_latest.json"); required = $true;  group = "atlas_system" }
-  @{ csv = (Join-Path $latestSystem "recommended_5leg.csv");  json = (Join-Path $targetDataDir "recommended_5leg_latest.json"); required = $true;  group = "atlas_system" }
-
-  # Windfall (tier-mix)
-  @{ csv = (Join-Path $latestWindfall "recommended_3leg.csv"); json = (Join-Path $targetDataDir "windfall_recommended_3leg_latest.json"); required = $true; group = "windfall" }
-  @{ csv = (Join-Path $latestWindfall "recommended_4leg.csv"); json = (Join-Path $targetDataDir "windfall_recommended_4leg_latest.json"); required = $true; group = "windfall" }
-  @{ csv = (Join-Path $latestWindfall "recommended_5leg.csv"); json = (Join-Path $targetDataDir "windfall_recommended_5leg_latest.json"); required = $true; group = "windfall" }
-
-  # GameScript (external picks scored by Atlas math) — combined AI + Capper if present
-  @{ csv = ""; json = (Join-Path $targetDataDir "gamescript_best_3leg.json"); required = $false; group = "gamescript" }
-  @{ csv = ""; json = (Join-Path $targetDataDir "gamescript_best_4leg.json"); required = $false; group = "gamescript" }
-  @{ csv = ""; json = (Join-Path $targetDataDir "gamescript_best_5leg.json"); required = $false; group = "gamescript" }
-
-  # Legacy risky outputs: publish empty arrays.
-  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_3leg_latest.json"); required = $false; group = "legacy_risky" }
-  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_4leg_latest.json"); required = $false; group = "legacy_risky" }
-  @{ csv = ""; json = (Join-Path $targetDataDir "risky_recommended_5leg_latest.json"); required = $false; group = "legacy_risky" }
+param(
+  [Parameter(Mandatory=$true, Position=0)]
+  [string]$AtlasRoot
 )
 
-Info ("Exporting {0} outputs -> JSON..." -f $exports.Count)
+Set-StrictMode -Version 2
+$ErrorActionPreference = "Stop"
 
-# export atlas + windfall
-foreach ($e in $exports) {
-  if ($e.group -eq "atlas_system" -or $e.group -eq "windfall") {
-    Export-CsvToJsonIfExists -csvPath $e.csv -jsonPath $e.json
+function Write-Info([string]$m) { Write-Host $m }
+function Fail([string]$m) { Write-Host ("ERROR: " + $m) -ForegroundColor Red; exit 1 }
+
+function Resolve-RepoRoot([string]$startDir) {
+  $d = (Resolve-Path $startDir).Path
+  while ($true) {
+    if (Test-Path (Join-Path $d ".git")) { return $d }
+    $parent = Split-Path $d -Parent
+    if ($parent -eq $d) { break }
+    $d = $parent
+  }
+  return $null
+}
+
+function GitOut([string]$repoRoot, [string[]]$args) {
+  $out = & git -C $repoRoot @args 2>&1
+  if ($LASTEXITCODE -ne 0) {
+    $joined = ($args -join " ")
+    Fail ("git failed: git -C `"$repoRoot`" $joined`n$out")
+  }
+  return $out
+}
+
+function Get-GitPorcelain([string]$repoRoot) {
+  $out = & git -C $repoRoot status --porcelain 2>$null
+  if ($LASTEXITCODE -ne 0) { Fail "git status --porcelain failed. Is git installed and is this a repo?" }
+  return $out
+}
+
+function Is-OnlyPublicDataDirty([string[]]$lines) {
+  if (-not $lines -or $lines.Count -eq 0) { return $true }
+  foreach ($l in $lines) {
+    $path = $l.Substring(3).Trim()
+    if (-not ($path -like "public/data/*")) { return $false }
+  }
+  return $true
+}
+
+function Clean-PublicData([string]$repoRoot) {
+  $pd = Join-Path $repoRoot "public\data"
+  if (-not (Test-Path $pd)) { New-Item -ItemType Directory -Path $pd | Out-Null }
+
+  # revert tracked changes + remove untracked under public/data
+  & git -C $repoRoot restore --worktree --staged -- "public/data" 2>$null | Out-Null
+  & git -C $repoRoot clean -fd -- "public/data" 2>$null | Out-Null
+}
+
+function Read-CsvIfExists([string]$p) {
+  if (-not (Test-Path $p)) { return $null }
+  try { return Import-Csv -Path $p } catch { Fail ("Failed to read CSV: " + $p + " :: " + $_.Exception.Message) }
+}
+
+function Sort-ObjectsBestFirst($rows) {
+  if (-not $rows) { return @() }
+  $cands = @("ev","slip_ev","score","p_combo","p_adj","p_hit","hit_prob","prob","p")
+  $cols = @{}
+  foreach ($pr in $rows[0].PSObject.Properties) { $cols[$pr.Name.ToLower()] = $pr.Name }
+  foreach ($k in $cands) {
+    if ($cols.ContainsKey($k)) {
+      $col = $cols[$k]
+      return $rows | Sort-Object @{Expression = { [double]($_.$col) }; Descending = $true}
+    }
+  }
+  return $rows
+}
+
+function Write-JsonFile([string]$path, $obj) {
+  $dir = Split-Path $path -Parent
+  if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir | Out-Null }
+  $json = $obj | ConvertTo-Json -Depth 20
+  [System.IO.File]::WriteAllText($path, $json)
+}
+
+function Validate-JsonFile([string]$path) {
+  if (-not (Test-Path $path)) { Fail ("Missing JSON after write: " + $path) }
+  try {
+    $txt = Get-Content -Raw -Path $path
+    $null = $txt | ConvertFrom-Json
+  } catch {
+    Fail ("JSON validation failed for " + $path + " :: " + $_.Exception.Message)
   }
 }
 
-# export gamescript combined
-Export-CombinedExternalToJson -csvPaths @(
-  (Join-Path $latestAI "recommended_3leg.csv"),
-  (Join-Path $latestCapper "recommended_3leg.csv")
-) -jsonPath (Join-Path $targetDataDir "gamescript_best_3leg.json")
+# -----------------------------
+# Start
+# -----------------------------
 
-Export-CombinedExternalToJson -csvPaths @(
-  (Join-Path $latestAI "recommended_4leg.csv"),
-  (Join-Path $latestCapper "recommended_4leg.csv")
-) -jsonPath (Join-Path $targetDataDir "gamescript_best_4leg.json")
+$repoRoot = Resolve-RepoRoot (Get-Location).Path
+if (-not $repoRoot) { Fail "Could not locate repo root (.git) from current directory." }
+Write-Info ("Repo root: " + $repoRoot)
 
-Export-CombinedExternalToJson -csvPaths @(
-  (Join-Path $latestAI "recommended_5leg.csv"),
-  (Join-Path $latestCapper "recommended_5leg.csv")
-) -jsonPath (Join-Path $targetDataDir "gamescript_best_5leg.json")
+try { $atlasAbs = (Resolve-Path $AtlasRoot).Path } catch { Fail ("Atlas root path not found: " + $AtlasRoot) }
 
-# legacy risky = empty
-Write-EmptyJsonArray -jsonPath (Join-Path $targetDataDir "risky_recommended_3leg_latest.json")
-Write-EmptyJsonArray -jsonPath (Join-Path $targetDataDir "risky_recommended_4leg_latest.json")
-Write-EmptyJsonArray -jsonPath (Join-Path $targetDataDir "risky_recommended_5leg_latest.json")
-
-# --- 5) Write status_latest.json (freshness + file list) ---
-# --- freshness + file list ---
-
-$filesStatus = @()
-foreach ($e in $exports) {
-  if (Test-Path $e.json) {
-    $j = Get-Item -Path $e.json
-    $filesStatus += @{
-      name = (Split-Path $e.json -Leaf)
-      exists = $true
-      bytes = $j.Length
-      last_modified = $j.LastWriteTime.ToString("s")
-    }
-  } else {
-    $filesStatus += @{
-      name = (Split-Path $e.json -Leaf)
-      exists = $false
-      bytes = 0
-      last_modified = $null
-    }
+# Cleanliness gate (auto-fix ONLY public/data)
+$porc = Get-GitPorcelain $repoRoot
+if (-not (Is-OnlyPublicDataDirty $porc)) {
+  Write-Info "ERROR: Working tree not clean BEFORE pull."
+  $porc | ForEach-Object { Write-Info $_ }
+  Fail "Commit/stash local changes outside public/data."
+}
+if ($porc -and $porc.Count -gt 0) {
+  Write-Info "Working tree has local changes only under public/data. Reverting generated artifacts..."
+  Clean-PublicData $repoRoot
+  $porc2 = Get-GitPorcelain $repoRoot
+  if ($porc2 -and $porc2.Count -gt 0) {
+    Write-Info "ERROR: Working tree not clean BEFORE pull."
+    $porc2 | ForEach-Object { Write-Info $_ }
+    Fail "Unable to clean public/data automatically."
   }
 }
 
+Write-Info "Pulling latest from origin/main (rebase)..."
+GitOut $repoRoot @("pull","--rebase") | Out-Null
+
+# Atlas paths
+$latestAll     = Join-Path $atlasAbs "data\output\latest\all"
+$latestSystem  = Join-Path $latestAll "System"
+$latestWindfall= Join-Path $latestAll "Windfall"
+$latestAI      = Join-Path $latestAll "AI"
+$latestCapper  = Join-Path $latestAll "Capper"
+$latestRisky   = Join-Path $latestAll "risky"
+
+Write-Info ("Atlas latest/all:          " + $latestAll)
+Write-Info ("Atlas latest/all/System:   " + $latestSystem)
+Write-Info ("Atlas latest/all/Windfall: " + $latestWindfall)
+Write-Info ("Atlas latest/all/AI:       " + $latestAI)
+Write-Info ("Atlas latest/all/Capper:   " + $latestCapper)
+if (Test-Path $latestRisky) { Write-Info ("Atlas latest/all/risky (legacy): " + $latestRisky) } else { Write-Info "Atlas latest/all/risky (legacy): (missing)" }
+
+if (-not (Test-Path $latestAll)) { Fail ("Atlas latest/all not found: " + $latestAll + " (Run Atlas first.)") }
+
+$dashData = Join-Path $repoRoot "public\data"
+if (-not (Test-Path $dashData)) { New-Item -ItemType Directory -Path $dashData | Out-Null }
+Write-Info ("Dashboard target data:     " + $dashData)
+
+# Sources
+$sys3 = Join-Path $latestSystem   "recommended_3leg.csv"
+$sys4 = Join-Path $latestSystem   "recommended_4leg.csv"
+$sys5 = Join-Path $latestSystem   "recommended_5leg.csv"
+
+$wf3  = Join-Path $latestWindfall "recommended_3leg.csv"
+$wf4  = Join-Path $latestWindfall "recommended_4leg.csv"
+$wf5  = Join-Path $latestWindfall "recommended_5leg.csv"
+
+$ai3  = Join-Path $latestAI       "recommended_3leg.csv"
+$ai4  = Join-Path $latestAI       "recommended_4leg.csv"
+$ai5  = Join-Path $latestAI       "recommended_5leg.csv"
+
+$cap3 = Join-Path $latestCapper   "recommended_3leg.csv"
+$cap4 = Join-Path $latestCapper   "recommended_4leg.csv"
+$cap5 = Join-Path $latestCapper   "recommended_5leg.csv"
+
+# Outputs
+$out_sys3 = Join-Path $dashData "recommended_3leg_latest.json"
+$out_sys4 = Join-Path $dashData "recommended_4leg_latest.json"
+$out_sys5 = Join-Path $dashData "recommended_5leg_latest.json"
+
+$out_wf3  = Join-Path $dashData "windfall_recommended_3leg_latest.json"
+$out_wf4  = Join-Path $dashData "windfall_recommended_4leg_latest.json"
+$out_wf5  = Join-Path $dashData "windfall_recommended_5leg_latest.json"
+
+$out_gs3  = Join-Path $dashData "gamescript_best_3leg.json"
+$out_gs4  = Join-Path $dashData "gamescript_best_4leg.json"
+$out_gs5  = Join-Path $dashData "gamescript_best_5leg.json"
+
+$out_r3   = Join-Path $dashData "risky_recommended_3leg_latest.json"
+$out_r4   = Join-Path $dashData "risky_recommended_4leg_latest.json"
+$out_r5   = Join-Path $dashData "risky_recommended_5leg_latest.json"
+
+$out_status = Join-Path $dashData "status_latest.json"
+$out_inval  = Join-Path $dashData "invalidations_latest.json"
+
+Write-Info "Exporting 12 outputs -> JSON..."
+
+# System
+$rowsSys3 = Read-CsvIfExists $sys3
+$rowsSys4 = Read-CsvIfExists $sys4
+$rowsSys5 = Read-CsvIfExists $sys5
+if (-not $rowsSys3 -and -not $rowsSys4 -and -not $rowsSys5) {
+  Fail ("System picks missing. Expected at least one of: " + $sys3 + " / " + $sys4 + " / " + $sys5)
+}
+Write-JsonFile $out_sys3 (@($rowsSys3))
+Write-JsonFile $out_sys4 (@($rowsSys4))
+Write-JsonFile $out_sys5 (@($rowsSys5))
+
+# Windfall (ok if empty)
+$rowsWf3 = Read-CsvIfExists $wf3
+$rowsWf4 = Read-CsvIfExists $wf4
+$rowsWf5 = Read-CsvIfExists $wf5
+Write-JsonFile $out_wf3 (@($rowsWf3))
+Write-JsonFile $out_wf4 (@($rowsWf4))
+Write-JsonFile $out_wf5 (@($rowsWf5))
+
+# GameScript (AI + Capper combined)
+function Combine-GameScript([string]$aiCsv, [string]$capCsv) {
+  $a = Read-CsvIfExists $aiCsv
+  $c = Read-CsvIfExists $capCsv
+  $all = @()
+  if ($a) { $all += $a }
+  if ($c) { $all += $c }
+  if (-not $all -or $all.Count -eq 0) { return @() }
+  $sorted = Sort-ObjectsBestFirst $all
+  $topN = 50
+  if ($sorted.Count -gt $topN) { return @($sorted[0..($topN-1)]) }
+  return @($sorted)
+}
+
+$gs3 = Combine-GameScript $ai3 $cap3
+$gs4 = Combine-GameScript $ai4 $cap4
+$gs5 = Combine-GameScript $ai5 $cap5
+Write-JsonFile $out_gs3 $gs3
+Write-JsonFile $out_gs4 $gs4
+Write-JsonFile $out_gs5 $gs5
+
+# Legacy risky (empty)
+Write-JsonFile $out_r3 @()
+Write-JsonFile $out_r4 @()
+Write-JsonFile $out_r5 @()
+
+# Minimal status + invalidations (always present)
+$nowIso = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
 $statusObj = @{
-  generated_at = (Get-Date).ToUniversalTime().ToString("s") + "Z"
-  ok = $true
-  atlas_latest_all = $latestAll
-  atlas_latest_system = $latestSystem
-  atlas_latest_windfall = $latestWindfall
-  atlas_latest_ai = $(if (Test-Path $latestAI) { $latestAI } else { $null })
-  atlas_latest_capper = $(if (Test-Path $latestCapper) { $latestCapper } else { $null })
-  files = $filesStatus
-  notes = "Published 3 groups: Atlas System (recommended_*), Windfall (windfall_recommended_*), and GameScript (gamescript_best_*) combined from AI+Capper when available. Legacy risky JSONs are published as empty arrays."
+  generated_at = $nowIso
+  atlas_root   = $atlasAbs
+  sources = @{
+    latest_all = $latestAll
+    system     = $latestSystem
+    windfall   = $latestWindfall
+    ai         = $latestAI
+    capper     = $latestCapper
+  }
+  counts = @{
+    system_3     = $(if ($rowsSys3) { $rowsSys3.Count } else { 0 })
+    system_4     = $(if ($rowsSys4) { $rowsSys4.Count } else { 0 })
+    system_5     = $(if ($rowsSys5) { $rowsSys5.Count } else { 0 })
+    windfall_3   = $(if ($rowsWf3)  { $rowsWf3.Count  } else { 0 })
+    windfall_4   = $(if ($rowsWf4)  { $rowsWf4.Count  } else { 0 })
+    windfall_5   = $(if ($rowsWf5)  { $rowsWf5.Count  } else { 0 })
+    gamescript_3 = $(if ($gs3)      { $gs3.Count      } else { 0 })
+    gamescript_4 = $(if ($gs4)      { $gs4.Count      } else { 0 })
+    gamescript_5 = $(if ($gs5)      { $gs5.Count      } else { 0 })
+  }
+  legacy = @{ risky_jsons = "empty arrays (deprecated)" }
+}
+Write-JsonFile $out_status $statusObj
+Write-JsonFile $out_inval @()
+
+# Validate
+Write-Info "Validating JSON integrity..."
+$toValidate = @(
+  $out_sys3,$out_sys4,$out_sys5,
+  $out_wf3,$out_wf4,$out_wf5,
+  $out_gs3,$out_gs4,$out_gs5,
+  $out_r3,$out_r4,$out_r5,
+  $out_status,$out_inval
+)
+foreach ($p in $toValidate) { Validate-JsonFile $p }
+Write-Info "JSON validation passed."
+
+# Commit + push public/data only
+GitOut $repoRoot @("add","-A","public/data") | Out-Null
+$porcAfter = Get-GitPorcelain $repoRoot
+if (-not $porcAfter -or $porcAfter.Count -eq 0) {
+  Write-Info "No changes to publish (public/data unchanged). Publish complete (noop)."
+  exit 0
 }
 
-$statusJsonPath = Join-Path $targetDataDir "status_latest.json"
-($statusObj | ConvertTo-Json -Depth 10) | Set-Content -Path $statusJsonPath -Encoding UTF8
+$ts = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+Write-Info ("Committing: Publish Atlas data (" + $ts + ")")
+GitOut $repoRoot @("commit","-m",("Publish Atlas data (" + $ts + ")")) | Out-Null
 
-# --- 6) Validate JSON (parse + conflict markers) ---
-Info "Validating JSON integrity..."
-$toValidate = @($exports.json + $statusJsonPath)
-foreach ($p in $toValidate) {
-  $raw = Get-Content -Path $p -Raw
-  if ($raw -match '<<<<<<<|=======|>>>>>>>' ) { Fail "Merge conflict markers found: $p" }
-  try { $null = $raw | ConvertFrom-Json } catch { Fail "Invalid JSON: $p`n$($_.Exception.Message)" }
-}
-Ok "JSON validation passed."
+Write-Info "Pushing..."
+GitOut $repoRoot @("push") | Out-Null
 
-# --- 7) Commit + push if changes exist ---
-git add $DashboardDataPath
-$changes = (git diff --cached --name-only)
-if (-not $changes) { Ok "No changes to publish. Exiting cleanly."; exit 0 }
-
-$ts = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-$msg = "Publish Atlas data ($ts)"
-Info "Committing: $msg"
-git commit -m $msg
-
-Info "Pushing..."
-git push
-
-Ok "Publish complete. Cloudflare Pages will auto-deploy this commit."
+Write-Info "Publish complete. Cloudflare Pages will auto-deploy this commit."
