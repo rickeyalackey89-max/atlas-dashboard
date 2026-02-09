@@ -288,25 +288,19 @@ if ($recLatest.system -ne $null) {
   Write-Json @() (Join-Path $DataDir 'recommended_system_latest.json')
 }
 
-# WINDFALL (prefer grouped JSON; else CSV fallback)
+# WINDFALL: build unified list from CSVs (3/4/5) and enrich legs_detail
 $wfOut = @()
 
-if ($recLatest.windfall -ne $null) {
-  foreach ($slip in @($recLatest.windfall)) {
-    $legsStr = $null
-    if ($slip -ne $null -and ($slip.PSObject.Properties.Name -contains 'legs')) { $legsStr = [string]$slip.legs }
-    if ([string]::IsNullOrWhiteSpace($legsStr) -and $slip -ne $null -and ($slip.PSObject.Properties.Name -contains 'slip_key')) { $legsStr = [string]$slip.slip_key }
-    $slip.legs_detail = (Enrich-LegsDetail $legsStr $byId $byKey)
-    $wfOut += $slip
-  }
-} else {
-  $wfCsv = Join-Path $AtlasWindfall 'recommended_5leg.csv'
-  if (-not (Test-Path -LiteralPath $wfCsv)) { $wfCsv = Join-Path $AtlasWindfall 'recommended_4leg.csv' }
-  if (-not (Test-Path -LiteralPath $wfCsv)) { $wfCsv = Join-Path $AtlasWindfall 'recommended_3leg.csv' }
-  $wfOut = CsvToSlipList $wfCsv 'Windfall' $byId $byKey
-}
+$wf3 = CsvToSlipList (Join-Path $AtlasWindfall 'recommended_3leg.csv') 'Windfall-3' $byId $byKey
+$wf4 = CsvToSlipList (Join-Path $AtlasWindfall 'recommended_4leg.csv') 'Windfall-4' $byId $byKey
+$wf5 = CsvToSlipList (Join-Path $AtlasWindfall 'recommended_5leg.csv') 'Windfall-5' $byId $byKey
+
+if ($wf3 -and $wf3.Count -gt 0) { $wfOut += $wf3 }
+if ($wf4 -and $wf4.Count -gt 0) { $wfOut += $wf4 }
+if ($wf5 -and $wf5.Count -gt 0) { $wfOut += $wf5 }
 
 Write-Json $wfOut (Join-Path $DataDir 'recommended_windfall_latest.json')
+Info "Windfall unified: rows=$($wfOut.Count)"
 
 # GAMESCRIPT (prefer grouped JSON; else External drop-in; else empty)
 $gsOut = @()
