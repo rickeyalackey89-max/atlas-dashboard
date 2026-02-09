@@ -1,25 +1,18 @@
 {
-    "generated_at":  "2026-02-09 12:17:28",
-    "sources":  {
-                    "ai":  "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\AI",
-                    "capper":  "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Capper",
-                    "windfall":  "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Windfall",
-                    "system":  "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\System",
-                    "latest_all":  "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all"
-                },
-    "counts":  {
-                   "windfall_4":  19,
-                   "system_5":  23,
-                   "system_4":  24,
-                   "gamescript_5":  0,
-                   "system_3":  22,
-                   "gamescript_3":  0,
-                   "windfall_3":  21,
-                   "windfall_5":  21,
-                   "gamescript_4":  0
-               },
-    "legacy":  {
-                   "risky_jsons":  "empty arrays (deprecated)"
-               },
-    "atlas_root":  "C:\\Users\\rick\\projects\\Atlas"
+  "generated_at": "2026-02-09T14:10:18",
+  "ok": true,
+  "latest_all_dir": "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all",
+  "windfall_dir": "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Windfall",
+  "required_files": [
+    "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Windfall\\recommended_3leg.csv",
+    "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Windfall\\recommended_4leg.csv",
+    "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Windfall\\recommended_5leg.csv"
+  ],
+  "missing_files": [],
+  "notes": "Windfall-first status. System outputs are optional. If ok=false, check that filter_recommendations_live published Windfall files into latest/all/Windfall.",
+  "post_iael": true,
+  "post_line_recon": false,
+  "report_datetime_local": "2026-02-09 03:00PM",
+  "pulled_at_local": "2026-02-09T14:09:40-06:00",
+  "source": "NBA injury report PDF (latest-of-day via season page scrape)"
 }
