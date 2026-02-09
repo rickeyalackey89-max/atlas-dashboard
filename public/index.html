@@ -119,7 +119,8 @@
     .slip.featured{
       grid-column:span 12;
       background:#fff;
-      box-shadow:0 14px 28px rgba(2,6,23,.08);
+      border:1px solid rgba(59,130,246,.25);
+      box-shadow:0 16px 34px rgba(2,6,23,.10);
     }
     .slip-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
     .slip-title{font-weight:850}
@@ -139,6 +140,22 @@
 
     details{border-top:1px dashed rgba(148,163,184,.6);padding-top:12px;margin-top:12px}
     summary{cursor:pointer;color:var(--muted);font-size:13px}
+
+    .legsWrap{margin-top:10px;overflow-x:auto}
+    table.legs-table{width:100%;border-collapse:separate;border-spacing:0}
+    .legs-table th,.legs-table td{padding:8px 10px;border-bottom:1px solid rgba(229,231,235,.85);font-size:12px;white-space:nowrap}
+    .legs-table th{position:sticky;top:0;background:#fff;color:#0b1220;font-weight:800;text-transform:uppercase;letter-spacing:.02em;font-size:11px}
+    .legs-table tr:last-child td{border-bottom:none}
+    .legs-table td.mono{font-family:var(--mono);font-size:12px}
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:#fff;font-size:11px}
+    .badge .b{font-weight:800}
+    .last5{font-family:var(--mono)}
+    @media(max-width:520px){
+      h1{font-size:22px}
+      .slip{padding:12px 12px}
+      .chip{font-size:11px}
+      .legs-table th,.legs-table td{padding:7px 8px}
+    }
   </style>
 </head>
 <body>
@@ -233,6 +250,13 @@ function sectionHeader(title, subtitle = "") {
   const el = (id) => document.getElementById(id);
   const state = { raw: null, parsed: null, timer: null };
 
+  function htmlToNode(html){
+    const template = document.createElement('template');
+    template.innerHTML = String(html).trim();
+    return template.content.firstChild;
+  }
+
+
   function formatLocal(dtStr){
     if(!dtStr) return "—";
     const d = new Date(dtStr);
@@ -268,6 +292,149 @@ function sectionHeader(title, subtitle = "") {
     const n = safeNum(x);
     if(n == null) return "—";
     return n.toFixed(digits);
+  }
+
+
+  function escHtml(s){
+    return String(s)
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'",'&#39;');
+  }
+
+  function normalizeDir(x){
+    const s = String(x||"").trim().toUpperCase();
+    if(!s) return "—";
+    if(s === "MORE") return "O";
+    if(s === "LESS") return "U";
+    if(s === "OVER") return "O";
+    if(s === "UNDER") return "U";
+    return s;
+  }
+
+  function normalizeTier(x){
+    const s = String(x||"").trim().toUpperCase();
+    return s || "—";
+  }
+
+  function renderLast5(val){
+    if(val === null || val === undefined) return "—";
+    if(typeof val === "number") return `${val}/5`;
+    if(typeof val === "string"){
+      const t = val.trim();
+      // common encodings: "3/5", "3", "WWLWL"
+      if(/^\d\s*\/\s*5$/.test(t)) return t.replace(/\s+/g,"");
+      if(/^\d$/.test(t)) return `${t}/5`;
+      return t;
+    }
+    if(typeof val === "object"){
+      if(val.hits !== undefined) return `${val.hits}/5`;
+      if(val.last5_hits !== undefined) return `${val.last5_hits}/5`;
+      if(val.hit_count !== undefined) return `${val.hit_count}/5`;
+      if(val.covered_last5 !== undefined) return val.covered_last5 ? "✓" : "—";
+    }
+    return "—";
+  }
+
+  function extractLegRows(row){
+    if(!row) return [];
+
+    // 1) Prefer explicit leg arrays if present
+    const candidates = [
+      row.legs_detail, row.legs_details, row.legs_rows, row.leg_rows, row.legs_meta, row.legs_json, row.legs_parsed
+    ].filter(Boolean);
+
+    for(const c of candidates){
+      try{
+        const arr = Array.isArray(c) ? c : (typeof c === "string" ? JSON.parse(c) : null);
+        if(Array.isArray(arr) && arr.length){
+          return arr.map((x) => ({
+            player: x.player || x.name || x.display_name || "—",
+            stat: x.stat || x.market || x.prop || "—",
+            dir: normalizeDir(x.direction || x.dir || x.side),
+            line: (x.line ?? x.value ?? x.pp_line ?? x.prizepicks_line ?? "—"),
+            tier: normalizeTier(x.tier || x.pp_tier || x.price_tier),
+            last5: renderLast5(x.last5_hits ?? x.last5 ?? x.last5_hit_count ?? x.last5_hit_rate ?? x.last5_pattern ?? x.last5_results ?? x.last_5)
+          }));
+        }
+      }catch(e){}
+    }
+
+    // 2) Fall back: parse the legs string (pipe delimited)
+    const legsStr = row.legs ? String(row.legs) : "";
+    if(!legsStr) return [];
+    const parts = legsStr.split(/\s*\|\s*/).map(s=>s.trim()).filter(Boolean);
+    return parts.map((s) => {
+      // Heuristic patterns we’ve seen: "Player STAT O 12.5 (TIER)" or "Player - STAT - O/U - 12.5 - TIER"
+      let player="—", stat="—", dir="—", line="—", tier="—";
+      // Tier in parens
+      const mTier = s.match(/\((STANDARD|GOBLIN|DEMON)\)/i);
+      if(mTier) tier = normalizeTier(mTier[1]);
+      // Direction O/U or MORE/LESS
+      const mDir = s.match(/\b(OVER|UNDER|MORE|LESS|O|U)\b/i);
+      if(mDir) dir = normalizeDir(mDir[1]);
+      // Line number
+      const mLine = s.match(/(-?\d+(?:\.\d+)?)\b/);
+      if(mLine) line = mLine[1];
+      // Stat token: last all-caps-ish token before dir/line usually
+      // We'll try to find a known stat-like token
+      const statTokens = ["PTS","REB","AST","FG3M","PR","PA","RA","PRA","BLK","STL","BLKS","STLS","BLKS+STLS","STLS+BLKS"];
+      const found = statTokens.find(t => new RegExp(`\\b${t}\\b`, "i").test(s));
+      if(found) stat = found.toUpperCase();
+      // Player: take substring before stat if found, else before dir/line
+      if(found){
+        const idx = s.toUpperCase().indexOf(found);
+        if(idx>0) player = s.slice(0, idx).replace(/[-–—]+$/,"").trim();
+      } else if(mDir){
+        const idx = s.toUpperCase().indexOf(String(mDir[1]).toUpperCase());
+        if(idx>0) player = s.slice(0, idx).replace(/[-–—]+$/,"").trim();
+      } else {
+        player = s.slice(0, 24).trim();
+      }
+      return {player, stat, dir, line, tier, last5:"—"};
+    });
+  }
+
+  function legsTableNode(row){
+    const legs = extractLegRows(row);
+    if(!legs.length) return null;
+
+    const wrap = document.createElement("div");
+    wrap.className = "legsWrap";
+    const table = document.createElement("table");
+    table.className = "legs-table";
+
+    const thead = document.createElement("thead");
+    thead.innerHTML = `
+      <tr>
+        <th>Player</th>
+        <th>Stat</th>
+        <th>Dir</th>
+        <th>Line</th>
+        <th>Tier</th>
+        <th>Last 5</th>
+      </tr>
+    `;
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    for(const leg of legs){
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${escHtml(String(leg.player || "—"))}</td>
+        <td class="mono">${escHtml(String(leg.stat || "—"))}</td>
+        <td class="mono">${escHtml(String(leg.dir || "—"))}</td>
+        <td class="mono">${escHtml(String(leg.line ?? "—"))}</td>
+        <td><span class="badge"><span class="b">${escHtml(String(leg.tier || "—"))}</span></span></td>
+        <td class="last5">${escHtml(String(leg.last5 || "—"))}</td>
+      `;
+      tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    wrap.appendChild(table);
+    return wrap;
   }
 
   function slipCard({title, href, row, subtitle, featured=false}){
@@ -342,6 +509,8 @@ function sectionHeader(title, subtitle = "") {
     wrap.appendChild(head);
     wrap.appendChild(chipRow);
     wrap.appendChild(legs);
+    const tbl = legsTableNode(row);
+    if(tbl) wrap.appendChild(tbl);
     wrap.appendChild(actions);
     return wrap;
   }
@@ -382,19 +551,19 @@ function sectionHeader(title, subtitle = "") {
     el("slipHint").textContent = "Loaded Atlas System + Windfall + GameScript picks (missing feeds are shown as unavailable).";
 
     // ---- Atlas System (base model) ----
-    grid.appendChild(sectionHeader("Atlas — System Picks", "Best picks from the base model (standard modifiers / light rules)."));
+    grid.appendChild(htmlToNode(sectionHeader("Atlas — System Picks", "Best picks from the base model (standard modifiers / light rules).")));
     grid.appendChild(slipCard({title:"Best 4-Leg — Primary", href:"/data/recommended_4leg_latest.json", row:atlas4.row, subtitle:atlas4.subtitle, featured:true}));
     grid.appendChild(slipCard({title:"Best 3-Leg", href:"/data/recommended_3leg_latest.json", row:atlas3.row, subtitle:atlas3.subtitle}));
     grid.appendChild(slipCard({title:"Best 5-Leg", href:"/data/recommended_5leg_latest.json", row:atlas5.row, subtitle:atlas5.subtitle}));
 
     // ---- Windfall (tier-mix) ----
-    grid.appendChild(sectionHeader("Windfall — Tier Mix Picks", "Optional higher-payout slips with Goblin/Standard/Demon composition rules."));
+    grid.appendChild(htmlToNode(sectionHeader("Windfall — Tier Mix Picks", "Optional higher-payout slips with Goblin/Standard/Demon composition rules.")));
     grid.appendChild(slipCard({title:"Best 4-Leg (Windfall)", href:"/data/windfall_recommended_4leg_latest.json", row:wf4.row, subtitle:wf4.subtitle}));
     grid.appendChild(slipCard({title:"Best 3-Leg (Windfall)", href:"/data/windfall_recommended_3leg_latest.json", row:wf3.row, subtitle:wf3.subtitle}));
     grid.appendChild(slipCard({title:"Best 5-Leg (Windfall)", href:"/data/windfall_recommended_5leg_latest.json", row:wf5.row, subtitle:wf5.subtitle}));
 
     // ---- GameScript (external human+AI picks scored by Atlas math) ----
-    grid.appendChild(sectionHeader("GameScript — External Picks", "Human/AI suggested legs re-scored by Atlas math; no tier rules or skew—just best available combos."));
+    grid.appendChild(htmlToNode(sectionHeader("GameScript — External Picks", "Human/AI suggested legs re-scored by Atlas math; no tier rules or skew—just best available combos.")));
     grid.appendChild(slipCard({title:"Best 4-Leg (GameScript)", href:"/data/gamescript_best_4leg.json", row:gs4.row, subtitle:gs4.subtitle}));
     grid.appendChild(slipCard({title:"Best 3-Leg (GameScript)", href:"/data/gamescript_best_3leg.json", row:gs3.row, subtitle:gs3.subtitle}));
     grid.appendChild(slipCard({title:"Best 5-Leg (GameScript)", href:"/data/gamescript_best_5leg.json", row:gs5.row, subtitle:gs5.subtitle}));
@@ -469,13 +638,3 @@ function sectionHeader(title, subtitle = "") {
 </script>
 </body>
 </html>
-<!-- Last5 rendering support: informational only -->
-<script>
-function renderLast5(val) {
-  if (val === null || val === undefined) return "—";
-  if (typeof val === "number") return `${val}/5`;
-  if (typeof val === "string") return val;
-  if (typeof val === "object" && val.hits !== undefined) return `${val.hits}/5`;
-  return "—";
-}
-</script>
