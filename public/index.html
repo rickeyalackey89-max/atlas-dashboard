@@ -215,7 +215,17 @@ json</code>, <code class="mono">/data/gamescript_best_5leg.json</code>.
     </section>
   </div>
 
+
 <script>
+function sectionHeader(title, subtitle = "") {
+  return `
+    <div class="section-header">
+      <h2>${title}</h2>
+      ${subtitle ? `<div class="subtitle">${subtitle}</div>` : ""}
+    </div>
+  `;
+}
+
 (function(){
   const STATUS_URL = "/data/status_latest.json";
   const cacheBust = () => "v=" + Date.now();
@@ -459,3 +469,13 @@ json</code>, <code class="mono">/data/gamescript_best_5leg.json</code>.
 </script>
 </body>
 </html>
+<!-- Last5 rendering support: informational only -->
+<script>
+function renderLast5(val) {
+  if (val === null || val === undefined) return "—";
+  if (typeof val === "number") return `${val}/5`;
+  if (typeof val === "string") return val;
+  if (typeof val === "object" && val.hits !== undefined) return `${val.hits}/5`;
+  return "—";
+}
+</script>
