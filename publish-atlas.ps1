@@ -71,179 +71,98 @@ function Read-CsvIfExists([string]$p) {
   } catch {
     Fail ("Failed to read CSV: " + $p + " :: " + $_.Exception.Message)
   }
-
-# -----------------------------
-# Last-5 (audit) enrichment (informational only)
-# -----------------------------
-
-function _Norm-Name([string]$s) {
-  if ($null -eq $s) { return "" }
-  $t = $s.ToLowerInvariant()
-  $t = $t -replace "[^a-z]", ""
-  return $t
-}
-
-function _Parse-IntList([string]$pipeStr) {
-  if ($null -eq $pipeStr -or $pipeStr.Trim() -eq "") { return @() }
-  $parts = $pipeStr -split "\s*\|\s*"
-  $out = @()
-  foreach ($p in $parts) {
-    $q = $p.Trim()
-    if ($q -eq "") { continue }
-    try { $out += [int]$q } catch { }
-  }
-  return @($out)
 }
 
 function Load-Last5AuditMap([string]$atlasRoot) {
-  $p = Join-Path $atlasRoot "data\gamelogs\audit_last5_board.csv"
+  # Returns: Hashtable[int] -> int? (last5_hits)
   $map = @{}
+  $p = Join-Path $atlasRoot "data\gamelogs\audit_last5_board.csv"
   if (-not (Test-Path $p)) { return $map }
 
-  try { $rows = Import-Csv -Path $p } catch { return $map }
+  try {
+    $rows = Import-Csv -Path $p
+    foreach ($r in $rows) {
+      $pidRaw = $r.projection_id
+      if (-not $pidRaw) { $pidRaw = $r.id }
+      if (-not $pidRaw) { continue }
+      [int]$pid = 0
+      if (-not [int]::TryParse($pidRaw, [ref]$pid)) { continue }
 
-  foreach ($r in $rows) {
-    $name = $r.resolved_player
-    if ($null -eq $name -or $name.Trim() -eq "") { $name = $r.board_player }
-    $k = _Norm-Name $name
-    if ($k -eq "") { continue }
+      $vRaw = $r.last5_hits
+      if (-not $vRaw) { $vRaw = $r.last5_hit_count }
+      if (-not $vRaw) { $vRaw = $r.hit_count }
 
-    $obj = [ordered]@{
-      player = $name
-      pts  = _Parse-IntList $r.last5_pts
-      reb  = _Parse-IntList $r.last5_reb
-      ast  = _Parse-IntList $r.last5_ast
-      fg3m = _Parse-IntList $r.last5_fg3m
+      $v = $null
+      if ($vRaw -ne $null -and $vRaw -ne "") {
+        [int]$tmp = 0
+        if ([int]::TryParse($vRaw, [ref]$tmp)) { $v = $tmp } else { $v = $null }
+      }
+      $map[$pid] = $v
     }
-    $map[$k] = $obj
+  } catch {
+    # best-effort: leave map empty
+    return @{}
   }
   return $map
 }
 
-function _Try-ParseLeg([string]$legText) {
-  # Example: "Jaren Jackson OVER PRA 22.5 (GOBLIN) [id:9805821]"
-  $m = [regex]::Match($legText, "^(.*?)\s+(OVER|UNDER)\s+([A-Z0-9\+]+)\s+(-?\d+(\.\d+)?)\s+\((STANDARD|GOBLIN|DEMON)\)\s+\[id:(\d+)\]", "IgnoreCase")
-  if (-not $m.Success) { return $null }
-  return [ordered]@{
-    player = $m.Groups[1].Value.Trim()
-    direction = $m.Groups[2].Value.ToUpper()
-    stat = $m.Groups[3].Value.ToUpper()
-    line = [double]$m.Groups[4].Value
-    tier = $m.Groups[6].Value.ToUpper()
-    id = [int]$m.Groups[7].Value
-    leg_text = $legText
+function Extract-LegIdsFromRow($row) {
+  $ids = @()
+  $rx = [regex]"\[id:(\d+)\]"
+
+  # Prefer leg_1..leg_5 ordering if present
+  foreach ($k in @("leg_1","leg_2","leg_3","leg_4","leg_5")) {
+    if ($row.PSObject.Properties.Name -contains $k) {
+      $s = $row.$k
+      if ($s) {
+        $m = $rx.Match([string]$s)
+        if ($m.Success) { $ids += [int]$m.Groups[1].Value }
+      }
+    }
   }
+
+  if ($ids.Count -gt 0) { return $ids }
+
+  # Fallback: parse combined legs string
+  if ($row.PSObject.Properties.Name -contains "legs") {
+    $s = $row.legs
+    if ($s) {
+      foreach ($mm in $rx.Matches([string]$s)) {
+        $ids += [int]$mm.Groups[1].Value
+      }
+    }
+  }
+  return $ids
 }
 
-function _LegStatValue($seriesObj, [string]$stat, [int]$i) {
-  # seriesObj contains pts/reb/ast/fg3m arrays (length 0..5)
-  $stat = $stat.ToUpper()
-  $get = {
-    param($arr)
-    if ($null -eq $arr) { return $null }
-    if ($i -ge 0 -and $i -lt @($arr).Count) { return [double]$arr[$i] }
-    return $null
-  }
-
-  switch ($stat) {
-    "PTS"  { return & $get $seriesObj.pts }
-    "REB"  { return & $get $seriesObj.reb }
-    "AST"  { return & $get $seriesObj.ast }
-    "FG3M" { return & $get $seriesObj.fg3m }
-    "PR"   {
-      $a = & $get $seriesObj.pts; $b = & $get $seriesObj.reb
-      if ($null -eq $a -or $null -eq $b) { return $null }
-      return $a + $b
-    }
-    "PA"   {
-      $a = & $get $seriesObj.pts; $b = & $get $seriesObj.ast
-      if ($null -eq $a -or $null -eq $b) { return $null }
-      return $a + $b
-    }
-    "RA"   {
-      $a = & $get $seriesObj.reb; $b = & $get $seriesObj.ast
-      if ($null -eq $a -or $null -eq $b) { return $null }
-      return $a + $b
-    }
-    "PRA"  {
-      $a = & $get $seriesObj.pts; $b = & $get $seriesObj.reb; $c = & $get $seriesObj.ast
-      if ($null -eq $a -or $null -eq $b -or $null -eq $c) { return $null }
-      return $a + $b + $c
-    }
-    default { return $null }
-  }
-}
-
-function _Compute-Last5Hits($seriesObj, [string]$direction, [string]$stat, [double]$line) {
-  if ($null -eq $seriesObj) { return $null }
-  $hits = 0
-  $seen = 0
-  for ($i=0; $i -lt 5; $i++) {
-    $v = _LegStatValue $seriesObj $stat $i
-    if ($null -eq $v) { continue }
-    $seen += 1
-    if ($direction -eq "OVER") {
-      if ($v -gt $line) { $hits += 1 }
-    } elseif ($direction -eq "UNDER") {
-      if ($v -lt $line) { $hits += 1 }
-    }
-  }
-  if ($seen -eq 0) { return $null }
-  return $hits
-}
-
-function Enrich-And-FilterSlips($rows, $auditMap, [switch]$DropIfAnyLegZeroHits) {
+function Add-LegsDetailAndFilter($rows, $last5Map) {
+  # Adds legs_detail=[{id,last5_hits},...] to each row.
+  # Drops slips where any leg has last5_hits == 0 (only when last5_hits is known).
   $out = @()
   foreach ($r in @($rows)) {
-    # Identify leg text fields in order
-    $legKeys = @("leg_1","leg_2","leg_3","leg_4","leg_5") | Where-Object { $r.PSObject.Properties.Name -contains $_ -and ($r.$_ -ne $null) -and ($r.$_.ToString().Trim() -ne "") }
-    $legs = @()
-    foreach ($k in $legKeys) {
-      $parsed = _Try-ParseLeg $r.$k
-      if ($null -ne $parsed) { $legs += $parsed }
-    }
-    if (@($legs).Count -eq 0 -and ($r.PSObject.Properties.Name -contains "legs")) {
-      # Fallback split
-      $parts = $r.legs -split "\s*\|\s*"
-      foreach ($p in $parts) {
-        $parsed = _Try-ParseLeg $p.Trim()
-        if ($null -ne $parsed) { $legs += $parsed }
-      }
-    }
-
-    $details = @()
+    $ids = Extract-LegIdsFromRow $r
+    $detail = @()
     $drop = $false
-    foreach ($leg in $legs) {
-      $k = _Norm-Name $leg.player
-      $seriesObj = $null
-      if ($auditMap.ContainsKey($k)) { $seriesObj = $auditMap[$k] }
-      $hits = _Compute-Last5Hits $seriesObj $leg.direction $leg.stat $leg.line
 
-      if ($DropIfAnyLegZeroHits -and ($null -ne $hits) -and ($hits -eq 0)) { $drop = $true }
+    foreach ($pid in $ids) {
+      $v = $null
+      if ($last5Map.ContainsKey($pid)) { $v = $last5Map[$pid] }
+      $detail += [pscustomobject]@{ id = $pid; last5_hits = $v }
+      if ($v -ne $null -and $v -eq 0) { $drop = $true }
+    }
 
-      $details += [ordered]@{
-        id = $leg.id
-        player = $leg.player
-        stat = $leg.stat
-        direction = $leg.direction
-        line = $leg.line
-        tier = $leg.tier
-        last5_hits = $hits
+    if ($detail.Count -gt 0) {
+      # attach as a proper property so it survives ConvertTo-Json
+      if ($r.PSObject.Properties.Name -contains "legs_detail") {
+        $r.legs_detail = $detail
+      } else {
+        $r | Add-Member -NotePropertyName "legs_detail" -NotePropertyValue $detail
       }
     }
 
-    if ($drop) { continue }
-
-    if (@($details).Count -gt 0) {
-      # Attach to row; ConvertTo-Json will keep nested objects with sufficient depth
-      $r | Add-Member -NotePropertyName "legs_detail" -NotePropertyValue @($details) -Force
-    }
-
-    $out += $r
+    if (-not $drop) { $out += $r }
   }
-  return @($out)
-}
-
+  return $out
 }
 
 function Sort-ObjectsBestFirst($rows) {
@@ -370,19 +289,12 @@ $out_inval  = Join-Path $dashData "invalidations_latest.json"
 
 Write-Info "Exporting outputs -> JSON..."
 
-# Load last-5 audit map (informational only)
-$last5AuditMap = Load-Last5AuditMap $atlasAbs
-
+$last5Map = Load-Last5AuditMap $atlasAbs
 
 # System
-$rowsSys3 = Read-CsvIfExists $sys3
-$rowsSys4 = Read-CsvIfExists $sys4
-$rowsSys5 = Read-CsvIfExists $sys5
-
-# Attach per-leg last5_hits (0-5) and drop slips with any leg at 0/5 (if last5 available)
-$rowsSys3 = Enrich-And-FilterSlips $rowsSys3 $last5AuditMap -DropIfAnyLegZeroHits:$true
-$rowsSys4 = Enrich-And-FilterSlips $rowsSys4 $last5AuditMap -DropIfAnyLegZeroHits:$true
-$rowsSys5 = Enrich-And-FilterSlips $rowsSys5 $last5AuditMap -DropIfAnyLegZeroHits:$true
+$rowsSys3 = Add-LegsDetailAndFilter (Read-CsvIfExists $sys3) $last5Map
+$rowsSys4 = Add-LegsDetailAndFilter (Read-CsvIfExists $sys4) $last5Map
+$rowsSys5 = Add-LegsDetailAndFilter (Read-CsvIfExists $sys5) $last5Map
 if (@($rowsSys3).Count -eq 0 -and @($rowsSys4).Count -eq 0 -and @($rowsSys5).Count -eq 0) {
   Fail ("System picks missing. Expected at least one of: " + $sys3 + " / " + $sys4 + " / " + $sys5)
 }
@@ -391,12 +303,9 @@ Write-JsonFile $out_sys4 (@($rowsSys4))
 Write-JsonFile $out_sys5 (@($rowsSys5))
 
 # Windfall (ok if empty)
-$rowsWf3 = Read-CsvIfExists $wf3
-$rowsWf4 = Read-CsvIfExists $wf4
-$rowsWf5 = Read-CsvIfExists $wf5
-$rowsWf3 = Enrich-And-FilterSlips $rowsWf3 $last5AuditMap -DropIfAnyLegZeroHits:$true
-$rowsWf4 = Enrich-And-FilterSlips $rowsWf4 $last5AuditMap -DropIfAnyLegZeroHits:$true
-$rowsWf5 = Enrich-And-FilterSlips $rowsWf5 $last5AuditMap -DropIfAnyLegZeroHits:$true
+$rowsWf3 = Add-LegsDetailAndFilter (Read-CsvIfExists $wf3) $last5Map
+$rowsWf4 = Add-LegsDetailAndFilter (Read-CsvIfExists $wf4) $last5Map
+$rowsWf5 = Add-LegsDetailAndFilter (Read-CsvIfExists $wf5) $last5Map
 Write-JsonFile $out_wf3 (@($rowsWf3))
 Write-JsonFile $out_wf4 (@($rowsWf4))
 Write-JsonFile $out_wf5 (@($rowsWf5))
@@ -412,15 +321,14 @@ function Combine-GameScript([string]$aiCsv, [string]$capCsv) {
   if (@($all).Count -eq 0) { return @() }
 
   $sorted = Sort-ObjectsBestFirst $all
-  $sorted = Enrich-And-FilterSlips $sorted $last5AuditMap -DropIfAnyLegZeroHits:$true
   $topN = 50
   if (@($sorted).Count -gt $topN) { return @($sorted[0..($topN - 1)]) }
   return @($sorted)
 }
 
-$gs3 = Combine-GameScript $ai3 $cap3
-$gs4 = Combine-GameScript $ai4 $cap4
-$gs5 = Combine-GameScript $ai5 $cap5
+$gs3 = Add-LegsDetailAndFilter (Combine-GameScript $ai3 $cap3) $last5Map
+$gs4 = Add-LegsDetailAndFilter (Combine-GameScript $ai4 $cap4) $last5Map
+$gs5 = Add-LegsDetailAndFilter (Combine-GameScript $ai5 $cap5) $last5Map
 Write-JsonFile $out_gs3 (@($gs3))
 Write-JsonFile $out_gs4 (@($gs4))
 Write-JsonFile $out_gs5 (@($gs5))
