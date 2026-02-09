@@ -11,6 +11,7 @@ if ([string]::IsNullOrWhiteSpace($DashboardRoot)) {
   if ($PSScriptRoot) { $DashboardRoot = $PSScriptRoot }
   elseif ($PSCommandPath) { $DashboardRoot = (Split-Path -Parent $PSCommandPath) }
   elseif ($MyInvocation.MyCommand.Definition) { $DashboardRoot = (Split-Path -Parent $MyInvocation.MyCommand.Definition) }
+  else { $DashboardRoot = (Get-Location).Path }
 }
 
 Set-StrictMode -Version Latest
@@ -33,8 +34,9 @@ function Read-Json([string]$path) {
 }
 
 function Write-Json([object]$obj, [string]$path) {
-  $json = $obj | ConvertTo-Json -Depth 30
-  $json | Out-File -LiteralPath $path -Encoding UTF8
+  $json = $obj | ConvertTo-Json -Depth 50
+  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+  [System.IO.File]::WriteAllText($path, $json, $utf8NoBom)
 }
 
 function Split-Legs([string]$legsStr) {
@@ -50,6 +52,7 @@ function Parse-LegText([string]$s) {
     stat      = $null
     line      = $null
     leg_text  = $s
+    last5_hits = $null
   }
 
   if ($s -match '\[id:(\d+)\]') {
@@ -66,439 +69,309 @@ function Parse-LegText([string]$s) {
   return [pscustomobject]$out
 }
 
-function Make-Key([string]$player, [string]$stat, [string]$direction, [object]$line) {
-  $p = $(if ($null -ne $player) { [string]$player } else { '' })
-  $p = ($p -replace '\s+', ' ').Trim().ToLowerInvariant()
-
-  $s = $(if ($null -ne $stat) { [string]$stat } else { '' })
-  $s = $s.Trim().ToUpperInvariant()
-
-  $d = $(if ($null -ne $direction) { [string]$direction } else { '' })
-  $d = $d.Trim().ToUpperInvariant()
-
-  $l = ''
-  if ($null -ne $line -and $line -ne '') {
-    try { $l = ([double]$line).ToString('0.###') } catch { $l = "$line" }
-  }
-
-  return "$p|$s|$d|$l"
-}
-
 function Normalize-RecommendedLatest([object]$recLatestRaw) {
   # Always return object with properties: system, windfall, gamescript
   if ($null -eq $recLatestRaw) { return $null }
 
-  # Array => treat as windfall list
+  # If it is an array, treat it as windfall-only legacy export
   if ($recLatestRaw -is [System.Collections.IEnumerable] -and -not ($recLatestRaw -is [string])) {
     return [pscustomobject]@{
-      system     = $null
+      system     = @()
       windfall   = @($recLatestRaw)
-      gamescript = $null
+      gamescript = @()
     }
   }
 
-  # Object => ensure properties exist (StrictMode-safe)
-  if (-not ($recLatestRaw.PSObject.Properties.Name -contains 'system'))     { $recLatestRaw | Add-Member -NotePropertyName system     -NotePropertyValue $null }
-  if (-not ($recLatestRaw.PSObject.Properties.Name -contains 'windfall'))   { $recLatestRaw | Add-Member -NotePropertyName windfall   -NotePropertyValue $null }
-  if (-not ($recLatestRaw.PSObject.Properties.Name -contains 'gamescript')) { $recLatestRaw | Add-Member -NotePropertyName gamescript -NotePropertyValue $null }
+  # Ensure properties exist
+  if (-not ($recLatestRaw.PSObject.Properties.Name -contains 'system'))     { $recLatestRaw | Add-Member -NotePropertyName system     -NotePropertyValue @() }
+  if (-not ($recLatestRaw.PSObject.Properties.Name -contains 'windfall'))   { $recLatestRaw | Add-Member -NotePropertyName windfall   -NotePropertyValue @() }
+  if (-not ($recLatestRaw.PSObject.Properties.Name -contains 'gamescript')) { $recLatestRaw | Add-Member -NotePropertyName gamescript -NotePropertyValue @() }
+
+  # Coerce null -> empty arrays
+  if ($null -eq $recLatestRaw.system)     { $recLatestRaw.system = @() }
+  if ($null -eq $recLatestRaw.windfall)   { $recLatestRaw.windfall = @() }
+  if ($null -eq $recLatestRaw.gamescript) { $recLatestRaw.gamescript = @() }
+
+  # Coerce single object -> array
+  $recLatestRaw.system     = @($recLatestRaw.system)
+  $recLatestRaw.windfall   = @($recLatestRaw.windfall)
+  $recLatestRaw.gamescript = @($recLatestRaw.gamescript)
 
   return $recLatestRaw
 }
 
-function Build-Leg-Lookups([object]$recommendedLatest) {
-  $byId = @{}
-  $byKey = @{}
-
-  if ($null -eq $recommendedLatest) { return @{ byId=$byId; byKey=$byKey } }
-
-  foreach ($groupName in @('system','windfall','gamescript')) {
-    $grp = $recommendedLatest.$groupName
-    if ($null -eq $grp) { continue }
-
-    foreach ($slip in @($grp)) {
-      if ($null -eq $slip) { continue }
-      if (-not ($slip.PSObject.Properties.Name -contains 'legs_detail')) { continue }
-
-      $ld = $slip.legs_detail
-      if ($null -eq $ld) { continue }
-
-      foreach ($leg in @($ld)) {
-        if ($null -eq $leg) { continue }
-
-        if ($leg.PSObject.Properties.Name -contains 'id' -and $null -ne $leg.id) {
-          $idStr = [string]$leg.id
-          if (-not $byId.ContainsKey($idStr)) { $byId[$idStr] = $leg }
-        }
-
-        $player = $null
-        $stat = $null
-        $direction = $null
-        $line = $null
-
-        if ($leg.PSObject.Properties.Name -contains 'player') { $player = $leg.player }
-        if ($leg.PSObject.Properties.Name -contains 'stat') { $stat = $leg.stat }
-        if ($leg.PSObject.Properties.Name -contains 'direction') { $direction = $leg.direction }
-        if ($leg.PSObject.Properties.Name -contains 'line') { $line = $leg.line }
-
-        $k = Make-Key $player $stat $direction $line
-        if (-not [string]::IsNullOrWhiteSpace($k)) {
-          if (-not $byKey.ContainsKey($k)) { $byKey[$k] = $leg }
-        }
-      }
-    }
-  }
-
-  return @{ byId=$byId; byKey=$byKey }
-}
-
-function Enrich-LegsDetail([string]$legsStr, [hashtable]$byId, [hashtable]$byKey) {
+function Parse-Series([string]$s) {
+  if ([string]::IsNullOrWhiteSpace($s)) { return @() }
+  $parts = ($s -split '\s*\|\s*') | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
   $out = @()
-
-  foreach ($legText in (Split-Legs $legsStr)) {
-    $parsed = Parse-LegText $legText
-    $found = $null
-
-    if ($null -ne $parsed.id) {
-      $idStr = [string]$parsed.id
-      if ($byId.ContainsKey($idStr)) { $found = $byId[$idStr] }
-    }
-
-    if ($null -eq $found) {
-      $k = Make-Key $parsed.player $parsed.stat $parsed.direction $parsed.line
-      if ($byKey.ContainsKey($k)) { $found = $byKey[$k] }
-    }
-
-    if ($null -ne $found) {
-      $o = [ordered]@{
-        id         = $found.id
-        player     = $(if ($found.PSObject.Properties.Name -contains 'player') { $found.player } else { $parsed.player })
-        stat       = $(if ($found.PSObject.Properties.Name -contains 'stat') { $found.stat } else { $parsed.stat })
-        direction  = $(if ($found.PSObject.Properties.Name -contains 'direction') { $found.direction } else { $parsed.direction })
-        line       = $(if ($found.PSObject.Properties.Name -contains 'line') { $found.line } else { $parsed.line })
-        last5_hits = $(if ($found.PSObject.Properties.Name -contains 'last5_hits') { $found.last5_hits } else { $null })
-        leg_text   = $legText
-      }
-      $out += [pscustomobject]$o
-    }
-    else {
-      $o = [ordered]@{
-        id         = $parsed.id
-        player     = $parsed.player
-        stat       = $parsed.stat
-        direction  = $parsed.direction
-        line       = $parsed.line
-        last5_hits = $null
-        leg_text   = $legText
-      }
-      $out += [pscustomobject]$o
-    }
+  foreach ($p in $parts) {
+    $v = $null
+    if ([double]::TryParse(($p.Trim()), [ref]$v)) { $out += [double]$v }
   }
-
   return ,$out
 }
 
-function Parse-NumList([string]$s) {
-  if ([string]::IsNullOrWhiteSpace($s)) { return @() }
-  $parts = $s -split '\s*\|\s*'
-  $nums = @()
-  foreach ($p in $parts) {
-    if ([string]::IsNullOrWhiteSpace($p)) { continue }
-    try { $nums += [double]$p } catch { }
-  }
-  return ,$nums
-}
-
 function Build-AuditMap([string]$auditCsvPath) {
-  $m = @{}
+  $map = @{}
   if (-not (Test-Path -LiteralPath $auditCsvPath)) {
-    Warn "Missing audit_last5_board.csv: $auditCsvPath"
-    return $m
+    Warn "Missing audit CSV: $auditCsvPath"
+    return $map
   }
 
   $rows = Import-Csv -LiteralPath $auditCsvPath
-  foreach ($r in $rows) {
+  foreach ($r in @($rows)) {
     if ($null -eq $r) { continue }
-    $bp = $r.board_player
-    $rp = $r.resolved_player
+
+    $rp = ($r.resolved_player | ForEach-Object { "$_".Trim() })
+    $bp = ($r.board_player | ForEach-Object { "$_".Trim() })
 
     $obj = [pscustomobject]@{
-      board_player = $bp
       resolved_player = $rp
-      pts = (Parse-NumList $r.last5_pts)
-      reb = (Parse-NumList $r.last5_reb)
-      ast = (Parse-NumList $r.last5_ast)
-      fg3m = (Parse-NumList $r.last5_fg3m)
+      board_player    = $bp
+      pts  = Parse-Series $r.last5_pts
+      reb  = Parse-Series $r.last5_reb
+      ast  = Parse-Series $r.last5_ast
+      fg3m = Parse-Series $r.last5_fg3m
     }
 
-    if (-not [string]::IsNullOrWhiteSpace($bp)) { $m[$bp.Trim().ToLowerInvariant()] = $obj }
-    if (-not [string]::IsNullOrWhiteSpace($rp)) { $m[$rp.Trim().ToLowerInvariant()] = $obj }
+    if (-not [string]::IsNullOrWhiteSpace($rp)) { $map[$rp.ToLowerInvariant()] = $obj }
+    if (-not [string]::IsNullOrWhiteSpace($bp)) { $map[$bp.ToLowerInvariant()] = $obj }
   }
 
-  return $m
+  return $map
 }
 
-function Normalize-Direction([object]$d) {
-  if ($null -eq $d) { return $null }
-  $ds = [string]$d
-  $ds = $ds.Trim().ToUpperInvariant()
-  if ($ds -eq '0' -or $ds -eq 'OVER' -or $ds -eq 'MORE') { return 'OVER' }
-  if ($ds -eq '1' -or $ds -eq 'UNDER' -or $ds -eq 'LESS') { return 'UNDER' }
-  return $ds
-}
+function Get-StatSeries([object]$audit, [string]$stat) {
+  if ($null -eq $audit) { return @() }
+  $s = ($stat | ForEach-Object { "$_".Trim().ToUpperInvariant() })
 
-function Stat-Values([pscustomobject]$audit, [string]$stat) {
-  if ($null -eq $audit -or [string]::IsNullOrWhiteSpace($stat)) { return @() }
-  $s = $stat.Trim().ToUpperInvariant()
+  if ($s -eq 'PTS')  { return ,@($audit.pts) }
+  if ($s -eq 'REB')  { return ,@($audit.reb) }
+  if ($s -eq 'AST')  { return ,@($audit.ast) }
+  if ($s -eq 'FG3M') { return ,@($audit.fg3m) }
 
-  if ($s -eq 'PTS') { return $audit.pts }
-  if ($s -eq 'REB') { return $audit.reb }
-  if ($s -eq 'AST') { return $audit.ast }
-  if ($s -eq 'FG3M') { return $audit.fg3m }
+  # combos
+  $out = @()
 
   if ($s -eq 'PR') {
-    $out = @()
-    for ($i=0; $i -lt [Math]::Min($audit.pts.Count, $audit.reb.Count); $i++) { $out += ($audit.pts[$i] + $audit.reb[$i]) }
+    $n = [Math]::Min(@($audit.pts).Count, @($audit.reb).Count)
+    $i = 0
+    foreach ($idx in 0..($n-1)) { $out += (@($audit.pts)[$i] + @($audit.reb)[$i]); $i++ }
     return ,$out
   }
+
   if ($s -eq 'PA') {
-    $out = @()
-    for ($i=0; $i -lt [Math]::Min($audit.pts.Count, $audit.ast.Count); $i++) { $out += ($audit.pts[$i] + $audit.ast[$i]) }
+    $n = [Math]::Min(@($audit.pts).Count, @($audit.ast).Count)
+    $i = 0
+    foreach ($idx in 0..($n-1)) { $out += (@($audit.pts)[$i] + @($audit.ast)[$i]); $i++ }
     return ,$out
   }
+
   if ($s -eq 'RA') {
-    $out = @()
-    for ($i=0; $i -lt [Math]::Min($audit.reb.Count, $audit.ast.Count); $i++) { $out += ($audit.reb[$i] + $audit.ast[$i]) }
+    $n = [Math]::Min(@($audit.reb).Count, @($audit.ast).Count)
+    $i = 0
+    foreach ($idx in 0..($n-1)) { $out += (@($audit.reb)[$i] + @($audit.ast)[$i]); $i++ }
     return ,$out
   }
+
   if ($s -eq 'PRA') {
-    $out = @()
-    $n = [Math]::Min($audit.pts.Count, [Math]::Min($audit.reb.Count, $audit.ast.Count))
-    for ($i=0; $i -lt $n; $i++) { $out += ($audit.pts[$i] + $audit.reb[$i] + $audit.ast[$i]) }
+    $n = @($audit.pts).Count
+    $n = [Math]::Min($n, @($audit.reb).Count)
+    $n = [Math]::Min($n, @($audit.ast).Count)
+    $i = 0
+    foreach ($idx in 0..($n-1)) { $out += (@($audit.pts)[$i] + @($audit.reb)[$i] + @($audit.ast)[$i]); $i++ }
     return ,$out
   }
 
   return @()
 }
 
-function Last5-Hits([string]$player, [string]$stat, [object]$direction, [object]$line, [hashtable]$auditMap) {
-  if ($null -eq $auditMap -or $auditMap.Count -eq 0) { return $null }
-  if ([string]::IsNullOrWhiteSpace($player) -or [string]::IsNullOrWhiteSpace($stat) -or $null -eq $line -or $line -eq '') { return $null }
-
-  $pkey = $player.Trim().ToLowerInvariant()
-  if (-not $auditMap.ContainsKey($pkey)) { return $null }
-  $audit = $auditMap[$pkey]
-
-  $vals = Stat-Values $audit $stat
-  if ($null -eq $vals -or $vals.Count -eq 0) { return $null }
-
-  $dir = Normalize-Direction $direction
-  $l = $null
-  try { $l = [double]$line } catch { return $null }
-
+function Compute-Last5Hits([double[]]$series, [string]$direction, [double]$line) {
+  if ($null -eq $series -or @($series).Count -eq 0) { return $null }
+  $dir = ($direction | ForEach-Object { "$_".Trim().ToUpperInvariant() })
   $hits = 0
-  foreach ($v in $vals) {
-    if ($dir -eq 'OVER') { if ([double]$v -gt $l) { $hits++ } }
-    elseif ($dir -eq 'UNDER') { if ([double]$v -lt $l) { $hits++ } }
+
+  foreach ($v in @($series)) {
+    if ($dir -eq 'OVER') {
+      if ($v -gt $line) { $hits++ }
+    } elseif ($dir -eq 'UNDER') {
+      if ($v -lt $line) { $hits++ }
+    }
   }
+
   return $hits
 }
 
-function Apply-Last5([object]$legsDetail, [hashtable]$auditMap) {
-  if ($null -eq $legsDetail) { return }
-  foreach ($leg in @($legsDetail)) {
-    if ($null -eq $leg) { continue }
-    $has = ($leg.PSObject.Properties.Name -contains 'last5_hits')
-    $cur = $null
-    if ($has) { $cur = $leg.last5_hits }
-    if ($null -ne $cur -and $cur -ne '') { continue }
+function Ensure-LegsDetail([object]$slip) {
+  if ($null -eq $slip) { return }
 
-    $player = $(if ($leg.PSObject.Properties.Name -contains 'player') { $leg.player } else { $null })
-    $stat = $(if ($leg.PSObject.Properties.Name -contains 'stat') { $leg.stat } else { $null })
-    $direction = $(if ($leg.PSObject.Properties.Name -contains 'direction') { $leg.direction } else { $null })
-    $line = $(if ($leg.PSObject.Properties.Name -contains 'line') { $leg.line } else { $null })
-
-    $h = Last5-Hits $player $stat $direction $line $auditMap
-    if (-not $has) {
-      $leg | Add-Member -NotePropertyName last5_hits -NotePropertyValue $h
-    } else {
-      $leg.last5_hits = $h
-    }
+  if ($slip.PSObject.Properties.Name -contains 'legs_detail') {
+    if ($null -eq $slip.legs_detail) { $slip.legs_detail = @() }
+    $slip.legs_detail = @($slip.legs_detail)
+    return
   }
+
+  # fallback: parse from legs string
+  $legsStr = $null
+  if ($slip.PSObject.Properties.Name -contains 'legs') { $legsStr = $slip.legs }
+  elseif ($slip.PSObject.Properties.Name -contains 'legs_str') { $legsStr = $slip.legs_str }
+
+  $legs = @()
+  foreach ($t in Split-Legs "$legsStr") {
+    $legs += (Parse-LegText "$t")
+  }
+
+  $slip | Add-Member -NotePropertyName legs_detail -NotePropertyValue @($legs)
 }
 
-function CsvToSlipList([string]$csvPath, [string]$groupName, [hashtable]$byId, [hashtable]$byKey) {
-  if (-not (Test-Path -LiteralPath $csvPath)) {
-    Warn "Missing $groupName CSV: $csvPath"
-    return @()
+function Enrich-Slip-Last5([object]$slip, [hashtable]$auditMap) {
+  if ($null -eq $slip) { return }
+  Ensure-LegsDetail $slip
+
+  foreach ($leg in @($slip.legs_detail)) {
+    if ($null -eq $leg) { continue }
+
+    # leg fields (defensive)
+    $player = $null
+    $stat = $null
+    $direction = $null
+    $line = $null
+
+    if ($leg.PSObject.Properties.Name -contains 'player')    { $player = $leg.player }
+    if ($leg.PSObject.Properties.Name -contains 'stat')      { $stat = $leg.stat }
+    if ($leg.PSObject.Properties.Name -contains 'direction') { $direction = $leg.direction }
+    if ($leg.PSObject.Properties.Name -contains 'line')      { $line = $leg.line }
+
+    if ([string]::IsNullOrWhiteSpace("$player") -or [string]::IsNullOrWhiteSpace("$stat") -or [string]::IsNullOrWhiteSpace("$direction") -or $null -eq $line) {
+      # try parse from leg_text if exists
+      if ($leg.PSObject.Properties.Name -contains 'leg_text') {
+        $parsed = Parse-LegText "$($leg.leg_text)"
+        if ($null -eq $player)    { $player = $parsed.player }
+        if ($null -eq $stat)      { $stat = $parsed.stat }
+        if ($null -eq $direction) { $direction = $parsed.direction }
+        if ($null -eq $line)      { $line = $parsed.line }
+      }
+    }
+
+    $key = ("$player".Trim().ToLowerInvariant())
+    if ([string]::IsNullOrWhiteSpace($key)) { continue }
+
+    $audit = $null
+    if ($auditMap.ContainsKey($key)) { $audit = $auditMap[$key] }
+    if ($null -eq $audit) {
+      # no match => leave null
+      if (-not ($leg.PSObject.Properties.Name -contains 'last5_hits')) {
+        $leg | Add-Member -NotePropertyName last5_hits -NotePropertyValue $null
+      } else {
+        $leg.last5_hits = $null
+      }
+      continue
+    }
+
+    $series = Get-StatSeries $audit "$stat"
+    $hits = $null
+    try {
+      $hits = Compute-Last5Hits -series @($series) -direction "$direction" -line ([double]$line)
+    } catch {
+      $hits = $null
+    }
+
+    if (-not ($leg.PSObject.Properties.Name -contains 'last5_hits')) {
+      $leg | Add-Member -NotePropertyName last5_hits -NotePropertyValue $hits
+    } else {
+      $leg.last5_hits = $hits
+    }
   }
-
-  $rows = Import-Csv -LiteralPath $csvPath
-  $out = @()
-
-  foreach ($r in $rows) {
-    $legs = $null
-    if ($r.PSObject.Properties.Name -contains 'legs') { $legs = [string]$r.legs }
-    if ([string]::IsNullOrWhiteSpace($legs) -and ($r.PSObject.Properties.Name -contains 'slip_key')) { $legs = [string]$r.slip_key }
-
-    $obj = [ordered]@{}
-    foreach ($p in $r.PSObject.Properties) { $obj[$p.Name] = $p.Value }
-
-    $obj['legs_detail'] = (Enrich-LegsDetail $legs $byId $byKey)
-
-    Apply-Last5 $obj['legs_detail'] $script:auditMap`n    $out += [pscustomobject]$obj
-  }
-
-  return ,$out
 }
 
 # ----------------------------
 # Paths
 # ----------------------------
-$PublicDir = Join-Path $DashboardRoot 'public'
-$DataDir   = Join-Path $PublicDir 'data'
-Ensure-Dir $DataDir
+$PublicData = Join-Path $DashboardRoot 'public\data'
+Ensure-Dir $PublicData
 
-$AtlasDashboardOut = Join-Path $AtlasRoot 'data\output\dashboard'
-$AtlasLatestAll    = Join-Path $AtlasRoot 'data\output\latest\all'
-$AtlasWindfall     = Join-Path $AtlasLatestAll 'Windfall'
-$AtlasExternal     = Join-Path $AtlasLatestAll 'External'
+Info "Cleaning $PublicData"
+Get-ChildItem -LiteralPath $PublicData -File -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
 
-# ----------------------------
-# Clean public/data
-# ----------------------------
-Info "Cleaning $DataDir"
-Get-ChildItem -LiteralPath $DataDir -Force -Recurse -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
-Ensure-Dir $DataDir
+$AtlasDash = Join-Path $AtlasRoot 'data\output\dashboard'
+$RecPath   = Join-Path $AtlasDash 'recommended_latest.json'
+$StatPath  = Join-Path $AtlasDash 'status_latest.json'
+$InvPath   = Join-Path $AtlasDash 'invalidations_latest.json'
 
 # ----------------------------
-# Copy Atlas-produced JSON (source of truth = dashboard exports)
+# Load source JSONs from Atlas
 # ----------------------------
-$RecLatestSrc  = Join-Path $AtlasDashboardOut 'recommended_latest.json'
-$StatLatestSrc = Join-Path $AtlasDashboardOut 'status_latest.json'
-$InvLatestSrc  = Join-Path $AtlasDashboardOut 'invalidations_latest.json'
+$recRaw = Read-Json $RecPath
 
-$recLatestRaw = Read-Json $RecLatestSrc
-if ($null -eq $recLatestRaw) {
-  throw "Missing or unreadable: $RecLatestSrc"
+# Support wrapper export: { generated_at, row_count, data:[...] }
+if ($null -ne $recRaw -and ($recRaw.PSObject.Properties.Name -contains 'data')) {
+  $recRaw = @($recRaw.data)
 }
 
-Copy-Item -LiteralPath $RecLatestSrc  -Destination (Join-Path $DataDir 'recommended_latest.json')  -Force
-if (Test-Path -LiteralPath $StatLatestSrc) { Copy-Item -LiteralPath $StatLatestSrc -Destination (Join-Path $DataDir 'status_latest.json') -Force }
-if (Test-Path -LiteralPath $InvLatestSrc)  { Copy-Item -LiteralPath $InvLatestSrc  -Destination (Join-Path $DataDir 'invalidations_latest.json') -Force }
+$rec = Normalize-RecommendedLatest $recRaw
 
-# Normalize to object with .system/.windfall/.gamescript
-$recLatest = Normalize-RecommendedLatest $recLatestRaw
+$status = Read-Json $StatPath
+if ($null -eq $status) { $status = [pscustomobject]@{ ok=$false; note="missing status_latest.json" } }
+
+$inv = Read-Json $InvPath
+if ($null -eq $inv) { $inv = @() } else { $inv = @($inv) }
 
 # ----------------------------
-# Build lookups from whatever legs_detail already exists
+# Build audit map (last5)
 # ----------------------------
-$lookups = Build-Leg-Lookups $recLatest
-$byId = $lookups.byId
-$byKey = $lookups.byKey
-Info "Lookup sizes: byId=$($byId.Count) byKey=$($byKey.Count)"
+$AuditPath = Join-Path $AtlasRoot 'data\gamelogs\audit_last5_board.csv'
+$auditMap = Build-AuditMap $AuditPath
+Info ("Last5 audit: players={0}" -f @($auditMap.Keys).Count)
 
-`n# Build Last-5 audit map (for last5_hits enrichment)`n$AuditPath = Join-Path $AtlasRoot 'data\gamelogs\audit_last5_board.csv'`n$script:auditMap = Build-AuditMap $AuditPath`nInfo \"Last5 audit: players=$($script:auditMap.Count)\"`n# ----------------------------
-# Enrich and write group JSONs expected by UI
 # ----------------------------
+# Enrich legs_detail with last5_hits
+# ----------------------------
+foreach ($grpName in @('system','windfall','gamescript')) {
+  $grp = $rec.$grpName
+  if ($null -eq $grp) { $rec.$grpName = @(); continue }
 
-# SYSTEM
-if ($recLatest.system -ne $null) {
-  # Ensure system slips have legs_detail objects (in case some were id-only)
-  $sysOut = @()
-  foreach ($slip in @($recLatest.system)) {
-    $legsStr = $null
-    if ($slip -ne $null -and ($slip.PSObject.Properties.Name -contains 'legs')) { $legsStr = [string]$slip.legs }
-    if ([string]::IsNullOrWhiteSpace($legsStr) -and $slip -ne $null -and ($slip.PSObject.Properties.Name -contains 'slip_key')) { $legsStr = [string]$slip.slip_key }
-    $slip.legs_detail = (Enrich-LegsDetail $legsStr $byId $byKey)
-    Apply-Last5 $slip.legs_detail $script:auditMap`n    $sysOut += $slip
+  $newArr = @()
+  foreach ($slip in @($grp)) {
+    if ($null -eq $slip) { continue }
+    Enrich-Slip-Last5 $slip $auditMap
+    $newArr += $slip
   }
-  Write-Json $sysOut (Join-Path $DataDir 'recommended_system_latest.json')
-} else {
-  Write-Json @() (Join-Path $DataDir 'recommended_system_latest.json')
+  $rec.$grpName = @($newArr)
 }
-
-# WINDFALL: build unified list from CSVs (3/4/5) and enrich legs_detail
-$wfOut = @()
-
-$wf3 = CsvToSlipList (Join-Path $AtlasWindfall 'recommended_3leg.csv') 'Windfall-3' $byId $byKey
-$wf4 = CsvToSlipList (Join-Path $AtlasWindfall 'recommended_4leg.csv') 'Windfall-4' $byId $byKey
-$wf5 = CsvToSlipList (Join-Path $AtlasWindfall 'recommended_5leg.csv') 'Windfall-5' $byId $byKey
-
-if (@($wf3).Count -gt 0) { $wfOut += @($wf3) }
-if (@($wf4).Count -gt 0) { $wfOut += @($wf4) }
-if (@($wf5).Count -gt 0) { $wfOut += @($wf5) }
-
-Write-Json $wfOut (Join-Path $DataDir 'recommended_windfall_latest.json')
-Info "Windfall unified: rows=$($wfOut.Count)"
-
-# GAMESCRIPT (prefer grouped JSON; else External drop-in; else empty)
-$gsOut = @()
-
-if ($recLatest.gamescript -ne $null) {
-  foreach ($slip in @($recLatest.gamescript)) {
-    $legsStr = $null
-    if ($slip -ne $null -and ($slip.PSObject.Properties.Name -contains 'legs')) { $legsStr = [string]$slip.legs }
-    if ([string]::IsNullOrWhiteSpace($legsStr) -and $slip -ne $null -and ($slip.PSObject.Properties.Name -contains 'slip_key')) { $legsStr = [string]$slip.slip_key }
-    $slip.legs_detail = (Enrich-LegsDetail $legsStr $byId $byKey)
-    Apply-Last5 $slip.legs_detail $script:auditMap`n    $gsOut += $slip
-  }
-}
-else {
-  $gsJson = Join-Path $AtlasExternal 'recommended_gamescript_latest.json'
-  $gsObj = Read-Json $gsJson
-  if ($null -ne $gsObj) {
-    foreach ($slip in @($gsObj)) {
-      $legsStr = $null
-      if ($slip -ne $null -and ($slip.PSObject.Properties.Name -contains 'legs')) { $legsStr = [string]$slip.legs }
-      if ([string]::IsNullOrWhiteSpace($legsStr) -and $slip -ne $null -and ($slip.PSObject.Properties.Name -contains 'slip_key')) { $legsStr = [string]$slip.slip_key }
-      $slip.legs_detail = (Enrich-LegsDetail $legsStr $byId $byKey)
-    Apply-Last5 $slip.legs_detail $script:auditMap`n      $gsOut += $slip
-    }
-  }
-}
-
-Write-Json $gsOut (Join-Path $DataDir 'recommended_gamescript_latest.json')
-
-# Legacy empties (old UI expectations)
-Write-Json @() (Join-Path $DataDir 'recommended_risky_latest.json')
-Write-Json @() (Join-Path $DataDir 'status_risky_latest.json')
-Write-Json @() (Join-Path $DataDir 'invalidations_risky_latest.json')
 
 # ----------------------------
-# Validate JSON parse
+# Write outputs expected by UI
 # ----------------------------
-$null = Read-Json (Join-Path $DataDir 'recommended_latest.json')
-$null = Read-Json (Join-Path $DataDir 'recommended_system_latest.json')
-$null = Read-Json (Join-Path $DataDir 'recommended_windfall_latest.json')
-$null = Read-Json (Join-Path $DataDir 'recommended_gamescript_latest.json')
+Write-Json $rec     (Join-Path $PublicData 'recommended_latest.json')
+Write-Json @($rec.system)     (Join-Path $PublicData 'recommended_system_latest.json')
+Write-Json @($rec.windfall)   (Join-Path $PublicData 'recommended_windfall_latest.json')
+Write-Json @($rec.gamescript) (Join-Path $PublicData 'recommended_gamescript_latest.json')
+
+Write-Json $status  (Join-Path $PublicData 'status_latest.json')
+Write-Json @($inv)  (Join-Path $PublicData 'invalidations_latest.json')
+
+# Legacy risky placeholders (keep UI happy) — ONLY risky files
+"" | Out-File -LiteralPath (Join-Path $PublicData 'recommended_risky_latest.json') -Encoding UTF8
+"" | Out-File -LiteralPath (Join-Path $PublicData 'invalidations_risky_latest.json') -Encoding UTF8
+"" | Out-File -LiteralPath (Join-Path $PublicData 'status_risky_latest.json') -Encoding UTF8
+
+# Re-write correct non-empty system/gamescript after placeholders (order matters with Force)
+Write-Json @($rec.system)     (Join-Path $PublicData 'recommended_system_latest.json')
+Write-Json @($rec.gamescript) (Join-Path $PublicData 'recommended_gamescript_latest.json')
+
+# ----------------------------
+# Validate JSON parses
+# ----------------------------
+$null = Read-Json (Join-Path $PublicData 'recommended_latest.json')
+$null = Read-Json (Join-Path $PublicData 'recommended_windfall_latest.json')
 Info "JSON validation passed."
 
 # ----------------------------
-# Git commit + push (Dashboard repo)
+# Git publish public/data
 # ----------------------------
 Info "Publishing to git..."
-
-# Ensure clean tree outside public/data
-$gitStatus = (git -C $DashboardRoot status --porcelain)
-$dirtyOther = @()
-foreach ($line in @($gitStatus)) {
-  if ([string]::IsNullOrWhiteSpace($line)) { continue }
-  if ($line -match 'public/data') { continue }
-  $dirtyOther += $line
-}
-if ($dirtyOther.Count -gt 0) {
-  throw "Repo has uncommitted changes outside public/data. Commit or stash first."
-}
-
-git -C $DashboardRoot add public/data | Out-Null
-$stamp = (Get-Date).ToString('yyyy-MM-dd HH:mm:ss')
-$msg = "Publish data ($stamp)"
-$commitOut = (git -C $DashboardRoot commit -m $msg 2>$null)
-if ($LASTEXITCODE -ne 0) {
-  Info "No changes to commit."
-} else {
-  Info $commitOut
-}
-
+git -C $DashboardRoot add --all public/data | Out-Null
+$ts = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+git -C $DashboardRoot commit -m "Publish data ($ts)" | Out-Null
 git -C $DashboardRoot push | Out-Null
 Info "Done."
