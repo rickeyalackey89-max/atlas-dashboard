@@ -45,12 +45,19 @@ function GitOut([string]$repoRoot, [string[]]$gitArgs) {
     $joined = ($gitArgs -join " ")
     Fail ("git failed (exit $code): git -C `"$repoRoot`" $joined")
   }
-
 }
+
 function Get-GitPorcelain([string]$repoRoot) {
   $out = & git -C $repoRoot status --porcelain 2>$null
   if ($LASTEXITCODE -ne 0) { Fail "git status --porcelain failed. Is git installed and is this a repo?" }
   return $out
+}
+
+function Normalize-Porc($porcRaw) {
+  # Normalize to array of non-empty lines (StrictMode-safe; Count always valid)
+  $a = @($porcRaw)
+  $a = $a | Where-Object { $_ -ne $null -and $_.ToString().Trim() -ne "" }
+  return @($a)
 }
 
 function Is-OnlyPublicDataDirty([string[]]$lines) {
@@ -118,17 +125,17 @@ Write-Info ("Repo root: " + $repoRoot)
 try { $atlasAbs = (Resolve-Path $AtlasRoot).Path } catch { Fail ("Atlas root path not found: " + $AtlasRoot) }
 
 # Cleanliness gate (auto-fix ONLY public/data)
-$porc = Get-GitPorcelain $repoRoot
+$porc = Normalize-Porc (Get-GitPorcelain $repoRoot)
 if (-not (Is-OnlyPublicDataDirty $porc)) {
   Write-Info "ERROR: Working tree not clean BEFORE pull."
   $porc | ForEach-Object { Write-Info $_ }
   Fail "Commit/stash local changes outside public/data."
 }
-if ($porc -and $porc.Count -gt 0) {
+if ($porc.Count -gt 0) {
   Write-Info "Working tree has local changes only under public/data. Reverting generated artifacts..."
   Clean-PublicData $repoRoot
-  $porc2 = Get-GitPorcelain $repoRoot
-  if ($porc2 -and $porc2.Count -gt 0) {
+  $porc2 = Normalize-Porc (Get-GitPorcelain $repoRoot)
+  if ($porc2.Count -gt 0) {
     Write-Info "ERROR: Working tree not clean BEFORE pull."
     $porc2 | ForEach-Object { Write-Info $_ }
     Fail "Unable to clean public/data automatically."
@@ -139,12 +146,12 @@ Write-Info "Pulling latest from origin/main (rebase)..."
 GitOut $repoRoot @("pull","--rebase") | Out-Null
 
 # Atlas paths
-$latestAll     = Join-Path $atlasAbs "data\output\latest\all"
-$latestSystem  = Join-Path $latestAll "System"
-$latestWindfall= Join-Path $latestAll "Windfall"
-$latestAI      = Join-Path $latestAll "AI"
-$latestCapper  = Join-Path $latestAll "Capper"
-$latestRisky   = Join-Path $latestAll "risky"
+$latestAll      = Join-Path $atlasAbs "data\output\latest\all"
+$latestSystem   = Join-Path $latestAll "System"
+$latestWindfall = Join-Path $latestAll "Windfall"
+$latestAI       = Join-Path $latestAll "AI"
+$latestCapper   = Join-Path $latestAll "Capper"
+$latestRisky    = Join-Path $latestAll "risky"
 
 Write-Info ("Atlas latest/all:          " + $latestAll)
 Write-Info ("Atlas latest/all/System:   " + $latestSystem)
@@ -285,8 +292,8 @@ Write-Info "JSON validation passed."
 
 # Commit + push public/data only
 GitOut $repoRoot @("add","-A","public/data") | Out-Null
-$porcAfter = Get-GitPorcelain $repoRoot
-if (-not $porcAfter -or $porcAfter.Count -eq 0) {
+$porcAfter = Normalize-Porc (Get-GitPorcelain $repoRoot)
+if ($porcAfter.Count -eq 0) {
   Write-Info "No changes to publish (public/data unchanged). Publish complete (noop)."
   exit 0
 }
