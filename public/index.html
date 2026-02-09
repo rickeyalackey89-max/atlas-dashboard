@@ -341,9 +341,111 @@ function sectionHeader(title, subtitle = "") {
   function extractLegRows(row){
     if(!row) return [];
 
-    // 1) Prefer explicit leg arrays if present
+    // ----------------------------
+    // Helper: parse a legacy leg string like:
+    // "Player OVER PTS 10.5 (GOBLIN) [id:123]"
+    // ----------------------------
+    function parseLegacyLegString(legText){
+      const s = String(legText||"").trim();
+      if(!s) return null;
+
+      // id
+      let id = null;
+      const mId = s.match(/\[id:\s*(\d+)\s*\]/i);
+      if(mId) id = Number(mId[1]);
+
+      // tier
+      let tier = "—";
+      const mTier = s.match(/\((STANDARD|GOBLIN|DEMON)\)/i);
+      if(mTier) tier = normalizeTier(mTier[1]);
+
+      // dir
+      let dir = "—";
+      const mDir = s.match(/\b(OVER|UNDER|MORE|LESS|O|U)\b/i);
+      if(mDir) dir = normalizeDir(mDir[1]);
+
+      // line
+      let line = "—";
+      const mLine = s.match(/(-?\d+(?:\.\d+)?)\b/);
+      if(mLine) line = mLine[1];
+
+      // stat token: try "OVER PTS 10.5" pattern first, else known tokens
+      let stat = "—";
+      const mStat = s.match(/\b(OVER|UNDER|MORE|LESS|O|U)\s+([A-Z0-9+\-_/]+)\s+(-?\d+(?:\.\d+)?)/i);
+      if(mStat) stat = String(mStat[2]||"—").toUpperCase();
+      else {
+        const statTokens = ["PTS","REB","AST","FG3M","PR","PA","RA","PRA","BLK","STL","BLKS","STLS","BLKS+STLS","STLS+BLKS","PTS+REB","PTS+AST","REB+AST","PTS+REB+AST"];
+        const found = statTokens.find(t => new RegExp(`\\b${t}\\b`, "i").test(s));
+        if(found) stat = found.toUpperCase();
+      }
+
+      // player name: substring before direction token if present
+      let player = "—";
+      const idx = s.search(/\b(OVER|UNDER|MORE|LESS|O|U)\b/i);
+      if(idx > 0) player = s.slice(0, idx).replace(/[-–—]+$/,"").trim() || "—";
+
+      return {id, player, stat, dir, line, tier};
+    }
+
+    function legacyRowsFromLegsString(legsStr){
+      if(!legsStr) return [];
+      const parts = String(legsStr).split(/\s*\|\s*/).map(s=>s.trim()).filter(Boolean);
+      return parts.map(parseLegacyLegString).filter(Boolean);
+    }
+
+    // 1) Prefer explicit structured arrays if present.
+    // IMPORTANT: `legs_detail` may be "id + last5 only" (no player/stat/line/tier),
+    // so we merge it with legacy-parsed rows (by id, else by index).
+    const hasLegsDetail = Array.isArray(row.legs_detail) && row.legs_detail.length;
+
+    if(hasLegsDetail){
+      const legacy = legacyRowsFromLegsString(row.legs);
+      const legacyById = new Map();
+      for(const l of legacy){
+        if(l.id != null) legacyById.set(Number(l.id), l);
+      }
+
+      const out = [];
+      for(let i=0;i<row.legs_detail.length;i++){
+        const x = row.legs_detail[i] || {};
+        const id = (x.id != null) ? Number(x.id) : null;
+
+        // If the structured object already contains full fields, use them directly.
+        const hasFull = (x.player || x.name || x.display_name || x.stat || x.line || x.tier || x.direction || x.dir || x.side);
+
+        let base = {
+          player: x.player || x.name || x.display_name || "—",
+          stat: (x.stat || x.market || x.prop || "—"),
+          dir: normalizeDir(x.direction || x.dir || x.side),
+          line: (x.line ?? x.value ?? x.pp_line ?? x.prizepicks_line ?? "—"),
+          tier: normalizeTier(x.tier || x.pp_tier || x.price_tier),
+          last5: renderLast5(x.last5_hits ?? x.last5 ?? x.last5_hit_count ?? x.last5_hit_rate ?? x.last5_pattern ?? x.last5_results ?? x.last_5)
+        };
+
+        if(!hasFull){
+          // Merge from legacy
+          const l = (id != null && legacyById.has(id)) ? legacyById.get(id) : (legacy[i] || null);
+          if(l){
+            base.player = (base.player && base.player !== "—") ? base.player : l.player;
+            base.stat   = (base.stat   && base.stat   !== "—") ? String(base.stat).toUpperCase() : l.stat;
+            base.dir    = (base.dir    && base.dir    !== "—") ? base.dir : l.dir;
+            base.line   = (base.line   && base.line   !== "—") ? base.line : l.line;
+            base.tier   = (base.tier   && base.tier   !== "—") ? base.tier : l.tier;
+          }
+        } else {
+          // normalize stat casing if present
+          base.stat = String(base.stat || "—").toUpperCase();
+        }
+
+        out.push(base);
+      }
+
+      return out;
+    }
+
+    // 2) Other possible structured arrays (already full objects)
     const candidates = [
-      row.legs_detail, row.legs_details, row.legs_rows, row.leg_rows, row.legs_meta, row.legs_json, row.legs_parsed
+      row.legs_details, row.legs_rows, row.leg_rows, row.legs_meta, row.legs_json, row.legs_parsed
     ].filter(Boolean);
 
     for(const c of candidates){
@@ -352,7 +454,7 @@ function sectionHeader(title, subtitle = "") {
         if(Array.isArray(arr) && arr.length){
           return arr.map((x) => ({
             player: x.player || x.name || x.display_name || "—",
-            stat: x.stat || x.market || x.prop || "—",
+            stat: String(x.stat || x.market || x.prop || "—").toUpperCase(),
             dir: normalizeDir(x.direction || x.dir || x.side),
             line: (x.line ?? x.value ?? x.pp_line ?? x.prizepicks_line ?? "—"),
             tier: normalizeTier(x.tier || x.pp_tier || x.price_tier),
@@ -362,28 +464,34 @@ function sectionHeader(title, subtitle = "") {
       }catch(e){}
     }
 
-    // 2) Fall back: parse the legs string (pipe delimited)
+    // 3) Fall back: parse the legs string (pipe delimited)
     const legsStr = row.legs ? String(row.legs) : "";
     if(!legsStr) return [];
+    const legacy = legacyRowsFromLegsString(legsStr);
+    if(legacy.length){
+      return legacy.map(l => ({
+        player: l.player || "—",
+        stat: l.stat || "—",
+        dir: l.dir || "—",
+        line: l.line ?? "—",
+        tier: l.tier || "—",
+        last5: "—"
+      }));
+    }
+
+    // Last-ditch fallback to old heuristic (should rarely hit)
     const parts = legsStr.split(/\s*\|\s*/).map(s=>s.trim()).filter(Boolean);
     return parts.map((s) => {
-      // Heuristic patterns we’ve seen: "Player STAT O 12.5 (TIER)" or "Player - STAT - O/U - 12.5 - TIER"
       let player="—", stat="—", dir="—", line="—", tier="—";
-      // Tier in parens
       const mTier = s.match(/\((STANDARD|GOBLIN|DEMON)\)/i);
       if(mTier) tier = normalizeTier(mTier[1]);
-      // Direction O/U or MORE/LESS
       const mDir = s.match(/\b(OVER|UNDER|MORE|LESS|O|U)\b/i);
       if(mDir) dir = normalizeDir(mDir[1]);
-      // Line number
       const mLine = s.match(/(-?\d+(?:\.\d+)?)\b/);
       if(mLine) line = mLine[1];
-      // Stat token: last all-caps-ish token before dir/line usually
-      // We'll try to find a known stat-like token
       const statTokens = ["PTS","REB","AST","FG3M","PR","PA","RA","PRA","BLK","STL","BLKS","STLS","BLKS+STLS","STLS+BLKS"];
       const found = statTokens.find(t => new RegExp(`\\b${t}\\b`, "i").test(s));
       if(found) stat = found.toUpperCase();
-      // Player: take substring before stat if found, else before dir/line
       if(found){
         const idx = s.toUpperCase().indexOf(found);
         if(idx>0) player = s.slice(0, idx).replace(/[-–—]+$/,"").trim();
