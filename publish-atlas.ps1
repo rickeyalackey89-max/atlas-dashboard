@@ -19,6 +19,136 @@ $ErrorActionPreference = 'Stop'
 function Info([string]$m) { Write-Host $m }
 function Warn([string]$m) { Write-Warning $m }
 
+# -----------------------------------------------------------------------------
+# Last-5 lookup (from Atlas gamelogs audit)
+#
+# Source: $AtlasRoot\data\gamelogs\audit_last5_board.csv
+# Columns: last5_pts, last5_reb, last5_ast, last5_fg3m (pipe-delimited strings)
+#
+# We compute last5_hits per leg using the leg's stat, direction and line.
+# For combo stats we derive arrays:
+#   PR  = PTS+REB
+#   PA  = PTS+AST
+#   RA  = REB+AST
+#   PRA = PTS+REB+AST
+#
+# If the audit file is missing, last5 enrichment gracefully becomes "null".
+# -----------------------------------------------------------------------------
+
+function Norm-Name([string]$s) {
+  if ([string]::IsNullOrWhiteSpace($s)) { return "" }
+  $t = ($s -replace '\s+', ' ').Trim().ToLowerInvariant()
+  return $t
+}
+
+function Parse-PipeNums([string]$s) {
+  if ([string]::IsNullOrWhiteSpace($s)) { return @() }
+  $parts = ($s -split '\s*\|\s*') | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+  $nums = @()
+  foreach ($p in $parts) {
+    try { $nums += [double]$p } catch { }
+  }
+  return ,$nums
+}
+
+function Add-Arrays([double[]]$a, [double[]]$b) {
+  if ($null -eq $a -or $a.Count -eq 0) { return @() }
+  if ($null -eq $b -or $b.Count -eq 0) { return @() }
+  $n = [Math]::Min($a.Count, $b.Count)
+  $out = New-Object double[] $n
+  for ($i=0; $i -lt $n; $i++) { $out[$i] = $a[$i] + $b[$i] }
+  return ,$out
+}
+
+function Add-3Arrays([double[]]$a, [double[]]$b, [double[]]$c) {
+  $ab = Add-Arrays $a $b
+  return (Add-Arrays $ab $c)
+}
+
+function Compute-Last5Hits([hashtable]$last5ByPlayer, [string]$player, [string]$stat, [string]$direction, [object]$line) {
+  if ($null -eq $last5ByPlayer) { return $null }
+
+  $pkey = Norm-Name $player
+  if ([string]::IsNullOrWhiteSpace($pkey)) { return $null }
+  if (-not $last5ByPlayer.ContainsKey($pkey)) { return $null }
+
+  # Coerce line
+  $ln = $null
+  try { $ln = [double]$line } catch { return $null }
+
+  $row = $last5ByPlayer[$pkey]
+  $pts = $row.pts
+  $reb = $row.reb
+  $ast = $row.ast
+  $fg3m = $row.fg3m
+
+  $st = $(if ($null -ne $stat) { [string]$stat } else { '' })
+  $st = $st.Trim().ToUpperInvariant()
+
+  $vals = @()
+  switch ($st) {
+    'PTS'  { $vals = $pts }
+    'REB'  { $vals = $reb }
+    'AST'  { $vals = $ast }
+    'FG3M' { $vals = $fg3m }
+    'PR'   { $vals = Add-Arrays $pts $reb }
+    'PA'   { $vals = Add-Arrays $pts $ast }
+    'RA'   { $vals = Add-Arrays $reb $ast }
+    'PRA'  { $vals = Add-3Arrays $pts $reb $ast }
+    default { return $null }
+  }
+
+  if ($null -eq $vals -or $vals.Count -eq 0) { return $null }
+
+  $dir = $(if ($null -ne $direction) { [string]$direction } else { '' })
+  $dir = $dir.Trim().ToUpperInvariant()
+
+  $hits = 0
+  foreach ($v in $vals) {
+    if ($dir -eq 'OVER') {
+      if ($v -gt $ln) { $hits++ }
+    } elseif ($dir -eq 'UNDER') {
+      if ($v -lt $ln) { $hits++ }
+    }
+  }
+
+  return $hits
+}
+
+function Build-Last5Lookup([string]$AtlasRoot) {
+  $audit = Join-Path $AtlasRoot 'data\gamelogs\audit_last5_board.csv'
+  $m = @{}
+  if (-not (Test-Path -LiteralPath $audit)) {
+    Warn "Last-5 audit missing: $audit"
+    return $m
+  }
+
+  try {
+    $rows = Import-Csv -LiteralPath $audit
+    foreach ($r in $rows) {
+      $name = $null
+      if ($r.PSObject.Properties.Name -contains 'board_player') { $name = $r.board_player }
+      if ([string]::IsNullOrWhiteSpace($name) -and ($r.PSObject.Properties.Name -contains 'resolved_player')) { $name = $r.resolved_player }
+      $k = Norm-Name $name
+      if ([string]::IsNullOrWhiteSpace($k)) { continue }
+
+      $obj = [pscustomobject]@{
+        pts  = Parse-PipeNums $r.last5_pts
+        reb  = Parse-PipeNums $r.last5_reb
+        ast  = Parse-PipeNums $r.last5_ast
+        fg3m = Parse-PipeNums $r.last5_fg3m
+      }
+      if (-not $m.ContainsKey($k)) { $m[$k] = $obj }
+    }
+  } catch {
+    Warn "Failed reading last-5 audit: $($_.Exception.Message)"
+  }
+
+  return $m
+}
+
+$global:Last5ByPlayer = Build-Last5Lookup $AtlasRoot
+
 function Ensure-Dir([string]$p) {
   if (-not (Test-Path -LiteralPath $p)) {
     New-Item -ItemType Directory -Force -Path $p | Out-Null
@@ -169,13 +299,20 @@ function Enrich-LegsDetail([string]$legsStr, [hashtable]$byId, [hashtable]$byKey
     }
 
     if ($null -ne $found) {
+      $p = $(if ($found.PSObject.Properties.Name -contains 'player') { $found.player } else { $parsed.player })
+      $s = $(if ($found.PSObject.Properties.Name -contains 'stat') { $found.stat } else { $parsed.stat })
+      $d = $(if ($found.PSObject.Properties.Name -contains 'direction') { $found.direction } else { $parsed.direction })
+      $l = $(if ($found.PSObject.Properties.Name -contains 'line') { $found.line } else { $parsed.line })
+      $lh = Compute-Last5Hits $global:Last5ByPlayer $p $s $d $l
+      if ($null -eq $lh -and ($found.PSObject.Properties.Name -contains 'last5_hits')) { $lh = $found.last5_hits }
+
       $o = [ordered]@{
         id         = $found.id
-        player     = $(if ($found.PSObject.Properties.Name -contains 'player') { $found.player } else { $parsed.player })
-        stat       = $(if ($found.PSObject.Properties.Name -contains 'stat') { $found.stat } else { $parsed.stat })
-        direction  = $(if ($found.PSObject.Properties.Name -contains 'direction') { $found.direction } else { $parsed.direction })
-        line       = $(if ($found.PSObject.Properties.Name -contains 'line') { $found.line } else { $parsed.line })
-        last5_hits = $(if ($found.PSObject.Properties.Name -contains 'last5_hits') { $found.last5_hits } else { $null })
+        player     = $p
+        stat       = $s
+        direction  = $d
+        line       = $l
+        last5_hits = $lh
         leg_text   = $legText
       }
       $out += [pscustomobject]$o
@@ -187,7 +324,7 @@ function Enrich-LegsDetail([string]$legsStr, [hashtable]$byId, [hashtable]$byKey
         stat       = $parsed.stat
         direction  = $parsed.direction
         line       = $parsed.line
-        last5_hits = $null
+        last5_hits = (Compute-Last5Hits $global:Last5ByPlayer $parsed.player $parsed.stat $parsed.direction $parsed.line)
         leg_text   = $legText
       }
       $out += [pscustomobject]$o
