@@ -38,7 +38,6 @@ function Resolve-RepoRoot([string]$startDir) {
 }
 
 function GitOut([string]$repoRoot, [string[]]$gitArgs) {
-  # Run git normally (avoid PS5.1 stderr capture issues)
   & git -C $repoRoot @gitArgs
   $code = $LASTEXITCODE
   if ($code -ne 0) {
@@ -53,15 +52,16 @@ function Get-GitPorcelain([string]$repoRoot) {
   return $out
 }
 
-function Normalize-Porc($porcRaw) {
-  # Normalize to array of non-empty lines (StrictMode-safe; Count always valid)
-  $a = @($porcRaw)
+function Normalize-Lines($raw) {
+  # Normalize to array of non-empty strings; .Count always valid
+  $a = @($raw)
   $a = $a | Where-Object { $_ -ne $null -and $_.ToString().Trim() -ne "" }
   return @($a)
 }
 
 function Is-OnlyPublicDataDirty([string[]]$lines) {
-  if (-not $lines -or $lines.Count -eq 0) { return $true }
+  $lines = @($lines)
+  if ($lines.Count -eq 0) { return $true }
   foreach ($l in $lines) {
     $path = $l.Substring(3).Trim()
     if (-not ($path -like "public/data/*")) { return $false }
@@ -73,28 +73,37 @@ function Clean-PublicData([string]$repoRoot) {
   $pd = Join-Path $repoRoot "public\data"
   if (-not (Test-Path $pd)) { New-Item -ItemType Directory -Path $pd | Out-Null }
 
-  # revert tracked changes + remove untracked under public/data
   & git -C $repoRoot restore --worktree --staged -- "public/data" 2>$null | Out-Null
   & git -C $repoRoot clean -fd -- "public/data" 2>$null | Out-Null
 }
 
 function Read-CsvIfExists([string]$p) {
-  if (-not (Test-Path $p)) { return $null }
-  try { return Import-Csv -Path $p } catch { Fail ("Failed to read CSV: " + $p + " :: " + $_.Exception.Message) }
+  if (-not (Test-Path $p)) { return @() }
+  try {
+    # CRITICAL: force array even for single-row CSV
+    $rows = Import-Csv -Path $p
+    return @($rows)
+  } catch {
+    Fail ("Failed to read CSV: " + $p + " :: " + $_.Exception.Message)
+  }
 }
 
 function Sort-ObjectsBestFirst($rows) {
-  if (-not $rows) { return @() }
+  $rows = @($rows)
+  if ($rows.Count -eq 0) { return @() }
+
   $cands = @("ev","slip_ev","score","p_combo","p_adj","p_hit","hit_prob","prob","p")
   $cols = @{}
   foreach ($pr in $rows[0].PSObject.Properties) { $cols[$pr.Name.ToLower()] = $pr.Name }
+
   foreach ($k in $cands) {
     if ($cols.ContainsKey($k)) {
       $col = $cols[$k]
-      return $rows | Sort-Object @{Expression = { [double]($_.$col) }; Descending = $true}
+      $sorted = $rows | Sort-Object @{Expression = { [double]($_.$col) }; Descending = $true}
+      return @($sorted)
     }
   }
-  return $rows
+  return @($rows)
 }
 
 function Write-JsonFile([string]$path, $obj) {
@@ -125,7 +134,7 @@ Write-Info ("Repo root: " + $repoRoot)
 try { $atlasAbs = (Resolve-Path $AtlasRoot).Path } catch { Fail ("Atlas root path not found: " + $AtlasRoot) }
 
 # Cleanliness gate (auto-fix ONLY public/data)
-$porc = Normalize-Porc (Get-GitPorcelain $repoRoot)
+$porc = Normalize-Lines (Get-GitPorcelain $repoRoot)
 if (-not (Is-OnlyPublicDataDirty $porc)) {
   Write-Info "ERROR: Working tree not clean BEFORE pull."
   $porc | ForEach-Object { Write-Info $_ }
@@ -134,7 +143,7 @@ if (-not (Is-OnlyPublicDataDirty $porc)) {
 if ($porc.Count -gt 0) {
   Write-Info "Working tree has local changes only under public/data. Reverting generated artifacts..."
   Clean-PublicData $repoRoot
-  $porc2 = Normalize-Porc (Get-GitPorcelain $repoRoot)
+  $porc2 = Normalize-Lines (Get-GitPorcelain $repoRoot)
   if ($porc2.Count -gt 0) {
     Write-Info "ERROR: Working tree not clean BEFORE pull."
     $porc2 | ForEach-Object { Write-Info $_ }
@@ -209,7 +218,7 @@ Write-Info "Exporting 12 outputs -> JSON..."
 $rowsSys3 = Read-CsvIfExists $sys3
 $rowsSys4 = Read-CsvIfExists $sys4
 $rowsSys5 = Read-CsvIfExists $sys5
-if (-not $rowsSys3 -and -not $rowsSys4 -and -not $rowsSys5) {
+if (@($rowsSys3).Count -eq 0 -and @($rowsSys4).Count -eq 0 -and @($rowsSys5).Count -eq 0) {
   Fail ("System picks missing. Expected at least one of: " + $sys3 + " / " + $sys4 + " / " + $sys5)
 }
 Write-JsonFile $out_sys3 (@($rowsSys3))
@@ -229,21 +238,23 @@ function Combine-GameScript([string]$aiCsv, [string]$capCsv) {
   $a = Read-CsvIfExists $aiCsv
   $c = Read-CsvIfExists $capCsv
   $all = @()
-  if ($a) { $all += $a }
-  if ($c) { $all += $c }
-  if (-not $all -or $all.Count -eq 0) { return @() }
+  $all += @($a)
+  $all += @($c)
+
+  if (@($all).Count -eq 0) { return @() }
+
   $sorted = Sort-ObjectsBestFirst $all
   $topN = 50
-  if ($sorted.Count -gt $topN) { return @($sorted[0..($topN-1)]) }
+  if (@($sorted).Count -gt $topN) { return @($sorted[0..($topN-1)]) }
   return @($sorted)
 }
 
 $gs3 = Combine-GameScript $ai3 $cap3
 $gs4 = Combine-GameScript $ai4 $cap4
 $gs5 = Combine-GameScript $ai5 $cap5
-Write-JsonFile $out_gs3 $gs3
-Write-JsonFile $out_gs4 $gs4
-Write-JsonFile $out_gs5 $gs5
+Write-JsonFile $out_gs3 (@($gs3))
+Write-JsonFile $out_gs4 (@($gs4))
+Write-JsonFile $out_gs5 (@($gs5))
 
 # Legacy risky (empty)
 Write-JsonFile $out_r3 @()
@@ -263,15 +274,15 @@ $statusObj = @{
     capper     = $latestCapper
   }
   counts = @{
-    system_3     = $(if ($rowsSys3) { $rowsSys3.Count } else { 0 })
-    system_4     = $(if ($rowsSys4) { $rowsSys4.Count } else { 0 })
-    system_5     = $(if ($rowsSys5) { $rowsSys5.Count } else { 0 })
-    windfall_3   = $(if ($rowsWf3)  { $rowsWf3.Count  } else { 0 })
-    windfall_4   = $(if ($rowsWf4)  { $rowsWf4.Count  } else { 0 })
-    windfall_5   = $(if ($rowsWf5)  { $rowsWf5.Count  } else { 0 })
-    gamescript_3 = $(if ($gs3)      { $gs3.Count      } else { 0 })
-    gamescript_4 = $(if ($gs4)      { $gs4.Count      } else { 0 })
-    gamescript_5 = $(if ($gs5)      { $gs5.Count      } else { 0 })
+    system_3     = @($rowsSys3).Count
+    system_4     = @($rowsSys4).Count
+    system_5     = @($rowsSys5).Count
+    windfall_3   = @($rowsWf3).Count
+    windfall_4   = @($rowsWf4).Count
+    windfall_5   = @($rowsWf5).Count
+    gamescript_3 = @($gs3).Count
+    gamescript_4 = @($gs4).Count
+    gamescript_5 = @($gs5).Count
   }
   legacy = @{ risky_jsons = "empty arrays (deprecated)" }
 }
@@ -292,7 +303,7 @@ Write-Info "JSON validation passed."
 
 # Commit + push public/data only
 GitOut $repoRoot @("add","-A","public/data") | Out-Null
-$porcAfter = Normalize-Porc (Get-GitPorcelain $repoRoot)
+$porcAfter = Normalize-Lines (Get-GitPorcelain $repoRoot)
 if ($porcAfter.Count -eq 0) {
   Write-Info "No changes to publish (public/data unchanged). Publish complete (noop)."
   exit 0
