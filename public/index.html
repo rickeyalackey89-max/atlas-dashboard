@@ -633,11 +633,54 @@ function sectionHeader(title, subtitle = "") {
       featured: true
     }));
 
-    // ---- Windfall (tier-mix) ----
-    grid.appendChild(htmlToNode(sectionHeader("Windfall — Tier Mix Picks", "Optional higher-payout slips with Goblin/Standard/Demon composition rules.")));
-    grid.appendChild(slipCard({title:"Best 4-Leg (Windfall)", href:"/data/windfall_recommended_4leg_latest.json", row:wf4.row, subtitle:wf4.subtitle}));
-    grid.appendChild(slipCard({title:"Best 3-Leg (Windfall)", href:"/data/windfall_recommended_3leg_latest.json", row:wf3.row, subtitle:wf3.subtitle}));
-    grid.appendChild(slipCard({title:"Best 5-Leg (Windfall)", href:"/data/windfall_recommended_5leg_latest.json", row:wf5.row, subtitle:wf5.subtitle}));
+    // --- Windfall (tier-mix) ---
+    grid.appendChild(htmlToNode(sectionHeader(
+      "Windfall — Tier Mix Picks",
+      "Optional higher-payout slips with Goblin/Standard/Demon composition rules."
+    )));
+
+    // Build Windfall cards from unified JSON: /data/recommended_windfall_latest.json
+  (async () => {
+    const wf4 = { row: null, subtitle: "windfall (4-leg): missing / no data" };
+    const wf3 = { row: null, subtitle: "windfall (3-leg): missing / no data" };
+    const wf5 = { row: null, subtitle: "windfall (5-leg): missing / no data" };
+
+  try {
+    const wfUrl = "/data/recommended_windfall_latest.json" + cacheBust();
+    const { parsed } = await fetchJson(wfUrl);
+    const arr = Array.isArray(parsed) ? parsed : (parsed && Array.isArray(parsed.windfall) ? parsed.windfall : []);
+
+    const pickBest = (n) => {
+      const rows = arr.filter(x => String(x.n_legs || x.nlegs || x.legs_n || "") === String(n));
+      if (!rows.length) return null;
+      // Prefer EV / hit_prob if present, else first row
+      const score = (r) => {
+        const ev = Number(r.ev_mult ?? r.ev ?? r.evMult ?? NaN);
+        const hp = Number(r.hit_prob ?? r.hitProb ?? NaN);
+        if (!Number.isNaN(ev)) return ev;
+        if (!Number.isNaN(hp)) return hp;
+        return 0;
+      };
+      return rows.slice().sort((a,b) => score(b) - score(a))[0];
+    };
+
+    wf3.row = pickBest(3);
+    wf4.row = pickBest(4);
+    wf5.row = pickBest(5);
+
+    wf3.subtitle = wf3.row ? `recommended_windfall_latest.json · rows: ${arr.length}` : "No data";
+    wf4.subtitle = wf4.row ? `recommended_windfall_latest.json · rows: ${arr.length}` : "No data";
+    wf5.subtitle = wf5.row ? `recommended_windfall_latest.json · rows: ${arr.length}` : "No data";
+  } catch (e) {
+    // leave as missing/no data
+  }
+
+  // NOTE: href points to the unified JSON now
+  grid.appendChild(slipCard({ title:"Best 4-Leg (Windfall)", href:"/data/recommended_windfall_latest.json", row:wf4.row, subtitle:wf4.subtitle }));
+  grid.appendChild(slipCard({ title:"Best 3-Leg (Windfall)", href:"/data/recommended_windfall_latest.json", row:wf3.row, subtitle:wf3.subtitle }));
+  grid.appendChild(slipCard({ title:"Best 5-Leg (Windfall)", href:"/data/recommended_windfall_latest.json", row:wf5.row, subtitle:wf5.subtitle }));
+})();
+
 
     // ---- GameScript (external human+AI picks scored by Atlas math) ----
     grid.appendChild(htmlToNode(sectionHeader("GameScript — External Picks", "Human/AI suggested legs re-scored by Atlas math; no tier rules or skew—just best available combos.")));
