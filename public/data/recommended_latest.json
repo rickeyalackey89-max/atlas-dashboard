@@ -1,1281 +1,1290 @@
-{
-  "generated_at": "2026-02-09 15:54:40 CST",
-  "source_csv": "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Windfall\\recommended_5leg.csv",
-  "row_count": 19,
-  "data": [
-    {
-      "n_legs": "5",
-      "legs": "Ryan Kalkbrenner OVER PA 4.5 (GOBLIN) [id:9814266] | Kon Knueppel OVER REB 3.5 (GOBLIN) [id:9795238] | Nique Clifford UNDER PA 17.5 (STANDARD) [id:9803388] | Olivier-Maxence Prosper UNDER PRA 15.5 (STANDARD) [id:9814110] | Jusuf Nurkić OVER PR 20.5 (DEMON) [id:9812027]",
-      "hit_prob": "0.2533201459102356",
-      "ev_mult": "5.066402918204712",
-      "avg_p": "0.7627434513097381",
-      "avg_fragility": "0.0011727657726137",
-      "slip_key": "Ryan Kalkbrenner OVER PA 4.5 (GOBLIN) [id:9814266] | Kon Knueppel OVER REB 3.5 (GOBLIN) [id:9795238] | Nique Clifford UNDER PA 17.5 (STANDARD) [id:9803388] | Olivier-Maxence Prosper UNDER PRA 15.5 (STANDARD) [id:9814110] | Jusuf Nurkić OVER PR 20.5 (DEMON) [id:9812027]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Ryan Kalkbrenner OVER PA 4.5 (GOBLIN) [id:9814266]",
-      "leg_2": "Kon Knueppel OVER REB 3.5 (GOBLIN) [id:9795238]",
-      "leg_3": "Nique Clifford UNDER PA 17.5 (STANDARD) [id:9803388]",
-      "leg_4": "Olivier-Maxence Prosper UNDER PRA 15.5 (STANDARD) [id:9814110]",
-      "leg_5": "Jusuf Nurkić OVER PR 20.5 (DEMON) [id:9812027]",
-      "legs_detail": [
-        {
-          "id": 9814266,
-          "player": "Ryan Kalkbrenner",
-          "stat": "PA",
-          "direction": "OVER",
-          "line": 4.5,
-          "last5_hits": 4,
-          "leg_text": "Ryan Kalkbrenner OVER PA 4.5 (GOBLIN) [id:9814266]"
-        },
-        {
-          "id": 9795238,
-          "player": "Kon Knueppel",
-          "stat": "REB",
-          "direction": "OVER",
-          "line": 3.5,
-          "last5_hits": 5,
-          "leg_text": "Kon Knueppel OVER REB 3.5 (GOBLIN) [id:9795238]"
-        },
-        {
-          "id": 9803388,
-          "player": "Nique Clifford",
-          "stat": "PA",
-          "direction": "UNDER",
-          "line": 17.5,
-          "last5_hits": 2,
-          "leg_text": "Nique Clifford UNDER PA 17.5 (STANDARD) [id:9803388]"
-        },
-        {
-          "id": 9814110,
-          "player": "Olivier-Maxence Prosper",
-          "stat": "PRA",
-          "direction": "UNDER",
-          "line": 15.5,
-          "last5_hits": null,
-          "leg_text": "Olivier-Maxence Prosper UNDER PRA 15.5 (STANDARD) [id:9814110]"
-        },
-        {
-          "id": 9812027,
-          "player": "Jusuf Nurkić",
-          "stat": "PR",
-          "direction": "OVER",
-          "line": 20.5,
-          "last5_hits": 3,
-          "leg_text": "Jusuf Nurkić OVER PR 20.5 (DEMON) [id:9812027]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Austin Reaves OVER PA 22.5 (GOBLIN) [id:9809209] | Kon Knueppel OVER RA 6.5 (GOBLIN) [id:9812410] | Jonas Valančiūnas OVER PRA 13.5 (STANDARD) [id:9808639] | Gary Payton UNDER PRA 14.5 (STANDARD) [id:9812530] | Scoot Henderson OVER RA 8.5 (DEMON) [id:9801398]",
-      "hit_prob": "0.2497971571953939",
-      "ev_mult": "4.995943143907878",
-      "avg_p": "0.7649362127574485",
-      "avg_fragility": "0.001558511352949",
-      "slip_key": "Austin Reaves OVER PA 22.5 (GOBLIN) [id:9809209] | Kon Knueppel OVER RA 6.5 (GOBLIN) [id:9812410] | Jonas Valančiūnas OVER PRA 13.5 (STANDARD) [id:9808639] | Gary Payton UNDER PRA 14.5 (STANDARD) [id:9812530] | Scoot Henderson OVER RA 8.5 (DEMON) [id:9801398]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Austin Reaves OVER PA 22.5 (GOBLIN) [id:9809209]",
-      "leg_2": "Kon Knueppel OVER RA 6.5 (GOBLIN) [id:9812410]",
-      "leg_3": "Jonas Valančiūnas OVER PRA 13.5 (STANDARD) [id:9808639]",
-      "leg_4": "Gary Payton UNDER PRA 14.5 (STANDARD) [id:9812530]",
-      "leg_5": "Scoot Henderson OVER RA 8.5 (DEMON) [id:9801398]",
-      "legs_detail": [
-        {
-          "id": 9809209,
-          "player": "Austin Reaves",
-          "stat": "PA",
-          "direction": "OVER",
-          "line": 22.5,
-          "last5_hits": 2,
-          "leg_text": "Austin Reaves OVER PA 22.5 (GOBLIN) [id:9809209]"
-        },
-        {
-          "id": 9812410,
-          "player": "Kon Knueppel",
-          "stat": "RA",
-          "direction": "OVER",
-          "line": 6.5,
-          "last5_hits": 4,
-          "leg_text": "Kon Knueppel OVER RA 6.5 (GOBLIN) [id:9812410]"
-        },
-        {
-          "id": 9808639,
-          "player": "Jonas Valančiūnas",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 13.5,
-          "last5_hits": 4,
-          "leg_text": "Jonas Valančiūnas OVER PRA 13.5 (STANDARD) [id:9808639]"
-        },
-        {
-          "id": 9812530,
-          "player": "Gary Payton",
-          "stat": "PRA",
-          "direction": "UNDER",
-          "line": 14.5,
-          "last5_hits": null,
-          "leg_text": "Gary Payton UNDER PRA 14.5 (STANDARD) [id:9812530]"
-        },
-        {
-          "id": 9801398,
-          "player": "Scoot Henderson",
-          "stat": "RA",
-          "direction": "OVER",
-          "line": 8.5,
-          "last5_hits": 1,
-          "leg_text": "Scoot Henderson OVER RA 8.5 (DEMON) [id:9801398]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Isaac Okoro OVER REB 1.5 (GOBLIN) [id:9812539] | Chet Holmgren OVER RA 7.5 (GOBLIN) [id:9813857] | Nic Claxton UNDER PA 15.5 (STANDARD) [id:9795585] | Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084] | Franz Wagner OVER PR 21.5 (DEMON) [id:9806172]",
-      "hit_prob": "0.2256493261464806",
-      "ev_mult": "4.512986522929613",
-      "avg_p": "0.7474397120575885",
-      "avg_fragility": "0.0",
-      "slip_key": "Isaac Okoro OVER REB 1.5 (GOBLIN) [id:9812539] | Chet Holmgren OVER RA 7.5 (GOBLIN) [id:9813857] | Nic Claxton UNDER PA 15.5 (STANDARD) [id:9795585] | Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084] | Franz Wagner OVER PR 21.5 (DEMON) [id:9806172]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Isaac Okoro OVER REB 1.5 (GOBLIN) [id:9812539]",
-      "leg_2": "Chet Holmgren OVER RA 7.5 (GOBLIN) [id:9813857]",
-      "leg_3": "Nic Claxton UNDER PA 15.5 (STANDARD) [id:9795585]",
-      "leg_4": "Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084]",
-      "leg_5": "Franz Wagner OVER PR 21.5 (DEMON) [id:9806172]",
-      "legs_detail": [
-        {
-          "id": 9812539,
-          "player": "Isaac Okoro",
-          "stat": "REB",
-          "direction": "OVER",
-          "line": 1.5,
-          "last5_hits": 4,
-          "leg_text": "Isaac Okoro OVER REB 1.5 (GOBLIN) [id:9812539]"
-        },
-        {
-          "id": 9813857,
-          "player": "Chet Holmgren",
-          "stat": "RA",
-          "direction": "OVER",
-          "line": 7.5,
-          "last5_hits": 3,
-          "leg_text": "Chet Holmgren OVER RA 7.5 (GOBLIN) [id:9813857]"
-        },
-        {
-          "id": 9795585,
-          "player": "Nic Claxton",
-          "stat": "PA",
-          "direction": "UNDER",
-          "line": 15.5,
-          "last5_hits": 4,
-          "leg_text": "Nic Claxton UNDER PA 15.5 (STANDARD) [id:9795585]"
-        },
-        {
-          "id": 9798084,
-          "player": "Jusuf Nurkić",
-          "stat": "PA",
-          "direction": "OVER",
-          "line": 14.5,
-          "last5_hits": 3,
-          "leg_text": "Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084]"
-        },
-        {
-          "id": 9806172,
-          "player": "Franz Wagner",
-          "stat": "PR",
-          "direction": "OVER",
-          "line": 21.5,
-          "last5_hits": 3,
-          "leg_text": "Franz Wagner OVER PR 21.5 (DEMON) [id:9806172]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Donte DiVincenzo OVER AST 2.5 (GOBLIN) [id:9804894] | Herbert Jones OVER RA 4.5 (GOBLIN) [id:9813709] | Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084] | Wendell Carter OVER PTS 9.5 (STANDARD) [id:9798980] | Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
-      "hit_prob": "0.2243392111246783",
-      "ev_mult": "4.486784222493567",
-      "avg_p": "0.7512305538892221",
-      "avg_fragility": "3.99960003999557e-05",
-      "slip_key": "Donte DiVincenzo OVER AST 2.5 (GOBLIN) [id:9804894] | Herbert Jones OVER RA 4.5 (GOBLIN) [id:9813709] | Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084] | Wendell Carter OVER PTS 9.5 (STANDARD) [id:9798980] | Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Donte DiVincenzo OVER AST 2.5 (GOBLIN) [id:9804894]",
-      "leg_2": "Herbert Jones OVER RA 4.5 (GOBLIN) [id:9813709]",
-      "leg_3": "Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084]",
-      "leg_4": "Wendell Carter OVER PTS 9.5 (STANDARD) [id:9798980]",
-      "leg_5": "Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
-      "legs_detail": [
-        {
-          "id": 9804894,
-          "player": "Donte DiVincenzo",
-          "stat": "AST",
-          "direction": "OVER",
-          "line": 2.5,
-          "last5_hits": 3,
-          "leg_text": "Donte DiVincenzo OVER AST 2.5 (GOBLIN) [id:9804894]"
-        },
-        {
-          "id": 9813709,
-          "player": "Herbert Jones",
-          "stat": "RA",
-          "direction": "OVER",
-          "line": 4.5,
-          "last5_hits": 4,
-          "leg_text": "Herbert Jones OVER RA 4.5 (GOBLIN) [id:9813709]"
-        },
-        {
-          "id": 9798084,
-          "player": "Jusuf Nurkić",
-          "stat": "PA",
-          "direction": "OVER",
-          "line": 14.5,
-          "last5_hits": 3,
-          "leg_text": "Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084]"
-        },
-        {
-          "id": 9798980,
-          "player": "Wendell Carter",
-          "stat": "PTS",
-          "direction": "OVER",
-          "line": 9.5,
-          "last5_hits": null,
-          "leg_text": "Wendell Carter OVER PTS 9.5 (STANDARD) [id:9798980]"
-        },
-        {
-          "id": 9810043,
-          "player": "Scoot Henderson",
-          "stat": "PA",
-          "direction": "OVER",
-          "line": 16.5,
-          "last5_hits": 1,
-          "leg_text": "Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:9797861] | Naz Reid OVER AST 1.5 (GOBLIN) [id:9802540] | Cam Spencer OVER PRA 19.5 (STANDARD) [id:9803456] | Kentavious Caldwell-Pope OVER PA 9.5 (STANDARD) [id:9803960] | Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
-      "hit_prob": "0.220231124527938",
-      "ev_mult": "4.4046224905587605",
-      "avg_p": "0.7546298740251949",
-      "avg_fragility": "3.99960003999557e-05",
-      "slip_key": "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:9797861] | Naz Reid OVER AST 1.5 (GOBLIN) [id:9802540] | Cam Spencer OVER PRA 19.5 (STANDARD) [id:9803456] | Kentavious Caldwell-Pope OVER PA 9.5 (STANDARD) [id:9803960] | Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:9797861]",
-      "leg_2": "Naz Reid OVER AST 1.5 (GOBLIN) [id:9802540]",
-      "leg_3": "Cam Spencer OVER PRA 19.5 (STANDARD) [id:9803456]",
-      "leg_4": "Kentavious Caldwell-Pope OVER PA 9.5 (STANDARD) [id:9803960]",
-      "leg_5": "Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
-      "legs_detail": [
-        {
-          "id": 9797861,
-          "player": "Cameron Johnson",
-          "stat": "PTS",
-          "direction": "OVER",
-          "line": 7.5,
-          "last5_hits": 4,
-          "leg_text": "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:9797861]"
-        },
-        {
-          "id": 9802540,
-          "player": "Naz Reid",
-          "stat": "AST",
-          "direction": "OVER",
-          "line": 1.5,
-          "last5_hits": 4,
-          "leg_text": "Naz Reid OVER AST 1.5 (GOBLIN) [id:9802540]"
-        },
-        {
-          "id": 9803456,
-          "player": "Cam Spencer",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 19.5,
-          "last5_hits": 4,
-          "leg_text": "Cam Spencer OVER PRA 19.5 (STANDARD) [id:9803456]"
-        },
-        {
-          "id": 9803960,
-          "player": "Kentavious Caldwell-Pope",
-          "stat": "PA",
-          "direction": "OVER",
-          "line": 9.5,
-          "last5_hits": 4,
-          "leg_text": "Kentavious Caldwell-Pope OVER PA 9.5 (STANDARD) [id:9803960]"
-        },
-        {
-          "id": 9810043,
-          "player": "Scoot Henderson",
-          "stat": "PA",
-          "direction": "OVER",
-          "line": 16.5,
-          "last5_hits": 1,
-          "leg_text": "Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Jaren Jackson OVER PR 17.5 (GOBLIN) [id:9813657] | Day'Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078] | Scoot Henderson OVER AST 4 (STANDARD) [id:9801381] | Draymond Green UNDER REB 6 (STANDARD) [id:9797226] | DeMar DeRozan OVER PTS 19.5 (DEMON) [id:9803317]",
-      "hit_prob": "0.2148232830235936",
-      "ev_mult": "4.296465660471872",
-      "avg_p": "0.7692161567686463",
-      "avg_fragility": "0.0015304891385154",
-      "slip_key": "Jaren Jackson OVER PR 17.5 (GOBLIN) [id:9813657] | Day'Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078] | Scoot Henderson OVER AST 4 (STANDARD) [id:9801381] | Draymond Green UNDER REB 6 (STANDARD) [id:9797226] | DeMar DeRozan OVER PTS 19.5 (DEMON) [id:9803317]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Jaren Jackson OVER PR 17.5 (GOBLIN) [id:9813657]",
-      "leg_2": "Day'Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078]",
-      "leg_3": "Scoot Henderson OVER AST 4 (STANDARD) [id:9801381]",
-      "leg_4": "Draymond Green UNDER REB 6 (STANDARD) [id:9797226]",
-      "leg_5": "DeMar DeRozan OVER PTS 19.5 (DEMON) [id:9803317]",
-      "legs_detail": [
-        {
-          "id": 9813657,
-          "player": "Jaren Jackson",
-          "stat": "PR",
-          "direction": "OVER",
-          "line": 17.5,
-          "last5_hits": null,
-          "leg_text": "Jaren Jackson OVER PR 17.5 (GOBLIN) [id:9813657]"
-        },
-        {
-          "id": 9804078,
-          "player": "Day'Ron Sharpe",
-          "stat": "REB",
-          "direction": "OVER",
-          "line": 4.5,
-          "last5_hits": 5,
-          "leg_text": "Day'Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078]"
-        },
-        {
-          "id": 9801381,
-          "player": "Scoot Henderson",
-          "stat": "AST",
-          "direction": "OVER",
-          "line": 4.0,
-          "last5_hits": 1,
-          "leg_text": "Scoot Henderson OVER AST 4 (STANDARD) [id:9801381]"
-        },
-        {
-          "id": 9797226,
-          "player": "Draymond Green",
-          "stat": "REB",
-          "direction": "UNDER",
-          "line": 6.0,
-          "last5_hits": 3,
-          "leg_text": "Draymond Green UNDER REB 6 (STANDARD) [id:9797226]"
-        },
-        {
-          "id": 9803317,
-          "player": "DeMar DeRozan",
-          "stat": "PTS",
-          "direction": "OVER",
-          "line": 19.5,
-          "last5_hits": 2,
-          "leg_text": "DeMar DeRozan OVER PTS 19.5 (DEMON) [id:9803317]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Cam Spencer OVER RA 6.5 (GOBLIN) [id:9805872] | Jeremiah Fears OVER REB 1.5 (GOBLIN) [id:9804222] | Danny Wolf UNDER PR 19.5 (STANDARD) [id:9796823] | Trey Murphy OVER PRA 32.5 (STANDARD) [id:9799646] | Franz Wagner OVER PRA 25.5 (DEMON) [id:9801564]",
-      "hit_prob": "0.2081612372246439",
-      "ev_mult": "4.163224744492879",
-      "avg_p": "0.7379264147170566",
-      "avg_fragility": "0.0018716985456589",
-      "slip_key": "Cam Spencer OVER RA 6.5 (GOBLIN) [id:9805872] | Jeremiah Fears OVER REB 1.5 (GOBLIN) [id:9804222] | Danny Wolf UNDER PR 19.5 (STANDARD) [id:9796823] | Trey Murphy OVER PRA 32.5 (STANDARD) [id:9799646] | Franz Wagner OVER PRA 25.5 (DEMON) [id:9801564]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Cam Spencer OVER RA 6.5 (GOBLIN) [id:9805872]",
-      "leg_2": "Jeremiah Fears OVER REB 1.5 (GOBLIN) [id:9804222]",
-      "leg_3": "Danny Wolf UNDER PR 19.5 (STANDARD) [id:9796823]",
-      "leg_4": "Trey Murphy OVER PRA 32.5 (STANDARD) [id:9799646]",
-      "leg_5": "Franz Wagner OVER PRA 25.5 (DEMON) [id:9801564]",
-      "legs_detail": [
-        {
-          "id": 9805872,
-          "player": "Cam Spencer",
-          "stat": "RA",
-          "direction": "OVER",
-          "line": 6.5,
-          "last5_hits": 3,
-          "leg_text": "Cam Spencer OVER RA 6.5 (GOBLIN) [id:9805872]"
-        },
-        {
-          "id": 9804222,
-          "player": "Jeremiah Fears",
-          "stat": "REB",
-          "direction": "OVER",
-          "line": 1.5,
-          "last5_hits": 4,
-          "leg_text": "Jeremiah Fears OVER REB 1.5 (GOBLIN) [id:9804222]"
-        },
-        {
-          "id": 9796823,
-          "player": "Danny Wolf",
-          "stat": "PR",
-          "direction": "UNDER",
-          "line": 19.5,
-          "last5_hits": 4,
-          "leg_text": "Danny Wolf UNDER PR 19.5 (STANDARD) [id:9796823]"
-        },
-        {
-          "id": 9799646,
-          "player": "Trey Murphy",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 32.5,
-          "last5_hits": null,
-          "leg_text": "Trey Murphy OVER PRA 32.5 (STANDARD) [id:9799646]"
-        },
-        {
-          "id": 9801564,
-          "player": "Franz Wagner",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 25.5,
-          "last5_hits": 3,
-          "leg_text": "Franz Wagner OVER PRA 25.5 (DEMON) [id:9801564]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Lauri Markkanen OVER PA 19.5 (GOBLIN) [id:9799042] | Day'Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078] | Scoot Henderson OVER PRA 18.5 (STANDARD) [id:9801894] | Olivier-Maxence Prosper UNDER PTS 8.5 (STANDARD) [id:9814156] | CJ McCollum OVER PTS 19.5 (DEMON) [id:9802499]",
-      "hit_prob": "0.2074590477925077",
-      "ev_mult": "4.149180955850155",
-      "avg_p": "0.769124175164967",
-      "avg_fragility": "0.001199474829556",
-      "slip_key": "Lauri Markkanen OVER PA 19.5 (GOBLIN) [id:9799042] | Day'Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078] | Scoot Henderson OVER PRA 18.5 (STANDARD) [id:9801894] | Olivier-Maxence Prosper UNDER PTS 8.5 (STANDARD) [id:9814156] | CJ McCollum OVER PTS 19.5 (DEMON) [id:9802499]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Lauri Markkanen OVER PA 19.5 (GOBLIN) [id:9799042]",
-      "leg_2": "Day'Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078]",
-      "leg_3": "Scoot Henderson OVER PRA 18.5 (STANDARD) [id:9801894]",
-      "leg_4": "Olivier-Maxence Prosper UNDER PTS 8.5 (STANDARD) [id:9814156]",
-      "leg_5": "CJ McCollum OVER PTS 19.5 (DEMON) [id:9802499]",
-      "legs_detail": [
-        {
-          "id": 9799042,
-          "player": "Lauri Markkanen",
-          "stat": "PA",
-          "direction": "OVER",
-          "line": 19.5,
-          "last5_hits": 4,
-          "leg_text": "Lauri Markkanen OVER PA 19.5 (GOBLIN) [id:9799042]"
-        },
-        {
-          "id": 9804078,
-          "player": "Day'Ron Sharpe",
-          "stat": "REB",
-          "direction": "OVER",
-          "line": 4.5,
-          "last5_hits": 5,
-          "leg_text": "Day'Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078]"
-        },
-        {
-          "id": 9801894,
-          "player": "Scoot Henderson",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 18.5,
-          "last5_hits": 1,
-          "leg_text": "Scoot Henderson OVER PRA 18.5 (STANDARD) [id:9801894]"
-        },
-        {
-          "id": 9814156,
-          "player": "Olivier-Maxence Prosper",
-          "stat": "PTS",
-          "direction": "UNDER",
-          "line": 8.5,
-          "last5_hits": null,
-          "leg_text": "Olivier-Maxence Prosper UNDER PTS 8.5 (STANDARD) [id:9814156]"
-        },
-        {
-          "id": 9802499,
-          "player": "CJ McCollum",
-          "stat": "PTS",
-          "direction": "OVER",
-          "line": 19.5,
-          "last5_hits": 2,
-          "leg_text": "CJ McCollum OVER PTS 19.5 (DEMON) [id:9802499]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:9814273] | Kevin Porter OVER AST 4.5 (GOBLIN) [id:9798834] | Onyeka Okongwu OVER RA 10.5 (STANDARD) [id:9801992] | Austin Reaves OVER PTS 19.5 (STANDARD) [id:9800821] | Deni Avdija OVER PRA 37.5 (DEMON) [id:9799255]",
-      "hit_prob": "0.2008430456711501",
-      "ev_mult": "4.016860913423002",
-      "avg_p": "0.7374941011797641",
-      "avg_fragility": "0.0",
-      "slip_key": "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:9814273] | Kevin Porter OVER AST 4.5 (GOBLIN) [id:9798834] | Onyeka Okongwu OVER RA 10.5 (STANDARD) [id:9801992] | Austin Reaves OVER PTS 19.5 (STANDARD) [id:9800821] | Deni Avdija OVER PRA 37.5 (DEMON) [id:9799255]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:9814273]",
-      "leg_2": "Kevin Porter OVER AST 4.5 (GOBLIN) [id:9798834]",
-      "leg_3": "Onyeka Okongwu OVER RA 10.5 (STANDARD) [id:9801992]",
-      "leg_4": "Austin Reaves OVER PTS 19.5 (STANDARD) [id:9800821]",
-      "leg_5": "Deni Avdija OVER PRA 37.5 (DEMON) [id:9799255]",
-      "legs_detail": [
-        {
-          "id": 9814273,
-          "player": "Cameron Johnson",
-          "stat": "PR",
-          "direction": "OVER",
-          "line": 9.5,
-          "last5_hits": 5,
-          "leg_text": "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:9814273]"
-        },
-        {
-          "id": 9798834,
-          "player": "Kevin Porter",
-          "stat": "AST",
-          "direction": "OVER",
-          "line": 4.5,
-          "last5_hits": null,
-          "leg_text": "Kevin Porter OVER AST 4.5 (GOBLIN) [id:9798834]"
-        },
-        {
-          "id": 9801992,
-          "player": "Onyeka Okongwu",
-          "stat": "RA",
-          "direction": "OVER",
-          "line": 10.5,
-          "last5_hits": 1,
-          "leg_text": "Onyeka Okongwu OVER RA 10.5 (STANDARD) [id:9801992]"
-        },
-        {
-          "id": 9800821,
-          "player": "Austin Reaves",
-          "stat": "PTS",
-          "direction": "OVER",
-          "line": 19.5,
-          "last5_hits": 1,
-          "leg_text": "Austin Reaves OVER PTS 19.5 (STANDARD) [id:9800821]"
-        },
-        {
-          "id": 9799255,
-          "player": "Deni Avdija",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 37.5,
-          "last5_hits": 1,
-          "leg_text": "Deni Avdija OVER PRA 37.5 (DEMON) [id:9799255]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Miles Bridges OVER AST 1.5 (GOBLIN) [id:9812412] | Cameron Johnson OVER FG3M 0.5 (GOBLIN) [id:9795891] | Moses Moody UNDER PA 18.5 (STANDARD) [id:9800034] | Guerschon Yabusele UNDER PR 14.5 (STANDARD) [id:9803241] | Jusuf Nurkić OVER PTS 13.5 (DEMON) [id:9798370]",
-      "hit_prob": "0.1965900427179185",
-      "ev_mult": "3.931800854358371",
-      "avg_p": "0.7345776844631073",
-      "avg_fragility": "0.0022133343325488",
-      "slip_key": "Miles Bridges OVER AST 1.5 (GOBLIN) [id:9812412] | Cameron Johnson OVER FG3M 0.5 (GOBLIN) [id:9795891] | Moses Moody UNDER PA 18.5 (STANDARD) [id:9800034] | Guerschon Yabusele UNDER PR 14.5 (STANDARD) [id:9803241] | Jusuf Nurkić OVER PTS 13.5 (DEMON) [id:9798370]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Miles Bridges OVER AST 1.5 (GOBLIN) [id:9812412]",
-      "leg_2": "Cameron Johnson OVER FG3M 0.5 (GOBLIN) [id:9795891]",
-      "leg_3": "Moses Moody UNDER PA 18.5 (STANDARD) [id:9800034]",
-      "leg_4": "Guerschon Yabusele UNDER PR 14.5 (STANDARD) [id:9803241]",
-      "leg_5": "Jusuf Nurkić OVER PTS 13.5 (DEMON) [id:9798370]",
-      "legs_detail": [
-        {
-          "id": 9812412,
-          "player": "Miles Bridges",
-          "stat": "AST",
-          "direction": "OVER",
-          "line": 1.5,
-          "last5_hits": 4,
-          "leg_text": "Miles Bridges OVER AST 1.5 (GOBLIN) [id:9812412]"
-        },
-        {
-          "id": 9795891,
-          "player": "Cameron Johnson",
-          "stat": "FG3M",
-          "direction": "OVER",
-          "line": 3.0,
-          "last5_hits": 1,
-          "leg_text": "Cameron Johnson OVER FG3M 0.5 (GOBLIN) [id:9795891]"
-        },
-        {
-          "id": 9800034,
-          "player": "Moses Moody",
-          "stat": "PA",
-          "direction": "UNDER",
-          "line": 18.5,
-          "last5_hits": 3,
-          "leg_text": "Moses Moody UNDER PA 18.5 (STANDARD) [id:9800034]"
-        },
-        {
-          "id": 9803241,
-          "player": "Guerschon Yabusele",
-          "stat": "PR",
-          "direction": "UNDER",
-          "line": 14.5,
-          "last5_hits": 4,
-          "leg_text": "Guerschon Yabusele UNDER PR 14.5 (STANDARD) [id:9803241]"
-        },
-        {
-          "id": 9798370,
-          "player": "Jusuf Nurkić",
-          "stat": "PTS",
-          "direction": "OVER",
-          "line": 13.5,
-          "last5_hits": 2,
-          "leg_text": "Jusuf Nurkić OVER PTS 13.5 (DEMON) [id:9798370]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Jonas Valančiūnas OVER PTS 5.5 (GOBLIN) [id:9802382] | Kon Knueppel OVER PRA 19.5 (GOBLIN) [id:9802655] | Jusuf Nurkić OVER PRA 24.5 (STANDARD) [id:9798086] | Ryan Kalkbrenner OVER REB 4 (STANDARD) [id:9795339] | Ryan Rollins OVER FG3M 2.5 (DEMON) [id:9798942]",
-      "hit_prob": "0.1952953087983128",
-      "ev_mult": "3.905906175966257",
-      "avg_p": "0.7320335932813438",
-      "avg_fragility": "0.0007574616498509",
-      "slip_key": "Jonas Valančiūnas OVER PTS 5.5 (GOBLIN) [id:9802382] | Kon Knueppel OVER PRA 19.5 (GOBLIN) [id:9802655] | Jusuf Nurkić OVER PRA 24.5 (STANDARD) [id:9798086] | Ryan Kalkbrenner OVER REB 4 (STANDARD) [id:9795339] | Ryan Rollins OVER FG3M 2.5 (DEMON) [id:9798942]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Jonas Valančiūnas OVER PTS 5.5 (GOBLIN) [id:9802382]",
-      "leg_2": "Kon Knueppel OVER PRA 19.5 (GOBLIN) [id:9802655]",
-      "leg_3": "Jusuf Nurkić OVER PRA 24.5 (STANDARD) [id:9798086]",
-      "leg_4": "Ryan Kalkbrenner OVER REB 4 (STANDARD) [id:9795339]",
-      "leg_5": "Ryan Rollins OVER FG3M 2.5 (DEMON) [id:9798942]",
-      "legs_detail": [
-        {
-          "id": 9802382,
-          "player": "Jonas Valančiūnas",
-          "stat": "PTS",
-          "direction": "OVER",
-          "line": 5.5,
-          "last5_hits": 4,
-          "leg_text": "Jonas Valančiūnas OVER PTS 5.5 (GOBLIN) [id:9802382]"
-        },
-        {
-          "id": 9802655,
-          "player": "Kon Knueppel",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 19.5,
-          "last5_hits": 5,
-          "leg_text": "Kon Knueppel OVER PRA 19.5 (GOBLIN) [id:9802655]"
-        },
-        {
-          "id": 9798086,
-          "player": "Jusuf Nurkić",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 24.5,
-          "last5_hits": 3,
-          "leg_text": "Jusuf Nurkić OVER PRA 24.5 (STANDARD) [id:9798086]"
-        },
-        {
-          "id": 9795339,
-          "player": "Ryan Kalkbrenner",
-          "stat": "REB",
-          "direction": "OVER",
-          "line": 4.0,
-          "last5_hits": 2,
-          "leg_text": "Ryan Kalkbrenner OVER REB 4 (STANDARD) [id:9795339]"
-        },
-        {
-          "id": 9798942,
-          "player": "Ryan Rollins",
-          "stat": "FG3M",
-          "direction": "OVER",
-          "line": 3.0,
-          "last5_hits": 2,
-          "leg_text": "Ryan Rollins OVER FG3M 2.5 (DEMON) [id:9798942]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "DeMar DeRozan OVER AST 2.5 (GOBLIN) [id:9804377] | Ayo Dosunmu OVER PRA 14.5 (GOBLIN) [id:9811467] | Donovan Mitchell OVER AST 5 (STANDARD) [id:9804888] | Nique Clifford UNDER PR 19.5 (STANDARD) [id:9803389] | Luguentz Dort OVER REB 4.5 (DEMON) [id:9800572]",
-      "hit_prob": "0.1830756448738318",
-      "ev_mult": "3.6615128974766376",
-      "avg_p": "0.7369866026794641",
-      "avg_fragility": "0.0019816971647719",
-      "slip_key": "DeMar DeRozan OVER AST 2.5 (GOBLIN) [id:9804377] | Ayo Dosunmu OVER PRA 14.5 (GOBLIN) [id:9811467] | Donovan Mitchell OVER AST 5 (STANDARD) [id:9804888] | Nique Clifford UNDER PR 19.5 (STANDARD) [id:9803389] | Luguentz Dort OVER REB 4.5 (DEMON) [id:9800572]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "DeMar DeRozan OVER AST 2.5 (GOBLIN) [id:9804377]",
-      "leg_2": "Ayo Dosunmu OVER PRA 14.5 (GOBLIN) [id:9811467]",
-      "leg_3": "Donovan Mitchell OVER AST 5 (STANDARD) [id:9804888]",
-      "leg_4": "Nique Clifford UNDER PR 19.5 (STANDARD) [id:9803389]",
-      "leg_5": "Luguentz Dort OVER REB 4.5 (DEMON) [id:9800572]",
-      "legs_detail": [
-        {
-          "id": 9804377,
-          "player": "DeMar DeRozan",
-          "stat": "AST",
-          "direction": "OVER",
-          "line": 2.5,
-          "last5_hits": 3,
-          "leg_text": "DeMar DeRozan OVER AST 2.5 (GOBLIN) [id:9804377]"
-        },
-        {
-          "id": 9811467,
-          "player": "Ayo Dosunmu",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 14.5,
-          "last5_hits": 4,
-          "leg_text": "Ayo Dosunmu OVER PRA 14.5 (GOBLIN) [id:9811467]"
-        },
-        {
-          "id": 9804888,
-          "player": "Donovan Mitchell",
-          "stat": "AST",
-          "direction": "OVER",
-          "line": 5.0,
-          "last5_hits": 3,
-          "leg_text": "Donovan Mitchell OVER AST 5 (STANDARD) [id:9804888]"
-        },
-        {
-          "id": 9803389,
-          "player": "Nique Clifford",
-          "stat": "PR",
-          "direction": "UNDER",
-          "line": 19.5,
-          "last5_hits": 4,
-          "leg_text": "Nique Clifford UNDER PR 19.5 (STANDARD) [id:9803389]"
-        },
-        {
-          "id": 9800572,
-          "player": "Luguentz Dort",
-          "stat": "REB",
-          "direction": "OVER",
-          "line": 4.5,
-          "last5_hits": 2,
-          "leg_text": "Luguentz Dort OVER REB 4.5 (DEMON) [id:9800572]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Anthony Black OVER AST 2.5 (GOBLIN) [id:9812353] | Cameron Johnson OVER PA 9.5 (GOBLIN) [id:9797925] | Scotty Pippen UNDER REB 3.5 (STANDARD) [id:9808492] | Davion Mitchell UNDER PTS 9.5 (STANDARD) [id:9798035] | Tobias Harris OVER FG3M 1.5 (DEMON) [id:9795358]",
-      "hit_prob": "0.1808766167227396",
-      "ev_mult": "3.617532334454792",
-      "avg_p": "0.7370965806838633",
-      "avg_fragility": "0.0018843462553661",
-      "slip_key": "Anthony Black OVER AST 2.5 (GOBLIN) [id:9812353] | Cameron Johnson OVER PA 9.5 (GOBLIN) [id:9797925] | Scotty Pippen UNDER REB 3.5 (STANDARD) [id:9808492] | Davion Mitchell UNDER PTS 9.5 (STANDARD) [id:9798035] | Tobias Harris OVER FG3M 1.5 (DEMON) [id:9795358]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Anthony Black OVER AST 2.5 (GOBLIN) [id:9812353]",
-      "leg_2": "Cameron Johnson OVER PA 9.5 (GOBLIN) [id:9797925]",
-      "leg_3": "Scotty Pippen UNDER REB 3.5 (STANDARD) [id:9808492]",
-      "leg_4": "Davion Mitchell UNDER PTS 9.5 (STANDARD) [id:9798035]",
-      "leg_5": "Tobias Harris OVER FG3M 1.5 (DEMON) [id:9795358]",
-      "legs_detail": [
-        {
-          "id": 9812353,
-          "player": "Anthony Black",
-          "stat": "AST",
-          "direction": "OVER",
-          "line": 2.5,
-          "last5_hits": 4,
-          "leg_text": "Anthony Black OVER AST 2.5 (GOBLIN) [id:9812353]"
-        },
-        {
-          "id": 9797925,
-          "player": "Cameron Johnson",
-          "stat": "PA",
-          "direction": "OVER",
-          "line": 9.5,
-          "last5_hits": 4,
-          "leg_text": "Cameron Johnson OVER PA 9.5 (GOBLIN) [id:9797925]"
-        },
-        {
-          "id": 9808492,
-          "player": "Scotty Pippen",
-          "stat": "REB",
-          "direction": "UNDER",
-          "line": 3.5,
-          "last5_hits": null,
-          "leg_text": "Scotty Pippen UNDER REB 3.5 (STANDARD) [id:9808492]"
-        },
-        {
-          "id": 9798035,
-          "player": "Davion Mitchell",
-          "stat": "PTS",
-          "direction": "UNDER",
-          "line": 9.5,
-          "last5_hits": 3,
-          "leg_text": "Davion Mitchell UNDER PTS 9.5 (STANDARD) [id:9798035]"
-        },
-        {
-          "id": 9795358,
-          "player": "Tobias Harris",
-          "stat": "FG3M",
-          "direction": "OVER",
-          "line": 3.0,
-          "last5_hits": 0,
-          "leg_text": "Tobias Harris OVER FG3M 1.5 (DEMON) [id:9795358]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Grant Williams OVER PA 4.5 (GOBLIN) [id:9814261] | Tobias Harris OVER AST 1.5 (GOBLIN) [id:9799537] | James Harden OVER PRA 33.5 (STANDARD) [id:9796116] | Jaden Ivey UNDER AST 4 (STANDARD) [id:9804880] | Deni Avdija OVER PR 29.5 (DEMON) [id:9813743]",
-      "hit_prob": "0.1782076937834875",
-      "ev_mult": "3.564153875669751",
-      "avg_p": "0.7118756248750249",
-      "avg_fragility": "0.0012807772993264",
-      "slip_key": "Grant Williams OVER PA 4.5 (GOBLIN) [id:9814261] | Tobias Harris OVER AST 1.5 (GOBLIN) [id:9799537] | James Harden OVER PRA 33.5 (STANDARD) [id:9796116] | Jaden Ivey UNDER AST 4 (STANDARD) [id:9804880] | Deni Avdija OVER PR 29.5 (DEMON) [id:9813743]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Grant Williams OVER PA 4.5 (GOBLIN) [id:9814261]",
-      "leg_2": "Tobias Harris OVER AST 1.5 (GOBLIN) [id:9799537]",
-      "leg_3": "James Harden OVER PRA 33.5 (STANDARD) [id:9796116]",
-      "leg_4": "Jaden Ivey UNDER AST 4 (STANDARD) [id:9804880]",
-      "leg_5": "Deni Avdija OVER PR 29.5 (DEMON) [id:9813743]",
-      "legs_detail": [
-        {
-          "id": 9814261,
-          "player": "Grant Williams",
-          "stat": "PA",
-          "direction": "OVER",
-          "line": 4.5,
-          "last5_hits": 3,
-          "leg_text": "Grant Williams OVER PA 4.5 (GOBLIN) [id:9814261]"
-        },
-        {
-          "id": 9799537,
-          "player": "Tobias Harris",
-          "stat": "AST",
-          "direction": "OVER",
-          "line": 1.5,
-          "last5_hits": 3,
-          "leg_text": "Tobias Harris OVER AST 1.5 (GOBLIN) [id:9799537]"
-        },
-        {
-          "id": 9796116,
-          "player": "James Harden",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 33.5,
-          "last5_hits": 2,
-          "leg_text": "James Harden OVER PRA 33.5 (STANDARD) [id:9796116]"
-        },
-        {
-          "id": 9804880,
-          "player": "Jaden Ivey",
-          "stat": "AST",
-          "direction": "UNDER",
-          "line": 4.0,
-          "last5_hits": 4,
-          "leg_text": "Jaden Ivey UNDER AST 4 (STANDARD) [id:9804880]"
-        },
-        {
-          "id": 9813743,
-          "player": "Deni Avdija",
-          "stat": "PR",
-          "direction": "OVER",
-          "line": 29.5,
-          "last5_hits": 2,
-          "leg_text": "Deni Avdija OVER PR 29.5 (DEMON) [id:9813743]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Isaiah Stewart OVER PTS 5.5 (GOBLIN) [id:9801907] | VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:9801040] | Jaden Ivey UNDER PRA 21.5 (STANDARD) [id:9795546] | Isaiah Collier UNDER PA 26 (STANDARD) [id:9798052] | Ayo Dosunmu OVER PR 19.5 (DEMON) [id:9811465]",
-      "hit_prob": "0.1771828349731359",
-      "ev_mult": "3.5436566994627188",
-      "avg_p": "0.7199648070385922",
-      "avg_fragility": "0.0018585617556231",
-      "slip_key": "Isaiah Stewart OVER PTS 5.5 (GOBLIN) [id:9801907] | VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:9801040] | Jaden Ivey UNDER PRA 21.5 (STANDARD) [id:9795546] | Isaiah Collier UNDER PA 26 (STANDARD) [id:9798052] | Ayo Dosunmu OVER PR 19.5 (DEMON) [id:9811465]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Isaiah Stewart OVER PTS 5.5 (GOBLIN) [id:9801907]",
-      "leg_2": "VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:9801040]",
-      "leg_3": "Jaden Ivey UNDER PRA 21.5 (STANDARD) [id:9795546]",
-      "leg_4": "Isaiah Collier UNDER PA 26 (STANDARD) [id:9798052]",
-      "leg_5": "Ayo Dosunmu OVER PR 19.5 (DEMON) [id:9811465]",
-      "legs_detail": [
-        {
-          "id": 9801907,
-          "player": "Isaiah Stewart",
-          "stat": "PTS",
-          "direction": "OVER",
-          "line": 5.5,
-          "last5_hits": 4,
-          "leg_text": "Isaiah Stewart OVER PTS 5.5 (GOBLIN) [id:9801907]"
-        },
-        {
-          "id": 9801040,
-          "player": "VJ Edgecombe",
-          "stat": "REB",
-          "direction": "OVER",
-          "line": 3.5,
-          "last5_hits": 3,
-          "leg_text": "VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:9801040]"
-        },
-        {
-          "id": 9795546,
-          "player": "Jaden Ivey",
-          "stat": "PRA",
-          "direction": "UNDER",
-          "line": 21.5,
-          "last5_hits": 4,
-          "leg_text": "Jaden Ivey UNDER PRA 21.5 (STANDARD) [id:9795546]"
-        },
-        {
-          "id": 9798052,
-          "player": "Isaiah Collier",
-          "stat": "PA",
-          "direction": "UNDER",
-          "line": 26.0,
-          "last5_hits": 1,
-          "leg_text": "Isaiah Collier UNDER PA 26 (STANDARD) [id:9798052]"
-        },
-        {
-          "id": 9811465,
-          "player": "Ayo Dosunmu",
-          "stat": "PR",
-          "direction": "OVER",
-          "line": 19.5,
-          "last5_hits": 3,
-          "leg_text": "Ayo Dosunmu OVER PR 19.5 (DEMON) [id:9811465]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Matas Buzelis OVER FG3M 1.5 (GOBLIN) [id:9795802] | Nikola Jokić OVER AST 7.5 (GOBLIN) [id:9796437] | Ayo Dosunmu OVER PTS 11.5 (STANDARD) [id:9802490] | Trendon Watford UNDER PA 9.5 (STANDARD) [id:9802183] | Brice Sensabaugh OVER PRA 20.5 (DEMON) [id:9804671]",
-      "hit_prob": "0.1702821212827801",
-      "ev_mult": "3.4056424256556035",
-      "avg_p": "0.7133439312137572",
-      "avg_fragility": "0.0014608183878274",
-      "slip_key": "Matas Buzelis OVER FG3M 1.5 (GOBLIN) [id:9795802] | Nikola Jokić OVER AST 7.5 (GOBLIN) [id:9796437] | Ayo Dosunmu OVER PTS 11.5 (STANDARD) [id:9802490] | Trendon Watford UNDER PA 9.5 (STANDARD) [id:9802183] | Brice Sensabaugh OVER PRA 20.5 (DEMON) [id:9804671]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Matas Buzelis OVER FG3M 1.5 (GOBLIN) [id:9795802]",
-      "leg_2": "Nikola Jokić OVER AST 7.5 (GOBLIN) [id:9796437]",
-      "leg_3": "Ayo Dosunmu OVER PTS 11.5 (STANDARD) [id:9802490]",
-      "leg_4": "Trendon Watford UNDER PA 9.5 (STANDARD) [id:9802183]",
-      "leg_5": "Brice Sensabaugh OVER PRA 20.5 (DEMON) [id:9804671]",
-      "legs_detail": [
-        {
-          "id": 9795802,
-          "player": "Matas Buzelis",
-          "stat": "FG3M",
-          "direction": "OVER",
-          "line": 3.0,
-          "last5_hits": 2,
-          "leg_text": "Matas Buzelis OVER FG3M 1.5 (GOBLIN) [id:9795802]"
-        },
-        {
-          "id": 9796437,
-          "player": "Nikola Jokić",
-          "stat": "AST",
-          "direction": "OVER",
-          "line": 7.5,
-          "last5_hits": 3,
-          "leg_text": "Nikola Jokić OVER AST 7.5 (GOBLIN) [id:9796437]"
-        },
-        {
-          "id": 9802490,
-          "player": "Ayo Dosunmu",
-          "stat": "PTS",
-          "direction": "OVER",
-          "line": 11.5,
-          "last5_hits": 3,
-          "leg_text": "Ayo Dosunmu OVER PTS 11.5 (STANDARD) [id:9802490]"
-        },
-        {
-          "id": 9802183,
-          "player": "Trendon Watford",
-          "stat": "PA",
-          "direction": "UNDER",
-          "line": 9.5,
-          "last5_hits": 4,
-          "leg_text": "Trendon Watford UNDER PA 9.5 (STANDARD) [id:9802183]"
-        },
-        {
-          "id": 9804671,
-          "player": "Brice Sensabaugh",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 20.5,
-          "last5_hits": 3,
-          "leg_text": "Brice Sensabaugh OVER PRA 20.5 (DEMON) [id:9804671]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Bam Adebayo OVER RA 10.5 (GOBLIN) [id:9810365] | Jaime Jaquez OVER REB 3.5 (GOBLIN) [id:9802662] | Cam Spencer OVER RA 8 (STANDARD) [id:9803538] | Tristan Silva UNDER PTS 6.5 (STANDARD) [id:9802455] | Austin Reaves OVER PA 29.5 (DEMON) [id:9802222]",
-      "hit_prob": "0.1637640088582684",
-      "ev_mult": "3.275280177165368",
-      "avg_p": "0.7136824635072985",
-      "avg_fragility": "0.0",
-      "slip_key": "Bam Adebayo OVER RA 10.5 (GOBLIN) [id:9810365] | Jaime Jaquez OVER REB 3.5 (GOBLIN) [id:9802662] | Cam Spencer OVER RA 8 (STANDARD) [id:9803538] | Tristan Silva UNDER PTS 6.5 (STANDARD) [id:9802455] | Austin Reaves OVER PA 29.5 (DEMON) [id:9802222]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Bam Adebayo OVER RA 10.5 (GOBLIN) [id:9810365]",
-      "leg_2": "Jaime Jaquez OVER REB 3.5 (GOBLIN) [id:9802662]",
-      "leg_3": "Cam Spencer OVER RA 8 (STANDARD) [id:9803538]",
-      "leg_4": "Tristan Silva UNDER PTS 6.5 (STANDARD) [id:9802455]",
-      "leg_5": "Austin Reaves OVER PA 29.5 (DEMON) [id:9802222]",
-      "legs_detail": [
-        {
-          "id": 9810365,
-          "player": "Bam Adebayo",
-          "stat": "RA",
-          "direction": "OVER",
-          "line": 10.5,
-          "last5_hits": 4,
-          "leg_text": "Bam Adebayo OVER RA 10.5 (GOBLIN) [id:9810365]"
-        },
-        {
-          "id": 9802662,
-          "player": "Jaime Jaquez",
-          "stat": "REB",
-          "direction": "OVER",
-          "line": 3.5,
-          "last5_hits": null,
-          "leg_text": "Jaime Jaquez OVER REB 3.5 (GOBLIN) [id:9802662]"
-        },
-        {
-          "id": 9803538,
-          "player": "Cam Spencer",
-          "stat": "RA",
-          "direction": "OVER",
-          "line": 8.0,
-          "last5_hits": 1,
-          "leg_text": "Cam Spencer OVER RA 8 (STANDARD) [id:9803538]"
-        },
-        {
-          "id": 9802455,
-          "player": "Tristan Silva",
-          "stat": "PTS",
-          "direction": "UNDER",
-          "line": 6.5,
-          "last5_hits": null,
-          "leg_text": "Tristan Silva UNDER PTS 6.5 (STANDARD) [id:9802455]"
-        },
-        {
-          "id": 9802222,
-          "player": "Austin Reaves",
-          "stat": "PA",
-          "direction": "OVER",
-          "line": 29.5,
-          "last5_hits": 1,
-          "leg_text": "Austin Reaves OVER PA 29.5 (DEMON) [id:9802222]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "CJ McCollum OVER PTS 11.5 (GOBLIN) [id:9804353] | Scotty Pippen OVER FG3M 0.5 (GOBLIN) [id:9803885] | Deni Avdija OVER RA 11.5 (STANDARD) [id:9801296] | Cedric Coward OVER PTS 11.5 (STANDARD) [id:9797189] | James Harden OVER PR 29.5 (DEMON) [id:9799202]",
-      "hit_prob": "0.1623429046321507",
-      "ev_mult": "3.2468580926430146",
-      "avg_p": "0.7197654469106178",
-      "avg_fragility": "0.0009467720679147",
-      "slip_key": "CJ McCollum OVER PTS 11.5 (GOBLIN) [id:9804353] | Scotty Pippen OVER FG3M 0.5 (GOBLIN) [id:9803885] | Deni Avdija OVER RA 11.5 (STANDARD) [id:9801296] | Cedric Coward OVER PTS 11.5 (STANDARD) [id:9797189] | James Harden OVER PR 29.5 (DEMON) [id:9799202]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "CJ McCollum OVER PTS 11.5 (GOBLIN) [id:9804353]",
-      "leg_2": "Scotty Pippen OVER FG3M 0.5 (GOBLIN) [id:9803885]",
-      "leg_3": "Deni Avdija OVER RA 11.5 (STANDARD) [id:9801296]",
-      "leg_4": "Cedric Coward OVER PTS 11.5 (STANDARD) [id:9797189]",
-      "leg_5": "James Harden OVER PR 29.5 (DEMON) [id:9799202]",
-      "legs_detail": [
-        {
-          "id": 9804353,
-          "player": "CJ McCollum",
-          "stat": "PTS",
-          "direction": "OVER",
-          "line": 11.5,
-          "last5_hits": 4,
-          "leg_text": "CJ McCollum OVER PTS 11.5 (GOBLIN) [id:9804353]"
-        },
-        {
-          "id": 9803885,
-          "player": "Scotty Pippen",
-          "stat": "FG3M",
-          "direction": "OVER",
-          "line": 3.0,
-          "last5_hits": null,
-          "leg_text": "Scotty Pippen OVER FG3M 0.5 (GOBLIN) [id:9803885]"
-        },
-        {
-          "id": 9801296,
-          "player": "Deni Avdija",
-          "stat": "RA",
-          "direction": "OVER",
-          "line": 11.5,
-          "last5_hits": 2,
-          "leg_text": "Deni Avdija OVER RA 11.5 (STANDARD) [id:9801296]"
-        },
-        {
-          "id": 9797189,
-          "player": "Cedric Coward",
-          "stat": "PTS",
-          "direction": "OVER",
-          "line": 11.5,
-          "last5_hits": 2,
-          "leg_text": "Cedric Coward OVER PTS 11.5 (STANDARD) [id:9797189]"
-        },
-        {
-          "id": 9799202,
-          "player": "James Harden",
-          "stat": "PR",
-          "direction": "OVER",
-          "line": 29.5,
-          "last5_hits": 1,
-          "leg_text": "James Harden OVER PR 29.5 (DEMON) [id:9799202]"
-        }
-      ]
-    },
-    {
-      "n_legs": "5",
-      "legs": "Cedric Coward OVER AST 1.5 (GOBLIN) [id:9797651] | Russell Westbrook OVER RA 7.5 (GOBLIN) [id:9811115] | Ayo Dosunmu OVER PR 14.5 (STANDARD) [id:9805319] | Lauri Markkanen OVER RA 7 (STANDARD) [id:9808518] | Dyson Daniels OVER PRA 26.5 (DEMON) [id:9802146]",
-      "hit_prob": "0.1622722646743842",
-      "ev_mult": "3.2454452934876854",
-      "avg_p": "0.7174421115776844",
-      "avg_fragility": "0.0004794438451396",
-      "slip_key": "Cedric Coward OVER AST 1.5 (GOBLIN) [id:9797651] | Russell Westbrook OVER RA 7.5 (GOBLIN) [id:9811115] | Ayo Dosunmu OVER PR 14.5 (STANDARD) [id:9805319] | Lauri Markkanen OVER RA 7 (STANDARD) [id:9808518] | Dyson Daniels OVER PRA 26.5 (DEMON) [id:9802146]",
-      "slip_agreement_score": "",
-      "slip_agreement_tier": "",
-      "slip_tag_set": "",
-      "slip_tag": "",
-      "slip_min_start_utc": "",
-      "slip_has_unknown_start": "",
-      "leg_1": "Cedric Coward OVER AST 1.5 (GOBLIN) [id:9797651]",
-      "leg_2": "Russell Westbrook OVER RA 7.5 (GOBLIN) [id:9811115]",
-      "leg_3": "Ayo Dosunmu OVER PR 14.5 (STANDARD) [id:9805319]",
-      "leg_4": "Lauri Markkanen OVER RA 7 (STANDARD) [id:9808518]",
-      "leg_5": "Dyson Daniels OVER PRA 26.5 (DEMON) [id:9802146]",
-      "legs_detail": [
-        {
-          "id": 9797651,
-          "player": "Cedric Coward",
-          "stat": "AST",
-          "direction": "OVER",
-          "line": 1.5,
-          "last5_hits": 3,
-          "leg_text": "Cedric Coward OVER AST 1.5 (GOBLIN) [id:9797651]"
-        },
-        {
-          "id": 9811115,
-          "player": "Russell Westbrook",
-          "stat": "RA",
-          "direction": "OVER",
-          "line": 7.5,
-          "last5_hits": 3,
-          "leg_text": "Russell Westbrook OVER RA 7.5 (GOBLIN) [id:9811115]"
-        },
-        {
-          "id": 9805319,
-          "player": "Ayo Dosunmu",
-          "stat": "PR",
-          "direction": "OVER",
-          "line": 14.5,
-          "last5_hits": 4,
-          "leg_text": "Ayo Dosunmu OVER PR 14.5 (STANDARD) [id:9805319]"
-        },
-        {
-          "id": 9808518,
-          "player": "Lauri Markkanen",
-          "stat": "RA",
-          "direction": "OVER",
-          "line": 7.0,
-          "last5_hits": 2,
-          "leg_text": "Lauri Markkanen OVER RA 7 (STANDARD) [id:9808518]"
-        },
-        {
-          "id": 9802146,
-          "player": "Dyson Daniels",
-          "stat": "PRA",
-          "direction": "OVER",
-          "line": 26.5,
-          "last5_hits": 0,
-          "leg_text": "Dyson Daniels OVER PRA 26.5 (DEMON) [id:9802146]"
-        }
-      ]
-    }
-  ],
-  "notes": "Windfall-only export. last5 computed from audit_last5_board.csv (player-keyed)."
+﻿{
+    "generated_at":  "2026-02-09 16:18:30 CST",
+    "source_csv":  "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Windfall\\recommended_5leg.csv",
+    "row_count":  19,
+    "data":  [
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Ryan Kalkbrenner OVER PA 4.5 (GOBLIN) [id:9814266] | Kon Knueppel OVER REB 3.5 (GOBLIN) [id:9795238] | Nique Clifford UNDER PA 17.5 (STANDARD) [id:9803388] | Olivier-Maxence Prosper UNDER PRA 15.5 (STANDARD) [id:9814110] | Jusuf Nurkić OVER PR 20.5 (DEMON) [id:9812027]",
+                     "hit_prob":  "0.2533201459102356",
+                     "ev_mult":  "5.066402918204712",
+                     "avg_p":  "0.7627434513097381",
+                     "avg_fragility":  "0.0011727657726137",
+                     "slip_key":  "Ryan Kalkbrenner OVER PA 4.5 (GOBLIN) [id:9814266] | Kon Knueppel OVER REB 3.5 (GOBLIN) [id:9795238] | Nique Clifford UNDER PA 17.5 (STANDARD) [id:9803388] | Olivier-Maxence Prosper UNDER PRA 15.5 (STANDARD) [id:9814110] | Jusuf Nurkić OVER PR 20.5 (DEMON) [id:9812027]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Ryan Kalkbrenner OVER PA 4.5 (GOBLIN) [id:9814266]",
+                     "leg_2":  "Kon Knueppel OVER REB 3.5 (GOBLIN) [id:9795238]",
+                     "leg_3":  "Nique Clifford UNDER PA 17.5 (STANDARD) [id:9803388]",
+                     "leg_4":  "Olivier-Maxence Prosper UNDER PRA 15.5 (STANDARD) [id:9814110]",
+                     "leg_5":  "Jusuf Nurkić OVER PR 20.5 (DEMON) [id:9812027]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9814266,
+                                             "player":  "Ryan Kalkbrenner",
+                                             "stat":  "PA",
+                                             "direction":  "OVER",
+                                             "line":  4.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Ryan Kalkbrenner OVER PA 4.5 (GOBLIN) [id:9814266]"
+                                         },
+                                         {
+                                             "id":  9795238,
+                                             "player":  "Kon Knueppel",
+                                             "stat":  "REB",
+                                             "direction":  "OVER",
+                                             "line":  3.5,
+                                             "last5_hits":  5,
+                                             "leg_text":  "Kon Knueppel OVER REB 3.5 (GOBLIN) [id:9795238]"
+                                         },
+                                         {
+                                             "id":  9803388,
+                                             "player":  "Nique Clifford",
+                                             "stat":  "PA",
+                                             "direction":  "UNDER",
+                                             "line":  17.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Nique Clifford UNDER PA 17.5 (STANDARD) [id:9803388]"
+                                         },
+                                         {
+                                             "id":  9814110,
+                                             "player":  "Olivier-Maxence Prosper",
+                                             "stat":  "PRA",
+                                             "direction":  "UNDER",
+                                             "line":  15.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Olivier-Maxence Prosper UNDER PRA 15.5 (STANDARD) [id:9814110]"
+                                         },
+                                         {
+                                             "id":  9812027,
+                                             "player":  "Jusuf Nurkić",
+                                             "stat":  "PR",
+                                             "direction":  "OVER",
+                                             "line":  20.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Jusuf Nurkić OVER PR 20.5 (DEMON) [id:9812027]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Austin Reaves OVER PA 22.5 (GOBLIN) [id:9809209] | Kon Knueppel OVER RA 6.5 (GOBLIN) [id:9812410] | Jonas Valančiūnas OVER PRA 13.5 (STANDARD) [id:9808639] | Gary Payton UNDER PRA 14.5 (STANDARD) [id:9812530] | Scoot Henderson OVER RA 8.5 (DEMON) [id:9801398]",
+                     "hit_prob":  "0.2497971571953939",
+                     "ev_mult":  "4.995943143907878",
+                     "avg_p":  "0.7649362127574485",
+                     "avg_fragility":  "0.001558511352949",
+                     "slip_key":  "Austin Reaves OVER PA 22.5 (GOBLIN) [id:9809209] | Kon Knueppel OVER RA 6.5 (GOBLIN) [id:9812410] | Jonas Valančiūnas OVER PRA 13.5 (STANDARD) [id:9808639] | Gary Payton UNDER PRA 14.5 (STANDARD) [id:9812530] | Scoot Henderson OVER RA 8.5 (DEMON) [id:9801398]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Austin Reaves OVER PA 22.5 (GOBLIN) [id:9809209]",
+                     "leg_2":  "Kon Knueppel OVER RA 6.5 (GOBLIN) [id:9812410]",
+                     "leg_3":  "Jonas Valančiūnas OVER PRA 13.5 (STANDARD) [id:9808639]",
+                     "leg_4":  "Gary Payton UNDER PRA 14.5 (STANDARD) [id:9812530]",
+                     "leg_5":  "Scoot Henderson OVER RA 8.5 (DEMON) [id:9801398]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9809209,
+                                             "player":  "Austin Reaves",
+                                             "stat":  "PA",
+                                             "direction":  "OVER",
+                                             "line":  22.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Austin Reaves OVER PA 22.5 (GOBLIN) [id:9809209]"
+                                         },
+                                         {
+                                             "id":  9812410,
+                                             "player":  "Kon Knueppel",
+                                             "stat":  "RA",
+                                             "direction":  "OVER",
+                                             "line":  6.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Kon Knueppel OVER RA 6.5 (GOBLIN) [id:9812410]"
+                                         },
+                                         {
+                                             "id":  9808639,
+                                             "player":  "Jonas Valančiūnas",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  13.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Jonas Valančiūnas OVER PRA 13.5 (STANDARD) [id:9808639]"
+                                         },
+                                         {
+                                             "id":  9812530,
+                                             "player":  "Gary Payton",
+                                             "stat":  "PRA",
+                                             "direction":  "UNDER",
+                                             "line":  14.5,
+                                             "last5_hits":  null,
+                                             "leg_text":  "Gary Payton UNDER PRA 14.5 (STANDARD) [id:9812530]"
+                                         },
+                                         {
+                                             "id":  9801398,
+                                             "player":  "Scoot Henderson",
+                                             "stat":  "RA",
+                                             "direction":  "OVER",
+                                             "line":  8.5,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Scoot Henderson OVER RA 8.5 (DEMON) [id:9801398]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Isaac Okoro OVER REB 1.5 (GOBLIN) [id:9812539] | Chet Holmgren OVER RA 7.5 (GOBLIN) [id:9813857] | Nic Claxton UNDER PA 15.5 (STANDARD) [id:9795585] | Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084] | Franz Wagner OVER PR 21.5 (DEMON) [id:9806172]",
+                     "hit_prob":  "0.2256493261464806",
+                     "ev_mult":  "4.512986522929613",
+                     "avg_p":  "0.7474397120575885",
+                     "avg_fragility":  "0.0",
+                     "slip_key":  "Isaac Okoro OVER REB 1.5 (GOBLIN) [id:9812539] | Chet Holmgren OVER RA 7.5 (GOBLIN) [id:9813857] | Nic Claxton UNDER PA 15.5 (STANDARD) [id:9795585] | Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084] | Franz Wagner OVER PR 21.5 (DEMON) [id:9806172]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Isaac Okoro OVER REB 1.5 (GOBLIN) [id:9812539]",
+                     "leg_2":  "Chet Holmgren OVER RA 7.5 (GOBLIN) [id:9813857]",
+                     "leg_3":  "Nic Claxton UNDER PA 15.5 (STANDARD) [id:9795585]",
+                     "leg_4":  "Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084]",
+                     "leg_5":  "Franz Wagner OVER PR 21.5 (DEMON) [id:9806172]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9812539,
+                                             "player":  "Isaac Okoro",
+                                             "stat":  "REB",
+                                             "direction":  "OVER",
+                                             "line":  1.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Isaac Okoro OVER REB 1.5 (GOBLIN) [id:9812539]"
+                                         },
+                                         {
+                                             "id":  9813857,
+                                             "player":  "Chet Holmgren",
+                                             "stat":  "RA",
+                                             "direction":  "OVER",
+                                             "line":  7.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Chet Holmgren OVER RA 7.5 (GOBLIN) [id:9813857]"
+                                         },
+                                         {
+                                             "id":  9795585,
+                                             "player":  "Nic Claxton",
+                                             "stat":  "PA",
+                                             "direction":  "UNDER",
+                                             "line":  15.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Nic Claxton UNDER PA 15.5 (STANDARD) [id:9795585]"
+                                         },
+                                         {
+                                             "id":  9798084,
+                                             "player":  "Jusuf Nurkić",
+                                             "stat":  "PA",
+                                             "direction":  "OVER",
+                                             "line":  14.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084]"
+                                         },
+                                         {
+                                             "id":  9806172,
+                                             "player":  "Franz Wagner",
+                                             "stat":  "PR",
+                                             "direction":  "OVER",
+                                             "line":  21.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Franz Wagner OVER PR 21.5 (DEMON) [id:9806172]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Donte DiVincenzo OVER AST 2.5 (GOBLIN) [id:9804894] | Herbert Jones OVER RA 4.5 (GOBLIN) [id:9813709] | Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084] | Wendell Carter OVER PTS 9.5 (STANDARD) [id:9798980] | Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
+                     "hit_prob":  "0.2243392111246783",
+                     "ev_mult":  "4.486784222493567",
+                     "avg_p":  "0.7512305538892221",
+                     "avg_fragility":  "3.99960003999557e-05",
+                     "slip_key":  "Donte DiVincenzo OVER AST 2.5 (GOBLIN) [id:9804894] | Herbert Jones OVER RA 4.5 (GOBLIN) [id:9813709] | Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084] | Wendell Carter OVER PTS 9.5 (STANDARD) [id:9798980] | Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Donte DiVincenzo OVER AST 2.5 (GOBLIN) [id:9804894]",
+                     "leg_2":  "Herbert Jones OVER RA 4.5 (GOBLIN) [id:9813709]",
+                     "leg_3":  "Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084]",
+                     "leg_4":  "Wendell Carter OVER PTS 9.5 (STANDARD) [id:9798980]",
+                     "leg_5":  "Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9804894,
+                                             "player":  "Donte DiVincenzo",
+                                             "stat":  "AST",
+                                             "direction":  "OVER",
+                                             "line":  2.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Donte DiVincenzo OVER AST 2.5 (GOBLIN) [id:9804894]"
+                                         },
+                                         {
+                                             "id":  9813709,
+                                             "player":  "Herbert Jones",
+                                             "stat":  "RA",
+                                             "direction":  "OVER",
+                                             "line":  4.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Herbert Jones OVER RA 4.5 (GOBLIN) [id:9813709]"
+                                         },
+                                         {
+                                             "id":  9798084,
+                                             "player":  "Jusuf Nurkić",
+                                             "stat":  "PA",
+                                             "direction":  "OVER",
+                                             "line":  14.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Jusuf Nurkić OVER PA 14.5 (STANDARD) [id:9798084]"
+                                         },
+                                         {
+                                             "id":  9798980,
+                                             "player":  "Wendell Carter",
+                                             "stat":  "PTS",
+                                             "direction":  "OVER",
+                                             "line":  9.5,
+                                             "last5_hits":  null,
+                                             "leg_text":  "Wendell Carter OVER PTS 9.5 (STANDARD) [id:9798980]"
+                                         },
+                                         {
+                                             "id":  9810043,
+                                             "player":  "Scoot Henderson",
+                                             "stat":  "PA",
+                                             "direction":  "OVER",
+                                             "line":  16.5,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:9797861] | Naz Reid OVER AST 1.5 (GOBLIN) [id:9802540] | Cam Spencer OVER PRA 19.5 (STANDARD) [id:9803456] | Kentavious Caldwell-Pope OVER PA 9.5 (STANDARD) [id:9803960] | Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
+                     "hit_prob":  "0.220231124527938",
+                     "ev_mult":  "4.4046224905587605",
+                     "avg_p":  "0.7546298740251949",
+                     "avg_fragility":  "3.99960003999557e-05",
+                     "slip_key":  "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:9797861] | Naz Reid OVER AST 1.5 (GOBLIN) [id:9802540] | Cam Spencer OVER PRA 19.5 (STANDARD) [id:9803456] | Kentavious Caldwell-Pope OVER PA 9.5 (STANDARD) [id:9803960] | Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:9797861]",
+                     "leg_2":  "Naz Reid OVER AST 1.5 (GOBLIN) [id:9802540]",
+                     "leg_3":  "Cam Spencer OVER PRA 19.5 (STANDARD) [id:9803456]",
+                     "leg_4":  "Kentavious Caldwell-Pope OVER PA 9.5 (STANDARD) [id:9803960]",
+                     "leg_5":  "Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9797861,
+                                             "player":  "Cameron Johnson",
+                                             "stat":  "PTS",
+                                             "direction":  "OVER",
+                                             "line":  7.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:9797861]"
+                                         },
+                                         {
+                                             "id":  9802540,
+                                             "player":  "Naz Reid",
+                                             "stat":  "AST",
+                                             "direction":  "OVER",
+                                             "line":  1.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Naz Reid OVER AST 1.5 (GOBLIN) [id:9802540]"
+                                         },
+                                         {
+                                             "id":  9803456,
+                                             "player":  "Cam Spencer",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  19.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Cam Spencer OVER PRA 19.5 (STANDARD) [id:9803456]"
+                                         },
+                                         {
+                                             "id":  9803960,
+                                             "player":  "Kentavious Caldwell-Pope",
+                                             "stat":  "PA",
+                                             "direction":  "OVER",
+                                             "line":  9.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Kentavious Caldwell-Pope OVER PA 9.5 (STANDARD) [id:9803960]"
+                                         },
+                                         {
+                                             "id":  9810043,
+                                             "player":  "Scoot Henderson",
+                                             "stat":  "PA",
+                                             "direction":  "OVER",
+                                             "line":  16.5,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Scoot Henderson OVER PA 16.5 (DEMON) [id:9810043]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Jaren Jackson OVER PR 17.5 (GOBLIN) [id:9813657] | Day\u0027Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078] | Scoot Henderson OVER AST 4 (STANDARD) [id:9801381] | Draymond Green UNDER REB 6 (STANDARD) [id:9797226] | DeMar DeRozan OVER PTS 19.5 (DEMON) [id:9803317]",
+                     "hit_prob":  "0.2148232830235936",
+                     "ev_mult":  "4.296465660471872",
+                     "avg_p":  "0.7692161567686463",
+                     "avg_fragility":  "0.0015304891385154",
+                     "slip_key":  "Jaren Jackson OVER PR 17.5 (GOBLIN) [id:9813657] | Day\u0027Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078] | Scoot Henderson OVER AST 4 (STANDARD) [id:9801381] | Draymond Green UNDER REB 6 (STANDARD) [id:9797226] | DeMar DeRozan OVER PTS 19.5 (DEMON) [id:9803317]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Jaren Jackson OVER PR 17.5 (GOBLIN) [id:9813657]",
+                     "leg_2":  "Day\u0027Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078]",
+                     "leg_3":  "Scoot Henderson OVER AST 4 (STANDARD) [id:9801381]",
+                     "leg_4":  "Draymond Green UNDER REB 6 (STANDARD) [id:9797226]",
+                     "leg_5":  "DeMar DeRozan OVER PTS 19.5 (DEMON) [id:9803317]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9813657,
+                                             "player":  "Jaren Jackson",
+                                             "stat":  "PR",
+                                             "direction":  "OVER",
+                                             "line":  17.5,
+                                             "last5_hits":  null,
+                                             "leg_text":  "Jaren Jackson OVER PR 17.5 (GOBLIN) [id:9813657]"
+                                         },
+                                         {
+                                             "id":  9804078,
+                                             "player":  "Day\u0027Ron Sharpe",
+                                             "stat":  "REB",
+                                             "direction":  "OVER",
+                                             "line":  4.5,
+                                             "last5_hits":  5,
+                                             "leg_text":  "Day\u0027Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078]"
+                                         },
+                                         {
+                                             "id":  9801381,
+                                             "player":  "Scoot Henderson",
+                                             "stat":  "AST",
+                                             "direction":  "OVER",
+                                             "line":  4.0,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Scoot Henderson OVER AST 4 (STANDARD) [id:9801381]"
+                                         },
+                                         {
+                                             "id":  9797226,
+                                             "player":  "Draymond Green",
+                                             "stat":  "REB",
+                                             "direction":  "UNDER",
+                                             "line":  6.0,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Draymond Green UNDER REB 6 (STANDARD) [id:9797226]"
+                                         },
+                                         {
+                                             "id":  9803317,
+                                             "player":  "DeMar DeRozan",
+                                             "stat":  "PTS",
+                                             "direction":  "OVER",
+                                             "line":  19.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "DeMar DeRozan OVER PTS 19.5 (DEMON) [id:9803317]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Cam Spencer OVER RA 6.5 (GOBLIN) [id:9805872] | Jeremiah Fears OVER REB 1.5 (GOBLIN) [id:9804222] | Danny Wolf UNDER PR 19.5 (STANDARD) [id:9796823] | Trey Murphy OVER PRA 32.5 (STANDARD) [id:9799646] | Franz Wagner OVER PRA 25.5 (DEMON) [id:9801564]",
+                     "hit_prob":  "0.2081612372246439",
+                     "ev_mult":  "4.163224744492879",
+                     "avg_p":  "0.7379264147170566",
+                     "avg_fragility":  "0.0018716985456589",
+                     "slip_key":  "Cam Spencer OVER RA 6.5 (GOBLIN) [id:9805872] | Jeremiah Fears OVER REB 1.5 (GOBLIN) [id:9804222] | Danny Wolf UNDER PR 19.5 (STANDARD) [id:9796823] | Trey Murphy OVER PRA 32.5 (STANDARD) [id:9799646] | Franz Wagner OVER PRA 25.5 (DEMON) [id:9801564]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Cam Spencer OVER RA 6.5 (GOBLIN) [id:9805872]",
+                     "leg_2":  "Jeremiah Fears OVER REB 1.5 (GOBLIN) [id:9804222]",
+                     "leg_3":  "Danny Wolf UNDER PR 19.5 (STANDARD) [id:9796823]",
+                     "leg_4":  "Trey Murphy OVER PRA 32.5 (STANDARD) [id:9799646]",
+                     "leg_5":  "Franz Wagner OVER PRA 25.5 (DEMON) [id:9801564]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9805872,
+                                             "player":  "Cam Spencer",
+                                             "stat":  "RA",
+                                             "direction":  "OVER",
+                                             "line":  6.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Cam Spencer OVER RA 6.5 (GOBLIN) [id:9805872]"
+                                         },
+                                         {
+                                             "id":  9804222,
+                                             "player":  "Jeremiah Fears",
+                                             "stat":  "REB",
+                                             "direction":  "OVER",
+                                             "line":  1.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Jeremiah Fears OVER REB 1.5 (GOBLIN) [id:9804222]"
+                                         },
+                                         {
+                                             "id":  9796823,
+                                             "player":  "Danny Wolf",
+                                             "stat":  "PR",
+                                             "direction":  "UNDER",
+                                             "line":  19.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Danny Wolf UNDER PR 19.5 (STANDARD) [id:9796823]"
+                                         },
+                                         {
+                                             "id":  9799646,
+                                             "player":  "Trey Murphy",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  32.5,
+                                             "last5_hits":  null,
+                                             "leg_text":  "Trey Murphy OVER PRA 32.5 (STANDARD) [id:9799646]"
+                                         },
+                                         {
+                                             "id":  9801564,
+                                             "player":  "Franz Wagner",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  25.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Franz Wagner OVER PRA 25.5 (DEMON) [id:9801564]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Lauri Markkanen OVER PA 19.5 (GOBLIN) [id:9799042] | Day\u0027Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078] | Scoot Henderson OVER PRA 18.5 (STANDARD) [id:9801894] | Olivier-Maxence Prosper UNDER PTS 8.5 (STANDARD) [id:9814156] | CJ McCollum OVER PTS 19.5 (DEMON) [id:9802499]",
+                     "hit_prob":  "0.2074590477925077",
+                     "ev_mult":  "4.149180955850155",
+                     "avg_p":  "0.769124175164967",
+                     "avg_fragility":  "0.001199474829556",
+                     "slip_key":  "Lauri Markkanen OVER PA 19.5 (GOBLIN) [id:9799042] | Day\u0027Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078] | Scoot Henderson OVER PRA 18.5 (STANDARD) [id:9801894] | Olivier-Maxence Prosper UNDER PTS 8.5 (STANDARD) [id:9814156] | CJ McCollum OVER PTS 19.5 (DEMON) [id:9802499]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Lauri Markkanen OVER PA 19.5 (GOBLIN) [id:9799042]",
+                     "leg_2":  "Day\u0027Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078]",
+                     "leg_3":  "Scoot Henderson OVER PRA 18.5 (STANDARD) [id:9801894]",
+                     "leg_4":  "Olivier-Maxence Prosper UNDER PTS 8.5 (STANDARD) [id:9814156]",
+                     "leg_5":  "CJ McCollum OVER PTS 19.5 (DEMON) [id:9802499]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9799042,
+                                             "player":  "Lauri Markkanen",
+                                             "stat":  "PA",
+                                             "direction":  "OVER",
+                                             "line":  19.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Lauri Markkanen OVER PA 19.5 (GOBLIN) [id:9799042]"
+                                         },
+                                         {
+                                             "id":  9804078,
+                                             "player":  "Day\u0027Ron Sharpe",
+                                             "stat":  "REB",
+                                             "direction":  "OVER",
+                                             "line":  4.5,
+                                             "last5_hits":  5,
+                                             "leg_text":  "Day\u0027Ron Sharpe OVER REB 4.5 (GOBLIN) [id:9804078]"
+                                         },
+                                         {
+                                             "id":  9801894,
+                                             "player":  "Scoot Henderson",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  18.5,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Scoot Henderson OVER PRA 18.5 (STANDARD) [id:9801894]"
+                                         },
+                                         {
+                                             "id":  9814156,
+                                             "player":  "Olivier-Maxence Prosper",
+                                             "stat":  "PTS",
+                                             "direction":  "UNDER",
+                                             "line":  8.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Olivier-Maxence Prosper UNDER PTS 8.5 (STANDARD) [id:9814156]"
+                                         },
+                                         {
+                                             "id":  9802499,
+                                             "player":  "CJ McCollum",
+                                             "stat":  "PTS",
+                                             "direction":  "OVER",
+                                             "line":  19.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "CJ McCollum OVER PTS 19.5 (DEMON) [id:9802499]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:9814273] | Kevin Porter OVER AST 4.5 (GOBLIN) [id:9798834] | Onyeka Okongwu OVER RA 10.5 (STANDARD) [id:9801992] | Austin Reaves OVER PTS 19.5 (STANDARD) [id:9800821] | Deni Avdija OVER PRA 37.5 (DEMON) [id:9799255]",
+                     "hit_prob":  "0.2008430456711501",
+                     "ev_mult":  "4.016860913423002",
+                     "avg_p":  "0.7374941011797641",
+                     "avg_fragility":  "0.0",
+                     "slip_key":  "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:9814273] | Kevin Porter OVER AST 4.5 (GOBLIN) [id:9798834] | Onyeka Okongwu OVER RA 10.5 (STANDARD) [id:9801992] | Austin Reaves OVER PTS 19.5 (STANDARD) [id:9800821] | Deni Avdija OVER PRA 37.5 (DEMON) [id:9799255]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:9814273]",
+                     "leg_2":  "Kevin Porter OVER AST 4.5 (GOBLIN) [id:9798834]",
+                     "leg_3":  "Onyeka Okongwu OVER RA 10.5 (STANDARD) [id:9801992]",
+                     "leg_4":  "Austin Reaves OVER PTS 19.5 (STANDARD) [id:9800821]",
+                     "leg_5":  "Deni Avdija OVER PRA 37.5 (DEMON) [id:9799255]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9814273,
+                                             "player":  "Cameron Johnson",
+                                             "stat":  "PR",
+                                             "direction":  "OVER",
+                                             "line":  9.5,
+                                             "last5_hits":  5,
+                                             "leg_text":  "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:9814273]"
+                                         },
+                                         {
+                                             "id":  9798834,
+                                             "player":  "Kevin Porter",
+                                             "stat":  "AST",
+                                             "direction":  "OVER",
+                                             "line":  4.5,
+                                             "last5_hits":  null,
+                                             "leg_text":  "Kevin Porter OVER AST 4.5 (GOBLIN) [id:9798834]"
+                                         },
+                                         {
+                                             "id":  9801992,
+                                             "player":  "Onyeka Okongwu",
+                                             "stat":  "RA",
+                                             "direction":  "OVER",
+                                             "line":  10.5,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Onyeka Okongwu OVER RA 10.5 (STANDARD) [id:9801992]"
+                                         },
+                                         {
+                                             "id":  9800821,
+                                             "player":  "Austin Reaves",
+                                             "stat":  "PTS",
+                                             "direction":  "OVER",
+                                             "line":  19.5,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Austin Reaves OVER PTS 19.5 (STANDARD) [id:9800821]"
+                                         },
+                                         {
+                                             "id":  9799255,
+                                             "player":  "Deni Avdija",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  37.5,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Deni Avdija OVER PRA 37.5 (DEMON) [id:9799255]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Miles Bridges OVER AST 1.5 (GOBLIN) [id:9812412] | Cameron Johnson OVER FG3M 0.5 (GOBLIN) [id:9795891] | Moses Moody UNDER PA 18.5 (STANDARD) [id:9800034] | Guerschon Yabusele UNDER PR 14.5 (STANDARD) [id:9803241] | Jusuf Nurkić OVER PTS 13.5 (DEMON) [id:9798370]",
+                     "hit_prob":  "0.1965900427179185",
+                     "ev_mult":  "3.931800854358371",
+                     "avg_p":  "0.7345776844631073",
+                     "avg_fragility":  "0.0022133343325488",
+                     "slip_key":  "Miles Bridges OVER AST 1.5 (GOBLIN) [id:9812412] | Cameron Johnson OVER FG3M 0.5 (GOBLIN) [id:9795891] | Moses Moody UNDER PA 18.5 (STANDARD) [id:9800034] | Guerschon Yabusele UNDER PR 14.5 (STANDARD) [id:9803241] | Jusuf Nurkić OVER PTS 13.5 (DEMON) [id:9798370]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Miles Bridges OVER AST 1.5 (GOBLIN) [id:9812412]",
+                     "leg_2":  "Cameron Johnson OVER FG3M 0.5 (GOBLIN) [id:9795891]",
+                     "leg_3":  "Moses Moody UNDER PA 18.5 (STANDARD) [id:9800034]",
+                     "leg_4":  "Guerschon Yabusele UNDER PR 14.5 (STANDARD) [id:9803241]",
+                     "leg_5":  "Jusuf Nurkić OVER PTS 13.5 (DEMON) [id:9798370]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9812412,
+                                             "player":  "Miles Bridges",
+                                             "stat":  "AST",
+                                             "direction":  "OVER",
+                                             "line":  1.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Miles Bridges OVER AST 1.5 (GOBLIN) [id:9812412]"
+                                         },
+                                         {
+                                             "id":  9795891,
+                                             "player":  "Cameron Johnson",
+                                             "stat":  "FG3M",
+                                             "direction":  "OVER",
+                                             "line":  3.0,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Cameron Johnson OVER FG3M 0.5 (GOBLIN) [id:9795891]"
+                                         },
+                                         {
+                                             "id":  9800034,
+                                             "player":  "Moses Moody",
+                                             "stat":  "PA",
+                                             "direction":  "UNDER",
+                                             "line":  18.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Moses Moody UNDER PA 18.5 (STANDARD) [id:9800034]"
+                                         },
+                                         {
+                                             "id":  9803241,
+                                             "player":  "Guerschon Yabusele",
+                                             "stat":  "PR",
+                                             "direction":  "UNDER",
+                                             "line":  14.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Guerschon Yabusele UNDER PR 14.5 (STANDARD) [id:9803241]"
+                                         },
+                                         {
+                                             "id":  9798370,
+                                             "player":  "Jusuf Nurkić",
+                                             "stat":  "PTS",
+                                             "direction":  "OVER",
+                                             "line":  13.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Jusuf Nurkić OVER PTS 13.5 (DEMON) [id:9798370]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Jonas Valančiūnas OVER PTS 5.5 (GOBLIN) [id:9802382] | Kon Knueppel OVER PRA 19.5 (GOBLIN) [id:9802655] | Jusuf Nurkić OVER PRA 24.5 (STANDARD) [id:9798086] | Ryan Kalkbrenner OVER REB 4 (STANDARD) [id:9795339] | Ryan Rollins OVER FG3M 2.5 (DEMON) [id:9798942]",
+                     "hit_prob":  "0.1952953087983128",
+                     "ev_mult":  "3.905906175966257",
+                     "avg_p":  "0.7320335932813438",
+                     "avg_fragility":  "0.0007574616498509",
+                     "slip_key":  "Jonas Valančiūnas OVER PTS 5.5 (GOBLIN) [id:9802382] | Kon Knueppel OVER PRA 19.5 (GOBLIN) [id:9802655] | Jusuf Nurkić OVER PRA 24.5 (STANDARD) [id:9798086] | Ryan Kalkbrenner OVER REB 4 (STANDARD) [id:9795339] | Ryan Rollins OVER FG3M 2.5 (DEMON) [id:9798942]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Jonas Valančiūnas OVER PTS 5.5 (GOBLIN) [id:9802382]",
+                     "leg_2":  "Kon Knueppel OVER PRA 19.5 (GOBLIN) [id:9802655]",
+                     "leg_3":  "Jusuf Nurkić OVER PRA 24.5 (STANDARD) [id:9798086]",
+                     "leg_4":  "Ryan Kalkbrenner OVER REB 4 (STANDARD) [id:9795339]",
+                     "leg_5":  "Ryan Rollins OVER FG3M 2.5 (DEMON) [id:9798942]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9802382,
+                                             "player":  "Jonas Valančiūnas",
+                                             "stat":  "PTS",
+                                             "direction":  "OVER",
+                                             "line":  5.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Jonas Valančiūnas OVER PTS 5.5 (GOBLIN) [id:9802382]"
+                                         },
+                                         {
+                                             "id":  9802655,
+                                             "player":  "Kon Knueppel",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  19.5,
+                                             "last5_hits":  5,
+                                             "leg_text":  "Kon Knueppel OVER PRA 19.5 (GOBLIN) [id:9802655]"
+                                         },
+                                         {
+                                             "id":  9798086,
+                                             "player":  "Jusuf Nurkić",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  24.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Jusuf Nurkić OVER PRA 24.5 (STANDARD) [id:9798086]"
+                                         },
+                                         {
+                                             "id":  9795339,
+                                             "player":  "Ryan Kalkbrenner",
+                                             "stat":  "REB",
+                                             "direction":  "OVER",
+                                             "line":  4.0,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Ryan Kalkbrenner OVER REB 4 (STANDARD) [id:9795339]"
+                                         },
+                                         {
+                                             "id":  9798942,
+                                             "player":  "Ryan Rollins",
+                                             "stat":  "FG3M",
+                                             "direction":  "OVER",
+                                             "line":  3.0,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Ryan Rollins OVER FG3M 2.5 (DEMON) [id:9798942]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "DeMar DeRozan OVER AST 2.5 (GOBLIN) [id:9804377] | Ayo Dosunmu OVER PRA 14.5 (GOBLIN) [id:9811467] | Donovan Mitchell OVER AST 5 (STANDARD) [id:9804888] | Nique Clifford UNDER PR 19.5 (STANDARD) [id:9803389] | Luguentz Dort OVER REB 4.5 (DEMON) [id:9800572]",
+                     "hit_prob":  "0.1830756448738318",
+                     "ev_mult":  "3.6615128974766376",
+                     "avg_p":  "0.7369866026794641",
+                     "avg_fragility":  "0.0019816971647719",
+                     "slip_key":  "DeMar DeRozan OVER AST 2.5 (GOBLIN) [id:9804377] | Ayo Dosunmu OVER PRA 14.5 (GOBLIN) [id:9811467] | Donovan Mitchell OVER AST 5 (STANDARD) [id:9804888] | Nique Clifford UNDER PR 19.5 (STANDARD) [id:9803389] | Luguentz Dort OVER REB 4.5 (DEMON) [id:9800572]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "DeMar DeRozan OVER AST 2.5 (GOBLIN) [id:9804377]",
+                     "leg_2":  "Ayo Dosunmu OVER PRA 14.5 (GOBLIN) [id:9811467]",
+                     "leg_3":  "Donovan Mitchell OVER AST 5 (STANDARD) [id:9804888]",
+                     "leg_4":  "Nique Clifford UNDER PR 19.5 (STANDARD) [id:9803389]",
+                     "leg_5":  "Luguentz Dort OVER REB 4.5 (DEMON) [id:9800572]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9804377,
+                                             "player":  "DeMar DeRozan",
+                                             "stat":  "AST",
+                                             "direction":  "OVER",
+                                             "line":  2.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "DeMar DeRozan OVER AST 2.5 (GOBLIN) [id:9804377]"
+                                         },
+                                         {
+                                             "id":  9811467,
+                                             "player":  "Ayo Dosunmu",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  14.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Ayo Dosunmu OVER PRA 14.5 (GOBLIN) [id:9811467]"
+                                         },
+                                         {
+                                             "id":  9804888,
+                                             "player":  "Donovan Mitchell",
+                                             "stat":  "AST",
+                                             "direction":  "OVER",
+                                             "line":  5.0,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Donovan Mitchell OVER AST 5 (STANDARD) [id:9804888]"
+                                         },
+                                         {
+                                             "id":  9803389,
+                                             "player":  "Nique Clifford",
+                                             "stat":  "PR",
+                                             "direction":  "UNDER",
+                                             "line":  19.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Nique Clifford UNDER PR 19.5 (STANDARD) [id:9803389]"
+                                         },
+                                         {
+                                             "id":  9800572,
+                                             "player":  "Luguentz Dort",
+                                             "stat":  "REB",
+                                             "direction":  "OVER",
+                                             "line":  4.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Luguentz Dort OVER REB 4.5 (DEMON) [id:9800572]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Anthony Black OVER AST 2.5 (GOBLIN) [id:9812353] | Cameron Johnson OVER PA 9.5 (GOBLIN) [id:9797925] | Scotty Pippen UNDER REB 3.5 (STANDARD) [id:9808492] | Davion Mitchell UNDER PTS 9.5 (STANDARD) [id:9798035] | Tobias Harris OVER FG3M 1.5 (DEMON) [id:9795358]",
+                     "hit_prob":  "0.1808766167227396",
+                     "ev_mult":  "3.617532334454792",
+                     "avg_p":  "0.7370965806838633",
+                     "avg_fragility":  "0.0018843462553661",
+                     "slip_key":  "Anthony Black OVER AST 2.5 (GOBLIN) [id:9812353] | Cameron Johnson OVER PA 9.5 (GOBLIN) [id:9797925] | Scotty Pippen UNDER REB 3.5 (STANDARD) [id:9808492] | Davion Mitchell UNDER PTS 9.5 (STANDARD) [id:9798035] | Tobias Harris OVER FG3M 1.5 (DEMON) [id:9795358]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Anthony Black OVER AST 2.5 (GOBLIN) [id:9812353]",
+                     "leg_2":  "Cameron Johnson OVER PA 9.5 (GOBLIN) [id:9797925]",
+                     "leg_3":  "Scotty Pippen UNDER REB 3.5 (STANDARD) [id:9808492]",
+                     "leg_4":  "Davion Mitchell UNDER PTS 9.5 (STANDARD) [id:9798035]",
+                     "leg_5":  "Tobias Harris OVER FG3M 1.5 (DEMON) [id:9795358]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9812353,
+                                             "player":  "Anthony Black",
+                                             "stat":  "AST",
+                                             "direction":  "OVER",
+                                             "line":  2.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Anthony Black OVER AST 2.5 (GOBLIN) [id:9812353]"
+                                         },
+                                         {
+                                             "id":  9797925,
+                                             "player":  "Cameron Johnson",
+                                             "stat":  "PA",
+                                             "direction":  "OVER",
+                                             "line":  9.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Cameron Johnson OVER PA 9.5 (GOBLIN) [id:9797925]"
+                                         },
+                                         {
+                                             "id":  9808492,
+                                             "player":  "Scotty Pippen",
+                                             "stat":  "REB",
+                                             "direction":  "UNDER",
+                                             "line":  3.5,
+                                             "last5_hits":  null,
+                                             "leg_text":  "Scotty Pippen UNDER REB 3.5 (STANDARD) [id:9808492]"
+                                         },
+                                         {
+                                             "id":  9798035,
+                                             "player":  "Davion Mitchell",
+                                             "stat":  "PTS",
+                                             "direction":  "UNDER",
+                                             "line":  9.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Davion Mitchell UNDER PTS 9.5 (STANDARD) [id:9798035]"
+                                         },
+                                         {
+                                             "id":  9795358,
+                                             "player":  "Tobias Harris",
+                                             "stat":  "FG3M",
+                                             "direction":  "OVER",
+                                             "line":  3.0,
+                                             "last5_hits":  0,
+                                             "leg_text":  "Tobias Harris OVER FG3M 1.5 (DEMON) [id:9795358]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Grant Williams OVER PA 4.5 (GOBLIN) [id:9814261] | Tobias Harris OVER AST 1.5 (GOBLIN) [id:9799537] | James Harden OVER PRA 33.5 (STANDARD) [id:9796116] | Jaden Ivey UNDER AST 4 (STANDARD) [id:9804880] | Deni Avdija OVER PR 29.5 (DEMON) [id:9813743]",
+                     "hit_prob":  "0.1782076937834875",
+                     "ev_mult":  "3.564153875669751",
+                     "avg_p":  "0.7118756248750249",
+                     "avg_fragility":  "0.0012807772993264",
+                     "slip_key":  "Grant Williams OVER PA 4.5 (GOBLIN) [id:9814261] | Tobias Harris OVER AST 1.5 (GOBLIN) [id:9799537] | James Harden OVER PRA 33.5 (STANDARD) [id:9796116] | Jaden Ivey UNDER AST 4 (STANDARD) [id:9804880] | Deni Avdija OVER PR 29.5 (DEMON) [id:9813743]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Grant Williams OVER PA 4.5 (GOBLIN) [id:9814261]",
+                     "leg_2":  "Tobias Harris OVER AST 1.5 (GOBLIN) [id:9799537]",
+                     "leg_3":  "James Harden OVER PRA 33.5 (STANDARD) [id:9796116]",
+                     "leg_4":  "Jaden Ivey UNDER AST 4 (STANDARD) [id:9804880]",
+                     "leg_5":  "Deni Avdija OVER PR 29.5 (DEMON) [id:9813743]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9814261,
+                                             "player":  "Grant Williams",
+                                             "stat":  "PA",
+                                             "direction":  "OVER",
+                                             "line":  4.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Grant Williams OVER PA 4.5 (GOBLIN) [id:9814261]"
+                                         },
+                                         {
+                                             "id":  9799537,
+                                             "player":  "Tobias Harris",
+                                             "stat":  "AST",
+                                             "direction":  "OVER",
+                                             "line":  1.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Tobias Harris OVER AST 1.5 (GOBLIN) [id:9799537]"
+                                         },
+                                         {
+                                             "id":  9796116,
+                                             "player":  "James Harden",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  33.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "James Harden OVER PRA 33.5 (STANDARD) [id:9796116]"
+                                         },
+                                         {
+                                             "id":  9804880,
+                                             "player":  "Jaden Ivey",
+                                             "stat":  "AST",
+                                             "direction":  "UNDER",
+                                             "line":  4.0,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Jaden Ivey UNDER AST 4 (STANDARD) [id:9804880]"
+                                         },
+                                         {
+                                             "id":  9813743,
+                                             "player":  "Deni Avdija",
+                                             "stat":  "PR",
+                                             "direction":  "OVER",
+                                             "line":  29.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Deni Avdija OVER PR 29.5 (DEMON) [id:9813743]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Isaiah Stewart OVER PTS 5.5 (GOBLIN) [id:9801907] | VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:9801040] | Jaden Ivey UNDER PRA 21.5 (STANDARD) [id:9795546] | Isaiah Collier UNDER PA 26 (STANDARD) [id:9798052] | Ayo Dosunmu OVER PR 19.5 (DEMON) [id:9811465]",
+                     "hit_prob":  "0.1771828349731359",
+                     "ev_mult":  "3.5436566994627188",
+                     "avg_p":  "0.7199648070385922",
+                     "avg_fragility":  "0.0018585617556231",
+                     "slip_key":  "Isaiah Stewart OVER PTS 5.5 (GOBLIN) [id:9801907] | VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:9801040] | Jaden Ivey UNDER PRA 21.5 (STANDARD) [id:9795546] | Isaiah Collier UNDER PA 26 (STANDARD) [id:9798052] | Ayo Dosunmu OVER PR 19.5 (DEMON) [id:9811465]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Isaiah Stewart OVER PTS 5.5 (GOBLIN) [id:9801907]",
+                     "leg_2":  "VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:9801040]",
+                     "leg_3":  "Jaden Ivey UNDER PRA 21.5 (STANDARD) [id:9795546]",
+                     "leg_4":  "Isaiah Collier UNDER PA 26 (STANDARD) [id:9798052]",
+                     "leg_5":  "Ayo Dosunmu OVER PR 19.5 (DEMON) [id:9811465]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9801907,
+                                             "player":  "Isaiah Stewart",
+                                             "stat":  "PTS",
+                                             "direction":  "OVER",
+                                             "line":  5.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Isaiah Stewart OVER PTS 5.5 (GOBLIN) [id:9801907]"
+                                         },
+                                         {
+                                             "id":  9801040,
+                                             "player":  "VJ Edgecombe",
+                                             "stat":  "REB",
+                                             "direction":  "OVER",
+                                             "line":  3.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:9801040]"
+                                         },
+                                         {
+                                             "id":  9795546,
+                                             "player":  "Jaden Ivey",
+                                             "stat":  "PRA",
+                                             "direction":  "UNDER",
+                                             "line":  21.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Jaden Ivey UNDER PRA 21.5 (STANDARD) [id:9795546]"
+                                         },
+                                         {
+                                             "id":  9798052,
+                                             "player":  "Isaiah Collier",
+                                             "stat":  "PA",
+                                             "direction":  "UNDER",
+                                             "line":  26.0,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Isaiah Collier UNDER PA 26 (STANDARD) [id:9798052]"
+                                         },
+                                         {
+                                             "id":  9811465,
+                                             "player":  "Ayo Dosunmu",
+                                             "stat":  "PR",
+                                             "direction":  "OVER",
+                                             "line":  19.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Ayo Dosunmu OVER PR 19.5 (DEMON) [id:9811465]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Matas Buzelis OVER FG3M 1.5 (GOBLIN) [id:9795802] | Nikola Jokić OVER AST 7.5 (GOBLIN) [id:9796437] | Ayo Dosunmu OVER PTS 11.5 (STANDARD) [id:9802490] | Trendon Watford UNDER PA 9.5 (STANDARD) [id:9802183] | Brice Sensabaugh OVER PRA 20.5 (DEMON) [id:9804671]",
+                     "hit_prob":  "0.1702821212827801",
+                     "ev_mult":  "3.4056424256556035",
+                     "avg_p":  "0.7133439312137572",
+                     "avg_fragility":  "0.0014608183878274",
+                     "slip_key":  "Matas Buzelis OVER FG3M 1.5 (GOBLIN) [id:9795802] | Nikola Jokić OVER AST 7.5 (GOBLIN) [id:9796437] | Ayo Dosunmu OVER PTS 11.5 (STANDARD) [id:9802490] | Trendon Watford UNDER PA 9.5 (STANDARD) [id:9802183] | Brice Sensabaugh OVER PRA 20.5 (DEMON) [id:9804671]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Matas Buzelis OVER FG3M 1.5 (GOBLIN) [id:9795802]",
+                     "leg_2":  "Nikola Jokić OVER AST 7.5 (GOBLIN) [id:9796437]",
+                     "leg_3":  "Ayo Dosunmu OVER PTS 11.5 (STANDARD) [id:9802490]",
+                     "leg_4":  "Trendon Watford UNDER PA 9.5 (STANDARD) [id:9802183]",
+                     "leg_5":  "Brice Sensabaugh OVER PRA 20.5 (DEMON) [id:9804671]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9795802,
+                                             "player":  "Matas Buzelis",
+                                             "stat":  "FG3M",
+                                             "direction":  "OVER",
+                                             "line":  3.0,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Matas Buzelis OVER FG3M 1.5 (GOBLIN) [id:9795802]"
+                                         },
+                                         {
+                                             "id":  9796437,
+                                             "player":  "Nikola Jokić",
+                                             "stat":  "AST",
+                                             "direction":  "OVER",
+                                             "line":  7.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Nikola Jokić OVER AST 7.5 (GOBLIN) [id:9796437]"
+                                         },
+                                         {
+                                             "id":  9802490,
+                                             "player":  "Ayo Dosunmu",
+                                             "stat":  "PTS",
+                                             "direction":  "OVER",
+                                             "line":  11.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Ayo Dosunmu OVER PTS 11.5 (STANDARD) [id:9802490]"
+                                         },
+                                         {
+                                             "id":  9802183,
+                                             "player":  "Trendon Watford",
+                                             "stat":  "PA",
+                                             "direction":  "UNDER",
+                                             "line":  9.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Trendon Watford UNDER PA 9.5 (STANDARD) [id:9802183]"
+                                         },
+                                         {
+                                             "id":  9804671,
+                                             "player":  "Brice Sensabaugh",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  20.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Brice Sensabaugh OVER PRA 20.5 (DEMON) [id:9804671]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Bam Adebayo OVER RA 10.5 (GOBLIN) [id:9810365] | Jaime Jaquez OVER REB 3.5 (GOBLIN) [id:9802662] | Cam Spencer OVER RA 8 (STANDARD) [id:9803538] | Tristan Silva UNDER PTS 6.5 (STANDARD) [id:9802455] | Austin Reaves OVER PA 29.5 (DEMON) [id:9802222]",
+                     "hit_prob":  "0.1637640088582684",
+                     "ev_mult":  "3.275280177165368",
+                     "avg_p":  "0.7136824635072985",
+                     "avg_fragility":  "0.0",
+                     "slip_key":  "Bam Adebayo OVER RA 10.5 (GOBLIN) [id:9810365] | Jaime Jaquez OVER REB 3.5 (GOBLIN) [id:9802662] | Cam Spencer OVER RA 8 (STANDARD) [id:9803538] | Tristan Silva UNDER PTS 6.5 (STANDARD) [id:9802455] | Austin Reaves OVER PA 29.5 (DEMON) [id:9802222]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Bam Adebayo OVER RA 10.5 (GOBLIN) [id:9810365]",
+                     "leg_2":  "Jaime Jaquez OVER REB 3.5 (GOBLIN) [id:9802662]",
+                     "leg_3":  "Cam Spencer OVER RA 8 (STANDARD) [id:9803538]",
+                     "leg_4":  "Tristan Silva UNDER PTS 6.5 (STANDARD) [id:9802455]",
+                     "leg_5":  "Austin Reaves OVER PA 29.5 (DEMON) [id:9802222]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9810365,
+                                             "player":  "Bam Adebayo",
+                                             "stat":  "RA",
+                                             "direction":  "OVER",
+                                             "line":  10.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Bam Adebayo OVER RA 10.5 (GOBLIN) [id:9810365]"
+                                         },
+                                         {
+                                             "id":  9802662,
+                                             "player":  "Jaime Jaquez",
+                                             "stat":  "REB",
+                                             "direction":  "OVER",
+                                             "line":  3.5,
+                                             "last5_hits":  null,
+                                             "leg_text":  "Jaime Jaquez OVER REB 3.5 (GOBLIN) [id:9802662]"
+                                         },
+                                         {
+                                             "id":  9803538,
+                                             "player":  "Cam Spencer",
+                                             "stat":  "RA",
+                                             "direction":  "OVER",
+                                             "line":  8.0,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Cam Spencer OVER RA 8 (STANDARD) [id:9803538]"
+                                         },
+                                         {
+                                             "id":  9802455,
+                                             "player":  "Tristan Silva",
+                                             "stat":  "PTS",
+                                             "direction":  "UNDER",
+                                             "line":  6.5,
+                                             "last5_hits":  null,
+                                             "leg_text":  "Tristan Silva UNDER PTS 6.5 (STANDARD) [id:9802455]"
+                                         },
+                                         {
+                                             "id":  9802222,
+                                             "player":  "Austin Reaves",
+                                             "stat":  "PA",
+                                             "direction":  "OVER",
+                                             "line":  29.5,
+                                             "last5_hits":  1,
+                                             "leg_text":  "Austin Reaves OVER PA 29.5 (DEMON) [id:9802222]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "CJ McCollum OVER PTS 11.5 (GOBLIN) [id:9804353] | Scotty Pippen OVER FG3M 0.5 (GOBLIN) [id:9803885] | Deni Avdija OVER RA 11.5 (STANDARD) [id:9801296] | Cedric Coward OVER PTS 11.5 (STANDARD) [id:9797189] | James Harden OVER PR 29.5 (DEMON) [id:9799202]",
+                     "hit_prob":  "0.1623429046321507",
+                     "ev_mult":  "3.2468580926430146",
+                     "avg_p":  "0.7197654469106178",
+                     "avg_fragility":  "0.0009467720679147",
+                     "slip_key":  "CJ McCollum OVER PTS 11.5 (GOBLIN) [id:9804353] | Scotty Pippen OVER FG3M 0.5 (GOBLIN) [id:9803885] | Deni Avdija OVER RA 11.5 (STANDARD) [id:9801296] | Cedric Coward OVER PTS 11.5 (STANDARD) [id:9797189] | James Harden OVER PR 29.5 (DEMON) [id:9799202]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "CJ McCollum OVER PTS 11.5 (GOBLIN) [id:9804353]",
+                     "leg_2":  "Scotty Pippen OVER FG3M 0.5 (GOBLIN) [id:9803885]",
+                     "leg_3":  "Deni Avdija OVER RA 11.5 (STANDARD) [id:9801296]",
+                     "leg_4":  "Cedric Coward OVER PTS 11.5 (STANDARD) [id:9797189]",
+                     "leg_5":  "James Harden OVER PR 29.5 (DEMON) [id:9799202]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9804353,
+                                             "player":  "CJ McCollum",
+                                             "stat":  "PTS",
+                                             "direction":  "OVER",
+                                             "line":  11.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "CJ McCollum OVER PTS 11.5 (GOBLIN) [id:9804353]"
+                                         },
+                                         {
+                                             "id":  9803885,
+                                             "player":  "Scotty Pippen",
+                                             "stat":  "FG3M",
+                                             "direction":  "OVER",
+                                             "line":  3.0,
+                                             "last5_hits":  null,
+                                             "leg_text":  "Scotty Pippen OVER FG3M 0.5 (GOBLIN) [id:9803885]"
+                                         },
+                                         {
+                                             "id":  9801296,
+                                             "player":  "Deni Avdija",
+                                             "stat":  "RA",
+                                             "direction":  "OVER",
+                                             "line":  11.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Deni Avdija OVER RA 11.5 (STANDARD) [id:9801296]"
+                                         },
+                                         {
+                                             "id":  9797189,
+                                             "player":  "Cedric Coward",
+                                             "stat":  "PTS",
+                                             "direction":  "OVER",
+                                             "line":  11.5,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Cedric Coward OVER PTS 11.5 (STANDARD) [id:9797189]"
+                                         },
+                                         {
+                                             "id":  9799202,
+                                             "player":  "James Harden",
+                                             "stat":  "PR",
+                                             "direction":  "OVER",
+                                             "line":  29.5,
+                                             "last5_hits":  1,
+                                             "leg_text":  "James Harden OVER PR 29.5 (DEMON) [id:9799202]"
+                                         }
+                                     ]
+                 },
+                 {
+                     "n_legs":  "5",
+                     "legs":  "Cedric Coward OVER AST 1.5 (GOBLIN) [id:9797651] | Russell Westbrook OVER RA 7.5 (GOBLIN) [id:9811115] | Ayo Dosunmu OVER PR 14.5 (STANDARD) [id:9805319] | Lauri Markkanen OVER RA 7 (STANDARD) [id:9808518] | Dyson Daniels OVER PRA 26.5 (DEMON) [id:9802146]",
+                     "hit_prob":  "0.1622722646743842",
+                     "ev_mult":  "3.2454452934876854",
+                     "avg_p":  "0.7174421115776844",
+                     "avg_fragility":  "0.0004794438451396",
+                     "slip_key":  "Cedric Coward OVER AST 1.5 (GOBLIN) [id:9797651] | Russell Westbrook OVER RA 7.5 (GOBLIN) [id:9811115] | Ayo Dosunmu OVER PR 14.5 (STANDARD) [id:9805319] | Lauri Markkanen OVER RA 7 (STANDARD) [id:9808518] | Dyson Daniels OVER PRA 26.5 (DEMON) [id:9802146]",
+                     "slip_agreement_score":  "",
+                     "slip_agreement_tier":  "",
+                     "slip_tag_set":  "",
+                     "slip_tag":  "",
+                     "slip_min_start_utc":  "",
+                     "slip_has_unknown_start":  "",
+                     "leg_1":  "Cedric Coward OVER AST 1.5 (GOBLIN) [id:9797651]",
+                     "leg_2":  "Russell Westbrook OVER RA 7.5 (GOBLIN) [id:9811115]",
+                     "leg_3":  "Ayo Dosunmu OVER PR 14.5 (STANDARD) [id:9805319]",
+                     "leg_4":  "Lauri Markkanen OVER RA 7 (STANDARD) [id:9808518]",
+                     "leg_5":  "Dyson Daniels OVER PRA 26.5 (DEMON) [id:9802146]",
+                     "legs_detail":  [
+                                         {
+                                             "id":  9797651,
+                                             "player":  "Cedric Coward",
+                                             "stat":  "AST",
+                                             "direction":  "OVER",
+                                             "line":  1.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Cedric Coward OVER AST 1.5 (GOBLIN) [id:9797651]"
+                                         },
+                                         {
+                                             "id":  9811115,
+                                             "player":  "Russell Westbrook",
+                                             "stat":  "RA",
+                                             "direction":  "OVER",
+                                             "line":  7.5,
+                                             "last5_hits":  3,
+                                             "leg_text":  "Russell Westbrook OVER RA 7.5 (GOBLIN) [id:9811115]"
+                                         },
+                                         {
+                                             "id":  9805319,
+                                             "player":  "Ayo Dosunmu",
+                                             "stat":  "PR",
+                                             "direction":  "OVER",
+                                             "line":  14.5,
+                                             "last5_hits":  4,
+                                             "leg_text":  "Ayo Dosunmu OVER PR 14.5 (STANDARD) [id:9805319]"
+                                         },
+                                         {
+                                             "id":  9808518,
+                                             "player":  "Lauri Markkanen",
+                                             "stat":  "RA",
+                                             "direction":  "OVER",
+                                             "line":  7.0,
+                                             "last5_hits":  2,
+                                             "leg_text":  "Lauri Markkanen OVER RA 7 (STANDARD) [id:9808518]"
+                                         },
+                                         {
+                                             "id":  9802146,
+                                             "player":  "Dyson Daniels",
+                                             "stat":  "PRA",
+                                             "direction":  "OVER",
+                                             "line":  26.5,
+                                             "last5_hits":  0,
+                                             "leg_text":  "Dyson Daniels OVER PRA 26.5 (DEMON) [id:9802146]"
+                                         }
+                                     ]
+                 }
+             ],
+    "notes":  "Windfall-only export. last5 computed from audit_last5_board.csv (player-keyed).",
+    "system":  [
+
+               ],
+    "windfall":  [
+
+                 ],
+    "gamescript":  [
+
+                   ]
 }
