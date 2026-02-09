@@ -85,8 +85,8 @@ function Load-Last5AuditMap([string]$atlasRoot) {
       $pidRaw = $r.projection_id
       if (-not $pidRaw) { $pidRaw = $r.id }
       if (-not $pidRaw) { continue }
-      [int]$pid = 0
-      if (-not [int]::TryParse($pidRaw, [ref]$pid)) { continue }
+      [int]$projId = 0
+      if (-not [int]::TryParse($pidRaw, [ref]$projId)) { continue }
 
       $vRaw = $r.last5_hits
       if (-not $vRaw) { $vRaw = $r.last5_hit_count }
@@ -97,7 +97,7 @@ function Load-Last5AuditMap([string]$atlasRoot) {
         [int]$tmp = 0
         if ([int]::TryParse($vRaw, [ref]$tmp)) { $v = $tmp } else { $v = $null }
       }
-      $map[$pid] = $v
+      $map[$projId] = $v
     }
   } catch {
     # best-effort: leave map empty
@@ -144,10 +144,10 @@ function Add-LegsDetailAndFilter($rows, $last5Map) {
     $detail = @()
     $drop = $false
 
-    foreach ($pid in $ids) {
+    foreach ($projId in $ids) {
       $v = $null
-      if ($last5Map.ContainsKey($pid)) { $v = $last5Map[$pid] }
-      $detail += [pscustomobject]@{ id = $pid; last5_hits = $v }
+      if ($last5Map.ContainsKey($projId)) { $v = $last5Map[$projId] }
+      $detail += [pscustomobject]@{ id = $projId; last5_hits = $v }
       if ($v -ne $null -and $v -eq 0) { $drop = $true }
     }
 
