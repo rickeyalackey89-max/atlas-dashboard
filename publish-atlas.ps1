@@ -1,4 +1,4 @@
-<#
+﻿<#
 publish-atlas.ps1 (PowerShell 5.1)
 
 Usage:
@@ -46,6 +46,7 @@ function GitOut([string]$repoRoot, [string[]]$gitArgs) {
     Fail ("git failed (exit $code): git -C `"$repoRoot`" $joined")
   }
 
+}
 function Get-GitPorcelain([string]$repoRoot) {
   $out = & git -C $repoRoot status --porcelain 2>$null
   if ($LASTEXITCODE -ne 0) { Fail "git status --porcelain failed. Is git installed and is this a repo?" }
