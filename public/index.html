@@ -168,9 +168,9 @@
             <span class="pill"><span class="dot off" id="statusDot"></span><span id="statusText">—</span></span>
           </div>
           <div class="sub">
-            Atlas System: <code class="mono">/data/recommended_3leg_latest.json</code>, <code class="mono">4leg</code>, <code class="mono">5leg</code>.
-            Windfall: <code class="mono">/data/windfall_recommended_*leg_latest.json</code>.
-            GameScript: <code class="mono">/data/gamescript_best_3leg.json</code>, <code class="mono">gamescript_best_4leg.json</code>, <code class="mono">gamescript_best_5leg.json</code>.
+            Atlas System: <code class="mono">/data/recommended_latest.json</code>.
+            Windfall: <code class="mono">/data/recommended_windfall_latest.json</code>.
+            GameScript: <code class="mono">/data/recommended_gamescript_latest.json</code>.
           </div>
         </div>
 
@@ -609,13 +609,8 @@ function sectionHeader(title, subtitle = "") {
 
     const atlasLatest = await topRowFrom("/data/recommended_latest.json");
 
-    const wf3 = await topRowFrom("/data/windfall_recommended_3leg_latest.json");
-    const wf4 = await topRowFrom("/data/windfall_recommended_4leg_latest.json");
-    const wf5 = await topRowFrom("/data/windfall_recommended_5leg_latest.json");
-
-    const gs3 = await topRowFrom("/data/gamescript_best_3leg.json");
-    const gs4 = await topRowFrom("/data/gamescript_best_4leg.json");
-    const gs5 = await topRowFrom("/data/gamescript_best_5leg.json");
+    // Windfall + GameScript are now unified feeds written by publish-atlas.ps1.
+    // We pick the best 3/4/5-leg row from each unified array.
 
     el("slipHint").textContent = "Loaded Atlas System + Windfall + GameScript picks (missing feeds are shown as unavailable).";
 
@@ -640,13 +635,13 @@ function sectionHeader(title, subtitle = "") {
     )));
 
     // Build Windfall cards from unified JSON: /data/recommended_windfall_latest.json
-  (async () => {
+    (async () => {
     const wf4 = { row: null, subtitle: "windfall (4-leg): missing / no data" };
     const wf3 = { row: null, subtitle: "windfall (3-leg): missing / no data" };
     const wf5 = { row: null, subtitle: "windfall (5-leg): missing / no data" };
 
   try {
-    const wfUrl = "/data/recommended_windfall_latest.json" + cacheBust();
+    const wfUrl = "/data/recommended_windfall_latest.json?" + cacheBust();
     const { parsed } = await fetchJson(wfUrl);
     const arr = Array.isArray(parsed) ? parsed : (parsed && Array.isArray(parsed.windfall) ? parsed.windfall : []);
 
@@ -684,9 +679,45 @@ function sectionHeader(title, subtitle = "") {
 
     // ---- GameScript (external human+AI picks scored by Atlas math) ----
     grid.appendChild(htmlToNode(sectionHeader("GameScript — External Picks", "Human/AI suggested legs re-scored by Atlas math; no tier rules or skew—just best available combos.")));
-    grid.appendChild(slipCard({title:"Best 4-Leg (GameScript)", href:"/data/gamescript_best_4leg.json", row:gs4.row, subtitle:gs4.subtitle}));
-    grid.appendChild(slipCard({title:"Best 3-Leg (GameScript)", href:"/data/gamescript_best_3leg.json", row:gs3.row, subtitle:gs3.subtitle}));
-    grid.appendChild(slipCard({title:"Best 5-Leg (GameScript)", href:"/data/gamescript_best_5leg.json", row:gs5.row, subtitle:gs5.subtitle}));
+
+    (async () => {
+      const gs4 = { row: null, subtitle: "gamescript (4-leg): missing / no data" };
+      const gs3 = { row: null, subtitle: "gamescript (3-leg): missing / no data" };
+      const gs5 = { row: null, subtitle: "gamescript (5-leg): missing / no data" };
+
+      try {
+        const gsUrl = "/data/recommended_gamescript_latest.json?" + cacheBust();
+        const { parsed } = await fetchJson(gsUrl);
+        const arr = Array.isArray(parsed) ? parsed : (parsed && Array.isArray(parsed.gamescript) ? parsed.gamescript : []);
+
+        const pickBest = (n) => {
+          const rows = arr.filter(x => String(x.n_legs || x.nlegs || x.legs_n || "") === String(n));
+          if (!rows.length) return null;
+          const score = (r) => {
+            const ev = Number(r.ev_mult ?? r.ev ?? r.evMult ?? NaN);
+            const hp = Number(r.hit_prob ?? r.hitProb ?? NaN);
+            if (!Number.isNaN(ev)) return ev;
+            if (!Number.isNaN(hp)) return hp;
+            return 0;
+          };
+          return rows.slice().sort((a,b) => score(b) - score(a))[0];
+        };
+
+        gs3.row = pickBest(3);
+        gs4.row = pickBest(4);
+        gs5.row = pickBest(5);
+
+        gs3.subtitle = gs3.row ? `recommended_gamescript_latest.json · rows: ${arr.length}` : "No data";
+        gs4.subtitle = gs4.row ? `recommended_gamescript_latest.json · rows: ${arr.length}` : "No data";
+        gs5.subtitle = gs5.row ? `recommended_gamescript_latest.json · rows: ${arr.length}` : "No data";
+      } catch (e) {
+        // leave as missing/no data
+      }
+
+      grid.appendChild(slipCard({title:"Best 4-Leg (GameScript)", href:"/data/recommended_gamescript_latest.json", row:gs4.row, subtitle:gs4.subtitle}));
+      grid.appendChild(slipCard({title:"Best 3-Leg (GameScript)", href:"/data/recommended_gamescript_latest.json", row:gs3.row, subtitle:gs3.subtitle}));
+      grid.appendChild(slipCard({title:"Best 5-Leg (GameScript)", href:"/data/recommended_gamescript_latest.json", row:gs5.row, subtitle:gs5.subtitle}));
+    })();
   }
 
   async function refresh(){

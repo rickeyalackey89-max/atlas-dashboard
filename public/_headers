@@ -1,2 +1,9 @@
 /data/*.json
   Content-Type: application/json
+  Cache-Control: no-store
+
+/index.html
+  Cache-Control: no-store
+
+/
+  Cache-Control: no-store
