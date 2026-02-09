@@ -110,60 +110,63 @@ function Extract-LegIdsFromRow($row) {
   $ids = @()
   $rx = [regex]"\[id:(\d+)\]"
 
-  # Prefer leg_1..leg_5 ordering if present
   foreach ($k in @("leg_1","leg_2","leg_3","leg_4","leg_5")) {
-    if ($row.PSObject.Properties.Name -contains $k) {
+    try {
       $s = $row.$k
       if ($s) {
         $m = $rx.Match([string]$s)
         if ($m.Success) { $ids += [int]$m.Groups[1].Value }
       }
-    }
+    } catch { }
   }
 
   if ($ids.Count -gt 0) { return $ids }
 
-  # Fallback: parse combined legs string
-  if ($row.PSObject.Properties.Name -contains "legs") {
+  try {
     $s = $row.legs
     if ($s) {
       foreach ($mm in $rx.Matches([string]$s)) {
         $ids += [int]$mm.Groups[1].Value
       }
     }
-  }
+  } catch { }
+
   return $ids
 }
+
 
 function Add-LegsDetailAndFilter($rows, $last5Map) {
   # Adds legs_detail=[{id,last5_hits},...] to each row.
   # Drops slips where any leg has last5_hits == 0 (only when last5_hits is known).
   $out = @()
   foreach ($r in @($rows)) {
+    if ($r -eq $null) { continue }
+
     $ids = Extract-LegIdsFromRow $r
     $detail = @()
     $drop = $false
 
     foreach ($projId in $ids) {
       $v = $null
-      if ($last5Map.ContainsKey($projId)) { $v = $last5Map[$projId] }
+      try {
+        if ($last5Map.ContainsKey($projId)) { $v = $last5Map[$projId] }
+      } catch { $v = $null }
+
       $detail += [pscustomobject]@{ id = $projId; last5_hits = $v }
       if ($v -ne $null -and $v -eq 0) { $drop = $true }
     }
 
     if ($detail.Count -gt 0) {
-      # attach as a proper property so it survives ConvertTo-Json
-      if ($r.PSObject.Properties.Name -contains "legs_detail") {
-        $r.legs_detail = $detail
-      } else {
-        $r | Add-Member -NotePropertyName "legs_detail" -NotePropertyValue $detail
-      }
+      try {
+        $r | Add-Member -Force -NotePropertyName "legs_detail" -NotePropertyValue $detail
+      } catch { }
     }
 
     if (-not $drop) { $out += $r }
   }
   return $out
 }
+
 
 function Sort-ObjectsBestFirst($rows) {
   $rows = @($rows)
