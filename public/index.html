@@ -173,9 +173,6 @@
             GameScript: <code class="mono">/data/gamescript_best_3leg.json</code>, <code class="mono">gamescript_best_4leg.json</code>, <code class="mono">gamescript_best_5leg.json</code>.
           </div>
         </div>
-json</code>, <code class="mono">/data/gamescript_best_5leg.json</code>.
-          </div>
-        </div>
 
         <div class="actions">
           <button id="refreshBtn">Refresh</button>
@@ -232,7 +229,6 @@ json</code>, <code class="mono">/data/gamescript_best_5leg.json</code>.
     </section>
   </div>
 
-
 <script>
 function sectionHeader(title, subtitle = "") {
   return `
@@ -255,7 +251,6 @@ function sectionHeader(title, subtitle = "") {
     template.innerHTML = String(html).trim();
     return template.content.firstChild;
   }
-
 
   function formatLocal(dtStr){
     if(!dtStr) return "—";
@@ -294,7 +289,6 @@ function sectionHeader(title, subtitle = "") {
     return n.toFixed(digits);
   }
 
-
   function escHtml(s){
     return String(s)
       .replaceAll('&','&amp;')
@@ -305,8 +299,11 @@ function sectionHeader(title, subtitle = "") {
   }
 
   function normalizeDir(x){
-    const s = String(x||"").trim().toUpperCase();
+    // supports: OVER/UNDER/MORE/LESS/O/U AND numeric flags ("0"/"1")
+    const s = String(x ?? "").trim().toUpperCase();
     if(!s) return "—";
+    if(s === "0") return "O";
+    if(s === "1") return "U";
     if(s === "MORE") return "O";
     if(s === "LESS") return "U";
     if(s === "OVER") return "O";
@@ -324,7 +321,6 @@ function sectionHeader(title, subtitle = "") {
     if(typeof val === "number") return `${val}/5`;
     if(typeof val === "string"){
       const t = val.trim();
-      // common encodings: "3/5", "3", "WWLWL"
       if(/^\d\s*\/\s*5$/.test(t)) return t.replace(/\s+/g,"");
       if(/^\d$/.test(t)) return `${t}/5`;
       return t;
@@ -341,35 +337,28 @@ function sectionHeader(title, subtitle = "") {
   function extractLegRows(row){
     if(!row) return [];
 
-    // ----------------------------
-    // Helper: parse a legacy leg string like:
+    // ---- helper: parse a legacy leg string like:
     // "Player OVER PTS 10.5 (GOBLIN) [id:123]"
-    // ----------------------------
     function parseLegacyLegString(legText){
       const s = String(legText||"").trim();
       if(!s) return null;
 
-      // id
       let id = null;
       const mId = s.match(/\[id:\s*(\d+)\s*\]/i);
       if(mId) id = Number(mId[1]);
 
-      // tier
       let tier = "—";
       const mTier = s.match(/\((STANDARD|GOBLIN|DEMON)\)/i);
       if(mTier) tier = normalizeTier(mTier[1]);
 
-      // dir
       let dir = "—";
       const mDir = s.match(/\b(OVER|UNDER|MORE|LESS|O|U)\b/i);
       if(mDir) dir = normalizeDir(mDir[1]);
 
-      // line
       let line = "—";
       const mLine = s.match(/(-?\d+(?:\.\d+)?)\b/);
       if(mLine) line = mLine[1];
 
-      // stat token: try "OVER PTS 10.5" pattern first, else known tokens
       let stat = "—";
       const mStat = s.match(/\b(OVER|UNDER|MORE|LESS|O|U)\s+([A-Z0-9+\-_/]+)\s+(-?\d+(?:\.\d+)?)/i);
       if(mStat) stat = String(mStat[2]||"—").toUpperCase();
@@ -379,7 +368,6 @@ function sectionHeader(title, subtitle = "") {
         if(found) stat = found.toUpperCase();
       }
 
-      // player name: substring before direction token if present
       let player = "—";
       const idx = s.search(/\b(OVER|UNDER|MORE|LESS|O|U)\b/i);
       if(idx > 0) player = s.slice(0, idx).replace(/[-–—]+$/,"").trim() || "—";
@@ -393,57 +381,70 @@ function sectionHeader(title, subtitle = "") {
       return parts.map(parseLegacyLegString).filter(Boolean);
     }
 
-    // 1) Prefer explicit structured arrays if present.
-    // IMPORTANT: `legs_detail` may be "id + last5 only" (no player/stat/line/tier),
-    // so we merge it with legacy-parsed rows (by id, else by index).
-    const hasLegsDetail = Array.isArray(row.legs_detail) && row.legs_detail.length;
+    // --------- IMPORTANT FIX ----------
+    // `legs_detail` may be an ARRAY or a JSON STRING, and often contains ONLY {id, last5_hits}.
+    // We ALWAYS parse the legacy `row.legs` string for player/stat/dir/line/tier, then
+    // merge last5 from legs_detail by id (fallback by index).
+    function getLegsDetailArray(){
+      const v = row.legs_detail;
+      if(!v) return null;
+      if(Array.isArray(v)) return v;
+      if(typeof v === "string"){
+        try{
+          const parsed = JSON.parse(v);
+          return Array.isArray(parsed) ? parsed : null;
+        }catch(e){ return null; }
+      }
+      return null;
+    }
 
-    if(hasLegsDetail){
-      const legacy = legacyRowsFromLegsString(row.legs);
+    const legsDetailArr = getLegsDetailArray();
+    const legacy = legacyRowsFromLegsString(row.legs);
+
+    if(Array.isArray(legsDetailArr) && legsDetailArr.length){
       const legacyById = new Map();
       for(const l of legacy){
         if(l.id != null) legacyById.set(Number(l.id), l);
       }
 
       const out = [];
-      for(let i=0;i<row.legs_detail.length;i++){
-        const x = row.legs_detail[i] || {};
+      for(let i=0;i<legsDetailArr.length;i++){
+        const x = legsDetailArr[i] || {};
         const id = (x.id != null) ? Number(x.id) : null;
 
-        // If the structured object already contains full fields, use them directly.
-        const hasFull = (x.player || x.name || x.display_name || x.stat || x.line || x.tier || x.direction || x.dir || x.side);
+        const baseLegacy = (id != null && legacyById.has(id))
+          ? legacyById.get(id)
+          : (legacy[i] || {player:"—", stat:"—", dir:"—", line:"—", tier:"—"});
 
-        let base = {
-          player: x.player || x.name || x.display_name || "—",
-          stat: (x.stat || x.market || x.prop || "—"),
-          dir: normalizeDir(x.direction || x.dir || x.side),
-          line: (x.line ?? x.value ?? x.pp_line ?? x.prizepicks_line ?? "—"),
-          tier: normalizeTier(x.tier || x.pp_tier || x.price_tier),
-          last5: renderLast5(x.last5_hits ?? x.last5 ?? x.last5_hit_count ?? x.last5_hit_rate ?? x.last5_pattern ?? x.last5_results ?? x.last_5)
-        };
+        const last5Val =
+          x.last5_hits ?? x.last5 ?? x.last5_hit_count ?? x.last5_hit_rate ??
+          x.last5_pattern ?? x.last5_results ?? x.last_5 ?? x.last5Hits ?? x.last_5_hits;
 
-        if(!hasFull){
-          // Merge from legacy
-          const l = (id != null && legacyById.has(id)) ? legacyById.get(id) : (legacy[i] || null);
-          if(l){
-            base.player = (base.player && base.player !== "—") ? base.player : l.player;
-            base.stat   = (base.stat   && base.stat   !== "—") ? String(base.stat).toUpperCase() : l.stat;
-            base.dir    = (base.dir    && base.dir    !== "—") ? base.dir : l.dir;
-            base.line   = (base.line   && base.line   !== "—") ? base.line : l.line;
-            base.tier   = (base.tier   && base.tier   !== "—") ? base.tier : l.tier;
-          }
-        } else {
-          // normalize stat casing if present
-          base.stat = String(base.stat || "—").toUpperCase();
-        }
+        // If structured includes full fields, allow them; otherwise use legacy base.
+        const player = x.player || x.name || x.display_name || baseLegacy.player || "—";
+        const stat   = String(x.stat || x.market || x.prop || baseLegacy.stat || "—").toUpperCase();
+        const dir    = normalizeDir(x.direction || x.dir || x.side || baseLegacy.dir);
+        const line   = (x.line ?? x.value ?? x.pp_line ?? x.prizepicks_line ?? baseLegacy.line ?? "—");
+        const tier   = normalizeTier(x.tier || x.pp_tier || x.price_tier || baseLegacy.tier);
 
-        out.push(base);
+        out.push({player, stat, dir, line, tier, last5: renderLast5(last5Val)});
       }
-
       return out;
     }
 
-    // 2) Other possible structured arrays (already full objects)
+    // If no legs_detail, fall back to parsed legacy legs (no last5)
+    if(legacy.length){
+      return legacy.map(l => ({
+        player: l.player || "—",
+        stat: l.stat || "—",
+        dir: l.dir || "—",
+        line: l.line ?? "—",
+        tier: l.tier || "—",
+        last5: "—"
+      }));
+    }
+
+    // As a final fallback, attempt other structured arrays (full objects)
     const candidates = [
       row.legs_details, row.legs_rows, row.leg_rows, row.legs_meta, row.legs_json, row.legs_parsed
     ].filter(Boolean);
@@ -464,45 +465,7 @@ function sectionHeader(title, subtitle = "") {
       }catch(e){}
     }
 
-    // 3) Fall back: parse the legs string (pipe delimited)
-    const legsStr = row.legs ? String(row.legs) : "";
-    if(!legsStr) return [];
-    const legacy = legacyRowsFromLegsString(legsStr);
-    if(legacy.length){
-      return legacy.map(l => ({
-        player: l.player || "—",
-        stat: l.stat || "—",
-        dir: l.dir || "—",
-        line: l.line ?? "—",
-        tier: l.tier || "—",
-        last5: "—"
-      }));
-    }
-
-    // Last-ditch fallback to old heuristic (should rarely hit)
-    const parts = legsStr.split(/\s*\|\s*/).map(s=>s.trim()).filter(Boolean);
-    return parts.map((s) => {
-      let player="—", stat="—", dir="—", line="—", tier="—";
-      const mTier = s.match(/\((STANDARD|GOBLIN|DEMON)\)/i);
-      if(mTier) tier = normalizeTier(mTier[1]);
-      const mDir = s.match(/\b(OVER|UNDER|MORE|LESS|O|U)\b/i);
-      if(mDir) dir = normalizeDir(mDir[1]);
-      const mLine = s.match(/(-?\d+(?:\.\d+)?)\b/);
-      if(mLine) line = mLine[1];
-      const statTokens = ["PTS","REB","AST","FG3M","PR","PA","RA","PRA","BLK","STL","BLKS","STLS","BLKS+STLS","STLS+BLKS"];
-      const found = statTokens.find(t => new RegExp(`\\b${t}\\b`, "i").test(s));
-      if(found) stat = found.toUpperCase();
-      if(found){
-        const idx = s.toUpperCase().indexOf(found);
-        if(idx>0) player = s.slice(0, idx).replace(/[-–—]+$/,"").trim();
-      } else if(mDir){
-        const idx = s.toUpperCase().indexOf(String(mDir[1]).toUpperCase());
-        if(idx>0) player = s.slice(0, idx).replace(/[-–—]+$/,"").trim();
-      } else {
-        player = s.slice(0, 24).trim();
-      }
-      return {player, stat, dir, line, tier, last5:"—"};
-    });
+    return [];
   }
 
   function legsTableNode(row){
@@ -676,6 +639,7 @@ function sectionHeader(title, subtitle = "") {
     grid.appendChild(slipCard({title:"Best 3-Leg (GameScript)", href:"/data/gamescript_best_3leg.json", row:gs3.row, subtitle:gs3.subtitle}));
     grid.appendChild(slipCard({title:"Best 5-Leg (GameScript)", href:"/data/gamescript_best_5leg.json", row:gs5.row, subtitle:gs5.subtitle}));
   }
+
   async function refresh(){
     el("fetchUrl").textContent = STATUS_URL + " (no-store)";
     const url = STATUS_URL + "?" + cacheBust();
@@ -703,7 +667,6 @@ function sectionHeader(title, subtitle = "") {
         return;
       }
 
-      // STATUS BADGE IS BASED ON generated_at ONLY
       const gen = parsed.generated_at || null;
       el("generatedAt").textContent = gen ? formatLocal(gen) : "—";
       const ms = gen ? ageFrom(gen) : null;
