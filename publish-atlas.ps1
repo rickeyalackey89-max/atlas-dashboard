@@ -2,7 +2,7 @@
 publish-atlas.ps1 (PowerShell 5.1)
 
 Usage:
-  powershell -ExecutionPolicy Bypass -File .\publish-atlas.ps1 "..\Atlas"
+  powershell -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -AtlasRoot "C:\Users\rick\projects\Atlas"
 
 Contract:
   1) Atlas System  -> public/data/recommended_{3,4,5}leg_latest.json
@@ -10,13 +10,16 @@ Contract:
   3) GameScript    -> public/data/gamescript_best_{3,4,5}leg.json (AI + Capper combined)
   Legacy risky JSONs written as empty arrays for compatibility.
 
+Hard rule:
+  - Repo MUST be clean before publishing. This script does NOT auto-clean anything.
+  - The only changes this script makes are generated JSONs under public/data, which it commits & pushes.
+
 Git hygiene:
-  - Only auto-cleans public/data
-  - If anything else is dirty, script stops.
+  - If anything is dirty BEFORE we start, fail immediately.
 #>
 
 param(
-  [Parameter(Mandatory=$true, Position=0)]
+  [Parameter(Mandatory = $true, Position = 0)]
   [string]$AtlasRoot
 )
 
@@ -53,28 +56,10 @@ function Get-GitPorcelain([string]$repoRoot) {
 }
 
 function Normalize-Lines($raw) {
-  # Normalize to array of non-empty strings; .Count always valid
+  # Always return an array of non-empty strings
   $a = @($raw)
   $a = $a | Where-Object { $_ -ne $null -and $_.ToString().Trim() -ne "" }
   return @($a)
-}
-
-function Is-OnlyPublicDataDirty([string[]]$lines) {
-  $lines = @($lines)
-  if ($lines.Count -eq 0) { return $true }
-  foreach ($l in $lines) {
-    $path = $l.Substring(3).Trim()
-    if (-not ($path -like "public/data/*")) { return $false }
-  }
-  return $true
-}
-
-function Clean-PublicData([string]$repoRoot) {
-  $pd = Join-Path $repoRoot "public\data"
-  if (-not (Test-Path $pd)) { New-Item -ItemType Directory -Path $pd | Out-Null }
-
-  & git -C $repoRoot restore --worktree --staged -- "public/data" 2>$null | Out-Null
-  & git -C $repoRoot clean -fd -- "public/data" 2>$null | Out-Null
 }
 
 function Read-CsvIfExists([string]$p) {
@@ -90,7 +75,7 @@ function Read-CsvIfExists([string]$p) {
 
 function Sort-ObjectsBestFirst($rows) {
   $rows = @($rows)
-  if ($rows.Count -eq 0) { return @() }
+  if (@($rows).Count -eq 0) { return @() }
 
   $cands = @("ev","slip_ev","score","p_combo","p_adj","p_hit","hit_prob","prob","p")
   $cols = @{}
@@ -99,7 +84,7 @@ function Sort-ObjectsBestFirst($rows) {
   foreach ($k in $cands) {
     if ($cols.ContainsKey($k)) {
       $col = $cols[$k]
-      $sorted = $rows | Sort-Object @{Expression = { [double]($_.$col) }; Descending = $true}
+      $sorted = $rows | Sort-Object @{ Expression = { [double]($_.$col) }; Descending = $true }
       return @($sorted)
     }
   }
@@ -133,26 +118,24 @@ Write-Info ("Repo root: " + $repoRoot)
 
 try { $atlasAbs = (Resolve-Path $AtlasRoot).Path } catch { Fail ("Atlas root path not found: " + $AtlasRoot) }
 
-# Cleanliness gate (auto-fix ONLY public/data)
-$porc = Normalize-Lines (Get-GitPorcelain $repoRoot)
-if (-not (Is-OnlyPublicDataDirty $porc)) {
-  Write-Info "ERROR: Working tree not clean BEFORE pull."
-  $porc | ForEach-Object { Write-Info $_ }
-  Fail "Commit/stash local changes outside public/data."
-}
-if ($porc.Count -gt 0) {
-  Write-Info "Working tree has local changes only under public/data. Reverting generated artifacts..."
-  Clean-PublicData $repoRoot
-  $porc2 = Normalize-Lines (Get-GitPorcelain $repoRoot)
-  if ($porc2.Count -gt 0) {
-    Write-Info "ERROR: Working tree not clean BEFORE pull."
-    $porc2 | ForEach-Object { Write-Info $_ }
-    Fail "Unable to clean public/data automatically."
-  }
+# HARD CLEANLINESS GATE (no auto-clean)
+$porcBefore = Normalize-Lines (Get-GitPorcelain $repoRoot)
+if (@($porcBefore).Count -gt 0) {
+  Write-Info "ERROR: Working tree must be clean BEFORE publishing."
+  @($porcBefore) | ForEach-Object { Write-Info $_ }
+  Fail "Commit or stash changes, then re-run publish."
 }
 
 Write-Info "Pulling latest from origin/main (rebase)..."
 GitOut $repoRoot @("pull","--rebase") | Out-Null
+
+# Re-check after pull (paranoia / safety)
+$porcAfterPull = Normalize-Lines (Get-GitPorcelain $repoRoot)
+if (@($porcAfterPull).Count -gt 0) {
+  Write-Info "ERROR: Working tree became dirty after pull."
+  @($porcAfterPull) | ForEach-Object { Write-Info $_ }
+  Fail "Resolve git state and re-run publish."
+}
 
 # Atlas paths
 $latestAll      = Join-Path $atlasAbs "data\output\latest\all"
@@ -212,7 +195,7 @@ $out_r5   = Join-Path $dashData "risky_recommended_5leg_latest.json"
 $out_status = Join-Path $dashData "status_latest.json"
 $out_inval  = Join-Path $dashData "invalidations_latest.json"
 
-Write-Info "Exporting 12 outputs -> JSON..."
+Write-Info "Exporting outputs -> JSON..."
 
 # System
 $rowsSys3 = Read-CsvIfExists $sys3
@@ -245,7 +228,7 @@ function Combine-GameScript([string]$aiCsv, [string]$capCsv) {
 
   $sorted = Sort-ObjectsBestFirst $all
   $topN = 50
-  if (@($sorted).Count -gt $topN) { return @($sorted[0..($topN-1)]) }
+  if (@($sorted).Count -gt $topN) { return @($sorted[0..($topN - 1)]) }
   return @($sorted)
 }
 
@@ -266,7 +249,7 @@ $nowIso = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
 $statusObj = @{
   generated_at = $nowIso
   atlas_root   = $atlasAbs
-  sources = @{
+  sources      = @{
     latest_all = $latestAll
     system     = $latestSystem
     windfall   = $latestWindfall
@@ -292,26 +275,26 @@ Write-JsonFile $out_inval @()
 # Validate
 Write-Info "Validating JSON integrity..."
 $toValidate = @(
-  $out_sys3,$out_sys4,$out_sys5,
-  $out_wf3,$out_wf4,$out_wf5,
-  $out_gs3,$out_gs4,$out_gs5,
-  $out_r3,$out_r4,$out_r5,
-  $out_status,$out_inval
+  $out_sys3, $out_sys4, $out_sys5,
+  $out_wf3,  $out_wf4,  $out_wf5,
+  $out_gs3,  $out_gs4,  $out_gs5,
+  $out_r3,   $out_r4,   $out_r5,
+  $out_status, $out_inval
 )
 foreach ($p in $toValidate) { Validate-JsonFile $p }
 Write-Info "JSON validation passed."
 
 # Commit + push public/data only
-GitOut $repoRoot @("add","-A","public/data") | Out-Null
+GitOut $repoRoot @("add", "-A", "public/data") | Out-Null
 $porcAfter = Normalize-Lines (Get-GitPorcelain $repoRoot)
-if ($porcAfter.Count -eq 0) {
+if (@($porcAfter).Count -eq 0) {
   Write-Info "No changes to publish (public/data unchanged). Publish complete (noop)."
   exit 0
 }
 
 $ts = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
 Write-Info ("Committing: Publish Atlas data (" + $ts + ")")
-GitOut $repoRoot @("commit","-m",("Publish Atlas data (" + $ts + ")")) | Out-Null
+GitOut $repoRoot @("commit", "-m", ("Publish Atlas data (" + $ts + ")")) | Out-Null
 
 Write-Info "Pushing..."
 GitOut $repoRoot @("push") | Out-Null
