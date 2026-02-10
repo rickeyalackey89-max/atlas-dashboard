@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-02-10T14:37:09.237566-06:00",
+  "generated_at": "2026-02-10T14:37:33.708107-06:00",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "Austin Reaves OVER PTS 16.5 (GOBLIN) [id:9823975] | Rui Hachimura UNDER PRA 19.5 (STANDARD) [id:9827442] | Luke Kornet OVER PRA 10.5 (STANDARD) [id:9825606]",
+      "legs": "Austin Reaves OVER PTS 16.5 (GOBLIN) [id:9823975] | Kobe Sanders OVER PR 7.5 (STANDARD) [id:9817586] | Luke Kornet OVER PRA 10.5 (STANDARD) [id:9825606]",
       "legs_detail": [
         {
           "raw": "Austin Reaves OVER PTS 16.5 (GOBLIN) [id:9823975]",
@@ -17,14 +17,14 @@
           "last5_val": 18.8
         },
         {
-          "raw": "Rui Hachimura UNDER PRA 19.5 (STANDARD) [id:9827442]",
-          "player": "Rui Hachimura",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 19.5,
+          "raw": "Kobe Sanders OVER PR 7.5 (STANDARD) [id:9817586]",
+          "player": "Kobe Sanders",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 7.5,
           "tier": "STANDARD",
-          "id": 9827442,
-          "last5_val": 16.6
+          "id": 9817586,
+          "last5_val": 12.0
         },
         {
           "raw": "Luke Kornet OVER PRA 10.5 (STANDARD) [id:9825606]",
@@ -37,9 +37,9 @@
           "last5_val": 11.0
         }
       ],
-      "ev_mult": 2.6791983666065984,
-      "hit_prob": 0.4465330611010997,
-      "avg_fragility": 0.001753287413901
+      "ev_mult": 2.679310800966689,
+      "hit_prob": 0.4465518001611149,
+      "avg_fragility": 0.0
     },
     {
       "product": "System",
@@ -93,7 +93,7 @@
     {
       "product": "System",
       "n_legs": 5,
-      "legs": "P.J. Washington OVER AST 0.5 (GOBLIN) [id:9820941] | LeBron James OVER PRA 29.5 (GOBLIN) [id:9823933] | Pascal Siakam OVER PA 19.5 (GOBLIN) [id:9819758] | Paolo Banchero OVER PR 28.5 (STANDARD) [id:9823120] | Jay Huff UNDER PR 14.5 (STANDARD) [id:9825665]",
+      "legs": "P.J. Washington OVER AST 0.5 (GOBLIN) [id:9820941] | LeBron James OVER PRA 29.5 (GOBLIN) [id:9823933] | Pascal Siakam OVER PA 19.5 (GOBLIN) [id:9819758] | Klay Thompson OVER PRA 12.5 (STANDARD) [id:9820572] | Jay Huff UNDER PR 14.5 (STANDARD) [id:9825665]",
       "legs_detail": [
         {
           "raw": "P.J. Washington OVER AST 0.5 (GOBLIN) [id:9820941]",
@@ -126,14 +126,14 @@
           "last5_val": 25.2
         },
         {
-          "raw": "Paolo Banchero OVER PR 28.5 (STANDARD) [id:9823120]",
-          "player": "Paolo Banchero",
+          "raw": "Klay Thompson OVER PRA 12.5 (STANDARD) [id:9820572]",
+          "player": "Klay Thompson",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 28.5,
+          "stat": "PRA",
+          "line": 12.5,
           "tier": "STANDARD",
-          "id": 9823120,
-          "last5_val": 25.2
+          "id": 9820572,
+          "last5_val": 13.4
         },
         {
           "raw": "Jay Huff UNDER PR 14.5 (STANDARD) [id:9825665]",
@@ -195,7 +195,7 @@
     {
       "product": "Windfall",
       "n_legs": 4,
-      "legs": "Julian Champagnie OVER PTS 5.5 (GOBLIN) [id:9821546] | Max Christie OVER RA 5.5 (STANDARD) [id:9824459] | Rui Hachimura UNDER PRA 19.5 (STANDARD) [id:9827442] | Franz Wagner OVER REB 5.5 (DEMON) [id:9823029]",
+      "legs": "Julian Champagnie OVER PTS 5.5 (GOBLIN) [id:9821546] | Max Christie OVER RA 5.5 (STANDARD) [id:9824459] | Kobe Sanders OVER PR 7.5 (STANDARD) [id:9817586] | Franz Wagner OVER REB 5.5 (DEMON) [id:9823029]",
       "legs_detail": [
         {
           "raw": "Julian Champagnie OVER PTS 5.5 (GOBLIN) [id:9821546]",
@@ -218,14 +218,14 @@
           "last5_val": 5.4
         },
         {
-          "raw": "Rui Hachimura UNDER PRA 19.5 (STANDARD) [id:9827442]",
-          "player": "Rui Hachimura",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 19.5,
+          "raw": "Kobe Sanders OVER PR 7.5 (STANDARD) [id:9817586]",
+          "player": "Kobe Sanders",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 7.5,
           "tier": "STANDARD",
-          "id": 9827442,
-          "last5_val": 16.6
+          "id": 9817586,
+          "last5_val": 12.0
         },
         {
           "raw": "Franz Wagner OVER REB 5.5 (DEMON) [id:9823029]",
@@ -238,14 +238,14 @@
           "last5_val": 4.6
         }
       ],
-      "ev_mult": 2.3080749607839337,
-      "hit_prob": 0.2308074960783933,
-      "avg_fragility": 0.0013149655604257
+      "ev_mult": 2.3081718207008746,
+      "hit_prob": 0.2308171820700874,
+      "avg_fragility": 0.0
     },
     {
       "product": "Windfall",
       "n_legs": 5,
-      "legs": "Karl-Anthony Towns OVER FG3M 0.5 (GOBLIN) [id:9817148] | Julian Champagnie OVER PTS 5.5 (GOBLIN) [id:9821546] | Max Christie OVER RA 5.5 (STANDARD) [id:9824459] | Rui Hachimura UNDER PRA 19.5 (STANDARD) [id:9827442] | Franz Wagner OVER REB 5.5 (DEMON) [id:9823029]",
+      "legs": "Karl-Anthony Towns OVER FG3M 0.5 (GOBLIN) [id:9817148] | Julian Champagnie OVER PTS 5.5 (GOBLIN) [id:9821546] | Max Christie OVER RA 5.5 (STANDARD) [id:9824459] | Kobe Sanders OVER PR 7.5 (STANDARD) [id:9817586] | Franz Wagner OVER REB 5.5 (DEMON) [id:9823029]",
       "legs_detail": [
         {
           "raw": "Karl-Anthony Towns OVER FG3M 0.5 (GOBLIN) [id:9817148]",
@@ -278,14 +278,14 @@
           "last5_val": 5.4
         },
         {
-          "raw": "Rui Hachimura UNDER PRA 19.5 (STANDARD) [id:9827442]",
-          "player": "Rui Hachimura",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 19.5,
+          "raw": "Kobe Sanders OVER PR 7.5 (STANDARD) [id:9817586]",
+          "player": "Kobe Sanders",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 7.5,
           "tier": "STANDARD",
-          "id": 9827442,
-          "last5_val": 16.6
+          "id": 9817586,
+          "last5_val": 12.0
         },
         {
           "raw": "Franz Wagner OVER REB 5.5 (DEMON) [id:9823029]",
@@ -298,9 +298,9 @@
           "last5_val": 4.6
         }
       ],
-      "ev_mult": 3.36534497926277,
-      "hit_prob": 0.1682672489631385,
-      "avg_fragility": 0.0010519724483406
+      "ev_mult": 3.365486208226607,
+      "hit_prob": 0.1682743104113303,
+      "avg_fragility": 0.0
     }
   ],
   "gamescript": [],
