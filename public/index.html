@@ -226,11 +226,7 @@
             <span class="pill"><span class="dot off" id="statusDot"></span><span id="statusText">—</span></span>
           </div>
           <div class="sub">
-            This page reads three feeds:
-            System <code class="mono">/data/recommended_latest.json</code>,
-            Windfall <code class="mono">/data/recommended_windfall_latest.json</code>,
-            GameScript <code class="mono">/data/recommended_gamescript_latest.json</code>.
-            <div class="hintInline">Default view shows <b>ONE</b> best slip per leg-count (3/4/5). Lists are optional.</div>
+            Payload: <code class="mono">/data/cloudflare_payload.json</code>.<div class="hintInline">Default view shows <b>ONE</b> best slip per leg-count (3/4/5). Lists are optional.</div>
           </div>
         </div>
 
@@ -319,7 +315,7 @@ function sectionHeader(title, subtitle = "") {
 }
 
 (function(){
-  const STATUS_URL = "/data/status_latest.json";
+  const PAYLOAD_URL = "/data/cloudflare_payload.json";
   const cacheBust = () => "v=" + Date.now();
 
   const el = (id) => document.getElementById(id);
@@ -327,14 +323,11 @@ function sectionHeader(title, subtitle = "") {
     raw: null,
     parsed: null,
     timer: null,
-    ui: {
-      showLists: false,
-      topN: 25
-    },
+    ui: { showLists: false, topN: 25 },
     feeds: {
-      system:   { href: "/data/recommended_latest.json", rows: [], ok:false, err:null },
-      windfall: { href: "/data/recommended_windfall_latest.json", rows: [], ok:false, err:null },
-      gamescript:{ href: "/data/recommended_gamescript_latest.json", rows: [], ok:false, err:null }
+      system:    { href: PAYLOAD_URL, rows: [], ok:false, err:null },
+      windfall:  { href: PAYLOAD_URL, rows: [], ok:false, err:null },
+      gamescript:{ href: PAYLOAD_URL, rows: [], ok:false, err:null }
     }
   };
 
@@ -362,10 +355,12 @@ function sectionHeader(title, subtitle = "") {
     const m = Math.floor((s%3600)/60);
     return (h>0? (h+"h ") : "") + m + "m";
   }
+
   function setStatus(level, msg){
     el("statusText").textContent = msg;
     el("statusDot").className = "dot " + level;
   }
+
   function safeNum(x){
     const n = Number(x);
     return isFinite(n) ? n : null;
@@ -393,12 +388,12 @@ function sectionHeader(title, subtitle = "") {
   function normalizeDir(x){
     const s = String(x ?? "").trim().toUpperCase();
     if(!s) return "—";
-    if(s === "0") return "O";
-    if(s === "1") return "U";
     if(s === "MORE") return "O";
     if(s === "LESS") return "U";
     if(s === "OVER") return "O";
     if(s === "UNDER") return "U";
+    if(s === "O") return "O";
+    if(s === "U") return "U";
     return s;
   }
 
@@ -407,131 +402,34 @@ function sectionHeader(title, subtitle = "") {
     return s || "—";
   }
 
- function renderLast5(val) {
-  if (val === undefined || val === null) return "—";
-
-  // If leg object passed in (preferred)
-  if (typeof val === "object") {
-    if (val.last5_val !== undefined && val.last5_val !== null) return `L5: ${val.last5_val}`;
-    if (val.last5_hits !== undefined && val.last5_hits !== null) return `L5: ${val.last5_hits}`; // legacy
-    return "—";
+  // ✅ Last-5: we only care about last5_val from legs_detail now
+  function renderLast5(legObj){
+    if(!legObj || typeof legObj !== "object") return "—";
+    const v = legObj.last5_val;
+    if(v === undefined || v === null) return "—";
+    return `L5: ${String(v)}`;
   }
-
-  // If number/string passed in
-  return `L5: ${String(val)}`;
-}
 
   function extractLegRows(row){
     if(!row) return [];
 
-    function parseLegacyLegString(legText){
-      const s = String(legText||"").trim();
-      if(!s) return null;
+    // Prefer legs_detail objects (new contract)
+    const legsDetailArr = Array.isArray(row.legs_detail) ? row.legs_detail : [];
 
-      let id = null;
-      const mId = s.match(/\[id:\s*(\d+)\s*\]/i);
-      if(mId) id = Number(mId[1]);
-
-      let tier = "—";
-      const mTier = s.match(/\((STANDARD|GOBLIN|DEMON)\)/i);
-      if(mTier) tier = normalizeTier(mTier[1]);
-
-      let dir = "—";
-      const mDir = s.match(/\b(OVER|UNDER|MORE|LESS|O|U)\b/i);
-      if(mDir) dir = normalizeDir(mDir[1]);
-
-      let line = "—";
-      const mLine = s.match(/(-?\d+(?:\.\d+)?)\b/);
-      if(mLine) line = mLine[1];
-
-      let stat = "—";
-      const mStat = s.match(/\b(OVER|UNDER|MORE|LESS|O|U)\s+([A-Z0-9+\-_/]+)\s+(-?\d+(?:\.\d+)?)/i);
-      if(mStat) stat = String(mStat[2]||"—").toUpperCase();
-      else {
-        const statTokens = ["PTS","REB","AST","FG3M","PR","PA","RA","PRA","BLK","STL","BLKS","STLS","BLKS+STLS","STLS+BLKS","PTS+REB","PTS+AST","REB+AST","PTS+REB+AST"];
-        const found = statTokens.find(t => new RegExp(`\\b${t}\\b`, "i").test(s));
-        if(found) stat = found.toUpperCase();
-      }
-
-      let player = "—";
-      const idx = s.search(/\b(OVER|UNDER|MORE|LESS|O|U)\b/i);
-      if(idx > 0) player = s.slice(0, idx).replace(/[-–—]+$/,"").trim() || "—";
-
-      return {id, player, stat, dir, line, tier};
+    if(legsDetailArr.length){
+      return legsDetailArr.map(x => {
+        const player = x.player || "—";
+        const stat   = String(x.stat || "—").toUpperCase();
+        const dir    = normalizeDir(x.dir || x.direction || "—");
+        const line   = (x.line ?? "—");
+        const tier   = normalizeTier(x.tier || "—");
+        return { player, stat, dir, line, tier, last5: renderLast5(x) };
+      });
     }
 
-    function legacyRowsFromLegsString(legsStr){
-      if(!legsStr) return [];
-      const parts = String(legsStr).split(/\s*\|\s*/).map(s=>s.trim()).filter(Boolean);
-      return parts.map(parseLegacyLegString).filter(Boolean);
-    }
-
-    function getLegsDetailArray(){
-      const v = row.legs_detail;
-      if(!v) return null;
-      if(Array.isArray(v)) return v;
-      if(typeof v === "string"){
-        try{
-          const parsed = JSON.parse(v);
-          return Array.isArray(parsed) ? parsed : null;
-        }catch(e){ return null; }
-      }
-      return null;
-    }
-
-    const legsDetailArr = getLegsDetailArray();
-    const legacy = legacyRowsFromLegsString(row.legs);
-
-   if (Array.isArray(legsDetailArr) && legsDetailArr.length) {
-  const legacyById = new Map();
-  for (const l of legacy) {
-    if (l.id != null) legacyById.set(Number(l.id), l);
+    // Fallback: no legs_detail present; show nothing rather than junk
+    return [];
   }
-
-  const out = [];
-  for (let i = 0; i < legsDetailArr.length; i++) {
-    const x = legsDetailArr[i] || {};
-    const id = (x.id != null) ? Number(x.id) : null;
-
-    const baseLegacy =
-      (id != null && legacyById.has(id))
-        ? legacyById.get(id)
-        : (legacy[i] || { player: "—", stat: "—", dir: "—", line: "—", tier: "—" });
-
-    // Prefer explicit fields on x, but legacy fallback stays as safety net
-    const player = x.player || x.name || x.display_name || baseLegacy.player || "—";
-    const stat   = String(x.stat || x.market || x.prop || baseLegacy.stat || "—").toUpperCase();
-    const dir    = normalizeDir(x.direction || x.dir || x.side || baseLegacy.dir);
-    const line   = (x.line ?? x.value ?? x.pp_line ?? x.prizepicks_line ?? baseLegacy.line ?? "—");
-    const tier   = normalizeTier(x.tier || x.pp_tier || x.price_tier || baseLegacy.tier);
-
-    // IMPORTANT: pass the whole leg object so renderLast5() can read x.last5_val
-    out.push({
-      player,
-      stat,
-      dir,
-      line,
-      tier,
-      last5: renderLast5(x),
-      // raw: x.raw || undefined, // uncomment if you want to debug quickly in UI
-    });
-  }
-
-  return out;
-}
-
-if (legacy.length) {
-  return legacy.map(l => ({
-    player: l.player || "—",
-    stat: (l.stat || "—"),
-    dir: (l.dir || "—"),
-    line: (l.line ?? "—"),
-    tier: (l.tier || "—"),
-    last5: "—"
-  }));
-}
-
-return [];
 
   function legsTableNode(row){
     const legs = extractLegRows(row);
@@ -599,15 +497,10 @@ return [];
     const chipRow = document.createElement("div");
     chipRow.className = "chipRow";
     if(row){
-      const tier = row.slip_agreement_tier || "—";
       const frag = fmt(row.avg_fragility,4);
-      const tag = row.slip_tag_set || row.slip_tag || "—";
-      const start = row.slip_min_start_utc ? formatLocal(row.slip_min_start_utc) : "—";
       chipRow.innerHTML = `
-        <span class="chip">Tier <b>${escHtml(tier)}</b></span>
         <span class="chip">Frag <b>${escHtml(frag)}</b></span>
-        <span class="chip">Tag <b>${escHtml(tag)}</b></span>
-        <span class="chip">Earliest <b>${escHtml(start)}</b></span>
+        <span class="chip">Legs <b>${escHtml(String(row.n_legs ?? "—"))}</b></span>
       `;
     } else {
       chipRow.innerHTML = `<span class="chip">No data</span>`;
@@ -641,16 +534,13 @@ return [];
       actions.appendChild(copy);
     }
 
-    const small = document.createElement("div");
-    small.className = "small";
-    small.textContent = subtitle || "";
-    actions.appendChild(small);
-
     wrap.appendChild(head);
     wrap.appendChild(chipRow);
     wrap.appendChild(legs);
+
     const tbl = legsTableNode(row);
     if(tbl) wrap.appendChild(tbl);
+
     wrap.appendChild(actions);
     return wrap;
   }
@@ -663,27 +553,9 @@ return [];
     return {res, text, parsed};
   }
 
-  // ✅ CRITICAL FIX: support wrapped feeds {value:[...], Count:n}
-  function toArray(parsed, fallbackKey=null){
-    if(Array.isArray(parsed)) return parsed;
-
-    // new contract
-    if(parsed && Array.isArray(parsed.value)) return parsed.value;
-
-    // legacy contracts
-    if(parsed && parsed.data && Array.isArray(parsed.data)) return parsed.data;
-    if(parsed && fallbackKey && Array.isArray(parsed[fallbackKey])) return parsed[fallbackKey];
-
-    return [];
-  }
-
-  function nLegsOf(row){
-    return Number(row?.n_legs ?? row?.nlegs ?? row?.legs_n ?? row?.legsCount ?? row?.nLegs ?? row?.nlegs_count ?? NaN);
-  }
-
   function scoreRow(r){
-    const ev = Number(r.ev_mult ?? r.ev ?? r.evMult ?? NaN);
-    const hp = Number(r.hit_prob ?? r.hitProb ?? NaN);
+    const ev = Number(r.ev_mult ?? NaN);
+    const hp = Number(r.hit_prob ?? NaN);
     if (!Number.isNaN(ev)) return ev;
     if (!Number.isNaN(hp)) return hp;
     return 0;
@@ -691,59 +563,6 @@ return [];
 
   function sortRows(rows){
     return rows.slice().sort((a,b) => scoreRow(b) - scoreRow(a));
-  }
-
-  async function loadFeedInto(key, url, fallbackKey=null){
-    state.feeds[key].ok = false;
-    state.feeds[key].err = null;
-    state.feeds[key].rows = [];
-    try{
-      const {res, parsed} = await fetchJson(url + "?" + cacheBust());
-      if(!res.ok){
-        state.feeds[key].err = `HTTP ${res.status}`;
-        return;
-      }
-      if(!parsed){
-        state.feeds[key].err = "BAD JSON";
-        return;
-      }
-      state.feeds[key].rows = toArray(parsed, fallbackKey);
-      state.feeds[key].ok = true;
-    }catch(e){
-      state.feeds[key].err = String(e);
-    }
-  }
-
-  function groupBarNode({title, subtitle, href, rowsCount, err, ok}){
-    const node = document.createElement("div");
-    node.className = "groupBar";
-
-    const lhs = document.createElement("div");
-    lhs.className = "lhs";
-    lhs.innerHTML = `
-      <div class="title">${escHtml(title)}</div>
-      <div class="subline">${escHtml(subtitle)}</div>
-      <div class="smallHint">
-        Source: <code class="mono">${escHtml(href)}</code>
-        · rows: <b>${rowsCount}</b>
-        ${ok ? "" : `· <b>${escHtml(err || "missing")}</b>`}
-      </div>
-    `;
-
-    const rhs = document.createElement("div");
-    rhs.className = "rhs";
-
-    const open = document.createElement("a");
-    open.className = "btn";
-    open.href = href;
-    open.target = "_blank";
-    open.rel = "noopener";
-    open.textContent = "Open JSON";
-    rhs.appendChild(open);
-
-    node.appendChild(lhs);
-    node.appendChild(rhs);
-    return node;
   }
 
   function listWrapNode({title, meta, rows, href, maxN}){
@@ -784,58 +603,33 @@ return [];
     return wrap;
   }
 
-  function renderFeed(grid, key, title, subtitle){
-    const feed = state.feeds[key];
-    const href = feed.href;
+  function renderProduct(grid, productKey, title, rows){
+    grid.appendChild(htmlToNode(sectionHeader(title, "Best slip per leg-count (3/4/5).")));
 
-    grid.appendChild(groupBarNode({
-      title,
-      subtitle,
-      href,
-      rowsCount: (feed.rows || []).length,
-      err: feed.err,
-      ok: feed.ok
-    }));
+    const href = PAYLOAD_URL;
 
-    if(!feed.ok){
+    if(!rows || !rows.length){
       const box = document.createElement("div");
       box.className = "emptyBox";
-      box.innerHTML = `
-        <b>${escHtml(title)} is not available.</b><br/>
-        This usually means <code>publish-atlas.ps1</code> hasn't pushed fresh <code>public/data</code> yet.<br/>
-        Source: <code>${escHtml(href)}</code>${feed.err ? ` · <b>${escHtml(feed.err)}</b>` : ""}
-      `;
+      box.innerHTML = `<b>${escHtml(title)} has 0 slips.</b><br/>Source: <code>${escHtml(href)}</code>`;
       grid.appendChild(box);
       return;
     }
 
-    const rows = Array.isArray(feed.rows) ? feed.rows : [];
-    if(!rows.length){
-      const box = document.createElement("div");
-      box.className = "emptyBox";
-      box.innerHTML = `
-        <b>${escHtml(title)} has 0 rows.</b><br/>
-        The feed exists but is empty. Open JSON to confirm: <code>${escHtml(href)}</code>.
-      `;
-      grid.appendChild(box);
-      return;
-    }
+    const legsWanted = (productKey === "gamescript") ? [4,5] : [3,4,5];
 
-    // Best only (default): show ONE best slip per 3/4/5
-    const legs = [3,4,5];
-    for(const n of legs){
-      const legRows = sortRows(rows.filter(r => nLegsOf(r) === n));
+    for(const n of legsWanted){
+      const legRows = sortRows(rows.filter(r => Number(r.n_legs) === n));
       const best = legRows[0] || null;
 
       grid.appendChild(slipCard({
         title: `Best ${n}-Leg (${title})`,
         href,
         row: best,
-        subtitle: best ? `${href.replace("/data/","")} · rows: ${rows.length}` : "No data",
+        subtitle: best ? `payload.${productKey} · rows: ${rows.length}` : "No data",
         featured: true
       }));
 
-      // Optional lists
       if(state.ui.showLists && legRows.length > 1){
         grid.appendChild(listWrapNode({
           title: `${n}-Leg list (${title})`,
@@ -848,40 +642,23 @@ return [];
     }
   }
 
-  async function buildSlips(){
+  async function buildSlips(payload){
     const grid = el("slipGrid");
     grid.innerHTML = "";
 
     el("slipHint").textContent =
       state.ui.showLists
         ? `Lists enabled · showing up to Top N = ${state.ui.topN}`
-        : "Lists disabled · showing only one best slip per 3/4/5";
+        : "Lists disabled · showing only one best slip per leg-count";
 
-    // System
-    grid.appendChild(htmlToNode(sectionHeader(
-      "Atlas — System Picks",
-      "Baseline feed (this must exist)."
-    )));
-    renderFeed(grid, "system", "System", "Atlas baseline picks.");
-
-    // Windfall
-    grid.appendChild(htmlToNode(sectionHeader(
-      "Windfall — Tier Mix Picks",
-      "Tier composition rules (Goblin/Standard/Demon)."
-    )));
-    renderFeed(grid, "windfall", "Windfall", "Tier-mix slips with composition rules.");
-
-    // GameScript
-    grid.appendChild(htmlToNode(sectionHeader(
-      "GameScript — External Picks",
-      "External picks scored by Atlas math."
-    )));
-    renderFeed(grid, "gamescript", "GameScript", "External (AI/human) picks scored by Atlas.");
+    renderProduct(grid, "system", "Atlas — System Picks", payload.system || []);
+    renderProduct(grid, "windfall", "Windfall — Tier Mix Picks", payload.windfall || []);
+    renderProduct(grid, "gamescript", "GameScript — External Picks", payload.gamescript || []);
   }
 
   async function refresh(){
-    el("fetchUrl").textContent = STATUS_URL + " (no-store)";
-    const url = STATUS_URL + "?" + cacheBust();
+    el("fetchUrl").textContent = PAYLOAD_URL + " (no-store)";
+    const url = PAYLOAD_URL + "?" + cacheBust();
 
     try{
       const {res, text, parsed} = await fetchJson(url);
@@ -911,8 +688,8 @@ return [];
       const ms = gen ? ageFrom(gen) : null;
       el("ageText").textContent = formatAge(ms);
 
-      el("notesText").textContent = (parsed.notes && typeof parsed.notes === "string") ? parsed.notes : "—";
-      el("runSource").textContent = parsed.run_source || "unknown";
+      el("notesText").textContent = "cloudflare_payload.json";
+      el("runSource").textContent = "Atlas exporter";
 
       const agingMs = 10*60*1000;
       const staleMs = 60*60*1000;
@@ -922,12 +699,7 @@ return [];
       else if(ms < staleMs) setStatus("aging", "AGING");
       else setStatus("stale", "STALE");
 
-      // Load feeds (fresh)
-      await loadFeedInto("system", state.feeds.system.href, null);
-      await loadFeedInto("windfall", state.feeds.windfall.href, null);
-      await loadFeedInto("gamescript", state.feeds.gamescript.href, null);
-
-      await buildSlips();
+      await buildSlips(parsed);
     } catch(e){
       setStatus("off", "ERROR");
       el("resultText").textContent = "Fetch error";
@@ -959,13 +731,13 @@ return [];
   el("showLists").addEventListener("change", (ev) => {
     state.ui.showLists = !!ev.target.checked;
     syncTopNVisibility();
-    buildSlips();
+    refresh();
   });
 
   el("topNSelect").addEventListener("change", (ev) => {
     const n = Number(ev.target.value);
     state.ui.topN = Number.isFinite(n) ? n : 25;
-    if(state.ui.showLists) buildSlips();
+    if(state.ui.showLists) refresh();
   });
 
   // Init defaults
