@@ -74,6 +74,7 @@
     select{cursor:pointer}
     .toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;user-select:none}
     .controlLabel{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+    .hintInline{color:var(--muted);font-size:12px}
 
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:10px}
     .card{
@@ -109,7 +110,7 @@
     .sectionHeaderTitle{font-weight:900;font-size:14px;letter-spacing:-.01em;color:#0b1220}
     .sectionHeaderSub{font-size:12px;color:var(--muted);margin-top:2px}
 
-    .groupHead{
+    .groupBar{
       grid-column:span 12;
       display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
       padding:10px 12px;
@@ -119,12 +120,11 @@
       box-shadow:0 8px 18px rgba(2,6,23,.04);
       margin-top:2px;
     }
-    .groupHead .lhs{display:flex;flex-direction:column;gap:2px}
-    .groupHead .title{font-weight:900}
-    .groupHead .sub{margin:0;color:var(--muted);font-size:12px}
-    .groupHead .rhs{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .groupBar .lhs{display:flex;flex-direction:column;gap:2px}
+    .groupBar .title{font-weight:900}
+    .groupBar .subline{margin:0;color:var(--muted);font-size:12px}
+    .groupBar .rhs{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     .smallHint{font-size:12px;color:var(--muted)}
-    .collapseBtn{padding:8px 10px;border-radius:12px}
 
     .slip{
       grid-column:span 12;
@@ -195,6 +195,18 @@
     .listHeadRow .meta{font-size:12px;color:var(--muted)}
     .dividerTiny{height:1px;background:rgba(229,231,235,.9);margin:8px 0 10px;border-radius:999px}
 
+    .emptyBox{
+      grid-column:span 12;
+      padding:12px;
+      border:1px dashed rgba(148,163,184,.7);
+      border-radius:16px;
+      background:rgba(255,255,255,.65);
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+    .emptyBox code{font-family:var(--mono);font-size:12px}
+
     @media(max-width:520px){
       h1{font-size:22px}
       .slip{padding:12px 12px}
@@ -214,9 +226,11 @@
             <span class="pill"><span class="dot off" id="statusDot"></span><span id="statusText">—</span></span>
           </div>
           <div class="sub">
-            Atlas System: <code class="mono">/data/recommended_latest.json</code>.
-            Windfall: <code class="mono">/data/recommended_windfall_latest.json</code>.
-            GameScript: <code class="mono">/data/recommended_gamescript_latest.json</code>.
+            This page reads three feeds:
+            System <code class="mono">/data/recommended_latest.json</code>,
+            Windfall <code class="mono">/data/recommended_windfall_latest.json</code>,
+            GameScript <code class="mono">/data/recommended_gamescript_latest.json</code>.
+            <div class="hintInline">Default view shows <b>ONE</b> best slip per leg-count (3/4/5). Lists are optional.</div>
           </div>
         </div>
 
@@ -225,9 +239,14 @@
           <button id="copyParsedBtn">Copy parsed</button>
           <button id="copyRawBtn">Copy raw</button>
 
-          <label class="controlLabel">
-            Show top N
-            <select id="topNSelect" title="How many slips per leg-count list to show">
+          <label class="toggle" title="Show the full scrollable lists under each best slip">
+            <input type="checkbox" id="showLists"/>
+            Show lists
+          </label>
+
+          <label class="controlLabel" id="topNLabel" style="display:none" title="How many slips to show per list (when lists are enabled)">
+            Top N
+            <select id="topNSelect">
               <option value="10">10</option>
               <option value="15">15</option>
               <option value="25" selected>25</option>
@@ -266,8 +285,11 @@
 
         <div class="sectionTitle">
           <div>
-            <div class="label">Best slips + Lists</div>
-            <div class="hint">Each group shows the best slip plus scrollable lists for 3/4/5 legs. Last-5 comes from <code class="mono">legs_detail</code>.</div>
+            <div class="label">Picks</div>
+            <div class="hint">
+              “Best” cards are the highest-scored slip in that feed for 3/4/5 legs.
+              “Last 5” is rendered from <code class="mono">legs_detail</code> when present.
+            </div>
           </div>
           <div class="hint" id="slipHint">—</div>
         </div>
@@ -306,13 +328,13 @@ function sectionHeader(title, subtitle = "") {
     parsed: null,
     timer: null,
     ui: {
-      // collapse states
-      collapsed: {
-        atlas: false,
-        windfall: false,
-        gamescript: false
-      },
+      showLists: false,
       topN: 25
+    },
+    feeds: {
+      system: { href: "/data/recommended_latest.json", rows: [], ok:false, err:null },
+      windfall: { href: "/data/recommended_windfall_latest.json", rows: [], ok:false, err:null },
+      gamescript: { href: "/data/recommended_gamescript_latest.json", rows: [], ok:false, err:null }
     }
   };
 
@@ -369,7 +391,6 @@ function sectionHeader(title, subtitle = "") {
   }
 
   function normalizeDir(x){
-    // supports: OVER/UNDER/MORE/LESS/O/U AND numeric flags ("0"/"1")
     const s = String(x ?? "").trim().toUpperCase();
     if(!s) return "—";
     if(s === "0") return "O";
@@ -407,8 +428,6 @@ function sectionHeader(title, subtitle = "") {
   function extractLegRows(row){
     if(!row) return [];
 
-    // ---- helper: parse a legacy leg string like:
-    // "Player OVER PTS 10.5 (GOBLIN) [id:123]"
     function parseLegacyLegString(legText){
       const s = String(legText||"").trim();
       if(!s) return null;
@@ -451,8 +470,6 @@ function sectionHeader(title, subtitle = "") {
       return parts.map(parseLegacyLegString).filter(Boolean);
     }
 
-    // legs_detail may be ARRAY or JSON STRING; often contains only {id,last5_hits}
-    // Strategy: parse legacy `row.legs` for player/stat/dir/line/tier, then merge last5 by id (fallback by index).
     function getLegsDetailArray(){
       const v = row.legs_detail;
       if(!v) return null;
@@ -488,7 +505,6 @@ function sectionHeader(title, subtitle = "") {
           x.last5_hits ?? x.last5 ?? x.last5_hit_count ?? x.last5_hit_rate ??
           x.last5_pattern ?? x.last5_results ?? x.last_5 ?? x.last5Hits ?? x.last_5_hits;
 
-        // If structured includes full fields, allow them; otherwise use legacy base.
         const player = x.player || x.name || x.display_name || baseLegacy.player || "—";
         const stat   = String(x.stat || x.market || x.prop || baseLegacy.stat || "—").toUpperCase();
         const dir    = normalizeDir(x.direction || x.dir || x.side || baseLegacy.dir);
@@ -500,7 +516,6 @@ function sectionHeader(title, subtitle = "") {
       return out;
     }
 
-    // If no legs_detail, fall back to parsed legacy legs (no last5)
     if(legacy.length){
       return legacy.map(l => ({
         player: l.player || "—",
@@ -510,27 +525,6 @@ function sectionHeader(title, subtitle = "") {
         tier: l.tier || "—",
         last5: "—"
       }));
-    }
-
-    // As a final fallback, attempt other structured arrays
-    const candidates = [
-      row.legs_details, row.legs_rows, row.leg_rows, row.legs_meta, row.legs_json, row.legs_parsed
-    ].filter(Boolean);
-
-    for(const c of candidates){
-      try{
-        const arr = Array.isArray(c) ? c : (typeof c === "string" ? JSON.parse(c) : null);
-        if(Array.isArray(arr) && arr.length){
-          return arr.map((x) => ({
-            player: x.player || x.name || x.display_name || "—",
-            stat: String(x.stat || x.market || x.prop || "—").toUpperCase(),
-            dir: normalizeDir(x.direction || x.dir || x.side),
-            line: (x.line ?? x.value ?? x.pp_line ?? x.prizepicks_line ?? "—"),
-            tier: normalizeTier(x.tier || x.pp_tier || x.price_tier),
-            last5: renderLast5(x.last5_hits ?? x.last5 ?? x.last5_hit_count ?? x.last5_hit_rate ?? x.last5_pattern ?? x.last5_results ?? x.last_5)
-          }));
-        }
-      }catch(e){}
     }
 
     return [];
@@ -689,17 +683,41 @@ function sectionHeader(title, subtitle = "") {
     return rows.slice().sort((a,b) => scoreRow(b) - scoreRow(a));
   }
 
-  function groupHeadNode({id, title, subtitle, href, rowsCount, collapsed}){
+  async function loadFeedInto(key, url, fallbackKey=null){
+    state.feeds[key].ok = false;
+    state.feeds[key].err = null;
+    state.feeds[key].rows = [];
+    try{
+      const {res, parsed} = await fetchJson(url + "?" + cacheBust());
+      if(!res.ok){
+        state.feeds[key].err = `HTTP ${res.status}`;
+        return;
+      }
+      if(!parsed){
+        state.feeds[key].err = "BAD JSON";
+        return;
+      }
+      state.feeds[key].rows = toArray(parsed, fallbackKey);
+      state.feeds[key].ok = true;
+    }catch(e){
+      state.feeds[key].err = String(e);
+    }
+  }
+
+  function groupBarNode({title, subtitle, href, rowsCount, err, ok}){
     const node = document.createElement("div");
-    node.className = "groupHead";
-    node.dataset.group = id;
+    node.className = "groupBar";
 
     const lhs = document.createElement("div");
     lhs.className = "lhs";
     lhs.innerHTML = `
       <div class="title">${escHtml(title)}</div>
-      <div class="sub">${escHtml(subtitle)}</div>
-      <div class="smallHint">Open JSON: <code class="mono">${escHtml(href)}</code> · rows: <b>${rowsCount}</b></div>
+      <div class="subline">${escHtml(subtitle)}</div>
+      <div class="smallHint">
+        Source: <code class="mono">${escHtml(href)}</code>
+        · rows: <b>${rowsCount}</b>
+        ${ok ? "" : `· <b>${escHtml(err || "missing")}</b>`}
+      </div>
     `;
 
     const rhs = document.createElement("div");
@@ -711,17 +729,7 @@ function sectionHeader(title, subtitle = "") {
     open.target = "_blank";
     open.rel = "noopener";
     open.textContent = "Open JSON";
-
-    const btn = document.createElement("button");
-    btn.className = "collapseBtn";
-    btn.textContent = collapsed ? "Expand" : "Collapse";
-    btn.addEventListener("click", () => {
-      state.ui.collapsed[id] = !state.ui.collapsed[id];
-      refreshSlipsOnly();
-    });
-
     rhs.appendChild(open);
-    rhs.appendChild(btn);
 
     node.appendChild(lhs);
     node.appendChild(rhs);
@@ -752,13 +760,12 @@ function sectionHeader(title, subtitle = "") {
     inner.className = "listInner";
 
     rows.slice(0, maxN).forEach((r, i) => {
-      const card = slipCard({
+      inner.appendChild(slipCard({
         title: `#${i+1}`,
         href,
         row: r,
         subtitle: ""
-      });
-      inner.appendChild(card);
+      }));
     });
 
     wrap.appendChild(head);
@@ -767,20 +774,44 @@ function sectionHeader(title, subtitle = "") {
     return wrap;
   }
 
-  function renderGroupSlips({grid, id, title, subtitle, href, rows, collapsed}){
-    // group header
-    grid.appendChild(groupHeadNode({
-      id,
+  function renderFeed(grid, key, title, subtitle){
+    const feed = state.feeds[key];
+    const href = feed.href;
+
+    grid.appendChild(groupBarNode({
       title,
       subtitle,
       href,
-      rowsCount: rows.length,
-      collapsed
+      rowsCount: (feed.rows || []).length,
+      err: feed.err,
+      ok: feed.ok
     }));
 
-    if(collapsed) return;
+    if(!feed.ok){
+      const box = document.createElement("div");
+      box.className = "emptyBox";
+      box.innerHTML = `
+        <b>${escHtml(title)} is not available.</b><br/>
+        This usually means <code>publish-atlas.ps1</code> hasn't pushed fresh <code>public/data</code> yet.<br/>
+        Source: <code>${escHtml(href)}</code>${feed.err ? ` · <b>${escHtml(feed.err)}</b>` : ""}
+      `;
+      grid.appendChild(box);
+      return;
+    }
 
-    // best slips (featured per leg count)
+    const rows = Array.isArray(feed.rows) ? feed.rows : [];
+    if(!rows.length){
+      const box = document.createElement("div");
+      box.className = "emptyBox";
+      box.innerHTML = `
+        <b>${escHtml(title)} has 0 rows.</b><br/>
+        The feed exists but is empty. Open JSON to confirm: <code>${escHtml(href)}</code>.
+      `;
+      grid.appendChild(box);
+      return;
+    }
+
+    // Best only (default): show ONE best slip per 3/4/5
     const legs = [3,4,5];
     for(const n of legs){
       const legRows = sortRows(rows.filter(r => nLegsOf(r) === n));
@@ -794,7 +825,8 @@ function sectionHeader(title, subtitle = "") {
         featured: true
       }));
 
-      if(legRows.length > 1){
+      // Optional lists
+      if(state.ui.showLists && legRows.length > 1){
         grid.appendChild(listWrapNode({
           title: `${n}-Leg list (${title})`,
           meta: `Sorted by EV/hit where available · scrollable`,
@@ -806,86 +838,35 @@ function sectionHeader(title, subtitle = "") {
     }
   }
 
-  // Cached arrays per feed (so collapse toggles / topN changes don't refetch)
-  const feedCache = {
-    atlas: { rows: [], ok: false, href: "/data/recommended_latest.json" },
-    windfall: { rows: [], ok: false, href: "/data/recommended_windfall_latest.json" },
-    gamescript: { rows: [], ok: false, href: "/data/recommended_gamescript_latest.json" }
-  };
-
-  async function loadFeed(key, url, fallbackKey=null){
-    try{
-      const {res, parsed} = await fetchJson(url + "?" + cacheBust());
-      if(!res.ok || !parsed) return {ok:false, rows:[]};
-      return {ok:true, rows: toArray(parsed, fallbackKey)};
-    }catch(e){
-      return {ok:false, rows:[]};
-    }
-  }
-
   async function buildSlips(){
     const grid = el("slipGrid");
     grid.innerHTML = "";
-    el("slipHint").textContent = "Loaded Atlas System + Windfall + GameScript picks. Use Collapse to hide lists, and Show top N to limit list size.";
 
-    // --- Ensure cached feeds exist (loaded once per refresh) ---
-    // (We always refresh them on full refresh; collapse/topN uses cache.)
-    // This function assumes caches are already loaded.
+    el("slipHint").textContent =
+      state.ui.showLists
+        ? `Lists enabled · showing up to Top N = ${state.ui.topN}`
+        : "Lists disabled · showing only one best slip per 3/4/5";
 
-    // ---- Atlas System ----
+    // System
     grid.appendChild(htmlToNode(sectionHeader(
       "Atlas — System Picks",
-      "Best + lists from the base model feed."
+      "Baseline feed (this must exist)."
     )));
+    renderFeed(grid, "system", "System", "Atlas baseline picks.");
 
-    renderGroupSlips({
-      grid,
-      id: "atlas",
-      title: "System",
-      subtitle: "Base model picks (standard modifiers / light rules).",
-      href: feedCache.atlas.href,
-      rows: feedCache.atlas.rows,
-      collapsed: state.ui.collapsed.atlas
-    });
-
-    // ---- Windfall ----
+    // Windfall
     grid.appendChild(htmlToNode(sectionHeader(
       "Windfall — Tier Mix Picks",
-      "Tier composition rules (Goblin/Standard/Demon). Best + lists for 3/4/5 legs."
+      "Tier composition rules (Goblin/Standard/Demon)."
     )));
+    renderFeed(grid, "windfall", "Windfall", "Tier-mix slips with composition rules.");
 
-    renderGroupSlips({
-      grid,
-      id: "windfall",
-      title: "Windfall",
-      subtitle: "Tier-mix slips. Last-5 shown from legs_detail when present.",
-      href: feedCache.windfall.href,
-      rows: feedCache.windfall.rows,
-      collapsed: state.ui.collapsed.windfall
-    });
-
-    // ---- GameScript ----
+    // GameScript
     grid.appendChild(htmlToNode(sectionHeader(
       "GameScript — External Picks",
-      "External suggested legs re-scored by Atlas math. Best + lists for 3/4/5 legs."
+      "External picks scored by Atlas math."
     )));
-
-    renderGroupSlips({
-      grid,
-      id: "gamescript",
-      title: "GameScript",
-      subtitle: "External picks (AI/human) scored by Atlas; no tier rules.",
-      href: feedCache.gamescript.href,
-      rows: feedCache.gamescript.rows,
-      collapsed: state.ui.collapsed.gamescript
-    });
-  }
-
-  async function refreshSlipsOnly(){
-    // No refetch; just rebuild UI from cached feeds and UI state.
-    try{
-      await buildSlips();
-    }catch(e){}
+    renderFeed(grid, "gamescript", "GameScript", "External (AI/human) picks scored by Atlas.");
   }
 
   async function refresh(){
@@ -931,14 +912,10 @@ function sectionHeader(title, subtitle = "") {
       else if(ms < staleMs) setStatus("aging", "AGING");
       else setStatus("stale", "STALE");
 
-      // Load all three feeds (fresh) and cache
-      const atlas = await loadFeed("atlas", feedCache.atlas.href, null);
-      const windfall = await loadFeed("windfall", feedCache.windfall.href, "windfall");
-      const gamescript = await loadFeed("gamescript", feedCache.gamescript.href, "gamescript");
-
-      feedCache.atlas.ok = atlas.ok; feedCache.atlas.rows = atlas.rows || [];
-      feedCache.windfall.ok = windfall.ok; feedCache.windfall.rows = windfall.rows || [];
-      feedCache.gamescript.ok = gamescript.ok; feedCache.gamescript.rows = gamescript.rows || [];
+      // Load feeds (fresh)
+      await loadFeedInto("system", state.feeds.system.href, null);
+      await loadFeedInto("windfall", state.feeds.windfall.href, "windfall");
+      await loadFeedInto("gamescript", state.feeds.gamescript.href, "gamescript");
 
       await buildSlips();
     } catch(e){
@@ -949,6 +926,7 @@ function sectionHeader(title, subtitle = "") {
     }
   }
 
+  // UI wiring
   el("refreshBtn").addEventListener("click", refresh);
 
   el("copyParsedBtn").addEventListener("click", async () => {
@@ -964,14 +942,27 @@ function sectionHeader(title, subtitle = "") {
     else { if(state.timer) clearInterval(state.timer); state.timer = null; }
   });
 
+  function syncTopNVisibility(){
+    el("topNLabel").style.display = state.ui.showLists ? "flex" : "none";
+  }
+
+  el("showLists").addEventListener("change", (ev) => {
+    state.ui.showLists = !!ev.target.checked;
+    syncTopNVisibility();
+    buildSlips();
+  });
+
   el("topNSelect").addEventListener("change", (ev) => {
     const n = Number(ev.target.value);
     state.ui.topN = Number.isFinite(n) ? n : 25;
-    refreshSlipsOnly();
+    if(state.ui.showLists) buildSlips();
   });
 
-  // Initial topN from selector
+  // Init defaults
+  state.ui.showLists = false;
+  el("showLists").checked = false;
   state.ui.topN = Number(el("topNSelect").value) || 25;
+  syncTopNVisibility();
 
   refresh();
 })();
