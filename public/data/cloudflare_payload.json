@@ -1,56 +1,60 @@
 {
-  "generated_at": "2026-02-10T11:57:09.134931-06:00",
+  "generated_at": "2026-02-10T12:06:15.213867-06:00",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "Andrew Nembhard OVER REB 1.5 (GOBLIN) [id:9826307] | Luke Kornet OVER PRA 10.5 (STANDARD) [id:9825606] | Julian Champagnie OVER PR 14.5 (STANDARD) [id:9818607]",
+      "legs": "Cooper Flagg OVER FG3M 0.5 (GOBLIN) [id:9817455] | Reed Sheppard UNDER PRA 16.5 (STANDARD) [id:9817596] | Franz Wagner OVER PR 17.5 (STANDARD) [id:9823027]",
       "legs_detail": [
         {
-          "raw": "Andrew Nembhard OVER REB 1.5 (GOBLIN) [id:9826307]",
-          "player": "Andrew Nembhard",
+          "raw": "Cooper Flagg OVER FG3M 0.5 (GOBLIN) [id:9817455]",
+          "player": "Cooper Flagg",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 9826307
+          "id": 9817455,
+          "last5_val": 2.0
         },
         {
-          "raw": "Luke Kornet OVER PRA 10.5 (STANDARD) [id:9825606]",
-          "player": "Luke Kornet",
-          "dir": "OVER",
+          "raw": "Reed Sheppard UNDER PRA 16.5 (STANDARD) [id:9817596]",
+          "player": "Reed Sheppard",
+          "dir": "UNDER",
           "stat": "PRA",
-          "line": 10.5,
+          "line": 16.5,
           "tier": "STANDARD",
-          "id": 9825606
+          "id": 9817596,
+          "last5_val": 14.2
         },
         {
-          "raw": "Julian Champagnie OVER PR 14.5 (STANDARD) [id:9818607]",
-          "player": "Julian Champagnie",
+          "raw": "Franz Wagner OVER PR 17.5 (STANDARD) [id:9823027]",
+          "player": "Franz Wagner",
           "dir": "OVER",
           "stat": "PR",
-          "line": 14.5,
+          "line": 17.5,
           "tier": "STANDARD",
-          "id": 9818607
+          "id": 9823027,
+          "last5_val": 21.6
         }
       ],
-      "ev_mult": 3.283809217492128,
-      "hit_prob": 0.547301536248688,
-      "avg_fragility": 0.0
+      "ev_mult": 2.3291839664195293,
+      "hit_prob": 0.3881973277365882,
+      "avg_fragility": 0.0018611576400521
     },
     {
       "product": "System",
       "n_legs": 4,
-      "legs": "Karl-Anthony Towns OVER RA 11.5 (GOBLIN) [id:9822335] | Julian Champagnie OVER PRA 12.5 (GOBLIN) [id:9825688] | Andrew Nembhard OVER PRA 26.5 (STANDARD) [id:9816637] | Yanic Niederhäuser UNDER REB 4 (STANDARD) [id:9824432]",
+      "legs": "Austin Reaves OVER RA 7.5 (GOBLIN) [id:9822645] | Julian Champagnie OVER PRA 12.5 (GOBLIN) [id:9825688] | Kobe Sanders OVER PA 7.5 (STANDARD) [id:9821376] | Yanic Niederhäuser UNDER REB 4 (STANDARD) [id:9824432]",
       "legs_detail": [
         {
-          "raw": "Karl-Anthony Towns OVER RA 11.5 (GOBLIN) [id:9822335]",
-          "player": "Karl-Anthony Towns",
+          "raw": "Austin Reaves OVER RA 7.5 (GOBLIN) [id:9822645]",
+          "player": "Austin Reaves",
           "dir": "OVER",
           "stat": "RA",
-          "line": 11.5,
+          "line": 7.5,
           "tier": "GOBLIN",
-          "id": 9822335
+          "id": 9822645,
+          "last5_val": 7.4
         },
         {
           "raw": "Julian Champagnie OVER PRA 12.5 (GOBLIN) [id:9825688]",
@@ -59,16 +63,18 @@
           "stat": "PRA",
           "line": 12.5,
           "tier": "GOBLIN",
-          "id": 9825688
+          "id": 9825688,
+          "last5_val": 16.8
         },
         {
-          "raw": "Andrew Nembhard OVER PRA 26.5 (STANDARD) [id:9816637]",
-          "player": "Andrew Nembhard",
+          "raw": "Kobe Sanders OVER PA 7.5 (STANDARD) [id:9821376]",
+          "player": "Kobe Sanders",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 26.5,
+          "stat": "PA",
+          "line": 7.5,
           "tier": "STANDARD",
-          "id": 9816637
+          "id": 9821376,
+          "last5_val": 11.6
         },
         {
           "raw": "Yanic Niederhäuser UNDER REB 4 (STANDARD) [id:9824432]",
@@ -80,32 +86,34 @@
           "id": 9824432
         }
       ],
-      "ev_mult": 3.5063753658804746,
-      "hit_prob": 0.3506375365880474,
+      "ev_mult": 3.522306646827256,
+      "hit_prob": 0.3522306646827255,
       "avg_fragility": 0.0
     },
     {
       "product": "System",
       "n_legs": 5,
-      "legs": "Cooper Flagg OVER REB 4.5 (GOBLIN) [id:9826527] | Karl-Anthony Towns OVER AST 1.5 (GOBLIN) [id:9816949] | Pascal Siakam OVER PA 19.5 (GOBLIN) [id:9819758] | Paolo Banchero OVER PR 28.5 (STANDARD) [id:9823120] | Wendell Carter OVER PR 15.5 (STANDARD) [id:9823153]",
+      "legs": "Royce O'Neale OVER PR 10.5 (GOBLIN) [id:9826584] | John Collins OVER PTS 10.5 (GOBLIN) [id:9822251] | Pascal Siakam OVER PA 19.5 (GOBLIN) [id:9819758] | Paolo Banchero OVER PR 28.5 (STANDARD) [id:9823120] | Josh Hart UNDER RA 13.5 (STANDARD) [id:9819270]",
       "legs_detail": [
         {
-          "raw": "Cooper Flagg OVER REB 4.5 (GOBLIN) [id:9826527]",
-          "player": "Cooper Flagg",
+          "raw": "Royce O'Neale OVER PR 10.5 (GOBLIN) [id:9826584]",
+          "player": "Royce O'Neale",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 4.5,
+          "stat": "PR",
+          "line": 10.5,
           "tier": "GOBLIN",
-          "id": 9826527
+          "id": 9826584,
+          "last5_val": 16.6
         },
         {
-          "raw": "Karl-Anthony Towns OVER AST 1.5 (GOBLIN) [id:9816949]",
-          "player": "Karl-Anthony Towns",
+          "raw": "John Collins OVER PTS 10.5 (GOBLIN) [id:9822251]",
+          "player": "John Collins",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
+          "stat": "PTS",
+          "line": 10.5,
           "tier": "GOBLIN",
-          "id": 9816949
+          "id": 9822251,
+          "last5_val": 17.4
         },
         {
           "raw": "Pascal Siakam OVER PA 19.5 (GOBLIN) [id:9819758]",
@@ -114,7 +122,8 @@
           "stat": "PA",
           "line": 19.5,
           "tier": "GOBLIN",
-          "id": 9819758
+          "id": 9819758,
+          "last5_val": 25.2
         },
         {
           "raw": "Paolo Banchero OVER PR 28.5 (STANDARD) [id:9823120]",
@@ -123,37 +132,40 @@
           "stat": "PR",
           "line": 28.5,
           "tier": "STANDARD",
-          "id": 9823120
+          "id": 9823120,
+          "last5_val": 25.2
         },
         {
-          "raw": "Wendell Carter OVER PR 15.5 (STANDARD) [id:9823153]",
-          "player": "Wendell Carter",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 15.5,
+          "raw": "Josh Hart UNDER RA 13.5 (STANDARD) [id:9819270]",
+          "player": "Josh Hart",
+          "dir": "UNDER",
+          "stat": "RA",
+          "line": 13.5,
           "tier": "STANDARD",
-          "id": 9823153
+          "id": 9819270,
+          "last5_val": 9.6
         }
       ],
-      "ev_mult": 4.889240031802874,
-      "hit_prob": 0.2444620015901437,
-      "avg_fragility": 0.0
+      "ev_mult": 4.9103209769760205,
+      "hit_prob": 0.245516048848801,
+      "avg_fragility": 0.0004652238746198
     }
   ],
   "windfall": [
     {
       "product": "Windfall",
       "n_legs": 3,
-      "legs": "Jaxson Hayes OVER PTS 3.5 (GOBLIN) [id:9826587] | Luke Kornet OVER REB 4.5 (STANDARD) [id:9825530] | Klay Thompson OVER PRA 13.5 (DEMON) [id:9820849]",
+      "legs": "Tari Eason OVER PTS 7.5 (GOBLIN) [id:9821206] | Luke Kornet OVER REB 4.5 (STANDARD) [id:9825530] | Bennedict Mathurin OVER FG3M 1.5 (DEMON) [id:9821670]",
       "legs_detail": [
         {
-          "raw": "Jaxson Hayes OVER PTS 3.5 (GOBLIN) [id:9826587]",
-          "player": "Jaxson Hayes",
+          "raw": "Tari Eason OVER PTS 7.5 (GOBLIN) [id:9821206]",
+          "player": "Tari Eason",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 3.5,
+          "line": 7.5,
           "tier": "GOBLIN",
-          "id": 9826587
+          "id": 9821206,
+          "last5_val": 14.4
         },
         {
           "raw": "Luke Kornet OVER REB 4.5 (STANDARD) [id:9825530]",
@@ -162,72 +174,78 @@
           "stat": "REB",
           "line": 4.5,
           "tier": "STANDARD",
-          "id": 9825530
+          "id": 9825530,
+          "last5_val": 6.4
         },
         {
-          "raw": "Klay Thompson OVER PRA 13.5 (DEMON) [id:9820849]",
-          "player": "Klay Thompson",
+          "raw": "Bennedict Mathurin OVER FG3M 1.5 (DEMON) [id:9821670]",
+          "player": "Bennedict Mathurin",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 13.5,
+          "stat": "FG3M",
+          "line": 1.5,
           "tier": "DEMON",
-          "id": 9820849
+          "id": 9821670,
+          "last5_val": 1.0
         }
       ],
-      "ev_mult": 2.2440557574872644,
-      "hit_prob": 0.374009292914544,
-      "avg_fragility": 0.0004963394962154
+      "ev_mult": 2.222060912445447,
+      "hit_prob": 0.3703434854075745,
+      "avg_fragility": 0.0005786319487497
     },
     {
       "product": "Windfall",
       "n_legs": 4,
-      "legs": "Amen Thompson OVER PTS 11.5 (GOBLIN) [id:9820399] | Karl-Anthony Towns UNDER PA 22.5 (STANDARD) [id:9816953] | Luke Kornet OVER PRA 10.5 (STANDARD) [id:9825606] | Austin Reaves OVER PTS 23.5 (DEMON) [id:9822635]",
+      "legs": "Royce O'Neale OVER RA 5.5 (GOBLIN) [id:9826550] | Andrew Nembhard OVER AST 6.5 (STANDARD) [id:9824444] | Julian Champagnie OVER REB 5 (STANDARD) [id:9821381] | Jose Alvarado OVER RA 6.5 (DEMON) [id:9823250]",
       "legs_detail": [
         {
-          "raw": "Amen Thompson OVER PTS 11.5 (GOBLIN) [id:9820399]",
-          "player": "Amen Thompson",
+          "raw": "Royce O'Neale OVER RA 5.5 (GOBLIN) [id:9826550]",
+          "player": "Royce O'Neale",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 11.5,
+          "stat": "RA",
+          "line": 5.5,
           "tier": "GOBLIN",
-          "id": 9820399
+          "id": 9826550,
+          "last5_val": 8.2
         },
         {
-          "raw": "Karl-Anthony Towns UNDER PA 22.5 (STANDARD) [id:9816953]",
-          "player": "Karl-Anthony Towns",
-          "dir": "UNDER",
-          "stat": "PA",
-          "line": 22.5,
-          "tier": "STANDARD",
-          "id": 9816953
-        },
-        {
-          "raw": "Luke Kornet OVER PRA 10.5 (STANDARD) [id:9825606]",
-          "player": "Luke Kornet",
+          "raw": "Andrew Nembhard OVER AST 6.5 (STANDARD) [id:9824444]",
+          "player": "Andrew Nembhard",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 10.5,
+          "stat": "AST",
+          "line": 6.5,
           "tier": "STANDARD",
-          "id": 9825606
+          "id": 9824444,
+          "last5_val": 7.4
         },
         {
-          "raw": "Austin Reaves OVER PTS 23.5 (DEMON) [id:9822635]",
-          "player": "Austin Reaves",
+          "raw": "Julian Champagnie OVER REB 5 (STANDARD) [id:9821381]",
+          "player": "Julian Champagnie",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 23.5,
+          "stat": "REB",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 9821381,
+          "last5_val": 5.4
+        },
+        {
+          "raw": "Jose Alvarado OVER RA 6.5 (DEMON) [id:9823250]",
+          "player": "Jose Alvarado",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 6.5,
           "tier": "DEMON",
-          "id": 9822635
+          "id": 9823250,
+          "last5_val": 4.2
         }
       ],
-      "ev_mult": 2.237892140697584,
-      "hit_prob": 0.2237892140697584,
-      "avg_fragility": 0.0020091450741305
+      "ev_mult": 1.872727350557527,
+      "hit_prob": 0.1872727350557527,
+      "avg_fragility": 0.0
     },
     {
       "product": "Windfall",
       "n_legs": 5,
-      "legs": "Devin Booker OVER PTS 17.5 (GOBLIN) [id:9821404] | Mark Williams OVER REB 6.5 (GOBLIN) [id:9826538] | Kobe Sanders OVER PR 7.5 (STANDARD) [id:9817586] | Luke Kornet OVER PRA 10.5 (STANDARD) [id:9825606] | Franz Wagner OVER REB 5.5 (DEMON) [id:9823029]",
+      "legs": "Devin Booker OVER PTS 17.5 (GOBLIN) [id:9821404] | Naji Marshall OVER PR 16.5 (GOBLIN) [id:9826545] | Brook Lopez UNDER PR 12.5 (STANDARD) [id:9817173] | Julian Champagnie OVER PA 9.5 (STANDARD) [id:9824662] | Brandon Williams OVER PA 15.5 (DEMON) [id:9826093]",
       "legs_detail": [
         {
           "raw": "Devin Booker OVER PTS 17.5 (GOBLIN) [id:9821404]",
@@ -236,48 +254,53 @@
           "stat": "PTS",
           "line": 17.5,
           "tier": "GOBLIN",
-          "id": 9821404
+          "id": 9821404,
+          "last5_val": 26.0
         },
         {
-          "raw": "Mark Williams OVER REB 6.5 (GOBLIN) [id:9826538]",
-          "player": "Mark Williams",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 6.5,
-          "tier": "GOBLIN",
-          "id": 9826538
-        },
-        {
-          "raw": "Kobe Sanders OVER PR 7.5 (STANDARD) [id:9817586]",
-          "player": "Kobe Sanders",
+          "raw": "Naji Marshall OVER PR 16.5 (GOBLIN) [id:9826545]",
+          "player": "Naji Marshall",
           "dir": "OVER",
           "stat": "PR",
-          "line": 7.5,
-          "tier": "STANDARD",
-          "id": 9817586
+          "line": 16.5,
+          "tier": "GOBLIN",
+          "id": 9826545,
+          "last5_val": 20.8
         },
         {
-          "raw": "Luke Kornet OVER PRA 10.5 (STANDARD) [id:9825606]",
-          "player": "Luke Kornet",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 10.5,
+          "raw": "Brook Lopez UNDER PR 12.5 (STANDARD) [id:9817173]",
+          "player": "Brook Lopez",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 12.5,
           "tier": "STANDARD",
-          "id": 9825606
+          "id": 9817173,
+          "last5_val": 12.2
         },
         {
-          "raw": "Franz Wagner OVER REB 5.5 (DEMON) [id:9823029]",
-          "player": "Franz Wagner",
+          "raw": "Julian Champagnie OVER PA 9.5 (STANDARD) [id:9824662]",
+          "player": "Julian Champagnie",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 5.5,
+          "stat": "PA",
+          "line": 9.5,
+          "tier": "STANDARD",
+          "id": 9824662,
+          "last5_val": 11.4
+        },
+        {
+          "raw": "Brandon Williams OVER PA 15.5 (DEMON) [id:9826093]",
+          "player": "Brandon Williams",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 15.5,
           "tier": "DEMON",
-          "id": 9823029
+          "id": 9826093,
+          "last5_val": 20.0
         }
       ],
-      "ev_mult": 4.71080637134959,
-      "hit_prob": 0.2355403185674795,
-      "avg_fragility": 0.0
+      "ev_mult": 4.465842721527976,
+      "hit_prob": 0.2232921360763988,
+      "avg_fragility": 5.025757004648284e-05
     }
   ],
   "gamescript": [],
