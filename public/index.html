@@ -407,23 +407,19 @@ function sectionHeader(title, subtitle = "") {
     return s || "—";
   }
 
-  function renderLast5(val){
-    if(val === null || val === undefined) return "—";
-    if(typeof val === "number") return `${val}/5`;
-    if(typeof val === "string"){
-      const t = val.trim();
-      if(/^\d\s*\/\s*5$/.test(t)) return t.replace(/\s+/g,"");
-      if(/^\d$/.test(t)) return `${t}/5`;
-      return t;
-    }
-    if(typeof val === "object"){
-      if(val.hits !== undefined) return `${val.hits}/5`;
-      if(val.last5_hits !== undefined) return `${val.last5_hits}/5`;
-      if(val.hit_count !== undefined) return `${val.hit_count}/5`;
-      if(val.covered_last5 !== undefined) return val.covered_last5 ? "✓" : "—";
-    }
+ function renderLast5(val) {
+  if (val === undefined || val === null) return "—";
+
+  // If leg object passed in (preferred)
+  if (typeof val === "object") {
+    if (val.last5_val !== undefined && val.last5_val !== null) return `L5: ${val.last5_val}`;
+    if (val.last5_hits !== undefined && val.last5_hits !== null) return `L5: ${val.last5_hits}`; // legacy
     return "—";
   }
+
+  // If number/string passed in
+  return `L5: ${String(val)}`;
+}
 
   function extractLegRows(row){
     if(!row) return [];
@@ -486,49 +482,56 @@ function sectionHeader(title, subtitle = "") {
     const legsDetailArr = getLegsDetailArray();
     const legacy = legacyRowsFromLegsString(row.legs);
 
-    if(Array.isArray(legsDetailArr) && legsDetailArr.length){
-      const legacyById = new Map();
-      for(const l of legacy){
-        if(l.id != null) legacyById.set(Number(l.id), l);
-      }
-
-      const out = [];
-      for(let i=0;i<legsDetailArr.length;i++){
-        const x = legsDetailArr[i] || {};
-        const id = (x.id != null) ? Number(x.id) : null;
-
-        const baseLegacy = (id != null && legacyById.has(id))
-          ? legacyById.get(id)
-          : (legacy[i] || {player:"—", stat:"—", dir:"—", line:"—", tier:"—"});
-
-        const last5Val =
-          x.last5_hits ?? x.last5 ?? x.last5_hit_count ?? x.last5_hit_rate ??
-          x.last5_pattern ?? x.last5_results ?? x.last_5 ?? x.last5Hits ?? x.last_5_hits;
-
-        const player = x.player || x.name || x.display_name || baseLegacy.player || "—";
-        const stat   = String(x.stat || x.market || x.prop || baseLegacy.stat || "—").toUpperCase();
-        const dir    = normalizeDir(x.direction || x.dir || x.side || baseLegacy.dir);
-        const line   = (x.line ?? x.value ?? x.pp_line ?? x.prizepicks_line ?? baseLegacy.line ?? "—");
-        const tier   = normalizeTier(x.tier || x.pp_tier || x.price_tier || baseLegacy.tier);
-
-        out.push({player, stat, dir, line, tier, last5: renderLast5(last5Val)});
-      }
-      return out;
-    }
-
-    if(legacy.length){
-      return legacy.map(l => ({
-        player: l.player || "—",
-        stat: l.stat || "—",
-        dir: l.dir || "—",
-        line: l.line ?? "—",
-        tier: l.tier || "—",
-        last5: "—"
-      }));
-    }
-
-    return [];
+   if (Array.isArray(legsDetailArr) && legsDetailArr.length) {
+  const legacyById = new Map();
+  for (const l of legacy) {
+    if (l.id != null) legacyById.set(Number(l.id), l);
   }
+
+  const out = [];
+  for (let i = 0; i < legsDetailArr.length; i++) {
+    const x = legsDetailArr[i] || {};
+    const id = (x.id != null) ? Number(x.id) : null;
+
+    const baseLegacy =
+      (id != null && legacyById.has(id))
+        ? legacyById.get(id)
+        : (legacy[i] || { player: "—", stat: "—", dir: "—", line: "—", tier: "—" });
+
+    // Prefer explicit fields on x, but legacy fallback stays as safety net
+    const player = x.player || x.name || x.display_name || baseLegacy.player || "—";
+    const stat   = String(x.stat || x.market || x.prop || baseLegacy.stat || "—").toUpperCase();
+    const dir    = normalizeDir(x.direction || x.dir || x.side || baseLegacy.dir);
+    const line   = (x.line ?? x.value ?? x.pp_line ?? x.prizepicks_line ?? baseLegacy.line ?? "—");
+    const tier   = normalizeTier(x.tier || x.pp_tier || x.price_tier || baseLegacy.tier);
+
+    // IMPORTANT: pass the whole leg object so renderLast5() can read x.last5_val
+    out.push({
+      player,
+      stat,
+      dir,
+      line,
+      tier,
+      last5: renderLast5(x),
+      // raw: x.raw || undefined, // uncomment if you want to debug quickly in UI
+    });
+  }
+
+  return out;
+}
+
+if (legacy.length) {
+  return legacy.map(l => ({
+    player: l.player || "—",
+    stat: (l.stat || "—"),
+    dir: (l.dir || "—"),
+    line: (l.line ?? "—"),
+    tier: (l.tier || "—"),
+    last5: "—"
+  }));
+}
+
+return [];
 
   function legsTableNode(row){
     const legs = extractLegRows(row);
