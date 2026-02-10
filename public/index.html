@@ -59,7 +59,7 @@
     .dot.off{background:#64748b}
 
     .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    button,.btn{
+    button,.btn,select{
       border:1px solid var(--border);
       background:#ffffffc7;
       padding:9px 12px;
@@ -70,8 +70,10 @@
       transition:transform .06s ease, background .12s ease;
     }
     button:active,.btn:active{transform:translateY(1px)}
-    button:hover,.btn:hover{background:#fff}
+    button:hover,.btn:hover,select:hover{background:#fff}
+    select{cursor:pointer}
     .toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;user-select:none}
+    .controlLabel{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
 
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:10px}
     .card{
@@ -106,6 +108,23 @@
     .sectionHeader{grid-column:span 12;padding:2px 2px 0;margin-top:6px}
     .sectionHeaderTitle{font-weight:900;font-size:14px;letter-spacing:-.01em;color:#0b1220}
     .sectionHeaderSub{font-size:12px;color:var(--muted);margin-top:2px}
+
+    .groupHead{
+      grid-column:span 12;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:#fff;
+      box-shadow:0 8px 18px rgba(2,6,23,.04);
+      margin-top:2px;
+    }
+    .groupHead .lhs{display:flex;flex-direction:column;gap:2px}
+    .groupHead .title{font-weight:900}
+    .groupHead .sub{margin:0;color:var(--muted);font-size:12px}
+    .groupHead .rhs{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .smallHint{font-size:12px;color:var(--muted)}
+    .collapseBtn{padding:8px 10px;border-radius:12px}
 
     .slip{
       grid-column:span 12;
@@ -150,11 +169,38 @@
     .badge{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:#fff;font-size:11px}
     .badge .b{font-weight:800}
     .last5{font-family:var(--mono)}
+
+    .listWrap{
+      grid-column:span 12;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:#fff;
+      padding:10px;
+      box-shadow:0 8px 18px rgba(2,6,23,.04);
+    }
+    .listInner{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:12px;
+      max-height:420px;
+      overflow-y:auto;
+      padding-right:4px;
+    }
+    .listInner .slip{margin:0}
+    .listHeadRow{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+      margin:0 0 10px;
+    }
+    .listHeadRow .label{font-weight:900}
+    .listHeadRow .meta{font-size:12px;color:var(--muted)}
+    .dividerTiny{height:1px;background:rgba(229,231,235,.9);margin:8px 0 10px;border-radius:999px}
+
     @media(max-width:520px){
       h1{font-size:22px}
       .slip{padding:12px 12px}
       .chip{font-size:11px}
       .legs-table th,.legs-table td{padding:7px 8px}
+      .listInner{max-height:360px}
     }
   </style>
 </head>
@@ -178,6 +224,17 @@
           <button id="refreshBtn">Refresh</button>
           <button id="copyParsedBtn">Copy parsed</button>
           <button id="copyRawBtn">Copy raw</button>
+
+          <label class="controlLabel">
+            Show top N
+            <select id="topNSelect" title="How many slips per leg-count list to show">
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="25" selected>25</option>
+              <option value="50">50</option>
+            </select>
+          </label>
+
           <label class="toggle"><input type="checkbox" id="autoRefresh"/> Auto-refresh (30s)</label>
         </div>
       </div>
@@ -209,8 +266,8 @@
 
         <div class="sectionTitle">
           <div>
-            <div class="label">Best slips</div>
-            <div class="hint">Top row from each JSON. “Copy legs” is for quick entry.</div>
+            <div class="label">Best slips + Lists</div>
+            <div class="hint">Each group shows the best slip plus scrollable lists for 3/4/5 legs. Last-5 comes from <code class="mono">legs_detail</code>.</div>
           </div>
           <div class="hint" id="slipHint">—</div>
         </div>
@@ -232,9 +289,9 @@
 <script>
 function sectionHeader(title, subtitle = "") {
   return `
-    <div class="section-header">
-      <h2>${title}</h2>
-      ${subtitle ? `<div class="subtitle">${subtitle}</div>` : ""}
+    <div class="sectionHeader">
+      <div class="sectionHeaderTitle">${title}</div>
+      ${subtitle ? `<div class="sectionHeaderSub">${subtitle}</div>` : ""}
     </div>
   `;
 }
@@ -244,7 +301,20 @@ function sectionHeader(title, subtitle = "") {
   const cacheBust = () => "v=" + Date.now();
 
   const el = (id) => document.getElementById(id);
-  const state = { raw: null, parsed: null, timer: null };
+  const state = {
+    raw: null,
+    parsed: null,
+    timer: null,
+    ui: {
+      // collapse states
+      collapsed: {
+        atlas: false,
+        windfall: false,
+        gamescript: false
+      },
+      topN: 25
+    }
+  };
 
   function htmlToNode(html){
     const template = document.createElement('template');
@@ -381,10 +451,8 @@ function sectionHeader(title, subtitle = "") {
       return parts.map(parseLegacyLegString).filter(Boolean);
     }
 
-    // --------- IMPORTANT FIX ----------
-    // `legs_detail` may be an ARRAY or a JSON STRING, and often contains ONLY {id, last5_hits}.
-    // We ALWAYS parse the legacy `row.legs` string for player/stat/dir/line/tier, then
-    // merge last5 from legs_detail by id (fallback by index).
+    // legs_detail may be ARRAY or JSON STRING; often contains only {id,last5_hits}
+    // Strategy: parse legacy `row.legs` for player/stat/dir/line/tier, then merge last5 by id (fallback by index).
     function getLegsDetailArray(){
       const v = row.legs_detail;
       if(!v) return null;
@@ -444,7 +512,7 @@ function sectionHeader(title, subtitle = "") {
       }));
     }
 
-    // As a final fallback, attempt other structured arrays (full objects)
+    // As a final fallback, attempt other structured arrays
     const candidates = [
       row.legs_details, row.legs_rows, row.leg_rows, row.legs_meta, row.legs_json, row.legs_parsed
     ].filter(Boolean);
@@ -539,10 +607,10 @@ function sectionHeader(title, subtitle = "") {
       const tag = row.slip_tag_set || row.slip_tag || "—";
       const start = row.slip_min_start_utc ? formatLocal(row.slip_min_start_utc) : "—";
       chipRow.innerHTML = `
-        <span class="chip">Tier <b>${tier}</b></span>
-        <span class="chip">Frag <b>${frag}</b></span>
-        <span class="chip">Tag <b>${tag}</b></span>
-        <span class="chip">Earliest <b>${start}</b></span>
+        <span class="chip">Tier <b>${escHtml(tier)}</b></span>
+        <span class="chip">Frag <b>${escHtml(frag)}</b></span>
+        <span class="chip">Tag <b>${escHtml(tag)}</b></span>
+        <span class="chip">Earliest <b>${escHtml(start)}</b></span>
       `;
     } else {
       chipRow.innerHTML = `<span class="chip">No data</span>`;
@@ -550,7 +618,7 @@ function sectionHeader(title, subtitle = "") {
 
     const legs = document.createElement("div");
     legs.className = "slip-legs";
-    legs.innerHTML = (row && row.legs) ? `<code>${row.legs}</code>` : "Missing / no data";
+    legs.innerHTML = (row && row.legs) ? `<code>${escHtml(row.legs)}</code>` : "Missing / no data";
 
     const actions = document.createElement("div");
     actions.className = "slip-actions";
@@ -567,7 +635,11 @@ function sectionHeader(title, subtitle = "") {
       const copy = document.createElement("button");
       copy.textContent = "Copy legs";
       copy.addEventListener("click", async () => {
-        try { await navigator.clipboard.writeText(row.legs); copy.textContent="Copied"; setTimeout(()=>copy.textContent="Copy legs", 900); } catch(e){}
+        try {
+          await navigator.clipboard.writeText(row.legs);
+          copy.textContent="Copied";
+          setTimeout(()=>copy.textContent="Copy legs", 900);
+        } catch(e){}
       });
       actions.appendChild(copy);
     }
@@ -594,130 +666,226 @@ function sectionHeader(title, subtitle = "") {
     return {res, text, parsed};
   }
 
-  async function topRowFrom(file){
-    const {res, parsed} = await fetchJson(file + "?" + cacheBust());
-    if(!res.ok || !parsed) return {ok:false, row:null, subtitle:`${file.replace("/data/","")} · missing`};
+  function toArray(parsed, fallbackKey=null){
+    if(Array.isArray(parsed)) return parsed;
+    if(parsed && parsed.data && Array.isArray(parsed.data)) return parsed.data;
+    if(parsed && fallbackKey && Array.isArray(parsed[fallbackKey])) return parsed[fallbackKey];
+    return [];
+  }
 
-    if(Array.isArray(parsed)) return {ok:true, row: parsed[0] || null, subtitle:`${file.replace("/data/","")} · rows: ${parsed.length}`};
-    if(parsed.data && Array.isArray(parsed.data)) return {ok:true, row: parsed.data[0] || null, subtitle:`${file.replace("/data/","")} · rows: ${parsed.data.length}`};
-    return {ok:true, row: parsed, subtitle:`${file.replace("/data/","")} · object`};
+  function nLegsOf(row){
+    return Number(row?.n_legs ?? row?.nlegs ?? row?.legs_n ?? row?.legsCount ?? row?.nLegs ?? row?.nlegs_count ?? NaN);
+  }
+
+  function scoreRow(r){
+    const ev = Number(r.ev_mult ?? r.ev ?? r.evMult ?? NaN);
+    const hp = Number(r.hit_prob ?? r.hitProb ?? NaN);
+    if (!Number.isNaN(ev)) return ev;
+    if (!Number.isNaN(hp)) return hp;
+    return 0;
+  }
+
+  function sortRows(rows){
+    return rows.slice().sort((a,b) => scoreRow(b) - scoreRow(a));
+  }
+
+  function groupHeadNode({id, title, subtitle, href, rowsCount, collapsed}){
+    const node = document.createElement("div");
+    node.className = "groupHead";
+    node.dataset.group = id;
+
+    const lhs = document.createElement("div");
+    lhs.className = "lhs";
+    lhs.innerHTML = `
+      <div class="title">${escHtml(title)}</div>
+      <div class="sub">${escHtml(subtitle)}</div>
+      <div class="smallHint">Open JSON: <code class="mono">${escHtml(href)}</code> · rows: <b>${rowsCount}</b></div>
+    `;
+
+    const rhs = document.createElement("div");
+    rhs.className = "rhs";
+
+    const open = document.createElement("a");
+    open.className = "btn";
+    open.href = href;
+    open.target = "_blank";
+    open.rel = "noopener";
+    open.textContent = "Open JSON";
+
+    const btn = document.createElement("button");
+    btn.className = "collapseBtn";
+    btn.textContent = collapsed ? "Expand" : "Collapse";
+    btn.addEventListener("click", () => {
+      state.ui.collapsed[id] = !state.ui.collapsed[id];
+      refreshSlipsOnly();
+    });
+
+    rhs.appendChild(open);
+    rhs.appendChild(btn);
+
+    node.appendChild(lhs);
+    node.appendChild(rhs);
+    return node;
+  }
+
+  function listWrapNode({title, meta, rows, href, maxN}){
+    const wrap = document.createElement("div");
+    wrap.className = "listWrap";
+
+    const head = document.createElement("div");
+    head.className = "listHeadRow";
+
+    const left = document.createElement("div");
+    left.innerHTML = `<div class="label">${escHtml(title)}</div><div class="meta">${escHtml(meta||"")}</div>`;
+
+    const right = document.createElement("div");
+    right.className = "meta";
+    right.innerHTML = `<span class="smallHint">showing <b>${Math.min(maxN, rows.length)}</b> of <b>${rows.length}</b></span>`;
+
+    head.appendChild(left);
+    head.appendChild(right);
+
+    const divider = document.createElement("div");
+    divider.className = "dividerTiny";
+
+    const inner = document.createElement("div");
+    inner.className = "listInner";
+
+    rows.slice(0, maxN).forEach((r, i) => {
+      const card = slipCard({
+        title: `#${i+1}`,
+        href,
+        row: r,
+        subtitle: ""
+      });
+      inner.appendChild(card);
+    });
+
+    wrap.appendChild(head);
+    wrap.appendChild(divider);
+    wrap.appendChild(inner);
+    return wrap;
+  }
+
+  function renderGroupSlips({grid, id, title, subtitle, href, rows, collapsed}){
+    // group header
+    grid.appendChild(groupHeadNode({
+      id,
+      title,
+      subtitle,
+      href,
+      rowsCount: rows.length,
+      collapsed
+    }));
+
+    if(collapsed) return;
+
+    // best slips (featured per leg count)
+    const legs = [3,4,5];
+    for(const n of legs){
+      const legRows = sortRows(rows.filter(r => nLegsOf(r) === n));
+      const best = legRows[0] || null;
+
+      grid.appendChild(slipCard({
+        title: `Best ${n}-Leg (${title})`,
+        href,
+        row: best,
+        subtitle: best ? `${href.replace("/data/","")} · rows: ${rows.length}` : "No data",
+        featured: true
+      }));
+
+      if(legRows.length > 1){
+        grid.appendChild(listWrapNode({
+          title: `${n}-Leg list (${title})`,
+          meta: `Sorted by EV/hit where available · scrollable`,
+          rows: legRows,
+          href,
+          maxN: state.ui.topN
+        }));
+      }
+    }
+  }
+
+  // Cached arrays per feed (so collapse toggles / topN changes don't refetch)
+  const feedCache = {
+    atlas: { rows: [], ok: false, href: "/data/recommended_latest.json" },
+    windfall: { rows: [], ok: false, href: "/data/recommended_windfall_latest.json" },
+    gamescript: { rows: [], ok: false, href: "/data/recommended_gamescript_latest.json" }
+  };
+
+  async function loadFeed(key, url, fallbackKey=null){
+    try{
+      const {res, parsed} = await fetchJson(url + "?" + cacheBust());
+      if(!res.ok || !parsed) return {ok:false, rows:[]};
+      return {ok:true, rows: toArray(parsed, fallbackKey)};
+    }catch(e){
+      return {ok:false, rows:[]};
+    }
   }
 
   async function buildSlips(){
     const grid = el("slipGrid");
     grid.innerHTML = "";
+    el("slipHint").textContent = "Loaded Atlas System + Windfall + GameScript picks. Use Collapse to hide lists, and Show top N to limit list size.";
 
-    const atlasLatest = await topRowFrom("/data/recommended_latest.json");
+    // --- Ensure cached feeds exist (loaded once per refresh) ---
+    // (We always refresh them on full refresh; collapse/topN uses cache.)
+    // This function assumes caches are already loaded.
 
-    // Windfall + GameScript are now unified feeds written by publish-atlas.ps1.
-    // We pick the best 3/4/5-leg row from each unified array.
-
-    el("slipHint").textContent = "Loaded Atlas System + Windfall + GameScript picks (missing feeds are shown as unavailable).";
-
-    // ---- Atlas System (base model) ----
+    // ---- Atlas System ----
     grid.appendChild(htmlToNode(sectionHeader(
       "Atlas — System Picks",
-      "Best picks from the base model (standard modifiers / light rules)."
+      "Best + lists from the base model feed."
     )));
 
-    grid.appendChild(slipCard({
-      title: "Best (System) — Latest",
-      href: "/data/recommended_latest.json",
-      row: atlasLatest.row,
-      subtitle: atlasLatest.subtitle,
-      featured: true
-    }));
+    renderGroupSlips({
+      grid,
+      id: "atlas",
+      title: "System",
+      subtitle: "Base model picks (standard modifiers / light rules).",
+      href: feedCache.atlas.href,
+      rows: feedCache.atlas.rows,
+      collapsed: state.ui.collapsed.atlas
+    });
 
-    // --- Windfall (tier-mix) ---
+    // ---- Windfall ----
     grid.appendChild(htmlToNode(sectionHeader(
       "Windfall — Tier Mix Picks",
-      "Optional higher-payout slips with Goblin/Standard/Demon composition rules."
+      "Tier composition rules (Goblin/Standard/Demon). Best + lists for 3/4/5 legs."
     )));
 
-    // Build Windfall cards from unified JSON: /data/recommended_windfall_latest.json
-    (async () => {
-    const wf4 = { row: null, subtitle: "windfall (4-leg): missing / no data" };
-    const wf3 = { row: null, subtitle: "windfall (3-leg): missing / no data" };
-    const wf5 = { row: null, subtitle: "windfall (5-leg): missing / no data" };
+    renderGroupSlips({
+      grid,
+      id: "windfall",
+      title: "Windfall",
+      subtitle: "Tier-mix slips. Last-5 shown from legs_detail when present.",
+      href: feedCache.windfall.href,
+      rows: feedCache.windfall.rows,
+      collapsed: state.ui.collapsed.windfall
+    });
 
-  try {
-    const wfUrl = "/data/recommended_windfall_latest.json?" + cacheBust();
-    const { parsed } = await fetchJson(wfUrl);
-    const arr = Array.isArray(parsed) ? parsed : (parsed && Array.isArray(parsed.windfall) ? parsed.windfall : []);
+    // ---- GameScript ----
+    grid.appendChild(htmlToNode(sectionHeader(
+      "GameScript — External Picks",
+      "External suggested legs re-scored by Atlas math. Best + lists for 3/4/5 legs."
+    )));
 
-    const pickBest = (n) => {
-      const rows = arr.filter(x => String(x.n_legs || x.nlegs || x.legs_n || "") === String(n));
-      if (!rows.length) return null;
-      // Prefer EV / hit_prob if present, else first row
-      const score = (r) => {
-        const ev = Number(r.ev_mult ?? r.ev ?? r.evMult ?? NaN);
-        const hp = Number(r.hit_prob ?? r.hitProb ?? NaN);
-        if (!Number.isNaN(ev)) return ev;
-        if (!Number.isNaN(hp)) return hp;
-        return 0;
-      };
-      return rows.slice().sort((a,b) => score(b) - score(a))[0];
-    };
-
-    wf3.row = pickBest(3);
-    wf4.row = pickBest(4);
-    wf5.row = pickBest(5);
-
-    wf3.subtitle = wf3.row ? `recommended_windfall_latest.json · rows: ${arr.length}` : "No data";
-    wf4.subtitle = wf4.row ? `recommended_windfall_latest.json · rows: ${arr.length}` : "No data";
-    wf5.subtitle = wf5.row ? `recommended_windfall_latest.json · rows: ${arr.length}` : "No data";
-  } catch (e) {
-    // leave as missing/no data
+    renderGroupSlips({
+      grid,
+      id: "gamescript",
+      title: "GameScript",
+      subtitle: "External picks (AI/human) scored by Atlas; no tier rules.",
+      href: feedCache.gamescript.href,
+      rows: feedCache.gamescript.rows,
+      collapsed: state.ui.collapsed.gamescript
+    });
   }
 
-  // NOTE: href points to the unified JSON now
-  grid.appendChild(slipCard({ title:"Best 4-Leg (Windfall)", href:"/data/recommended_windfall_latest.json", row:wf4.row, subtitle:wf4.subtitle }));
-  grid.appendChild(slipCard({ title:"Best 3-Leg (Windfall)", href:"/data/recommended_windfall_latest.json", row:wf3.row, subtitle:wf3.subtitle }));
-  grid.appendChild(slipCard({ title:"Best 5-Leg (Windfall)", href:"/data/recommended_windfall_latest.json", row:wf5.row, subtitle:wf5.subtitle }));
-})();
-
-
-    // ---- GameScript (external human+AI picks scored by Atlas math) ----
-    grid.appendChild(htmlToNode(sectionHeader("GameScript — External Picks", "Human/AI suggested legs re-scored by Atlas math; no tier rules or skew—just best available combos.")));
-
-    (async () => {
-      const gs4 = { row: null, subtitle: "gamescript (4-leg): missing / no data" };
-      const gs3 = { row: null, subtitle: "gamescript (3-leg): missing / no data" };
-      const gs5 = { row: null, subtitle: "gamescript (5-leg): missing / no data" };
-
-      try {
-        const gsUrl = "/data/recommended_gamescript_latest.json?" + cacheBust();
-        const { parsed } = await fetchJson(gsUrl);
-        const arr = Array.isArray(parsed) ? parsed : (parsed && Array.isArray(parsed.gamescript) ? parsed.gamescript : []);
-
-        const pickBest = (n) => {
-          const rows = arr.filter(x => String(x.n_legs || x.nlegs || x.legs_n || "") === String(n));
-          if (!rows.length) return null;
-          const score = (r) => {
-            const ev = Number(r.ev_mult ?? r.ev ?? r.evMult ?? NaN);
-            const hp = Number(r.hit_prob ?? r.hitProb ?? NaN);
-            if (!Number.isNaN(ev)) return ev;
-            if (!Number.isNaN(hp)) return hp;
-            return 0;
-          };
-          return rows.slice().sort((a,b) => score(b) - score(a))[0];
-        };
-
-        gs3.row = pickBest(3);
-        gs4.row = pickBest(4);
-        gs5.row = pickBest(5);
-
-        gs3.subtitle = gs3.row ? `recommended_gamescript_latest.json · rows: ${arr.length}` : "No data";
-        gs4.subtitle = gs4.row ? `recommended_gamescript_latest.json · rows: ${arr.length}` : "No data";
-        gs5.subtitle = gs5.row ? `recommended_gamescript_latest.json · rows: ${arr.length}` : "No data";
-      } catch (e) {
-        // leave as missing/no data
-      }
-
-      grid.appendChild(slipCard({title:"Best 4-Leg (GameScript)", href:"/data/recommended_gamescript_latest.json", row:gs4.row, subtitle:gs4.subtitle}));
-      grid.appendChild(slipCard({title:"Best 3-Leg (GameScript)", href:"/data/recommended_gamescript_latest.json", row:gs3.row, subtitle:gs3.subtitle}));
-      grid.appendChild(slipCard({title:"Best 5-Leg (GameScript)", href:"/data/recommended_gamescript_latest.json", row:gs5.row, subtitle:gs5.subtitle}));
-    })();
+  async function refreshSlipsOnly(){
+    // No refetch; just rebuild UI from cached feeds and UI state.
+    try{
+      await buildSlips();
+    }catch(e){}
   }
 
   async function refresh(){
@@ -763,6 +931,15 @@ function sectionHeader(title, subtitle = "") {
       else if(ms < staleMs) setStatus("aging", "AGING");
       else setStatus("stale", "STALE");
 
+      // Load all three feeds (fresh) and cache
+      const atlas = await loadFeed("atlas", feedCache.atlas.href, null);
+      const windfall = await loadFeed("windfall", feedCache.windfall.href, "windfall");
+      const gamescript = await loadFeed("gamescript", feedCache.gamescript.href, "gamescript");
+
+      feedCache.atlas.ok = atlas.ok; feedCache.atlas.rows = atlas.rows || [];
+      feedCache.windfall.ok = windfall.ok; feedCache.windfall.rows = windfall.rows || [];
+      feedCache.gamescript.ok = gamescript.ok; feedCache.gamescript.rows = gamescript.rows || [];
+
       await buildSlips();
     } catch(e){
       setStatus("off", "ERROR");
@@ -773,16 +950,28 @@ function sectionHeader(title, subtitle = "") {
   }
 
   el("refreshBtn").addEventListener("click", refresh);
+
   el("copyParsedBtn").addEventListener("click", async () => {
     try{ if(state.parsed) await navigator.clipboard.writeText(JSON.stringify(state.parsed, null, 2)); } catch(e){}
   });
+
   el("copyRawBtn").addEventListener("click", async () => {
     try{ if(state.raw) await navigator.clipboard.writeText(state.raw); } catch(e){}
   });
+
   el("autoRefresh").addEventListener("change", (ev) => {
     if(ev.target.checked) state.timer = setInterval(refresh, 30000);
     else { if(state.timer) clearInterval(state.timer); state.timer = null; }
   });
+
+  el("topNSelect").addEventListener("change", (ev) => {
+    const n = Number(ev.target.value);
+    state.ui.topN = Number.isFinite(n) ? n : 25;
+    refreshSlipsOnly();
+  });
+
+  // Initial topN from selector
+  state.ui.topN = Number(el("topNSelect").value) || 25;
 
   refresh();
 })();
