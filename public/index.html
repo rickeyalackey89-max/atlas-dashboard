@@ -332,9 +332,9 @@ function sectionHeader(title, subtitle = "") {
       topN: 25
     },
     feeds: {
-      system: { href: "/data/recommended_latest.json", rows: [], ok:false, err:null },
+      system:   { href: "/data/recommended_latest.json", rows: [], ok:false, err:null },
       windfall: { href: "/data/recommended_windfall_latest.json", rows: [], ok:false, err:null },
-      gamescript: { href: "/data/recommended_gamescript_latest.json", rows: [], ok:false, err:null }
+      gamescript:{ href: "/data/recommended_gamescript_latest.json", rows: [], ok:false, err:null }
     }
   };
 
@@ -660,10 +660,17 @@ function sectionHeader(title, subtitle = "") {
     return {res, text, parsed};
   }
 
+  // ✅ CRITICAL FIX: support wrapped feeds {value:[...], Count:n}
   function toArray(parsed, fallbackKey=null){
     if(Array.isArray(parsed)) return parsed;
+
+    // new contract
+    if(parsed && Array.isArray(parsed.value)) return parsed.value;
+
+    // legacy contracts
     if(parsed && parsed.data && Array.isArray(parsed.data)) return parsed.data;
     if(parsed && fallbackKey && Array.isArray(parsed[fallbackKey])) return parsed[fallbackKey];
+
     return [];
   }
 
@@ -914,8 +921,8 @@ function sectionHeader(title, subtitle = "") {
 
       // Load feeds (fresh)
       await loadFeedInto("system", state.feeds.system.href, null);
-      await loadFeedInto("windfall", state.feeds.windfall.href, "windfall");
-      await loadFeedInto("gamescript", state.feeds.gamescript.href, "gamescript");
+      await loadFeedInto("windfall", state.feeds.windfall.href, null);
+      await loadFeedInto("gamescript", state.feeds.gamescript.href, null);
 
       await buildSlips();
     } catch(e){
