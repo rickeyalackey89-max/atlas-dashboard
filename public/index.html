@@ -25,7 +25,7 @@
       min-height: 100vh;
       padding: 20px;
     }
-    .container { max-width: 1200px; margin: 0 auto; }
+    .container { max-width: 1400px; margin: 0 auto; }
     header {
       display: flex;
       justify-content: space-between;
@@ -51,94 +51,116 @@
     .dot.stale { background: var(--yellow); }
     .dot.old { background: var(--red); }
     
+    .section {
+      margin-bottom: 32px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .section-title.system { color: var(--blue); border-color: var(--blue); }
+    .section-title.windfall { color: var(--purple); border-color: var(--purple); }
+    .section-title.demonhunter { color: var(--red); border-color: var(--red); }
+    
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 1000px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 650px) {
+      .grid { grid-template-columns: 1fr; }
     }
     
     .card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 20px;
+      padding: 16px;
     }
     .card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
-    .product-name {
-      font-size: 18px;
-      font-weight: 600;
+    .leg-count {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .leg-label {
+      font-size: 11px;
+      color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
     }
-    .product-name.system { color: var(--blue); }
-    .product-name.windfall { color: var(--purple); }
-    .product-name.demonhunter { color: var(--red); }
     
     .hit-prob {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
       color: var(--green);
     }
     .hit-label {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
     }
     
     .meta {
       display: flex;
-      gap: 16px;
-      margin-bottom: 16px;
-      font-size: 13px;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 12px;
       color: var(--muted);
     }
-    .meta span { display: flex; align-items: center; gap: 4px; }
     
     .legs {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
     .leg {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 12px;
+      padding: 8px 10px;
       background: rgba(255,255,255,0.03);
-      border-radius: 8px;
-      font-size: 14px;
+      border-radius: 6px;
+      font-size: 13px;
     }
     .leg-player {
       font-weight: 500;
       flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 120px;
     }
     .leg-pick {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
     .dir {
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 11px;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-size: 10px;
       font-weight: 600;
     }
     .dir.over { background: #166534; color: #bbf7d0; }
     .dir.under { background: #991b1b; color: #fecaca; }
     .stat-line {
       font-family: ui-monospace, monospace;
-      font-size: 13px;
+      font-size: 12px;
     }
     .tier {
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 10px;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-size: 9px;
       font-weight: 600;
       text-transform: uppercase;
     }
@@ -148,8 +170,9 @@
     
     .no-data {
       text-align: center;
-      padding: 40px;
+      padding: 30px;
       color: var(--muted);
+      font-size: 14px;
     }
     
     .refresh-btn {
@@ -200,7 +223,7 @@
       </div>
     </header>
     
-    <div class="grid" id="cards">
+    <div id="content">
       <div class="no-data">Loading slips...</div>
     </div>
     
@@ -210,27 +233,30 @@
   </div>
   
   <script>
-    let refreshTimer = null;
+    var refreshTimer = null;
     
-    async function loadData() {
-      try {
-        const resp = await fetch('/data/cloudflare_payload.json?t=' + Date.now());
-        if (!resp.ok) throw new Error('Fetch failed');
-        const data = await resp.json();
-        render(data);
-      } catch (e) {
-        document.getElementById('cards').innerHTML = '<div class="no-data">Failed to load data</div>';
-        document.getElementById('statusText').textContent = 'Error loading';
-        document.getElementById('statusDot').className = 'dot old';
-      }
+    function loadData() {
+      fetch('/data/cloudflare_payload.json?t=' + Date.now())
+        .then(function(resp) {
+          if (!resp.ok) throw new Error('Fetch failed');
+          return resp.json();
+        })
+        .then(function(data) {
+          render(data);
+        })
+        .catch(function(e) {
+          document.getElementById('content').innerHTML = '<div class="no-data">Failed to load data</div>';
+          document.getElementById('statusText').textContent = 'Error loading';
+          document.getElementById('statusDot').className = 'dot old';
+        });
     }
     
     function render(data) {
-      const genAt = new Date(data.generated_at);
-      const ageMin = Math.floor((Date.now() - genAt.getTime()) / 60000);
+      var genAt = new Date(data.generated_at);
+      var ageMin = Math.floor((Date.now() - genAt.getTime()) / 60000);
       
-      const dot = document.getElementById('statusDot');
-      const statusText = document.getElementById('statusText');
+      var dot = document.getElementById('statusDot');
+      var statusText = document.getElementById('statusText');
       
       if (ageMin < 30) {
         dot.className = 'dot';
@@ -245,29 +271,54 @@
       
       document.getElementById('runId').textContent = 'Run: ' + data.run_id + ' | Generated: ' + genAt.toLocaleString();
       
-      const cards = document.getElementById('cards');
-      cards.innerHTML = '';
+      var content = document.getElementById('content');
+      content.innerHTML = '';
       
-      // System - top 3-leg
-      const sys = data.system && data.system.find(function(s) { return s.n_legs === 3; });
-      if (sys) cards.appendChild(makeCard(sys, 'system'));
+      // System section
+      content.appendChild(makeSection('System', 'system', data.system || []));
       
-      // Windfall - top 3-leg
-      const wind = data.windfall && data.windfall.find(function(s) { return s.n_legs === 3; });
-      if (wind) cards.appendChild(makeCard(wind, 'windfall'));
+      // Windfall section
+      content.appendChild(makeSection('Windfall', 'windfall', data.windfall || []));
       
-      // Demonhunter - top 3-leg
-      const demon = data.demonhunter && data.demonhunter.find(function(s) { return s.n_legs === 3; });
-      if (demon) cards.appendChild(makeCard(demon, 'demonhunter'));
-      
-      if (!sys && !wind && !demon) {
-        cards.innerHTML = '<div class="no-data">No slips available</div>';
-      }
+      // Demonhunter section
+      content.appendChild(makeSection('Demonhunter', 'demonhunter', data.demonhunter || []));
     }
     
-    function makeCard(slip, type) {
+    function makeSection(title, type, slips) {
+      var section = document.createElement('div');
+      section.className = 'section';
+      
+      var titleEl = document.createElement('div');
+      titleEl.className = 'section-title ' + type;
+      titleEl.textContent = title;
+      section.appendChild(titleEl);
+      
+      var grid = document.createElement('div');
+      grid.className = 'grid';
+      
+      for (var n = 3; n <= 5; n++) {
+        var slip = null;
+        for (var i = 0; i < slips.length; i++) {
+          if (slips[i].n_legs === n) {
+            slip = slips[i];
+            break;
+          }
+        }
+        grid.appendChild(makeCard(slip, n, type));
+      }
+      
+      section.appendChild(grid);
+      return section;
+    }
+    
+    function makeCard(slip, nLegs, type) {
       var card = document.createElement('div');
       card.className = 'card';
+      
+      if (!slip) {
+        card.innerHTML = '<div class="card-header"><div><div class="leg-count">' + nLegs + '</div><div class="leg-label">Leg Slip</div></div></div><div class="no-data" style="padding:20px">No slip</div>';
+        return card;
+      }
       
       var hitPct = (slip.hit_prob * 100).toFixed(1);
       var evMult = slip.ev_mult.toFixed(2);
@@ -291,12 +342,12 @@
       
       card.innerHTML = '<div class="card-header">' +
           '<div>' +
-            '<div class="product-name ' + type + '">' + slip.product + '</div>' +
-            '<div class="hit-label">' + slip.n_legs + '-Leg Slip</div>' +
+            '<div class="leg-count">' + slip.n_legs + '</div>' +
+            '<div class="leg-label">Leg Slip</div>' +
           '</div>' +
           '<div style="text-align:right">' +
             '<div class="hit-prob">' + hitPct + '%</div>' +
-            '<div class="hit-label">Hit Probability</div>' +
+            '<div class="hit-label">Hit Prob</div>' +
           '</div>' +
         '</div>' +
         '<div class="meta">' +
