@@ -16,6 +16,8 @@
       --red: #ef4444;
       --blue: #3b82f6;
       --purple: #a855f7;
+      --cyan: #06b6d4;
+      --pink: #ec4899;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -52,23 +54,25 @@
     .dot.old { background: var(--red); }
     
     .section {
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
     .section-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
-      margin-bottom: 16px;
-      padding-bottom: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
       border-bottom: 2px solid var(--border);
     }
     .section-title.system { color: var(--blue); border-color: var(--blue); }
+    .section-title.system_winprob { color: var(--cyan); border-color: var(--cyan); }
     .section-title.windfall { color: var(--purple); border-color: var(--purple); }
+    .section-title.windfall_winprob { color: var(--pink); border-color: var(--pink); }
     .section-title.demonhunter { color: var(--red); border-color: var(--red); }
     
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 14px;
     }
     @media (max-width: 1000px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
@@ -80,57 +84,57 @@
     .card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
+      border-radius: 10px;
+      padding: 14px;
     }
     .card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .leg-count {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 700;
     }
     .leg-label {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--muted);
       text-transform: uppercase;
     }
     
     .hit-prob {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 700;
       color: var(--green);
     }
     .hit-label {
-      font-size: 10px;
+      font-size: 9px;
       color: var(--muted);
       text-transform: uppercase;
     }
     
     .meta {
       display: flex;
-      gap: 12px;
-      margin-bottom: 12px;
-      font-size: 12px;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 11px;
       color: var(--muted);
     }
     
     .legs {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
     .leg {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 10px;
+      padding: 6px 8px;
       background: rgba(255,255,255,0.03);
-      border-radius: 6px;
-      font-size: 13px;
+      border-radius: 5px;
+      font-size: 12px;
     }
     .leg-player {
       font-weight: 500;
@@ -138,29 +142,29 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 120px;
+      max-width: 110px;
     }
     .leg-pick {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
     .dir {
-      padding: 2px 5px;
+      padding: 2px 4px;
       border-radius: 3px;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 600;
     }
     .dir.over { background: #166534; color: #bbf7d0; }
     .dir.under { background: #991b1b; color: #fecaca; }
     .stat-line {
       font-family: ui-monospace, monospace;
-      font-size: 12px;
+      font-size: 11px;
     }
     .tier {
-      padding: 2px 5px;
+      padding: 2px 4px;
       border-radius: 3px;
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 600;
       text-transform: uppercase;
     }
@@ -170,9 +174,9 @@
     
     .no-data {
       text-align: center;
-      padding: 30px;
+      padding: 20px;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13px;
     }
     
     .refresh-btn {
@@ -195,10 +199,10 @@
     }
     
     footer {
-      margin-top: 24px;
-      padding-top: 16px;
+      margin-top: 20px;
+      padding-top: 14px;
       border-top: 1px solid var(--border);
-      font-size: 12px;
+      font-size: 11px;
       color: var(--muted);
       text-align: center;
     }
@@ -274,11 +278,17 @@
       var content = document.getElementById('content');
       content.innerHTML = '';
       
-      // System section
-      content.appendChild(makeSection('System', 'system', data.system || []));
+      // System EV section
+      content.appendChild(makeSection('System (EV)', 'system', data.system || []));
       
-      // Windfall section
-      content.appendChild(makeSection('Windfall', 'windfall', data.windfall || []));
+      // System WinProb section
+      content.appendChild(makeSection('System (Win Prob)', 'system_winprob', data.system_winprob || []));
+      
+      // Windfall EV section
+      content.appendChild(makeSection('Windfall (EV)', 'windfall', data.windfall || []));
+      
+      // Windfall WinProb section
+      content.appendChild(makeSection('Windfall (Win Prob)', 'windfall_winprob', data.windfall_winprob || []));
       
       // Demonhunter section
       content.appendChild(makeSection('Demonhunter', 'demonhunter', data.demonhunter || []));
@@ -316,7 +326,7 @@
       card.className = 'card';
       
       if (!slip) {
-        card.innerHTML = '<div class="card-header"><div><div class="leg-count">' + nLegs + '</div><div class="leg-label">Leg Slip</div></div></div><div class="no-data" style="padding:20px">No slip</div>';
+        card.innerHTML = '<div class="card-header"><div><div class="leg-count">' + nLegs + '</div><div class="leg-label">Leg Slip</div></div></div><div class="no-data" style="padding:15px">No slip</div>';
         return card;
       }
       

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-01T07:14:27.434363-05:00",
+  "generated_at": "2026-04-01T07:23:20.772082-05:00",
   "run_id": "20260331_170251",
   "system": [
     {
@@ -144,6 +144,149 @@
       "avg_fragility": 0.0995021843786967
     }
   ],
+  "system_winprob": [
+    {
+      "product": "System WinProb",
+      "n_legs": 3,
+      "legs": "Kris Dunn OVER PTS 3.5 (GOBLIN) [id:11006162] | Ousmane Dieng UNDER REB 5 (STANDARD) [id:10994146] | Tristan Silva UNDER PR 15.5 (STANDARD) [id:10986444]",
+      "legs_detail": [
+        {
+          "raw": "Kris Dunn OVER PTS 3.5 (GOBLIN) [id:11006162]",
+          "player": "Kris Dunn",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11006162
+        },
+        {
+          "raw": "Ousmane Dieng UNDER REB 5 (STANDARD) [id:10994146]",
+          "player": "Ousmane Dieng",
+          "dir": "UNDER",
+          "stat": "REB",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 10994146
+        },
+        {
+          "raw": "Tristan Silva UNDER PR 15.5 (STANDARD) [id:10986444]",
+          "player": "Tristan Silva",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 15.5,
+          "tier": "STANDARD",
+          "id": 10986444
+        }
+      ],
+      "hit_prob": 0.8464,
+      "ev_mult": 5.0784,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.3381857991788627
+    },
+    {
+      "product": "System WinProb",
+      "n_legs": 4,
+      "legs": "Paolo Banchero OVER RA 10.5 (GOBLIN) [id:11002048] | Sion James OVER PRA 8.5 (GOBLIN) [id:10993741] | Daniss Jenkins UNDER PR 18.5 (STANDARD) [id:10979331] | Ousmane Dieng UNDER PA 17.5 (STANDARD) [id:10989388]",
+      "legs_detail": [
+        {
+          "raw": "Paolo Banchero OVER RA 10.5 (GOBLIN) [id:11002048]",
+          "player": "Paolo Banchero",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 10.5,
+          "tier": "GOBLIN",
+          "id": 11002048
+        },
+        {
+          "raw": "Sion James OVER PRA 8.5 (GOBLIN) [id:10993741]",
+          "player": "Sion James",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 8.5,
+          "tier": "GOBLIN",
+          "id": 10993741
+        },
+        {
+          "raw": "Daniss Jenkins UNDER PR 18.5 (STANDARD) [id:10979331]",
+          "player": "Daniss Jenkins",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 18.5,
+          "tier": "STANDARD",
+          "id": 10979331
+        },
+        {
+          "raw": "Ousmane Dieng UNDER PA 17.5 (STANDARD) [id:10989388]",
+          "player": "Ousmane Dieng",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 17.5,
+          "tier": "STANDARD",
+          "id": 10989388
+        }
+      ],
+      "hit_prob": 0.5156424867622589,
+      "ev_mult": 5.156424867622588,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.269828960077261
+    },
+    {
+      "product": "System WinProb",
+      "n_legs": 5,
+      "legs": "Paolo Banchero OVER PTS 17.5 (GOBLIN) [id:10986348] | Brandon Miller OVER PA 18.5 (GOBLIN) [id:10995665] | Derrick Jones OVER PTS 5.5 (GOBLIN) [id:10978846] | Alperen Sengun UNDER PR 26.5 (STANDARD) [id:10975096] | Ousmane Dieng UNDER AST 4 (STANDARD) [id:10995069]",
+      "legs_detail": [
+        {
+          "raw": "Paolo Banchero OVER PTS 17.5 (GOBLIN) [id:10986348]",
+          "player": "Paolo Banchero",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 17.5,
+          "tier": "GOBLIN",
+          "id": 10986348
+        },
+        {
+          "raw": "Brandon Miller OVER PA 18.5 (GOBLIN) [id:10995665]",
+          "player": "Brandon Miller",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 18.5,
+          "tier": "GOBLIN",
+          "id": 10995665
+        },
+        {
+          "raw": "Derrick Jones OVER PTS 5.5 (GOBLIN) [id:10978846]",
+          "player": "Derrick Jones",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 5.5,
+          "tier": "GOBLIN",
+          "id": 10978846
+        },
+        {
+          "raw": "Alperen Sengun UNDER PR 26.5 (STANDARD) [id:10975096]",
+          "player": "Alperen Sengun",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 26.5,
+          "tier": "STANDARD",
+          "id": 10975096
+        },
+        {
+          "raw": "Ousmane Dieng UNDER AST 4 (STANDARD) [id:10995069]",
+          "player": "Ousmane Dieng",
+          "dir": "UNDER",
+          "stat": "AST",
+          "line": 4.0,
+          "tier": "STANDARD",
+          "id": 10995069
+        }
+      ],
+      "hit_prob": 0.3870084673845319,
+      "ev_mult": 7.740169347690639,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.1545665912026073
+    }
+  ],
   "windfall": [
     {
       "product": "Windfall",
@@ -285,6 +428,149 @@
       "ev_mult": 1.5853881109817436,
       "payout_mult": 20.0,
       "avg_fragility": 0.0571647640203814
+    }
+  ],
+  "windfall_winprob": [
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 3,
+      "legs": "Desmond Bane OVER PA 20.5 (GOBLIN) [id:11002032] | Taurean Prince UNDER PRA 14.5 (STANDARD) [id:10989579] | Jabari Smith OVER PTS 15.5 (DEMON) [id:10976531]",
+      "legs_detail": [
+        {
+          "raw": "Desmond Bane OVER PA 20.5 (GOBLIN) [id:11002032]",
+          "player": "Desmond Bane",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 20.5,
+          "tier": "GOBLIN",
+          "id": 11002032
+        },
+        {
+          "raw": "Taurean Prince UNDER PRA 14.5 (STANDARD) [id:10989579]",
+          "player": "Taurean Prince",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 14.5,
+          "tier": "STANDARD",
+          "id": 10989579
+        },
+        {
+          "raw": "Jabari Smith OVER PTS 15.5 (DEMON) [id:10976531]",
+          "player": "Jabari Smith",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 15.5,
+          "tier": "DEMON",
+          "id": 10976531
+        }
+      ],
+      "hit_prob": 0.53965636,
+      "ev_mult": 3.23793816,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.1505883201488777
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 4,
+      "legs": "John Collins OVER PTS 9.5 (GOBLIN) [id:10992107] | Ousmane Dieng UNDER PTS 13.5 (STANDARD) [id:10989380] | Tristan Silva UNDER PA 13.5 (STANDARD) [id:10986443] | Jose Alvarado OVER PRA 12.5 (DEMON) [id:10996589]",
+      "legs_detail": [
+        {
+          "raw": "John Collins OVER PTS 9.5 (GOBLIN) [id:10992107]",
+          "player": "John Collins",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 9.5,
+          "tier": "GOBLIN",
+          "id": 10992107
+        },
+        {
+          "raw": "Ousmane Dieng UNDER PTS 13.5 (STANDARD) [id:10989380]",
+          "player": "Ousmane Dieng",
+          "dir": "UNDER",
+          "stat": "PTS",
+          "line": 13.5,
+          "tier": "STANDARD",
+          "id": 10989380
+        },
+        {
+          "raw": "Tristan Silva UNDER PA 13.5 (STANDARD) [id:10986443]",
+          "player": "Tristan Silva",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 13.5,
+          "tier": "STANDARD",
+          "id": 10986443
+        },
+        {
+          "raw": "Jose Alvarado OVER PRA 12.5 (DEMON) [id:10996589]",
+          "player": "Jose Alvarado",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 12.5,
+          "tier": "DEMON",
+          "id": 10996589
+        }
+      ],
+      "hit_prob": 0.4964838512,
+      "ev_mult": 4.964838512,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.2767758419244766
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 5,
+      "legs": "Coby White OVER RA 4.5 (GOBLIN) [id:10974452] | Kris Dunn OVER RA 4.5 (GOBLIN) [id:11001930] | Ousmane Dieng UNDER REB 5 (STANDARD) [id:10994146] | Daniss Jenkins UNDER PR 18.5 (STANDARD) [id:10979331] | Dillon Brooks OVER RA 5.5 (DEMON) [id:10980969]",
+      "legs_detail": [
+        {
+          "raw": "Coby White OVER RA 4.5 (GOBLIN) [id:10974452]",
+          "player": "Coby White",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 10974452
+        },
+        {
+          "raw": "Kris Dunn OVER RA 4.5 (GOBLIN) [id:11001930]",
+          "player": "Kris Dunn",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11001930
+        },
+        {
+          "raw": "Ousmane Dieng UNDER REB 5 (STANDARD) [id:10994146]",
+          "player": "Ousmane Dieng",
+          "dir": "UNDER",
+          "stat": "REB",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 10994146
+        },
+        {
+          "raw": "Daniss Jenkins UNDER PR 18.5 (STANDARD) [id:10979331]",
+          "player": "Daniss Jenkins",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 18.5,
+          "tier": "STANDARD",
+          "id": 10979331
+        },
+        {
+          "raw": "Dillon Brooks OVER RA 5.5 (DEMON) [id:10980969]",
+          "player": "Dillon Brooks",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 5.5,
+          "tier": "DEMON",
+          "id": 10980969
+        }
+      ],
+      "hit_prob": 0.3572534504966584,
+      "ev_mult": 7.145069009933169,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.2230988905634501
     }
   ],
   "demonhunter": [
