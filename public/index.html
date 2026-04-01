@@ -5,749 +5,323 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Atlas Dashboard</title>
   <style>
-    :root{
-      --bgA:#f7fafc;
-      --bgB:#eef6f1;
-      --card:#ffffffcc;
-      --card2:#ffffffd9;
-      --border:#e5e7eb;
-      --text:#0f172a;
-      --muted:#475569;
-      --shadow:0 12px 30px rgba(2,6,23,.08);
-      --shadow2:0 10px 20px rgba(2,6,23,.06);
-      --radius:18px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --purple: #a855f7;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:var(--sans);
-      color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 18% 10%, #dbeafe 0%, transparent 60%),
-        radial-gradient(1200px 700px at 82% 20%, #dcfce7 0%, transparent 55%),
-        linear-gradient(180deg, var(--bgA), var(--bgB));
-      min-height:100vh;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px;
     }
-    .wrap{max-width:1180px;margin:0 auto;padding:22px 16px 56px}
-    header{
-      position:sticky; top:0; z-index:10;
-      padding:14px 12px;
-      margin:-12px -12px 14px;
-      border-radius:22px;
-      background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.70));
-      backdrop-filter: blur(10px);
-      border:1px solid rgba(229,231,235,.8);
-      box-shadow:0 14px 30px rgba(2,6,23,.06);
+    .container { max-width: 1200px; margin: 0 auto; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
     }
-    .headRow{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
-    h1{margin:0;font-size:26px;letter-spacing:-.02em}
-    .sub{margin-top:6px;color:var(--muted);font-size:13.5px;line-height:1.35}
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:6px 10px;border-radius:999px;
-      border:1px solid var(--border);
-      background:#fff;box-shadow:0 4px 14px rgba(2,6,23,.05);
-      font-size:12px
+    h1 { font-size: 28px; font-weight: 700; }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--muted);
     }
-    .dot{width:9px;height:9px;border-radius:99px;background:#94a3b8}
-    .dot.live{background:#22c55e}
-    .dot.aging{background:#f59e0b}
-    .dot.stale{background:#ef4444}
-    .dot.bad{background:#a855f7}
-    .dot.off{background:#64748b}
-
-    .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    button,.btn,select{
-      border:1px solid var(--border);
-      background:#ffffffc7;
-      padding:9px 12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-size:13px;
-      box-shadow:var(--shadow2);
-      transition:transform .06s ease, background .12s ease;
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
     }
-    button:active,.btn:active{transform:translateY(1px)}
-    button:hover,.btn:hover,select:hover{background:#fff}
-    select{cursor:pointer}
-    .toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;user-select:none}
-    .controlLabel{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
-    .hintInline{color:var(--muted);font-size:12px}
-
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:10px}
-    .card{
-      grid-column:span 12;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:14px 14px 12px;
-      backdrop-filter: blur(8px);
+    .dot.stale { background: var(--yellow); }
+    .dot.old { background: var(--red); }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
     }
-    .card h2{margin:0 0 10px;font-size:13px;color:#0b1220;letter-spacing:-.01em;text-transform:uppercase}
-    .row{display:flex;gap:14px;flex-wrap:wrap}
-    .kv{
-      min-width:170px;flex:1;
-      padding:10px 12px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:#fff;
+    
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
     }
-    .k{font-size:12px;color:var(--muted)}
-    .v{margin-top:6px;font-weight:750}
-    .mono{font-family:var(--mono);font-size:12px;white-space:pre-wrap;word-break:break-word}
-
-    .divider{height:1px;background:rgba(229,231,235,.9);margin:10px 0 12px;border-radius:999px}
-    .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:2px 0 12px}
-    .sectionTitle .label{font-weight:800}
-    .sectionTitle .hint{color:var(--muted);font-size:12px}
-
-    .slip-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
-
-    .sectionHeader{grid-column:span 12;padding:2px 2px 0;margin-top:6px}
-    .sectionHeaderTitle{font-weight:900;font-size:14px;letter-spacing:-.01em;color:#0b1220}
-    .sectionHeaderSub{font-size:12px;color:var(--muted);margin-top:2px}
-
-    .groupBar{
-      grid-column:span 12;
-      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-      padding:10px 12px;
-      border:1px solid var(--border);
-      border-radius:16px;
-      background:#fff;
-      box-shadow:0 8px 18px rgba(2,6,23,.04);
-      margin-top:2px;
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
     }
-    .groupBar .lhs{display:flex;flex-direction:column;gap:2px}
-    .groupBar .title{font-weight:900}
-    .groupBar .subline{margin:0;color:var(--muted);font-size:12px}
-    .groupBar .rhs{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .smallHint{font-size:12px;color:var(--muted)}
-
-    .slip{
-      grid-column:span 12;
-      padding:12px 12px 10px;
-      border:1px solid var(--border);
-      border-radius:16px;
-      background:var(--card2);
-      box-shadow:0 8px 18px rgba(2,6,23,.05);
+    .product-name {
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
-    @media(min-width:900px){ .slip{grid-column:span 6} }
-    .slip.featured{
-      grid-column:span 12;
-      background:#fff;
-      border:1px solid rgba(59,130,246,.25);
-      box-shadow:0 16px 34px rgba(2,6,23,.10);
+    .product-name.system { color: var(--blue); }
+    .product-name.windfall { color: var(--purple); }
+    .product-name.demonhunter { color: var(--red); }
+    
+    .hit-prob {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--green);
     }
-    .slip-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-    .slip-title{font-weight:850}
-    .slip-meta{color:var(--muted);font-size:12px;margin-top:4px}
-    .chipRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-    .chip{
-      font-size:12px;padding:4px 8px;border-radius:999px;
-      border:1px solid var(--border);background:#fff;color:#0b1220;
-      display:inline-flex;gap:6px;align-items:center;
+    .hit-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
-    .chip b{font-weight:800}
-    .slip-legs{margin-top:10px;font-size:13px;line-height:1.38}
-    .slip-legs code{font-family:var(--mono);font-size:12px}
-    .slip-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
-    a.btn{display:inline-flex;align-items:center;text-decoration:none;color:inherit}
-    .small{font-size:12px;color:var(--muted);margin-left:auto}
-
-    details{border-top:1px dashed rgba(148,163,184,.6);padding-top:12px;margin-top:12px}
-    summary{cursor:pointer;color:var(--muted);font-size:13px}
-
-    .legsWrap{margin-top:10px;overflow-x:auto}
-    table.legs-table{width:100%;border-collapse:separate;border-spacing:0}
-    .legs-table th,.legs-table td{padding:8px 10px;border-bottom:1px solid rgba(229,231,235,.85);font-size:12px;white-space:nowrap}
-    .legs-table th{position:sticky;top:0;background:#fff;color:#0b1220;font-weight:800;text-transform:uppercase;letter-spacing:.02em;font-size:11px}
-    .legs-table tr:last-child td{border-bottom:none}
-    .legs-table td.mono{font-family:var(--mono);font-size:12px}
-    .badge{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:#fff;font-size:11px}
-    .badge .b{font-weight:800}
-    .last5{font-family:var(--mono)}
-
-    .listWrap{
-      grid-column:span 12;
-      border:1px solid var(--border);
-      border-radius:16px;
-      background:#fff;
-      padding:10px;
-      box-shadow:0 8px 18px rgba(2,6,23,.04);
+    
+    .meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: var(--muted);
     }
-    .listInner{
-      display:grid;
-      grid-template-columns:repeat(12,1fr);
-      gap:12px;
-      max-height:420px;
-      overflow-y:auto;
-      padding-right:4px;
+    .meta span { display: flex; align-items: center; gap: 4px; }
+    
+    .legs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    .listInner .slip{margin:0}
-    .listHeadRow{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-      margin:0 0 10px;
+    .leg {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      font-size: 14px;
     }
-    .listHeadRow .label{font-weight:900}
-    .listHeadRow .meta{font-size:12px;color:var(--muted)}
-    .dividerTiny{height:1px;background:rgba(229,231,235,.9);margin:8px 0 10px;border-radius:999px}
-
-    .emptyBox{
-      grid-column:span 12;
-      padding:12px;
-      border:1px dashed rgba(148,163,184,.7);
-      border-radius:16px;
-      background:rgba(255,255,255,.65);
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.35;
+    .leg-player {
+      font-weight: 500;
+      flex: 1;
     }
-    .emptyBox code{font-family:var(--mono);font-size:12px}
-
-    @media(max-width:520px){
-      h1{font-size:22px}
-      .slip{padding:12px 12px}
-      .chip{font-size:11px}
-      .legs-table th,.legs-table td{padding:7px 8px}
-      .listInner{max-height:360px}
+    .leg-pick {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dir {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .dir.over { background: #166534; color: #bbf7d0; }
+    .dir.under { background: #991b1b; color: #fecaca; }
+    .stat-line {
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+    }
+    .tier {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .tier.standard { background: #374151; color: #9ca3af; }
+    .tier.goblin { background: #854d0e; color: #fef08a; }
+    .tier.demon { background: #7f1d1d; color: #fca5a5; }
+    
+    .no-data {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+    }
+    
+    .refresh-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .refresh-btn:hover { background: var(--border); }
+    
+    .auto-refresh {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    
+    footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="container">
     <header>
-      <div class="headRow">
-        <div>
-          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-            <h1>Atlas Dashboard</h1>
-            <span class="pill"><span class="dot off" id="statusDot"></span><span id="statusText">—</span></span>
-          </div>
-          <div class="sub">
-            Payload: <code class="mono">/data/cloudflare_payload.json</code>.<div class="hintInline">Default view shows <b>ONE</b> best slip per leg-count (3/4/5). Lists are optional.</div>
-          </div>
+      <div>
+        <h1>Atlas Dashboard</h1>
+        <div class="status">
+          <span class="dot" id="statusDot"></span>
+          <span id="statusText">Loading...</span>
         </div>
-
-        <div class="actions">
-          <button id="refreshBtn">Refresh</button>
-          <button id="copyParsedBtn">Copy parsed</button>
-          <button id="copyRawBtn">Copy raw</button>
-
-          <label class="toggle" title="Show the full scrollable lists under each best slip">
-            <input type="checkbox" id="showLists"/>
-            Show lists
-          </label>
-
-          <label class="controlLabel" id="topNLabel" style="display:none" title="How many slips to show per list (when lists are enabled)">
-            Top N
-            <select id="topNSelect">
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="25" selected>25</option>
-              <option value="50">50</option>
-            </select>
-          </label>
-
-          <label class="toggle"><input type="checkbox" id="autoRefresh"/> Auto-refresh (30s)</label>
-        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <label class="auto-refresh">
+          <input type="checkbox" id="autoRefresh" checked />
+          Auto-refresh (30s)
+        </label>
+        <button class="refresh-btn" onclick="loadData()">Refresh</button>
       </div>
     </header>
-
-    <section class="grid">
-      <div class="card">
-        <h2>Health</h2>
-        <div class="row">
-          <div class="kv">
-            <div class="k">generated_at</div>
-            <div class="v" id="generatedAt">—</div>
-            <div class="k" style="margin-top:10px">Age</div>
-            <div class="v" id="ageText">—</div>
-          </div>
-          <div class="kv">
-            <div class="k">Fetch</div>
-            <div class="v mono" id="fetchUrl">/data/status_latest.json</div>
-            <div class="k" style="margin-top:10px">Result · Last fetch</div>
-            <div class="v" id="resultText">—</div>
-            <div class="k" style="margin-top:10px">Notes</div>
-            <div class="v" id="notesText">—</div>
-            <div class="k" style="margin-top:10px">Run source</div>
-            <div class="v" id="runSource">—</div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="sectionTitle">
-          <div>
-            <div class="label">Picks</div>
-            <div class="hint">
-              “Best” cards are the highest-scored slip in that feed for 3/4/5 legs.
-              “Last 5” is rendered from <code class="mono">legs_detail</code> when present.
-            </div>
-          </div>
-          <div class="hint" id="slipHint">—</div>
-        </div>
-
-        <div class="slip-grid" id="slipGrid"></div>
-
-        <details>
-          <summary>Parsed status JSON</summary>
-          <pre class="mono" id="parsedJson">—</pre>
-        </details>
-        <details>
-          <summary>Raw status response</summary>
-          <pre class="mono" id="rawJson">—</pre>
-        </details>
-      </div>
-    </section>
-  </div>
-
-<script>
-function sectionHeader(title, subtitle = "") {
-  return `
-    <div class="sectionHeader">
-      <div class="sectionHeaderTitle">${title}</div>
-      ${subtitle ? `<div class="sectionHeaderSub">${subtitle}</div>` : ""}
+    
+    <div class="grid" id="cards">
+      <div class="no-data">Loading slips...</div>
     </div>
-  `;
-}
-
-(function(){
-  const PAYLOAD_URL = "/data/cloudflare_payload.json";
-  const cacheBust = () => "v=" + Date.now();
-
-  const el = (id) => document.getElementById(id);
-  const state = {
-    raw: null,
-    parsed: null,
-    timer: null,
-    ui: { showLists: false, topN: 25 },
-    feeds: {
-      system:    { href: PAYLOAD_URL, rows: [], ok:false, err:null },
-      windfall:  { href: PAYLOAD_URL, rows: [], ok:false, err:null },
-      gamescript:{ href: PAYLOAD_URL, rows: [], ok:false, err:null }
+    
+    <footer>
+      <span id="runId"></span>
+    </footer>
+  </div>
+  
+  <script>
+    let refreshTimer = null;
+    
+    async function loadData() {
+      try {
+        const resp = await fetch('/data/cloudflare_payload.json?t=' + Date.now());
+        if (!resp.ok) throw new Error('Fetch failed');
+        const data = await resp.json();
+        render(data);
+      } catch (e) {
+        document.getElementById('cards').innerHTML = '<div class="no-data">Failed to load data</div>';
+        document.getElementById('statusText').textContent = 'Error loading';
+        document.getElementById('statusDot').className = 'dot old';
+      }
     }
-  };
-
-  function htmlToNode(html){
-    const template = document.createElement('template');
-    template.innerHTML = String(html).trim();
-    return template.content.firstChild;
-  }
-
-  function formatLocal(dtStr){
-    if(!dtStr) return "—";
-    const d = new Date(dtStr);
-    if(isNaN(d.getTime())) return dtStr;
-    return d.toLocaleString();
-  }
-  function ageFrom(dtStr){
-    const d = new Date(dtStr);
-    if(isNaN(d.getTime())) return null;
-    return Date.now() - d.getTime();
-  }
-  function formatAge(ms){
-    if(ms == null) return "—";
-    const s = Math.max(0, Math.floor(ms/1000));
-    const h = Math.floor(s/3600);
-    const m = Math.floor((s%3600)/60);
-    return (h>0? (h+"h ") : "") + m + "m";
-  }
-
-  function setStatus(level, msg){
-    el("statusText").textContent = msg;
-    el("statusDot").className = "dot " + level;
-  }
-
-  function safeNum(x){
-    const n = Number(x);
-    return isFinite(n) ? n : null;
-  }
-  function pct(x){
-    const n = safeNum(x);
-    if(n == null) return "—";
-    return (n*100).toFixed(1) + "%";
-  }
-  function fmt(x, digits=3){
-    const n = safeNum(x);
-    if(n == null) return "—";
-    return n.toFixed(digits);
-  }
-
-  function escHtml(s){
-    return String(s)
-      .replaceAll('&','&amp;')
-      .replaceAll('<','&lt;')
-      .replaceAll('>','&gt;')
-      .replaceAll('"','&quot;')
-      .replaceAll("'",'&#39;');
-  }
-
-  function normalizeDir(x){
-    const s = String(x ?? "").trim().toUpperCase();
-    if(!s) return "—";
-    if(s === "MORE") return "O";
-    if(s === "LESS") return "U";
-    if(s === "OVER") return "O";
-    if(s === "UNDER") return "U";
-    if(s === "O") return "O";
-    if(s === "U") return "U";
-    return s;
-  }
-
-  function normalizeTier(x){
-    const s = String(x||"").trim().toUpperCase();
-    return s || "—";
-  }
-
-  // ✅ Last-5: we only care about last5_val from legs_detail now
-  function renderLast5(legObj){
-    if(!legObj || typeof legObj !== "object") return "—";
-    const v = legObj.last5_val;
-    if(v === undefined || v === null) return "—";
-    return `L5: ${String(v)}`;
-  }
-
-  function extractLegRows(row){
-    if(!row) return [];
-
-    // Prefer legs_detail objects (new contract)
-    const legsDetailArr = Array.isArray(row.legs_detail) ? row.legs_detail : [];
-
-    if(legsDetailArr.length){
-      return legsDetailArr.map(x => {
-        const player = x.player || "—";
-        const stat   = String(x.stat || "—").toUpperCase();
-        const dir    = normalizeDir(x.dir || x.direction || "—");
-        const line   = (x.line ?? "—");
-        const tier   = normalizeTier(x.tier || "—");
-        return { player, stat, dir, line, tier, last5: renderLast5(x) };
+    
+    function render(data) {
+      const genAt = new Date(data.generated_at);
+      const ageMin = Math.floor((Date.now() - genAt.getTime()) / 60000);
+      
+      const dot = document.getElementById('statusDot');
+      const statusText = document.getElementById('statusText');
+      
+      if (ageMin < 30) {
+        dot.className = 'dot';
+        statusText.textContent = 'Live ' + ageMin + 'm ago';
+      } else if (ageMin < 120) {
+        dot.className = 'dot stale';
+        statusText.textContent = ageMin + 'm ago';
+      } else {
+        dot.className = 'dot old';
+        statusText.textContent = 'Stale ' + Math.floor(ageMin / 60) + 'h ago';
+      }
+      
+      document.getElementById('runId').textContent = 'Run: ' + data.run_id + ' | Generated: ' + genAt.toLocaleString();
+      
+      const cards = document.getElementById('cards');
+      cards.innerHTML = '';
+      
+      // System - top 3-leg
+      const sys = data.system && data.system.find(function(s) { return s.n_legs === 3; });
+      if (sys) cards.appendChild(makeCard(sys, 'system'));
+      
+      // Windfall - top 3-leg
+      const wind = data.windfall && data.windfall.find(function(s) { return s.n_legs === 3; });
+      if (wind) cards.appendChild(makeCard(wind, 'windfall'));
+      
+      // Demonhunter - top 3-leg
+      const demon = data.demonhunter && data.demonhunter.find(function(s) { return s.n_legs === 3; });
+      if (demon) cards.appendChild(makeCard(demon, 'demonhunter'));
+      
+      if (!sys && !wind && !demon) {
+        cards.innerHTML = '<div class="no-data">No slips available</div>';
+      }
+    }
+    
+    function makeCard(slip, type) {
+      var card = document.createElement('div');
+      card.className = 'card';
+      
+      var hitPct = (slip.hit_prob * 100).toFixed(1);
+      var evMult = slip.ev_mult.toFixed(2);
+      var payout = slip.payout_mult.toFixed(1);
+      
+      var legsHtml = '';
+      var legs = slip.legs_detail || [];
+      for (var i = 0; i < legs.length; i++) {
+        var leg = legs[i];
+        var dirClass = leg.dir.toLowerCase();
+        var tierClass = leg.tier.toLowerCase();
+        legsHtml += '<div class="leg">' +
+          '<span class="leg-player">' + leg.player + '</span>' +
+          '<div class="leg-pick">' +
+            '<span class="dir ' + dirClass + '">' + leg.dir + '</span>' +
+            '<span class="stat-line">' + leg.stat + ' ' + leg.line + '</span>' +
+            '<span class="tier ' + tierClass + '">' + leg.tier + '</span>' +
+          '</div>' +
+        '</div>';
+      }
+      
+      card.innerHTML = '<div class="card-header">' +
+          '<div>' +
+            '<div class="product-name ' + type + '">' + slip.product + '</div>' +
+            '<div class="hit-label">' + slip.n_legs + '-Leg Slip</div>' +
+          '</div>' +
+          '<div style="text-align:right">' +
+            '<div class="hit-prob">' + hitPct + '%</div>' +
+            '<div class="hit-label">Hit Probability</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="meta">' +
+          '<span>EV: ' + evMult + 'x</span>' +
+          '<span>Payout: ' + payout + 'x</span>' +
+        '</div>' +
+        '<div class="legs">' + legsHtml + '</div>';
+      
+      return card;
+    }
+    
+    function setupAutoRefresh() {
+      var cb = document.getElementById('autoRefresh');
+      cb.addEventListener('change', function() {
+        if (cb.checked) {
+          refreshTimer = setInterval(loadData, 30000);
+        } else {
+          clearInterval(refreshTimer);
+        }
       });
+      refreshTimer = setInterval(loadData, 30000);
     }
-
-    // Fallback: no legs_detail present; show nothing rather than junk
-    return [];
-  }
-
-  function legsTableNode(row){
-    const legs = extractLegRows(row);
-    if(!legs.length) return null;
-
-    const wrap = document.createElement("div");
-    wrap.className = "legsWrap";
-    const table = document.createElement("table");
-    table.className = "legs-table";
-
-    const thead = document.createElement("thead");
-    thead.innerHTML = `
-      <tr>
-        <th>Player</th>
-        <th>Stat</th>
-        <th>Dir</th>
-        <th>Line</th>
-        <th>Tier</th>
-        <th>Last 5</th>
-      </tr>
-    `;
-    table.appendChild(thead);
-
-    const tbody = document.createElement("tbody");
-    for(const leg of legs){
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${escHtml(String(leg.player || "—"))}</td>
-        <td class="mono">${escHtml(String(leg.stat || "—"))}</td>
-        <td class="mono">${escHtml(String(leg.dir || "—"))}</td>
-        <td class="mono">${escHtml(String(leg.line ?? "—"))}</td>
-        <td><span class="badge"><span class="b">${escHtml(String(leg.tier || "—"))}</span></span></td>
-        <td class="last5">${escHtml(String(leg.last5 || "—"))}</td>
-      `;
-      tbody.appendChild(tr);
-    }
-    table.appendChild(tbody);
-    wrap.appendChild(table);
-    return wrap;
-  }
-
-  function slipCard({title, href, row, subtitle, featured=false}){
-    const wrap = document.createElement("div");
-    wrap.className = "slip" + (featured ? " featured" : "");
-
-    const head = document.createElement("div");
-    head.className = "slip-head";
-
-    const left = document.createElement("div");
-    const t = document.createElement("div");
-    t.className = "slip-title";
-    t.textContent = title;
-
-    const meta = document.createElement("div");
-    meta.className = "slip-meta";
-    meta.textContent = subtitle || "";
-    left.appendChild(t); left.appendChild(meta);
-
-    const right = document.createElement("div");
-    right.className = "slip-meta";
-    right.innerHTML = row ? `EV <b>${fmt(row.ev_mult,3)}</b><br/>Hit <b>${pct(row.hit_prob)}</b>` : "—";
-
-    head.appendChild(left); head.appendChild(right);
-
-    const chipRow = document.createElement("div");
-    chipRow.className = "chipRow";
-    if(row){
-      const frag = fmt(row.avg_fragility,4);
-      chipRow.innerHTML = `
-        <span class="chip">Frag <b>${escHtml(frag)}</b></span>
-        <span class="chip">Legs <b>${escHtml(String(row.n_legs ?? "—"))}</b></span>
-      `;
-    } else {
-      chipRow.innerHTML = `<span class="chip">No data</span>`;
-    }
-
-    const legs = document.createElement("div");
-    legs.className = "slip-legs";
-    legs.innerHTML = (row && row.legs) ? `<code>${escHtml(row.legs)}</code>` : "Missing / no data";
-
-    const actions = document.createElement("div");
-    actions.className = "slip-actions";
-
-    const open = document.createElement("a");
-    open.className = "btn";
-    open.href = href;
-    open.target = "_blank";
-    open.rel = "noopener";
-    open.textContent = "Open JSON";
-    actions.appendChild(open);
-
-    if(row && row.legs){
-      const copy = document.createElement("button");
-      copy.textContent = "Copy legs";
-      copy.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(row.legs);
-          copy.textContent="Copied";
-          setTimeout(()=>copy.textContent="Copy legs", 900);
-        } catch(e){}
-      });
-      actions.appendChild(copy);
-    }
-
-    wrap.appendChild(head);
-    wrap.appendChild(chipRow);
-    wrap.appendChild(legs);
-
-    const tbl = legsTableNode(row);
-    if(tbl) wrap.appendChild(tbl);
-
-    wrap.appendChild(actions);
-    return wrap;
-  }
-
-  async function fetchJson(url){
-    const res = await fetch(url, {cache:"no-store"});
-    const text = await res.text();
-    let parsed = null;
-    try { parsed = JSON.parse(text); } catch(e) {}
-    return {res, text, parsed};
-  }
-
-  function scoreRow(r){
-    const ev = Number(r.ev_mult ?? NaN);
-    const hp = Number(r.hit_prob ?? NaN);
-    if (!Number.isNaN(ev)) return ev;
-    if (!Number.isNaN(hp)) return hp;
-    return 0;
-  }
-
-  function sortRows(rows){
-    return rows.slice().sort((a,b) => scoreRow(b) - scoreRow(a));
-  }
-
-  function listWrapNode({title, meta, rows, href, maxN}){
-    const wrap = document.createElement("div");
-    wrap.className = "listWrap";
-
-    const head = document.createElement("div");
-    head.className = "listHeadRow";
-
-    const left = document.createElement("div");
-    left.innerHTML = `<div class="label">${escHtml(title)}</div><div class="meta">${escHtml(meta||"")}</div>`;
-
-    const right = document.createElement("div");
-    right.className = "meta";
-    right.innerHTML = `<span class="smallHint">showing <b>${Math.min(maxN, rows.length)}</b> of <b>${rows.length}</b></span>`;
-
-    head.appendChild(left);
-    head.appendChild(right);
-
-    const divider = document.createElement("div");
-    divider.className = "dividerTiny";
-
-    const inner = document.createElement("div");
-    inner.className = "listInner";
-
-    rows.slice(0, maxN).forEach((r, i) => {
-      inner.appendChild(slipCard({
-        title: `#${i+1}`,
-        href,
-        row: r,
-        subtitle: ""
-      }));
-    });
-
-    wrap.appendChild(head);
-    wrap.appendChild(divider);
-    wrap.appendChild(inner);
-    return wrap;
-  }
-
-  function renderProduct(grid, productKey, title, rows){
-    grid.appendChild(htmlToNode(sectionHeader(title, "Best slip per leg-count (3/4/5).")));
-
-    const href = PAYLOAD_URL;
-
-    if(!rows || !rows.length){
-      const box = document.createElement("div");
-      box.className = "emptyBox";
-      box.innerHTML = `<b>${escHtml(title)} has 0 slips.</b><br/>Source: <code>${escHtml(href)}</code>`;
-      grid.appendChild(box);
-      return;
-    }
-
-    const legsWanted = (productKey === "gamescript") ? [4,5] : [3,4,5];
-
-    for(const n of legsWanted){
-      const legRows = sortRows(rows.filter(r => Number(r.n_legs) === n));
-      const best = legRows[0] || null;
-
-      grid.appendChild(slipCard({
-        title: `Best ${n}-Leg (${title})`,
-        href,
-        row: best,
-        subtitle: best ? `payload.${productKey} · rows: ${rows.length}` : "No data",
-        featured: true
-      }));
-
-      if(state.ui.showLists && legRows.length > 1){
-        grid.appendChild(listWrapNode({
-          title: `${n}-Leg list (${title})`,
-          meta: `Sorted by EV/hit where available · scrollable`,
-          rows: legRows,
-          href,
-          maxN: state.ui.topN
-        }));
-      }
-    }
-  }
-
-  async function buildSlips(payload){
-    const grid = el("slipGrid");
-    grid.innerHTML = "";
-
-    el("slipHint").textContent =
-      state.ui.showLists
-        ? `Lists enabled · showing up to Top N = ${state.ui.topN}`
-        : "Lists disabled · showing only one best slip per leg-count";
-
-    renderProduct(grid, "system", "Atlas — System Picks", payload.system || []);
-    renderProduct(grid, "windfall", "Windfall — Tier Mix Picks", payload.windfall || []);
-    renderProduct(grid, "gamescript", "GameScript — External Picks", payload.gamescript || []);
-  }
-
-  async function refresh(){
-    el("fetchUrl").textContent = PAYLOAD_URL + " (no-store)";
-    const url = PAYLOAD_URL + "?" + cacheBust();
-
-    try{
-      const {res, text, parsed} = await fetchJson(url);
-      el("resultText").textContent = `HTTP ${res.status} · ${new Date().toLocaleString()}`;
-
-      state.raw = text;
-      state.parsed = parsed;
-
-      el("rawJson").textContent = text || "—";
-      el("parsedJson").textContent = parsed ? JSON.stringify(parsed, null, 2) : "—";
-
-      if(!res.ok){
-        setStatus("off", "NOT OK");
-        el("notesText").textContent = "Non-200 response.";
-        el("runSource").textContent = "—";
-        return;
-      }
-      if(!parsed){
-        setStatus("bad", "BAD JSON");
-        el("notesText").textContent = "Response could not be parsed as JSON.";
-        el("runSource").textContent = "—";
-        return;
-      }
-
-      const gen = parsed.generated_at || null;
-      el("generatedAt").textContent = gen ? formatLocal(gen) : "—";
-      const ms = gen ? ageFrom(gen) : null;
-      el("ageText").textContent = formatAge(ms);
-
-      el("notesText").textContent = "cloudflare_payload.json";
-      el("runSource").textContent = "Atlas exporter";
-
-      const agingMs = 10*60*1000;
-      const staleMs = 60*60*1000;
-
-      if(ms == null) setStatus("bad", "NO TIME");
-      else if(ms < agingMs) setStatus("live", "LIVE");
-      else if(ms < staleMs) setStatus("aging", "AGING");
-      else setStatus("stale", "STALE");
-
-      await buildSlips(parsed);
-    } catch(e){
-      setStatus("off", "ERROR");
-      el("resultText").textContent = "Fetch error";
-      el("notesText").textContent = String(e);
-      el("runSource").textContent = "—";
-    }
-  }
-
-  // UI wiring
-  el("refreshBtn").addEventListener("click", refresh);
-
-  el("copyParsedBtn").addEventListener("click", async () => {
-    try{ if(state.parsed) await navigator.clipboard.writeText(JSON.stringify(state.parsed, null, 2)); } catch(e){}
-  });
-
-  el("copyRawBtn").addEventListener("click", async () => {
-    try{ if(state.raw) await navigator.clipboard.writeText(state.raw); } catch(e){}
-  });
-
-  el("autoRefresh").addEventListener("change", (ev) => {
-    if(ev.target.checked) state.timer = setInterval(refresh, 30000);
-    else { if(state.timer) clearInterval(state.timer); state.timer = null; }
-  });
-
-  function syncTopNVisibility(){
-    el("topNLabel").style.display = state.ui.showLists ? "flex" : "none";
-  }
-
-  el("showLists").addEventListener("change", (ev) => {
-    state.ui.showLists = !!ev.target.checked;
-    syncTopNVisibility();
-    refresh();
-  });
-
-  el("topNSelect").addEventListener("change", (ev) => {
-    const n = Number(ev.target.value);
-    state.ui.topN = Number.isFinite(n) ? n : 25;
-    if(state.ui.showLists) refresh();
-  });
-
-  // Init defaults
-  state.ui.showLists = false;
-  el("showLists").checked = false;
-  state.ui.topN = Number(el("topNSelect").value) || 25;
-  syncTopNVisibility();
-
-  refresh();
-})();
-</script>
+    
+    loadData();
+    setupAutoRefresh();
+  </script>
 </body>
 </html>

@@ -1,307 +1,433 @@
 {
-  "generated_at": "2026-02-10T17:07:14.840385-06:00",
+  "generated_at": "2026-04-01T07:14:27.434363-05:00",
+  "run_id": "20260331_170251",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "Jabari Smith OVER RA 6.5 (GOBLIN) [id:9826710] | Keldon Johnson OVER PTS 10.5 (STANDARD) [id:9818616] | Yanic Niederhäuser UNDER PTS 5.5 (STANDARD) [id:9819654]",
+      "legs": "Wendell Carter OVER PA 9.5 (GOBLIN) [id:10995237] | Kris Dunn OVER FG3M 0.5 (STANDARD) [id:10992290] | AJ Green UNDER REB 2.5 (STANDARD) [id:11006422]",
       "legs_detail": [
         {
-          "raw": "Jabari Smith OVER RA 6.5 (GOBLIN) [id:9826710]",
-          "player": "Jabari Smith",
+          "raw": "Wendell Carter OVER PA 9.5 (GOBLIN) [id:10995237]",
+          "player": "Wendell Carter",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 6.5,
+          "stat": "PA",
+          "line": 9.5,
           "tier": "GOBLIN",
-          "id": 9826710
+          "id": 10995237
         },
         {
-          "raw": "Keldon Johnson OVER PTS 10.5 (STANDARD) [id:9818616]",
-          "player": "Keldon Johnson",
+          "raw": "Kris Dunn OVER FG3M 0.5 (STANDARD) [id:10992290]",
+          "player": "Kris Dunn",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 10.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "STANDARD",
-          "id": 9818616,
-          "last5_val": 13.0
+          "id": 10992290
         },
         {
-          "raw": "Yanic Niederhäuser UNDER PTS 5.5 (STANDARD) [id:9819654]",
-          "player": "Yanic Niederhäuser",
+          "raw": "AJ Green UNDER REB 2.5 (STANDARD) [id:11006422]",
+          "player": "AJ Green",
           "dir": "UNDER",
-          "stat": "PTS",
-          "line": 5.5,
+          "stat": "REB",
+          "line": 2.5,
           "tier": "STANDARD",
-          "id": 9819654
+          "id": 11006422
         }
       ],
-      "ev_mult": 3.202310366651746,
-      "hit_prob": 0.5337183944419577,
-      "avg_fragility": 0.0
+      "hit_prob": 0.3932399639529999,
+      "ev_mult": 2.0517926406129927,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0390103409401342
     },
     {
       "product": "System",
       "n_legs": 4,
-      "legs": "Pascal Siakam OVER PR 23.5 (GOBLIN) [id:9831911] | Jose Alvarado OVER RA 4.5 (GOBLIN) [id:9822327] | Guerschon Yabusele UNDER PR 12.5 (STANDARD) [id:9831927] | Franz Wagner OVER RA 6.5 (STANDARD) [id:9823031]",
+      "legs": "Paolo Banchero OVER PRA 29.5 (GOBLIN) [id:10986365] | Bennedict Mathurin OVER FG3M 0.5 (GOBLIN) [id:10976284] | Coby White UNDER PTS 15 (STANDARD) [id:10974433] | Ausar Thompson UNDER PRA 18.5 (STANDARD) [id:10995084]",
       "legs_detail": [
         {
-          "raw": "Pascal Siakam OVER PR 23.5 (GOBLIN) [id:9831911]",
-          "player": "Pascal Siakam",
+          "raw": "Paolo Banchero OVER PRA 29.5 (GOBLIN) [id:10986365]",
+          "player": "Paolo Banchero",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 23.5,
+          "stat": "PRA",
+          "line": 29.5,
           "tier": "GOBLIN",
-          "id": 9831911,
-          "last5_val": 26.4
+          "id": 10986365
         },
         {
-          "raw": "Jose Alvarado OVER RA 4.5 (GOBLIN) [id:9822327]",
-          "player": "Jose Alvarado",
+          "raw": "Bennedict Mathurin OVER FG3M 0.5 (GOBLIN) [id:10976284]",
+          "player": "Bennedict Mathurin",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 4.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 9822327,
-          "last5_val": 4.2
+          "id": 10976284
         },
         {
-          "raw": "Guerschon Yabusele UNDER PR 12.5 (STANDARD) [id:9831927]",
-          "player": "Guerschon Yabusele",
+          "raw": "Coby White UNDER PTS 15 (STANDARD) [id:10974433]",
+          "player": "Coby White",
           "dir": "UNDER",
-          "stat": "PR",
-          "line": 12.5,
+          "stat": "PTS",
+          "line": 15.0,
           "tier": "STANDARD",
-          "id": 9831927,
-          "last5_val": 11.2
+          "id": 10974433
         },
         {
-          "raw": "Franz Wagner OVER RA 6.5 (STANDARD) [id:9823031]",
-          "player": "Franz Wagner",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 6.5,
+          "raw": "Ausar Thompson UNDER PRA 18.5 (STANDARD) [id:10995084]",
+          "player": "Ausar Thompson",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 18.5,
           "tier": "STANDARD",
-          "id": 9823031,
-          "last5_val": 7.4
+          "id": 10995084
         }
       ],
-      "ev_mult": 4.026056197346424,
-      "hit_prob": 0.4026056197346424,
-      "avg_fragility": 0.002764924952037
+      "hit_prob": 0.3440796158889999,
+      "ev_mult": 2.080099480412045,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0283327569199712
     },
     {
       "product": "System",
       "n_legs": 5,
-      "legs": "Nikola Vučević OVER PTS 10.5 (GOBLIN) [id:9831750] | Kris Dunn OVER PTS 4.5 (GOBLIN) [id:9822521] | Julian Champagnie OVER AST 0.5 (GOBLIN) [id:9822732] | Bronny James UNDER PA 8.5 (STANDARD) [id:9831914] | Luke Kornet OVER PR 9.5 (STANDARD) [id:9827363]",
+      "legs": "Paolo Banchero OVER RA 10.5 (GOBLIN) [id:11002048] | Nic Claxton OVER PRA 14.5 (GOBLIN) [id:10987745] | John Collins OVER PR 13.5 (GOBLIN) [id:10995840] | Duncan Robinson OVER PRA 16.5 (STANDARD) [id:10979339] | Evan Mobley UNDER PR 25.5 (STANDARD) [id:10976041]",
       "legs_detail": [
         {
-          "raw": "Nikola Vučević OVER PTS 10.5 (GOBLIN) [id:9831750]",
-          "player": "Nikola Vučević",
+          "raw": "Paolo Banchero OVER RA 10.5 (GOBLIN) [id:11002048]",
+          "player": "Paolo Banchero",
           "dir": "OVER",
-          "stat": "PTS",
+          "stat": "RA",
           "line": 10.5,
           "tier": "GOBLIN",
-          "id": 9831750,
-          "last5_val": 14.8
+          "id": 11002048
         },
         {
-          "raw": "Kris Dunn OVER PTS 4.5 (GOBLIN) [id:9822521]",
-          "player": "Kris Dunn",
+          "raw": "Nic Claxton OVER PRA 14.5 (GOBLIN) [id:10987745]",
+          "player": "Nic Claxton",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 4.5,
+          "stat": "PRA",
+          "line": 14.5,
           "tier": "GOBLIN",
-          "id": 9822521,
-          "last5_val": 8.0
+          "id": 10987745
         },
         {
-          "raw": "Julian Champagnie OVER AST 0.5 (GOBLIN) [id:9822732]",
-          "player": "Julian Champagnie",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 9822732,
-          "last5_val": 1.2
-        },
-        {
-          "raw": "Bronny James UNDER PA 8.5 (STANDARD) [id:9831914]",
-          "player": "Bronny James",
-          "dir": "UNDER",
-          "stat": "PA",
-          "line": 8.5,
-          "tier": "STANDARD",
-          "id": 9831914,
-          "last5_val": 4.0
-        },
-        {
-          "raw": "Luke Kornet OVER PR 9.5 (STANDARD) [id:9827363]",
-          "player": "Luke Kornet",
+          "raw": "John Collins OVER PR 13.5 (GOBLIN) [id:10995840]",
+          "player": "John Collins",
           "dir": "OVER",
           "stat": "PR",
-          "line": 9.5,
+          "line": 13.5,
+          "tier": "GOBLIN",
+          "id": 10995840
+        },
+        {
+          "raw": "Duncan Robinson OVER PRA 16.5 (STANDARD) [id:10979339]",
+          "player": "Duncan Robinson",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 16.5,
           "tier": "STANDARD",
-          "id": 9827363,
-          "last5_val": 8.8
+          "id": 10979339
+        },
+        {
+          "raw": "Evan Mobley UNDER PR 25.5 (STANDARD) [id:10976041]",
+          "player": "Evan Mobley",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 25.5,
+          "tier": "STANDARD",
+          "id": 10976041
         }
       ],
-      "ev_mult": 6.274444389715846,
-      "hit_prob": 0.3137222194857923,
-      "avg_fragility": 0.0020419487293308
+      "hit_prob": 0.2498587997141374,
+      "ev_mult": 2.037446928671847,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0995021843786967
     }
   ],
   "windfall": [
     {
       "product": "Windfall",
       "n_legs": 3,
-      "legs": "Wendell Carter OVER PR 11.5 (GOBLIN) [id:9826953] | Nikola Vučević OVER PA 15.5 (STANDARD) [id:9831752] | Paolo Banchero OVER PRA 34.5 (DEMON) [id:9830102]",
+      "legs": "Desmond Bane OVER PA 20.5 (GOBLIN) [id:11002032] | Jabari Smith OVER RA 8.5 (STANDARD) [id:10976423] | Kawhi Leonard OVER FG3M 3.5 (DEMON) [id:10992224]",
       "legs_detail": [
         {
-          "raw": "Wendell Carter OVER PR 11.5 (GOBLIN) [id:9826953]",
-          "player": "Wendell Carter",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 11.5,
-          "tier": "GOBLIN",
-          "id": 9826953
-        },
-        {
-          "raw": "Nikola Vučević OVER PA 15.5 (STANDARD) [id:9831752]",
-          "player": "Nikola Vučević",
+          "raw": "Desmond Bane OVER PA 20.5 (GOBLIN) [id:11002032]",
+          "player": "Desmond Bane",
           "dir": "OVER",
           "stat": "PA",
-          "line": 15.5,
-          "tier": "STANDARD",
-          "id": 9831752,
-          "last5_val": 17.2
+          "line": 20.5,
+          "tier": "GOBLIN",
+          "id": 11002032
         },
         {
-          "raw": "Paolo Banchero OVER PRA 34.5 (DEMON) [id:9830102]",
-          "player": "Paolo Banchero",
+          "raw": "Jabari Smith OVER RA 8.5 (STANDARD) [id:10976423]",
+          "player": "Jabari Smith",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 34.5,
+          "stat": "RA",
+          "line": 8.5,
+          "tier": "STANDARD",
+          "id": 10976423
+        },
+        {
+          "raw": "Kawhi Leonard OVER FG3M 3.5 (DEMON) [id:10992224]",
+          "player": "Kawhi Leonard",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 3.5,
           "tier": "DEMON",
-          "id": 9830102,
-          "last5_val": 29.8
+          "id": 10992224
         }
       ],
-      "ev_mult": 2.495273024985084,
-      "hit_prob": 0.415878837497514,
-      "avg_fragility": 0.0008087670346556
+      "hit_prob": 0.260703294852,
+      "ev_mult": 0.9975713188791764,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0581487997371513
     },
     {
       "product": "Windfall",
       "n_legs": 4,
-      "legs": "Andrew Nembhard OVER REB 1.5 (GOBLIN) [id:9826307] | Jaylen Brown OVER REB 6.5 (STANDARD) [id:9831640] | Franz Wagner OVER RA 6.5 (STANDARD) [id:9823031] | De'Aaron Fox OVER AST 6.5 (DEMON) [id:9821501]",
+      "legs": "Paolo Banchero OVER PR 24.5 (GOBLIN) [id:10986359] | Kris Dunn OVER FG3M 0.5 (STANDARD) [id:10992290] | Jamal Shead UNDER PR 10.5 (STANDARD) [id:10978777] | Donovan Mitchell OVER PR 34.5 (DEMON) [id:10978918]",
       "legs_detail": [
         {
-          "raw": "Andrew Nembhard OVER REB 1.5 (GOBLIN) [id:9826307]",
-          "player": "Andrew Nembhard",
+          "raw": "Paolo Banchero OVER PR 24.5 (GOBLIN) [id:10986359]",
+          "player": "Paolo Banchero",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
+          "stat": "PR",
+          "line": 24.5,
           "tier": "GOBLIN",
-          "id": 9826307,
-          "last5_val": 3.6
+          "id": 10986359
         },
         {
-          "raw": "Jaylen Brown OVER REB 6.5 (STANDARD) [id:9831640]",
-          "player": "Jaylen Brown",
+          "raw": "Kris Dunn OVER FG3M 0.5 (STANDARD) [id:10992290]",
+          "player": "Kris Dunn",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 6.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "STANDARD",
-          "id": 9831640,
-          "last5_val": 8.0
+          "id": 10992290
         },
         {
-          "raw": "Franz Wagner OVER RA 6.5 (STANDARD) [id:9823031]",
-          "player": "Franz Wagner",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 6.5,
+          "raw": "Jamal Shead UNDER PR 10.5 (STANDARD) [id:10978777]",
+          "player": "Jamal Shead",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 10.5,
           "tier": "STANDARD",
-          "id": 9823031,
-          "last5_val": 7.4
+          "id": 10978777
         },
         {
-          "raw": "De'Aaron Fox OVER AST 6.5 (DEMON) [id:9821501]",
-          "player": "De'Aaron Fox",
+          "raw": "Donovan Mitchell OVER PR 34.5 (DEMON) [id:10978918]",
+          "player": "Donovan Mitchell",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 6.5,
+          "stat": "PR",
+          "line": 34.5,
           "tier": "DEMON",
-          "id": 9821501,
-          "last5_val": 7.8
+          "id": 10978918
         }
       ],
-      "ev_mult": 2.4756769566683943,
-      "hit_prob": 0.2475676956668394,
-      "avg_fragility": 0.0
+      "hit_prob": 0.1677616739818451,
+      "ev_mult": 1.3031779205993053,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0576118001377546
     },
     {
       "product": "Windfall",
       "n_legs": 5,
-      "legs": "Luke Kornet OVER AST 0.5 (GOBLIN) [id:9825517] | Myles Turner OVER RA 5.5 (GOBLIN) [id:9830581] | Guerschon Yabusele UNDER PR 12.5 (STANDARD) [id:9831927] | Franz Wagner OVER RA 6.5 (STANDARD) [id:9823031] | Bennedict Mathurin OVER FG3M 1.5 (DEMON) [id:9821670]",
+      "legs": "Wendell Carter OVER PRA 14.5 (GOBLIN) [id:11001469] | Kris Dunn OVER PTS 3.5 (GOBLIN) [id:11006162] | Jaxson Hayes UNDER PRA 12.5 (STANDARD) [id:10995430] | Brandon Williams UNDER PRA 22.5 (STANDARD) [id:11005884] | Jose Alvarado OVER REB 2.5 (DEMON) [id:10996202]",
       "legs_detail": [
         {
-          "raw": "Luke Kornet OVER AST 0.5 (GOBLIN) [id:9825517]",
-          "player": "Luke Kornet",
+          "raw": "Wendell Carter OVER PRA 14.5 (GOBLIN) [id:11001469]",
+          "player": "Wendell Carter",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 0.5,
+          "stat": "PRA",
+          "line": 14.5,
           "tier": "GOBLIN",
-          "id": 9825517,
-          "last5_val": 2.2
+          "id": 11001469
         },
         {
-          "raw": "Myles Turner OVER RA 5.5 (GOBLIN) [id:9830581]",
-          "player": "Myles Turner",
+          "raw": "Kris Dunn OVER PTS 3.5 (GOBLIN) [id:11006162]",
+          "player": "Kris Dunn",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11006162
+        },
+        {
+          "raw": "Jaxson Hayes UNDER PRA 12.5 (STANDARD) [id:10995430]",
+          "player": "Jaxson Hayes",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 12.5,
+          "tier": "STANDARD",
+          "id": 10995430
+        },
+        {
+          "raw": "Brandon Williams UNDER PRA 22.5 (STANDARD) [id:11005884]",
+          "player": "Brandon Williams",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 22.5,
+          "tier": "STANDARD",
+          "id": 11005884
+        },
+        {
+          "raw": "Jose Alvarado OVER REB 2.5 (DEMON) [id:10996202]",
+          "player": "Jose Alvarado",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 2.5,
+          "tier": "DEMON",
+          "id": 10996202
+        }
+      ],
+      "hit_prob": 0.1467891812528698,
+      "ev_mult": 1.5853881109817436,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0571647640203814
+    }
+  ],
+  "demonhunter": [
+    {
+      "product": "Demonhunter",
+      "n_legs": 3,
+      "legs": "Desmond Bane OVER PRA 29.5 (DEMON) [id:10979972] | Tari Eason OVER PR 17.5 (DEMON) [id:10995707] | Kris Dunn OVER PRA 13.5 (DEMON) [id:11006167]",
+      "legs_detail": [
+        {
+          "raw": "Desmond Bane OVER PRA 29.5 (DEMON) [id:10979972]",
+          "player": "Desmond Bane",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 29.5,
+          "tier": "DEMON",
+          "id": 10979972
+        },
+        {
+          "raw": "Tari Eason OVER PR 17.5 (DEMON) [id:10995707]",
+          "player": "Tari Eason",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 17.5,
+          "tier": "DEMON",
+          "id": 10995707
+        },
+        {
+          "raw": "Kris Dunn OVER PRA 13.5 (DEMON) [id:11006167]",
+          "player": "Kris Dunn",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 13.5,
+          "tier": "DEMON",
+          "id": 11006167
+        }
+      ],
+      "hit_prob": 0.1776982564544935,
+      "ev_mult": 0.0739938349319263,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0695090404612086
+    },
+    {
+      "product": "Demonhunter",
+      "n_legs": 4,
+      "legs": "Noah Clowney OVER RA 5.5 (DEMON) [id:10993672] | Alperen Sengun OVER PRA 39.5 (DEMON) [id:10976496] | Kawhi Leonard OVER FG3M 3.5 (DEMON) [id:10992224] | Paolo Banchero OVER PR 34.5 (DEMON) [id:10986357]",
+      "legs_detail": [
+        {
+          "raw": "Noah Clowney OVER RA 5.5 (DEMON) [id:10993672]",
+          "player": "Noah Clowney",
           "dir": "OVER",
           "stat": "RA",
           "line": 5.5,
-          "tier": "GOBLIN",
-          "id": 9830581,
-          "last5_val": 8.2
+          "tier": "DEMON",
+          "id": 10993672
         },
         {
-          "raw": "Guerschon Yabusele UNDER PR 12.5 (STANDARD) [id:9831927]",
-          "player": "Guerschon Yabusele",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 12.5,
-          "tier": "STANDARD",
-          "id": 9831927,
-          "last5_val": 11.2
-        },
-        {
-          "raw": "Franz Wagner OVER RA 6.5 (STANDARD) [id:9823031]",
-          "player": "Franz Wagner",
+          "raw": "Alperen Sengun OVER PRA 39.5 (DEMON) [id:10976496]",
+          "player": "Alperen Sengun",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 6.5,
-          "tier": "STANDARD",
-          "id": 9823031,
-          "last5_val": 7.4
+          "stat": "PRA",
+          "line": 39.5,
+          "tier": "DEMON",
+          "id": 10976496
         },
         {
-          "raw": "Bennedict Mathurin OVER FG3M 1.5 (DEMON) [id:9821670]",
-          "player": "Bennedict Mathurin",
+          "raw": "Kawhi Leonard OVER FG3M 3.5 (DEMON) [id:10992224]",
+          "player": "Kawhi Leonard",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 3.5,
+          "tier": "DEMON",
+          "id": 10992224
+        },
+        {
+          "raw": "Paolo Banchero OVER PR 34.5 (DEMON) [id:10986357]",
+          "player": "Paolo Banchero",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 34.5,
+          "tier": "DEMON",
+          "id": 10986357
+        }
+      ],
+      "hit_prob": 0.0487823716230495,
+      "ev_mult": 0.1221162441756062,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0978220083180432
+    },
+    {
+      "product": "Demonhunter",
+      "n_legs": 5,
+      "legs": "Alperen Sengun OVER PRA 37.5 (DEMON) [id:10976495] | Paolo Banchero OVER FG3M 1.5 (DEMON) [id:10986321] | Luka Don\u010di\u0107 OVER PA 44.5 (DEMON) [id:10991961] | Sandro Mamukelashvili OVER FG3M 1.5 (DEMON) [id:10989713] | Bennedict Mathurin OVER PRA 28.5 (DEMON) [id:10976822]",
+      "legs_detail": [
+        {
+          "raw": "Alperen Sengun OVER PRA 37.5 (DEMON) [id:10976495]",
+          "player": "Alperen Sengun",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 37.5,
+          "tier": "DEMON",
+          "id": 10976495
+        },
+        {
+          "raw": "Paolo Banchero OVER FG3M 1.5 (DEMON) [id:10986321]",
+          "player": "Paolo Banchero",
           "dir": "OVER",
           "stat": "FG3M",
           "line": 1.5,
           "tier": "DEMON",
-          "id": 9821670,
-          "last5_val": 1.0
+          "id": 10986321
+        },
+        {
+          "raw": "Luka Don\u010di\u0107 OVER PA 44.5 (DEMON) [id:10991961]",
+          "player": "Luka Don\u010di\u0107",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 44.5,
+          "tier": "DEMON",
+          "id": 10991961
+        },
+        {
+          "raw": "Sandro Mamukelashvili OVER FG3M 1.5 (DEMON) [id:10989713]",
+          "player": "Sandro Mamukelashvili",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 1.5,
+          "tier": "DEMON",
+          "id": 10989713
+        },
+        {
+          "raw": "Bennedict Mathurin OVER PRA 28.5 (DEMON) [id:10976822]",
+          "player": "Bennedict Mathurin",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 28.5,
+          "tier": "DEMON",
+          "id": 10976822
         }
       ],
-      "ev_mult": 5.569943889492776,
-      "hit_prob": 0.2784971944746388,
-      "avg_fragility": 0.0022119399616296
+      "hit_prob": 0.0247848289263711,
+      "ev_mult": 0.0688105166308154,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0447549448704549
     }
-  ],
-  "gamescript": [],
-  "status": null,
-  "invalidations": null
+  ]
 }
