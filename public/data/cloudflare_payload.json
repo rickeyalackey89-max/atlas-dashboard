@@ -1,577 +1,719 @@
 {
-  "generated_at": "2026-04-02T19:08:09.188031-05:00",
-  "run_id": "20260402_190808",
+  "generated_at": "2026-04-03T11:28:36.820486-05:00",
+  "run_id": "20260403_112836",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "Derik Queen OVER REB 2.5 (GOBLIN) [id:11074424] | Cason Wallace OVER RA 3.5 (STANDARD) [id:11062013] | Saddiq Bey OVER PA 18.5 (STANDARD) [id:11057218]",
+      "legs": "Dylan Cardwell OVER REB 3.5 (GOBLIN) [id:11091011] | Precious Achiuwa OVER PR 22.5 (STANDARD) [id:11086940] | Cooper Flagg UNDER PRA 36.5 (STANDARD) [id:11078938]",
       "legs_detail": [
         {
-          "raw": "Derik Queen OVER REB 2.5 (GOBLIN) [id:11074424]",
-          "player": "Derik Queen",
+          "raw": "Dylan Cardwell OVER REB 3.5 (GOBLIN) [id:11091011]",
+          "player": "Dylan Cardwell",
           "dir": "OVER",
           "stat": "REB",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11074424
-        },
-        {
-          "raw": "Cason Wallace OVER RA 3.5 (STANDARD) [id:11062013]",
-          "player": "Cason Wallace",
-          "dir": "OVER",
-          "stat": "RA",
           "line": 3.5,
-          "tier": "STANDARD",
-          "id": 11062013
+          "tier": "GOBLIN",
+          "id": 11091011
         },
         {
-          "raw": "Saddiq Bey OVER PA 18.5 (STANDARD) [id:11057218]",
-          "player": "Saddiq Bey",
+          "raw": "Precious Achiuwa OVER PR 22.5 (STANDARD) [id:11086940]",
+          "player": "Precious Achiuwa",
           "dir": "OVER",
-          "stat": "PA",
-          "line": 18.5,
+          "stat": "PR",
+          "line": 22.5,
           "tier": "STANDARD",
-          "id": 11057218
+          "id": 11086940
+        },
+        {
+          "raw": "Cooper Flagg UNDER PRA 36.5 (STANDARD) [id:11078938]",
+          "player": "Cooper Flagg",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 36.5,
+          "tier": "STANDARD",
+          "id": 11078938
         }
       ],
-      "hit_prob": 0.3657397782540489,
-      "ev_mult": 1.8521589465988888,
+      "hit_prob": 0.4413837645848606,
+      "ev_mult": 1.985737175076657,
       "payout_mult": 6.0,
-      "avg_fragility": 0.1177207344989401
+      "avg_fragility": 0.1439644146155659
     },
     {
       "product": "System",
       "n_legs": 4,
-      "legs": "Luguentz Dort OVER RA 1.5 (GOBLIN) [id:11068747] | Evan Mobley OVER RA 8.5 (GOBLIN) [id:11062367] | Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535] | Jeremiah Fears OVER REB 2.5 (STANDARD) [id:11075461]",
+      "legs": "VJ Edgecombe OVER PA 14.5 (GOBLIN) [id:11084135] | Saddiq Bey OVER FG3M 1.5 (GOBLIN) [id:11086945] | Donte DiVincenzo UNDER RA 7.5 (STANDARD) [id:11083394] | Javon Small OVER FG3M 1.5 (STANDARD) [id:11076370]",
       "legs_detail": [
         {
-          "raw": "Luguentz Dort OVER RA 1.5 (GOBLIN) [id:11068747]",
-          "player": "Luguentz Dort",
+          "raw": "VJ Edgecombe OVER PA 14.5 (GOBLIN) [id:11084135]",
+          "player": "VJ Edgecombe",
           "dir": "OVER",
-          "stat": "RA",
+          "stat": "PA",
+          "line": 14.5,
+          "tier": "GOBLIN",
+          "id": 11084135
+        },
+        {
+          "raw": "Saddiq Bey OVER FG3M 1.5 (GOBLIN) [id:11086945]",
+          "player": "Saddiq Bey",
+          "dir": "OVER",
+          "stat": "FG3M",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11068747
+          "id": 11086945
         },
         {
-          "raw": "Evan Mobley OVER RA 8.5 (GOBLIN) [id:11062367]",
-          "player": "Evan Mobley",
-          "dir": "OVER",
+          "raw": "Donte DiVincenzo UNDER RA 7.5 (STANDARD) [id:11083394]",
+          "player": "Donte DiVincenzo",
+          "dir": "UNDER",
           "stat": "RA",
-          "line": 8.5,
-          "tier": "GOBLIN",
-          "id": 11062367
+          "line": 7.5,
+          "tier": "STANDARD",
+          "id": 11083394
         },
         {
-          "raw": "Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535]",
-          "player": "Derik Queen",
+          "raw": "Javon Small OVER FG3M 1.5 (STANDARD) [id:11076370]",
+          "player": "Javon Small",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 15.5,
+          "stat": "FG3M",
+          "line": 1.5,
           "tier": "STANDARD",
-          "id": 11057535
-        },
-        {
-          "raw": "Jeremiah Fears OVER REB 2.5 (STANDARD) [id:11075461]",
-          "player": "Jeremiah Fears",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
-          "tier": "STANDARD",
-          "id": 11075461
+          "id": 11076370
         }
       ],
-      "hit_prob": 0.2596554707154469,
-      "ev_mult": 1.491610018172601,
+      "hit_prob": 0.278790759851364,
+      "ev_mult": 1.6694961663451953,
       "payout_mult": 10.0,
-      "avg_fragility": 0.119651104406467
+      "avg_fragility": 0.1225132270892856
     },
     {
       "product": "System",
       "n_legs": 5,
-      "legs": "Luguentz Dort OVER RA 2.5 (GOBLIN) [id:11053006] | James Harden OVER PTS 14.5 (GOBLIN) [id:11057480] | Derik Queen OVER PA 7.5 (GOBLIN) [id:11058984] | Jaylin Williams OVER PRA 10 (STANDARD) [id:11064958] | Jeremiah Fears OVER RA 5.5 (STANDARD) [id:11075465]",
+      "legs": "Saddiq Bey OVER FG3M 1.5 (GOBLIN) [id:11086945] | Tre Jones OVER PTS 9.5 (GOBLIN) [id:11087690] | Matas Buzelis OVER PTS 11.5 (GOBLIN) [id:11087803] | Trey Murphy UNDER RA 10.5 (STANDARD) [id:11087982] | Brandon Ingram UNDER PRA 29.5 (STANDARD) [id:11076152]",
       "legs_detail": [
         {
-          "raw": "Luguentz Dort OVER RA 2.5 (GOBLIN) [id:11053006]",
-          "player": "Luguentz Dort",
+          "raw": "Saddiq Bey OVER FG3M 1.5 (GOBLIN) [id:11086945]",
+          "player": "Saddiq Bey",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 2.5,
+          "stat": "FG3M",
+          "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11053006
+          "id": 11086945
         },
         {
-          "raw": "James Harden OVER PTS 14.5 (GOBLIN) [id:11057480]",
-          "player": "James Harden",
+          "raw": "Tre Jones OVER PTS 9.5 (GOBLIN) [id:11087690]",
+          "player": "Tre Jones",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 14.5,
+          "line": 9.5,
           "tier": "GOBLIN",
-          "id": 11057480
+          "id": 11087690
         },
         {
-          "raw": "Derik Queen OVER PA 7.5 (GOBLIN) [id:11058984]",
-          "player": "Derik Queen",
+          "raw": "Matas Buzelis OVER PTS 11.5 (GOBLIN) [id:11087803]",
+          "player": "Matas Buzelis",
           "dir": "OVER",
-          "stat": "PA",
-          "line": 7.5,
+          "stat": "PTS",
+          "line": 11.5,
           "tier": "GOBLIN",
-          "id": 11058984
+          "id": 11087803
         },
         {
-          "raw": "Jaylin Williams OVER PRA 10 (STANDARD) [id:11064958]",
-          "player": "Jaylin Williams",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 10.0,
-          "tier": "STANDARD",
-          "id": 11064958
-        },
-        {
-          "raw": "Jeremiah Fears OVER RA 5.5 (STANDARD) [id:11075465]",
-          "player": "Jeremiah Fears",
-          "dir": "OVER",
+          "raw": "Trey Murphy UNDER RA 10.5 (STANDARD) [id:11087982]",
+          "player": "Trey Murphy",
+          "dir": "UNDER",
           "stat": "RA",
-          "line": 5.5,
+          "line": 10.5,
           "tier": "STANDARD",
-          "id": 11075465
+          "id": 11087982
+        },
+        {
+          "raw": "Brandon Ingram UNDER PRA 29.5 (STANDARD) [id:11076152]",
+          "player": "Brandon Ingram",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 29.5,
+          "tier": "STANDARD",
+          "id": 11076152
         }
       ],
-      "hit_prob": 0.1896005220151296,
-      "ev_mult": 1.5312279465721228,
+      "hit_prob": 0.2072753231205146,
+      "ev_mult": 1.809722845958698,
       "payout_mult": 20.0,
-      "avg_fragility": 0.1350530289596946
+      "avg_fragility": 0.1159574446146808
     }
   ],
   "system_winprob": [
     {
       "product": "System WinProb",
       "n_legs": 3,
-      "legs": "Kris Dunn OVER AST 1.5 (GOBLIN) [id:11058338] | Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535] | Cason Wallace OVER RA 3.5 (STANDARD) [id:11062013]",
+      "legs": "Sandro Mamukelashvili OVER FG3M 0.5 (GOBLIN) [id:11076496] | Cooper Flagg UNDER PRA 36.5 (STANDARD) [id:11078938] | Max Christie UNDER PRA 15.5 (STANDARD) [id:11079240]",
       "legs_detail": [
         {
-          "raw": "Kris Dunn OVER AST 1.5 (GOBLIN) [id:11058338]",
-          "player": "Kris Dunn",
+          "raw": "Sandro Mamukelashvili OVER FG3M 0.5 (GOBLIN) [id:11076496]",
+          "player": "Sandro Mamukelashvili",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11058338
+          "id": 11076496
         },
         {
-          "raw": "Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535]",
-          "player": "Derik Queen",
-          "dir": "OVER",
+          "raw": "Cooper Flagg UNDER PRA 36.5 (STANDARD) [id:11078938]",
+          "player": "Cooper Flagg",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 36.5,
+          "tier": "STANDARD",
+          "id": 11078938
+        },
+        {
+          "raw": "Max Christie UNDER PRA 15.5 (STANDARD) [id:11079240]",
+          "player": "Max Christie",
+          "dir": "UNDER",
           "stat": "PRA",
           "line": 15.5,
           "tier": "STANDARD",
-          "id": 11057535
-        },
-        {
-          "raw": "Cason Wallace OVER RA 3.5 (STANDARD) [id:11062013]",
-          "player": "Cason Wallace",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 3.5,
-          "tier": "STANDARD",
-          "id": 11062013
+          "id": 11079240
         }
       ],
-      "hit_prob": 0.3831714922551363,
-      "ev_mult": 2.299028953530818,
+      "hit_prob": 0.5651997278952616,
+      "ev_mult": 3.3911983673715698,
       "payout_mult": 6.0,
-      "avg_fragility": 0.109841655518006
+      "avg_fragility": 0.2887185944848527
     },
     {
       "product": "System WinProb",
       "n_legs": 4,
-      "legs": "Kris Dunn OVER REB 1.5 (GOBLIN) [id:11076776] | Trey Murphy OVER PRA 24.5 (GOBLIN) [id:11058028] | Cason Wallace OVER RA 3.5 (STANDARD) [id:11062013] | Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535]",
+      "legs": "Naz Reid OVER PTS 9.5 (GOBLIN) [id:11081367] | VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:11081447] | Kelly Oubre OVER RA 5.5 (STANDARD) [id:11092651] | DeMar DeRozan OVER AST 4 (STANDARD) [id:11092580]",
       "legs_detail": [
         {
-          "raw": "Kris Dunn OVER REB 1.5 (GOBLIN) [id:11076776]",
-          "player": "Kris Dunn",
+          "raw": "Naz Reid OVER PTS 9.5 (GOBLIN) [id:11081367]",
+          "player": "Naz Reid",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 9.5,
+          "tier": "GOBLIN",
+          "id": 11081367
+        },
+        {
+          "raw": "VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:11081447]",
+          "player": "VJ Edgecombe",
           "dir": "OVER",
           "stat": "REB",
-          "line": 1.5,
+          "line": 3.5,
           "tier": "GOBLIN",
-          "id": 11076776
+          "id": 11081447
         },
         {
-          "raw": "Trey Murphy OVER PRA 24.5 (GOBLIN) [id:11058028]",
-          "player": "Trey Murphy",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 24.5,
-          "tier": "GOBLIN",
-          "id": 11058028
-        },
-        {
-          "raw": "Cason Wallace OVER RA 3.5 (STANDARD) [id:11062013]",
-          "player": "Cason Wallace",
+          "raw": "Kelly Oubre OVER RA 5.5 (STANDARD) [id:11092651]",
+          "player": "Kelly Oubre",
           "dir": "OVER",
           "stat": "RA",
-          "line": 3.5,
+          "line": 5.5,
           "tier": "STANDARD",
-          "id": 11062013
+          "id": 11092651
         },
         {
-          "raw": "Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535]",
-          "player": "Derik Queen",
+          "raw": "DeMar DeRozan OVER AST 4 (STANDARD) [id:11092580]",
+          "player": "DeMar DeRozan",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 15.5,
+          "stat": "AST",
+          "line": 4.0,
           "tier": "STANDARD",
-          "id": 11057535
+          "id": 11092580
         }
       ],
-      "hit_prob": 0.2796478511649019,
-      "ev_mult": 2.7964785116490187,
+      "hit_prob": 0.1296,
+      "ev_mult": 1.2959999999999998,
       "payout_mult": 10.0,
-      "avg_fragility": 0.1125709085686074
+      "avg_fragility": 0.0592484091655184
     },
     {
       "product": "System WinProb",
       "n_legs": 5,
-      "legs": "James Harden OVER PR 19.5 (GOBLIN) [id:11058957] | Kris Dunn OVER REB 1.5 (GOBLIN) [id:11076776] | Dennis Schr\u00f6der OVER PRA 9.5 (GOBLIN) [id:11075703] | Cason Wallace OVER PA 7.5 (STANDARD) [id:11052740] | Derik Queen OVER PA 10.5 (STANDARD) [id:11057533]",
+      "legs": "Saddiq Bey OVER FG3M 1.5 (GOBLIN) [id:11086945] | Dylan Cardwell OVER REB 4.5 (GOBLIN) [id:11087234] | Brice Sensabaugh OVER FG3M 1.5 (GOBLIN) [id:11092398] | Cooper Flagg UNDER PRA 36.5 (STANDARD) [id:11078938] | Donte DiVincenzo UNDER RA 7.5 (STANDARD) [id:11083394]",
       "legs_detail": [
         {
-          "raw": "James Harden OVER PR 19.5 (GOBLIN) [id:11058957]",
-          "player": "James Harden",
+          "raw": "Saddiq Bey OVER FG3M 1.5 (GOBLIN) [id:11086945]",
+          "player": "Saddiq Bey",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 19.5,
-          "tier": "GOBLIN",
-          "id": 11058957
-        },
-        {
-          "raw": "Kris Dunn OVER REB 1.5 (GOBLIN) [id:11076776]",
-          "player": "Kris Dunn",
-          "dir": "OVER",
-          "stat": "REB",
+          "stat": "FG3M",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11076776
+          "id": 11086945
         },
         {
-          "raw": "Dennis Schr\u00f6der OVER PRA 9.5 (GOBLIN) [id:11075703]",
-          "player": "Dennis Schr\u00f6der",
+          "raw": "Dylan Cardwell OVER REB 4.5 (GOBLIN) [id:11087234]",
+          "player": "Dylan Cardwell",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 9.5,
+          "stat": "REB",
+          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11075703
+          "id": 11087234
         },
         {
-          "raw": "Cason Wallace OVER PA 7.5 (STANDARD) [id:11052740]",
-          "player": "Cason Wallace",
+          "raw": "Brice Sensabaugh OVER FG3M 1.5 (GOBLIN) [id:11092398]",
+          "player": "Brice Sensabaugh",
           "dir": "OVER",
-          "stat": "PA",
+          "stat": "FG3M",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11092398
+        },
+        {
+          "raw": "Cooper Flagg UNDER PRA 36.5 (STANDARD) [id:11078938]",
+          "player": "Cooper Flagg",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 36.5,
+          "tier": "STANDARD",
+          "id": 11078938
+        },
+        {
+          "raw": "Donte DiVincenzo UNDER RA 7.5 (STANDARD) [id:11083394]",
+          "player": "Donte DiVincenzo",
+          "dir": "UNDER",
+          "stat": "RA",
           "line": 7.5,
           "tier": "STANDARD",
-          "id": 11052740
-        },
-        {
-          "raw": "Derik Queen OVER PA 10.5 (STANDARD) [id:11057533]",
-          "player": "Derik Queen",
-          "dir": "OVER",
-          "stat": "PA",
-          "line": 10.5,
-          "tier": "STANDARD",
-          "id": 11057533
+          "id": 11083394
         }
       ],
-      "hit_prob": 0.1932535371762595,
-      "ev_mult": 3.86507074352519,
+      "hit_prob": 0.2828936574669549,
+      "ev_mult": 5.657873149339098,
       "payout_mult": 20.0,
-      "avg_fragility": 0.1175018965275671
+      "avg_fragility": 0.1645322818150228
     }
   ],
   "windfall": [
     {
       "product": "Windfall",
       "n_legs": 3,
-      "legs": "Derik Queen OVER REB 2.5 (GOBLIN) [id:11074424] | Saddiq Bey OVER PTS 16.5 (STANDARD) [id:11056918] | Jarrett Allen OVER AST 1.5 (DEMON) [id:11061702]",
+      "legs": "Matas Buzelis OVER FG3M 1.5 (GOBLIN) [id:11082079] | Ayo Dosunmu OVER AST 4 (STANDARD) [id:11092560] | Josh Hart OVER FG3M 1.5 (DEMON) [id:11082019]",
       "legs_detail": [
         {
-          "raw": "Derik Queen OVER REB 2.5 (GOBLIN) [id:11074424]",
-          "player": "Derik Queen",
+          "raw": "Matas Buzelis OVER FG3M 1.5 (GOBLIN) [id:11082079]",
+          "player": "Matas Buzelis",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
+          "stat": "FG3M",
+          "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11074424
+          "id": 11082079
         },
         {
-          "raw": "Saddiq Bey OVER PTS 16.5 (STANDARD) [id:11056918]",
-          "player": "Saddiq Bey",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 16.5,
-          "tier": "STANDARD",
-          "id": 11056918
-        },
-        {
-          "raw": "Jarrett Allen OVER AST 1.5 (DEMON) [id:11061702]",
-          "player": "Jarrett Allen",
+          "raw": "Ayo Dosunmu OVER AST 4 (STANDARD) [id:11092560]",
+          "player": "Ayo Dosunmu",
           "dir": "OVER",
           "stat": "AST",
+          "line": 4.0,
+          "tier": "STANDARD",
+          "id": 11092560
+        },
+        {
+          "raw": "Josh Hart OVER FG3M 1.5 (DEMON) [id:11082019]",
+          "player": "Josh Hart",
+          "dir": "OVER",
+          "stat": "FG3M",
           "line": 1.5,
           "tier": "DEMON",
-          "id": 11061702
+          "id": 11082019
         }
       ],
-      "hit_prob": 0.2858428775336876,
-      "ev_mult": 0.5986894934620455,
+      "hit_prob": 0.2494590697176472,
+      "ev_mult": 0.5693748580500668,
       "payout_mult": 6.0,
-      "avg_fragility": 0.097998678780235
+      "avg_fragility": 0.0405300465278064
     },
     {
       "product": "Windfall",
       "n_legs": 4,
-      "legs": "Derik Queen OVER REB 2.5 (GOBLIN) [id:11074424] | Saddiq Bey OVER PTS 16.5 (STANDARD) [id:11056918] | Max Strus OVER PR 14.5 (STANDARD) [id:11057505] | Dennis Schr\u00f6der OVER PTS 8.5 (DEMON) [id:11063870]",
+      "legs": "Matas Buzelis OVER REB 4.5 (GOBLIN) [id:11082099] | Naji Marshall OVER AST 3.5 (STANDARD) [id:11092575] | Devin Carter UNDER PRA 20.5 (STANDARD) [id:11086866] | Nique Clifford OVER AST 3.5 (DEMON) [id:11086923]",
       "legs_detail": [
         {
-          "raw": "Derik Queen OVER REB 2.5 (GOBLIN) [id:11074424]",
-          "player": "Derik Queen",
+          "raw": "Matas Buzelis OVER REB 4.5 (GOBLIN) [id:11082099]",
+          "player": "Matas Buzelis",
           "dir": "OVER",
           "stat": "REB",
-          "line": 2.5,
+          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11074424
+          "id": 11082099
         },
         {
-          "raw": "Saddiq Bey OVER PTS 16.5 (STANDARD) [id:11056918]",
-          "player": "Saddiq Bey",
+          "raw": "Naji Marshall OVER AST 3.5 (STANDARD) [id:11092575]",
+          "player": "Naji Marshall",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 16.5,
+          "stat": "AST",
+          "line": 3.5,
           "tier": "STANDARD",
-          "id": 11056918
+          "id": 11092575
         },
         {
-          "raw": "Max Strus OVER PR 14.5 (STANDARD) [id:11057505]",
-          "player": "Max Strus",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 14.5,
+          "raw": "Devin Carter UNDER PRA 20.5 (STANDARD) [id:11086866]",
+          "player": "Devin Carter",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 20.5,
           "tier": "STANDARD",
-          "id": 11057505
+          "id": 11086866
         },
         {
-          "raw": "Dennis Schr\u00f6der OVER PTS 8.5 (DEMON) [id:11063870]",
-          "player": "Dennis Schr\u00f6der",
+          "raw": "Nique Clifford OVER AST 3.5 (DEMON) [id:11086923]",
+          "player": "Nique Clifford",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 8.5,
+          "stat": "AST",
+          "line": 3.5,
           "tier": "DEMON",
-          "id": 11063870
+          "id": 11086923
         }
       ],
-      "hit_prob": 0.1584921340098424,
-      "ev_mult": 0.7510360425736711,
+      "hit_prob": 0.1393999289319928,
+      "ev_mult": 0.7198266572729782,
       "payout_mult": 10.0,
-      "avg_fragility": 0.109959291020211
+      "avg_fragility": 0.0420803363070761
     },
     {
       "product": "Windfall",
       "n_legs": 5,
-      "legs": "Derik Queen OVER REB 2.5 (GOBLIN) [id:11074424] | Zion Williamson OVER RA 5.5 (GOBLIN) [id:11074425] | Jaylin Williams OVER PRA 10 (STANDARD) [id:11064958] | Max Strus OVER PR 14.5 (STANDARD) [id:11057505] | Cason Wallace OVER PR 9.5 (DEMON) [id:11062012]",
+      "legs": "Matas Buzelis OVER REB 4.5 (GOBLIN) [id:11082099] | OG Anunoby OVER FG3M 1.5 (GOBLIN) [id:11082155] | Scottie Barnes UNDER PRA 34.5 (STANDARD) [id:11076564] | Desmond Bane UNDER PRA 28.5 (STANDARD) [id:11079014] | Quentin Grimes OVER REB 3.5 (DEMON) [id:11081399]",
       "legs_detail": [
         {
-          "raw": "Derik Queen OVER REB 2.5 (GOBLIN) [id:11074424]",
-          "player": "Derik Queen",
+          "raw": "Matas Buzelis OVER REB 4.5 (GOBLIN) [id:11082099]",
+          "player": "Matas Buzelis",
           "dir": "OVER",
           "stat": "REB",
-          "line": 2.5,
+          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11074424
+          "id": 11082099
         },
         {
-          "raw": "Zion Williamson OVER RA 5.5 (GOBLIN) [id:11074425]",
-          "player": "Zion Williamson",
+          "raw": "OG Anunoby OVER FG3M 1.5 (GOBLIN) [id:11082155]",
+          "player": "OG Anunoby",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 5.5,
+          "stat": "FG3M",
+          "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11074425
+          "id": 11082155
         },
         {
-          "raw": "Jaylin Williams OVER PRA 10 (STANDARD) [id:11064958]",
-          "player": "Jaylin Williams",
-          "dir": "OVER",
+          "raw": "Scottie Barnes UNDER PRA 34.5 (STANDARD) [id:11076564]",
+          "player": "Scottie Barnes",
+          "dir": "UNDER",
           "stat": "PRA",
-          "line": 10.0,
+          "line": 34.5,
           "tier": "STANDARD",
-          "id": 11064958
+          "id": 11076564
         },
         {
-          "raw": "Max Strus OVER PR 14.5 (STANDARD) [id:11057505]",
-          "player": "Max Strus",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 14.5,
+          "raw": "Desmond Bane UNDER PRA 28.5 (STANDARD) [id:11079014]",
+          "player": "Desmond Bane",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 28.5,
           "tier": "STANDARD",
-          "id": 11057505
+          "id": 11079014
         },
         {
-          "raw": "Cason Wallace OVER PR 9.5 (DEMON) [id:11062012]",
-          "player": "Cason Wallace",
+          "raw": "Quentin Grimes OVER REB 3.5 (DEMON) [id:11081399]",
+          "player": "Quentin Grimes",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 9.5,
+          "stat": "REB",
+          "line": 3.5,
           "tier": "DEMON",
-          "id": 11062012
+          "id": 11081399
         }
       ],
-      "hit_prob": 0.132722682231819,
-      "ev_mult": 0.7515876292352587,
+      "hit_prob": 0.114317870181072,
+      "ev_mult": 0.8861520210676379,
       "payout_mult": 20.0,
-      "avg_fragility": 0.1269598456039191
+      "avg_fragility": 0.0814268629747894
     }
   ],
   "windfall_winprob": [
     {
       "product": "Windfall WinProb",
       "n_legs": 3,
-      "legs": "Kris Dunn OVER AST 1.5 (GOBLIN) [id:11058338] | Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535] | Luguentz Dort OVER RA 3.5 (DEMON) [id:11053008]",
+      "legs": "Sandro Mamukelashvili OVER FG3M 0.5 (GOBLIN) [id:11076496] | Max Christie UNDER PRA 15.5 (STANDARD) [id:11079240] | Saddiq Bey OVER FG3M 2.5 (DEMON) [id:11086947]",
       "legs_detail": [
         {
-          "raw": "Kris Dunn OVER AST 1.5 (GOBLIN) [id:11058338]",
-          "player": "Kris Dunn",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11058338
-        },
-        {
-          "raw": "Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535]",
-          "player": "Derik Queen",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 15.5,
-          "tier": "STANDARD",
-          "id": 11057535
-        },
-        {
-          "raw": "Luguentz Dort OVER RA 3.5 (DEMON) [id:11053008]",
-          "player": "Luguentz Dort",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 3.5,
-          "tier": "DEMON",
-          "id": 11053008
-        }
-      ],
-      "hit_prob": 0.3686723093986181,
-      "ev_mult": 2.212033856391709,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.1099329691902889
-    },
-    {
-      "product": "Windfall WinProb",
-      "n_legs": 4,
-      "legs": "Kris Dunn OVER PR 4.5 (GOBLIN) [id:11075570] | Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535] | Cason Wallace OVER RA 3.5 (STANDARD) [id:11062013] | Dennis Schr\u00f6der OVER RA 5.5 (DEMON) [id:11061656]",
-      "legs_detail": [
-        {
-          "raw": "Kris Dunn OVER PR 4.5 (GOBLIN) [id:11075570]",
-          "player": "Kris Dunn",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11075570
-        },
-        {
-          "raw": "Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535]",
-          "player": "Derik Queen",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 15.5,
-          "tier": "STANDARD",
-          "id": 11057535
-        },
-        {
-          "raw": "Cason Wallace OVER RA 3.5 (STANDARD) [id:11062013]",
-          "player": "Cason Wallace",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 3.5,
-          "tier": "STANDARD",
-          "id": 11062013
-        },
-        {
-          "raw": "Dennis Schr\u00f6der OVER RA 5.5 (DEMON) [id:11061656]",
-          "player": "Dennis Schr\u00f6der",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 5.5,
-          "tier": "DEMON",
-          "id": 11061656
-        }
-      ],
-      "hit_prob": 0.2351926061794964,
-      "ev_mult": 2.3519260617949644,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.1197357836799564
-    },
-    {
-      "product": "Windfall WinProb",
-      "n_legs": 5,
-      "legs": "Kris Dunn OVER REB 1.5 (GOBLIN) [id:11076776] | Harrison Barnes OVER FG3M 0.5 (GOBLIN) [id:11058285] | Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535] | Jaylin Williams OVER PRA 10 (STANDARD) [id:11064958] | Max Strus OVER RA 6.5 (DEMON) [id:11070991]",
-      "legs_detail": [
-        {
-          "raw": "Kris Dunn OVER REB 1.5 (GOBLIN) [id:11076776]",
-          "player": "Kris Dunn",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11076776
-        },
-        {
-          "raw": "Harrison Barnes OVER FG3M 0.5 (GOBLIN) [id:11058285]",
-          "player": "Harrison Barnes",
+          "raw": "Sandro Mamukelashvili OVER FG3M 0.5 (GOBLIN) [id:11076496]",
+          "player": "Sandro Mamukelashvili",
           "dir": "OVER",
           "stat": "FG3M",
           "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11058285
+          "id": 11076496
         },
         {
-          "raw": "Derik Queen OVER PRA 15.5 (STANDARD) [id:11057535]",
-          "player": "Derik Queen",
-          "dir": "OVER",
+          "raw": "Max Christie UNDER PRA 15.5 (STANDARD) [id:11079240]",
+          "player": "Max Christie",
+          "dir": "UNDER",
           "stat": "PRA",
           "line": 15.5,
           "tier": "STANDARD",
-          "id": 11057535
+          "id": 11079240
         },
         {
-          "raw": "Jaylin Williams OVER PRA 10 (STANDARD) [id:11064958]",
-          "player": "Jaylin Williams",
+          "raw": "Saddiq Bey OVER FG3M 2.5 (DEMON) [id:11086947]",
+          "player": "Saddiq Bey",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 10.0,
-          "tier": "STANDARD",
-          "id": 11064958
-        },
-        {
-          "raw": "Max Strus OVER RA 6.5 (DEMON) [id:11070991]",
-          "player": "Max Strus",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 6.5,
+          "stat": "FG3M",
+          "line": 2.5,
           "tier": "DEMON",
-          "id": 11070991
+          "id": 11086947
         }
       ],
-      "hit_prob": 0.1766027289428408,
-      "ev_mult": 3.532054578856817,
+      "hit_prob": 0.5078065033448638,
+      "ev_mult": 3.0468390200691826,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.1906132900665927
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 4,
+      "legs": "Daniel Gafford OVER PRA 19.5 (GOBLIN) [id:11082522] | Maxime Raynaud UNDER RA 10.5 (STANDARD) [id:11088407] | Derik Queen UNDER RA 11 (STANDARD) [id:11086858] | Sandro Mamukelashvili OVER FG3M 1.5 (DEMON) [id:11076498]",
+      "legs_detail": [
+        {
+          "raw": "Daniel Gafford OVER PRA 19.5 (GOBLIN) [id:11082522]",
+          "player": "Daniel Gafford",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 19.5,
+          "tier": "GOBLIN",
+          "id": 11082522
+        },
+        {
+          "raw": "Maxime Raynaud UNDER RA 10.5 (STANDARD) [id:11088407]",
+          "player": "Maxime Raynaud",
+          "dir": "UNDER",
+          "stat": "RA",
+          "line": 10.5,
+          "tier": "STANDARD",
+          "id": 11088407
+        },
+        {
+          "raw": "Derik Queen UNDER RA 11 (STANDARD) [id:11086858]",
+          "player": "Derik Queen",
+          "dir": "UNDER",
+          "stat": "RA",
+          "line": 11.0,
+          "tier": "STANDARD",
+          "id": 11086858
+        },
+        {
+          "raw": "Sandro Mamukelashvili OVER FG3M 1.5 (DEMON) [id:11076498]",
+          "player": "Sandro Mamukelashvili",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 1.5,
+          "tier": "DEMON",
+          "id": 11076498
+        }
+      ],
+      "hit_prob": 0.1296,
+      "ev_mult": 1.2959999999999998,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.125714132420411
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 5,
+      "legs": "Matas Buzelis OVER PTS 11.5 (GOBLIN) [id:11087803] | Dylan Cardwell OVER PR 7.5 (GOBLIN) [id:11087505] | Cooper Flagg UNDER PA 29.5 (STANDARD) [id:11080061] | Max Christie UNDER PRA 15.5 (STANDARD) [id:11079240] | Sandro Mamukelashvili OVER FG3M 1.5 (DEMON) [id:11076498]",
+      "legs_detail": [
+        {
+          "raw": "Matas Buzelis OVER PTS 11.5 (GOBLIN) [id:11087803]",
+          "player": "Matas Buzelis",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 11.5,
+          "tier": "GOBLIN",
+          "id": 11087803
+        },
+        {
+          "raw": "Dylan Cardwell OVER PR 7.5 (GOBLIN) [id:11087505]",
+          "player": "Dylan Cardwell",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 7.5,
+          "tier": "GOBLIN",
+          "id": 11087505
+        },
+        {
+          "raw": "Cooper Flagg UNDER PA 29.5 (STANDARD) [id:11080061]",
+          "player": "Cooper Flagg",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 29.5,
+          "tier": "STANDARD",
+          "id": 11080061
+        },
+        {
+          "raw": "Max Christie UNDER PRA 15.5 (STANDARD) [id:11079240]",
+          "player": "Max Christie",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 15.5,
+          "tier": "STANDARD",
+          "id": 11079240
+        },
+        {
+          "raw": "Sandro Mamukelashvili OVER FG3M 1.5 (DEMON) [id:11076498]",
+          "player": "Sandro Mamukelashvili",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 1.5,
+          "tier": "DEMON",
+          "id": 11076498
+        }
+      ],
+      "hit_prob": 0.242712683744294,
+      "ev_mult": 4.854253674885881,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0971487784646053
+      "avg_fragility": 0.192110656854137
     }
   ],
-  "demonhunter": []
+  "demonhunter": [
+    {
+      "product": "Demonhunter",
+      "n_legs": 3,
+      "legs": "Dyson Daniels OVER FG3M 0.5 (DEMON) [id:11079793] | DeMar DeRozan OVER AST 4.5 (DEMON) [id:11086835] | Ayo Dosunmu OVER REB 5.5 (DEMON) [id:11081295]",
+      "legs_detail": [
+        {
+          "raw": "Dyson Daniels OVER FG3M 0.5 (DEMON) [id:11079793]",
+          "player": "Dyson Daniels",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "DEMON",
+          "id": 11079793
+        },
+        {
+          "raw": "DeMar DeRozan OVER AST 4.5 (DEMON) [id:11086835]",
+          "player": "DeMar DeRozan",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 4.5,
+          "tier": "DEMON",
+          "id": 11086835
+        },
+        {
+          "raw": "Ayo Dosunmu OVER REB 5.5 (DEMON) [id:11081295]",
+          "player": "Ayo Dosunmu",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 5.5,
+          "tier": "DEMON",
+          "id": 11081295
+        }
+      ],
+      "hit_prob": 0.1800197616686881,
+      "ev_mult": 0.0722636855348384,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0412910503371484
+    },
+    {
+      "product": "Demonhunter",
+      "n_legs": 4,
+      "legs": "DeMar DeRozan OVER AST 4.5 (DEMON) [id:11086835] | Dyson Daniels OVER FG3M 0.5 (DEMON) [id:11079793] | OG Anunoby OVER FG3M 2.5 (DEMON) [id:11082156] | Ayo Dosunmu OVER REB 5.5 (DEMON) [id:11081295]",
+      "legs_detail": [
+        {
+          "raw": "DeMar DeRozan OVER AST 4.5 (DEMON) [id:11086835]",
+          "player": "DeMar DeRozan",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 4.5,
+          "tier": "DEMON",
+          "id": 11086835
+        },
+        {
+          "raw": "Dyson Daniels OVER FG3M 0.5 (DEMON) [id:11079793]",
+          "player": "Dyson Daniels",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "DEMON",
+          "id": 11079793
+        },
+        {
+          "raw": "OG Anunoby OVER FG3M 2.5 (DEMON) [id:11082156]",
+          "player": "OG Anunoby",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.5,
+          "tier": "DEMON",
+          "id": 11082156
+        },
+        {
+          "raw": "Ayo Dosunmu OVER REB 5.5 (DEMON) [id:11081295]",
+          "player": "Ayo Dosunmu",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 5.5,
+          "tier": "DEMON",
+          "id": 11081295
+        }
+      ],
+      "hit_prob": 0.1040128402126879,
+      "ev_mult": 0.0257563837558782,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0502652561482326
+    },
+    {
+      "product": "Demonhunter",
+      "n_legs": 5,
+      "legs": "Precious Achiuwa OVER REB 9.5 (DEMON) [id:11086942] | DeMar DeRozan OVER AST 4.5 (DEMON) [id:11086835] | Nique Clifford OVER AST 3.5 (DEMON) [id:11086923] | Daniel Gafford OVER PTS 12.5 (DEMON) [id:11078970] | Ayo Dosunmu OVER RA 9.5 (DEMON) [id:11083376]",
+      "legs_detail": [
+        {
+          "raw": "Precious Achiuwa OVER REB 9.5 (DEMON) [id:11086942]",
+          "player": "Precious Achiuwa",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 9.5,
+          "tier": "DEMON",
+          "id": 11086942
+        },
+        {
+          "raw": "DeMar DeRozan OVER AST 4.5 (DEMON) [id:11086835]",
+          "player": "DeMar DeRozan",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 4.5,
+          "tier": "DEMON",
+          "id": 11086835
+        },
+        {
+          "raw": "Nique Clifford OVER AST 3.5 (DEMON) [id:11086923]",
+          "player": "Nique Clifford",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 3.5,
+          "tier": "DEMON",
+          "id": 11086923
+        },
+        {
+          "raw": "Daniel Gafford OVER PTS 12.5 (DEMON) [id:11078970]",
+          "player": "Daniel Gafford",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 12.5,
+          "tier": "DEMON",
+          "id": 11078970
+        },
+        {
+          "raw": "Ayo Dosunmu OVER RA 9.5 (DEMON) [id:11083376]",
+          "player": "Ayo Dosunmu",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 9.5,
+          "tier": "DEMON",
+          "id": 11083376
+        }
+      ],
+      "hit_prob": 0.0516008504801311,
+      "ev_mult": 0.0169505462741057,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0512295747995657
+    }
+  ]
 }
