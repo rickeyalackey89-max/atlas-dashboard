@@ -1,18 +1,13 @@
 {
-  "generated_at": "2026-02-10T14:37:32",
-  "ok": true,
-  "latest_all_dir": "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all",
-  "windfall_dir": "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Windfall",
-  "required_files": [
-    "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Windfall\\recommended_3leg.csv",
-    "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Windfall\\recommended_4leg.csv",
-    "C:\\Users\\rick\\projects\\Atlas\\data\\output\\latest\\all\\Windfall\\recommended_5leg.csv"
-  ],
-  "missing_files": [],
-  "notes": "Windfall-first status. System outputs are optional. If ok=false, check that filter_recommendations_live published Windfall files into latest/all/Windfall.",
+  "dead_period": false,
+  "generated_at": "2026-04-05T11:00:06",
+  "notes": "IAEL completed. Injury rows parsed via text (table extraction unreliable).",
+  "pdf_sha1": "cbf6511169d8a85705163faae2b75461a41cd689",
   "post_iael": true,
   "post_line_recon": false,
-  "report_datetime_local": "2026-02-10 03:30PM",
-  "pulled_at_local": "2026-02-10T14:37:13-06:00",
-  "source": "NBA injury report PDF (latest-of-day via season page scrape)"
+  "pulled_at_local": "2026-04-05T11:00:04-05:00",
+  "report_date": "2026-04-05",
+  "report_datetime_local": "2026-04-05 11:45AM",
+  "source": "NBA injury report PDF (latest-of-day via season page scrape)",
+  "source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-04-05_11_45AM.pdf"
 }
