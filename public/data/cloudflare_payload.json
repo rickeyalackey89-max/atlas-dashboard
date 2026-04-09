@@ -1,201 +1,201 @@
 {
-  "generated_at": "2026-04-08T16:32:03.554348-05:00",
-  "run_id": "20260408_163202",
+  "generated_at": "2026-04-08T19:05:06.340305-05:00",
+  "run_id": "20260408_190505",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "Duncan Robinson OVER RA 2.5 (GOBLIN) [id:11241664] | Jalen Duren OVER PRA 30 (STANDARD) [id:11227999] | Nikola Joki\u0107 UNDER REB 13 (STANDARD) [id:11227388]",
+      "legs": "Christian Braun OVER PTS 7.5 (GOBLIN) [id:11236699] | Robert Williams OVER PR 14 (STANDARD) [id:11221339] | Julian Strawther UNDER PR 9.5 (STANDARD) [id:11231434]",
       "legs_detail": [
         {
-          "raw": "Duncan Robinson OVER RA 2.5 (GOBLIN) [id:11241664]",
-          "player": "Duncan Robinson",
+          "raw": "Christian Braun OVER PTS 7.5 (GOBLIN) [id:11236699]",
+          "player": "Christian Braun",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 2.5,
+          "stat": "PTS",
+          "line": 7.5,
           "tier": "GOBLIN",
-          "id": 11241664
+          "id": 11236699
         },
         {
-          "raw": "Jalen Duren OVER PRA 30 (STANDARD) [id:11227999]",
-          "player": "Jalen Duren",
+          "raw": "Robert Williams OVER PR 14 (STANDARD) [id:11221339]",
+          "player": "Robert Williams",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 30.0,
+          "stat": "PR",
+          "line": 14.0,
           "tier": "STANDARD",
-          "id": 11227999
+          "id": 11221339
         },
         {
-          "raw": "Nikola Joki\u0107 UNDER REB 13 (STANDARD) [id:11227388]",
-          "player": "Nikola Joki\u0107",
+          "raw": "Julian Strawther UNDER PR 9.5 (STANDARD) [id:11231434]",
+          "player": "Julian Strawther",
           "dir": "UNDER",
-          "stat": "REB",
-          "line": 13.0,
+          "stat": "PR",
+          "line": 9.5,
           "tier": "STANDARD",
-          "id": 11227388
+          "id": 11231434
         }
       ],
-      "hit_prob": 0.302937958404,
-      "ev_mult": 1.9089148078319416,
+      "hit_prob": 0.3932399639529999,
+      "ev_mult": 2.0517926406129927,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0775567751980067
+      "avg_fragility": 0.0722668744965051
     },
     {
       "product": "System",
       "n_legs": 4,
-      "legs": "Cameron Johnson OVER AST 1.5 (GOBLIN) [id:11227307] | Duncan Robinson OVER PR 9.5 (GOBLIN) [id:11241985] | Cade Cunningham OVER PR 19 (STANDARD) [id:11241918] | Taylor Hendricks UNDER RA 5.5 (STANDARD) [id:11231498]",
+      "legs": "Aaron Gordon OVER FG3M 0.5 (GOBLIN) [id:11231193] | Bruce Brown OVER PTS 5.5 (GOBLIN) [id:11241190] | Jordan Miller UNDER PR 13.5 (STANDARD) [id:11246860] | John Collins OVER PRA 20.5 (STANDARD) [id:11247298]",
       "legs_detail": [
         {
-          "raw": "Cameron Johnson OVER AST 1.5 (GOBLIN) [id:11227307]",
-          "player": "Cameron Johnson",
+          "raw": "Aaron Gordon OVER FG3M 0.5 (GOBLIN) [id:11231193]",
+          "player": "Aaron Gordon",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11227307
+          "id": 11231193
         },
         {
-          "raw": "Duncan Robinson OVER PR 9.5 (GOBLIN) [id:11241985]",
-          "player": "Duncan Robinson",
+          "raw": "Bruce Brown OVER PTS 5.5 (GOBLIN) [id:11241190]",
+          "player": "Bruce Brown",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 9.5,
-          "tier": "GOBLIN",
-          "id": 11241985
-        },
-        {
-          "raw": "Cade Cunningham OVER PR 19 (STANDARD) [id:11241918]",
-          "player": "Cade Cunningham",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 19.0,
-          "tier": "STANDARD",
-          "id": 11241918
-        },
-        {
-          "raw": "Taylor Hendricks UNDER RA 5.5 (STANDARD) [id:11231498]",
-          "player": "Taylor Hendricks",
-          "dir": "UNDER",
-          "stat": "RA",
+          "stat": "PTS",
           "line": 5.5,
+          "tier": "GOBLIN",
+          "id": 11241190
+        },
+        {
+          "raw": "Jordan Miller UNDER PR 13.5 (STANDARD) [id:11246860]",
+          "player": "Jordan Miller",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 13.5,
           "tier": "STANDARD",
-          "id": 11231498
+          "id": 11246860
+        },
+        {
+          "raw": "John Collins OVER PRA 20.5 (STANDARD) [id:11247298]",
+          "player": "John Collins",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 20.5,
+          "tier": "STANDARD",
+          "id": 11247298
         }
       ],
-      "hit_prob": 0.28249734627975,
-      "ev_mult": 1.880297085461743,
+      "hit_prob": 0.472199315,
+      "ev_mult": 1.6487578470148685,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0695526044950972
+      "avg_fragility": 0.0818584659641369
     },
     {
       "product": "System",
       "n_legs": 5,
-      "legs": "Cameron Johnson OVER REB 2.5 (GOBLIN) [id:11231256] | Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11227284] | Duncan Robinson OVER FG3M 1.5 (GOBLIN) [id:11227802] | Derrick Jones UNDER PR 12.5 (STANDARD) [id:11233877] | Jordan Miller UNDER PR 12.5 (STANDARD) [id:11246860]",
+      "legs": "Nikola Joki\u0107 OVER AST 8.5 (GOBLIN) [id:11233165] | Scoot Henderson OVER RA 4.5 (GOBLIN) [id:11230860] | Aaron Gordon OVER FG3M 0.5 (GOBLIN) [id:11231193] | Donovan Clingan UNDER PR 24.5 (STANDARD) [id:11221122] | Grayson Allen OVER PTS 12.5 (STANDARD) [id:11247337]",
       "legs_detail": [
         {
-          "raw": "Cameron Johnson OVER REB 2.5 (GOBLIN) [id:11231256]",
-          "player": "Cameron Johnson",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11231256
-        },
-        {
-          "raw": "Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11227284]",
-          "player": "Aaron Gordon",
+          "raw": "Nikola Joki\u0107 OVER AST 8.5 (GOBLIN) [id:11233165]",
+          "player": "Nikola Joki\u0107",
           "dir": "OVER",
           "stat": "AST",
-          "line": 1.5,
+          "line": 8.5,
           "tier": "GOBLIN",
-          "id": 11227284
+          "id": 11233165
         },
         {
-          "raw": "Duncan Robinson OVER FG3M 1.5 (GOBLIN) [id:11227802]",
-          "player": "Duncan Robinson",
+          "raw": "Scoot Henderson OVER RA 4.5 (GOBLIN) [id:11230860]",
+          "player": "Scoot Henderson",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11230860
+        },
+        {
+          "raw": "Aaron Gordon OVER FG3M 0.5 (GOBLIN) [id:11231193]",
+          "player": "Aaron Gordon",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 1.5,
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11227802
+          "id": 11231193
         },
         {
-          "raw": "Derrick Jones UNDER PR 12.5 (STANDARD) [id:11233877]",
-          "player": "Derrick Jones",
+          "raw": "Donovan Clingan UNDER PR 24.5 (STANDARD) [id:11221122]",
+          "player": "Donovan Clingan",
           "dir": "UNDER",
           "stat": "PR",
-          "line": 12.5,
+          "line": 24.5,
           "tier": "STANDARD",
-          "id": 11233877
+          "id": 11221122
         },
         {
-          "raw": "Jordan Miller UNDER PR 12.5 (STANDARD) [id:11246860]",
-          "player": "Jordan Miller",
-          "dir": "UNDER",
-          "stat": "PR",
+          "raw": "Grayson Allen OVER PTS 12.5 (STANDARD) [id:11247337]",
+          "player": "Grayson Allen",
+          "dir": "OVER",
+          "stat": "PTS",
           "line": 12.5,
           "tier": "STANDARD",
-          "id": 11246860
+          "id": 11247337
         }
       ],
-      "hit_prob": 0.8464,
-      "ev_mult": 1.9215328234134383,
+      "hit_prob": 0.3165532466178799,
+      "ev_mult": 1.4309471525964066,
       "payout_mult": 20.0,
-      "avg_fragility": 0.053026801650874
+      "avg_fragility": 0.0596937239988467
     }
   ],
   "system_winprob": [
     {
       "product": "System WinProb",
       "n_legs": 3,
-      "legs": "Nikola Joki\u0107 OVER PRA 39.5 (GOBLIN) [id:11231947] | Cameron Johnson OVER RA 6 (STANDARD) [id:11236745] | Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620]",
+      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104] | De'Aaron Fox UNDER PTS 21.5 (STANDARD) [id:11221005] | Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436]",
       "legs_detail": [
         {
-          "raw": "Nikola Joki\u0107 OVER PRA 39.5 (GOBLIN) [id:11231947]",
-          "player": "Nikola Joki\u0107",
+          "raw": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104]",
+          "player": "Jordan Goodwin",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 39.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11231947
+          "id": 11232104
         },
         {
-          "raw": "Cameron Johnson OVER RA 6 (STANDARD) [id:11236745]",
-          "player": "Cameron Johnson",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 6.0,
+          "raw": "De'Aaron Fox UNDER PTS 21.5 (STANDARD) [id:11221005]",
+          "player": "De'Aaron Fox",
+          "dir": "UNDER",
+          "stat": "PTS",
+          "line": 21.5,
           "tier": "STANDARD",
-          "id": 11236745
+          "id": 11221005
         },
         {
-          "raw": "Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620]",
-          "player": "Sam Merrill",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 4.5,
+          "raw": "Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436]",
+          "player": "Julian Strawther",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 11.5,
           "tier": "STANDARD",
-          "id": 11242620
+          "id": 11231436
         }
       ],
-      "hit_prob": 0.4230859023439802,
-      "ev_mult": 2.5385154140638813,
+      "hit_prob": 0.4215564621427778,
+      "ev_mult": 2.5293387728566668,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0924347216407722
+      "avg_fragility": 0.2013324348447625
     },
     {
       "product": "System WinProb",
       "n_legs": 4,
-      "legs": "Duncan Robinson OVER FG3M 1.5 (GOBLIN) [id:11227802] | Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104] | Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620] | Luke Kornet UNDER REB 7 (STANDARD) [id:11238162]",
+      "legs": "Dylan Harper OVER FG3M 0.5 (GOBLIN) [id:11241615] | Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104] | Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436] | Luke Kornet UNDER PR 15.5 (STANDARD) [id:11221285]",
       "legs_detail": [
         {
-          "raw": "Duncan Robinson OVER FG3M 1.5 (GOBLIN) [id:11227802]",
-          "player": "Duncan Robinson",
+          "raw": "Dylan Harper OVER FG3M 0.5 (GOBLIN) [id:11241615]",
+          "player": "Dylan Harper",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 1.5,
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11227802
+          "id": 11241615
         },
         {
           "raw": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104]",
@@ -207,51 +207,51 @@
           "id": 11232104
         },
         {
-          "raw": "Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620]",
-          "player": "Sam Merrill",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 4.5,
+          "raw": "Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436]",
+          "player": "Julian Strawther",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 11.5,
           "tier": "STANDARD",
-          "id": 11242620
+          "id": 11231436
         },
         {
-          "raw": "Luke Kornet UNDER REB 7 (STANDARD) [id:11238162]",
+          "raw": "Luke Kornet UNDER PR 15.5 (STANDARD) [id:11221285]",
           "player": "Luke Kornet",
           "dir": "UNDER",
-          "stat": "REB",
-          "line": 7.0,
+          "stat": "PR",
+          "line": 15.5,
           "tier": "STANDARD",
-          "id": 11238162
+          "id": 11221285
         }
       ],
-      "hit_prob": 0.373337041105505,
-      "ev_mult": 3.73337041105505,
+      "hit_prob": 0.36661212910014,
+      "ev_mult": 3.6661212910014007,
       "payout_mult": 10.0,
-      "avg_fragility": 0.1195447472391969
+      "avg_fragility": 0.1409511246634553
     },
     {
       "product": "System WinProb",
       "n_legs": 5,
-      "legs": "Nikola Joki\u0107 OVER PRA 39.5 (GOBLIN) [id:11231947] | Duncan Robinson OVER PTS 5.5 (GOBLIN) [id:11240306] | Dylan Harper OVER FG3M 0.5 (GOBLIN) [id:11241615] | Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620] | Luke Kornet UNDER PRA 17.5 (STANDARD) [id:11221289]",
+      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104] | Nikola Joki\u0107 OVER PR 29.5 (GOBLIN) [id:11231738] | Dylan Harper OVER FG3M 0.5 (GOBLIN) [id:11241615] | De'Aaron Fox UNDER PA 28 (STANDARD) [id:11221008] | Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436]",
       "legs_detail": [
         {
-          "raw": "Nikola Joki\u0107 OVER PRA 39.5 (GOBLIN) [id:11231947]",
-          "player": "Nikola Joki\u0107",
+          "raw": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104]",
+          "player": "Jordan Goodwin",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 39.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11231947
+          "id": 11232104
         },
         {
-          "raw": "Duncan Robinson OVER PTS 5.5 (GOBLIN) [id:11240306]",
-          "player": "Duncan Robinson",
+          "raw": "Nikola Joki\u0107 OVER PR 29.5 (GOBLIN) [id:11231738]",
+          "player": "Nikola Joki\u0107",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 5.5,
+          "stat": "PR",
+          "line": 29.5,
           "tier": "GOBLIN",
-          "id": 11240306
+          "id": 11231738
         },
         {
           "raw": "Dylan Harper OVER FG3M 0.5 (GOBLIN) [id:11241615]",
@@ -263,178 +263,178 @@
           "id": 11241615
         },
         {
-          "raw": "Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620]",
-          "player": "Sam Merrill",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 4.5,
+          "raw": "De'Aaron Fox UNDER PA 28 (STANDARD) [id:11221008]",
+          "player": "De'Aaron Fox",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 28.0,
           "tier": "STANDARD",
-          "id": 11242620
+          "id": 11221008
         },
         {
-          "raw": "Luke Kornet UNDER PRA 17.5 (STANDARD) [id:11221289]",
-          "player": "Luke Kornet",
+          "raw": "Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436]",
+          "player": "Julian Strawther",
           "dir": "UNDER",
           "stat": "PRA",
-          "line": 17.5,
+          "line": 11.5,
           "tier": "STANDARD",
-          "id": 11221289
+          "id": 11231436
         }
       ],
-      "hit_prob": 0.3219220610227246,
-      "ev_mult": 6.438441220454493,
+      "hit_prob": 0.3241638607179011,
+      "ev_mult": 6.483277214358022,
       "payout_mult": 20.0,
-      "avg_fragility": 0.1326959862712433
+      "avg_fragility": 0.1443995787571993
     }
   ],
   "windfall": [
     {
       "product": "Windfall",
       "n_legs": 3,
-      "legs": "Daniss Jenkins OVER PTS 9.5 (GOBLIN) [id:11246886] | Nikola Joki\u0107 OVER PRA 48.5 (STANDARD) [id:11227385] | Cade Cunningham OVER AST 8.5 (DEMON) [id:11241639]",
+      "legs": "Nikola Joki\u0107 OVER AST 8.5 (GOBLIN) [id:11233165] | Walter Clayton UNDER AST 6 (STANDARD) [id:11236701] | Christian Braun OVER FG3M 1.5 (DEMON) [id:11227338]",
       "legs_detail": [
         {
-          "raw": "Daniss Jenkins OVER PTS 9.5 (GOBLIN) [id:11246886]",
-          "player": "Daniss Jenkins",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 9.5,
-          "tier": "GOBLIN",
-          "id": 11246886
-        },
-        {
-          "raw": "Nikola Joki\u0107 OVER PRA 48.5 (STANDARD) [id:11227385]",
+          "raw": "Nikola Joki\u0107 OVER AST 8.5 (GOBLIN) [id:11233165]",
           "player": "Nikola Joki\u0107",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 48.5,
-          "tier": "STANDARD",
-          "id": 11227385
-        },
-        {
-          "raw": "Cade Cunningham OVER AST 8.5 (DEMON) [id:11241639]",
-          "player": "Cade Cunningham",
           "dir": "OVER",
           "stat": "AST",
           "line": 8.5,
-          "tier": "DEMON",
-          "id": 11241639
-        }
-      ],
-      "hit_prob": 0.368981865618,
-      "ev_mult": 0.6938034091545804,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.1328494060855283
-    },
-    {
-      "product": "Windfall",
-      "n_legs": 4,
-      "legs": "Duncan Robinson OVER RA 2.5 (GOBLIN) [id:11241664] | Anthony Black UNDER PTS 9.5 (STANDARD) [id:11231575] | Cameron Johnson OVER PR 16 (STANDARD) [id:11227313] | Daniss Jenkins OVER FG3M 1.5 (DEMON) [id:11246882]",
-      "legs_detail": [
-        {
-          "raw": "Duncan Robinson OVER RA 2.5 (GOBLIN) [id:11241664]",
-          "player": "Duncan Robinson",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 2.5,
           "tier": "GOBLIN",
-          "id": 11241664
+          "id": 11233165
         },
         {
-          "raw": "Anthony Black UNDER PTS 9.5 (STANDARD) [id:11231575]",
-          "player": "Anthony Black",
+          "raw": "Walter Clayton UNDER AST 6 (STANDARD) [id:11236701]",
+          "player": "Walter Clayton",
           "dir": "UNDER",
-          "stat": "PTS",
-          "line": 9.5,
+          "stat": "AST",
+          "line": 6.0,
           "tier": "STANDARD",
-          "id": 11231575
+          "id": 11236701
         },
         {
-          "raw": "Cameron Johnson OVER PR 16 (STANDARD) [id:11227313]",
-          "player": "Cameron Johnson",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 16.0,
-          "tier": "STANDARD",
-          "id": 11227313
-        },
-        {
-          "raw": "Daniss Jenkins OVER FG3M 1.5 (DEMON) [id:11246882]",
-          "player": "Daniss Jenkins",
+          "raw": "Christian Braun OVER FG3M 1.5 (DEMON) [id:11227338]",
+          "player": "Christian Braun",
           "dir": "OVER",
           "stat": "FG3M",
           "line": 1.5,
           "tier": "DEMON",
-          "id": 11246882
+          "id": 11227338
         }
       ],
-      "hit_prob": 0.2164384896798032,
-      "ev_mult": 0.84152374900584,
+      "hit_prob": 0.315852655346,
+      "ev_mult": 0.7120782732958203,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0627916247718173
+    },
+    {
+      "product": "Windfall",
+      "n_legs": 4,
+      "legs": "Nikola Joki\u0107 OVER RA 19.5 (GOBLIN) [id:11231743] | Chet Holmgren OVER PRA 24 (STANDARD) [id:11233820] | Keldon Johnson OVER PA 15.5 (STANDARD) [id:11245307] | Cameron Johnson OVER FG3M 2.5 (DEMON) [id:11227303]",
+      "legs_detail": [
+        {
+          "raw": "Nikola Joki\u0107 OVER RA 19.5 (GOBLIN) [id:11231743]",
+          "player": "Nikola Joki\u0107",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 19.5,
+          "tier": "GOBLIN",
+          "id": 11231743
+        },
+        {
+          "raw": "Chet Holmgren OVER PRA 24 (STANDARD) [id:11233820]",
+          "player": "Chet Holmgren",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 24.0,
+          "tier": "STANDARD",
+          "id": 11233820
+        },
+        {
+          "raw": "Keldon Johnson OVER PA 15.5 (STANDARD) [id:11245307]",
+          "player": "Keldon Johnson",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 15.5,
+          "tier": "STANDARD",
+          "id": 11245307
+        },
+        {
+          "raw": "Cameron Johnson OVER FG3M 2.5 (DEMON) [id:11227303]",
+          "player": "Cameron Johnson",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.5,
+          "tier": "DEMON",
+          "id": 11227303
+        }
+      ],
+      "hit_prob": 0.1893807324260738,
+      "ev_mult": 0.8167843541398904,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0689982671524593
+      "avg_fragility": 0.0564938890598546
     },
     {
       "product": "Windfall",
       "n_legs": 5,
-      "legs": "Duncan Robinson OVER PR 9.5 (GOBLIN) [id:11241985] | Jalen Duren OVER AST 1.5 (GOBLIN) [id:11229215] | Julian Champagnie UNDER RA 7.5 (STANDARD) [id:11221236] | Nickeil Alexander-Walker OVER PA 24.5 (STANDARD) [id:11222761] | Cameron Johnson OVER AST 3.5 (DEMON) [id:11227305]",
+      "legs": "Devin Booker OVER PRA 34.5 (GOBLIN) [id:11235540] | Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11227284] | Kawhi Leonard OVER PRA 36.5 (STANDARD) [id:11232908] | Kris Murray UNDER FG3M 0.5 (STANDARD) [id:11221245] | Christian Braun OVER PR 19.5 (DEMON) [id:11231721]",
       "legs_detail": [
         {
-          "raw": "Duncan Robinson OVER PR 9.5 (GOBLIN) [id:11241985]",
-          "player": "Duncan Robinson",
+          "raw": "Devin Booker OVER PRA 34.5 (GOBLIN) [id:11235540]",
+          "player": "Devin Booker",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 9.5,
+          "stat": "PRA",
+          "line": 34.5,
           "tier": "GOBLIN",
-          "id": 11241985
+          "id": 11235540
         },
         {
-          "raw": "Jalen Duren OVER AST 1.5 (GOBLIN) [id:11229215]",
-          "player": "Jalen Duren",
+          "raw": "Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11227284]",
+          "player": "Aaron Gordon",
           "dir": "OVER",
           "stat": "AST",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11229215
+          "id": 11227284
         },
         {
-          "raw": "Julian Champagnie UNDER RA 7.5 (STANDARD) [id:11221236]",
-          "player": "Julian Champagnie",
+          "raw": "Kawhi Leonard OVER PRA 36.5 (STANDARD) [id:11232908]",
+          "player": "Kawhi Leonard",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 36.5,
+          "tier": "STANDARD",
+          "id": 11232908
+        },
+        {
+          "raw": "Kris Murray UNDER FG3M 0.5 (STANDARD) [id:11221245]",
+          "player": "Kris Murray",
           "dir": "UNDER",
-          "stat": "RA",
-          "line": 7.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "STANDARD",
-          "id": 11221236
+          "id": 11221245
         },
         {
-          "raw": "Nickeil Alexander-Walker OVER PA 24.5 (STANDARD) [id:11222761]",
-          "player": "Nickeil Alexander-Walker",
+          "raw": "Christian Braun OVER PR 19.5 (DEMON) [id:11231721]",
+          "player": "Christian Braun",
           "dir": "OVER",
-          "stat": "PA",
-          "line": 24.5,
-          "tier": "STANDARD",
-          "id": 11222761
-        },
-        {
-          "raw": "Cameron Johnson OVER AST 3.5 (DEMON) [id:11227305]",
-          "player": "Cameron Johnson",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 3.5,
+          "stat": "PR",
+          "line": 19.5,
           "tier": "DEMON",
-          "id": 11227305
+          "id": 11231721
         }
       ],
-      "hit_prob": 0.1893807324260738,
-      "ev_mult": 1.0237602446250005,
+      "hit_prob": 0.1276206854900912,
+      "ev_mult": 0.7320095100928982,
       "payout_mult": 20.0,
-      "avg_fragility": 0.064583293088037
+      "avg_fragility": 0.1228997114861771
     }
   ],
   "windfall_winprob": [
     {
       "product": "Windfall WinProb",
       "n_legs": 3,
-      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104] | Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620] | Cameron Johnson OVER RA 6 (DEMON) [id:11231424]",
+      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104] | Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436] | Cameron Johnson OVER RA 6 (DEMON) [id:11231424]",
       "legs_detail": [
         {
           "raw": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104]",
@@ -446,13 +446,13 @@
           "id": 11232104
         },
         {
-          "raw": "Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620]",
-          "player": "Sam Merrill",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 4.5,
+          "raw": "Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436]",
+          "player": "Julian Strawther",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 11.5,
           "tier": "STANDARD",
-          "id": 11242620
+          "id": 11231436
         },
         {
           "raw": "Cameron Johnson OVER RA 6 (DEMON) [id:11231424]",
@@ -464,15 +464,15 @@
           "id": 11231424
         }
       ],
-      "hit_prob": 0.4283922695708131,
-      "ev_mult": 2.5703536174248787,
+      "hit_prob": 0.418463003033836,
+      "ev_mult": 2.510778018203016,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0540266783356559
+      "avg_fragility": 0.0812731370268791
     },
     {
       "product": "Windfall WinProb",
       "n_legs": 4,
-      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104] | Dylan Harper UNDER RA 9.5 (STANDARD) [id:11221167] | Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620] | Duncan Robinson OVER FG3M 2.5 (DEMON) [id:11227803]",
+      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104] | De'Aaron Fox UNDER PA 28 (STANDARD) [id:11221008] | Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436] | Cameron Johnson OVER RA 6 (DEMON) [id:11231424]",
       "legs_detail": [
         {
           "raw": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104]",
@@ -484,51 +484,51 @@
           "id": 11232104
         },
         {
-          "raw": "Dylan Harper UNDER RA 9.5 (STANDARD) [id:11221167]",
-          "player": "Dylan Harper",
+          "raw": "De'Aaron Fox UNDER PA 28 (STANDARD) [id:11221008]",
+          "player": "De'Aaron Fox",
           "dir": "UNDER",
-          "stat": "RA",
-          "line": 9.5,
+          "stat": "PA",
+          "line": 28.0,
           "tier": "STANDARD",
-          "id": 11221167
+          "id": 11221008
         },
         {
-          "raw": "Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620]",
-          "player": "Sam Merrill",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 4.5,
+          "raw": "Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436]",
+          "player": "Julian Strawther",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 11.5,
           "tier": "STANDARD",
-          "id": 11242620
+          "id": 11231436
         },
         {
-          "raw": "Duncan Robinson OVER FG3M 2.5 (DEMON) [id:11227803]",
-          "player": "Duncan Robinson",
+          "raw": "Cameron Johnson OVER RA 6 (DEMON) [id:11231424]",
+          "player": "Cameron Johnson",
           "dir": "OVER",
-          "stat": "FG3M",
-          "line": 2.5,
+          "stat": "RA",
+          "line": 6.0,
           "tier": "DEMON",
-          "id": 11227803
+          "id": 11231424
         }
       ],
-      "hit_prob": 0.2848733555416843,
-      "ev_mult": 2.848733555416844,
+      "hit_prob": 0.2808921313562943,
+      "ev_mult": 2.8089213135629434,
       "payout_mult": 10.0,
-      "avg_fragility": 0.1409891548693185
+      "avg_fragility": 0.173242697189959
     },
     {
       "product": "Windfall WinProb",
       "n_legs": 5,
-      "legs": "Duncan Robinson OVER FG3M 1.5 (GOBLIN) [id:11227802] | Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104] | De'Aaron Fox UNDER PTS 21.5 (STANDARD) [id:11221005] | Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620] | Cameron Johnson OVER RA 6 (DEMON) [id:11231424]",
+      "legs": "Dylan Harper OVER FG3M 0.5 (GOBLIN) [id:11241615] | Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104] | De'Aaron Fox UNDER PTS 21.5 (STANDARD) [id:11221005] | Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436] | Cameron Johnson OVER RA 6 (DEMON) [id:11231424]",
       "legs_detail": [
         {
-          "raw": "Duncan Robinson OVER FG3M 1.5 (GOBLIN) [id:11227802]",
-          "player": "Duncan Robinson",
+          "raw": "Dylan Harper OVER FG3M 0.5 (GOBLIN) [id:11241615]",
+          "player": "Dylan Harper",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 1.5,
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11227802
+          "id": 11241615
         },
         {
           "raw": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11232104]",
@@ -549,13 +549,13 @@
           "id": 11221005
         },
         {
-          "raw": "Sam Merrill OVER RA 4.5 (STANDARD) [id:11242620]",
-          "player": "Sam Merrill",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 4.5,
+          "raw": "Julian Strawther UNDER PRA 11.5 (STANDARD) [id:11231436]",
+          "player": "Julian Strawther",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 11.5,
           "tier": "STANDARD",
-          "id": 11242620
+          "id": 11231436
         },
         {
           "raw": "Cameron Johnson OVER RA 6 (DEMON) [id:11231424]",
@@ -567,153 +567,153 @@
           "id": 11231424
         }
       ],
-      "hit_prob": 0.2576004737234968,
-      "ev_mult": 5.152009474469938,
+      "hit_prob": 0.2492259357974891,
+      "ev_mult": 4.984518715949784,
       "payout_mult": 20.0,
-      "avg_fragility": 0.1358117910525956
+      "avg_fragility": 0.1435094665079159
     }
   ],
   "demonhunter": [
     {
       "product": "Demonhunter",
       "n_legs": 3,
-      "legs": "Cade Cunningham OVER PR 24.5 (DEMON) [id:11241978] | Deni Avdija OVER PRA 42.5 (DEMON) [id:11221756] | Jamal Murray OVER FG3M 3.5 (DEMON) [id:11227581]",
+      "legs": "Deni Avdija OVER PR 34.5 (DEMON) [id:11223962] | Dillon Brooks OVER REB 4.5 (DEMON) [id:11233349] | Cameron Johnson OVER FG3M 2.5 (DEMON) [id:11227303]",
       "legs_detail": [
         {
-          "raw": "Cade Cunningham OVER PR 24.5 (DEMON) [id:11241978]",
-          "player": "Cade Cunningham",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 24.5,
-          "tier": "DEMON",
-          "id": 11241978
-        },
-        {
-          "raw": "Deni Avdija OVER PRA 42.5 (DEMON) [id:11221756]",
+          "raw": "Deni Avdija OVER PR 34.5 (DEMON) [id:11223962]",
           "player": "Deni Avdija",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 42.5,
+          "stat": "PR",
+          "line": 34.5,
           "tier": "DEMON",
-          "id": 11221756
+          "id": 11223962
         },
         {
-          "raw": "Jamal Murray OVER FG3M 3.5 (DEMON) [id:11227581]",
-          "player": "Jamal Murray",
+          "raw": "Dillon Brooks OVER REB 4.5 (DEMON) [id:11233349]",
+          "player": "Dillon Brooks",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 4.5,
+          "tier": "DEMON",
+          "id": 11233349
+        },
+        {
+          "raw": "Cameron Johnson OVER FG3M 2.5 (DEMON) [id:11227303]",
+          "player": "Cameron Johnson",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 3.5,
+          "line": 2.5,
           "tier": "DEMON",
-          "id": 11227581
+          "id": 11227303
         }
       ],
-      "hit_prob": 0.1538431039820121,
-      "ev_mult": 0.1076018437922179,
+      "hit_prob": 0.1419467737835404,
+      "ev_mult": 0.1294898409306036,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0708558138760208
+      "avg_fragility": 0.0485927803617119
     },
     {
       "product": "Demonhunter",
       "n_legs": 4,
-      "legs": "Duncan Robinson OVER PTS 12.5 (DEMON) [id:11227965] | Daniss Jenkins OVER FG3M 1.5 (DEMON) [id:11246882] | Christian Braun OVER FG3M 1.5 (DEMON) [id:11227338] | Desmond Bane OVER PRA 29.5 (DEMON) [id:11231970]",
+      "legs": "Jrue Holiday OVER FG3M 3.5 (DEMON) [id:11221176] | Jamal Murray OVER PA 34.5 (DEMON) [id:11231727] | Cameron Johnson OVER PTS 14.5 (DEMON) [id:11227309] | Dylan Harper OVER FG3M 1.5 (DEMON) [id:11221134]",
       "legs_detail": [
         {
-          "raw": "Duncan Robinson OVER PTS 12.5 (DEMON) [id:11227965]",
-          "player": "Duncan Robinson",
+          "raw": "Jrue Holiday OVER FG3M 3.5 (DEMON) [id:11221176]",
+          "player": "Jrue Holiday",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 3.5,
+          "tier": "DEMON",
+          "id": 11221176
+        },
+        {
+          "raw": "Jamal Murray OVER PA 34.5 (DEMON) [id:11231727]",
+          "player": "Jamal Murray",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 34.5,
+          "tier": "DEMON",
+          "id": 11231727
+        },
+        {
+          "raw": "Cameron Johnson OVER PTS 14.5 (DEMON) [id:11227309]",
+          "player": "Cameron Johnson",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 12.5,
+          "line": 14.5,
           "tier": "DEMON",
-          "id": 11227965
+          "id": 11227309
         },
         {
-          "raw": "Daniss Jenkins OVER FG3M 1.5 (DEMON) [id:11246882]",
-          "player": "Daniss Jenkins",
+          "raw": "Dylan Harper OVER FG3M 1.5 (DEMON) [id:11221134]",
+          "player": "Dylan Harper",
           "dir": "OVER",
           "stat": "FG3M",
           "line": 1.5,
           "tier": "DEMON",
-          "id": 11246882
-        },
-        {
-          "raw": "Christian Braun OVER FG3M 1.5 (DEMON) [id:11227338]",
-          "player": "Christian Braun",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
-          "tier": "DEMON",
-          "id": 11227338
-        },
-        {
-          "raw": "Desmond Bane OVER PRA 29.5 (DEMON) [id:11231970]",
-          "player": "Desmond Bane",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 29.5,
-          "tier": "DEMON",
-          "id": 11231970
+          "id": 11221134
         }
       ],
-      "hit_prob": 0.0972594591513524,
-      "ev_mult": 0.0303443267374716,
+      "hit_prob": 0.0919787090982042,
+      "ev_mult": 0.0363224067342545,
       "payout_mult": 10.0,
-      "avg_fragility": 0.1206848848620963
+      "avg_fragility": 0.0958282903447545
     },
     {
       "product": "Demonhunter",
       "n_legs": 5,
-      "legs": "Cade Cunningham OVER PA 29.5 (DEMON) [id:11241974] | Daniss Jenkins OVER AST 7.5 (DEMON) [id:11246885] | Scoot Henderson OVER PTS 18.5 (DEMON) [id:11221810] | Keldon Johnson OVER PRA 22.5 (DEMON) [id:11245310] | Cameron Johnson OVER PRA 21.5 (DEMON) [id:11231250]",
+      "legs": "Jordan Goodwin OVER PTS 10.5 (DEMON) [id:11233745] | Nikola Joki\u0107 OVER PR 39.5 (DEMON) [id:11232069] | Jordan Miller OVER FG3M 0.5 (DEMON) [id:11247308] | Tim Hardaway OVER FG3M 2.5 (DEMON) [id:11230822] | Cameron Johnson OVER PRA 22.5 (DEMON) [id:11231472]",
       "legs_detail": [
         {
-          "raw": "Cade Cunningham OVER PA 29.5 (DEMON) [id:11241974]",
-          "player": "Cade Cunningham",
-          "dir": "OVER",
-          "stat": "PA",
-          "line": 29.5,
-          "tier": "DEMON",
-          "id": 11241974
-        },
-        {
-          "raw": "Daniss Jenkins OVER AST 7.5 (DEMON) [id:11246885]",
-          "player": "Daniss Jenkins",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 7.5,
-          "tier": "DEMON",
-          "id": 11246885
-        },
-        {
-          "raw": "Scoot Henderson OVER PTS 18.5 (DEMON) [id:11221810]",
-          "player": "Scoot Henderson",
+          "raw": "Jordan Goodwin OVER PTS 10.5 (DEMON) [id:11233745]",
+          "player": "Jordan Goodwin",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 18.5,
+          "line": 10.5,
           "tier": "DEMON",
-          "id": 11221810
+          "id": 11233745
         },
         {
-          "raw": "Keldon Johnson OVER PRA 22.5 (DEMON) [id:11245310]",
-          "player": "Keldon Johnson",
+          "raw": "Nikola Joki\u0107 OVER PR 39.5 (DEMON) [id:11232069]",
+          "player": "Nikola Joki\u0107",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 39.5,
+          "tier": "DEMON",
+          "id": 11232069
+        },
+        {
+          "raw": "Jordan Miller OVER FG3M 0.5 (DEMON) [id:11247308]",
+          "player": "Jordan Miller",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "DEMON",
+          "id": 11247308
+        },
+        {
+          "raw": "Tim Hardaway OVER FG3M 2.5 (DEMON) [id:11230822]",
+          "player": "Tim Hardaway",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.5,
+          "tier": "DEMON",
+          "id": 11230822
+        },
+        {
+          "raw": "Cameron Johnson OVER PRA 22.5 (DEMON) [id:11231472]",
+          "player": "Cameron Johnson",
           "dir": "OVER",
           "stat": "PRA",
           "line": 22.5,
           "tier": "DEMON",
-          "id": 11245310
-        },
-        {
-          "raw": "Cameron Johnson OVER PRA 21.5 (DEMON) [id:11231250]",
-          "player": "Cameron Johnson",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 21.5,
-          "tier": "DEMON",
-          "id": 11231250
+          "id": 11231472
         }
       ],
-      "hit_prob": 0.0420685393493626,
-      "ev_mult": 0.0276396814822329,
+      "hit_prob": 0.0430010658520201,
+      "ev_mult": 0.0261386264174666,
       "payout_mult": 20.0,
-      "avg_fragility": 0.077065515649082
+      "avg_fragility": 0.0870179493674201
     }
   ],
   "gamescript": []
