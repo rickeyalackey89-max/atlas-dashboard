@@ -1,212 +1,210 @@
 {
-  "generated_at": "2026-04-10T17:42:44.746113-05:00",
-  "run_id": "20260410_174242",
-  "system": [],
+  "generated_at": "2026-04-10T18:33:18.830735-05:00",
+  "run_id": "20260410_183312",
+  "system": [
+    {
+      "product": "System",
+      "n_legs": 3,
+      "legs": "Precious Achiuwa OVER REB 5.5 (GOBLIN) [id:11296444] | Bez Mbeng UNDER PA 18.5 (STANDARD) [id:11292049] | Donte DiVincenzo UNDER PRA 14 (STANDARD) [id:11303927]",
+      "legs_detail": [
+        {
+          "raw": "Precious Achiuwa OVER REB 5.5 (GOBLIN) [id:11296444]",
+          "player": "Precious Achiuwa",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 5.5,
+          "tier": "GOBLIN",
+          "id": 11296444
+        },
+        {
+          "raw": "Bez Mbeng UNDER PA 18.5 (STANDARD) [id:11292049]",
+          "player": "Bez Mbeng",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 18.5,
+          "tier": "STANDARD",
+          "id": 11292049
+        },
+        {
+          "raw": "Donte DiVincenzo UNDER PRA 14 (STANDARD) [id:11303927]",
+          "player": "Donte DiVincenzo",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 14.0,
+          "tier": "STANDARD",
+          "id": 11303927
+        }
+      ],
+      "hit_prob": 0.3440849684588749,
+      "ev_mult": 1.8943918302974232,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.1317906461711658
+    },
+    {
+      "product": "System",
+      "n_legs": 4,
+      "legs": "Jamal Murray OVER FG3M 1.5 (GOBLIN) [id:11303143] | Aaron Gordon OVER PTS 9.5 (GOBLIN) [id:11296097] | Neemias Queta OVER PRA 20.5 (STANDARD) [id:11301834] | Franz Wagner OVER PA 19 (STANDARD) [id:11294119]",
+      "legs_detail": [
+        {
+          "raw": "Jamal Murray OVER FG3M 1.5 (GOBLIN) [id:11303143]",
+          "player": "Jamal Murray",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11303143
+        },
+        {
+          "raw": "Aaron Gordon OVER PTS 9.5 (GOBLIN) [id:11296097]",
+          "player": "Aaron Gordon",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 9.5,
+          "tier": "GOBLIN",
+          "id": 11296097
+        },
+        {
+          "raw": "Neemias Queta OVER PRA 20.5 (STANDARD) [id:11301834]",
+          "player": "Neemias Queta",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 20.5,
+          "tier": "STANDARD",
+          "id": 11301834
+        },
+        {
+          "raw": "Franz Wagner OVER PA 19 (STANDARD) [id:11294119]",
+          "player": "Franz Wagner",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 19.0,
+          "tier": "STANDARD",
+          "id": 11294119
+        }
+      ],
+      "hit_prob": 0.2306678777754425,
+      "ev_mult": 1.5087736783452883,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0190744020365606
+    },
+    {
+      "product": "System",
+      "n_legs": 5,
+      "legs": "Nikola Joki\u0107 OVER AST 7.5 (GOBLIN) [id:11294603] | Precious Achiuwa OVER REB 5.5 (GOBLIN) [id:11296444] | Maxime Raynaud OVER REB 5.5 (GOBLIN) [id:11298573] | Brandon Ingram UNDER PR 27 (STANDARD) [id:11293478] | Amen Thompson UNDER PR 25.5 (STANDARD) [id:11294431]",
+      "legs_detail": [
+        {
+          "raw": "Nikola Joki\u0107 OVER AST 7.5 (GOBLIN) [id:11294603]",
+          "player": "Nikola Joki\u0107",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 7.5,
+          "tier": "GOBLIN",
+          "id": 11294603
+        },
+        {
+          "raw": "Precious Achiuwa OVER REB 5.5 (GOBLIN) [id:11296444]",
+          "player": "Precious Achiuwa",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 5.5,
+          "tier": "GOBLIN",
+          "id": 11296444
+        },
+        {
+          "raw": "Maxime Raynaud OVER REB 5.5 (GOBLIN) [id:11298573]",
+          "player": "Maxime Raynaud",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 5.5,
+          "tier": "GOBLIN",
+          "id": 11298573
+        },
+        {
+          "raw": "Brandon Ingram UNDER PR 27 (STANDARD) [id:11293478]",
+          "player": "Brandon Ingram",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 27.0,
+          "tier": "STANDARD",
+          "id": 11293478
+        },
+        {
+          "raw": "Amen Thompson UNDER PR 25.5 (STANDARD) [id:11294431]",
+          "player": "Amen Thompson",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 25.5,
+          "tier": "STANDARD",
+          "id": 11294431
+        }
+      ],
+      "hit_prob": 0.7406,
+      "ev_mult": 1.7741247386652264,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0261749430527003
+    }
+  ],
   "system_winprob": [
     {
       "product": "System WinProb",
       "n_legs": 3,
-      "legs": "Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185] | Daniss Jenkins OVER PRA 15.5 (STANDARD) [id:11289086] | Toumani Camara OVER FG3M 2.5 (STANDARD) [id:11285975]",
+      "legs": "Myles Turner OVER FG3M 0.5 (GOBLIN) [id:11294234] | Bez Mbeng UNDER REB 5 (STANDARD) [id:11301014] | Kenrich Williams UNDER REB 7.5 (STANDARD) [id:11291183]",
       "legs_detail": [
         {
-          "raw": "Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185]",
-          "player": "Robert Williams",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11309185
-        },
-        {
-          "raw": "Daniss Jenkins OVER PRA 15.5 (STANDARD) [id:11289086]",
-          "player": "Daniss Jenkins",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 15.5,
-          "tier": "STANDARD",
-          "id": 11289086
-        },
-        {
-          "raw": "Toumani Camara OVER FG3M 2.5 (STANDARD) [id:11285975]",
-          "player": "Toumani Camara",
+          "raw": "Myles Turner OVER FG3M 0.5 (GOBLIN) [id:11294234]",
+          "player": "Myles Turner",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 2.5,
-          "tier": "STANDARD",
-          "id": 11285975
-        }
-      ],
-      "hit_prob": 0.5218735442527289,
-      "ev_mult": 3.131241265516373,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0084377433594868
-    },
-    {
-      "product": "System WinProb",
-      "n_legs": 4,
-      "legs": "Evan Mobley OVER AST 1.5 (GOBLIN) [id:11291379] | Duncan Robinson OVER RA 2.5 (GOBLIN) [id:11288608] | Daniss Jenkins OVER PRA 15.5 (STANDARD) [id:11289086] | Jaden McDaniels OVER PTS 9.5 (STANDARD) [id:11303956]",
-      "legs_detail": [
-        {
-          "raw": "Evan Mobley OVER AST 1.5 (GOBLIN) [id:11291379]",
-          "player": "Evan Mobley",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11291379
+          "id": 11294234
         },
         {
-          "raw": "Duncan Robinson OVER RA 2.5 (GOBLIN) [id:11288608]",
-          "player": "Duncan Robinson",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11288608
-        },
-        {
-          "raw": "Daniss Jenkins OVER PRA 15.5 (STANDARD) [id:11289086]",
-          "player": "Daniss Jenkins",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 15.5,
-          "tier": "STANDARD",
-          "id": 11289086
-        },
-        {
-          "raw": "Jaden McDaniels OVER PTS 9.5 (STANDARD) [id:11303956]",
-          "player": "Jaden McDaniels",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 9.5,
-          "tier": "STANDARD",
-          "id": 11303956
-        }
-      ],
-      "hit_prob": 0.4191364707940118,
-      "ev_mult": 4.191364707940118,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0122394459887477
-    },
-    {
-      "product": "System WinProb",
-      "n_legs": 5,
-      "legs": "Evan Mobley OVER AST 1.5 (GOBLIN) [id:11291379] | Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185] | Toumani Camara OVER FG3M 1.5 (GOBLIN) [id:11285976] | Daniss Jenkins OVER AST 3.5 (STANDARD) [id:11288546] | Aaron Wiggins UNDER FG3M 2.5 (STANDARD) [id:11289984]",
-      "legs_detail": [
-        {
-          "raw": "Evan Mobley OVER AST 1.5 (GOBLIN) [id:11291379]",
-          "player": "Evan Mobley",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11291379
-        },
-        {
-          "raw": "Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185]",
-          "player": "Robert Williams",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11309185
-        },
-        {
-          "raw": "Toumani Camara OVER FG3M 1.5 (GOBLIN) [id:11285976]",
-          "player": "Toumani Camara",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11285976
-        },
-        {
-          "raw": "Daniss Jenkins OVER AST 3.5 (STANDARD) [id:11288546]",
-          "player": "Daniss Jenkins",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 3.5,
-          "tier": "STANDARD",
-          "id": 11288546
-        },
-        {
-          "raw": "Aaron Wiggins UNDER FG3M 2.5 (STANDARD) [id:11289984]",
-          "player": "Aaron Wiggins",
+          "raw": "Bez Mbeng UNDER REB 5 (STANDARD) [id:11301014]",
+          "player": "Bez Mbeng",
           "dir": "UNDER",
-          "stat": "FG3M",
-          "line": 2.5,
+          "stat": "REB",
+          "line": 5.0,
           "tier": "STANDARD",
-          "id": 11289984
-        }
-      ],
-      "hit_prob": 0.3864296732530013,
-      "ev_mult": 7.728593465060028,
-      "payout_mult": 20.0,
-      "avg_fragility": 0.1638342791286557
-    }
-  ],
-  "windfall": [],
-  "windfall_winprob": [
-    {
-      "product": "Windfall WinProb",
-      "n_legs": 3,
-      "legs": "Evan Mobley OVER AST 1.5 (GOBLIN) [id:11291379] | Daniss Jenkins OVER AST 3.5 (STANDARD) [id:11288546] | OG Anunoby OVER FG3M 2.5 (DEMON) [id:11293550]",
-      "legs_detail": [
-        {
-          "raw": "Evan Mobley OVER AST 1.5 (GOBLIN) [id:11291379]",
-          "player": "Evan Mobley",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11291379
+          "id": 11301014
         },
         {
-          "raw": "Daniss Jenkins OVER AST 3.5 (STANDARD) [id:11288546]",
-          "player": "Daniss Jenkins",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 3.5,
+          "raw": "Kenrich Williams UNDER REB 7.5 (STANDARD) [id:11291183]",
+          "player": "Kenrich Williams",
+          "dir": "UNDER",
+          "stat": "REB",
+          "line": 7.5,
           "tier": "STANDARD",
-          "id": 11288546
-        },
-        {
-          "raw": "OG Anunoby OVER FG3M 2.5 (DEMON) [id:11293550]",
-          "player": "OG Anunoby",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 2.5,
-          "tier": "DEMON",
-          "id": 11293550
+          "id": 11291183
         }
       ],
-      "hit_prob": 0.5034317271592539,
-      "ev_mult": 3.0205903629555237,
+      "hit_prob": 0.4975046788806581,
+      "ev_mult": 2.985028073283949,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0131664734177731
+      "avg_fragility": 0.4293219068151632
     },
     {
-      "product": "Windfall WinProb",
+      "product": "System WinProb",
       "n_legs": 4,
-      "legs": "Evan Mobley OVER AST 1.5 (GOBLIN) [id:11291379] | Toumani Camara OVER FG3M 2.5 (STANDARD) [id:11285975] | Bez Mbeng UNDER PR 19.5 (STANDARD) [id:11292050] | Daniss Jenkins OVER PRA 17.5 (DEMON) [id:11288566]",
+      "legs": "Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185] | Myles Turner OVER FG3M 0.5 (GOBLIN) [id:11294234] | Bez Mbeng UNDER PR 19.5 (STANDARD) [id:11292050] | Kenrich Williams UNDER PA 17.5 (STANDARD) [id:11291170]",
       "legs_detail": [
         {
-          "raw": "Evan Mobley OVER AST 1.5 (GOBLIN) [id:11291379]",
-          "player": "Evan Mobley",
+          "raw": "Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185]",
+          "player": "Robert Williams",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
+          "stat": "REB",
+          "line": 3.5,
           "tier": "GOBLIN",
-          "id": 11291379
+          "id": 11309185
         },
         {
-          "raw": "Toumani Camara OVER FG3M 2.5 (STANDARD) [id:11285975]",
-          "player": "Toumani Camara",
+          "raw": "Myles Turner OVER FG3M 0.5 (GOBLIN) [id:11294234]",
+          "player": "Myles Turner",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 2.5,
-          "tier": "STANDARD",
-          "id": 11285975
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11294234
         },
         {
           "raw": "Bez Mbeng UNDER PR 19.5 (STANDARD) [id:11292050]",
@@ -218,51 +216,51 @@
           "id": 11292050
         },
         {
-          "raw": "Daniss Jenkins OVER PRA 17.5 (DEMON) [id:11288566]",
-          "player": "Daniss Jenkins",
-          "dir": "OVER",
-          "stat": "PRA",
+          "raw": "Kenrich Williams UNDER PA 17.5 (STANDARD) [id:11291170]",
+          "player": "Kenrich Williams",
+          "dir": "UNDER",
+          "stat": "PA",
           "line": 17.5,
-          "tier": "DEMON",
-          "id": 11288566
+          "tier": "STANDARD",
+          "id": 11291170
         }
       ],
-      "hit_prob": 0.3333862361132498,
-      "ev_mult": 3.3338623611324985,
+      "hit_prob": 0.4114512313407558,
+      "ev_mult": 4.114512313407558,
       "payout_mult": 10.0,
-      "avg_fragility": 0.120779654922174
+      "avg_fragility": 0.3119280988145593
     },
     {
-      "product": "Windfall WinProb",
+      "product": "System WinProb",
       "n_legs": 5,
-      "legs": "Evan Mobley OVER AST 1.5 (GOBLIN) [id:11291379] | Grant Williams OVER FG3M 0.5 (GOBLIN) [id:11292872] | Duncan Robinson OVER PRA 13.5 (STANDARD) [id:11288600] | Toumani Camara OVER FG3M 2.5 (STANDARD) [id:11285975] | Daniss Jenkins OVER PRA 17.5 (DEMON) [id:11288566]",
+      "legs": "Reed Sheppard OVER FG3M 1.5 (GOBLIN) [id:11295284] | Nikola Joki\u0107 OVER AST 7.5 (GOBLIN) [id:11294603] | Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185] | Toumani Camara OVER FG3M 2.5 (STANDARD) [id:11285975] | Bez Mbeng UNDER REB 5 (STANDARD) [id:11301014]",
       "legs_detail": [
         {
-          "raw": "Evan Mobley OVER AST 1.5 (GOBLIN) [id:11291379]",
-          "player": "Evan Mobley",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11291379
-        },
-        {
-          "raw": "Grant Williams OVER FG3M 0.5 (GOBLIN) [id:11292872]",
-          "player": "Grant Williams",
+          "raw": "Reed Sheppard OVER FG3M 1.5 (GOBLIN) [id:11295284]",
+          "player": "Reed Sheppard",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 0.5,
+          "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11292872
+          "id": 11295284
         },
         {
-          "raw": "Duncan Robinson OVER PRA 13.5 (STANDARD) [id:11288600]",
-          "player": "Duncan Robinson",
+          "raw": "Nikola Joki\u0107 OVER AST 7.5 (GOBLIN) [id:11294603]",
+          "player": "Nikola Joki\u0107",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 13.5,
-          "tier": "STANDARD",
-          "id": 11288600
+          "stat": "AST",
+          "line": 7.5,
+          "tier": "GOBLIN",
+          "id": 11294603
+        },
+        {
+          "raw": "Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185]",
+          "player": "Robert Williams",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11309185
         },
         {
           "raw": "Toumani Camara OVER FG3M 2.5 (STANDARD) [id:11285975]",
@@ -274,21 +272,449 @@
           "id": 11285975
         },
         {
-          "raw": "Daniss Jenkins OVER PRA 17.5 (DEMON) [id:11288566]",
-          "player": "Daniss Jenkins",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 17.5,
-          "tier": "DEMON",
-          "id": 11288566
+          "raw": "Bez Mbeng UNDER REB 5 (STANDARD) [id:11301014]",
+          "player": "Bez Mbeng",
+          "dir": "UNDER",
+          "stat": "REB",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11301014
         }
       ],
-      "hit_prob": 0.3115512317268277,
-      "ev_mult": 6.2310246345365545,
+      "hit_prob": 0.3693460797982729,
+      "ev_mult": 7.386921595965459,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0115964785886227
+      "avg_fragility": 0.1105873549733114
     }
   ],
-  "demonhunter": [],
+  "windfall": [
+    {
+      "product": "Windfall",
+      "n_legs": 3,
+      "legs": "Cameron Johnson OVER AST 1.5 (GOBLIN) [id:11290032] | Baylor Scheierman UNDER PA 11.5 (STANDARD) [id:11293313] | Jamal Murray OVER FG3M 4.5 (DEMON) [id:11290111]",
+      "legs_detail": [
+        {
+          "raw": "Cameron Johnson OVER AST 1.5 (GOBLIN) [id:11290032]",
+          "player": "Cameron Johnson",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11290032
+        },
+        {
+          "raw": "Baylor Scheierman UNDER PA 11.5 (STANDARD) [id:11293313]",
+          "player": "Baylor Scheierman",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 11.5,
+          "tier": "STANDARD",
+          "id": 11293313
+        },
+        {
+          "raw": "Jamal Murray OVER FG3M 4.5 (DEMON) [id:11290111]",
+          "player": "Jamal Murray",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 4.5,
+          "tier": "DEMON",
+          "id": 11290111
+        }
+      ],
+      "hit_prob": 0.43346191,
+      "ev_mult": 0.5644175443727895,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0945005615034595
+    },
+    {
+      "product": "Windfall",
+      "n_legs": 4,
+      "legs": "Cameron Johnson OVER REB 2.5 (GOBLIN) [id:11299639] | Deni Avdija OVER PTS 25.5 (STANDARD) [id:11285735] | Kenrich Williams UNDER RA 10.5 (STANDARD) [id:11293147] | Nikola Joki\u0107 OVER RA 26.5 (DEMON) [id:11290277]",
+      "legs_detail": [
+        {
+          "raw": "Cameron Johnson OVER REB 2.5 (GOBLIN) [id:11299639]",
+          "player": "Cameron Johnson",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 2.5,
+          "tier": "GOBLIN",
+          "id": 11299639
+        },
+        {
+          "raw": "Deni Avdija OVER PTS 25.5 (STANDARD) [id:11285735]",
+          "player": "Deni Avdija",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 25.5,
+          "tier": "STANDARD",
+          "id": 11285735
+        },
+        {
+          "raw": "Kenrich Williams UNDER RA 10.5 (STANDARD) [id:11293147]",
+          "player": "Kenrich Williams",
+          "dir": "UNDER",
+          "stat": "RA",
+          "line": 10.5,
+          "tier": "STANDARD",
+          "id": 11293147
+        },
+        {
+          "raw": "Nikola Joki\u0107 OVER RA 26.5 (DEMON) [id:11290277]",
+          "player": "Nikola Joki\u0107",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 26.5,
+          "tier": "DEMON",
+          "id": 11290277
+        }
+      ],
+      "hit_prob": 0.1868231225231482,
+      "ev_mult": 0.775508405086017,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.2408525874292982
+    },
+    {
+      "product": "Windfall",
+      "n_legs": 5,
+      "legs": "Jamal Murray OVER AST 4.5 (GOBLIN) [id:11296863] | Cameron Johnson OVER RA 4.5 (GOBLIN) [id:11304557] | LeBron James UNDER RA 16.5 (STANDARD) [id:11297765] | Jabari Smith OVER PRA 24.5 (STANDARD) [id:11295200] | OG Anunoby OVER PTS 19.5 (DEMON) [id:11293554]",
+      "legs_detail": [
+        {
+          "raw": "Jamal Murray OVER AST 4.5 (GOBLIN) [id:11296863]",
+          "player": "Jamal Murray",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11296863
+        },
+        {
+          "raw": "Cameron Johnson OVER RA 4.5 (GOBLIN) [id:11304557]",
+          "player": "Cameron Johnson",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11304557
+        },
+        {
+          "raw": "LeBron James UNDER RA 16.5 (STANDARD) [id:11297765]",
+          "player": "LeBron James",
+          "dir": "UNDER",
+          "stat": "RA",
+          "line": 16.5,
+          "tier": "STANDARD",
+          "id": 11297765
+        },
+        {
+          "raw": "Jabari Smith OVER PRA 24.5 (STANDARD) [id:11295200]",
+          "player": "Jabari Smith",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 24.5,
+          "tier": "STANDARD",
+          "id": 11295200
+        },
+        {
+          "raw": "OG Anunoby OVER PTS 19.5 (DEMON) [id:11293554]",
+          "player": "OG Anunoby",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 19.5,
+          "tier": "DEMON",
+          "id": 11293554
+        }
+      ],
+      "hit_prob": 0.1742173104174095,
+      "ev_mult": 0.7426864690026201,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0466263592712862
+    }
+  ],
+  "windfall_winprob": [
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 3,
+      "legs": "Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185] | Bez Mbeng UNDER REB 5 (STANDARD) [id:11301014] | OG Anunoby OVER FG3M 2.5 (DEMON) [id:11293550]",
+      "legs_detail": [
+        {
+          "raw": "Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185]",
+          "player": "Robert Williams",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11309185
+        },
+        {
+          "raw": "Bez Mbeng UNDER REB 5 (STANDARD) [id:11301014]",
+          "player": "Bez Mbeng",
+          "dir": "UNDER",
+          "stat": "REB",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11301014
+        },
+        {
+          "raw": "OG Anunoby OVER FG3M 2.5 (DEMON) [id:11293550]",
+          "player": "OG Anunoby",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.5,
+          "tier": "DEMON",
+          "id": 11293550
+        }
+      ],
+      "hit_prob": 0.4970827628149051,
+      "ev_mult": 2.9824965768894307,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.1801314698086974
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 4,
+      "legs": "Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185] | Bez Mbeng UNDER REB 5 (STANDARD) [id:11301014] | Toumani Camara OVER FG3M 2.5 (STANDARD) [id:11285975] | OG Anunoby OVER FG3M 2.5 (DEMON) [id:11293550]",
+      "legs_detail": [
+        {
+          "raw": "Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185]",
+          "player": "Robert Williams",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11309185
+        },
+        {
+          "raw": "Bez Mbeng UNDER REB 5 (STANDARD) [id:11301014]",
+          "player": "Bez Mbeng",
+          "dir": "UNDER",
+          "stat": "REB",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11301014
+        },
+        {
+          "raw": "Toumani Camara OVER FG3M 2.5 (STANDARD) [id:11285975]",
+          "player": "Toumani Camara",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.5,
+          "tier": "STANDARD",
+          "id": 11285975
+        },
+        {
+          "raw": "OG Anunoby OVER FG3M 2.5 (DEMON) [id:11293550]",
+          "player": "OG Anunoby",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.5,
+          "tier": "DEMON",
+          "id": 11293550
+        }
+      ],
+      "hit_prob": 0.3582203667877635,
+      "ev_mult": 3.5822036678776352,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.1364555433736701
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 5,
+      "legs": "Myles Turner OVER FG3M 0.5 (GOBLIN) [id:11294234] | Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185] | Nique Clifford UNDER PRA 26.5 (STANDARD) [id:11298588] | Bez Mbeng UNDER REB 5 (STANDARD) [id:11301014] | OG Anunoby OVER FG3M 2.5 (DEMON) [id:11293550]",
+      "legs_detail": [
+        {
+          "raw": "Myles Turner OVER FG3M 0.5 (GOBLIN) [id:11294234]",
+          "player": "Myles Turner",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11294234
+        },
+        {
+          "raw": "Robert Williams OVER REB 3.5 (GOBLIN) [id:11309185]",
+          "player": "Robert Williams",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11309185
+        },
+        {
+          "raw": "Nique Clifford UNDER PRA 26.5 (STANDARD) [id:11298588]",
+          "player": "Nique Clifford",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 26.5,
+          "tier": "STANDARD",
+          "id": 11298588
+        },
+        {
+          "raw": "Bez Mbeng UNDER REB 5 (STANDARD) [id:11301014]",
+          "player": "Bez Mbeng",
+          "dir": "UNDER",
+          "stat": "REB",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11301014
+        },
+        {
+          "raw": "OG Anunoby OVER FG3M 2.5 (DEMON) [id:11293550]",
+          "player": "OG Anunoby",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.5,
+          "tier": "DEMON",
+          "id": 11293550
+        }
+      ],
+      "hit_prob": 0.3133682103691428,
+      "ev_mult": 6.267364207382857,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.1954661865640442
+    }
+  ],
+  "demonhunter": [
+    {
+      "product": "Demonhunter",
+      "n_legs": 3,
+      "legs": "OG Anunoby OVER FG3M 2.5 (DEMON) [id:11293550] | Anthony Black OVER PTS 12.5 (DEMON) [id:11296537] | Donte DiVincenzo OVER PTS 10.5 (DEMON) [id:11303918]",
+      "legs_detail": [
+        {
+          "raw": "OG Anunoby OVER FG3M 2.5 (DEMON) [id:11293550]",
+          "player": "OG Anunoby",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.5,
+          "tier": "DEMON",
+          "id": 11293550
+        },
+        {
+          "raw": "Anthony Black OVER PTS 12.5 (DEMON) [id:11296537]",
+          "player": "Anthony Black",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 12.5,
+          "tier": "DEMON",
+          "id": 11296537
+        },
+        {
+          "raw": "Donte DiVincenzo OVER PTS 10.5 (DEMON) [id:11303918]",
+          "player": "Donte DiVincenzo",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 10.5,
+          "tier": "DEMON",
+          "id": 11303918
+        }
+      ],
+      "hit_prob": 0.2018312533270172,
+      "ev_mult": 0.0506732957364521,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.013794818423724
+    },
+    {
+      "product": "Demonhunter",
+      "n_legs": 4,
+      "legs": "Jamal Murray OVER PTS 26.5 (DEMON) [id:11290126] | Derrick Jones OVER RA 6.5 (DEMON) [id:11286307] | Cameron Johnson OVER PR 19.5 (DEMON) [id:11304555] | Maxime Raynaud OVER RA 10.5 (DEMON) [id:11298945]",
+      "legs_detail": [
+        {
+          "raw": "Jamal Murray OVER PTS 26.5 (DEMON) [id:11290126]",
+          "player": "Jamal Murray",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 26.5,
+          "tier": "DEMON",
+          "id": 11290126
+        },
+        {
+          "raw": "Derrick Jones OVER RA 6.5 (DEMON) [id:11286307]",
+          "player": "Derrick Jones",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 6.5,
+          "tier": "DEMON",
+          "id": 11286307
+        },
+        {
+          "raw": "Cameron Johnson OVER PR 19.5 (DEMON) [id:11304555]",
+          "player": "Cameron Johnson",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 19.5,
+          "tier": "DEMON",
+          "id": 11304555
+        },
+        {
+          "raw": "Maxime Raynaud OVER RA 10.5 (DEMON) [id:11298945]",
+          "player": "Maxime Raynaud",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 10.5,
+          "tier": "DEMON",
+          "id": 11298945
+        }
+      ],
+      "hit_prob": 0.0956837585669995,
+      "ev_mult": 0.032090665067726,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.033197510401144
+    },
+    {
+      "product": "Demonhunter",
+      "n_legs": 5,
+      "legs": "Toumani Camara OVER FG3M 3.5 (DEMON) [id:11286400] | Kevon Looney OVER RA 10.5 (DEMON) [id:11304743] | Jamal Murray OVER PRA 37.5 (DEMON) [id:11290133] | Precious Achiuwa OVER RA 10.5 (DEMON) [id:11299410] | OG Anunoby OVER PTS 19.5 (DEMON) [id:11293554]",
+      "legs_detail": [
+        {
+          "raw": "Toumani Camara OVER FG3M 3.5 (DEMON) [id:11286400]",
+          "player": "Toumani Camara",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 3.5,
+          "tier": "DEMON",
+          "id": 11286400
+        },
+        {
+          "raw": "Kevon Looney OVER RA 10.5 (DEMON) [id:11304743]",
+          "player": "Kevon Looney",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 10.5,
+          "tier": "DEMON",
+          "id": 11304743
+        },
+        {
+          "raw": "Jamal Murray OVER PRA 37.5 (DEMON) [id:11290133]",
+          "player": "Jamal Murray",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 37.5,
+          "tier": "DEMON",
+          "id": 11290133
+        },
+        {
+          "raw": "Precious Achiuwa OVER RA 10.5 (DEMON) [id:11299410]",
+          "player": "Precious Achiuwa",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 10.5,
+          "tier": "DEMON",
+          "id": 11299410
+        },
+        {
+          "raw": "OG Anunoby OVER PTS 19.5 (DEMON) [id:11293554]",
+          "player": "OG Anunoby",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 19.5,
+          "tier": "DEMON",
+          "id": 11293554
+        }
+      ],
+      "hit_prob": 0.0568091842770887,
+      "ev_mult": 0.0126496507160167,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0234623001386862
+    }
+  ],
   "gamescript": []
 }
