@@ -1,720 +1,475 @@
 {
-  "generated_at": "2026-04-12T18:06:36.545132-05:00",
-  "run_id": "20260412_180617",
+  "generated_at": "2026-04-15T11:20:18.924736-05:00",
+  "run_id": "20260415_112018",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "Aaron Wiggins OVER RA 5.5 (GOBLIN) [id:11342085] | Nikola Topi\u0107 OVER AST 10.5 (STANDARD) [id:11352887] | Josh Okogie OVER PR 13.5 (STANDARD) [id:11356082]",
+      "legs": "Anthony Black OVER REB 1.5 (GOBLIN) [id:11436934] | Dominick Barlow OVER PR 9.5 (STANDARD) [id:11417212] | Gui Santos UNDER PRA 19 (STANDARD) [id:11370528]",
       "legs_detail": [
         {
-          "raw": "Aaron Wiggins OVER RA 5.5 (GOBLIN) [id:11342085]",
-          "player": "Aaron Wiggins",
+          "raw": "Anthony Black OVER REB 1.5 (GOBLIN) [id:11436934]",
+          "player": "Anthony Black",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 5.5,
+          "stat": "REB",
+          "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11342085
+          "id": 11436934
         },
         {
-          "raw": "Nikola Topi\u0107 OVER AST 10.5 (STANDARD) [id:11352887]",
-          "player": "Nikola Topi\u0107",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 10.5,
-          "tier": "STANDARD",
-          "id": 11352887
-        },
-        {
-          "raw": "Josh Okogie OVER PR 13.5 (STANDARD) [id:11356082]",
-          "player": "Josh Okogie",
+          "raw": "Dominick Barlow OVER PR 9.5 (STANDARD) [id:11417212]",
+          "player": "Dominick Barlow",
           "dir": "OVER",
           "stat": "PR",
-          "line": 13.5,
+          "line": 9.5,
           "tier": "STANDARD",
-          "id": 11356082
+          "id": 11417212
+        },
+        {
+          "raw": "Gui Santos UNDER PRA 19 (STANDARD) [id:11370528]",
+          "player": "Gui Santos",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 19.0,
+          "tier": "STANDARD",
+          "id": 11370528
         }
       ],
-      "hit_prob": 0.3647020726004488,
-      "ev_mult": 1.833817243316963,
+      "hit_prob": 0.2777184426614787,
+      "ev_mult": 1.6809515224960436,
       "payout_mult": 6.0,
       "avg_fragility": 0.0
     },
     {
       "product": "System",
       "n_legs": 4,
-      "legs": "Killian Hayes OVER PTS 6.5 (GOBLIN) [id:11357172] | Kevon Looney OVER PTS 4.5 (GOBLIN) [id:11355924] | Gui Santos UNDER RA 7.5 (STANDARD) [id:11356311] | Tyus Jones OVER PTS 8.5 (STANDARD) [id:11339654]",
+      "legs": "Dominick Barlow OVER PTS 4.5 (GOBLIN) [id:11417742] | John Collins OVER PTS 7.5 (GOBLIN) [id:11424705] | Gui Santos UNDER RA 7.5 (STANDARD) [id:11371176] | Brandin Podziemski UNDER PRA 22.5 (STANDARD) [id:11370516]",
       "legs_detail": [
         {
-          "raw": "Killian Hayes OVER PTS 6.5 (GOBLIN) [id:11357172]",
-          "player": "Killian Hayes",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 6.5,
-          "tier": "GOBLIN",
-          "id": 11357172
-        },
-        {
-          "raw": "Kevon Looney OVER PTS 4.5 (GOBLIN) [id:11355924]",
-          "player": "Kevon Looney",
+          "raw": "Dominick Barlow OVER PTS 4.5 (GOBLIN) [id:11417742]",
+          "player": "Dominick Barlow",
           "dir": "OVER",
           "stat": "PTS",
           "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11355924
+          "id": 11417742
         },
         {
-          "raw": "Gui Santos UNDER RA 7.5 (STANDARD) [id:11356311]",
+          "raw": "John Collins OVER PTS 7.5 (GOBLIN) [id:11424705]",
+          "player": "John Collins",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 7.5,
+          "tier": "GOBLIN",
+          "id": 11424705
+        },
+        {
+          "raw": "Gui Santos UNDER RA 7.5 (STANDARD) [id:11371176]",
           "player": "Gui Santos",
           "dir": "UNDER",
           "stat": "RA",
           "line": 7.5,
           "tier": "STANDARD",
-          "id": 11356311
+          "id": 11371176
         },
         {
-          "raw": "Tyus Jones OVER PTS 8.5 (STANDARD) [id:11339654]",
-          "player": "Tyus Jones",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 8.5,
+          "raw": "Brandin Podziemski UNDER PRA 22.5 (STANDARD) [id:11370516]",
+          "player": "Brandin Podziemski",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 22.5,
           "tier": "STANDARD",
-          "id": 11339654
+          "id": 11370516
         }
       ],
-      "hit_prob": 0.2451680560599818,
-      "ev_mult": 1.5633688977836686,
+      "hit_prob": 0.2140307570420673,
+      "ev_mult": 1.423212400520586,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0
+      "avg_fragility": 0.0018831619105737
     },
     {
       "product": "System",
       "n_legs": 5,
-      "legs": "Jared McCain OVER PTS 15.5 (GOBLIN) [id:11360354] | Nikola Topi\u0107 OVER PTS 11.5 (GOBLIN) [id:11350363] | Josh Okogie OVER PTS 7.5 (GOBLIN) [id:11356176] | Gui Santos UNDER PR 14.5 (STANDARD) [id:11356304] | Maxime Raynaud UNDER PR 23.5 (STANDARD) [id:11333728]",
+      "legs": "Kris Dunn OVER PTS 4.5 (GOBLIN) [id:11370638] | Dominick Barlow OVER PTS 4.5 (GOBLIN) [id:11417742] | Jordan Miller OVER PTS 4.5 (GOBLIN) [id:11420740] | Brandin Podziemski UNDER PRA 22.5 (STANDARD) [id:11370516] | Gui Santos UNDER RA 7.5 (STANDARD) [id:11371176]",
       "legs_detail": [
         {
-          "raw": "Jared McCain OVER PTS 15.5 (GOBLIN) [id:11360354]",
-          "player": "Jared McCain",
+          "raw": "Kris Dunn OVER PTS 4.5 (GOBLIN) [id:11370638]",
+          "player": "Kris Dunn",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 15.5,
+          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11360354
+          "id": 11370638
         },
         {
-          "raw": "Nikola Topi\u0107 OVER PTS 11.5 (GOBLIN) [id:11350363]",
-          "player": "Nikola Topi\u0107",
+          "raw": "Dominick Barlow OVER PTS 4.5 (GOBLIN) [id:11417742]",
+          "player": "Dominick Barlow",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 11.5,
+          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11350363
+          "id": 11417742
         },
         {
-          "raw": "Josh Okogie OVER PTS 7.5 (GOBLIN) [id:11356176]",
-          "player": "Josh Okogie",
+          "raw": "Jordan Miller OVER PTS 4.5 (GOBLIN) [id:11420740]",
+          "player": "Jordan Miller",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 7.5,
+          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11356176
+          "id": 11420740
         },
         {
-          "raw": "Gui Santos UNDER PR 14.5 (STANDARD) [id:11356304]",
+          "raw": "Brandin Podziemski UNDER PRA 22.5 (STANDARD) [id:11370516]",
+          "player": "Brandin Podziemski",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 22.5,
+          "tier": "STANDARD",
+          "id": 11370516
+        },
+        {
+          "raw": "Gui Santos UNDER RA 7.5 (STANDARD) [id:11371176]",
           "player": "Gui Santos",
           "dir": "UNDER",
-          "stat": "PR",
-          "line": 14.5,
+          "stat": "RA",
+          "line": 7.5,
           "tier": "STANDARD",
-          "id": 11356304
-        },
-        {
-          "raw": "Maxime Raynaud UNDER PR 23.5 (STANDARD) [id:11333728]",
-          "player": "Maxime Raynaud",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 23.5,
-          "tier": "STANDARD",
-          "id": 11333728
+          "id": 11371176
         }
       ],
-      "hit_prob": 0.1657307717724564,
-      "ev_mult": 1.539663450271613,
+      "hit_prob": 0.1566229266068637,
+      "ev_mult": 1.404072872231261,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0
+      "avg_fragility": 0.000954336301092
     }
   ],
   "system_winprob": [
     {
       "product": "System WinProb",
       "n_legs": 3,
-      "legs": "Brandin Podziemski OVER FG3M 0.5 (GOBLIN) [id:11356359] | Clint Capela UNDER PR 23.5 (STANDARD) [id:11360048] | Nikola Topi\u0107 UNDER PA 25.5 (STANDARD) [id:11340931]",
+      "legs": "Andre Drummond OVER AST 0.5 (GOBLIN) [id:11424030] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084] | Goga Bitadze OVER REB 4.5 (STANDARD) [id:11420378]",
       "legs_detail": [
         {
-          "raw": "Brandin Podziemski OVER FG3M 0.5 (GOBLIN) [id:11356359]",
-          "player": "Brandin Podziemski",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11356359
-        },
-        {
-          "raw": "Clint Capela UNDER PR 23.5 (STANDARD) [id:11360048]",
-          "player": "Clint Capela",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 23.5,
-          "tier": "STANDARD",
-          "id": 11360048
-        },
-        {
-          "raw": "Nikola Topi\u0107 UNDER PA 25.5 (STANDARD) [id:11340931]",
-          "player": "Nikola Topi\u0107",
-          "dir": "UNDER",
-          "stat": "PA",
-          "line": 25.5,
-          "tier": "STANDARD",
-          "id": 11340931
-        }
-      ],
-      "hit_prob": 0.775343593982706,
-      "ev_mult": 4.652061563896236,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.5695082304594856
-    },
-    {
-      "product": "System WinProb",
-      "n_legs": 4,
-      "legs": "Nikola Joki\u0107 OVER PTS 9.5 (GOBLIN) [id:11337844] | Gui Santos OVER FG3M 0.5 (GOBLIN) [id:11356291] | Clint Capela UNDER PR 23.5 (STANDARD) [id:11360048] | Brandin Podziemski OVER PR 14.5 (STANDARD) [id:11356377]",
-      "legs_detail": [
-        {
-          "raw": "Nikola Joki\u0107 OVER PTS 9.5 (GOBLIN) [id:11337844]",
-          "player": "Nikola Joki\u0107",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 9.5,
-          "tier": "GOBLIN",
-          "id": 11337844
-        },
-        {
-          "raw": "Gui Santos OVER FG3M 0.5 (GOBLIN) [id:11356291]",
-          "player": "Gui Santos",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11356291
-        },
-        {
-          "raw": "Clint Capela UNDER PR 23.5 (STANDARD) [id:11360048]",
-          "player": "Clint Capela",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 23.5,
-          "tier": "STANDARD",
-          "id": 11360048
-        },
-        {
-          "raw": "Brandin Podziemski OVER PR 14.5 (STANDARD) [id:11356377]",
-          "player": "Brandin Podziemski",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 14.5,
-          "tier": "STANDARD",
-          "id": 11356377
-        }
-      ],
-      "hit_prob": 0.5729979973940645,
-      "ev_mult": 5.729979973940646,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.2526698040783697
-    },
-    {
-      "product": "System WinProb",
-      "n_legs": 5,
-      "legs": "Brandin Podziemski OVER PRA 15.5 (GOBLIN) [id:11356627] | Nikola Joki\u0107 OVER REB 5.5 (GOBLIN) [id:11337846] | Derrick Jones OVER AST 0.5 (GOBLIN) [id:11354158] | Nikola Topi\u0107 UNDER RA 15.5 (STANDARD) [id:11340939] | Aaron Holiday UNDER PR 14.5 (STANDARD) [id:11356049]",
-      "legs_detail": [
-        {
-          "raw": "Brandin Podziemski OVER PRA 15.5 (GOBLIN) [id:11356627]",
-          "player": "Brandin Podziemski",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 15.5,
-          "tier": "GOBLIN",
-          "id": 11356627
-        },
-        {
-          "raw": "Nikola Joki\u0107 OVER REB 5.5 (GOBLIN) [id:11337846]",
-          "player": "Nikola Joki\u0107",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 5.5,
-          "tier": "GOBLIN",
-          "id": 11337846
-        },
-        {
-          "raw": "Derrick Jones OVER AST 0.5 (GOBLIN) [id:11354158]",
-          "player": "Derrick Jones",
+          "raw": "Andre Drummond OVER AST 0.5 (GOBLIN) [id:11424030]",
+          "player": "Andre Drummond",
           "dir": "OVER",
           "stat": "AST",
           "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11354158
+          "id": 11424030
         },
         {
-          "raw": "Nikola Topi\u0107 UNDER RA 15.5 (STANDARD) [id:11340939]",
-          "player": "Nikola Topi\u0107",
-          "dir": "UNDER",
-          "stat": "RA",
-          "line": 15.5,
+          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
+          "player": "Bennedict Mathurin",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
           "tier": "STANDARD",
-          "id": 11340939
+          "id": 11378084
         },
         {
-          "raw": "Aaron Holiday UNDER PR 14.5 (STANDARD) [id:11356049]",
-          "player": "Aaron Holiday",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 14.5,
+          "raw": "Goga Bitadze OVER REB 4.5 (STANDARD) [id:11420378]",
+          "player": "Goga Bitadze",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 4.5,
           "tier": "STANDARD",
-          "id": 11356049
+          "id": 11420378
         }
       ],
-      "hit_prob": 0.4161757225825307,
-      "ev_mult": 8.323514451650615,
+      "hit_prob": 0.4146500515238642,
+      "ev_mult": 2.487900309143185,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0028593263743579
+    },
+    {
+      "product": "System WinProb",
+      "n_legs": 4,
+      "legs": "Brandin Podziemski OVER PTS 9.5 (GOBLIN) [id:11370586] | Jordan Miller OVER PTS 4.5 (GOBLIN) [id:11420740] | Gary Payton OVER PTS 6.5 (STANDARD) [id:11432790] | Goga Bitadze OVER RA 5.5 (STANDARD) [id:11420383]",
+      "legs_detail": [
+        {
+          "raw": "Brandin Podziemski OVER PTS 9.5 (GOBLIN) [id:11370586]",
+          "player": "Brandin Podziemski",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 9.5,
+          "tier": "GOBLIN",
+          "id": 11370586
+        },
+        {
+          "raw": "Jordan Miller OVER PTS 4.5 (GOBLIN) [id:11420740]",
+          "player": "Jordan Miller",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11420740
+        },
+        {
+          "raw": "Gary Payton OVER PTS 6.5 (STANDARD) [id:11432790]",
+          "player": "Gary Payton",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 6.5,
+          "tier": "STANDARD",
+          "id": 11432790
+        },
+        {
+          "raw": "Goga Bitadze OVER RA 5.5 (STANDARD) [id:11420383]",
+          "player": "Goga Bitadze",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 5.5,
+          "tier": "STANDARD",
+          "id": 11420383
+        }
+      ],
+      "hit_prob": 0.3351260110838087,
+      "ev_mult": 3.3512601108380875,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0024670489342788
+    },
+    {
+      "product": "System WinProb",
+      "n_legs": 5,
+      "legs": "Paolo Banchero OVER AST 3.5 (GOBLIN) [id:11367329] | Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11417220] | Andre Drummond OVER AST 0.5 (GOBLIN) [id:11424030] | Gary Payton OVER PTS 6.5 (STANDARD) [id:11432790] | Jordan Miller OVER PTS 8.5 (STANDARD) [id:11418608]",
+      "legs_detail": [
+        {
+          "raw": "Paolo Banchero OVER AST 3.5 (GOBLIN) [id:11367329]",
+          "player": "Paolo Banchero",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11367329
+        },
+        {
+          "raw": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11417220]",
+          "player": "Quentin Grimes",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11417220
+        },
+        {
+          "raw": "Andre Drummond OVER AST 0.5 (GOBLIN) [id:11424030]",
+          "player": "Andre Drummond",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11424030
+        },
+        {
+          "raw": "Gary Payton OVER PTS 6.5 (STANDARD) [id:11432790]",
+          "player": "Gary Payton",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 6.5,
+          "tier": "STANDARD",
+          "id": 11432790
+        },
+        {
+          "raw": "Jordan Miller OVER PTS 8.5 (STANDARD) [id:11418608]",
+          "player": "Jordan Miller",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 8.5,
+          "tier": "STANDARD",
+          "id": 11418608
+        }
+      ],
+      "hit_prob": 0.27115533011693,
+      "ev_mult": 5.4231066023386,
       "payout_mult": 20.0,
-      "avg_fragility": 0.2689758884707836
+      "avg_fragility": 0.0031868816209322
     }
   ],
   "windfall": [
     {
       "product": "Windfall",
       "n_legs": 3,
-      "legs": "Nikola Topi\u0107 OVER REB 4.5 (GOBLIN) [id:11361634] | Josh Okogie OVER PR 13.5 (STANDARD) [id:11356082] | Collin Gillespie OVER REB 4.5 (DEMON) [id:11340762]",
+      "legs": "Quentin Grimes OVER AST 1.5 (GOBLIN) [id:11378517] | Bennedict Mathurin OVER PA 13.5 (STANDARD) [id:11371223] | Al Horford OVER AST 2.5 (DEMON) [id:11378971]",
       "legs_detail": [
         {
-          "raw": "Nikola Topi\u0107 OVER REB 4.5 (GOBLIN) [id:11361634]",
-          "player": "Nikola Topi\u0107",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11361634
-        },
-        {
-          "raw": "Josh Okogie OVER PR 13.5 (STANDARD) [id:11356082]",
-          "player": "Josh Okogie",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 13.5,
-          "tier": "STANDARD",
-          "id": 11356082
-        },
-        {
-          "raw": "Collin Gillespie OVER REB 4.5 (DEMON) [id:11340762]",
-          "player": "Collin Gillespie",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 4.5,
-          "tier": "DEMON",
-          "id": 11340762
-        }
-      ],
-      "hit_prob": 0.276137566134196,
-      "ev_mult": 0.7193882619520293,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0013318769426984
-    },
-    {
-      "product": "Windfall",
-      "n_legs": 4,
-      "legs": "Jared McCain OVER AST 1.5 (GOBLIN) [id:11342156] | Josh Okogie OVER PR 13.5 (STANDARD) [id:11356082] | Nikola Topi\u0107 OVER PR 19 (STANDARD) [id:11340932] | Kris Murray OVER REB 3.5 (DEMON) [id:11357270]",
-      "legs_detail": [
-        {
-          "raw": "Jared McCain OVER AST 1.5 (GOBLIN) [id:11342156]",
-          "player": "Jared McCain",
+          "raw": "Quentin Grimes OVER AST 1.5 (GOBLIN) [id:11378517]",
+          "player": "Quentin Grimes",
           "dir": "OVER",
           "stat": "AST",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11342156
+          "id": 11378517
         },
         {
-          "raw": "Josh Okogie OVER PR 13.5 (STANDARD) [id:11356082]",
-          "player": "Josh Okogie",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 13.5,
-          "tier": "STANDARD",
-          "id": 11356082
-        },
-        {
-          "raw": "Nikola Topi\u0107 OVER PR 19 (STANDARD) [id:11340932]",
-          "player": "Nikola Topi\u0107",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 19.0,
-          "tier": "STANDARD",
-          "id": 11340932
-        },
-        {
-          "raw": "Kris Murray OVER REB 3.5 (DEMON) [id:11357270]",
-          "player": "Kris Murray",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 3.5,
-          "tier": "DEMON",
-          "id": 11357270
-        }
-      ],
-      "hit_prob": 0.1892892392492266,
-      "ev_mult": 0.8095524285351695,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0
-    },
-    {
-      "product": "Windfall",
-      "n_legs": 5,
-      "legs": "Joan Beringer OVER AST 0.5 (GOBLIN) [id:11358522] | Aaron Wiggins OVER AST 1.5 (GOBLIN) [id:11342831] | Ryan Nembhard OVER PR 15.5 (STANDARD) [id:11337697] | Kenrich Williams OVER PA 17.5 (STANDARD) [id:11340855] | Shaedon Sharpe OVER RA 5.5 (DEMON) [id:11357390]",
-      "legs_detail": [
-        {
-          "raw": "Joan Beringer OVER AST 0.5 (GOBLIN) [id:11358522]",
-          "player": "Joan Beringer",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11358522
-        },
-        {
-          "raw": "Aaron Wiggins OVER AST 1.5 (GOBLIN) [id:11342831]",
-          "player": "Aaron Wiggins",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11342831
-        },
-        {
-          "raw": "Ryan Nembhard OVER PR 15.5 (STANDARD) [id:11337697]",
-          "player": "Ryan Nembhard",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 15.5,
-          "tier": "STANDARD",
-          "id": 11337697
-        },
-        {
-          "raw": "Kenrich Williams OVER PA 17.5 (STANDARD) [id:11340855]",
-          "player": "Kenrich Williams",
+          "raw": "Bennedict Mathurin OVER PA 13.5 (STANDARD) [id:11371223]",
+          "player": "Bennedict Mathurin",
           "dir": "OVER",
           "stat": "PA",
-          "line": 17.5,
+          "line": 13.5,
           "tier": "STANDARD",
-          "id": 11340855
+          "id": 11371223
         },
         {
-          "raw": "Shaedon Sharpe OVER RA 5.5 (DEMON) [id:11357390]",
-          "player": "Shaedon Sharpe",
+          "raw": "Al Horford OVER AST 2.5 (DEMON) [id:11378971]",
+          "player": "Al Horford",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 5.5,
+          "stat": "AST",
+          "line": 2.5,
           "tier": "DEMON",
-          "id": 11357390
+          "id": 11378971
         }
       ],
-      "hit_prob": 0.1216455227125171,
-      "ev_mult": 0.8745461771069986,
-      "payout_mult": 20.0,
-      "avg_fragility": 0.0038848828719146
+      "hit_prob": 0.2325002721588491,
+      "ev_mult": 0.7086969563173227,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0013075306030568
     }
   ],
   "windfall_winprob": [
     {
       "product": "Windfall WinProb",
       "n_legs": 3,
-      "legs": "Luguentz Dort OVER FG3M 0.5 (GOBLIN) [id:11350362] | Clint Capela UNDER RA 12.5 (STANDARD) [id:11360054] | Brandin Podziemski OVER PTS 12.5 (DEMON) [id:11356621]",
+      "legs": "Andre Drummond OVER AST 0.5 (GOBLIN) [id:11424030] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084] | Jordan Miller OVER FG3M 0.5 (DEMON) [id:11418600]",
       "legs_detail": [
         {
-          "raw": "Luguentz Dort OVER FG3M 0.5 (GOBLIN) [id:11350362]",
-          "player": "Luguentz Dort",
+          "raw": "Andre Drummond OVER AST 0.5 (GOBLIN) [id:11424030]",
+          "player": "Andre Drummond",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11424030
+        },
+        {
+          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
+          "player": "Bennedict Mathurin",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "STANDARD",
+          "id": 11378084
+        },
+        {
+          "raw": "Jordan Miller OVER FG3M 0.5 (DEMON) [id:11418600]",
+          "player": "Jordan Miller",
           "dir": "OVER",
           "stat": "FG3M",
           "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11350362
-        },
-        {
-          "raw": "Clint Capela UNDER RA 12.5 (STANDARD) [id:11360054]",
-          "player": "Clint Capela",
-          "dir": "UNDER",
-          "stat": "RA",
-          "line": 12.5,
-          "tier": "STANDARD",
-          "id": 11360054
-        },
-        {
-          "raw": "Brandin Podziemski OVER PTS 12.5 (DEMON) [id:11356621]",
-          "player": "Brandin Podziemski",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 12.5,
           "tier": "DEMON",
-          "id": 11356621
+          "id": 11418600
         }
       ],
-      "hit_prob": 0.6168876494575927,
-      "ev_mult": 3.701325896745556,
+      "hit_prob": 0.3796052030114894,
+      "ev_mult": 2.2776312180689366,
       "payout_mult": 6.0,
-      "avg_fragility": 0.3124843994490249
+      "avg_fragility": 0.0062680026141002
     },
     {
       "product": "Windfall WinProb",
       "n_legs": 4,
-      "legs": "Gui Santos OVER FG3M 0.5 (GOBLIN) [id:11356291] | Clint Capela UNDER PR 23.5 (STANDARD) [id:11360048] | Brandin Podziemski OVER PR 14.5 (STANDARD) [id:11356377] | Nikola Joki\u0107 OVER PR 29.5 (DEMON) [id:11350060]",
+      "legs": "Jordan Miller OVER PTS 4.5 (GOBLIN) [id:11420740] | Goga Bitadze OVER REB 4.5 (STANDARD) [id:11420378] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084] | VJ Edgecombe OVER AST 4.5 (DEMON) [id:11376662]",
       "legs_detail": [
         {
-          "raw": "Gui Santos OVER FG3M 0.5 (GOBLIN) [id:11356291]",
-          "player": "Gui Santos",
+          "raw": "Jordan Miller OVER PTS 4.5 (GOBLIN) [id:11420740]",
+          "player": "Jordan Miller",
           "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11356291
-        },
-        {
-          "raw": "Clint Capela UNDER PR 23.5 (STANDARD) [id:11360048]",
-          "player": "Clint Capela",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 23.5,
-          "tier": "STANDARD",
-          "id": 11360048
-        },
-        {
-          "raw": "Brandin Podziemski OVER PR 14.5 (STANDARD) [id:11356377]",
-          "player": "Brandin Podziemski",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 14.5,
-          "tier": "STANDARD",
-          "id": 11356377
-        },
-        {
-          "raw": "Nikola Joki\u0107 OVER PR 29.5 (DEMON) [id:11350060]",
-          "player": "Nikola Joki\u0107",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 29.5,
-          "tier": "DEMON",
-          "id": 11350060
-        }
-      ],
-      "hit_prob": 0.4799177050218683,
-      "ev_mult": 4.799177050218683,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.2621734972791846
-    },
-    {
-      "product": "Windfall WinProb",
-      "n_legs": 5,
-      "legs": "Shaedon Sharpe OVER REB 1.5 (GOBLIN) [id:11357389] | Brandin Podziemski OVER FG3M 0.5 (GOBLIN) [id:11356359] | Jared McCain UNDER PTS 17.5 (STANDARD) [id:11340802] | Kenrich Williams UNDER REB 9 (STANDARD) [id:11352827] | Nikola Joki\u0107 OVER PR 29.5 (DEMON) [id:11350060]",
-      "legs_detail": [
-        {
-          "raw": "Shaedon Sharpe OVER REB 1.5 (GOBLIN) [id:11357389]",
-          "player": "Shaedon Sharpe",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11357389
-        },
-        {
-          "raw": "Brandin Podziemski OVER FG3M 0.5 (GOBLIN) [id:11356359]",
-          "player": "Brandin Podziemski",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11356359
-        },
-        {
-          "raw": "Jared McCain UNDER PTS 17.5 (STANDARD) [id:11340802]",
-          "player": "Jared McCain",
-          "dir": "UNDER",
           "stat": "PTS",
-          "line": 17.5,
-          "tier": "STANDARD",
-          "id": 11340802
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11420740
         },
         {
-          "raw": "Kenrich Williams UNDER REB 9 (STANDARD) [id:11352827]",
-          "player": "Kenrich Williams",
-          "dir": "UNDER",
+          "raw": "Goga Bitadze OVER REB 4.5 (STANDARD) [id:11420378]",
+          "player": "Goga Bitadze",
+          "dir": "OVER",
           "stat": "REB",
-          "line": 9.0,
+          "line": 4.5,
           "tier": "STANDARD",
-          "id": 11352827
+          "id": 11420378
         },
         {
-          "raw": "Nikola Joki\u0107 OVER PR 29.5 (DEMON) [id:11350060]",
-          "player": "Nikola Joki\u0107",
+          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
+          "player": "Bennedict Mathurin",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 29.5,
-          "tier": "DEMON",
-          "id": 11350060
-        }
-      ],
-      "hit_prob": 0.3486211236275743,
-      "ev_mult": 6.972422472551488,
-      "payout_mult": 20.0,
-      "avg_fragility": 0.2325544173402735
-    }
-  ],
-  "demonhunter": [
-    {
-      "product": "Demonhunter",
-      "n_legs": 3,
-      "legs": "Terrence Shannon OVER FG3M 4.5 (DEMON) [id:11355652] | Jrue Holiday OVER PRA 30.5 (DEMON) [id:11335375] | Luguentz Dort OVER PRA 13.5 (DEMON) [id:11342211]",
-      "legs_detail": [
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "STANDARD",
+          "id": 11378084
+        },
         {
-          "raw": "Terrence Shannon OVER FG3M 4.5 (DEMON) [id:11355652]",
-          "player": "Terrence Shannon",
+          "raw": "VJ Edgecombe OVER AST 4.5 (DEMON) [id:11376662]",
+          "player": "VJ Edgecombe",
           "dir": "OVER",
-          "stat": "FG3M",
+          "stat": "AST",
           "line": 4.5,
           "tier": "DEMON",
-          "id": 11355652
-        },
-        {
-          "raw": "Jrue Holiday OVER PRA 30.5 (DEMON) [id:11335375]",
-          "player": "Jrue Holiday",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 30.5,
-          "tier": "DEMON",
-          "id": 11335375
-        },
-        {
-          "raw": "Luguentz Dort OVER PRA 13.5 (DEMON) [id:11342211]",
-          "player": "Luguentz Dort",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 13.5,
-          "tier": "DEMON",
-          "id": 11342211
+          "id": 11376662
         }
       ],
-      "hit_prob": 0.0277396275462136,
-      "ev_mult": 0.4632257185463668,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0246158103992392
-    },
-    {
-      "product": "Demonhunter",
-      "n_legs": 4,
-      "legs": "Nikola Topi\u0107 OVER PTS 18.5 (DEMON) [id:11342243] | Nikola Joki\u0107 OVER PTS 29.5 (DEMON) [id:11332679] | Derrick Jones OVER REB 5.5 (DEMON) [id:11354078] | Luguentz Dort OVER RA 5.5 (DEMON) [id:11342215]",
-      "legs_detail": [
-        {
-          "raw": "Nikola Topi\u0107 OVER PTS 18.5 (DEMON) [id:11342243]",
-          "player": "Nikola Topi\u0107",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 18.5,
-          "tier": "DEMON",
-          "id": 11342243
-        },
-        {
-          "raw": "Nikola Joki\u0107 OVER PTS 29.5 (DEMON) [id:11332679]",
-          "player": "Nikola Joki\u0107",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 29.5,
-          "tier": "DEMON",
-          "id": 11332679
-        },
-        {
-          "raw": "Derrick Jones OVER REB 5.5 (DEMON) [id:11354078]",
-          "player": "Derrick Jones",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 5.5,
-          "tier": "DEMON",
-          "id": 11354078
-        },
-        {
-          "raw": "Luguentz Dort OVER RA 5.5 (DEMON) [id:11342215]",
-          "player": "Luguentz Dort",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 5.5,
-          "tier": "DEMON",
-          "id": 11342215
-        }
-      ],
-      "hit_prob": 0.0086793296260706,
-      "ev_mult": 0.3442186716230033,
+      "hit_prob": 0.2701122209731383,
+      "ev_mult": 2.701122209731383,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0118691902749585
+      "avg_fragility": 0.0054469172817266
     },
     {
-      "product": "Demonhunter",
+      "product": "Windfall WinProb",
       "n_legs": 5,
-      "legs": "Derrick Jones OVER RA 6.5 (DEMON) [id:11354173] | Klay Thompson OVER FG3M 3.5 (DEMON) [id:11337573] | Tari Eason OVER AST 2.5 (DEMON) [id:11347616] | Javon Small OVER AST 5.5 (DEMON) [id:11347518] | Kevon Looney OVER RA 14.5 (DEMON) [id:11357090]",
+      "legs": "Brandin Podziemski OVER PTS 9.5 (GOBLIN) [id:11370586] | Andre Drummond OVER AST 0.5 (GOBLIN) [id:11424030] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084] | Gary Payton OVER PTS 6.5 (STANDARD) [id:11432790] | Jordan Miller OVER FG3M 0.5 (DEMON) [id:11418600]",
       "legs_detail": [
         {
-          "raw": "Derrick Jones OVER RA 6.5 (DEMON) [id:11354173]",
-          "player": "Derrick Jones",
+          "raw": "Brandin Podziemski OVER PTS 9.5 (GOBLIN) [id:11370586]",
+          "player": "Brandin Podziemski",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 6.5,
-          "tier": "DEMON",
-          "id": 11354173
+          "stat": "PTS",
+          "line": 9.5,
+          "tier": "GOBLIN",
+          "id": 11370586
         },
         {
-          "raw": "Klay Thompson OVER FG3M 3.5 (DEMON) [id:11337573]",
-          "player": "Klay Thompson",
+          "raw": "Andre Drummond OVER AST 0.5 (GOBLIN) [id:11424030]",
+          "player": "Andre Drummond",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11424030
+        },
+        {
+          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
+          "player": "Bennedict Mathurin",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "STANDARD",
+          "id": 11378084
+        },
+        {
+          "raw": "Gary Payton OVER PTS 6.5 (STANDARD) [id:11432790]",
+          "player": "Gary Payton",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 6.5,
+          "tier": "STANDARD",
+          "id": 11432790
+        },
+        {
+          "raw": "Jordan Miller OVER FG3M 0.5 (DEMON) [id:11418600]",
+          "player": "Jordan Miller",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 3.5,
+          "line": 0.5,
           "tier": "DEMON",
-          "id": 11337573
-        },
-        {
-          "raw": "Tari Eason OVER AST 2.5 (DEMON) [id:11347616]",
-          "player": "Tari Eason",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 2.5,
-          "tier": "DEMON",
-          "id": 11347616
-        },
-        {
-          "raw": "Javon Small OVER AST 5.5 (DEMON) [id:11347518]",
-          "player": "Javon Small",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 5.5,
-          "tier": "DEMON",
-          "id": 11347518
-        },
-        {
-          "raw": "Kevon Looney OVER RA 14.5 (DEMON) [id:11357090]",
-          "player": "Kevon Looney",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 14.5,
-          "tier": "DEMON",
-          "id": 11357090
+          "id": 11418600
         }
       ],
-      "hit_prob": 0.0029485409434208,
-      "ev_mult": 0.3030991782197047,
+      "hit_prob": 0.209734710233761,
+      "ev_mult": 4.19469420467522,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0090638671478092
+      "avg_fragility": 0.0057344407158831
     }
   ],
+  "demonhunter": [],
   "gamescript": []
 }
