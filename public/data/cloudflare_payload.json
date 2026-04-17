@@ -1,578 +1,664 @@
 {
-  "generated_at": "2026-04-15T17:37:54.558350-05:00",
-  "run_id": "20260415_173754",
+  "generated_at": "2026-04-17T03:34:39.757313-05:00",
+  "run_id": "20260417_033439",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953] | Gui Santos UNDER PR 16 (STANDARD) [id:11371175] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
+      "legs": "Grayson Allen OVER AST 1.5 (GOBLIN) [id:11470581] | Desmond Bane OVER FG3M 2 (STANDARD) [id:11458687] | Dillon Brooks OVER FG3M 2 (STANDARD) [id:11458689]",
       "legs_detail": [
         {
-          "raw": "Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953]",
-          "player": "Al Horford",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11439953
-        },
-        {
-          "raw": "Gui Santos UNDER PR 16 (STANDARD) [id:11371175]",
-          "player": "Gui Santos",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 16.0,
-          "tier": "STANDARD",
-          "id": 11371175
-        },
-        {
-          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
-          "player": "Bennedict Mathurin",
+          "raw": "Grayson Allen OVER AST 1.5 (GOBLIN) [id:11470581]",
+          "player": "Grayson Allen",
           "dir": "OVER",
           "stat": "AST",
           "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11470581
+        },
+        {
+          "raw": "Desmond Bane OVER FG3M 2 (STANDARD) [id:11458687]",
+          "player": "Desmond Bane",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.0,
           "tier": "STANDARD",
-          "id": 11378084
+          "id": 11458687
+        },
+        {
+          "raw": "Dillon Brooks OVER FG3M 2 (STANDARD) [id:11458689]",
+          "player": "Dillon Brooks",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.0,
+          "tier": "STANDARD",
+          "id": 11458689
         }
       ],
-      "hit_prob": 0.3021986024624321,
-      "ev_mult": 1.7314292291517022,
+      "hit_prob": 0.2999428373385339,
+      "ev_mult": 1.740201826829683,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0028593263743579
+      "avg_fragility": 0.0253811610674393
     },
     {
       "product": "System",
       "n_legs": 4,
-      "legs": "Dominick Barlow OVER PTS 4.5 (GOBLIN) [id:11417742] | Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953] | Bennedict Mathurin OVER PTS 11.5 (STANDARD) [id:11371222] | Brook Lopez UNDER PR 15.5 (STANDARD) [id:11371334]",
+      "legs": "Royce O'Neale OVER PTS 3.5 (GOBLIN) [id:11468753] | Mark Williams OVER PTS 4.5 (GOBLIN) [id:11452509] | Paolo Banchero UNDER AST 4.5 (STANDARD) [id:11450705] | Anthony Black OVER PTS 10.5 (STANDARD) [id:11455558]",
       "legs_detail": [
         {
-          "raw": "Dominick Barlow OVER PTS 4.5 (GOBLIN) [id:11417742]",
-          "player": "Dominick Barlow",
+          "raw": "Royce O'Neale OVER PTS 3.5 (GOBLIN) [id:11468753]",
+          "player": "Royce O'Neale",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11468753
+        },
+        {
+          "raw": "Mark Williams OVER PTS 4.5 (GOBLIN) [id:11452509]",
+          "player": "Mark Williams",
           "dir": "OVER",
           "stat": "PTS",
           "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11417742
+          "id": 11452509
         },
         {
-          "raw": "Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953]",
-          "player": "Al Horford",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11439953
-        },
-        {
-          "raw": "Bennedict Mathurin OVER PTS 11.5 (STANDARD) [id:11371222]",
-          "player": "Bennedict Mathurin",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 11.5,
-          "tier": "STANDARD",
-          "id": 11371222
-        },
-        {
-          "raw": "Brook Lopez UNDER PR 15.5 (STANDARD) [id:11371334]",
-          "player": "Brook Lopez",
+          "raw": "Paolo Banchero UNDER AST 4.5 (STANDARD) [id:11450705]",
+          "player": "Paolo Banchero",
           "dir": "UNDER",
-          "stat": "PR",
-          "line": 15.5,
+          "stat": "AST",
+          "line": 4.5,
           "tier": "STANDARD",
-          "id": 11371334
+          "id": 11450705
+        },
+        {
+          "raw": "Anthony Black OVER PTS 10.5 (STANDARD) [id:11455558]",
+          "player": "Anthony Black",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 10.5,
+          "tier": "STANDARD",
+          "id": 11455558
         }
       ],
-      "hit_prob": 0.2029385341182652,
-      "ev_mult": 1.4210883322598409,
+      "hit_prob": 0.1930873054570619,
+      "ev_mult": 1.40093671883228,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0
+      "avg_fragility": 0.0111431267437009
     },
     {
       "product": "System",
       "n_legs": 5,
-      "legs": "Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953] | Dominick Barlow OVER PTS 4.5 (GOBLIN) [id:11417742] | Quentin Grimes OVER PTS 8.5 (GOBLIN) [id:11378527] | Darius Garland UNDER PRA 31 (STANDARD) [id:11370772] | Gui Santos UNDER PRA 19 (STANDARD) [id:11370528]",
+      "legs": "Jordan Goodwin OVER PTS 4.5 (GOBLIN) [id:11452747] | Anthony Black OVER PTS 7.5 (GOBLIN) [id:11459595] | Mark Williams OVER PTS 5.5 (GOBLIN) [id:11452776] | Paolo Banchero UNDER AST 4.5 (STANDARD) [id:11450705] | Gui Santos UNDER PR 17.5 (STANDARD) [id:11452395]",
       "legs_detail": [
         {
-          "raw": "Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953]",
-          "player": "Al Horford",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11439953
-        },
-        {
-          "raw": "Dominick Barlow OVER PTS 4.5 (GOBLIN) [id:11417742]",
-          "player": "Dominick Barlow",
+          "raw": "Jordan Goodwin OVER PTS 4.5 (GOBLIN) [id:11452747]",
+          "player": "Jordan Goodwin",
           "dir": "OVER",
           "stat": "PTS",
           "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11417742
+          "id": 11452747
         },
         {
-          "raw": "Quentin Grimes OVER PTS 8.5 (GOBLIN) [id:11378527]",
-          "player": "Quentin Grimes",
+          "raw": "Anthony Black OVER PTS 7.5 (GOBLIN) [id:11459595]",
+          "player": "Anthony Black",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 8.5,
+          "line": 7.5,
           "tier": "GOBLIN",
-          "id": 11378527
+          "id": 11459595
         },
         {
-          "raw": "Darius Garland UNDER PRA 31 (STANDARD) [id:11370772]",
-          "player": "Darius Garland",
+          "raw": "Mark Williams OVER PTS 5.5 (GOBLIN) [id:11452776]",
+          "player": "Mark Williams",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 5.5,
+          "tier": "GOBLIN",
+          "id": 11452776
+        },
+        {
+          "raw": "Paolo Banchero UNDER AST 4.5 (STANDARD) [id:11450705]",
+          "player": "Paolo Banchero",
           "dir": "UNDER",
-          "stat": "PRA",
-          "line": 31.0,
+          "stat": "AST",
+          "line": 4.5,
           "tier": "STANDARD",
-          "id": 11370772
+          "id": 11450705
         },
         {
-          "raw": "Gui Santos UNDER PRA 19 (STANDARD) [id:11370528]",
+          "raw": "Gui Santos UNDER PR 17.5 (STANDARD) [id:11452395]",
           "player": "Gui Santos",
           "dir": "UNDER",
-          "stat": "PRA",
-          "line": 19.0,
+          "stat": "PR",
+          "line": 17.5,
           "tier": "STANDARD",
-          "id": 11370528
+          "id": 11452395
         }
       ],
-      "hit_prob": 0.1431128103176082,
-      "ev_mult": 1.358878788412003,
+      "hit_prob": 0.136440649453552,
+      "ev_mult": 1.3616555879067815,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0284853414451303
+      "avg_fragility": 0.0106329016025703
     }
   ],
   "system_winprob": [
     {
       "product": "System WinProb",
       "n_legs": 3,
-      "legs": "Andre Drummond OVER AST 0.5 (GOBLIN) [id:11424030] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084] | Goga Bitadze OVER REB 4.5 (STANDARD) [id:11420378]",
+      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11452496] | Grayson Allen OVER REB 2.5 (STANDARD) [id:11470600] | Ryan Kalkbrenner OVER PR 7.5 (STANDARD) [id:11456337]",
       "legs_detail": [
         {
-          "raw": "Andre Drummond OVER AST 0.5 (GOBLIN) [id:11424030]",
-          "player": "Andre Drummond",
+          "raw": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11452496]",
+          "player": "Jordan Goodwin",
           "dir": "OVER",
-          "stat": "AST",
+          "stat": "FG3M",
           "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11424030
+          "id": 11452496
         },
         {
-          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
-          "player": "Bennedict Mathurin",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "STANDARD",
-          "id": 11378084
-        },
-        {
-          "raw": "Goga Bitadze OVER REB 4.5 (STANDARD) [id:11420378]",
-          "player": "Goga Bitadze",
+          "raw": "Grayson Allen OVER REB 2.5 (STANDARD) [id:11470600]",
+          "player": "Grayson Allen",
           "dir": "OVER",
           "stat": "REB",
-          "line": 4.5,
+          "line": 2.5,
           "tier": "STANDARD",
-          "id": 11420378
+          "id": 11470600
+        },
+        {
+          "raw": "Ryan Kalkbrenner OVER PR 7.5 (STANDARD) [id:11456337]",
+          "player": "Ryan Kalkbrenner",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 7.5,
+          "tier": "STANDARD",
+          "id": 11456337
         }
       ],
-      "hit_prob": 0.4146500515238642,
-      "ev_mult": 2.487900309143185,
+      "hit_prob": 0.3937732202399079,
+      "ev_mult": 2.362639321439447,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0028593263743579
+      "avg_fragility": 0.0119663802817606
     },
     {
       "product": "System WinProb",
       "n_legs": 4,
-      "legs": "Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953] | Kelly Oubre OVER RA 4.5 (GOBLIN) [id:11367740] | Goga Bitadze OVER RA 5.5 (STANDARD) [id:11420383] | Gary Payton OVER PTS 6.5 (STANDARD) [id:11432790]",
+      "legs": "Jordan Goodwin OVER PTS 4.5 (GOBLIN) [id:11452747] | Sion James OVER RA 2.5 (GOBLIN) [id:11455380] | Jamal Cain OVER PR 6 (STANDARD) [id:11456641] | Ryan Kalkbrenner OVER PR 7.5 (STANDARD) [id:11456337]",
       "legs_detail": [
         {
-          "raw": "Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953]",
-          "player": "Al Horford",
+          "raw": "Jordan Goodwin OVER PTS 4.5 (GOBLIN) [id:11452747]",
+          "player": "Jordan Goodwin",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11439953
-        },
-        {
-          "raw": "Kelly Oubre OVER RA 4.5 (GOBLIN) [id:11367740]",
-          "player": "Kelly Oubre",
-          "dir": "OVER",
-          "stat": "RA",
           "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11367740
+          "id": 11452747
         },
         {
-          "raw": "Goga Bitadze OVER RA 5.5 (STANDARD) [id:11420383]",
-          "player": "Goga Bitadze",
+          "raw": "Sion James OVER RA 2.5 (GOBLIN) [id:11455380]",
+          "player": "Sion James",
           "dir": "OVER",
           "stat": "RA",
-          "line": 5.5,
-          "tier": "STANDARD",
-          "id": 11420383
+          "line": 2.5,
+          "tier": "GOBLIN",
+          "id": 11455380
         },
         {
-          "raw": "Gary Payton OVER PTS 6.5 (STANDARD) [id:11432790]",
-          "player": "Gary Payton",
+          "raw": "Jamal Cain OVER PR 6 (STANDARD) [id:11456641]",
+          "player": "Jamal Cain",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 6.5,
+          "stat": "PR",
+          "line": 6.0,
           "tier": "STANDARD",
-          "id": 11432790
+          "id": 11456641
+        },
+        {
+          "raw": "Ryan Kalkbrenner OVER PR 7.5 (STANDARD) [id:11456337]",
+          "player": "Ryan Kalkbrenner",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 7.5,
+          "tier": "STANDARD",
+          "id": 11456337
         }
       ],
-      "hit_prob": 0.3065441466694794,
-      "ev_mult": 3.065441466694794,
+      "hit_prob": 0.3071238936573507,
+      "ev_mult": 3.071238936573507,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0017960711445173
+      "avg_fragility": 0.0115865837054262
     },
     {
       "product": "System WinProb",
       "n_legs": 5,
-      "legs": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11417220] | De'Anthony Melton OVER REB 1.5 (GOBLIN) [id:11438984] | Stephen Curry OVER FG3M 2.5 (GOBLIN) [id:11370649] | Goga Bitadze OVER PRA 10.5 (STANDARD) [id:11419670] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
+      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11452496] | Sion James OVER REB 1.5 (GOBLIN) [id:11455376] | De'Anthony Melton OVER RA 3.5 (GOBLIN) [id:11468580] | Jamal Cain OVER PR 6 (STANDARD) [id:11456641] | Wendell Carter UNDER RA 9.5 (STANDARD) [id:11451739]",
       "legs_detail": [
         {
-          "raw": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11417220]",
-          "player": "Quentin Grimes",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11417220
-        },
-        {
-          "raw": "De'Anthony Melton OVER REB 1.5 (GOBLIN) [id:11438984]",
-          "player": "De'Anthony Melton",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11438984
-        },
-        {
-          "raw": "Stephen Curry OVER FG3M 2.5 (GOBLIN) [id:11370649]",
-          "player": "Stephen Curry",
+          "raw": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11452496]",
+          "player": "Jordan Goodwin",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 2.5,
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11370649
+          "id": 11452496
         },
         {
-          "raw": "Goga Bitadze OVER PRA 10.5 (STANDARD) [id:11419670]",
-          "player": "Goga Bitadze",
+          "raw": "Sion James OVER REB 1.5 (GOBLIN) [id:11455376]",
+          "player": "Sion James",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 10.5,
-          "tier": "STANDARD",
-          "id": 11419670
-        },
-        {
-          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
-          "player": "Bennedict Mathurin",
-          "dir": "OVER",
-          "stat": "AST",
+          "stat": "REB",
           "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11455376
+        },
+        {
+          "raw": "De'Anthony Melton OVER RA 3.5 (GOBLIN) [id:11468580]",
+          "player": "De'Anthony Melton",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11468580
+        },
+        {
+          "raw": "Jamal Cain OVER PR 6 (STANDARD) [id:11456641]",
+          "player": "Jamal Cain",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 6.0,
           "tier": "STANDARD",
-          "id": 11378084
+          "id": 11456641
+        },
+        {
+          "raw": "Wendell Carter UNDER RA 9.5 (STANDARD) [id:11451739]",
+          "player": "Wendell Carter",
+          "dir": "UNDER",
+          "stat": "RA",
+          "line": 9.5,
+          "tier": "STANDARD",
+          "id": 11451739
         }
       ],
-      "hit_prob": 0.2700068085743439,
-      "ev_mult": 5.400136171486879,
+      "hit_prob": 0.2992414825247083,
+      "ev_mult": 5.984829650494166,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0044077607626372
+      "avg_fragility": 0.0767695643059311
     }
   ],
   "windfall": [
     {
       "product": "Windfall",
       "n_legs": 3,
-      "legs": "Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953] | Gui Santos UNDER PR 16 (STANDARD) [id:11371175] | Bennedict Mathurin OVER AST 2.5 (DEMON) [id:11379009]",
+      "legs": "Mark Williams OVER PTS 4.5 (GOBLIN) [id:11452509] | Jalen Green OVER FG3M 2 (STANDARD) [id:11458690] | Jamal Cain OVER FG3M 0.5 (DEMON) [id:11456633]",
       "legs_detail": [
         {
-          "raw": "Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953]",
-          "player": "Al Horford",
+          "raw": "Mark Williams OVER PTS 4.5 (GOBLIN) [id:11452509]",
+          "player": "Mark Williams",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 2.5,
+          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11439953
+          "id": 11452509
         },
         {
-          "raw": "Gui Santos UNDER PR 16 (STANDARD) [id:11371175]",
-          "player": "Gui Santos",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 16.0,
-          "tier": "STANDARD",
-          "id": 11371175
-        },
-        {
-          "raw": "Bennedict Mathurin OVER AST 2.5 (DEMON) [id:11379009]",
-          "player": "Bennedict Mathurin",
+          "raw": "Jalen Green OVER FG3M 2 (STANDARD) [id:11458690]",
+          "player": "Jalen Green",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 2.5,
+          "stat": "FG3M",
+          "line": 2.0,
+          "tier": "STANDARD",
+          "id": 11458690
+        },
+        {
+          "raw": "Jamal Cain OVER FG3M 0.5 (DEMON) [id:11456633]",
+          "player": "Jamal Cain",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "DEMON",
-          "id": 11379009
+          "id": 11456633
         }
       ],
-      "hit_prob": 0.2474109035592249,
-      "ev_mult": 0.7074918080338964,
+      "hit_prob": 0.2234963169305958,
+      "ev_mult": 0.6819515595414025,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0028858790859316
+      "avg_fragility": 0.0082997757322612
     },
     {
       "product": "Windfall",
       "n_legs": 4,
-      "legs": "Quentin Grimes OVER AST 1.5 (GOBLIN) [id:11378517] | Gui Santos UNDER PR 16 (STANDARD) [id:11371175] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084] | Al Horford OVER FG3M 1.5 (DEMON) [id:11378967]",
+      "legs": "Mark Williams OVER PTS 4.5 (GOBLIN) [id:11452509] | Desmond Bane OVER AST 3.5 (STANDARD) [id:11450473] | Dillon Brooks OVER FG3M 2 (STANDARD) [id:11458689] | Anthony Black OVER REB 3.5 (DEMON) [id:11455150]",
       "legs_detail": [
         {
-          "raw": "Quentin Grimes OVER AST 1.5 (GOBLIN) [id:11378517]",
-          "player": "Quentin Grimes",
+          "raw": "Mark Williams OVER PTS 4.5 (GOBLIN) [id:11452509]",
+          "player": "Mark Williams",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
+          "stat": "PTS",
+          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11378517
+          "id": 11452509
         },
         {
-          "raw": "Gui Santos UNDER PR 16 (STANDARD) [id:11371175]",
-          "player": "Gui Santos",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 16.0,
-          "tier": "STANDARD",
-          "id": 11371175
-        },
-        {
-          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
-          "player": "Bennedict Mathurin",
+          "raw": "Desmond Bane OVER AST 3.5 (STANDARD) [id:11450473]",
+          "player": "Desmond Bane",
           "dir": "OVER",
           "stat": "AST",
-          "line": 1.5,
+          "line": 3.5,
           "tier": "STANDARD",
-          "id": 11378084
+          "id": 11450473
         },
         {
-          "raw": "Al Horford OVER FG3M 1.5 (DEMON) [id:11378967]",
-          "player": "Al Horford",
+          "raw": "Dillon Brooks OVER FG3M 2 (STANDARD) [id:11458689]",
+          "player": "Dillon Brooks",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 1.5,
+          "line": 2.0,
+          "tier": "STANDARD",
+          "id": 11458689
+        },
+        {
+          "raw": "Anthony Black OVER REB 3.5 (DEMON) [id:11455150]",
+          "player": "Anthony Black",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 3.5,
           "tier": "DEMON",
-          "id": 11378967
+          "id": 11455150
         }
       ],
-      "hit_prob": 0.1611598069010268,
-      "ev_mult": 0.7844227887576675,
+      "hit_prob": 0.1493675020641246,
+      "ev_mult": 0.7847801204885364,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0033236825661574
+      "avg_fragility": 0.0206007165939803
     },
     {
       "product": "Windfall",
       "n_legs": 5,
-      "legs": "Anthony Black OVER REB 1.5 (GOBLIN) [id:11436934] | Quentin Grimes OVER AST 1.5 (GOBLIN) [id:11378517] | Gui Santos UNDER PRA 19 (STANDARD) [id:11370528] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084] | Al Horford OVER FG3M 1.5 (DEMON) [id:11378967]",
+      "legs": "Franz Wagner OVER REB 3.5 (GOBLIN) [id:11450531] | Al Horford OVER PTS 4.5 (GOBLIN) [id:11456414] | Royce O'Neale OVER PTS 6.5 (STANDARD) [id:11461093] | Dillon Brooks OVER FG3M 2 (STANDARD) [id:11458689] | Anthony Black OVER REB 3.5 (DEMON) [id:11455150]",
       "legs_detail": [
         {
-          "raw": "Anthony Black OVER REB 1.5 (GOBLIN) [id:11436934]",
+          "raw": "Franz Wagner OVER REB 3.5 (GOBLIN) [id:11450531]",
+          "player": "Franz Wagner",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11450531
+        },
+        {
+          "raw": "Al Horford OVER PTS 4.5 (GOBLIN) [id:11456414]",
+          "player": "Al Horford",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11456414
+        },
+        {
+          "raw": "Royce O'Neale OVER PTS 6.5 (STANDARD) [id:11461093]",
+          "player": "Royce O'Neale",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 6.5,
+          "tier": "STANDARD",
+          "id": 11461093
+        },
+        {
+          "raw": "Dillon Brooks OVER FG3M 2 (STANDARD) [id:11458689]",
+          "player": "Dillon Brooks",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.0,
+          "tier": "STANDARD",
+          "id": 11458689
+        },
+        {
+          "raw": "Anthony Black OVER REB 3.5 (DEMON) [id:11455150]",
           "player": "Anthony Black",
           "dir": "OVER",
           "stat": "REB",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11436934
-        },
-        {
-          "raw": "Quentin Grimes OVER AST 1.5 (GOBLIN) [id:11378517]",
-          "player": "Quentin Grimes",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11378517
-        },
-        {
-          "raw": "Gui Santos UNDER PRA 19 (STANDARD) [id:11370528]",
-          "player": "Gui Santos",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 19.0,
-          "tier": "STANDARD",
-          "id": 11370528
-        },
-        {
-          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
-          "player": "Bennedict Mathurin",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "STANDARD",
-          "id": 11378084
-        },
-        {
-          "raw": "Al Horford OVER FG3M 1.5 (DEMON) [id:11378967]",
-          "player": "Al Horford",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
+          "line": 3.5,
           "tier": "DEMON",
-          "id": 11378967
+          "id": 11455150
         }
       ],
-      "hit_prob": 0.1252546446406563,
-      "ev_mult": 0.823553067432854,
+      "hit_prob": 0.1025813040613107,
+      "ev_mult": 0.7797800129391803,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0026589460529259
+      "avg_fragility": 0.0170053396896897
     }
   ],
   "windfall_winprob": [
     {
       "product": "Windfall WinProb",
       "n_legs": 3,
-      "legs": "Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084] | Jordan Miller OVER FG3M 0.5 (DEMON) [id:11418600]",
+      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11452496] | Grayson Allen OVER REB 2.5 (STANDARD) [id:11470600] | Jamal Cain OVER FG3M 0.5 (DEMON) [id:11456633]",
       "legs_detail": [
         {
-          "raw": "Al Horford OVER PTS 2.5 (GOBLIN) [id:11439953]",
-          "player": "Al Horford",
+          "raw": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11452496]",
+          "player": "Jordan Goodwin",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 2.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11439953
+          "id": 11452496
         },
         {
-          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
-          "player": "Bennedict Mathurin",
+          "raw": "Grayson Allen OVER REB 2.5 (STANDARD) [id:11470600]",
+          "player": "Grayson Allen",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
+          "stat": "REB",
+          "line": 2.5,
           "tier": "STANDARD",
-          "id": 11378084
+          "id": 11470600
         },
         {
-          "raw": "Jordan Miller OVER FG3M 0.5 (DEMON) [id:11418600]",
-          "player": "Jordan Miller",
+          "raw": "Jamal Cain OVER FG3M 0.5 (DEMON) [id:11456633]",
+          "player": "Jamal Cain",
           "dir": "OVER",
           "stat": "FG3M",
           "line": 0.5,
           "tier": "DEMON",
-          "id": 11418600
+          "id": 11456633
         }
       ],
-      "hit_prob": 0.380138297866362,
-      "ev_mult": 2.280829787198172,
+      "hit_prob": 0.4085741913633317,
+      "ev_mult": 2.45144514817999,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0062680026141002
+      "avg_fragility": 0.0089691448701783
     },
     {
       "product": "Windfall WinProb",
       "n_legs": 4,
-      "legs": "De'Anthony Melton OVER AST 1.5 (GOBLIN) [id:11371378] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084] | Goga Bitadze OVER REB 4.5 (STANDARD) [id:11420378] | Jordan Miller OVER FG3M 0.5 (DEMON) [id:11418600]",
+      "legs": "Sion James OVER REB 1.5 (GOBLIN) [id:11455376] | Ryan Kalkbrenner OVER PR 7.5 (STANDARD) [id:11456337] | Grayson Allen OVER REB 2.5 (STANDARD) [id:11470600] | Jordan Goodwin OVER FG3M 1.5 (DEMON) [id:11452497]",
       "legs_detail": [
         {
-          "raw": "De'Anthony Melton OVER AST 1.5 (GOBLIN) [id:11371378]",
-          "player": "De'Anthony Melton",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11371378
-        },
-        {
-          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
-          "player": "Bennedict Mathurin",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "STANDARD",
-          "id": 11378084
-        },
-        {
-          "raw": "Goga Bitadze OVER REB 4.5 (STANDARD) [id:11420378]",
-          "player": "Goga Bitadze",
+          "raw": "Sion James OVER REB 1.5 (GOBLIN) [id:11455376]",
+          "player": "Sion James",
           "dir": "OVER",
           "stat": "REB",
-          "line": 4.5,
-          "tier": "STANDARD",
-          "id": 11420378
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11455376
         },
         {
-          "raw": "Jordan Miller OVER FG3M 0.5 (DEMON) [id:11418600]",
-          "player": "Jordan Miller",
+          "raw": "Ryan Kalkbrenner OVER PR 7.5 (STANDARD) [id:11456337]",
+          "player": "Ryan Kalkbrenner",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 7.5,
+          "tier": "STANDARD",
+          "id": 11456337
+        },
+        {
+          "raw": "Grayson Allen OVER REB 2.5 (STANDARD) [id:11470600]",
+          "player": "Grayson Allen",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 2.5,
+          "tier": "STANDARD",
+          "id": 11470600
+        },
+        {
+          "raw": "Jordan Goodwin OVER FG3M 1.5 (DEMON) [id:11452497]",
+          "player": "Jordan Goodwin",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 0.5,
+          "line": 1.5,
           "tier": "DEMON",
-          "id": 11418600
+          "id": 11452497
         }
       ],
-      "hit_prob": 0.2681632745906122,
-      "ev_mult": 2.6816327459061218,
+      "hit_prob": 0.28234554888181,
+      "ev_mult": 2.8234554888181007,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0054009032928927
+      "avg_fragility": 0.0127234601773405
     },
     {
       "product": "Windfall WinProb",
       "n_legs": 5,
-      "legs": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11417220] | Paolo Banchero OVER RA 10.5 (GOBLIN) [id:11438940] | Goga Bitadze OVER RA 5.5 (STANDARD) [id:11420383] | Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084] | Jordan Miller OVER FG3M 0.5 (DEMON) [id:11418600]",
+      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11452496] | Sion James OVER REB 1.5 (GOBLIN) [id:11455376] | Brandon Miller UNDER REB 5.5 (STANDARD) [id:11450428] | Paolo Banchero UNDER PA 27.5 (STANDARD) [id:11450716] | Jamal Cain OVER FG3M 0.5 (DEMON) [id:11456633]",
       "legs_detail": [
         {
-          "raw": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11417220]",
-          "player": "Quentin Grimes",
+          "raw": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11452496]",
+          "player": "Jordan Goodwin",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11452496
+        },
+        {
+          "raw": "Sion James OVER REB 1.5 (GOBLIN) [id:11455376]",
+          "player": "Sion James",
           "dir": "OVER",
           "stat": "REB",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11417220
+          "id": 11455376
         },
         {
-          "raw": "Paolo Banchero OVER RA 10.5 (GOBLIN) [id:11438940]",
-          "player": "Paolo Banchero",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 10.5,
-          "tier": "GOBLIN",
-          "id": 11438940
-        },
-        {
-          "raw": "Goga Bitadze OVER RA 5.5 (STANDARD) [id:11420383]",
-          "player": "Goga Bitadze",
-          "dir": "OVER",
-          "stat": "RA",
+          "raw": "Brandon Miller UNDER REB 5.5 (STANDARD) [id:11450428]",
+          "player": "Brandon Miller",
+          "dir": "UNDER",
+          "stat": "REB",
           "line": 5.5,
           "tier": "STANDARD",
-          "id": 11420383
+          "id": 11450428
         },
         {
-          "raw": "Bennedict Mathurin OVER AST 1.5 (STANDARD) [id:11378084]",
-          "player": "Bennedict Mathurin",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
+          "raw": "Paolo Banchero UNDER PA 27.5 (STANDARD) [id:11450716]",
+          "player": "Paolo Banchero",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 27.5,
           "tier": "STANDARD",
-          "id": 11378084
+          "id": 11450716
         },
         {
-          "raw": "Jordan Miller OVER FG3M 0.5 (DEMON) [id:11418600]",
-          "player": "Jordan Miller",
+          "raw": "Jamal Cain OVER FG3M 0.5 (DEMON) [id:11456633]",
+          "player": "Jamal Cain",
           "dir": "OVER",
           "stat": "FG3M",
           "line": 0.5,
           "tier": "DEMON",
-          "id": 11418600
+          "id": 11456633
         }
       ],
-      "hit_prob": 0.2007452821318827,
-      "ev_mult": 4.014905642637655,
+      "hit_prob": 0.2201090061624412,
+      "ev_mult": 4.402180123248826,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0066845529945297
+      "avg_fragility": 0.1114315121778036
     }
   ],
-  "demonhunter": [],
+  "demonhunter": [
+    {
+      "product": "Demonhunter",
+      "n_legs": 3,
+      "legs": "Mark Williams OVER PTS 10.5 (DEMON) [id:11452778] | Desmond Bane OVER REB 5.5 (DEMON) [id:11450498] | De'Anthony Melton OVER PRA 17.5 (DEMON) [id:11456183]",
+      "legs_detail": [
+        {
+          "raw": "Mark Williams OVER PTS 10.5 (DEMON) [id:11452778]",
+          "player": "Mark Williams",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 10.5,
+          "tier": "DEMON",
+          "id": 11452778
+        },
+        {
+          "raw": "Desmond Bane OVER REB 5.5 (DEMON) [id:11450498]",
+          "player": "Desmond Bane",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 5.5,
+          "tier": "DEMON",
+          "id": 11450498
+        },
+        {
+          "raw": "De'Anthony Melton OVER PRA 17.5 (DEMON) [id:11456183]",
+          "player": "De'Anthony Melton",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 17.5,
+          "tier": "DEMON",
+          "id": 11456183
+        }
+      ],
+      "hit_prob": 0.0462756507215311,
+      "ev_mult": 0.4625793512352047,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0365521722859543
+    },
+    {
+      "product": "Demonhunter",
+      "n_legs": 4,
+      "legs": "Dillon Brooks OVER REB 4.5 (DEMON) [id:11452701] | Anthony Black OVER PTS 12.5 (DEMON) [id:11455554] | De'Anthony Melton OVER PTS 11.5 (DEMON) [id:11456178] | Kon Knueppel OVER RA 8.5 (DEMON) [id:11452630]",
+      "legs_detail": [
+        {
+          "raw": "Dillon Brooks OVER REB 4.5 (DEMON) [id:11452701]",
+          "player": "Dillon Brooks",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 4.5,
+          "tier": "DEMON",
+          "id": 11452701
+        },
+        {
+          "raw": "Anthony Black OVER PTS 12.5 (DEMON) [id:11455554]",
+          "player": "Anthony Black",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 12.5,
+          "tier": "DEMON",
+          "id": 11455554
+        },
+        {
+          "raw": "De'Anthony Melton OVER PTS 11.5 (DEMON) [id:11456178]",
+          "player": "De'Anthony Melton",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 11.5,
+          "tier": "DEMON",
+          "id": 11456178
+        },
+        {
+          "raw": "Kon Knueppel OVER RA 8.5 (DEMON) [id:11452630]",
+          "player": "Kon Knueppel",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 8.5,
+          "tier": "DEMON",
+          "id": 11452630
+        }
+      ],
+      "hit_prob": 0.0202430659862996,
+      "ev_mult": 0.2952036198557974,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0450509797394943
+    }
+  ],
   "gamescript": []
 }
