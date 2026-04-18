@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-18T11:04:34.366770-05:00",
-  "run_id": "20260418_110433",
+  "generated_at": "2026-04-18T11:06:27.119329-05:00",
+  "run_id": "20260418_110626",
   "system": [
     {
       "product": "System",
@@ -186,8 +186,17 @@
     {
       "product": "System WinProb",
       "n_legs": 4,
-      "legs": "Ayo Dosunmu OVER PTS 7.5 (GOBLIN) [id:11460645] | Sandro Mamukelashvili OVER PRA 9.5 (GOBLIN) [id:11451437] | Gabe Vincent OVER PRA 3.5 (STANDARD) [id:11449863] | Bruce Brown OVER PTS 5.5 (STANDARD) [id:11489778]",
+      "legs": "Sandro Mamukelashvili OVER PTS 4.5 (GOBLIN) [id:11451499] | Ayo Dosunmu OVER PTS 7.5 (GOBLIN) [id:11460645] | Gabe Vincent OVER PRA 3.5 (STANDARD) [id:11449863] | Bruce Brown OVER PTS 5.5 (STANDARD) [id:11489778]",
       "legs_detail": [
+        {
+          "raw": "Sandro Mamukelashvili OVER PTS 4.5 (GOBLIN) [id:11451499]",
+          "player": "Sandro Mamukelashvili",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11451499
+        },
         {
           "raw": "Ayo Dosunmu OVER PTS 7.5 (GOBLIN) [id:11460645]",
           "player": "Ayo Dosunmu",
@@ -196,15 +205,6 @@
           "line": 7.5,
           "tier": "GOBLIN",
           "id": 11460645
-        },
-        {
-          "raw": "Sandro Mamukelashvili OVER PRA 9.5 (GOBLIN) [id:11451437]",
-          "player": "Sandro Mamukelashvili",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 9.5,
-          "tier": "GOBLIN",
-          "id": 11451437
         },
         {
           "raw": "Gabe Vincent OVER PRA 3.5 (STANDARD) [id:11449863]",
@@ -225,66 +225,66 @@
           "id": 11489778
         }
       ],
-      "hit_prob": 0.4991598180049955,
-      "ev_mult": 4.991598180049955,
+      "hit_prob": 0.5056932497554698,
+      "ev_mult": 5.056932497554698,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0126801441586202
+      "avg_fragility": 0.0113154286356022
     },
     {
       "product": "System WinProb",
       "n_legs": 5,
-      "legs": "Reed Sheppard OVER FG3M 1.5 (GOBLIN) [id:11378952] | Sandro Mamukelashvili OVER FG3M 0.5 (GOBLIN) [id:11451425] | Ayo Dosunmu OVER PTS 7.5 (GOBLIN) [id:11460645] | Mikal Bridges UNDER PR 16 (STANDARD) [id:11371585] | Bruce Brown OVER PA 7.5 (STANDARD) [id:11489779]",
+      "legs": "Kevin Durant OVER REB 3.5 (GOBLIN) [id:11481713] | Sandro Mamukelashvili OVER PTS 5.5 (GOBLIN) [id:11451428] | Jarred Vanderbilt OVER REB 1.5 (GOBLIN) [id:11493392] | Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348] | Bruce Brown OVER PRA 10.5 (STANDARD) [id:11483520]",
       "legs_detail": [
         {
-          "raw": "Reed Sheppard OVER FG3M 1.5 (GOBLIN) [id:11378952]",
-          "player": "Reed Sheppard",
+          "raw": "Kevin Durant OVER REB 3.5 (GOBLIN) [id:11481713]",
+          "player": "Kevin Durant",
           "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
+          "stat": "REB",
+          "line": 3.5,
           "tier": "GOBLIN",
-          "id": 11378952
+          "id": 11481713
         },
         {
-          "raw": "Sandro Mamukelashvili OVER FG3M 0.5 (GOBLIN) [id:11451425]",
+          "raw": "Sandro Mamukelashvili OVER PTS 5.5 (GOBLIN) [id:11451428]",
           "player": "Sandro Mamukelashvili",
           "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11451425
-        },
-        {
-          "raw": "Ayo Dosunmu OVER PTS 7.5 (GOBLIN) [id:11460645]",
-          "player": "Ayo Dosunmu",
-          "dir": "OVER",
           "stat": "PTS",
-          "line": 7.5,
+          "line": 5.5,
           "tier": "GOBLIN",
-          "id": 11460645
+          "id": 11451428
         },
         {
-          "raw": "Mikal Bridges UNDER PR 16 (STANDARD) [id:11371585]",
-          "player": "Mikal Bridges",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 16.0,
+          "raw": "Jarred Vanderbilt OVER REB 1.5 (GOBLIN) [id:11493392]",
+          "player": "Jarred Vanderbilt",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11493392
+        },
+        {
+          "raw": "Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348]",
+          "player": "Gabe Vincent",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 0.5,
           "tier": "STANDARD",
-          "id": 11371585
+          "id": 11452348
         },
         {
-          "raw": "Bruce Brown OVER PA 7.5 (STANDARD) [id:11489779]",
+          "raw": "Bruce Brown OVER PRA 10.5 (STANDARD) [id:11483520]",
           "player": "Bruce Brown",
           "dir": "OVER",
-          "stat": "PA",
-          "line": 7.5,
+          "stat": "PRA",
+          "line": 10.5,
           "tier": "STANDARD",
-          "id": 11489779
+          "id": 11483520
         }
       ],
-      "hit_prob": 0.3561484686369092,
-      "ev_mult": 7.122969372738184,
+      "hit_prob": 0.3618821780707821,
+      "ev_mult": 7.237643561415643,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0697282315041562
+      "avg_fragility": 0.0129261750060448
     }
   ],
   "windfall": [
@@ -321,8 +321,8 @@
           "id": 11374912
         }
       ],
-      "hit_prob": 0.2387158711804487,
-      "ev_mult": 0.710721472919512,
+      "hit_prob": 0.2389987001479729,
+      "ev_mult": 0.7091421134516864,
       "payout_mult": 6.0,
       "avg_fragility": 0.0116510575154091
     },
@@ -577,143 +577,143 @@
     {
       "product": "Demonhunter",
       "n_legs": 3,
-      "legs": "Christian Braun OVER REB 5.5 (DEMON) [id:11372071] | Miles McBride OVER FG3M 3.5 (DEMON) [id:11382263] | Jake LaRavia OVER PA 11.5 (DEMON) [id:11493827]",
+      "legs": "Jabari Smith OVER REB 6.5 (DEMON) [id:11375102] | Jaxson Hayes OVER PRA 17.5 (DEMON) [id:11381687] | Cameron Johnson OVER PR 19.5 (DEMON) [id:11374223]",
       "legs_detail": [
         {
-          "raw": "Christian Braun OVER REB 5.5 (DEMON) [id:11372071]",
-          "player": "Christian Braun",
+          "raw": "Jabari Smith OVER REB 6.5 (DEMON) [id:11375102]",
+          "player": "Jabari Smith",
           "dir": "OVER",
           "stat": "REB",
-          "line": 5.5,
+          "line": 6.5,
           "tier": "DEMON",
-          "id": 11372071
+          "id": 11375102
         },
         {
-          "raw": "Miles McBride OVER FG3M 3.5 (DEMON) [id:11382263]",
-          "player": "Miles McBride",
+          "raw": "Jaxson Hayes OVER PRA 17.5 (DEMON) [id:11381687]",
+          "player": "Jaxson Hayes",
           "dir": "OVER",
-          "stat": "FG3M",
-          "line": 3.5,
+          "stat": "PRA",
+          "line": 17.5,
           "tier": "DEMON",
-          "id": 11382263
+          "id": 11381687
         },
         {
-          "raw": "Jake LaRavia OVER PA 11.5 (DEMON) [id:11493827]",
-          "player": "Jake LaRavia",
+          "raw": "Cameron Johnson OVER PR 19.5 (DEMON) [id:11374223]",
+          "player": "Cameron Johnson",
           "dir": "OVER",
-          "stat": "PA",
-          "line": 11.5,
+          "stat": "PR",
+          "line": 19.5,
           "tier": "DEMON",
-          "id": 11493827
+          "id": 11374223
         }
       ],
-      "hit_prob": 0.0509098537973261,
-      "ev_mult": 0.4458827852377544,
+      "hit_prob": 0.0458439905802594,
+      "ev_mult": 0.4630685743103454,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0147153848684067
+      "avg_fragility": 0.03542746673176
     },
     {
       "product": "Demonhunter",
       "n_legs": 4,
-      "legs": "Cameron Johnson OVER RA 7.5 (DEMON) [id:11374903] | Jakob Poeltl OVER AST 2.5 (DEMON) [id:11376688] | Josh Okogie OVER RA 5.5 (DEMON) [id:11381164] | OG Anunoby OVER PR 22.5 (DEMON) [id:11463806]",
+      "legs": "Reed Sheppard OVER RA 7.5 (DEMON) [id:11376249] | Jaxson Hayes OVER AST 1.5 (DEMON) [id:11381513] | OG Anunoby OVER PA 18.5 (DEMON) [id:11375952] | Aaron Gordon OVER PA 19.5 (DEMON) [id:11374174]",
       "legs_detail": [
         {
-          "raw": "Cameron Johnson OVER RA 7.5 (DEMON) [id:11374903]",
-          "player": "Cameron Johnson",
+          "raw": "Reed Sheppard OVER RA 7.5 (DEMON) [id:11376249]",
+          "player": "Reed Sheppard",
           "dir": "OVER",
           "stat": "RA",
           "line": 7.5,
           "tier": "DEMON",
-          "id": 11374903
+          "id": 11376249
         },
         {
-          "raw": "Jakob Poeltl OVER AST 2.5 (DEMON) [id:11376688]",
-          "player": "Jakob Poeltl",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 2.5,
-          "tier": "DEMON",
-          "id": 11376688
-        },
-        {
-          "raw": "Josh Okogie OVER RA 5.5 (DEMON) [id:11381164]",
-          "player": "Josh Okogie",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 5.5,
-          "tier": "DEMON",
-          "id": 11381164
-        },
-        {
-          "raw": "OG Anunoby OVER PR 22.5 (DEMON) [id:11463806]",
-          "player": "OG Anunoby",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 22.5,
-          "tier": "DEMON",
-          "id": 11463806
-        }
-      ],
-      "hit_prob": 0.0240436737410941,
-      "ev_mult": 0.2736356877232498,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.031316945785404
-    },
-    {
-      "product": "Demonhunter",
-      "n_legs": 5,
-      "legs": "Jaxson Hayes OVER REB 4.5 (DEMON) [id:11381528] | Jonathan Kuminga OVER PA 14.5 (DEMON) [id:11451445] | Cameron Johnson OVER REB 4.5 (DEMON) [id:11374229] | OG Anunoby OVER PA 19.5 (DEMON) [id:11371852] | Ja'Kobe Walter OVER REB 3.5 (DEMON) [id:11442721]",
-      "legs_detail": [
-        {
-          "raw": "Jaxson Hayes OVER REB 4.5 (DEMON) [id:11381528]",
+          "raw": "Jaxson Hayes OVER AST 1.5 (DEMON) [id:11381513]",
           "player": "Jaxson Hayes",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 4.5,
+          "stat": "AST",
+          "line": 1.5,
           "tier": "DEMON",
-          "id": 11381528
+          "id": 11381513
         },
         {
-          "raw": "Jonathan Kuminga OVER PA 14.5 (DEMON) [id:11451445]",
-          "player": "Jonathan Kuminga",
+          "raw": "OG Anunoby OVER PA 18.5 (DEMON) [id:11375952]",
+          "player": "OG Anunoby",
           "dir": "OVER",
           "stat": "PA",
-          "line": 14.5,
+          "line": 18.5,
           "tier": "DEMON",
-          "id": 11451445
+          "id": 11375952
         },
         {
-          "raw": "Cameron Johnson OVER REB 4.5 (DEMON) [id:11374229]",
-          "player": "Cameron Johnson",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 4.5,
-          "tier": "DEMON",
-          "id": 11374229
-        },
-        {
-          "raw": "OG Anunoby OVER PA 19.5 (DEMON) [id:11371852]",
-          "player": "OG Anunoby",
+          "raw": "Aaron Gordon OVER PA 19.5 (DEMON) [id:11374174]",
+          "player": "Aaron Gordon",
           "dir": "OVER",
           "stat": "PA",
           "line": 19.5,
           "tier": "DEMON",
-          "id": 11371852
-        },
-        {
-          "raw": "Ja'Kobe Walter OVER REB 3.5 (DEMON) [id:11442721]",
-          "player": "Ja'Kobe Walter",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 3.5,
-          "tier": "DEMON",
-          "id": 11442721
+          "id": 11374174
         }
       ],
-      "hit_prob": 0.0112107135622903,
-      "ev_mult": 0.1942002754522199,
+      "hit_prob": 0.0241361170936309,
+      "ev_mult": 0.2729275298287996,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0262566319284557
+    },
+    {
+      "product": "Demonhunter",
+      "n_legs": 5,
+      "legs": "Rudy Gobert OVER PTS 11.5 (DEMON) [id:11374350] | Jamal Murray OVER AST 6.5 (DEMON) [id:11374927] | James Harden OVER FG3M 3.5 (DEMON) [id:11371928] | Jake LaRavia OVER RA 7.5 (DEMON) [id:11381503] | OG Anunoby OVER PRA 24.5 (DEMON) [id:11372156]",
+      "legs_detail": [
+        {
+          "raw": "Rudy Gobert OVER PTS 11.5 (DEMON) [id:11374350]",
+          "player": "Rudy Gobert",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 11.5,
+          "tier": "DEMON",
+          "id": 11374350
+        },
+        {
+          "raw": "Jamal Murray OVER AST 6.5 (DEMON) [id:11374927]",
+          "player": "Jamal Murray",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 6.5,
+          "tier": "DEMON",
+          "id": 11374927
+        },
+        {
+          "raw": "James Harden OVER FG3M 3.5 (DEMON) [id:11371928]",
+          "player": "James Harden",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 3.5,
+          "tier": "DEMON",
+          "id": 11371928
+        },
+        {
+          "raw": "Jake LaRavia OVER RA 7.5 (DEMON) [id:11381503]",
+          "player": "Jake LaRavia",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 7.5,
+          "tier": "DEMON",
+          "id": 11381503
+        },
+        {
+          "raw": "OG Anunoby OVER PRA 24.5 (DEMON) [id:11372156]",
+          "player": "OG Anunoby",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 24.5,
+          "tier": "DEMON",
+          "id": 11372156
+        }
+      ],
+      "hit_prob": 0.0099364371690303,
+      "ev_mult": 0.2139087987464111,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0313646510426377
+      "avg_fragility": 0.0526009519175674
     }
   ],
   "gamescript": []
