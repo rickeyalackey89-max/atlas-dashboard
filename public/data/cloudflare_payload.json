@@ -1,172 +1,29 @@
 {
-  "generated_at": "2026-04-18T11:06:27.119329-05:00",
-  "run_id": "20260418_110626",
+  "generated_at": "2026-04-18T14:51:57.853571-05:00",
+  "run_id": "20260418_145157",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "Bruce Brown OVER PA 4.5 (GOBLIN) [id:11494002] | Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425] | Aaron Gordon OVER FG3M 1.5 (STANDARD) [id:11372025]",
+      "legs": "Miles McBride OVER AST 1.5 (GOBLIN) [id:11382143] | Reed Sheppard UNDER PTS 12 (STANDARD) [id:11375172] | Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348]",
       "legs_detail": [
         {
-          "raw": "Bruce Brown OVER PA 4.5 (GOBLIN) [id:11494002]",
-          "player": "Bruce Brown",
+          "raw": "Miles McBride OVER AST 1.5 (GOBLIN) [id:11382143]",
+          "player": "Miles McBride",
           "dir": "OVER",
-          "stat": "PA",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11494002
-        },
-        {
-          "raw": "Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425]",
-          "player": "Kevin Durant",
-          "dir": "UNDER",
-          "stat": "PTS",
-          "line": 24.5,
-          "tier": "STANDARD",
-          "id": 11372425
-        },
-        {
-          "raw": "Aaron Gordon OVER FG3M 1.5 (STANDARD) [id:11372025]",
-          "player": "Aaron Gordon",
-          "dir": "OVER",
-          "stat": "FG3M",
+          "stat": "AST",
           "line": 1.5,
-          "tier": "STANDARD",
-          "id": 11372025
-        }
-      ],
-      "hit_prob": 0.2857079048899022,
-      "ev_mult": 1.7262678083838858,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0062006474443214
-    },
-    {
-      "product": "System",
-      "n_legs": 4,
-      "legs": "Bruce Brown OVER PTS 4.5 (GOBLIN) [id:11489777] | Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:11374218] | Mitchell Robinson UNDER PA 5.5 (STANDARD) [id:11405655] | Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425]",
-      "legs_detail": [
-        {
-          "raw": "Bruce Brown OVER PTS 4.5 (GOBLIN) [id:11489777]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11489777
+          "id": 11382143
         },
         {
-          "raw": "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:11374218]",
-          "player": "Cameron Johnson",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 7.5,
-          "tier": "GOBLIN",
-          "id": 11374218
-        },
-        {
-          "raw": "Mitchell Robinson UNDER PA 5.5 (STANDARD) [id:11405655]",
-          "player": "Mitchell Robinson",
-          "dir": "UNDER",
-          "stat": "PA",
-          "line": 5.5,
-          "tier": "STANDARD",
-          "id": 11405655
-        },
-        {
-          "raw": "Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425]",
-          "player": "Kevin Durant",
+          "raw": "Reed Sheppard UNDER PTS 12 (STANDARD) [id:11375172]",
+          "player": "Reed Sheppard",
           "dir": "UNDER",
           "stat": "PTS",
-          "line": 24.5,
+          "line": 12.0,
           "tier": "STANDARD",
-          "id": 11372425
-        }
-      ],
-      "hit_prob": 0.2142552971864146,
-      "ev_mult": 1.4641927267581691,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0095999892967076
-    },
-    {
-      "product": "System",
-      "n_legs": 5,
-      "legs": "Tim Hardaway OVER PTS 8.5 (GOBLIN) [id:11460647] | Jaden McDaniels OVER PTS 11.5 (GOBLIN) [id:11374268] | Bruce Brown OVER PTS 4.5 (GOBLIN) [id:11489777] | Kevin Durant UNDER PA 29.5 (STANDARD) [id:11372426] | CJ McCollum UNDER RA 6.5 (STANDARD) [id:11460349]",
-      "legs_detail": [
-        {
-          "raw": "Tim Hardaway OVER PTS 8.5 (GOBLIN) [id:11460647]",
-          "player": "Tim Hardaway",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 8.5,
-          "tier": "GOBLIN",
-          "id": 11460647
-        },
-        {
-          "raw": "Jaden McDaniels OVER PTS 11.5 (GOBLIN) [id:11374268]",
-          "player": "Jaden McDaniels",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 11.5,
-          "tier": "GOBLIN",
-          "id": 11374268
-        },
-        {
-          "raw": "Bruce Brown OVER PTS 4.5 (GOBLIN) [id:11489777]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11489777
-        },
-        {
-          "raw": "Kevin Durant UNDER PA 29.5 (STANDARD) [id:11372426]",
-          "player": "Kevin Durant",
-          "dir": "UNDER",
-          "stat": "PA",
-          "line": 29.5,
-          "tier": "STANDARD",
-          "id": 11372426
-        },
-        {
-          "raw": "CJ McCollum UNDER RA 6.5 (STANDARD) [id:11460349]",
-          "player": "CJ McCollum",
-          "dir": "UNDER",
-          "stat": "RA",
-          "line": 6.5,
-          "tier": "STANDARD",
-          "id": 11460349
-        }
-      ],
-      "hit_prob": 0.1413458305092195,
-      "ev_mult": 1.3880632508057915,
-      "payout_mult": 20.0,
-      "avg_fragility": 0.0148137024410466
-    }
-  ],
-  "system_winprob": [
-    {
-      "product": "System WinProb",
-      "n_legs": 3,
-      "legs": "Bruce Brown OVER PA 4.5 (GOBLIN) [id:11494002] | Ayo Dosunmu OVER PR 14 (STANDARD) [id:11452854] | Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348]",
-      "legs_detail": [
-        {
-          "raw": "Bruce Brown OVER PA 4.5 (GOBLIN) [id:11494002]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PA",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11494002
-        },
-        {
-          "raw": "Ayo Dosunmu OVER PR 14 (STANDARD) [id:11452854]",
-          "player": "Ayo Dosunmu",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 14.0,
-          "tier": "STANDARD",
-          "id": 11452854
+          "id": 11375172
         },
         {
           "raw": "Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348]",
@@ -178,62 +35,444 @@
           "id": 11452348
         }
       ],
-      "hit_prob": 0.5429873186014139,
-      "ev_mult": 3.257923911608484,
+      "hit_prob": 0.2381637988398912,
+      "ev_mult": 1.5836153861140296,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0152985809717814
+      "avg_fragility": 0.0060080860118349
     },
     {
-      "product": "System WinProb",
+      "product": "System",
       "n_legs": 4,
-      "legs": "Sandro Mamukelashvili OVER PTS 4.5 (GOBLIN) [id:11451499] | Ayo Dosunmu OVER PTS 7.5 (GOBLIN) [id:11460645] | Gabe Vincent OVER PRA 3.5 (STANDARD) [id:11449863] | Bruce Brown OVER PTS 5.5 (STANDARD) [id:11489778]",
+      "legs": "Jarred Vanderbilt OVER PTS 1.5 (GOBLIN) [id:11493391] | Landry Shamet OVER PTS 2.5 (GOBLIN) [id:11493452] | Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425] | Mitchell Robinson UNDER PA 5.5 (STANDARD) [id:11405655]",
       "legs_detail": [
         {
-          "raw": "Sandro Mamukelashvili OVER PTS 4.5 (GOBLIN) [id:11451499]",
-          "player": "Sandro Mamukelashvili",
+          "raw": "Jarred Vanderbilt OVER PTS 1.5 (GOBLIN) [id:11493391]",
+          "player": "Jarred Vanderbilt",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11493391
+        },
+        {
+          "raw": "Landry Shamet OVER PTS 2.5 (GOBLIN) [id:11493452]",
+          "player": "Landry Shamet",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 2.5,
+          "tier": "GOBLIN",
+          "id": 11493452
+        },
+        {
+          "raw": "Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425]",
+          "player": "Kevin Durant",
+          "dir": "UNDER",
+          "stat": "PTS",
+          "line": 24.5,
+          "tier": "STANDARD",
+          "id": 11372425
+        },
+        {
+          "raw": "Mitchell Robinson UNDER PA 5.5 (STANDARD) [id:11405655]",
+          "player": "Mitchell Robinson",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 5.5,
+          "tier": "STANDARD",
+          "id": 11405655
+        }
+      ],
+      "hit_prob": 0.2003131484773735,
+      "ev_mult": 1.396635808812808,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.005558234188988
+    },
+    {
+      "product": "System",
+      "n_legs": 5,
+      "legs": "Landry Shamet OVER PTS 2.5 (GOBLIN) [id:11493452] | Tari Eason OVER PTS 4.5 (GOBLIN) [id:11381009] | Jarred Vanderbilt OVER PTS 1.5 (GOBLIN) [id:11493391] | Mitchell Robinson UNDER PA 5.5 (STANDARD) [id:11405655] | Dyson Daniels UNDER PA 15.5 (STANDARD) [id:11371534]",
+      "legs_detail": [
+        {
+          "raw": "Landry Shamet OVER PTS 2.5 (GOBLIN) [id:11493452]",
+          "player": "Landry Shamet",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 2.5,
+          "tier": "GOBLIN",
+          "id": 11493452
+        },
+        {
+          "raw": "Tari Eason OVER PTS 4.5 (GOBLIN) [id:11381009]",
+          "player": "Tari Eason",
           "dir": "OVER",
           "stat": "PTS",
           "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11451499
+          "id": 11381009
         },
         {
-          "raw": "Ayo Dosunmu OVER PTS 7.5 (GOBLIN) [id:11460645]",
-          "player": "Ayo Dosunmu",
+          "raw": "Jarred Vanderbilt OVER PTS 1.5 (GOBLIN) [id:11493391]",
+          "player": "Jarred Vanderbilt",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 7.5,
+          "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11460645
+          "id": 11493391
         },
         {
-          "raw": "Gabe Vincent OVER PRA 3.5 (STANDARD) [id:11449863]",
-          "player": "Gabe Vincent",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 3.5,
-          "tier": "STANDARD",
-          "id": 11449863
-        },
-        {
-          "raw": "Bruce Brown OVER PTS 5.5 (STANDARD) [id:11489778]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PTS",
+          "raw": "Mitchell Robinson UNDER PA 5.5 (STANDARD) [id:11405655]",
+          "player": "Mitchell Robinson",
+          "dir": "UNDER",
+          "stat": "PA",
           "line": 5.5,
           "tier": "STANDARD",
-          "id": 11489778
+          "id": 11405655
+        },
+        {
+          "raw": "Dyson Daniels UNDER PA 15.5 (STANDARD) [id:11371534]",
+          "player": "Dyson Daniels",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 15.5,
+          "tier": "STANDARD",
+          "id": 11371534
         }
       ],
-      "hit_prob": 0.5056932497554698,
-      "ev_mult": 5.056932497554698,
+      "hit_prob": 0.1435179502635601,
+      "ev_mult": 1.3802631680370414,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.00982968633467
+    }
+  ],
+  "system_winprob": [
+    {
+      "product": "System WinProb",
+      "n_legs": 3,
+      "legs": "Alperen Sengun OVER AST 3.5 (GOBLIN) [id:11372386] | Mitchell Robinson OVER PTS 5 (STANDARD) [id:11405651] | Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348]",
+      "legs_detail": [
+        {
+          "raw": "Alperen Sengun OVER AST 3.5 (GOBLIN) [id:11372386]",
+          "player": "Alperen Sengun",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11372386
+        },
+        {
+          "raw": "Mitchell Robinson OVER PTS 5 (STANDARD) [id:11405651]",
+          "player": "Mitchell Robinson",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11405651
+        },
+        {
+          "raw": "Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348]",
+          "player": "Gabe Vincent",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 0.5,
+          "tier": "STANDARD",
+          "id": 11452348
+        }
+      ],
+      "hit_prob": 0.4040544830703697,
+      "ev_mult": 2.424326898422218,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.013937565375408
+    },
+    {
+      "product": "System WinProb",
+      "n_legs": 4,
+      "legs": "Kevin Durant OVER RA 7.5 (GOBLIN) [id:11483395] | Jabari Smith OVER PTS 9.5 (GOBLIN) [id:11372416] | Mitchell Robinson OVER PTS 5 (STANDARD) [id:11405651] | Jaxson Hayes OVER PTS 6.5 (STANDARD) [id:11381683]",
+      "legs_detail": [
+        {
+          "raw": "Kevin Durant OVER RA 7.5 (GOBLIN) [id:11483395]",
+          "player": "Kevin Durant",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 7.5,
+          "tier": "GOBLIN",
+          "id": 11483395
+        },
+        {
+          "raw": "Jabari Smith OVER PTS 9.5 (GOBLIN) [id:11372416]",
+          "player": "Jabari Smith",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 9.5,
+          "tier": "GOBLIN",
+          "id": 11372416
+        },
+        {
+          "raw": "Mitchell Robinson OVER PTS 5 (STANDARD) [id:11405651]",
+          "player": "Mitchell Robinson",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11405651
+        },
+        {
+          "raw": "Jaxson Hayes OVER PTS 6.5 (STANDARD) [id:11381683]",
+          "player": "Jaxson Hayes",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 6.5,
+          "tier": "STANDARD",
+          "id": 11381683
+        }
+      ],
+      "hit_prob": 0.2957367884738348,
+      "ev_mult": 2.9573678847383484,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0113154286356022
+      "avg_fragility": 0.0327742379300637
     },
     {
       "product": "System WinProb",
       "n_legs": 5,
-      "legs": "Kevin Durant OVER REB 3.5 (GOBLIN) [id:11481713] | Sandro Mamukelashvili OVER PTS 5.5 (GOBLIN) [id:11451428] | Jarred Vanderbilt OVER REB 1.5 (GOBLIN) [id:11493392] | Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348] | Bruce Brown OVER PRA 10.5 (STANDARD) [id:11483520]",
+      "legs": "Reed Sheppard OVER FG3M 1.5 (GOBLIN) [id:11378952] | Jonathan Kuminga OVER AST 0.5 (GOBLIN) [id:11405646] | Miles McBride OVER FG3M 0.5 (GOBLIN) [id:11442850] | Jabari Smith OVER FG3M 2 (STANDARD) [id:11443445] | Mitchell Robinson OVER PTS 5 (STANDARD) [id:11405651]",
+      "legs_detail": [
+        {
+          "raw": "Reed Sheppard OVER FG3M 1.5 (GOBLIN) [id:11378952]",
+          "player": "Reed Sheppard",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11378952
+        },
+        {
+          "raw": "Jonathan Kuminga OVER AST 0.5 (GOBLIN) [id:11405646]",
+          "player": "Jonathan Kuminga",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11405646
+        },
+        {
+          "raw": "Miles McBride OVER FG3M 0.5 (GOBLIN) [id:11442850]",
+          "player": "Miles McBride",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11442850
+        },
+        {
+          "raw": "Jabari Smith OVER FG3M 2 (STANDARD) [id:11443445]",
+          "player": "Jabari Smith",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 2.0,
+          "tier": "STANDARD",
+          "id": 11443445
+        },
+        {
+          "raw": "Mitchell Robinson OVER PTS 5 (STANDARD) [id:11405651]",
+          "player": "Mitchell Robinson",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11405651
+        }
+      ],
+      "hit_prob": 0.2720738796527238,
+      "ev_mult": 5.4414775930544765,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0147580715751983
+    }
+  ],
+  "windfall": [
+    {
+      "product": "Windfall",
+      "n_legs": 3,
+      "legs": "Miles McBride OVER PTS 4.5 (GOBLIN) [id:11380874] | Dyson Daniels UNDER PA 15.5 (STANDARD) [id:11371534] | Jarred Vanderbilt OVER FG3M 0.5 (DEMON) [id:11449399]",
+      "legs_detail": [
+        {
+          "raw": "Miles McBride OVER PTS 4.5 (GOBLIN) [id:11380874]",
+          "player": "Miles McBride",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11380874
+        },
+        {
+          "raw": "Dyson Daniels UNDER PA 15.5 (STANDARD) [id:11371534]",
+          "player": "Dyson Daniels",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 15.5,
+          "tier": "STANDARD",
+          "id": 11371534
+        },
+        {
+          "raw": "Jarred Vanderbilt OVER FG3M 0.5 (DEMON) [id:11449399]",
+          "player": "Jarred Vanderbilt",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "DEMON",
+          "id": 11449399
+        }
+      ],
+      "hit_prob": 0.2188948596836103,
+      "ev_mult": 0.67315411834874,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0073161526041677
+    },
+    {
+      "product": "Windfall",
+      "n_legs": 4,
+      "legs": "Mikal Bridges OVER AST 1.5 (GOBLIN) [id:11493356] | Gabe Vincent OVER FG3M 0.5 (STANDARD) [id:11449858] | Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425] | Jonathan Kuminga OVER AST 1.5 (DEMON) [id:11382120]",
+      "legs_detail": [
+        {
+          "raw": "Mikal Bridges OVER AST 1.5 (GOBLIN) [id:11493356]",
+          "player": "Mikal Bridges",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11493356
+        },
+        {
+          "raw": "Gabe Vincent OVER FG3M 0.5 (STANDARD) [id:11449858]",
+          "player": "Gabe Vincent",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "STANDARD",
+          "id": 11449858
+        },
+        {
+          "raw": "Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425]",
+          "player": "Kevin Durant",
+          "dir": "UNDER",
+          "stat": "PTS",
+          "line": 24.5,
+          "tier": "STANDARD",
+          "id": 11372425
+        },
+        {
+          "raw": "Jonathan Kuminga OVER AST 1.5 (DEMON) [id:11382120]",
+          "player": "Jonathan Kuminga",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "DEMON",
+          "id": 11382120
+        }
+      ],
+      "hit_prob": 0.1431286427651989,
+      "ev_mult": 0.7112768080553956,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0129021138501331
+    },
+    {
+      "product": "Windfall",
+      "n_legs": 5,
+      "legs": "Mikal Bridges OVER AST 1.5 (GOBLIN) [id:11493356] | Reed Sheppard OVER REB 1.5 (GOBLIN) [id:11381188] | Gabe Vincent OVER FG3M 0.5 (STANDARD) [id:11449858] | Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425] | Jonathan Kuminga OVER AST 1.5 (DEMON) [id:11382120]",
+      "legs_detail": [
+        {
+          "raw": "Mikal Bridges OVER AST 1.5 (GOBLIN) [id:11493356]",
+          "player": "Mikal Bridges",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11493356
+        },
+        {
+          "raw": "Reed Sheppard OVER REB 1.5 (GOBLIN) [id:11381188]",
+          "player": "Reed Sheppard",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11381188
+        },
+        {
+          "raw": "Gabe Vincent OVER FG3M 0.5 (STANDARD) [id:11449858]",
+          "player": "Gabe Vincent",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "STANDARD",
+          "id": 11449858
+        },
+        {
+          "raw": "Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425]",
+          "player": "Kevin Durant",
+          "dir": "UNDER",
+          "stat": "PTS",
+          "line": 24.5,
+          "tier": "STANDARD",
+          "id": 11372425
+        },
+        {
+          "raw": "Jonathan Kuminga OVER AST 1.5 (DEMON) [id:11382120]",
+          "player": "Jonathan Kuminga",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "DEMON",
+          "id": 11382120
+        }
+      ],
+      "hit_prob": 0.1091983533599695,
+      "ev_mult": 0.7291046342548001,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0136368140331987
+    }
+  ],
+  "windfall_winprob": [
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 3,
+      "legs": "Alperen Sengun OVER AST 3.5 (GOBLIN) [id:11372386] | Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348] | Dyson Daniels OVER FG3M 0.5 (DEMON) [id:11378402]",
+      "legs_detail": [
+        {
+          "raw": "Alperen Sengun OVER AST 3.5 (GOBLIN) [id:11372386]",
+          "player": "Alperen Sengun",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11372386
+        },
+        {
+          "raw": "Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348]",
+          "player": "Gabe Vincent",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 0.5,
+          "tier": "STANDARD",
+          "id": 11452348
+        },
+        {
+          "raw": "Dyson Daniels OVER FG3M 0.5 (DEMON) [id:11378402]",
+          "player": "Dyson Daniels",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "DEMON",
+          "id": 11378402
+        }
+      ],
+      "hit_prob": 0.3530560771818982,
+      "ev_mult": 2.118336463091389,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0152825908174504
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 4,
+      "legs": "Kevin Durant OVER REB 3.5 (GOBLIN) [id:11481713] | Mitchell Robinson OVER PTS 5 (STANDARD) [id:11405651] | Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348] | Dyson Daniels OVER FG3M 0.5 (DEMON) [id:11378402]",
       "legs_detail": [
         {
           "raw": "Kevin Durant OVER REB 3.5 (GOBLIN) [id:11481713]",
@@ -245,13 +484,51 @@
           "id": 11481713
         },
         {
-          "raw": "Sandro Mamukelashvili OVER PTS 5.5 (GOBLIN) [id:11451428]",
-          "player": "Sandro Mamukelashvili",
+          "raw": "Mitchell Robinson OVER PTS 5 (STANDARD) [id:11405651]",
+          "player": "Mitchell Robinson",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 5.5,
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11405651
+        },
+        {
+          "raw": "Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348]",
+          "player": "Gabe Vincent",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 0.5,
+          "tier": "STANDARD",
+          "id": 11452348
+        },
+        {
+          "raw": "Dyson Daniels OVER FG3M 0.5 (DEMON) [id:11378402]",
+          "player": "Dyson Daniels",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "DEMON",
+          "id": 11378402
+        }
+      ],
+      "hit_prob": 0.2560431549017528,
+      "ev_mult": 2.560431549017528,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0182491397047381
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 5,
+      "legs": "Kevin Durant OVER REB 3.5 (GOBLIN) [id:11481713] | Jarred Vanderbilt OVER REB 1.5 (GOBLIN) [id:11493392] | Gabe Vincent OVER REB 0.5 (STANDARD) [id:11452348] | Marcus Smart UNDER PA 15.5 (STANDARD) [id:11375160] | Dyson Daniels OVER FG3M 0.5 (DEMON) [id:11378402]",
+      "legs_detail": [
+        {
+          "raw": "Kevin Durant OVER REB 3.5 (GOBLIN) [id:11481713]",
+          "player": "Kevin Durant",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 3.5,
           "tier": "GOBLIN",
-          "id": 11451428
+          "id": 11481713
         },
         {
           "raw": "Jarred Vanderbilt OVER REB 1.5 (GOBLIN) [id:11493392]",
@@ -272,448 +549,115 @@
           "id": 11452348
         },
         {
-          "raw": "Bruce Brown OVER PRA 10.5 (STANDARD) [id:11483520]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 10.5,
-          "tier": "STANDARD",
-          "id": 11483520
-        }
-      ],
-      "hit_prob": 0.3618821780707821,
-      "ev_mult": 7.237643561415643,
-      "payout_mult": 20.0,
-      "avg_fragility": 0.0129261750060448
-    }
-  ],
-  "windfall": [
-    {
-      "product": "Windfall",
-      "n_legs": 3,
-      "legs": "Jamal Murray OVER FG3M 1.5 (GOBLIN) [id:11372088] | Bruce Brown OVER PR 9 (STANDARD) [id:11493479] | Donte DiVincenzo OVER AST 3.5 (DEMON) [id:11374912]",
-      "legs_detail": [
-        {
-          "raw": "Jamal Murray OVER FG3M 1.5 (GOBLIN) [id:11372088]",
-          "player": "Jamal Murray",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11372088
-        },
-        {
-          "raw": "Bruce Brown OVER PR 9 (STANDARD) [id:11493479]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 9.0,
-          "tier": "STANDARD",
-          "id": 11493479
-        },
-        {
-          "raw": "Donte DiVincenzo OVER AST 3.5 (DEMON) [id:11374912]",
-          "player": "Donte DiVincenzo",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 3.5,
-          "tier": "DEMON",
-          "id": 11374912
-        }
-      ],
-      "hit_prob": 0.2389987001479729,
-      "ev_mult": 0.7091421134516864,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0116510575154091
-    },
-    {
-      "product": "Windfall",
-      "n_legs": 4,
-      "legs": "Tim Hardaway OVER AST 0.5 (GOBLIN) [id:11461336] | Bruce Brown OVER PA 7.5 (STANDARD) [id:11489779] | Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425] | Jonathan Kuminga OVER AST 1.5 (DEMON) [id:11382120]",
-      "legs_detail": [
-        {
-          "raw": "Tim Hardaway OVER AST 0.5 (GOBLIN) [id:11461336]",
-          "player": "Tim Hardaway",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11461336
-        },
-        {
-          "raw": "Bruce Brown OVER PA 7.5 (STANDARD) [id:11489779]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PA",
-          "line": 7.5,
-          "tier": "STANDARD",
-          "id": 11489779
-        },
-        {
-          "raw": "Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425]",
-          "player": "Kevin Durant",
+          "raw": "Marcus Smart UNDER PA 15.5 (STANDARD) [id:11375160]",
+          "player": "Marcus Smart",
           "dir": "UNDER",
-          "stat": "PTS",
-          "line": 24.5,
-          "tier": "STANDARD",
-          "id": 11372425
-        },
-        {
-          "raw": "Jonathan Kuminga OVER AST 1.5 (DEMON) [id:11382120]",
-          "player": "Jonathan Kuminga",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "DEMON",
-          "id": 11382120
-        }
-      ],
-      "hit_prob": 0.1606097115148699,
-      "ev_mult": 0.7625127616537486,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0141251532863036
-    },
-    {
-      "product": "Windfall",
-      "n_legs": 5,
-      "legs": "Jaden McDaniels OVER FG3M 0.5 (GOBLIN) [id:11372080] | Tim Hardaway OVER AST 0.5 (GOBLIN) [id:11461336] | Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425] | Bruce Brown OVER PTS 5.5 (STANDARD) [id:11489778] | Jonathan Kuminga OVER AST 1.5 (DEMON) [id:11382120]",
-      "legs_detail": [
-        {
-          "raw": "Jaden McDaniels OVER FG3M 0.5 (GOBLIN) [id:11372080]",
-          "player": "Jaden McDaniels",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11372080
-        },
-        {
-          "raw": "Tim Hardaway OVER AST 0.5 (GOBLIN) [id:11461336]",
-          "player": "Tim Hardaway",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11461336
-        },
-        {
-          "raw": "Kevin Durant UNDER PTS 24.5 (STANDARD) [id:11372425]",
-          "player": "Kevin Durant",
-          "dir": "UNDER",
-          "stat": "PTS",
-          "line": 24.5,
-          "tier": "STANDARD",
-          "id": 11372425
-        },
-        {
-          "raw": "Bruce Brown OVER PTS 5.5 (STANDARD) [id:11489778]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 5.5,
-          "tier": "STANDARD",
-          "id": 11489778
-        },
-        {
-          "raw": "Jonathan Kuminga OVER AST 1.5 (DEMON) [id:11382120]",
-          "player": "Jonathan Kuminga",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "DEMON",
-          "id": 11382120
-        }
-      ],
-      "hit_prob": 0.1241385305830395,
-      "ev_mult": 0.798832796411132,
-      "payout_mult": 20.0,
-      "avg_fragility": 0.0145925847922412
-    }
-  ],
-  "windfall_winprob": [
-    {
-      "product": "Windfall WinProb",
-      "n_legs": 3,
-      "legs": "Bruce Brown OVER PA 4.5 (GOBLIN) [id:11494002] | Gabe Vincent OVER PRA 3.5 (STANDARD) [id:11449863] | Ayo Dosunmu OVER PTS 12.5 (DEMON) [id:11453115]",
-      "legs_detail": [
-        {
-          "raw": "Bruce Brown OVER PA 4.5 (GOBLIN) [id:11494002]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
           "stat": "PA",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11494002
-        },
-        {
-          "raw": "Gabe Vincent OVER PRA 3.5 (STANDARD) [id:11449863]",
-          "player": "Gabe Vincent",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 3.5,
+          "line": 15.5,
           "tier": "STANDARD",
-          "id": 11449863
+          "id": 11375160
         },
         {
-          "raw": "Ayo Dosunmu OVER PTS 12.5 (DEMON) [id:11453115]",
-          "player": "Ayo Dosunmu",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 12.5,
-          "tier": "DEMON",
-          "id": 11453115
-        }
-      ],
-      "hit_prob": 0.5095202784092525,
-      "ev_mult": 3.057121670455515,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0175893588711662
-    },
-    {
-      "product": "Windfall WinProb",
-      "n_legs": 4,
-      "legs": "Ja'Kobe Walter OVER FG3M 0.5 (GOBLIN) [id:11442849] | Bruce Brown OVER PTS 5.5 (STANDARD) [id:11489778] | Gabe Vincent OVER PRA 3.5 (STANDARD) [id:11449863] | Ayo Dosunmu OVER PTS 12.5 (DEMON) [id:11453115]",
-      "legs_detail": [
-        {
-          "raw": "Ja'Kobe Walter OVER FG3M 0.5 (GOBLIN) [id:11442849]",
-          "player": "Ja'Kobe Walter",
+          "raw": "Dyson Daniels OVER FG3M 0.5 (DEMON) [id:11378402]",
+          "player": "Dyson Daniels",
           "dir": "OVER",
           "stat": "FG3M",
           "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11442849
-        },
-        {
-          "raw": "Bruce Brown OVER PTS 5.5 (STANDARD) [id:11489778]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 5.5,
-          "tier": "STANDARD",
-          "id": 11489778
-        },
-        {
-          "raw": "Gabe Vincent OVER PRA 3.5 (STANDARD) [id:11449863]",
-          "player": "Gabe Vincent",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 3.5,
-          "tier": "STANDARD",
-          "id": 11449863
-        },
-        {
-          "raw": "Ayo Dosunmu OVER PTS 12.5 (DEMON) [id:11453115]",
-          "player": "Ayo Dosunmu",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 12.5,
           "tier": "DEMON",
-          "id": 11453115
+          "id": 11378402
         }
       ],
-      "hit_prob": 0.4206559861897077,
-      "ev_mult": 4.206559861897077,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0165570605891174
-    },
-    {
-      "product": "Windfall WinProb",
-      "n_legs": 5,
-      "legs": "Miles McBride OVER FG3M 0.5 (GOBLIN) [id:11442850] | Rudy Gobert OVER REB 7.5 (GOBLIN) [id:11372142] | Sam Merrill OVER AST 1.5 (STANDARD) [id:11478150] | Bruce Brown OVER PTS 5.5 (STANDARD) [id:11489778] | Ayo Dosunmu OVER PTS 12.5 (DEMON) [id:11453115]",
-      "legs_detail": [
-        {
-          "raw": "Miles McBride OVER FG3M 0.5 (GOBLIN) [id:11442850]",
-          "player": "Miles McBride",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11442850
-        },
-        {
-          "raw": "Rudy Gobert OVER REB 7.5 (GOBLIN) [id:11372142]",
-          "player": "Rudy Gobert",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 7.5,
-          "tier": "GOBLIN",
-          "id": 11372142
-        },
-        {
-          "raw": "Sam Merrill OVER AST 1.5 (STANDARD) [id:11478150]",
-          "player": "Sam Merrill",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "STANDARD",
-          "id": 11478150
-        },
-        {
-          "raw": "Bruce Brown OVER PTS 5.5 (STANDARD) [id:11489778]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 5.5,
-          "tier": "STANDARD",
-          "id": 11489778
-        },
-        {
-          "raw": "Ayo Dosunmu OVER PTS 12.5 (DEMON) [id:11453115]",
-          "player": "Ayo Dosunmu",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 12.5,
-          "tier": "DEMON",
-          "id": 11453115
-        }
-      ],
-      "hit_prob": 0.3018603185415313,
-      "ev_mult": 6.037206370830626,
+      "hit_prob": 0.1869112486657846,
+      "ev_mult": 3.7382249733156936,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0235503945020478
+      "avg_fragility": 0.0587097488872513
     }
   ],
   "demonhunter": [
     {
       "product": "Demonhunter",
       "n_legs": 3,
-      "legs": "Jabari Smith OVER REB 6.5 (DEMON) [id:11375102] | Jaxson Hayes OVER PRA 17.5 (DEMON) [id:11381687] | Cameron Johnson OVER PR 19.5 (DEMON) [id:11374223]",
+      "legs": "OG Anunoby OVER REB 6.5 (DEMON) [id:11372356] | Tari Eason OVER PRA 19.5 (DEMON) [id:11381201] | Jake LaRavia OVER PA 11.5 (DEMON) [id:11493827]",
       "legs_detail": [
         {
-          "raw": "Jabari Smith OVER REB 6.5 (DEMON) [id:11375102]",
-          "player": "Jabari Smith",
+          "raw": "OG Anunoby OVER REB 6.5 (DEMON) [id:11372356]",
+          "player": "OG Anunoby",
           "dir": "OVER",
           "stat": "REB",
           "line": 6.5,
           "tier": "DEMON",
-          "id": 11375102
+          "id": 11372356
         },
         {
-          "raw": "Jaxson Hayes OVER PRA 17.5 (DEMON) [id:11381687]",
-          "player": "Jaxson Hayes",
+          "raw": "Tari Eason OVER PRA 19.5 (DEMON) [id:11381201]",
+          "player": "Tari Eason",
           "dir": "OVER",
           "stat": "PRA",
-          "line": 17.5,
-          "tier": "DEMON",
-          "id": 11381687
-        },
-        {
-          "raw": "Cameron Johnson OVER PR 19.5 (DEMON) [id:11374223]",
-          "player": "Cameron Johnson",
-          "dir": "OVER",
-          "stat": "PR",
           "line": 19.5,
           "tier": "DEMON",
-          "id": 11374223
+          "id": 11381201
+        },
+        {
+          "raw": "Jake LaRavia OVER PA 11.5 (DEMON) [id:11493827]",
+          "player": "Jake LaRavia",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 11.5,
+          "tier": "DEMON",
+          "id": 11493827
         }
       ],
-      "hit_prob": 0.0458439905802594,
-      "ev_mult": 0.4630685743103454,
+      "hit_prob": 0.046198699391346,
+      "ev_mult": 0.4625183595162212,
       "payout_mult": 6.0,
-      "avg_fragility": 0.03542746673176
+      "avg_fragility": 0.0262636331957658
     },
     {
       "product": "Demonhunter",
       "n_legs": 4,
-      "legs": "Reed Sheppard OVER RA 7.5 (DEMON) [id:11376249] | Jaxson Hayes OVER AST 1.5 (DEMON) [id:11381513] | OG Anunoby OVER PA 18.5 (DEMON) [id:11375952] | Aaron Gordon OVER PA 19.5 (DEMON) [id:11374174]",
+      "legs": "Jake LaRavia OVER PA 11.5 (DEMON) [id:11493827] | Josh Okogie OVER PR 9.5 (DEMON) [id:11448869] | Jalen Johnson OVER AST 7.5 (DEMON) [id:11376022] | Mitchell Robinson OVER AST 1.5 (DEMON) [id:11382275]",
       "legs_detail": [
         {
-          "raw": "Reed Sheppard OVER RA 7.5 (DEMON) [id:11376249]",
-          "player": "Reed Sheppard",
+          "raw": "Jake LaRavia OVER PA 11.5 (DEMON) [id:11493827]",
+          "player": "Jake LaRavia",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 7.5,
+          "stat": "PA",
+          "line": 11.5,
           "tier": "DEMON",
-          "id": 11376249
+          "id": 11493827
         },
         {
-          "raw": "Jaxson Hayes OVER AST 1.5 (DEMON) [id:11381513]",
-          "player": "Jaxson Hayes",
+          "raw": "Josh Okogie OVER PR 9.5 (DEMON) [id:11448869]",
+          "player": "Josh Okogie",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 9.5,
+          "tier": "DEMON",
+          "id": 11448869
+        },
+        {
+          "raw": "Jalen Johnson OVER AST 7.5 (DEMON) [id:11376022]",
+          "player": "Jalen Johnson",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 7.5,
+          "tier": "DEMON",
+          "id": 11376022
+        },
+        {
+          "raw": "Mitchell Robinson OVER AST 1.5 (DEMON) [id:11382275]",
+          "player": "Mitchell Robinson",
           "dir": "OVER",
           "stat": "AST",
           "line": 1.5,
           "tier": "DEMON",
-          "id": 11381513
-        },
-        {
-          "raw": "OG Anunoby OVER PA 18.5 (DEMON) [id:11375952]",
-          "player": "OG Anunoby",
-          "dir": "OVER",
-          "stat": "PA",
-          "line": 18.5,
-          "tier": "DEMON",
-          "id": 11375952
-        },
-        {
-          "raw": "Aaron Gordon OVER PA 19.5 (DEMON) [id:11374174]",
-          "player": "Aaron Gordon",
-          "dir": "OVER",
-          "stat": "PA",
-          "line": 19.5,
-          "tier": "DEMON",
-          "id": 11374174
+          "id": 11382275
         }
       ],
-      "hit_prob": 0.0241361170936309,
-      "ev_mult": 0.2729275298287996,
+      "hit_prob": 0.0170704779901717,
+      "ev_mult": 0.3247185196654669,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0262566319284557
-    },
-    {
-      "product": "Demonhunter",
-      "n_legs": 5,
-      "legs": "Rudy Gobert OVER PTS 11.5 (DEMON) [id:11374350] | Jamal Murray OVER AST 6.5 (DEMON) [id:11374927] | James Harden OVER FG3M 3.5 (DEMON) [id:11371928] | Jake LaRavia OVER RA 7.5 (DEMON) [id:11381503] | OG Anunoby OVER PRA 24.5 (DEMON) [id:11372156]",
-      "legs_detail": [
-        {
-          "raw": "Rudy Gobert OVER PTS 11.5 (DEMON) [id:11374350]",
-          "player": "Rudy Gobert",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 11.5,
-          "tier": "DEMON",
-          "id": 11374350
-        },
-        {
-          "raw": "Jamal Murray OVER AST 6.5 (DEMON) [id:11374927]",
-          "player": "Jamal Murray",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 6.5,
-          "tier": "DEMON",
-          "id": 11374927
-        },
-        {
-          "raw": "James Harden OVER FG3M 3.5 (DEMON) [id:11371928]",
-          "player": "James Harden",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 3.5,
-          "tier": "DEMON",
-          "id": 11371928
-        },
-        {
-          "raw": "Jake LaRavia OVER RA 7.5 (DEMON) [id:11381503]",
-          "player": "Jake LaRavia",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 7.5,
-          "tier": "DEMON",
-          "id": 11381503
-        },
-        {
-          "raw": "OG Anunoby OVER PRA 24.5 (DEMON) [id:11372156]",
-          "player": "OG Anunoby",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 24.5,
-          "tier": "DEMON",
-          "id": 11372156
-        }
-      ],
-      "hit_prob": 0.0099364371690303,
-      "ev_mult": 0.2139087987464111,
-      "payout_mult": 20.0,
-      "avg_fragility": 0.0526009519175674
+      "avg_fragility": 0.0234335822718316
     }
   ],
   "gamescript": []
