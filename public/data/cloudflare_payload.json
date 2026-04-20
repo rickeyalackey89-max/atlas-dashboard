@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-04-20T14:32:38.355276-05:00",
-  "run_id": "20260420_143238",
+  "generated_at": "2026-04-20T17:32:41.029658-05:00",
+  "run_id": "20260420_173240",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468] | Christian Braun UNDER PRA 18.5 (STANDARD) [id:11504423] | Naz Reid OVER AST 1.5 (STANDARD) [id:11505600]",
+      "legs": "Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468] | Bruce Brown OVER PA 8 (STANDARD) [id:11547104] | Naz Reid OVER AST 1.5 (STANDARD) [id:11505600]",
       "legs_detail": [
         {
           "raw": "Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468]",
@@ -17,13 +17,13 @@
           "id": 11506468
         },
         {
-          "raw": "Christian Braun UNDER PRA 18.5 (STANDARD) [id:11504423]",
-          "player": "Christian Braun",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 18.5,
+          "raw": "Bruce Brown OVER PA 8 (STANDARD) [id:11547104]",
+          "player": "Bruce Brown",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 8.0,
           "tier": "STANDARD",
-          "id": 11504423
+          "id": 11547104
         },
         {
           "raw": "Naz Reid OVER AST 1.5 (STANDARD) [id:11505600]",
@@ -35,16 +35,25 @@
           "id": 11505600
         }
       ],
-      "hit_prob": 0.2699643676877372,
-      "ev_mult": 1.6753947670964666,
+      "hit_prob": 0.2783258429100361,
+      "ev_mult": 1.6913160754880678,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0101437550368124
+      "avg_fragility": 0.0171357279034981
     },
     {
       "product": "System",
       "n_legs": 4,
-      "legs": "Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468] | Bruce Brown OVER RA 3.5 (GOBLIN) [id:11519775] | Naz Reid OVER FG3M 1.5 (STANDARD) [id:11505599] | Jaylon Tyson OVER PRA 7.5 (STANDARD) [id:11550807]",
+      "legs": "Bruce Brown OVER RA 3.5 (GOBLIN) [id:11519775] | Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468] | Jaylon Tyson OVER FG3M 0.5 (STANDARD) [id:11550788] | Naz Reid OVER FG3M 1.5 (STANDARD) [id:11505599]",
       "legs_detail": [
+        {
+          "raw": "Bruce Brown OVER RA 3.5 (GOBLIN) [id:11519775]",
+          "player": "Bruce Brown",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11519775
+        },
         {
           "raw": "Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468]",
           "player": "Aaron Gordon",
@@ -55,13 +64,13 @@
           "id": 11506468
         },
         {
-          "raw": "Bruce Brown OVER RA 3.5 (GOBLIN) [id:11519775]",
-          "player": "Bruce Brown",
+          "raw": "Jaylon Tyson OVER FG3M 0.5 (STANDARD) [id:11550788]",
+          "player": "Jaylon Tyson",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11519775
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "STANDARD",
+          "id": 11550788
         },
         {
           "raw": "Naz Reid OVER FG3M 1.5 (STANDARD) [id:11505599]",
@@ -71,122 +80,75 @@
           "line": 1.5,
           "tier": "STANDARD",
           "id": 11505599
-        },
-        {
-          "raw": "Jaylon Tyson OVER PRA 7.5 (STANDARD) [id:11550807]",
-          "player": "Jaylon Tyson",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 7.5,
-          "tier": "STANDARD",
-          "id": 11550807
         }
       ],
-      "hit_prob": 0.2028860214455301,
-      "ev_mult": 1.4521751208348306,
+      "hit_prob": 0.2069316324188868,
+      "ev_mult": 1.4617592394365724,
       "payout_mult": 10.0,
-      "avg_fragility": 0.01328242990887
+      "avg_fragility": 0.0103370853253995
     },
     {
       "product": "System",
       "n_legs": 5,
-      "legs": "Jamal Murray OVER REB 2.5 (GOBLIN) [id:11506942] | Bruce Brown OVER RA 3.5 (GOBLIN) [id:11519775] | Anthony Edwards OVER FG3M 1.5 (GOBLIN) [id:11504303] | Naz Reid OVER AST 1.5 (STANDARD) [id:11505600] | Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162]",
+      "legs": "Bruce Brown OVER REB 1.5 (GOBLIN) [id:11537446] | Naz Reid OVER FG3M 0.5 (GOBLIN) [id:11534836] | Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468] | Landry Shamet OVER PR 6.5 (STANDARD) [id:11532897] | Jaylon Tyson OVER PR 6.5 (STANDARD) [id:11550803]",
       "legs_detail": [
         {
-          "raw": "Jamal Murray OVER REB 2.5 (GOBLIN) [id:11506942]",
-          "player": "Jamal Murray",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11506942
-        },
-        {
-          "raw": "Bruce Brown OVER RA 3.5 (GOBLIN) [id:11519775]",
+          "raw": "Bruce Brown OVER REB 1.5 (GOBLIN) [id:11537446]",
           "player": "Bruce Brown",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11519775
-        },
-        {
-          "raw": "Anthony Edwards OVER FG3M 1.5 (GOBLIN) [id:11504303]",
-          "player": "Anthony Edwards",
-          "dir": "OVER",
-          "stat": "FG3M",
+          "stat": "REB",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11504303
+          "id": 11537446
         },
         {
-          "raw": "Naz Reid OVER AST 1.5 (STANDARD) [id:11505600]",
+          "raw": "Naz Reid OVER FG3M 0.5 (GOBLIN) [id:11534836]",
           "player": "Naz Reid",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11534836
+        },
+        {
+          "raw": "Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468]",
+          "player": "Aaron Gordon",
           "dir": "OVER",
           "stat": "AST",
           "line": 1.5,
-          "tier": "STANDARD",
-          "id": 11505600
+          "tier": "GOBLIN",
+          "id": 11506468
         },
         {
-          "raw": "Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162]",
-          "player": "Keon Ellis",
+          "raw": "Landry Shamet OVER PR 6.5 (STANDARD) [id:11532897]",
+          "player": "Landry Shamet",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
+          "stat": "PR",
+          "line": 6.5,
           "tier": "STANDARD",
-          "id": 11547162
+          "id": 11532897
+        },
+        {
+          "raw": "Jaylon Tyson OVER PR 6.5 (STANDARD) [id:11550803]",
+          "player": "Jaylon Tyson",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 6.5,
+          "tier": "STANDARD",
+          "id": 11550803
         }
       ],
-      "hit_prob": 0.1648348466108863,
-      "ev_mult": 1.522856690294945,
+      "hit_prob": 0.1587847377966064,
+      "ev_mult": 1.5392642039168505,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0180438537007787
+      "avg_fragility": 0.0170499751379803
     }
   ],
   "system_winprob": [
     {
       "product": "System WinProb",
       "n_legs": 3,
-      "legs": "Jonas Valan\u010di\u016bnas OVER REB 1.5 (GOBLIN) [id:11548076] | Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162] | Bruce Brown OVER PR 9.5 (STANDARD) [id:11538268]",
-      "legs_detail": [
-        {
-          "raw": "Jonas Valan\u010di\u016bnas OVER REB 1.5 (GOBLIN) [id:11548076]",
-          "player": "Jonas Valan\u010di\u016bnas",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11548076
-        },
-        {
-          "raw": "Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162]",
-          "player": "Keon Ellis",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
-          "tier": "STANDARD",
-          "id": 11547162
-        },
-        {
-          "raw": "Bruce Brown OVER PR 9.5 (STANDARD) [id:11538268]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 9.5,
-          "tier": "STANDARD",
-          "id": 11538268
-        }
-      ],
-      "hit_prob": 0.5282121735647564,
-      "ev_mult": 3.1692730413885384,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0125258259464051
-    },
-    {
-      "product": "System WinProb",
-      "n_legs": 4,
-      "legs": "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:11504381] | Sam Merrill OVER RA 2.5 (GOBLIN) [id:11512637] | Bruce Brown OVER PRA 11 (STANDARD) [id:11545922] | Sandro Mamukelashvili OVER RA 5.5 (STANDARD) [id:11524443]",
+      "legs": "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:11504381] | Sandro Mamukelashvili OVER RA 5.5 (STANDARD) [id:11524443] | Bruce Brown OVER PRA 11 (STANDARD) [id:11545922]",
       "legs_detail": [
         {
           "raw": "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:11504381]",
@@ -198,13 +160,13 @@
           "id": 11504381
         },
         {
-          "raw": "Sam Merrill OVER RA 2.5 (GOBLIN) [id:11512637]",
-          "player": "Sam Merrill",
+          "raw": "Sandro Mamukelashvili OVER RA 5.5 (STANDARD) [id:11524443]",
+          "player": "Sandro Mamukelashvili",
           "dir": "OVER",
           "stat": "RA",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11512637
+          "line": 5.5,
+          "tier": "STANDARD",
+          "id": 11524443
         },
         {
           "raw": "Bruce Brown OVER PRA 11 (STANDARD) [id:11545922]",
@@ -214,6 +176,35 @@
           "line": 11.0,
           "tier": "STANDARD",
           "id": 11545922
+        }
+      ],
+      "hit_prob": 0.5207379712302938,
+      "ev_mult": 3.1244278273817625,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0241489688684094
+    },
+    {
+      "product": "System WinProb",
+      "n_legs": 4,
+      "legs": "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:11504381] | Dennis Schr\u00f6der OVER RA 2.5 (GOBLIN) [id:11547143] | Sandro Mamukelashvili OVER RA 5.5 (STANDARD) [id:11524443] | Bruce Brown OVER PRA 11 (STANDARD) [id:11545922]",
+      "legs_detail": [
+        {
+          "raw": "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:11504381]",
+          "player": "Cameron Johnson",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 7.5,
+          "tier": "GOBLIN",
+          "id": 11504381
+        },
+        {
+          "raw": "Dennis Schr\u00f6der OVER RA 2.5 (GOBLIN) [id:11547143]",
+          "player": "Dennis Schr\u00f6der",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 2.5,
+          "tier": "GOBLIN",
+          "id": 11547143
         },
         {
           "raw": "Sandro Mamukelashvili OVER RA 5.5 (STANDARD) [id:11524443]",
@@ -223,35 +214,44 @@
           "line": 5.5,
           "tier": "STANDARD",
           "id": 11524443
+        },
+        {
+          "raw": "Bruce Brown OVER PRA 11 (STANDARD) [id:11545922]",
+          "player": "Bruce Brown",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 11.0,
+          "tier": "STANDARD",
+          "id": 11545922
         }
       ],
-      "hit_prob": 0.4393353393117607,
-      "ev_mult": 4.393353393117607,
+      "hit_prob": 0.4503873489712927,
+      "ev_mult": 4.503873489712927,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0241080898703667
+      "avg_fragility": 0.0197556470560351
     },
     {
       "product": "System WinProb",
       "n_legs": 5,
-      "legs": "Landry Shamet OVER REB 0.5 (GOBLIN) [id:11532902] | Cameron Johnson OVER PR 11.5 (GOBLIN) [id:11508235] | Sandro Mamukelashvili OVER AST 0.5 (GOBLIN) [id:11518748] | Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162] | Bruce Brown OVER PRA 11 (STANDARD) [id:11545922]",
+      "legs": "Jaylon Tyson OVER PRA 4.5 (GOBLIN) [id:11551679] | Ja'Kobe Walter OVER FG3M 0.5 (GOBLIN) [id:11531206] | Sandro Mamukelashvili OVER AST 0.5 (GOBLIN) [id:11518748] | Sam Merrill OVER AST 1.5 (STANDARD) [id:11512362] | Bruce Brown OVER PA 8 (STANDARD) [id:11547104]",
       "legs_detail": [
         {
-          "raw": "Landry Shamet OVER REB 0.5 (GOBLIN) [id:11532902]",
-          "player": "Landry Shamet",
+          "raw": "Jaylon Tyson OVER PRA 4.5 (GOBLIN) [id:11551679]",
+          "player": "Jaylon Tyson",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 0.5,
+          "stat": "PRA",
+          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11532902
+          "id": 11551679
         },
         {
-          "raw": "Cameron Johnson OVER PR 11.5 (GOBLIN) [id:11508235]",
-          "player": "Cameron Johnson",
+          "raw": "Ja'Kobe Walter OVER FG3M 0.5 (GOBLIN) [id:11531206]",
+          "player": "Ja'Kobe Walter",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 11.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11508235
+          "id": 11531206
         },
         {
           "raw": "Sandro Mamukelashvili OVER AST 0.5 (GOBLIN) [id:11518748]",
@@ -263,91 +263,91 @@
           "id": 11518748
         },
         {
-          "raw": "Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162]",
-          "player": "Keon Ellis",
+          "raw": "Sam Merrill OVER AST 1.5 (STANDARD) [id:11512362]",
+          "player": "Sam Merrill",
           "dir": "OVER",
-          "stat": "REB",
+          "stat": "AST",
           "line": 1.5,
           "tier": "STANDARD",
-          "id": 11547162
+          "id": 11512362
         },
         {
-          "raw": "Bruce Brown OVER PRA 11 (STANDARD) [id:11545922]",
+          "raw": "Bruce Brown OVER PA 8 (STANDARD) [id:11547104]",
           "player": "Bruce Brown",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 11.0,
+          "stat": "PA",
+          "line": 8.0,
           "tier": "STANDARD",
-          "id": 11545922
+          "id": 11547104
         }
       ],
-      "hit_prob": 0.3696684542062848,
-      "ev_mult": 7.393369084125697,
+      "hit_prob": 0.358209708301104,
+      "ev_mult": 7.16419416602208,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0176229896986279
+      "avg_fragility": 0.0176094211151434
     }
   ],
   "windfall": [
     {
       "product": "Windfall",
       "n_legs": 3,
-      "legs": "Naz Reid OVER FG3M 0.5 (GOBLIN) [id:11534836] | Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162] | Landry Shamet OVER REB 1.5 (DEMON) [id:11532904]",
+      "legs": "Christian Braun OVER AST 1.5 (GOBLIN) [id:11506477] | Bruce Brown OVER PA 8 (STANDARD) [id:11547104] | Jaylon Tyson OVER REB 2.5 (DEMON) [id:11550811]",
       "legs_detail": [
         {
-          "raw": "Naz Reid OVER FG3M 0.5 (GOBLIN) [id:11534836]",
-          "player": "Naz Reid",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11534836
-        },
-        {
-          "raw": "Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162]",
-          "player": "Keon Ellis",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
-          "tier": "STANDARD",
-          "id": 11547162
-        },
-        {
-          "raw": "Landry Shamet OVER REB 1.5 (DEMON) [id:11532904]",
-          "player": "Landry Shamet",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
-          "tier": "DEMON",
-          "id": 11532904
-        }
-      ],
-      "hit_prob": 0.2386101376541724,
-      "ev_mult": 0.6273815727544142,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0165385949971435
-    },
-    {
-      "product": "Windfall",
-      "n_legs": 4,
-      "legs": "Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468] | Bruce Brown OVER PRA 11 (STANDARD) [id:11545922] | Naz Reid OVER AST 1.5 (STANDARD) [id:11505600] | Jaylon Tyson OVER REB 2.5 (DEMON) [id:11550811]",
-      "legs_detail": [
-        {
-          "raw": "Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468]",
-          "player": "Aaron Gordon",
+          "raw": "Christian Braun OVER AST 1.5 (GOBLIN) [id:11506477]",
+          "player": "Christian Braun",
           "dir": "OVER",
           "stat": "AST",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11506468
+          "id": 11506477
         },
         {
-          "raw": "Bruce Brown OVER PRA 11 (STANDARD) [id:11545922]",
+          "raw": "Bruce Brown OVER PA 8 (STANDARD) [id:11547104]",
           "player": "Bruce Brown",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 11.0,
+          "stat": "PA",
+          "line": 8.0,
           "tier": "STANDARD",
-          "id": 11545922
+          "id": 11547104
+        },
+        {
+          "raw": "Jaylon Tyson OVER REB 2.5 (DEMON) [id:11550811]",
+          "player": "Jaylon Tyson",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 2.5,
+          "tier": "DEMON",
+          "id": 11550811
+        }
+      ],
+      "hit_prob": 0.2467983913593114,
+      "ev_mult": 0.6290737426359346,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.019922984624993
+    },
+    {
+      "product": "Windfall",
+      "n_legs": 4,
+      "legs": "Christian Braun OVER AST 1.5 (GOBLIN) [id:11506477] | Bruce Brown OVER PA 8 (STANDARD) [id:11547104] | Naz Reid OVER AST 1.5 (STANDARD) [id:11505600] | Jaylon Tyson OVER REB 2.5 (DEMON) [id:11550811]",
+      "legs_detail": [
+        {
+          "raw": "Christian Braun OVER AST 1.5 (GOBLIN) [id:11506477]",
+          "player": "Christian Braun",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11506477
+        },
+        {
+          "raw": "Bruce Brown OVER PA 8 (STANDARD) [id:11547104]",
+          "player": "Bruce Brown",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 8.0,
+          "tier": "STANDARD",
+          "id": 11547104
         },
         {
           "raw": "Naz Reid OVER AST 1.5 (STANDARD) [id:11505600]",
@@ -368,33 +368,33 @@
           "id": 11550811
         }
       ],
-      "hit_prob": 0.1437180817096272,
-      "ev_mult": 0.7607888067219709,
+      "hit_prob": 0.1472482567471995,
+      "ev_mult": 0.7668431206315606,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0162217964250586
+      "avg_fragility": 0.0178646219048108
     },
     {
       "product": "Windfall",
       "n_legs": 5,
-      "legs": "Bruce Brown OVER REB 2.5 (GOBLIN) [id:11507339] | Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468] | Miles McBride OVER FG3M 1.5 (STANDARD) [id:11527085] | Naz Reid OVER AST 1.5 (STANDARD) [id:11505600] | Jaylon Tyson OVER REB 2.5 (DEMON) [id:11550811]",
+      "legs": "Christian Braun OVER AST 1.5 (GOBLIN) [id:11506477] | Jamal Murray OVER REB 2.5 (GOBLIN) [id:11506942] | Miles McBride OVER FG3M 1.5 (STANDARD) [id:11527085] | Naz Reid OVER AST 1.5 (STANDARD) [id:11505600] | Jaylon Tyson OVER REB 2.5 (DEMON) [id:11550811]",
       "legs_detail": [
         {
-          "raw": "Bruce Brown OVER REB 2.5 (GOBLIN) [id:11507339]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11507339
-        },
-        {
-          "raw": "Aaron Gordon OVER AST 1.5 (GOBLIN) [id:11506468]",
-          "player": "Aaron Gordon",
+          "raw": "Christian Braun OVER AST 1.5 (GOBLIN) [id:11506477]",
+          "player": "Christian Braun",
           "dir": "OVER",
           "stat": "AST",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11506468
+          "id": 11506477
+        },
+        {
+          "raw": "Jamal Murray OVER REB 2.5 (GOBLIN) [id:11506942]",
+          "player": "Jamal Murray",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 2.5,
+          "tier": "GOBLIN",
+          "id": 11506942
         },
         {
           "raw": "Miles McBride OVER FG3M 1.5 (STANDARD) [id:11527085]",
@@ -424,35 +424,35 @@
           "id": 11550811
         }
       ],
-      "hit_prob": 0.1116104569258836,
-      "ev_mult": 0.7970075595017486,
+      "hit_prob": 0.1111229184829355,
+      "ev_mult": 0.793847228291477,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0151840942959847
+      "avg_fragility": 0.0188029019255873
     }
   ],
   "windfall_winprob": [
     {
       "product": "Windfall WinProb",
       "n_legs": 3,
-      "legs": "Bruce Brown OVER PTS 4.5 (GOBLIN) [id:11536319] | Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162] | Jonas Valan\u010di\u016bnas OVER REB 3.5 (DEMON) [id:11548038]",
+      "legs": "Bruce Brown OVER REB 1.5 (GOBLIN) [id:11537446] | Sandro Mamukelashvili OVER RA 5.5 (STANDARD) [id:11524443] | Jonas Valan\u010di\u016bnas OVER REB 3.5 (DEMON) [id:11548038]",
       "legs_detail": [
         {
-          "raw": "Bruce Brown OVER PTS 4.5 (GOBLIN) [id:11536319]",
+          "raw": "Bruce Brown OVER REB 1.5 (GOBLIN) [id:11537446]",
           "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11536319
-        },
-        {
-          "raw": "Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162]",
-          "player": "Keon Ellis",
           "dir": "OVER",
           "stat": "REB",
           "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11537446
+        },
+        {
+          "raw": "Sandro Mamukelashvili OVER RA 5.5 (STANDARD) [id:11524443]",
+          "player": "Sandro Mamukelashvili",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 5.5,
           "tier": "STANDARD",
-          "id": 11547162
+          "id": 11524443
         },
         {
           "raw": "Jonas Valan\u010di\u016bnas OVER REB 3.5 (DEMON) [id:11548038]",
@@ -464,15 +464,15 @@
           "id": 11548038
         }
       ],
-      "hit_prob": 0.4605498200674596,
-      "ev_mult": 2.7632989204047576,
+      "hit_prob": 0.455401029840163,
+      "ev_mult": 2.732406179040978,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0100313554154035
+      "avg_fragility": 0.0111563357672513
     },
     {
       "product": "Windfall WinProb",
       "n_legs": 4,
-      "legs": "Ja'Kobe Walter OVER FG3M 0.5 (GOBLIN) [id:11531206] | Bruce Brown OVER PRA 11 (STANDARD) [id:11545922] | Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162] | Jonas Valan\u010di\u016bnas OVER REB 3.5 (DEMON) [id:11548038]",
+      "legs": "Ja'Kobe Walter OVER FG3M 0.5 (GOBLIN) [id:11531206] | Bruce Brown OVER PRA 11 (STANDARD) [id:11545922] | Sandro Mamukelashvili OVER RA 5.5 (STANDARD) [id:11524443] | Dennis Schr\u00f6der OVER RA 3.5 (DEMON) [id:11547145]",
       "legs_detail": [
         {
           "raw": "Ja'Kobe Walter OVER FG3M 0.5 (GOBLIN) [id:11531206]",
@@ -493,62 +493,6 @@
           "id": 11545922
         },
         {
-          "raw": "Keon Ellis OVER REB 1.5 (STANDARD) [id:11547162]",
-          "player": "Keon Ellis",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
-          "tier": "STANDARD",
-          "id": 11547162
-        },
-        {
-          "raw": "Jonas Valan\u010di\u016bnas OVER REB 3.5 (DEMON) [id:11548038]",
-          "player": "Jonas Valan\u010di\u016bnas",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 3.5,
-          "tier": "DEMON",
-          "id": 11548038
-        }
-      ],
-      "hit_prob": 0.384248552799231,
-      "ev_mult": 3.8424855279923102,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0114766036029902
-    },
-    {
-      "product": "Windfall WinProb",
-      "n_legs": 5,
-      "legs": "Christian Braun OVER PTS 7.5 (GOBLIN) [id:11504409] | Dyson Daniels OVER REB 4.5 (GOBLIN) [id:11509101] | Bruce Brown OVER PRA 11 (STANDARD) [id:11545922] | Sandro Mamukelashvili OVER RA 5.5 (STANDARD) [id:11524443] | Keon Ellis OVER RA 2.5 (DEMON) [id:11547165]",
-      "legs_detail": [
-        {
-          "raw": "Christian Braun OVER PTS 7.5 (GOBLIN) [id:11504409]",
-          "player": "Christian Braun",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 7.5,
-          "tier": "GOBLIN",
-          "id": 11504409
-        },
-        {
-          "raw": "Dyson Daniels OVER REB 4.5 (GOBLIN) [id:11509101]",
-          "player": "Dyson Daniels",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11509101
-        },
-        {
-          "raw": "Bruce Brown OVER PRA 11 (STANDARD) [id:11545922]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 11.0,
-          "tier": "STANDARD",
-          "id": 11545922
-        },
-        {
           "raw": "Sandro Mamukelashvili OVER RA 5.5 (STANDARD) [id:11524443]",
           "player": "Sandro Mamukelashvili",
           "dir": "OVER",
@@ -558,162 +502,218 @@
           "id": 11524443
         },
         {
-          "raw": "Keon Ellis OVER RA 2.5 (DEMON) [id:11547165]",
-          "player": "Keon Ellis",
+          "raw": "Dennis Schr\u00f6der OVER RA 3.5 (DEMON) [id:11547145]",
+          "player": "Dennis Schr\u00f6der",
           "dir": "OVER",
           "stat": "RA",
-          "line": 2.5,
+          "line": 3.5,
           "tier": "DEMON",
-          "id": 11547165
+          "id": 11547145
         }
       ],
-      "hit_prob": 0.270672306603559,
-      "ev_mult": 5.413446132071181,
+      "hit_prob": 0.4202184383636246,
+      "ev_mult": 4.202184383636246,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0162758988217106
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 5,
+      "legs": "Landry Shamet OVER REB 0.5 (GOBLIN) [id:11532902] | Ayo Dosunmu OVER PA 11.5 (GOBLIN) [id:11519537] | Sam Merrill OVER AST 1.5 (STANDARD) [id:11512362] | Bruce Brown OVER PR 9.5 (STANDARD) [id:11538268] | Dennis Schr\u00f6der OVER RA 3.5 (DEMON) [id:11547145]",
+      "legs_detail": [
+        {
+          "raw": "Landry Shamet OVER REB 0.5 (GOBLIN) [id:11532902]",
+          "player": "Landry Shamet",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11532902
+        },
+        {
+          "raw": "Ayo Dosunmu OVER PA 11.5 (GOBLIN) [id:11519537]",
+          "player": "Ayo Dosunmu",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 11.5,
+          "tier": "GOBLIN",
+          "id": 11519537
+        },
+        {
+          "raw": "Sam Merrill OVER AST 1.5 (STANDARD) [id:11512362]",
+          "player": "Sam Merrill",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "STANDARD",
+          "id": 11512362
+        },
+        {
+          "raw": "Bruce Brown OVER PR 9.5 (STANDARD) [id:11538268]",
+          "player": "Bruce Brown",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 9.5,
+          "tier": "STANDARD",
+          "id": 11538268
+        },
+        {
+          "raw": "Dennis Schr\u00f6der OVER RA 3.5 (DEMON) [id:11547145]",
+          "player": "Dennis Schr\u00f6der",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 3.5,
+          "tier": "DEMON",
+          "id": 11547145
+        }
+      ],
+      "hit_prob": 0.3125734615685761,
+      "ev_mult": 6.251469231371523,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0261635268446944
+      "avg_fragility": 0.0212667752714333
     }
   ],
   "demonhunter": [
     {
       "product": "Demonhunter",
       "n_legs": 3,
-      "legs": "Dyson Daniels OVER RA 12.5 (DEMON) [id:11509885] | Dennis Schr\u00f6der OVER REB 2.5 (DEMON) [id:11547142] | Cameron Johnson OVER FG3M 2.5 (DEMON) [id:11504376]",
+      "legs": "Aaron Gordon OVER REB 6.5 (DEMON) [id:11504296] | James Harden OVER AST 7.5 (DEMON) [id:11502127] | Ayo Dosunmu OVER RA 7.5 (DEMON) [id:11504374]",
       "legs_detail": [
         {
-          "raw": "Dyson Daniels OVER RA 12.5 (DEMON) [id:11509885]",
-          "player": "Dyson Daniels",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 12.5,
-          "tier": "DEMON",
-          "id": 11509885
-        },
-        {
-          "raw": "Dennis Schr\u00f6der OVER REB 2.5 (DEMON) [id:11547142]",
-          "player": "Dennis Schr\u00f6der",
+          "raw": "Aaron Gordon OVER REB 6.5 (DEMON) [id:11504296]",
+          "player": "Aaron Gordon",
           "dir": "OVER",
           "stat": "REB",
-          "line": 2.5,
+          "line": 6.5,
           "tier": "DEMON",
-          "id": 11547142
+          "id": 11504296
         },
         {
-          "raw": "Cameron Johnson OVER FG3M 2.5 (DEMON) [id:11504376]",
-          "player": "Cameron Johnson",
+          "raw": "James Harden OVER AST 7.5 (DEMON) [id:11502127]",
+          "player": "James Harden",
           "dir": "OVER",
-          "stat": "FG3M",
-          "line": 2.5,
+          "stat": "AST",
+          "line": 7.5,
           "tier": "DEMON",
-          "id": 11504376
+          "id": 11502127
+        },
+        {
+          "raw": "Ayo Dosunmu OVER RA 7.5 (DEMON) [id:11504374]",
+          "player": "Ayo Dosunmu",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 7.5,
+          "tier": "DEMON",
+          "id": 11504374
         }
       ],
-      "hit_prob": 0.0485404632650092,
-      "ev_mult": 0.4528592935050741,
+      "hit_prob": 0.0470133694091735,
+      "ev_mult": 0.4600367298602126,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0364479467206998
+      "avg_fragility": 0.0489078456872059
     },
     {
       "product": "Demonhunter",
       "n_legs": 4,
-      "legs": "Dean Wade OVER FG3M 1.5 (DEMON) [id:11504752] | Cameron Johnson OVER PRA 19.5 (DEMON) [id:11504394] | Sandro Mamukelashvili OVER PRA 17.5 (DEMON) [id:11518751] | Dyson Daniels OVER AST 6.5 (DEMON) [id:11509080]",
+      "legs": "Onyeka Okongwu OVER AST 3.5 (DEMON) [id:11509345] | Bruce Brown OVER PRA 14.5 (DEMON) [id:11541006] | Mitchell Robinson OVER PR 15.5 (DEMON) [id:11534832] | Julius Randle OVER AST 4.5 (DEMON) [id:11507200]",
       "legs_detail": [
         {
-          "raw": "Dean Wade OVER FG3M 1.5 (DEMON) [id:11504752]",
-          "player": "Dean Wade",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
-          "tier": "DEMON",
-          "id": 11504752
-        },
-        {
-          "raw": "Cameron Johnson OVER PRA 19.5 (DEMON) [id:11504394]",
-          "player": "Cameron Johnson",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 19.5,
-          "tier": "DEMON",
-          "id": 11504394
-        },
-        {
-          "raw": "Sandro Mamukelashvili OVER PRA 17.5 (DEMON) [id:11518751]",
-          "player": "Sandro Mamukelashvili",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 17.5,
-          "tier": "DEMON",
-          "id": 11518751
-        },
-        {
-          "raw": "Dyson Daniels OVER AST 6.5 (DEMON) [id:11509080]",
-          "player": "Dyson Daniels",
+          "raw": "Onyeka Okongwu OVER AST 3.5 (DEMON) [id:11509345]",
+          "player": "Onyeka Okongwu",
           "dir": "OVER",
           "stat": "AST",
-          "line": 6.5,
+          "line": 3.5,
           "tier": "DEMON",
-          "id": 11509080
+          "id": 11509345
+        },
+        {
+          "raw": "Bruce Brown OVER PRA 14.5 (DEMON) [id:11541006]",
+          "player": "Bruce Brown",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 14.5,
+          "tier": "DEMON",
+          "id": 11541006
+        },
+        {
+          "raw": "Mitchell Robinson OVER PR 15.5 (DEMON) [id:11534832]",
+          "player": "Mitchell Robinson",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 15.5,
+          "tier": "DEMON",
+          "id": 11534832
+        },
+        {
+          "raw": "Julius Randle OVER AST 4.5 (DEMON) [id:11507200]",
+          "player": "Julius Randle",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 4.5,
+          "tier": "DEMON",
+          "id": 11507200
         }
       ],
-      "hit_prob": 0.0257946552145162,
-      "ev_mult": 0.259405262851252,
+      "hit_prob": 0.0237392609752106,
+      "ev_mult": 0.2758356128002771,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0452599756146482
+      "avg_fragility": 0.0394936113852256
     },
     {
       "product": "Demonhunter",
       "n_legs": 5,
-      "legs": "Dennis Schr\u00f6der OVER REB 1.5 (DEMON) [id:11547141] | Bruce Brown OVER PTS 9.5 (DEMON) [id:11536318] | Anthony Edwards OVER REB 5.5 (DEMON) [id:11509901] | Mitchell Robinson OVER PR 14.5 (DEMON) [id:11532840] | Ja'Kobe Walter OVER RA 5.5 (DEMON) [id:11529924]",
+      "legs": "Jonathan Kuminga OVER AST 2.5 (DEMON) [id:11529336] | Tim Hardaway OVER REB 2.5 (DEMON) [id:11519792] | Sandro Mamukelashvili OVER RA 7.5 (DEMON) [id:11518755] | Miles McBride OVER PTS 10.5 (DEMON) [id:11527237] | James Harden OVER FG3M 3.5 (DEMON) [id:11502119]",
       "legs_detail": [
         {
-          "raw": "Dennis Schr\u00f6der OVER REB 1.5 (DEMON) [id:11547141]",
-          "player": "Dennis Schr\u00f6der",
+          "raw": "Jonathan Kuminga OVER AST 2.5 (DEMON) [id:11529336]",
+          "player": "Jonathan Kuminga",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 2.5,
+          "tier": "DEMON",
+          "id": 11529336
+        },
+        {
+          "raw": "Tim Hardaway OVER REB 2.5 (DEMON) [id:11519792]",
+          "player": "Tim Hardaway",
           "dir": "OVER",
           "stat": "REB",
-          "line": 1.5,
+          "line": 2.5,
           "tier": "DEMON",
-          "id": 11547141
+          "id": 11519792
         },
         {
-          "raw": "Bruce Brown OVER PTS 9.5 (DEMON) [id:11536318]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 9.5,
-          "tier": "DEMON",
-          "id": 11536318
-        },
-        {
-          "raw": "Anthony Edwards OVER REB 5.5 (DEMON) [id:11509901]",
-          "player": "Anthony Edwards",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 5.5,
-          "tier": "DEMON",
-          "id": 11509901
-        },
-        {
-          "raw": "Mitchell Robinson OVER PR 14.5 (DEMON) [id:11532840]",
-          "player": "Mitchell Robinson",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 14.5,
-          "tier": "DEMON",
-          "id": 11532840
-        },
-        {
-          "raw": "Ja'Kobe Walter OVER RA 5.5 (DEMON) [id:11529924]",
-          "player": "Ja'Kobe Walter",
+          "raw": "Sandro Mamukelashvili OVER RA 7.5 (DEMON) [id:11518755]",
+          "player": "Sandro Mamukelashvili",
           "dir": "OVER",
           "stat": "RA",
-          "line": 5.5,
+          "line": 7.5,
           "tier": "DEMON",
-          "id": 11529924
+          "id": 11518755
+        },
+        {
+          "raw": "Miles McBride OVER PTS 10.5 (DEMON) [id:11527237]",
+          "player": "Miles McBride",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 10.5,
+          "tier": "DEMON",
+          "id": 11527237
+        },
+        {
+          "raw": "James Harden OVER FG3M 3.5 (DEMON) [id:11502119]",
+          "player": "James Harden",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 3.5,
+          "tier": "DEMON",
+          "id": 11502119
         }
       ],
-      "hit_prob": 0.010487494600316,
-      "ev_mult": 0.2062721578760327,
+      "hit_prob": 0.0110855077035876,
+      "ev_mult": 0.1976541004751594,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0298906010680658
+      "avg_fragility": 0.0404154322436904
     }
   ],
   "gamescript": []
