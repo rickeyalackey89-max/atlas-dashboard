@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-04-21T14:13:05.617586-05:00",
-  "run_id": "20260421_141305",
+  "generated_at": "2026-04-21T14:32:35.798716-05:00",
+  "run_id": "20260421_143235",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "Shaedon Sharpe OVER RA 2.5 (GOBLIN) [id:11542265] | Dominick Barlow OVER PRA 7.5 (STANDARD) [id:11571291] | Devin Vassell UNDER RA 5.5 (STANDARD) [id:11536607]",
+      "legs": "Neemias Queta OVER AST 0.5 (GOBLIN) [id:11543161] | Harrison Barnes OVER FG3M 0.5 (STANDARD) [id:11571307] | Devin Vassell UNDER RA 5.5 (STANDARD) [id:11536607]",
       "legs_detail": [
         {
-          "raw": "Shaedon Sharpe OVER RA 2.5 (GOBLIN) [id:11542265]",
-          "player": "Shaedon Sharpe",
+          "raw": "Neemias Queta OVER AST 0.5 (GOBLIN) [id:11543161]",
+          "player": "Neemias Queta",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 2.5,
+          "stat": "AST",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11542265
+          "id": 11543161
         },
         {
-          "raw": "Dominick Barlow OVER PRA 7.5 (STANDARD) [id:11571291]",
-          "player": "Dominick Barlow",
+          "raw": "Harrison Barnes OVER FG3M 0.5 (STANDARD) [id:11571307]",
+          "player": "Harrison Barnes",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 7.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "STANDARD",
-          "id": 11571291
+          "id": 11571307
         },
         {
           "raw": "Devin Vassell UNDER RA 5.5 (STANDARD) [id:11536607]",
@@ -35,24 +35,24 @@
           "id": 11536607
         }
       ],
-      "hit_prob": 0.2760485389624073,
-      "ev_mult": 1.6572645662779169,
+      "hit_prob": 0.272156764782989,
+      "ev_mult": 1.6566800761323708,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0169797690665807
+      "avg_fragility": 0.010270406261074
     },
     {
       "product": "System",
       "n_legs": 4,
-      "legs": "Victor Wembanyama OVER AST 1.5 (GOBLIN) [id:11565641] | Dominick Barlow OVER REB 1.5 (GOBLIN) [id:11571293] | Jaylen Brown OVER FG3M 1.5 (STANDARD) [id:11528323] | Matisse Thybulle UNDER PRA 6.5 (STANDARD) [id:11552406]",
+      "legs": "Shaedon Sharpe OVER REB 1.5 (GOBLIN) [id:11537922] | Dominick Barlow OVER REB 1.5 (GOBLIN) [id:11571293] | Jaylen Brown OVER FG3M 1.5 (STANDARD) [id:11528323] | Matisse Thybulle UNDER PRA 6.5 (STANDARD) [id:11552406]",
       "legs_detail": [
         {
-          "raw": "Victor Wembanyama OVER AST 1.5 (GOBLIN) [id:11565641]",
-          "player": "Victor Wembanyama",
+          "raw": "Shaedon Sharpe OVER REB 1.5 (GOBLIN) [id:11537922]",
+          "player": "Shaedon Sharpe",
           "dir": "OVER",
-          "stat": "AST",
+          "stat": "REB",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11565641
+          "id": 11537922
         },
         {
           "raw": "Dominick Barlow OVER REB 1.5 (GOBLIN) [id:11571293]",
@@ -82,15 +82,15 @@
           "id": 11552406
         }
       ],
-      "hit_prob": 0.2037932751473088,
-      "ev_mult": 1.4334118441233936,
+      "hit_prob": 0.203746966328974,
+      "ev_mult": 1.4331156076899487,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0321769521998195
+      "avg_fragility": 0.0314682141072684
     },
     {
       "product": "System",
       "n_legs": 5,
-      "legs": "Dominick Barlow OVER REB 1.5 (GOBLIN) [id:11571293] | Quentin Grimes OVER AST 1.5 (GOBLIN) [id:11533183] | Shaedon Sharpe OVER REB 1.5 (GOBLIN) [id:11537922] | Matisse Thybulle UNDER PRA 6.5 (STANDARD) [id:11552406] | Julian Champagnie UNDER RA 6 (STANDARD) [id:11536702]",
+      "legs": "Dominick Barlow OVER REB 1.5 (GOBLIN) [id:11571293] | Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11533494] | Dylan Harper OVER AST 1.5 (GOBLIN) [id:11537302] | Jaylen Brown OVER FG3M 1.5 (STANDARD) [id:11528323] | Julian Champagnie UNDER RA 6 (STANDARD) [id:11536702]",
       "legs_detail": [
         {
           "raw": "Dominick Barlow OVER REB 1.5 (GOBLIN) [id:11571293]",
@@ -102,31 +102,31 @@
           "id": 11571293
         },
         {
-          "raw": "Quentin Grimes OVER AST 1.5 (GOBLIN) [id:11533183]",
+          "raw": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11533494]",
           "player": "Quentin Grimes",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11533183
-        },
-        {
-          "raw": "Shaedon Sharpe OVER REB 1.5 (GOBLIN) [id:11537922]",
-          "player": "Shaedon Sharpe",
           "dir": "OVER",
           "stat": "REB",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11537922
+          "id": 11533494
         },
         {
-          "raw": "Matisse Thybulle UNDER PRA 6.5 (STANDARD) [id:11552406]",
-          "player": "Matisse Thybulle",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 6.5,
+          "raw": "Dylan Harper OVER AST 1.5 (GOBLIN) [id:11537302]",
+          "player": "Dylan Harper",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11537302
+        },
+        {
+          "raw": "Jaylen Brown OVER FG3M 1.5 (STANDARD) [id:11528323]",
+          "player": "Jaylen Brown",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 1.5,
           "tier": "STANDARD",
-          "id": 11552406
+          "id": 11528323
         },
         {
           "raw": "Julian Champagnie UNDER RA 6 (STANDARD) [id:11536702]",
@@ -138,10 +138,10 @@
           "id": 11536702
         }
       ],
-      "hit_prob": 0.1620629770514257,
-      "ev_mult": 1.4942079455912447,
+      "hit_prob": 0.1601684437726067,
+      "ev_mult": 1.4823931947645828,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0160449675616438
+      "avg_fragility": 0.0311044572731072
     }
   ],
   "system_winprob": [
@@ -186,8 +186,17 @@
     {
       "product": "System WinProb",
       "n_legs": 4,
-      "legs": "Robert Williams OVER RA 5.5 (GOBLIN) [id:11572085] | Dylan Harper OVER PR 7.5 (GOBLIN) [id:11546825] | Keldon Johnson OVER PR 13.5 (STANDARD) [id:11537392] | Scoot Henderson OVER PTS 10 (STANDARD) [id:11569027]",
+      "legs": "Dylan Harper OVER PTS 4.5 (GOBLIN) [id:11537752] | Robert Williams OVER RA 5.5 (GOBLIN) [id:11572085] | Keldon Johnson OVER PR 13.5 (STANDARD) [id:11537392] | Scoot Henderson OVER PTS 10 (STANDARD) [id:11569027]",
       "legs_detail": [
+        {
+          "raw": "Dylan Harper OVER PTS 4.5 (GOBLIN) [id:11537752]",
+          "player": "Dylan Harper",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11537752
+        },
         {
           "raw": "Robert Williams OVER RA 5.5 (GOBLIN) [id:11572085]",
           "player": "Robert Williams",
@@ -196,15 +205,6 @@
           "line": 5.5,
           "tier": "GOBLIN",
           "id": 11572085
-        },
-        {
-          "raw": "Dylan Harper OVER PR 7.5 (GOBLIN) [id:11546825]",
-          "player": "Dylan Harper",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 7.5,
-          "tier": "GOBLIN",
-          "id": 11546825
         },
         {
           "raw": "Keldon Johnson OVER PR 13.5 (STANDARD) [id:11537392]",
@@ -225,24 +225,24 @@
           "id": 11569027
         }
       ],
-      "hit_prob": 0.3931365161255045,
-      "ev_mult": 3.931365161255045,
+      "hit_prob": 0.3848845838422102,
+      "ev_mult": 3.8488458384221023,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0245158596247308
+      "avg_fragility": 0.0241647880021153
     },
     {
       "product": "System WinProb",
       "n_legs": 5,
-      "legs": "Neemias Queta OVER AST 0.5 (GOBLIN) [id:11543161] | Kevin Durant OVER AST 2.5 (GOBLIN) [id:11555031] | Scoot Henderson OVER FG3M 0.5 (GOBLIN) [id:11537395] | Keldon Johnson OVER PR 13.5 (STANDARD) [id:11537392] | Robert Williams OVER REB 5.5 (STANDARD) [id:11542222]",
+      "legs": "Tari Eason OVER REB 3.5 (GOBLIN) [id:11514813] | Kevin Durant OVER AST 2.5 (GOBLIN) [id:11555031] | Keldon Johnson OVER REB 2.5 (GOBLIN) [id:11537919] | Robert Williams OVER REB 5.5 (STANDARD) [id:11542222] | Luke Kornet OVER PRA 9 (STANDARD) [id:11545433]",
       "legs_detail": [
         {
-          "raw": "Neemias Queta OVER AST 0.5 (GOBLIN) [id:11543161]",
-          "player": "Neemias Queta",
+          "raw": "Tari Eason OVER REB 3.5 (GOBLIN) [id:11514813]",
+          "player": "Tari Eason",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 0.5,
+          "stat": "REB",
+          "line": 3.5,
           "tier": "GOBLIN",
-          "id": 11543161
+          "id": 11514813
         },
         {
           "raw": "Kevin Durant OVER AST 2.5 (GOBLIN) [id:11555031]",
@@ -254,22 +254,13 @@
           "id": 11555031
         },
         {
-          "raw": "Scoot Henderson OVER FG3M 0.5 (GOBLIN) [id:11537395]",
-          "player": "Scoot Henderson",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11537395
-        },
-        {
-          "raw": "Keldon Johnson OVER PR 13.5 (STANDARD) [id:11537392]",
+          "raw": "Keldon Johnson OVER REB 2.5 (GOBLIN) [id:11537919]",
           "player": "Keldon Johnson",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 13.5,
-          "tier": "STANDARD",
-          "id": 11537392
+          "stat": "REB",
+          "line": 2.5,
+          "tier": "GOBLIN",
+          "id": 11537919
         },
         {
           "raw": "Robert Williams OVER REB 5.5 (STANDARD) [id:11542222]",
@@ -279,75 +270,37 @@
           "line": 5.5,
           "tier": "STANDARD",
           "id": 11542222
+        },
+        {
+          "raw": "Luke Kornet OVER PRA 9 (STANDARD) [id:11545433]",
+          "player": "Luke Kornet",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 9.0,
+          "tier": "STANDARD",
+          "id": 11545433
         }
       ],
-      "hit_prob": 0.3739492953271625,
-      "ev_mult": 7.478985906543249,
+      "hit_prob": 0.3177343291167179,
+      "ev_mult": 6.354686582334358,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0212226744615573
+      "avg_fragility": 0.0176103322474861
     }
   ],
   "windfall": [
     {
       "product": "Windfall",
       "n_legs": 3,
-      "legs": "Payton Pritchard OVER AST 3.5 (GOBLIN) [id:11528430] | Devin Vassell UNDER RA 5.5 (STANDARD) [id:11536607] | Luke Kornet OVER AST 1.5 (DEMON) [id:11542166]",
+      "legs": "Scoot Henderson OVER REB 1.5 (GOBLIN) [id:11536730] | Julian Champagnie UNDER RA 6 (STANDARD) [id:11536702] | Luke Kornet OVER AST 1.5 (DEMON) [id:11542166]",
       "legs_detail": [
         {
-          "raw": "Payton Pritchard OVER AST 3.5 (GOBLIN) [id:11528430]",
-          "player": "Payton Pritchard",
+          "raw": "Scoot Henderson OVER REB 1.5 (GOBLIN) [id:11536730]",
+          "player": "Scoot Henderson",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11528430
-        },
-        {
-          "raw": "Devin Vassell UNDER RA 5.5 (STANDARD) [id:11536607]",
-          "player": "Devin Vassell",
-          "dir": "UNDER",
-          "stat": "RA",
-          "line": 5.5,
-          "tier": "STANDARD",
-          "id": 11536607
-        },
-        {
-          "raw": "Luke Kornet OVER AST 1.5 (DEMON) [id:11542166]",
-          "player": "Luke Kornet",
-          "dir": "OVER",
-          "stat": "AST",
+          "stat": "REB",
           "line": 1.5,
-          "tier": "DEMON",
-          "id": 11542166
-        }
-      ],
-      "hit_prob": 0.2402327920939246,
-      "ev_mult": 0.6145810069674772,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0257435286550245
-    },
-    {
-      "product": "Windfall",
-      "n_legs": 4,
-      "legs": "Jerami Grant OVER FG3M 0.5 (GOBLIN) [id:11537379] | Shaedon Sharpe OVER PR 13.5 (STANDARD) [id:11537405] | Julian Champagnie UNDER RA 6 (STANDARD) [id:11536702] | Dominick Barlow OVER RA 3.5 (DEMON) [id:11572553]",
-      "legs_detail": [
-        {
-          "raw": "Jerami Grant OVER FG3M 0.5 (GOBLIN) [id:11537379]",
-          "player": "Jerami Grant",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11537379
-        },
-        {
-          "raw": "Shaedon Sharpe OVER PR 13.5 (STANDARD) [id:11537405]",
-          "player": "Shaedon Sharpe",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 13.5,
-          "tier": "STANDARD",
-          "id": 11537405
+          "id": 11536730
         },
         {
           "raw": "Julian Champagnie UNDER RA 6 (STANDARD) [id:11536702]",
@@ -359,60 +312,51 @@
           "id": 11536702
         },
         {
-          "raw": "Dominick Barlow OVER RA 3.5 (DEMON) [id:11572553]",
-          "player": "Dominick Barlow",
+          "raw": "Luke Kornet OVER AST 1.5 (DEMON) [id:11542166]",
+          "player": "Luke Kornet",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 3.5,
+          "stat": "AST",
+          "line": 1.5,
           "tier": "DEMON",
-          "id": 11572553
+          "id": 11542166
         }
       ],
-      "hit_prob": 0.1357068026228693,
-      "ev_mult": 0.7331186644953332,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0183904268870171
+      "hit_prob": 0.2404574036819383,
+      "ev_mult": 0.6229781192346415,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0126940903387806
     },
     {
       "product": "Windfall",
-      "n_legs": 5,
-      "legs": "Andre Drummond OVER PTS 3.5 (GOBLIN) [id:11558409] | Robert Williams OVER AST 0.5 (GOBLIN) [id:11542208] | Adem Bona OVER PR 7.5 (STANDARD) [id:11533178] | Reed Sheppard OVER FG3M 2.5 (STANDARD) [id:11513724] | Luke Kornet OVER AST 1.5 (DEMON) [id:11542166]",
+      "n_legs": 4,
+      "legs": "Jerami Grant OVER AST 0.5 (GOBLIN) [id:11542092] | Shaedon Sharpe OVER PRA 14.5 (STANDARD) [id:11542260] | Kevin Durant UNDER PRA 32.5 (STANDARD) [id:11513627] | Luke Kornet OVER AST 1.5 (DEMON) [id:11542166]",
       "legs_detail": [
         {
-          "raw": "Andre Drummond OVER PTS 3.5 (GOBLIN) [id:11558409]",
-          "player": "Andre Drummond",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11558409
-        },
-        {
-          "raw": "Robert Williams OVER AST 0.5 (GOBLIN) [id:11542208]",
-          "player": "Robert Williams",
+          "raw": "Jerami Grant OVER AST 0.5 (GOBLIN) [id:11542092]",
+          "player": "Jerami Grant",
           "dir": "OVER",
           "stat": "AST",
           "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11542208
+          "id": 11542092
         },
         {
-          "raw": "Adem Bona OVER PR 7.5 (STANDARD) [id:11533178]",
-          "player": "Adem Bona",
+          "raw": "Shaedon Sharpe OVER PRA 14.5 (STANDARD) [id:11542260]",
+          "player": "Shaedon Sharpe",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 7.5,
+          "stat": "PRA",
+          "line": 14.5,
           "tier": "STANDARD",
-          "id": 11533178
+          "id": 11542260
         },
         {
-          "raw": "Reed Sheppard OVER FG3M 2.5 (STANDARD) [id:11513724]",
-          "player": "Reed Sheppard",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 2.5,
+          "raw": "Kevin Durant UNDER PRA 32.5 (STANDARD) [id:11513627]",
+          "player": "Kevin Durant",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 32.5,
           "tier": "STANDARD",
-          "id": 11513724
+          "id": 11513627
         },
         {
           "raw": "Luke Kornet OVER AST 1.5 (DEMON) [id:11542166]",
@@ -424,10 +368,66 @@
           "id": 11542166
         }
       ],
-      "hit_prob": 0.0916828276329782,
-      "ev_mult": 0.718888246479095,
+      "hit_prob": 0.129482144903582,
+      "ev_mult": 0.7354410742373303,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0127992888224745
+    },
+    {
+      "product": "Windfall",
+      "n_legs": 5,
+      "legs": "Dominick Barlow OVER RA 2.5 (GOBLIN) [id:11571296] | Adem Bona OVER PR 4.5 (GOBLIN) [id:11534465] | Marcus Smart OVER REB 2.5 (STANDARD) [id:11513721] | Matisse Thybulle OVER RA 2.5 (STANDARD) [id:11542202] | Luke Kornet OVER AST 1.5 (DEMON) [id:11542166]",
+      "legs_detail": [
+        {
+          "raw": "Dominick Barlow OVER RA 2.5 (GOBLIN) [id:11571296]",
+          "player": "Dominick Barlow",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 2.5,
+          "tier": "GOBLIN",
+          "id": 11571296
+        },
+        {
+          "raw": "Adem Bona OVER PR 4.5 (GOBLIN) [id:11534465]",
+          "player": "Adem Bona",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11534465
+        },
+        {
+          "raw": "Marcus Smart OVER REB 2.5 (STANDARD) [id:11513721]",
+          "player": "Marcus Smart",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 2.5,
+          "tier": "STANDARD",
+          "id": 11513721
+        },
+        {
+          "raw": "Matisse Thybulle OVER RA 2.5 (STANDARD) [id:11542202]",
+          "player": "Matisse Thybulle",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 2.5,
+          "tier": "STANDARD",
+          "id": 11542202
+        },
+        {
+          "raw": "Luke Kornet OVER AST 1.5 (DEMON) [id:11542166]",
+          "player": "Luke Kornet",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 1.5,
+          "tier": "DEMON",
+          "id": 11542166
+        }
+      ],
+      "hit_prob": 0.0941944990508532,
+      "ev_mult": 0.7510771642962878,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0135750284871852
+      "avg_fragility": 0.0084906884369726
     }
   ],
   "windfall_winprob": [
@@ -472,16 +472,16 @@
     {
       "product": "Windfall WinProb",
       "n_legs": 4,
-      "legs": "Jaylen Brown OVER FG3M 0.5 (GOBLIN) [id:11553376] | Dylan Harper OVER PR 11.5 (STANDARD) [id:11537376] | Robert Williams OVER REB 5.5 (STANDARD) [id:11542222] | Jerami Grant OVER FG3M 1.5 (DEMON) [id:11536641]",
+      "legs": "Reed Sheppard OVER FG3M 1.5 (GOBLIN) [id:11513723] | Dylan Harper OVER PR 11.5 (STANDARD) [id:11537376] | Robert Williams OVER REB 5.5 (STANDARD) [id:11542222] | Jerami Grant OVER FG3M 1.5 (DEMON) [id:11536641]",
       "legs_detail": [
         {
-          "raw": "Jaylen Brown OVER FG3M 0.5 (GOBLIN) [id:11553376]",
-          "player": "Jaylen Brown",
+          "raw": "Reed Sheppard OVER FG3M 1.5 (GOBLIN) [id:11513723]",
+          "player": "Reed Sheppard",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 0.5,
+          "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11553376
+          "id": 11513723
         },
         {
           "raw": "Dylan Harper OVER PR 11.5 (STANDARD) [id:11537376]",
@@ -511,33 +511,33 @@
           "id": 11536641
         }
       ],
-      "hit_prob": 0.3459639870411072,
-      "ev_mult": 3.459639870411072,
+      "hit_prob": 0.3440560785822444,
+      "ev_mult": 3.440560785822444,
       "payout_mult": 10.0,
-      "avg_fragility": 0.027045983868384
+      "avg_fragility": 0.0222295374369782
     },
     {
       "product": "Windfall WinProb",
       "n_legs": 5,
-      "legs": "Dylan Harper OVER PRA 10.5 (GOBLIN) [id:11537915] | Robert Williams OVER RA 5.5 (GOBLIN) [id:11572085] | Keldon Johnson OVER PR 13.5 (STANDARD) [id:11537392] | Reed Sheppard OVER FG3M 2.5 (STANDARD) [id:11513724] | Jerami Grant OVER FG3M 1.5 (DEMON) [id:11536641]",
+      "legs": "Scoot Henderson OVER PR 9.5 (GOBLIN) [id:11536722] | Dylan Harper OVER REB 1.5 (GOBLIN) [id:11537753] | Keldon Johnson OVER PR 13.5 (STANDARD) [id:11537392] | Tyrese Maxey UNDER PA 32.5 (STANDARD) [id:11528476] | Jerami Grant OVER FG3M 1.5 (DEMON) [id:11536641]",
       "legs_detail": [
         {
-          "raw": "Dylan Harper OVER PRA 10.5 (GOBLIN) [id:11537915]",
-          "player": "Dylan Harper",
+          "raw": "Scoot Henderson OVER PR 9.5 (GOBLIN) [id:11536722]",
+          "player": "Scoot Henderson",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 10.5,
+          "stat": "PR",
+          "line": 9.5,
           "tier": "GOBLIN",
-          "id": 11537915
+          "id": 11536722
         },
         {
-          "raw": "Robert Williams OVER RA 5.5 (GOBLIN) [id:11572085]",
-          "player": "Robert Williams",
+          "raw": "Dylan Harper OVER REB 1.5 (GOBLIN) [id:11537753]",
+          "player": "Dylan Harper",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 5.5,
+          "stat": "REB",
+          "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11572085
+          "id": 11537753
         },
         {
           "raw": "Keldon Johnson OVER PR 13.5 (STANDARD) [id:11537392]",
@@ -549,13 +549,13 @@
           "id": 11537392
         },
         {
-          "raw": "Reed Sheppard OVER FG3M 2.5 (STANDARD) [id:11513724]",
-          "player": "Reed Sheppard",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 2.5,
+          "raw": "Tyrese Maxey UNDER PA 32.5 (STANDARD) [id:11528476]",
+          "player": "Tyrese Maxey",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 32.5,
           "tier": "STANDARD",
-          "id": 11513724
+          "id": 11528476
         },
         {
           "raw": "Jerami Grant OVER FG3M 1.5 (DEMON) [id:11536641]",
@@ -567,64 +567,73 @@
           "id": 11536641
         }
       ],
-      "hit_prob": 0.2498979193713821,
-      "ev_mult": 4.997958387427643,
+      "hit_prob": 0.2373702067008845,
+      "ev_mult": 4.747404134017691,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0240106527578335
+      "avg_fragility": 0.1331985782825398
     }
   ],
   "demonhunter": [
     {
       "product": "Demonhunter",
       "n_legs": 3,
-      "legs": "Scoot Henderson OVER PTS 14.5 (DEMON) [id:11536710] | Deandre Ayton OVER RA 9.5 (DEMON) [id:11513577] | VJ Edgecombe OVER FG3M 2.5 (DEMON) [id:11528494]",
+      "legs": "Donovan Clingan OVER PTS 11.5 (DEMON) [id:11536615] | Jaylen Brown OVER PTS 27.5 (DEMON) [id:11531282] | Josh Okogie OVER FG3M 1.5 (DEMON) [id:11520634]",
       "legs_detail": [
         {
-          "raw": "Scoot Henderson OVER PTS 14.5 (DEMON) [id:11536710]",
-          "player": "Scoot Henderson",
+          "raw": "Donovan Clingan OVER PTS 11.5 (DEMON) [id:11536615]",
+          "player": "Donovan Clingan",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 14.5,
+          "line": 11.5,
           "tier": "DEMON",
-          "id": 11536710
+          "id": 11536615
         },
         {
-          "raw": "Deandre Ayton OVER RA 9.5 (DEMON) [id:11513577]",
-          "player": "Deandre Ayton",
+          "raw": "Jaylen Brown OVER PTS 27.5 (DEMON) [id:11531282]",
+          "player": "Jaylen Brown",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 9.5,
+          "stat": "PTS",
+          "line": 27.5,
           "tier": "DEMON",
-          "id": 11513577
+          "id": 11531282
         },
         {
-          "raw": "VJ Edgecombe OVER FG3M 2.5 (DEMON) [id:11528494]",
-          "player": "VJ Edgecombe",
+          "raw": "Josh Okogie OVER FG3M 1.5 (DEMON) [id:11520634]",
+          "player": "Josh Okogie",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 2.5,
+          "line": 1.5,
           "tier": "DEMON",
-          "id": 11528494
+          "id": 11520634
         }
       ],
-      "hit_prob": 0.045877993073553,
-      "ev_mult": 0.4638306752380235,
+      "hit_prob": 0.0467200828181958,
+      "ev_mult": 0.4610642934558746,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0805440576270739
+      "avg_fragility": 0.0910647762760353
     },
     {
       "product": "Demonhunter",
       "n_legs": 4,
-      "legs": "Adem Bona OVER PR 9.5 (DEMON) [id:11534466] | Reed Sheppard OVER RA 6.5 (DEMON) [id:11520716] | Jerami Grant OVER AST 2.5 (DEMON) [id:11542091] | Nikola Vu\u010devi\u0107 OVER PTS 9.5 (DEMON) [id:11558430]",
+      "legs": "Neemias Queta OVER PA 12.5 (DEMON) [id:11575941] | Julian Champagnie OVER PR 15.5 (DEMON) [id:11537470] | Reed Sheppard OVER RA 6.5 (DEMON) [id:11520716] | Jaxson Hayes OVER PRA 14.5 (DEMON) [id:11571326]",
       "legs_detail": [
         {
-          "raw": "Adem Bona OVER PR 9.5 (DEMON) [id:11534466]",
-          "player": "Adem Bona",
+          "raw": "Neemias Queta OVER PA 12.5 (DEMON) [id:11575941]",
+          "player": "Neemias Queta",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 12.5,
+          "tier": "DEMON",
+          "id": 11575941
+        },
+        {
+          "raw": "Julian Champagnie OVER PR 15.5 (DEMON) [id:11537470]",
+          "player": "Julian Champagnie",
           "dir": "OVER",
           "stat": "PR",
-          "line": 9.5,
+          "line": 15.5,
           "tier": "DEMON",
-          "id": 11534466
+          "id": 11537470
         },
         {
           "raw": "Reed Sheppard OVER RA 6.5 (DEMON) [id:11520716]",
@@ -636,84 +645,75 @@
           "id": 11520716
         },
         {
-          "raw": "Jerami Grant OVER AST 2.5 (DEMON) [id:11542091]",
-          "player": "Jerami Grant",
+          "raw": "Jaxson Hayes OVER PRA 14.5 (DEMON) [id:11571326]",
+          "player": "Jaxson Hayes",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 2.5,
+          "stat": "PRA",
+          "line": 14.5,
           "tier": "DEMON",
-          "id": 11542091
-        },
-        {
-          "raw": "Nikola Vu\u010devi\u0107 OVER PTS 9.5 (DEMON) [id:11558430]",
-          "player": "Nikola Vu\u010devi\u0107",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 9.5,
-          "tier": "DEMON",
-          "id": 11558430
+          "id": 11571326
         }
       ],
-      "hit_prob": 0.0261261603727565,
-      "ev_mult": 0.2560885031492015,
+      "hit_prob": 0.0254184825239096,
+      "ev_mult": 0.2613035921988961,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0277307066649604
+      "avg_fragility": 0.0448299151571056
     },
     {
       "product": "Demonhunter",
       "n_legs": 5,
-      "legs": "Kevin Durant OVER REB 5.5 (DEMON) [id:11513633] | Jarred Vanderbilt OVER PR 9.5 (DEMON) [id:11516899] | Luke Kornet OVER REB 6.5 (DEMON) [id:11542177] | Nikola Vu\u010devi\u0107 OVER PTS 10.5 (DEMON) [id:11558429] | Andre Drummond OVER PRA 18.5 (DEMON) [id:11531233]",
+      "legs": "Keldon Johnson OVER FG3M 1.5 (DEMON) [id:11537387] | Tari Eason OVER REB 6.5 (DEMON) [id:11517264] | Shaedon Sharpe OVER REB 4.5 (DEMON) [id:11537923] | Jaxson Hayes OVER PRA 12.5 (DEMON) [id:11571325] | Derrick White OVER AST 5.5 (DEMON) [id:11528296]",
       "legs_detail": [
         {
-          "raw": "Kevin Durant OVER REB 5.5 (DEMON) [id:11513633]",
-          "player": "Kevin Durant",
+          "raw": "Keldon Johnson OVER FG3M 1.5 (DEMON) [id:11537387]",
+          "player": "Keldon Johnson",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 5.5,
+          "stat": "FG3M",
+          "line": 1.5,
           "tier": "DEMON",
-          "id": 11513633
+          "id": 11537387
         },
         {
-          "raw": "Jarred Vanderbilt OVER PR 9.5 (DEMON) [id:11516899]",
-          "player": "Jarred Vanderbilt",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 9.5,
-          "tier": "DEMON",
-          "id": 11516899
-        },
-        {
-          "raw": "Luke Kornet OVER REB 6.5 (DEMON) [id:11542177]",
-          "player": "Luke Kornet",
+          "raw": "Tari Eason OVER REB 6.5 (DEMON) [id:11517264]",
+          "player": "Tari Eason",
           "dir": "OVER",
           "stat": "REB",
           "line": 6.5,
           "tier": "DEMON",
-          "id": 11542177
+          "id": 11517264
         },
         {
-          "raw": "Nikola Vu\u010devi\u0107 OVER PTS 10.5 (DEMON) [id:11558429]",
-          "player": "Nikola Vu\u010devi\u0107",
+          "raw": "Shaedon Sharpe OVER REB 4.5 (DEMON) [id:11537923]",
+          "player": "Shaedon Sharpe",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 10.5,
+          "stat": "REB",
+          "line": 4.5,
           "tier": "DEMON",
-          "id": 11558429
+          "id": 11537923
         },
         {
-          "raw": "Andre Drummond OVER PRA 18.5 (DEMON) [id:11531233]",
-          "player": "Andre Drummond",
+          "raw": "Jaxson Hayes OVER PRA 12.5 (DEMON) [id:11571325]",
+          "player": "Jaxson Hayes",
           "dir": "OVER",
           "stat": "PRA",
-          "line": 18.5,
+          "line": 12.5,
           "tier": "DEMON",
-          "id": 11531233
+          "id": 11571325
+        },
+        {
+          "raw": "Derrick White OVER AST 5.5 (DEMON) [id:11528296]",
+          "player": "Derrick White",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 5.5,
+          "tier": "DEMON",
+          "id": 11528296
         }
       ],
-      "hit_prob": 0.0107238727838706,
-      "ev_mult": 0.2027054251386755,
+      "hit_prob": 0.0105587520310722,
+      "ev_mult": 0.2045147936835291,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0345534652082515
+      "avg_fragility": 0.0450731472432399
     }
   ],
   "gamescript": []
