@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-27T17:41:08.044404-05:00",
-  "run_id": "20260427_174107",
+  "generated_at": "2026-04-27T17:57:10.198120-05:00",
+  "run_id": "20260427_175709",
   "system": [
     {
       "product": "System",
@@ -90,43 +90,34 @@
     {
       "product": "System",
       "n_legs": 5,
-      "legs": "Dillon Brooks OVER AST 0.5 (GOBLIN) [id:11711336] | Royce O'Neale OVER FG3M 0.5 (GOBLIN) [id:11708918] | Cameron Johnson OVER REB 1.5 (GOBLIN) [id:11689998] | Christian Braun UNDER PRA 18.5 (STANDARD) [id:11690143] | Luguentz Dort UNDER RA 4 (STANDARD) [id:11714545]",
+      "legs": "Isaiah Stewart OVER REB 1.5 (GOBLIN) [id:11714181] | Jalen Suggs OVER REB 2.5 (GOBLIN) [id:11678738] | Jaylin Williams OVER PA 3.5 (GOBLIN) [id:11716485] | Luguentz Dort UNDER RA 4 (STANDARD) [id:11714545] | Wendell Carter OVER PRA 20.5 (STANDARD) [id:11678796]",
       "legs_detail": [
         {
-          "raw": "Dillon Brooks OVER AST 0.5 (GOBLIN) [id:11711336]",
-          "player": "Dillon Brooks",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11711336
-        },
-        {
-          "raw": "Royce O'Neale OVER FG3M 0.5 (GOBLIN) [id:11708918]",
-          "player": "Royce O'Neale",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11708918
-        },
-        {
-          "raw": "Cameron Johnson OVER REB 1.5 (GOBLIN) [id:11689998]",
-          "player": "Cameron Johnson",
+          "raw": "Isaiah Stewart OVER REB 1.5 (GOBLIN) [id:11714181]",
+          "player": "Isaiah Stewart",
           "dir": "OVER",
           "stat": "REB",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11689998
+          "id": 11714181
         },
         {
-          "raw": "Christian Braun UNDER PRA 18.5 (STANDARD) [id:11690143]",
-          "player": "Christian Braun",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 18.5,
-          "tier": "STANDARD",
-          "id": 11690143
+          "raw": "Jalen Suggs OVER REB 2.5 (GOBLIN) [id:11678738]",
+          "player": "Jalen Suggs",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 2.5,
+          "tier": "GOBLIN",
+          "id": 11678738
+        },
+        {
+          "raw": "Jaylin Williams OVER PA 3.5 (GOBLIN) [id:11716485]",
+          "player": "Jaylin Williams",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11716485
         },
         {
           "raw": "Luguentz Dort UNDER RA 4 (STANDARD) [id:11714545]",
@@ -136,37 +127,37 @@
           "line": 4.0,
           "tier": "STANDARD",
           "id": 11714545
+        },
+        {
+          "raw": "Wendell Carter OVER PRA 20.5 (STANDARD) [id:11678796]",
+          "player": "Wendell Carter",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 20.5,
+          "tier": "STANDARD",
+          "id": 11678796
         }
       ],
-      "hit_prob": 0.1862111161017483,
-      "ev_mult": 1.603272765830705,
+      "hit_prob": 0.1776398665774627,
+      "ev_mult": 1.5751533249428662,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0423169827632296
+      "avg_fragility": 0.0299963303373744
     }
   ],
   "system_winprob": [
     {
       "product": "System WinProb",
       "n_legs": 3,
-      "legs": "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:11694980] | Ajay Mitchell UNDER PA 19.5 (STANDARD) [id:11680568] | Royce O'Neale OVER FG3M 1.5 (STANDARD) [id:11712911]",
+      "legs": "Cameron Johnson OVER PA 9.5 (GOBLIN) [id:11692427] | Royce O'Neale OVER FG3M 1.5 (STANDARD) [id:11712911] | Bruce Brown OVER PTS 6.5 (STANDARD) [id:11708735]",
       "legs_detail": [
         {
-          "raw": "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:11694980]",
+          "raw": "Cameron Johnson OVER PA 9.5 (GOBLIN) [id:11692427]",
           "player": "Cameron Johnson",
           "dir": "OVER",
-          "stat": "PR",
+          "stat": "PA",
           "line": 9.5,
           "tier": "GOBLIN",
-          "id": 11694980
-        },
-        {
-          "raw": "Ajay Mitchell UNDER PA 19.5 (STANDARD) [id:11680568]",
-          "player": "Ajay Mitchell",
-          "dir": "UNDER",
-          "stat": "PA",
-          "line": 19.5,
-          "tier": "STANDARD",
-          "id": 11680568
+          "id": 11692427
         },
         {
           "raw": "Royce O'Neale OVER FG3M 1.5 (STANDARD) [id:11712911]",
@@ -176,12 +167,21 @@
           "line": 1.5,
           "tier": "STANDARD",
           "id": 11712911
+        },
+        {
+          "raw": "Bruce Brown OVER PTS 6.5 (STANDARD) [id:11708735]",
+          "player": "Bruce Brown",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 6.5,
+          "tier": "STANDARD",
+          "id": 11708735
         }
       ],
-      "hit_prob": 0.3783253924432797,
-      "ev_mult": 2.269952354659678,
+      "hit_prob": 0.3961568638133789,
+      "ev_mult": 2.376941182880273,
       "payout_mult": 6.0,
-      "avg_fragility": 0.1855861358125748
+      "avg_fragility": 0.0385212198029563
     },
     {
       "product": "System WinProb",
@@ -233,58 +233,58 @@
     {
       "product": "System WinProb",
       "n_legs": 5,
-      "legs": "Bruce Brown OVER PTS 3.5 (GOBLIN) [id:11709205] | Isaiah Stewart OVER REB 1.5 (GOBLIN) [id:11714181] | Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:11690127] | Ajay Mitchell UNDER PRA 23.5 (STANDARD) [id:11680333] | Royce O'Neale OVER PTS 5.5 (STANDARD) [id:11690223]",
+      "legs": "Royce O'Neale OVER FG3M 0.5 (GOBLIN) [id:11708918] | Jamal Cain OVER REB 0.5 (GOBLIN) [id:11708722] | Grayson Allen OVER PTS 4.5 (GOBLIN) [id:11702031] | Mike Conley UNDER PR 8.5 (STANDARD) [id:11691991] | Bruce Brown OVER PTS 6.5 (STANDARD) [id:11708735]",
       "legs_detail": [
         {
-          "raw": "Bruce Brown OVER PTS 3.5 (GOBLIN) [id:11709205]",
+          "raw": "Royce O'Neale OVER FG3M 0.5 (GOBLIN) [id:11708918]",
+          "player": "Royce O'Neale",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11708918
+        },
+        {
+          "raw": "Jamal Cain OVER REB 0.5 (GOBLIN) [id:11708722]",
+          "player": "Jamal Cain",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11708722
+        },
+        {
+          "raw": "Grayson Allen OVER PTS 4.5 (GOBLIN) [id:11702031]",
+          "player": "Grayson Allen",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11702031
+        },
+        {
+          "raw": "Mike Conley UNDER PR 8.5 (STANDARD) [id:11691991]",
+          "player": "Mike Conley",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 8.5,
+          "tier": "STANDARD",
+          "id": 11691991
+        },
+        {
+          "raw": "Bruce Brown OVER PTS 6.5 (STANDARD) [id:11708735]",
           "player": "Bruce Brown",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11709205
-        },
-        {
-          "raw": "Isaiah Stewart OVER REB 1.5 (GOBLIN) [id:11714181]",
-          "player": "Isaiah Stewart",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11714181
-        },
-        {
-          "raw": "Cameron Johnson OVER PTS 7.5 (GOBLIN) [id:11690127]",
-          "player": "Cameron Johnson",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 7.5,
-          "tier": "GOBLIN",
-          "id": 11690127
-        },
-        {
-          "raw": "Ajay Mitchell UNDER PRA 23.5 (STANDARD) [id:11680333]",
-          "player": "Ajay Mitchell",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 23.5,
+          "line": 6.5,
           "tier": "STANDARD",
-          "id": 11680333
-        },
-        {
-          "raw": "Royce O'Neale OVER PTS 5.5 (STANDARD) [id:11690223]",
-          "player": "Royce O'Neale",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 5.5,
-          "tier": "STANDARD",
-          "id": 11690223
+          "id": 11708735
         }
       ],
-      "hit_prob": 0.2783187410521822,
-      "ev_mult": 5.566374821043645,
+      "hit_prob": 0.279876324972692,
+      "ev_mult": 5.597526499453841,
       "payout_mult": 20.0,
-      "avg_fragility": 0.1141021882793179
+      "avg_fragility": 0.0807739248000395
     }
   ],
   "windfall": [
@@ -329,25 +329,25 @@
     {
       "product": "Windfall",
       "n_legs": 4,
-      "legs": "Tim Hardaway OVER REB 1.5 (GOBLIN) [id:11709156] | Christian Braun UNDER PRA 18.5 (STANDARD) [id:11690143] | Royce O'Neale OVER AST 1.5 (STANDARD) [id:11695299] | Grayson Allen OVER REB 2.5 (DEMON) [id:11686940]",
+      "legs": "Aaron Gordon OVER RA 4.5 (GOBLIN) [id:11714141] | Christian Braun UNDER PR 16 (STANDARD) [id:11689292] | Royce O'Neale OVER AST 1.5 (STANDARD) [id:11695299] | Grayson Allen OVER REB 2.5 (DEMON) [id:11686940]",
       "legs_detail": [
         {
-          "raw": "Tim Hardaway OVER REB 1.5 (GOBLIN) [id:11709156]",
-          "player": "Tim Hardaway",
+          "raw": "Aaron Gordon OVER RA 4.5 (GOBLIN) [id:11714141]",
+          "player": "Aaron Gordon",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
+          "stat": "RA",
+          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11709156
+          "id": 11714141
         },
         {
-          "raw": "Christian Braun UNDER PRA 18.5 (STANDARD) [id:11690143]",
+          "raw": "Christian Braun UNDER PR 16 (STANDARD) [id:11689292]",
           "player": "Christian Braun",
           "dir": "UNDER",
-          "stat": "PRA",
-          "line": 18.5,
+          "stat": "PR",
+          "line": 16.0,
           "tier": "STANDARD",
-          "id": 11690143
+          "id": 11689292
         },
         {
           "raw": "Royce O'Neale OVER AST 1.5 (STANDARD) [id:11695299]",
@@ -368,15 +368,15 @@
           "id": 11686940
         }
       ],
-      "hit_prob": 0.1438944036667448,
-      "ev_mult": 0.7654325825142299,
+      "hit_prob": 0.1340544603166744,
+      "ev_mult": 0.7446049389272636,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0325194472620995
+      "avg_fragility": 0.0310563561673626
     },
     {
       "product": "Windfall",
       "n_legs": 5,
-      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11680978] | Cameron Johnson OVER REB 1.5 (GOBLIN) [id:11689998] | Luguentz Dort UNDER PTS 7.5 (STANDARD) [id:11680497] | Christian Braun UNDER PRA 18.5 (STANDARD) [id:11690143] | Grayson Allen OVER REB 2.5 (DEMON) [id:11686940]",
+      "legs": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11680978] | Cameron Johnson OVER REB 1.5 (GOBLIN) [id:11689998] | Luguentz Dort UNDER PR 10.5 (STANDARD) [id:11680501] | Christian Braun UNDER PRA 18.5 (STANDARD) [id:11690143] | Grayson Allen OVER REB 2.5 (DEMON) [id:11686940]",
       "legs_detail": [
         {
           "raw": "Jordan Goodwin OVER FG3M 0.5 (GOBLIN) [id:11680978]",
@@ -397,13 +397,13 @@
           "id": 11689998
         },
         {
-          "raw": "Luguentz Dort UNDER PTS 7.5 (STANDARD) [id:11680497]",
+          "raw": "Luguentz Dort UNDER PR 10.5 (STANDARD) [id:11680501]",
           "player": "Luguentz Dort",
           "dir": "UNDER",
-          "stat": "PTS",
-          "line": 7.5,
+          "stat": "PR",
+          "line": 10.5,
           "tier": "STANDARD",
-          "id": 11680497
+          "id": 11680501
         },
         {
           "raw": "Christian Braun UNDER PRA 18.5 (STANDARD) [id:11690143]",
@@ -424,17 +424,17 @@
           "id": 11686940
         }
       ],
-      "hit_prob": 0.1300331012710021,
-      "ev_mult": 0.8454326252705859,
+      "hit_prob": 0.1315898664208808,
+      "ev_mult": 0.8471512663275234,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0386722384325794
+      "avg_fragility": 0.0453737430702409
     }
   ],
   "windfall_winprob": [
     {
       "product": "Windfall WinProb",
       "n_legs": 3,
-      "legs": "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:11694980] | Royce O'Neale OVER FG3M 1.5 (STANDARD) [id:11712911] | Grayson Allen OVER REB 2.5 (DEMON) [id:11686940]",
+      "legs": "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:11694980] | Royce O'Neale OVER FG3M 1.5 (STANDARD) [id:11712911] | Jamal Cain OVER PTS 3.5 (DEMON) [id:11708729]",
       "legs_detail": [
         {
           "raw": "Cameron Johnson OVER PR 9.5 (GOBLIN) [id:11694980]",
@@ -455,24 +455,24 @@
           "id": 11712911
         },
         {
-          "raw": "Grayson Allen OVER REB 2.5 (DEMON) [id:11686940]",
-          "player": "Grayson Allen",
+          "raw": "Jamal Cain OVER PTS 3.5 (DEMON) [id:11708729]",
+          "player": "Jamal Cain",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
+          "stat": "PTS",
+          "line": 3.5,
           "tier": "DEMON",
-          "id": 11686940
+          "id": 11708729
         }
       ],
-      "hit_prob": 0.3458956983958894,
-      "ev_mult": 2.0753741903753364,
+      "hit_prob": 0.3610075857805424,
+      "ev_mult": 2.1660455146832547,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0342649537046985
+      "avg_fragility": 0.025057102913233
     },
     {
       "product": "Windfall WinProb",
       "n_legs": 4,
-      "legs": "Bruce Brown OVER PTS 3.5 (GOBLIN) [id:11709205] | Royce O'Neale OVER FG3M 1.5 (STANDARD) [id:11712911] | Jamal Cain OVER PTS 3 (STANDARD) [id:11713984] | Grayson Allen OVER REB 2.5 (DEMON) [id:11686940]",
+      "legs": "Bruce Brown OVER PTS 3.5 (GOBLIN) [id:11709205] | Grayson Allen OVER PR 10.5 (STANDARD) [id:11701323] | Royce O'Neale OVER FG3M 1.5 (STANDARD) [id:11712911] | Jamal Cain OVER PTS 3.5 (DEMON) [id:11708729]",
       "legs_detail": [
         {
           "raw": "Bruce Brown OVER PTS 3.5 (GOBLIN) [id:11709205]",
@@ -484,6 +484,15 @@
           "id": 11709205
         },
         {
+          "raw": "Grayson Allen OVER PR 10.5 (STANDARD) [id:11701323]",
+          "player": "Grayson Allen",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 10.5,
+          "tier": "STANDARD",
+          "id": 11701323
+        },
+        {
           "raw": "Royce O'Neale OVER FG3M 1.5 (STANDARD) [id:11712911]",
           "player": "Royce O'Neale",
           "dir": "OVER",
@@ -493,51 +502,51 @@
           "id": 11712911
         },
         {
-          "raw": "Jamal Cain OVER PTS 3 (STANDARD) [id:11713984]",
+          "raw": "Jamal Cain OVER PTS 3.5 (DEMON) [id:11708729]",
           "player": "Jamal Cain",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 3.0,
-          "tier": "STANDARD",
-          "id": 11713984
-        },
-        {
-          "raw": "Grayson Allen OVER REB 2.5 (DEMON) [id:11686940]",
-          "player": "Grayson Allen",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
+          "line": 3.5,
           "tier": "DEMON",
-          "id": 11686940
+          "id": 11708729
         }
       ],
-      "hit_prob": 0.2579993256374539,
-      "ev_mult": 2.57999325637454,
+      "hit_prob": 0.2654680871915476,
+      "ev_mult": 2.654680871915476,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0192111530211281
+      "avg_fragility": 0.0190708347922833
     },
     {
       "product": "Windfall WinProb",
       "n_legs": 5,
-      "legs": "Royce O'Neale OVER FG3M 0.5 (GOBLIN) [id:11708918] | Bruce Brown OVER PTS 4.5 (GOBLIN) [id:11690232] | Isaiah Joe OVER PA 7.5 (STANDARD) [id:11701326] | Ajay Mitchell UNDER PA 19.5 (STANDARD) [id:11680568] | Jordan Goodwin OVER FG3M 1.5 (DEMON) [id:11680976]",
+      "legs": "Jaylin Williams OVER REB 1.5 (GOBLIN) [id:11708888] | Isaiah Stewart OVER REB 1.5 (GOBLIN) [id:11714181] | Royce O'Neale OVER FG3M 1.5 (STANDARD) [id:11712911] | Isaiah Joe OVER PA 7.5 (STANDARD) [id:11701326] | Jordan Goodwin OVER FG3M 1.5 (DEMON) [id:11680976]",
       "legs_detail": [
         {
-          "raw": "Royce O'Neale OVER FG3M 0.5 (GOBLIN) [id:11708918]",
+          "raw": "Jaylin Williams OVER REB 1.5 (GOBLIN) [id:11708888]",
+          "player": "Jaylin Williams",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11708888
+        },
+        {
+          "raw": "Isaiah Stewart OVER REB 1.5 (GOBLIN) [id:11714181]",
+          "player": "Isaiah Stewart",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11714181
+        },
+        {
+          "raw": "Royce O'Neale OVER FG3M 1.5 (STANDARD) [id:11712911]",
           "player": "Royce O'Neale",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11708918
-        },
-        {
-          "raw": "Bruce Brown OVER PTS 4.5 (GOBLIN) [id:11690232]",
-          "player": "Bruce Brown",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11690232
+          "line": 1.5,
+          "tier": "STANDARD",
+          "id": 11712911
         },
         {
           "raw": "Isaiah Joe OVER PA 7.5 (STANDARD) [id:11701326]",
@@ -549,15 +558,6 @@
           "id": 11701326
         },
         {
-          "raw": "Ajay Mitchell UNDER PA 19.5 (STANDARD) [id:11680568]",
-          "player": "Ajay Mitchell",
-          "dir": "UNDER",
-          "stat": "PA",
-          "line": 19.5,
-          "tier": "STANDARD",
-          "id": 11680568
-        },
-        {
           "raw": "Jordan Goodwin OVER FG3M 1.5 (DEMON) [id:11680976]",
           "player": "Jordan Goodwin",
           "dir": "OVER",
@@ -567,17 +567,17 @@
           "id": 11680976
         }
       ],
-      "hit_prob": 0.2003044404428645,
-      "ev_mult": 4.006088808857292,
+      "hit_prob": 0.2137401324238966,
+      "ev_mult": 4.274802648477932,
       "payout_mult": 20.0,
-      "avg_fragility": 0.1062134896026919
+      "avg_fragility": 0.0099070444571784
     }
   ],
   "demonhunter": [
     {
       "product": "Demonhunter",
       "n_legs": 3,
-      "legs": "Aaron Gordon OVER RA 9.5 (DEMON) [id:11690801] | Jordan Goodwin OVER PR 14.5 (DEMON) [id:11682088] | Alex Caruso OVER REB 3.5 (DEMON) [id:11690328]",
+      "legs": "Aaron Gordon OVER RA 9.5 (DEMON) [id:11690801] | Collin Gillespie OVER PRA 18.5 (DEMON) [id:11686876] | Oso Ighodaro OVER PTS 7.5 (DEMON) [id:11701342]",
       "legs_detail": [
         {
           "raw": "Aaron Gordon OVER RA 9.5 (DEMON) [id:11690801]",
@@ -589,43 +589,81 @@
           "id": 11690801
         },
         {
-          "raw": "Jordan Goodwin OVER PR 14.5 (DEMON) [id:11682088]",
-          "player": "Jordan Goodwin",
+          "raw": "Collin Gillespie OVER PRA 18.5 (DEMON) [id:11686876]",
+          "player": "Collin Gillespie",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 14.5,
+          "stat": "PRA",
+          "line": 18.5,
           "tier": "DEMON",
-          "id": 11682088
+          "id": 11686876
         },
         {
-          "raw": "Alex Caruso OVER REB 3.5 (DEMON) [id:11690328]",
-          "player": "Alex Caruso",
+          "raw": "Oso Ighodaro OVER PTS 7.5 (DEMON) [id:11701342]",
+          "player": "Oso Ighodaro",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 3.5,
+          "stat": "PTS",
+          "line": 7.5,
           "tier": "DEMON",
-          "id": 11690328
+          "id": 11701342
         }
       ],
-      "hit_prob": 0.0340077631657083,
-      "ev_mult": 0.4748609084171036,
+      "hit_prob": 0.0343143142339382,
+      "ev_mult": 0.4796967712410051,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0335948975047948
+      "avg_fragility": 0.0604933269501823
     },
     {
       "product": "Demonhunter",
       "n_legs": 4,
-      "legs": "Jaylin Williams OVER PR 9.5 (DEMON) [id:11708913] | Jordan Goodwin OVER RA 7.5 (DEMON) [id:11701810] | Aaron Gordon OVER RA 8.5 (DEMON) [id:11690799] | Goga Bitadze OVER RA 6.5 (DEMON) [id:11710916]",
+      "legs": "Cameron Johnson OVER REB 3.5 (DEMON) [id:11688937] | Franz Wagner OVER REB 5.5 (DEMON) [id:11678692] | Jordan Goodwin OVER PTS 9.5 (DEMON) [id:11680979] | Grayson Allen OVER AST 3.5 (DEMON) [id:11686929]",
       "legs_detail": [
         {
-          "raw": "Jaylin Williams OVER PR 9.5 (DEMON) [id:11708913]",
-          "player": "Jaylin Williams",
+          "raw": "Cameron Johnson OVER REB 3.5 (DEMON) [id:11688937]",
+          "player": "Cameron Johnson",
           "dir": "OVER",
-          "stat": "PR",
+          "stat": "REB",
+          "line": 3.5,
+          "tier": "DEMON",
+          "id": 11688937
+        },
+        {
+          "raw": "Franz Wagner OVER REB 5.5 (DEMON) [id:11678692]",
+          "player": "Franz Wagner",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 5.5,
+          "tier": "DEMON",
+          "id": 11678692
+        },
+        {
+          "raw": "Jordan Goodwin OVER PTS 9.5 (DEMON) [id:11680979]",
+          "player": "Jordan Goodwin",
+          "dir": "OVER",
+          "stat": "PTS",
           "line": 9.5,
           "tier": "DEMON",
-          "id": 11708913
+          "id": 11680979
         },
+        {
+          "raw": "Grayson Allen OVER AST 3.5 (DEMON) [id:11686929]",
+          "player": "Grayson Allen",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 3.5,
+          "tier": "DEMON",
+          "id": 11686929
+        }
+      ],
+      "hit_prob": 0.0262062472368335,
+      "ev_mult": 0.2470429433388703,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0244169665151938
+    },
+    {
+      "product": "Demonhunter",
+      "n_legs": 5,
+      "legs": "Jordan Goodwin OVER RA 7.5 (DEMON) [id:11701810] | Bruce Brown OVER RA 6.5 (DEMON) [id:11709973] | Desmond Bane OVER AST 4.5 (DEMON) [id:11678632] | Cameron Johnson OVER REB 3.5 (DEMON) [id:11688937] | Grayson Allen OVER FG3M 3.5 (DEMON) [id:11701791]",
+      "legs_detail": [
         {
           "raw": "Jordan Goodwin OVER RA 7.5 (DEMON) [id:11701810]",
           "player": "Jordan Goodwin",
@@ -636,84 +674,46 @@
           "id": 11701810
         },
         {
-          "raw": "Aaron Gordon OVER RA 8.5 (DEMON) [id:11690799]",
-          "player": "Aaron Gordon",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 8.5,
-          "tier": "DEMON",
-          "id": 11690799
-        },
-        {
-          "raw": "Goga Bitadze OVER RA 6.5 (DEMON) [id:11710916]",
-          "player": "Goga Bitadze",
+          "raw": "Bruce Brown OVER RA 6.5 (DEMON) [id:11709973]",
+          "player": "Bruce Brown",
           "dir": "OVER",
           "stat": "RA",
           "line": 6.5,
           "tier": "DEMON",
-          "id": 11710916
-        }
-      ],
-      "hit_prob": 0.0183104911261032,
-      "ev_mult": 0.3123179469011296,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0189471444828451
-    },
-    {
-      "product": "Demonhunter",
-      "n_legs": 5,
-      "legs": "Isaiah Stewart OVER PTS 8.5 (DEMON) [id:11679796] | Jamal Murray OVER FG3M 3.5 (DEMON) [id:11688952] | Isaiah Joe OVER PTS 10.5 (DEMON) [id:11687316] | Bones Hyland OVER FG3M 2.5 (DEMON) [id:11690227] | Royce O'Neale OVER PRA 14.5 (DEMON) [id:11711174]",
-      "legs_detail": [
-        {
-          "raw": "Isaiah Stewart OVER PTS 8.5 (DEMON) [id:11679796]",
-          "player": "Isaiah Stewart",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 8.5,
-          "tier": "DEMON",
-          "id": 11679796
+          "id": 11709973
         },
         {
-          "raw": "Jamal Murray OVER FG3M 3.5 (DEMON) [id:11688952]",
-          "player": "Jamal Murray",
+          "raw": "Desmond Bane OVER AST 4.5 (DEMON) [id:11678632]",
+          "player": "Desmond Bane",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 4.5,
+          "tier": "DEMON",
+          "id": 11678632
+        },
+        {
+          "raw": "Cameron Johnson OVER REB 3.5 (DEMON) [id:11688937]",
+          "player": "Cameron Johnson",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 3.5,
+          "tier": "DEMON",
+          "id": 11688937
+        },
+        {
+          "raw": "Grayson Allen OVER FG3M 3.5 (DEMON) [id:11701791]",
+          "player": "Grayson Allen",
           "dir": "OVER",
           "stat": "FG3M",
           "line": 3.5,
           "tier": "DEMON",
-          "id": 11688952
-        },
-        {
-          "raw": "Isaiah Joe OVER PTS 10.5 (DEMON) [id:11687316]",
-          "player": "Isaiah Joe",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 10.5,
-          "tier": "DEMON",
-          "id": 11687316
-        },
-        {
-          "raw": "Bones Hyland OVER FG3M 2.5 (DEMON) [id:11690227]",
-          "player": "Bones Hyland",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 2.5,
-          "tier": "DEMON",
-          "id": 11690227
-        },
-        {
-          "raw": "Royce O'Neale OVER PRA 14.5 (DEMON) [id:11711174]",
-          "player": "Royce O'Neale",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 14.5,
-          "tier": "DEMON",
-          "id": 11711174
+          "id": 11701791
         }
       ],
-      "hit_prob": 0.0073990752500107,
-      "ev_mult": 0.2534287822106129,
+      "hit_prob": 0.0091205775103991,
+      "ev_mult": 0.2205540282299389,
       "payout_mult": 20.0,
-      "avg_fragility": 0.02092493297945
+      "avg_fragility": 0.0274703798931573
     }
   ],
   "gamescript": []
