@@ -1,290 +1,290 @@
 {
-  "generated_at": "2026-04-28T17:36:38.669122-05:00",
-  "run_id": "20260428_173638",
+  "generated_at": "2026-04-29T11:43:44.184385-05:00",
+  "run_id": "20260429_114343",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "Joel Embiid OVER FG3M 0.5 (GOBLIN) [id:11707294] | Jerami Grant OVER FG3M 1.5 (STANDARD) [id:11704993] | VJ Edgecombe UNDER PRA 21.5 (STANDARD) [id:11706779]",
+      "legs": "Austin Reaves OVER REB 1.5 (GOBLIN) [id:11709788] | Duncan Robinson UNDER PRA 14.5 (STANDARD) [id:11724493] | Anthony Black OVER PR 12.5 (STANDARD) [id:11725603]",
       "legs_detail": [
         {
-          "raw": "Joel Embiid OVER FG3M 0.5 (GOBLIN) [id:11707294]",
-          "player": "Joel Embiid",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11707294
-        },
-        {
-          "raw": "Jerami Grant OVER FG3M 1.5 (STANDARD) [id:11704993]",
-          "player": "Jerami Grant",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
-          "tier": "STANDARD",
-          "id": 11704993
-        },
-        {
-          "raw": "VJ Edgecombe UNDER PRA 21.5 (STANDARD) [id:11706779]",
-          "player": "VJ Edgecombe",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 21.5,
-          "tier": "STANDARD",
-          "id": 11706779
-        }
-      ],
-      "hit_prob": 0.3113696746130867,
-      "ev_mult": 1.7410657412250268,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0435884049025242
-    },
-    {
-      "product": "System",
-      "n_legs": 4,
-      "legs": "Shaedon Sharpe OVER RA 1.5 (GOBLIN) [id:11733364] | Keldon Johnson OVER REB 1.5 (GOBLIN) [id:11713179] | Jordan Clarkson OVER FG3M 0.5 (STANDARD) [id:11692772] | VJ Edgecombe UNDER REB 5.5 (STANDARD) [id:11706782]",
-      "legs_detail": [
-        {
-          "raw": "Shaedon Sharpe OVER RA 1.5 (GOBLIN) [id:11733364]",
-          "player": "Shaedon Sharpe",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11733364
-        },
-        {
-          "raw": "Keldon Johnson OVER REB 1.5 (GOBLIN) [id:11713179]",
-          "player": "Keldon Johnson",
+          "raw": "Austin Reaves OVER REB 1.5 (GOBLIN) [id:11709788]",
+          "player": "Austin Reaves",
           "dir": "OVER",
           "stat": "REB",
           "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11713179
+          "id": 11709788
         },
         {
-          "raw": "Jordan Clarkson OVER FG3M 0.5 (STANDARD) [id:11692772]",
-          "player": "Jordan Clarkson",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "STANDARD",
-          "id": 11692772
-        },
-        {
-          "raw": "VJ Edgecombe UNDER REB 5.5 (STANDARD) [id:11706782]",
-          "player": "VJ Edgecombe",
-          "dir": "UNDER",
-          "stat": "REB",
-          "line": 5.5,
-          "tier": "STANDARD",
-          "id": 11706782
-        }
-      ],
-      "hit_prob": 0.23617124451906,
-      "ev_mult": 1.516690340084358,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0285089461385664
-    },
-    {
-      "product": "System",
-      "n_legs": 5,
-      "legs": "Keldon Johnson OVER REB 1.5 (GOBLIN) [id:11713179] | Mitchell Robinson OVER REB 3.5 (GOBLIN) [id:11736723] | Baylor Scheierman OVER FG3M 0.5 (GOBLIN) [id:11716923] | Jrue Holiday UNDER PTS 16.5 (STANDARD) [id:11702647] | Julian Champagnie UNDER PRA 14.5 (STANDARD) [id:11702684]",
-      "legs_detail": [
-        {
-          "raw": "Keldon Johnson OVER REB 1.5 (GOBLIN) [id:11713179]",
-          "player": "Keldon Johnson",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11713179
-        },
-        {
-          "raw": "Mitchell Robinson OVER REB 3.5 (GOBLIN) [id:11736723]",
-          "player": "Mitchell Robinson",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11736723
-        },
-        {
-          "raw": "Baylor Scheierman OVER FG3M 0.5 (GOBLIN) [id:11716923]",
-          "player": "Baylor Scheierman",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11716923
-        },
-        {
-          "raw": "Jrue Holiday UNDER PTS 16.5 (STANDARD) [id:11702647]",
-          "player": "Jrue Holiday",
-          "dir": "UNDER",
-          "stat": "PTS",
-          "line": 16.5,
-          "tier": "STANDARD",
-          "id": 11702647
-        },
-        {
-          "raw": "Julian Champagnie UNDER PRA 14.5 (STANDARD) [id:11702684]",
-          "player": "Julian Champagnie",
+          "raw": "Duncan Robinson UNDER PRA 14.5 (STANDARD) [id:11724493]",
+          "player": "Duncan Robinson",
           "dir": "UNDER",
           "stat": "PRA",
           "line": 14.5,
           "tier": "STANDARD",
-          "id": 11702684
+          "id": 11724493
+        },
+        {
+          "raw": "Anthony Black OVER PR 12.5 (STANDARD) [id:11725603]",
+          "player": "Anthony Black",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 12.5,
+          "tier": "STANDARD",
+          "id": 11725603
         }
       ],
-      "hit_prob": 0.2004911995917836,
-      "ev_mult": 1.6655078827177874,
+      "hit_prob": 0.2745825525514875,
+      "ev_mult": 1.7068117149389337,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0262891098470274
+    },
+    {
+      "product": "System",
+      "n_legs": 4,
+      "legs": "Jakob Poeltl OVER PTS 3.5 (GOBLIN) [id:11742975] | Sandro Mamukelashvili OVER RA 3.5 (GOBLIN) [id:11767877] | Duncan Robinson UNDER PRA 14.5 (STANDARD) [id:11724493] | Sam Merrill OVER PR 9 (STANDARD) [id:11715075]",
+      "legs_detail": [
+        {
+          "raw": "Jakob Poeltl OVER PTS 3.5 (GOBLIN) [id:11742975]",
+          "player": "Jakob Poeltl",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11742975
+        },
+        {
+          "raw": "Sandro Mamukelashvili OVER RA 3.5 (GOBLIN) [id:11767877]",
+          "player": "Sandro Mamukelashvili",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11767877
+        },
+        {
+          "raw": "Duncan Robinson UNDER PRA 14.5 (STANDARD) [id:11724493]",
+          "player": "Duncan Robinson",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 14.5,
+          "tier": "STANDARD",
+          "id": 11724493
+        },
+        {
+          "raw": "Sam Merrill OVER PR 9 (STANDARD) [id:11715075]",
+          "player": "Sam Merrill",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 9.0,
+          "tier": "STANDARD",
+          "id": 11715075
+        }
+      ],
+      "hit_prob": 0.2088217952218463,
+      "ev_mult": 1.4533537785259705,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0216475417050407
+    },
+    {
+      "product": "System",
+      "n_legs": 5,
+      "legs": "Austin Reaves OVER REB 1.5 (GOBLIN) [id:11709788] | Jakob Poeltl OVER AST 0.5 (GOBLIN) [id:11702949] | Sandro Mamukelashvili OVER RA 3.5 (GOBLIN) [id:11767877] | Paolo Banchero UNDER AST 5 (STANDARD) [id:11768230] | Sam Merrill OVER FG3M 1.5 (STANDARD) [id:11710138]",
+      "legs_detail": [
+        {
+          "raw": "Austin Reaves OVER REB 1.5 (GOBLIN) [id:11709788]",
+          "player": "Austin Reaves",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11709788
+        },
+        {
+          "raw": "Jakob Poeltl OVER AST 0.5 (GOBLIN) [id:11702949]",
+          "player": "Jakob Poeltl",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11702949
+        },
+        {
+          "raw": "Sandro Mamukelashvili OVER RA 3.5 (GOBLIN) [id:11767877]",
+          "player": "Sandro Mamukelashvili",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11767877
+        },
+        {
+          "raw": "Paolo Banchero UNDER AST 5 (STANDARD) [id:11768230]",
+          "player": "Paolo Banchero",
+          "dir": "UNDER",
+          "stat": "AST",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11768230
+        },
+        {
+          "raw": "Sam Merrill OVER FG3M 1.5 (STANDARD) [id:11710138]",
+          "player": "Sam Merrill",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 1.5,
+          "tier": "STANDARD",
+          "id": 11710138
+        }
+      ],
+      "hit_prob": 0.1671314366462654,
+      "ev_mult": 1.5814721784434362,
       "payout_mult": 20.0,
-      "avg_fragility": 0.04049216895353
+      "avg_fragility": 0.0214238225326198
     }
   ],
   "system_winprob": [
     {
       "product": "System WinProb",
       "n_legs": 3,
-      "legs": "Nickeil Alexander-Walker OVER FG3M 1.5 (GOBLIN) [id:11743473] | Shaedon Sharpe OVER PTS 7.5 (STANDARD) [id:11719564] | Mitchell Robinson OVER PTS 4 (STANDARD) [id:11684215]",
+      "legs": "Sandro Mamukelashvili OVER REB 2.5 (GOBLIN) [id:11767873] | Sam Merrill OVER PRA 9.5 (STANDARD) [id:11717022] | Daniss Jenkins OVER PRA 7 (STANDARD) [id:11748156]",
       "legs_detail": [
         {
-          "raw": "Nickeil Alexander-Walker OVER FG3M 1.5 (GOBLIN) [id:11743473]",
-          "player": "Nickeil Alexander-Walker",
+          "raw": "Sandro Mamukelashvili OVER REB 2.5 (GOBLIN) [id:11767873]",
+          "player": "Sandro Mamukelashvili",
           "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
+          "stat": "REB",
+          "line": 2.5,
           "tier": "GOBLIN",
-          "id": 11743473
+          "id": 11767873
         },
         {
-          "raw": "Shaedon Sharpe OVER PTS 7.5 (STANDARD) [id:11719564]",
-          "player": "Shaedon Sharpe",
+          "raw": "Sam Merrill OVER PRA 9.5 (STANDARD) [id:11717022]",
+          "player": "Sam Merrill",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 7.5,
+          "stat": "PRA",
+          "line": 9.5,
           "tier": "STANDARD",
-          "id": 11719564
+          "id": 11717022
         },
         {
-          "raw": "Mitchell Robinson OVER PTS 4 (STANDARD) [id:11684215]",
-          "player": "Mitchell Robinson",
+          "raw": "Daniss Jenkins OVER PRA 7 (STANDARD) [id:11748156]",
+          "player": "Daniss Jenkins",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 4.0,
+          "stat": "PRA",
+          "line": 7.0,
           "tier": "STANDARD",
-          "id": 11684215
+          "id": 11748156
         }
       ],
-      "hit_prob": 0.4827771599706863,
-      "ev_mult": 2.896662959824118,
+      "hit_prob": 0.4707185710970935,
+      "ev_mult": 2.824311426582561,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0164370270221428
+      "avg_fragility": 0.0156261225018793
     },
     {
       "product": "System WinProb",
       "n_legs": 4,
-      "legs": "Luke Kornet OVER RA 3.5 (GOBLIN) [id:11716461] | Keldon Johnson OVER PR 7.5 (GOBLIN) [id:11707484] | Baylor Scheierman OVER PTS 3.5 (STANDARD) [id:11714590] | Mitchell Robinson OVER PRA 10.5 (STANDARD) [id:11684222]",
+      "legs": "Jakob Poeltl OVER AST 0.5 (GOBLIN) [id:11702949] | Sandro Mamukelashvili OVER REB 2.5 (GOBLIN) [id:11767873] | Sam Merrill OVER PRA 9.5 (STANDARD) [id:11717022] | Dennis Schr\u00f6der OVER PRA 7.5 (STANDARD) [id:11768866]",
       "legs_detail": [
         {
-          "raw": "Luke Kornet OVER RA 3.5 (GOBLIN) [id:11716461]",
-          "player": "Luke Kornet",
+          "raw": "Jakob Poeltl OVER AST 0.5 (GOBLIN) [id:11702949]",
+          "player": "Jakob Poeltl",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 3.5,
+          "stat": "AST",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 11716461
+          "id": 11702949
         },
         {
-          "raw": "Keldon Johnson OVER PR 7.5 (GOBLIN) [id:11707484]",
-          "player": "Keldon Johnson",
+          "raw": "Sandro Mamukelashvili OVER REB 2.5 (GOBLIN) [id:11767873]",
+          "player": "Sandro Mamukelashvili",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 7.5,
+          "stat": "REB",
+          "line": 2.5,
           "tier": "GOBLIN",
-          "id": 11707484
+          "id": 11767873
         },
         {
-          "raw": "Baylor Scheierman OVER PTS 3.5 (STANDARD) [id:11714590]",
-          "player": "Baylor Scheierman",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 3.5,
-          "tier": "STANDARD",
-          "id": 11714590
-        },
-        {
-          "raw": "Mitchell Robinson OVER PRA 10.5 (STANDARD) [id:11684222]",
-          "player": "Mitchell Robinson",
+          "raw": "Sam Merrill OVER PRA 9.5 (STANDARD) [id:11717022]",
+          "player": "Sam Merrill",
           "dir": "OVER",
           "stat": "PRA",
-          "line": 10.5,
+          "line": 9.5,
           "tier": "STANDARD",
-          "id": 11684222
+          "id": 11717022
+        },
+        {
+          "raw": "Dennis Schr\u00f6der OVER PRA 7.5 (STANDARD) [id:11768866]",
+          "player": "Dennis Schr\u00f6der",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 7.5,
+          "tier": "STANDARD",
+          "id": 11768866
         }
       ],
-      "hit_prob": 0.4080685599664561,
-      "ev_mult": 4.0806855996645615,
+      "hit_prob": 0.384517197160212,
+      "ev_mult": 3.84517197160212,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0126863181359131
+      "avg_fragility": 0.0103751767089677
     },
     {
       "product": "System WinProb",
       "n_legs": 5,
-      "legs": "Luke Kornet OVER RA 4.5 (GOBLIN) [id:11716017] | Mitchell Robinson OVER REB 3.5 (GOBLIN) [id:11736723] | Dyson Daniels OVER REB 4.5 (GOBLIN) [id:11684084] | Shaedon Sharpe OVER PTS 7.5 (STANDARD) [id:11719564] | Baylor Scheierman OVER PTS 3.5 (STANDARD) [id:11714590]",
+      "legs": "Austin Reaves OVER FG3M 0.5 (GOBLIN) [id:11709420] | Ja'Kobe Walter OVER FG3M 0.5 (GOBLIN) [id:11710103] | Sam Merrill OVER PA 4.5 (GOBLIN) [id:11724672] | Daniss Jenkins OVER PRA 7 (STANDARD) [id:11748156] | Paolo Banchero UNDER PTS 21.5 (STANDARD) [id:11724581]",
       "legs_detail": [
         {
-          "raw": "Luke Kornet OVER RA 4.5 (GOBLIN) [id:11716017]",
-          "player": "Luke Kornet",
+          "raw": "Austin Reaves OVER FG3M 0.5 (GOBLIN) [id:11709420]",
+          "player": "Austin Reaves",
           "dir": "OVER",
-          "stat": "RA",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11709420
+        },
+        {
+          "raw": "Ja'Kobe Walter OVER FG3M 0.5 (GOBLIN) [id:11710103]",
+          "player": "Ja'Kobe Walter",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11710103
+        },
+        {
+          "raw": "Sam Merrill OVER PA 4.5 (GOBLIN) [id:11724672]",
+          "player": "Sam Merrill",
+          "dir": "OVER",
+          "stat": "PA",
           "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11716017
+          "id": 11724672
         },
         {
-          "raw": "Mitchell Robinson OVER REB 3.5 (GOBLIN) [id:11736723]",
-          "player": "Mitchell Robinson",
+          "raw": "Daniss Jenkins OVER PRA 7 (STANDARD) [id:11748156]",
+          "player": "Daniss Jenkins",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11736723
-        },
-        {
-          "raw": "Dyson Daniels OVER REB 4.5 (GOBLIN) [id:11684084]",
-          "player": "Dyson Daniels",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11684084
-        },
-        {
-          "raw": "Shaedon Sharpe OVER PTS 7.5 (STANDARD) [id:11719564]",
-          "player": "Shaedon Sharpe",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 7.5,
+          "stat": "PRA",
+          "line": 7.0,
           "tier": "STANDARD",
-          "id": 11719564
+          "id": 11748156
         },
         {
-          "raw": "Baylor Scheierman OVER PTS 3.5 (STANDARD) [id:11714590]",
-          "player": "Baylor Scheierman",
-          "dir": "OVER",
+          "raw": "Paolo Banchero UNDER PTS 21.5 (STANDARD) [id:11724581]",
+          "player": "Paolo Banchero",
+          "dir": "UNDER",
           "stat": "PTS",
-          "line": 3.5,
+          "line": 21.5,
           "tier": "STANDARD",
-          "id": 11714590
+          "id": 11724581
         }
       ],
-      "hit_prob": 0.3247067724747934,
-      "ev_mult": 6.494135449495869,
+      "hit_prob": 0.284477434386008,
+      "ev_mult": 5.689548687720159,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0160958201938764
+      "avg_fragility": 0.0597188869796768
     }
   ],
   "windfall": [],
@@ -292,286 +292,286 @@
     {
       "product": "Windfall WinProb",
       "n_legs": 3,
-      "legs": "Nickeil Alexander-Walker OVER FG3M 1.5 (GOBLIN) [id:11743473] | Baylor Scheierman OVER PTS 3.5 (STANDARD) [id:11714590] | Mitchell Robinson OVER PR 10.5 (DEMON) [id:11709654]",
+      "legs": "Jakob Poeltl OVER PA 4.5 (GOBLIN) [id:11717053] | Daniss Jenkins OVER PRA 7 (STANDARD) [id:11748156] | Sandro Mamukelashvili OVER RA 5.5 (DEMON) [id:11767875]",
       "legs_detail": [
         {
-          "raw": "Nickeil Alexander-Walker OVER FG3M 1.5 (GOBLIN) [id:11743473]",
-          "player": "Nickeil Alexander-Walker",
+          "raw": "Jakob Poeltl OVER PA 4.5 (GOBLIN) [id:11717053]",
+          "player": "Jakob Poeltl",
           "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
+          "stat": "PA",
+          "line": 4.5,
           "tier": "GOBLIN",
-          "id": 11743473
+          "id": 11717053
         },
         {
-          "raw": "Baylor Scheierman OVER PTS 3.5 (STANDARD) [id:11714590]",
-          "player": "Baylor Scheierman",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 3.5,
-          "tier": "STANDARD",
-          "id": 11714590
-        },
-        {
-          "raw": "Mitchell Robinson OVER PR 10.5 (DEMON) [id:11709654]",
-          "player": "Mitchell Robinson",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 10.5,
-          "tier": "DEMON",
-          "id": 11709654
-        }
-      ],
-      "hit_prob": 0.492061139646761,
-      "ev_mult": 2.9523668378805663,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0171045021078984
-    },
-    {
-      "product": "Windfall WinProb",
-      "n_legs": 4,
-      "legs": "Nickeil Alexander-Walker OVER FG3M 1.5 (GOBLIN) [id:11743473] | Shaedon Sharpe OVER PRA 10.5 (STANDARD) [id:11714103] | Baylor Scheierman OVER PTS 3.5 (STANDARD) [id:11714590] | Mitchell Robinson OVER PR 10.5 (DEMON) [id:11709654]",
-      "legs_detail": [
-        {
-          "raw": "Nickeil Alexander-Walker OVER FG3M 1.5 (GOBLIN) [id:11743473]",
-          "player": "Nickeil Alexander-Walker",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11743473
-        },
-        {
-          "raw": "Shaedon Sharpe OVER PRA 10.5 (STANDARD) [id:11714103]",
-          "player": "Shaedon Sharpe",
+          "raw": "Daniss Jenkins OVER PRA 7 (STANDARD) [id:11748156]",
+          "player": "Daniss Jenkins",
           "dir": "OVER",
           "stat": "PRA",
-          "line": 10.5,
+          "line": 7.0,
           "tier": "STANDARD",
-          "id": 11714103
+          "id": 11748156
         },
         {
-          "raw": "Baylor Scheierman OVER PTS 3.5 (STANDARD) [id:11714590]",
-          "player": "Baylor Scheierman",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 3.5,
-          "tier": "STANDARD",
-          "id": 11714590
-        },
-        {
-          "raw": "Mitchell Robinson OVER PR 10.5 (DEMON) [id:11709654]",
-          "player": "Mitchell Robinson",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 10.5,
-          "tier": "DEMON",
-          "id": 11709654
-        }
-      ],
-      "hit_prob": 0.3498244694563804,
-      "ev_mult": 3.498244694563804,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0163155609720329
-    },
-    {
-      "product": "Windfall WinProb",
-      "n_legs": 5,
-      "legs": "Jordan Clarkson OVER PR 3.5 (GOBLIN) [id:11741919] | Nickeil Alexander-Walker OVER FG3M 1.5 (GOBLIN) [id:11743473] | Shaedon Sharpe OVER PRA 10.5 (STANDARD) [id:11714103] | Neemias Queta OVER PTS 7.5 (STANDARD) [id:11707327] | Luke Kornet OVER RA 5.5 (DEMON) [id:11716463]",
-      "legs_detail": [
-        {
-          "raw": "Jordan Clarkson OVER PR 3.5 (GOBLIN) [id:11741919]",
-          "player": "Jordan Clarkson",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11741919
-        },
-        {
-          "raw": "Nickeil Alexander-Walker OVER FG3M 1.5 (GOBLIN) [id:11743473]",
-          "player": "Nickeil Alexander-Walker",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11743473
-        },
-        {
-          "raw": "Shaedon Sharpe OVER PRA 10.5 (STANDARD) [id:11714103]",
-          "player": "Shaedon Sharpe",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 10.5,
-          "tier": "STANDARD",
-          "id": 11714103
-        },
-        {
-          "raw": "Neemias Queta OVER PTS 7.5 (STANDARD) [id:11707327]",
-          "player": "Neemias Queta",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 7.5,
-          "tier": "STANDARD",
-          "id": 11707327
-        },
-        {
-          "raw": "Luke Kornet OVER RA 5.5 (DEMON) [id:11716463]",
-          "player": "Luke Kornet",
+          "raw": "Sandro Mamukelashvili OVER RA 5.5 (DEMON) [id:11767875]",
+          "player": "Sandro Mamukelashvili",
           "dir": "OVER",
           "stat": "RA",
           "line": 5.5,
           "tier": "DEMON",
-          "id": 11716463
+          "id": 11767875
         }
       ],
-      "hit_prob": 0.2451740886543118,
-      "ev_mult": 4.903481773086236,
+      "hit_prob": 0.4858225907046666,
+      "ev_mult": 2.914935544228,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0110930432864622
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 4,
+      "legs": "Ja'Kobe Walter OVER FG3M 0.5 (GOBLIN) [id:11710103] | Dennis Schr\u00f6der OVER PRA 7.5 (STANDARD) [id:11768866] | Sam Merrill OVER PRA 9.5 (STANDARD) [id:11717022] | Sandro Mamukelashvili OVER RA 5.5 (DEMON) [id:11767875]",
+      "legs_detail": [
+        {
+          "raw": "Ja'Kobe Walter OVER FG3M 0.5 (GOBLIN) [id:11710103]",
+          "player": "Ja'Kobe Walter",
+          "dir": "OVER",
+          "stat": "FG3M",
+          "line": 0.5,
+          "tier": "GOBLIN",
+          "id": 11710103
+        },
+        {
+          "raw": "Dennis Schr\u00f6der OVER PRA 7.5 (STANDARD) [id:11768866]",
+          "player": "Dennis Schr\u00f6der",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 7.5,
+          "tier": "STANDARD",
+          "id": 11768866
+        },
+        {
+          "raw": "Sam Merrill OVER PRA 9.5 (STANDARD) [id:11717022]",
+          "player": "Sam Merrill",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 9.5,
+          "tier": "STANDARD",
+          "id": 11717022
+        },
+        {
+          "raw": "Sandro Mamukelashvili OVER RA 5.5 (DEMON) [id:11767875]",
+          "player": "Sandro Mamukelashvili",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 5.5,
+          "tier": "DEMON",
+          "id": 11767875
+        }
+      ],
+      "hit_prob": 0.3423162053886297,
+      "ev_mult": 3.423162053886297,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0130684947175847
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 5,
+      "legs": "RJ Barrett OVER PR 19.5 (GOBLIN) [id:11700861] | Amen Thompson OVER AST 3.5 (GOBLIN) [id:11749781] | Dennis Schr\u00f6der OVER PRA 7.5 (STANDARD) [id:11768866] | Cade Cunningham UNDER PRA 44 (STANDARD) [id:11724430] | Sandro Mamukelashvili OVER REB 4.5 (DEMON) [id:11767870]",
+      "legs_detail": [
+        {
+          "raw": "RJ Barrett OVER PR 19.5 (GOBLIN) [id:11700861]",
+          "player": "RJ Barrett",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 19.5,
+          "tier": "GOBLIN",
+          "id": 11700861
+        },
+        {
+          "raw": "Amen Thompson OVER AST 3.5 (GOBLIN) [id:11749781]",
+          "player": "Amen Thompson",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11749781
+        },
+        {
+          "raw": "Dennis Schr\u00f6der OVER PRA 7.5 (STANDARD) [id:11768866]",
+          "player": "Dennis Schr\u00f6der",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 7.5,
+          "tier": "STANDARD",
+          "id": 11768866
+        },
+        {
+          "raw": "Cade Cunningham UNDER PRA 44 (STANDARD) [id:11724430]",
+          "player": "Cade Cunningham",
+          "dir": "UNDER",
+          "stat": "PRA",
+          "line": 44.0,
+          "tier": "STANDARD",
+          "id": 11724430
+        },
+        {
+          "raw": "Sandro Mamukelashvili OVER REB 4.5 (DEMON) [id:11767870]",
+          "player": "Sandro Mamukelashvili",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 4.5,
+          "tier": "DEMON",
+          "id": 11767870
+        }
+      ],
+      "hit_prob": 0.2450995076382687,
+      "ev_mult": 4.901990152765375,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0168454904347624
+      "avg_fragility": 0.1008905781799804
     }
   ],
   "demonhunter": [
     {
       "product": "Demonhunter",
       "n_legs": 3,
-      "legs": "Onyeka Okongwu OVER REB 7.5 (DEMON) [id:11683872] | Jalen Johnson OVER RA 17.5 (DEMON) [id:11684124] | Jrue Holiday OVER REB 5.5 (DEMON) [id:11702662]",
+      "legs": "Brandon Ingram OVER PRA 29.5 (DEMON) [id:11700714] | Scottie Barnes OVER REB 7.5 (DEMON) [id:11702048] | Desmond Bane OVER FG3M 3.5 (DEMON) [id:11724441]",
       "legs_detail": [
         {
-          "raw": "Onyeka Okongwu OVER REB 7.5 (DEMON) [id:11683872]",
-          "player": "Onyeka Okongwu",
+          "raw": "Brandon Ingram OVER PRA 29.5 (DEMON) [id:11700714]",
+          "player": "Brandon Ingram",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 29.5,
+          "tier": "DEMON",
+          "id": 11700714
+        },
+        {
+          "raw": "Scottie Barnes OVER REB 7.5 (DEMON) [id:11702048]",
+          "player": "Scottie Barnes",
           "dir": "OVER",
           "stat": "REB",
           "line": 7.5,
           "tier": "DEMON",
-          "id": 11683872
+          "id": 11702048
         },
         {
-          "raw": "Jalen Johnson OVER RA 17.5 (DEMON) [id:11684124]",
-          "player": "Jalen Johnson",
+          "raw": "Desmond Bane OVER FG3M 3.5 (DEMON) [id:11724441]",
+          "player": "Desmond Bane",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 17.5,
+          "stat": "FG3M",
+          "line": 3.5,
           "tier": "DEMON",
-          "id": 11684124
-        },
-        {
-          "raw": "Jrue Holiday OVER REB 5.5 (DEMON) [id:11702662]",
-          "player": "Jrue Holiday",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 5.5,
-          "tier": "DEMON",
-          "id": 11702662
+          "id": 11724441
         }
       ],
-      "hit_prob": 0.0315922676932888,
-      "ev_mult": 0.4865177557877809,
+      "hit_prob": 0.0327973059619281,
+      "ev_mult": 0.4821167703219547,
       "payout_mult": 6.0,
-      "avg_fragility": 0.1049757804115412
+      "avg_fragility": 0.0586472620545255
     },
     {
       "product": "Demonhunter",
       "n_legs": 4,
-      "legs": "Jordan Clarkson OVER REB 2.5 (DEMON) [id:11709035] | Robert Williams OVER FG3M 0.5 (DEMON) [id:11728841] | Jonathan Kuminga OVER PA 14.5 (DEMON) [id:11740834] | Nickeil Alexander-Walker OVER REB 3.5 (DEMON) [id:11683832]",
+      "legs": "Ja'Kobe Walter OVER RA 5.5 (DEMON) [id:11702941] | Sam Merrill OVER PA 14.5 (DEMON) [id:11717020] | Jamal Shead OVER PRA 14.5 (DEMON) [id:11717036] | James Harden OVER REB 4.5 (DEMON) [id:11702097]",
       "legs_detail": [
         {
-          "raw": "Jordan Clarkson OVER REB 2.5 (DEMON) [id:11709035]",
-          "player": "Jordan Clarkson",
+          "raw": "Ja'Kobe Walter OVER RA 5.5 (DEMON) [id:11702941]",
+          "player": "Ja'Kobe Walter",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
+          "stat": "RA",
+          "line": 5.5,
           "tier": "DEMON",
-          "id": 11709035
+          "id": 11702941
         },
         {
-          "raw": "Robert Williams OVER FG3M 0.5 (DEMON) [id:11728841]",
-          "player": "Robert Williams",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "DEMON",
-          "id": 11728841
-        },
-        {
-          "raw": "Jonathan Kuminga OVER PA 14.5 (DEMON) [id:11740834]",
-          "player": "Jonathan Kuminga",
+          "raw": "Sam Merrill OVER PA 14.5 (DEMON) [id:11717020]",
+          "player": "Sam Merrill",
           "dir": "OVER",
           "stat": "PA",
           "line": 14.5,
           "tier": "DEMON",
-          "id": 11740834
+          "id": 11717020
         },
         {
-          "raw": "Nickeil Alexander-Walker OVER REB 3.5 (DEMON) [id:11683832]",
-          "player": "Nickeil Alexander-Walker",
+          "raw": "Jamal Shead OVER PRA 14.5 (DEMON) [id:11717036]",
+          "player": "Jamal Shead",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 14.5,
+          "tier": "DEMON",
+          "id": 11717036
+        },
+        {
+          "raw": "James Harden OVER REB 4.5 (DEMON) [id:11702097]",
+          "player": "James Harden",
           "dir": "OVER",
           "stat": "REB",
-          "line": 3.5,
+          "line": 4.5,
           "tier": "DEMON",
-          "id": 11683832
+          "id": 11702097
         }
       ],
-      "hit_prob": 0.0198418200827362,
-      "ev_mult": 0.3004472430021241,
+      "hit_prob": 0.0141832166483021,
+      "ev_mult": 0.3327222818544258,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0298861704860916
+      "avg_fragility": 0.0372756440518604
     },
     {
       "product": "Demonhunter",
       "n_legs": 5,
-      "legs": "Jerami Grant OVER RA 5.5 (DEMON) [id:11716443] | Jonathan Kuminga OVER PA 14.5 (DEMON) [id:11740834] | Baylor Scheierman OVER RA 4.5 (DEMON) [id:11716928] | Nickeil Alexander-Walker OVER REB 3.5 (DEMON) [id:11683832] | Paul George OVER REB 5.5 (DEMON) [id:11706736]",
+      "legs": "Jakob Poeltl OVER AST 2.5 (DEMON) [id:11702950] | Jaylon Tyson OVER FG3M 2.5 (DEMON) [id:11714538] | Jaxson Hayes OVER PTS 7.5 (DEMON) [id:11717067] | Sam Merrill OVER PRA 14.5 (DEMON) [id:11717023] | Jamal Shead OVER REB 2.5 (DEMON) [id:11702985]",
       "legs_detail": [
         {
-          "raw": "Jerami Grant OVER RA 5.5 (DEMON) [id:11716443]",
-          "player": "Jerami Grant",
+          "raw": "Jakob Poeltl OVER AST 2.5 (DEMON) [id:11702950]",
+          "player": "Jakob Poeltl",
           "dir": "OVER",
-          "stat": "RA",
-          "line": 5.5,
+          "stat": "AST",
+          "line": 2.5,
           "tier": "DEMON",
-          "id": 11716443
+          "id": 11702950
         },
         {
-          "raw": "Jonathan Kuminga OVER PA 14.5 (DEMON) [id:11740834]",
-          "player": "Jonathan Kuminga",
+          "raw": "Jaylon Tyson OVER FG3M 2.5 (DEMON) [id:11714538]",
+          "player": "Jaylon Tyson",
           "dir": "OVER",
-          "stat": "PA",
+          "stat": "FG3M",
+          "line": 2.5,
+          "tier": "DEMON",
+          "id": 11714538
+        },
+        {
+          "raw": "Jaxson Hayes OVER PTS 7.5 (DEMON) [id:11717067]",
+          "player": "Jaxson Hayes",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 7.5,
+          "tier": "DEMON",
+          "id": 11717067
+        },
+        {
+          "raw": "Sam Merrill OVER PRA 14.5 (DEMON) [id:11717023]",
+          "player": "Sam Merrill",
+          "dir": "OVER",
+          "stat": "PRA",
           "line": 14.5,
           "tier": "DEMON",
-          "id": 11740834
+          "id": 11717023
         },
         {
-          "raw": "Baylor Scheierman OVER RA 4.5 (DEMON) [id:11716928]",
-          "player": "Baylor Scheierman",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 4.5,
-          "tier": "DEMON",
-          "id": 11716928
-        },
-        {
-          "raw": "Nickeil Alexander-Walker OVER REB 3.5 (DEMON) [id:11683832]",
-          "player": "Nickeil Alexander-Walker",
+          "raw": "Jamal Shead OVER REB 2.5 (DEMON) [id:11702985]",
+          "player": "Jamal Shead",
           "dir": "OVER",
           "stat": "REB",
-          "line": 3.5,
+          "line": 2.5,
           "tier": "DEMON",
-          "id": 11683832
-        },
-        {
-          "raw": "Paul George OVER REB 5.5 (DEMON) [id:11706736]",
-          "player": "Paul George",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 5.5,
-          "tier": "DEMON",
-          "id": 11706736
+          "id": 11702985
         }
       ],
-      "hit_prob": 0.0079920219342664,
-      "ev_mult": 0.23471665810642,
+      "hit_prob": 0.0056318458729413,
+      "ev_mult": 0.277824410691207,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0634186814665555
+      "avg_fragility": 0.0076950260206886
     }
   ],
   "gamescript": []
