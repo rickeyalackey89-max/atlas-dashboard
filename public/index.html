@@ -68,6 +68,33 @@
     .section-title.windfall { color: var(--purple); border-color: var(--purple); }
     .section-title.windfall_winprob { color: var(--pink); border-color: var(--pink); }
     .section-title.demonhunter { color: var(--red); border-color: var(--red); }
+    .section-title.marketed { color: #f59e0b; border-color: #f59e0b; }
+    
+    .marketed-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 1000px) { .marketed-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 650px)  { .marketed-grid { grid-template-columns: 1fr; } }
+    
+    .marketed-card {
+      background: var(--card);
+      border: 1px solid #f59e0b44;
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .marketed-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: #78350f;
+      color: #fde68a;
+      margin-bottom: 8px;
+    }
     
     .grid {
       display: grid;
@@ -292,6 +319,12 @@
       
       // Demonhunter section
       content.appendChild(makeSection('Demonhunter', 'demonhunter', data.demonhunter || []));
+      
+      // Marketed slips section
+      var ms = data.marketed_slips || [];
+      if (ms.length > 0) {
+        content.appendChild(makeMarketedSection(ms));
+      }
     }
     
     function makeSection(title, type, slips) {
@@ -363,6 +396,71 @@
         '<div class="meta">' +
           '<span>EV: ' + evMult + 'x</span>' +
           '<span>Payout: ' + payout + 'x</span>' +
+        '</div>' +
+        '<div class="legs">' + legsHtml + '</div>';
+      
+      return card;
+    }
+    
+    function makeMarketedSection(slips) {
+      var section = document.createElement('div');
+      section.className = 'section';
+      var titleEl = document.createElement('div');
+      titleEl.className = 'section-title marketed';
+      titleEl.textContent = 'Atlas Picks (Marketed Slips)';
+      section.appendChild(titleEl);
+      var grid = document.createElement('div');
+      grid.className = 'marketed-grid';
+      for (var i = 0; i < slips.length; i++) {
+        grid.appendChild(makeMarketedCard(slips[i]));
+      }
+      section.appendChild(grid);
+      return section;
+    }
+    
+    function makeMarketedCard(slip) {
+      var card = document.createElement('div');
+      card.className = 'marketed-card';
+      
+      var hitPct  = slip.hit_prob  != null ? (slip.hit_prob * 100).toFixed(1) + '%' : '—';
+      var payout  = slip.payout_mult != null ? slip.payout_mult.toFixed(1) + 'x'   : '—';
+      var ev      = slip.ev != null ? slip.ev.toFixed(2) + 'x' : '—';
+      var label   = slip.label || (slip.n_legs + '-leg');
+      var badge   = slip.high_confidence ? '<span class="marketed-badge">High Confidence</span>' : '';
+      
+      var legsHtml = '';
+      var legs = slip.legs || [];
+      for (var i = 0; i < legs.length; i++) {
+        var leg = legs[i];
+        var dirClass  = (leg.dir  || '').toLowerCase();
+        var tierClass = (leg.tier || '').toLowerCase();
+        var pcalStr   = leg.p_cal != null ? '<span style="color:var(--muted);font-size:9px;margin-left:4px">' + (leg.p_cal * 100).toFixed(0) + '%</span>' : '';
+        legsHtml += '<div class="leg">' +
+          '<span class="leg-player">' + leg.player + '</span>' +
+          '<div class="leg-pick">' +
+            '<span class="dir ' + dirClass + '">' + leg.dir + '</span>' +
+            '<span class="stat-line">' + leg.stat + ' ' + leg.line + '</span>' +
+            '<span class="tier ' + tierClass + '">' + leg.tier + '</span>' +
+            pcalStr +
+          '</div>' +
+        '</div>';
+      }
+      
+      card.innerHTML =
+        badge +
+        '<div class="card-header">' +
+          '<div>' +
+            '<div class="leg-count">' + label + '</div>' +
+            '<div class="leg-label">Parlay</div>' +
+          '</div>' +
+          '<div style="text-align:right">' +
+            '<div class="hit-prob">' + hitPct + '</div>' +
+            '<div class="hit-label">Hit Prob</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="meta">' +
+          '<span>EV: ' + ev + '</span>' +
+          '<span>Payout: ' + payout + '</span>' +
         '</div>' +
         '<div class="legs">' + legsHtml + '</div>';
       
