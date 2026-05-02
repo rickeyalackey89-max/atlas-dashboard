@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-02T09:10:54.136055-05:00",
-  "run_id": "20260502_091053",
+  "generated_at": "2026-05-02T09:11:48.010201-05:00",
+  "run_id": "20260502_091147",
   "system": [
     {
       "product": "System",
@@ -43,7 +43,7 @@
     {
       "product": "System",
       "n_legs": 4,
-      "legs": "Baylor Scheierman OVER PR 4.5 (GOBLIN) [id:11816819] | Joel Embiid OVER FG3M 0.5 (GOBLIN) [id:11808132] | Tyrese Maxey UNDER AST 6.5 (STANDARD) [id:11815954] | Jaylen Brown OVER PRA 35.5 (STANDARD) [id:11807935]",
+      "legs": "Baylor Scheierman OVER PR 4.5 (GOBLIN) [id:11816819] | Joel Embiid OVER FG3M 0.5 (GOBLIN) [id:11808132] | Tyrese Maxey UNDER PA 31.5 (STANDARD) [id:11808324] | Jaylen Brown OVER RA 10 (STANDARD) [id:11807943]",
       "legs_detail": [
         {
           "raw": "Baylor Scheierman OVER PR 4.5 (GOBLIN) [id:11816819]",
@@ -64,35 +64,35 @@
           "id": 11808132
         },
         {
-          "raw": "Tyrese Maxey UNDER AST 6.5 (STANDARD) [id:11815954]",
+          "raw": "Tyrese Maxey UNDER PA 31.5 (STANDARD) [id:11808324]",
           "player": "Tyrese Maxey",
           "dir": "UNDER",
-          "stat": "AST",
-          "line": 6.5,
+          "stat": "PA",
+          "line": 31.5,
           "tier": "STANDARD",
-          "id": 11815954
+          "id": 11808324
         },
         {
-          "raw": "Jaylen Brown OVER PRA 35.5 (STANDARD) [id:11807935]",
+          "raw": "Jaylen Brown OVER RA 10 (STANDARD) [id:11807943]",
           "player": "Jaylen Brown",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 35.5,
+          "stat": "RA",
+          "line": 10.0,
           "tier": "STANDARD",
-          "id": 11807935
+          "id": 11807943
         }
       ],
-      "hit_prob": 0.4309836150396796,
-      "ev_mult": 1.928589902123084,
+      "hit_prob": 0.4620878611827908,
+      "ev_mult": 1.905340750170419,
       "payout_mult": 10.0,
-      "avg_fragility": 0.1068209311217562
+      "avg_fragility": 0.0978217128465458
     }
   ],
   "system_winprob": [
     {
       "product": "System WinProb",
       "n_legs": 3,
-      "legs": "Baylor Scheierman OVER PTS 0.5 (GOBLIN) [id:11823875] | Luka Garza OVER PA 3.5 (STANDARD) [id:11830171] | Andre Drummond OVER PRA 5.5 (STANDARD) [id:11819934]",
+      "legs": "Baylor Scheierman OVER PTS 0.5 (GOBLIN) [id:11823875] | Andre Drummond OVER PRA 5.5 (STANDARD) [id:11819934] | Luka Garza OVER PA 3.5 (STANDARD) [id:11830171]",
       "legs_detail": [
         {
           "raw": "Baylor Scheierman OVER PTS 0.5 (GOBLIN) [id:11823875]",
@@ -104,15 +104,6 @@
           "id": 11823875
         },
         {
-          "raw": "Luka Garza OVER PA 3.5 (STANDARD) [id:11830171]",
-          "player": "Luka Garza",
-          "dir": "OVER",
-          "stat": "PA",
-          "line": 3.5,
-          "tier": "STANDARD",
-          "id": 11830171
-        },
-        {
           "raw": "Andre Drummond OVER PRA 5.5 (STANDARD) [id:11819934]",
           "player": "Andre Drummond",
           "dir": "OVER",
@@ -120,6 +111,15 @@
           "line": 5.5,
           "tier": "STANDARD",
           "id": 11819934
+        },
+        {
+          "raw": "Luka Garza OVER PA 3.5 (STANDARD) [id:11830171]",
+          "player": "Luka Garza",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 3.5,
+          "tier": "STANDARD",
+          "id": 11830171
         }
       ],
       "hit_prob": 0.5484634036924221,
@@ -179,87 +179,87 @@
     {
       "product": "Windfall",
       "n_legs": 3,
-      "legs": "Joel Embiid OVER FG3M 0.5 (GOBLIN) [id:11808132] | Nikola Vu\u010devi\u0107 UNDER PA 7.5 (STANDARD) [id:11808843] | Neemias Queta OVER PRA 19.5 (DEMON) [id:11808833]",
+      "legs": "Jaylen Brown OVER AST 2.5 (GOBLIN) [id:11808066] | Nikola Vu\u010devi\u0107 UNDER PTS 6.5 (STANDARD) [id:11808214] | Joel Embiid OVER PTS 28.5 (DEMON) [id:11808149]",
       "legs_detail": [
         {
-          "raw": "Joel Embiid OVER FG3M 0.5 (GOBLIN) [id:11808132]",
-          "player": "Joel Embiid",
+          "raw": "Jaylen Brown OVER AST 2.5 (GOBLIN) [id:11808066]",
+          "player": "Jaylen Brown",
           "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
+          "stat": "AST",
+          "line": 2.5,
           "tier": "GOBLIN",
-          "id": 11808132
+          "id": 11808066
         },
         {
-          "raw": "Nikola Vu\u010devi\u0107 UNDER PA 7.5 (STANDARD) [id:11808843]",
+          "raw": "Nikola Vu\u010devi\u0107 UNDER PTS 6.5 (STANDARD) [id:11808214]",
           "player": "Nikola Vu\u010devi\u0107",
           "dir": "UNDER",
-          "stat": "PA",
-          "line": 7.5,
+          "stat": "PTS",
+          "line": 6.5,
           "tier": "STANDARD",
-          "id": 11808843
+          "id": 11808214
         },
         {
-          "raw": "Neemias Queta OVER PRA 19.5 (DEMON) [id:11808833]",
-          "player": "Neemias Queta",
+          "raw": "Joel Embiid OVER PTS 28.5 (DEMON) [id:11808149]",
+          "player": "Joel Embiid",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 19.5,
+          "stat": "PTS",
+          "line": 28.5,
           "tier": "DEMON",
-          "id": 11808833
+          "id": 11808149
         }
       ],
-      "hit_prob": 0.3027112133313129,
-      "ev_mult": 0.7279558788140575,
+      "hit_prob": 0.3201393442531921,
+      "ev_mult": 0.7293839993067796,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0155071397980884
+      "avg_fragility": 0.077363453928994
     },
     {
       "product": "Windfall",
       "n_legs": 4,
-      "legs": "Joel Embiid OVER FG3M 0.5 (GOBLIN) [id:11808132] | Quentin Grimes OVER PTS 6.5 (STANDARD) [id:11807618] | Payton Pritchard UNDER PA 17.5 (STANDARD) [id:11808264] | Neemias Queta OVER PRA 19.5 (DEMON) [id:11808833]",
+      "legs": "Baylor Scheierman OVER PTS 1.5 (GOBLIN) [id:11823874] | Neemias Queta OVER PRA 15.5 (STANDARD) [id:11808832] | Joel Embiid OVER PTS 26.5 (STANDARD) [id:11807455] | Quentin Grimes OVER PR 11.5 (DEMON) [id:11825571]",
       "legs_detail": [
         {
-          "raw": "Joel Embiid OVER FG3M 0.5 (GOBLIN) [id:11808132]",
-          "player": "Joel Embiid",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11808132
-        },
-        {
-          "raw": "Quentin Grimes OVER PTS 6.5 (STANDARD) [id:11807618]",
-          "player": "Quentin Grimes",
+          "raw": "Baylor Scheierman OVER PTS 1.5 (GOBLIN) [id:11823874]",
+          "player": "Baylor Scheierman",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 6.5,
-          "tier": "STANDARD",
-          "id": 11807618
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11823874
         },
         {
-          "raw": "Payton Pritchard UNDER PA 17.5 (STANDARD) [id:11808264]",
-          "player": "Payton Pritchard",
-          "dir": "UNDER",
-          "stat": "PA",
-          "line": 17.5,
-          "tier": "STANDARD",
-          "id": 11808264
-        },
-        {
-          "raw": "Neemias Queta OVER PRA 19.5 (DEMON) [id:11808833]",
+          "raw": "Neemias Queta OVER PRA 15.5 (STANDARD) [id:11808832]",
           "player": "Neemias Queta",
           "dir": "OVER",
           "stat": "PRA",
-          "line": 19.5,
+          "line": 15.5,
+          "tier": "STANDARD",
+          "id": 11808832
+        },
+        {
+          "raw": "Joel Embiid OVER PTS 26.5 (STANDARD) [id:11807455]",
+          "player": "Joel Embiid",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 26.5,
+          "tier": "STANDARD",
+          "id": 11807455
+        },
+        {
+          "raw": "Quentin Grimes OVER PR 11.5 (DEMON) [id:11825571]",
+          "player": "Quentin Grimes",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 11.5,
           "tier": "DEMON",
-          "id": 11808833
+          "id": 11825571
         }
       ],
-      "hit_prob": 0.2296200912209075,
-      "ev_mult": 0.9115196422189924,
+      "hit_prob": 0.2283729755790065,
+      "ev_mult": 0.9047278483526948,
       "payout_mult": 10.0,
-      "avg_fragility": 0.017599404738629
+      "avg_fragility": 0.045665865460907
     }
   ],
   "windfall_winprob": [
