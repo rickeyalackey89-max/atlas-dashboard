@@ -136,7 +136,7 @@
   <div class="nav-links">
     <a href="/" class="btn btn-outline">← Home</a>
     <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord">Discord</a>
-    <a href="#premium" class="btn btn-gold">Go Premium</a>
+    <a href="https://buy.stripe.com/00w00lgsickF8JC0Ho3cc03" target="_blank" rel="noopener" class="btn btn-gold" id="navPremiumBtn">Go Premium — $19.99/mo</a>
   </div>
 </nav>
 
@@ -168,7 +168,7 @@
     </div>
 
     <!-- SLIPS (PREMIUM) -->
-    <div class="card lock-overlay">
+    <div class="card lock-overlay" id="slipSection">
       <div class="card-label">Optimized Slips <span class="badge badge-premium">Premium</span></div>
       <div class="lock-blur">
         <div class="slip-card">
@@ -193,7 +193,7 @@
         <div class="lock-icon">🔒</div>
         <div class="lock-text">Premium Feature</div>
         <div class="lock-sub">Unlock all 3 optimized daily slips with full leg detail</div>
-        <a href="#premium" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+        <a href="https://buy.stripe.com/00w00lgsickF8JC0Ho3cc03" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
       </div>
     </div>
 
@@ -206,7 +206,7 @@
     <span class="section-head-title">Confidence & EV Rankings</span>
     <span class="badge badge-premium">Premium</span>
   </div>
-  <div class="card lock-overlay" style="margin-bottom:1px;">
+  <div class="card lock-overlay" id="evSection" style="margin-bottom:1px;">
     <div class="lock-blur" style="display:grid;grid-template-columns:repeat(4,1fr);">
       <div style="padding:20px;border-right:1px solid var(--b);">
         <div style="font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Player</div>
@@ -237,7 +237,7 @@
       <div class="lock-icon">🔒</div>
       <div class="lock-text">Premium Feature</div>
       <div class="lock-sub">Full confidence scores and EV rankings for every leg on the board</div>
-      <a href="#premium" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+      <a href="https://buy.stripe.com/00w00lgsickF8JC0Ho3cc03" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
     </div>
   </div>
 
@@ -299,8 +299,8 @@
     <div class="premium-cta-title">Unlock The Full <span style="color:var(--gold);">Edge</span></div>
     <p class="premium-cta-sub">Optimized 3, 4, and 5-leg slips. Full confidence and EV rankings. Complete board. Multi-sport coverage when it launches. Everything the model knows — yours daily.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord" style="padding:12px 28px;font-size:13px;">Join Discord First — Free</a>
-      <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-gold" style="padding:12px 28px;font-size:13px;">Premium — Coming Soon</a>
+      <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord" style="padding:12px 28px;font-size:13px;">Join Discord — Free</a>
+      <a href="https://buy.stripe.com/00w00lgsickF8JC0Ho3cc03" target="_blank" rel="noopener" class="btn btn-gold" style="padding:12px 28px;font-size:13px;">Unlock Premium — $19.99/mo</a>
     </div>
   </div>
 
@@ -369,6 +369,41 @@
       }).catch(function(){});
   }
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  // ── PREMIUM TOKEN GATE ──────────────────────────────────────────────────
+  var STRIPE_LINK = 'https://buy.stripe.com/00w00lgsickF8JC0Ho3cc03';
+
+  function verifyToken(token) {
+    try {
+      var data = JSON.parse(atob(token));
+      if (!data.expires || Date.now() > data.expires) return false;
+      return true;
+    } catch(e) { return false; }
+  }
+
+  function unlockPremium() {
+    // Remove lock overlays from premium sections
+    var sections = document.querySelectorAll('.lock-overlay');
+    sections.forEach(function(sec) {
+      sec.classList.remove('lock-overlay');
+      var blur = sec.querySelector('.lock-blur');
+      var badge = sec.querySelector('.lock-badge');
+      if (blur) { blur.style.filter = 'none'; blur.style.opacity = '1'; blur.style.pointerEvents = 'auto'; }
+      if (badge) badge.remove();
+    });
+    // Update nav button
+    var btn = document.getElementById('navPremiumBtn');
+    if (btn) { btn.textContent = '✓ Premium'; btn.style.background = 'var(--green)'; btn.style.color = '#000'; btn.removeAttribute('href'); btn.removeAttribute('target'); }
+  }
+
+  function checkPremiumAccess() {
+    var token = localStorage.getItem('atlas_premium_token');
+    if (token && verifyToken(token)) { unlockPremium(); return; }
+    // Check if returning from Stripe via welcome page redirect
+    // (welcome page stores token then sends user here)
+  }
+
+  checkPremiumAccess();
   loadDashboard();
 </script>
 </body>

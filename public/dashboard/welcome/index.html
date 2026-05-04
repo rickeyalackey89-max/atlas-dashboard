@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Welcome to Atlas Premium</title>
+  <style>
+    :root{--bg:#000;--gold:#f5a623;--cyan:#00d4ff;--green:#00e676;--t2:#888;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased;}
+    body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+      background-image:linear-gradient(rgba(0,212,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.018) 1px,transparent 1px);
+      background-size:80px 80px;}
+    .card{position:relative;z-index:1;max-width:480px;width:90%;padding:48px 40px;border:1px solid rgba(245,166,35,.25);text-align:center;}
+    .icon{font-size:48px;margin-bottom:20px;}
+    h1{font-size:28px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:10px;}
+    h1 span{color:var(--gold);}
+    .sub{font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:28px;}
+    .email-badge{display:inline-block;padding:6px 16px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);font-size:13px;color:var(--gold);margin-bottom:28px;font-weight:700;}
+    .btn{display:inline-block;padding:14px 32px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;}
+    .btn-gold{background:var(--gold);color:#000;}
+    .status{font-size:12px;color:var(--t2);margin-top:16px;}
+    .error-box{color:#f87171;font-size:14px;margin-bottom:20px;display:none;}
+    .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="icon">⏳</div>
+  <h1>Verifying <span>Payment</span></h1>
+  <p class="sub"><span class="spinner"></span>Checking your Stripe session...</p>
+</div>
+
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var sessionId = params.get('session_id');
+  var card = document.getElementById('card');
+
+  function showError(msg){
+    card.innerHTML = '<div class="icon">❌</div><h1>Verification <span style="color:#f87171">Failed</span></h1><p class="sub">'+msg+'</p><a href="/" class="btn btn-gold" style="margin-top:24px;">Return Home</a>';
+  }
+
+  function showSuccess(email){
+    card.innerHTML = '<div class="icon">🏆</div><h1>Welcome to <span>Premium</span></h1>'+
+      (email ? '<div class="email-badge">'+esc(email)+'</div>' : '')+
+      '<p class="sub">You now have full access to the Revolution dashboard — optimized slips, confidence rankings, EV scores, and everything the model produces daily.</p>'+
+      '<a href="/dashboard/" class="btn btn-gold">Enter The Revolution →</a>'+
+      '<p class="status">Access is stored in your browser. Use the same browser to retain access.</p>';
+  }
+
+  if(!sessionId){
+    showError('No session ID found. If you completed payment, <a href="https://discord.gg/uatU28mR" style="color:var(--gold)">contact us on Discord</a>.');
+    return;
+  }
+
+  fetch('/api/verify', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({session_id: sessionId})
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.ok && data.token){
+      localStorage.setItem('atlas_premium_token', data.token);
+      showSuccess(data.email);
+    } else {
+      showError(data.error || 'Payment could not be verified. <a href="https://discord.gg/uatU28mR" style="color:var(--gold)">Contact us on Discord</a>.');
+    }
+  })
+  .catch(function(){
+    showError('Network error during verification. Please try again or <a href="https://discord.gg/uatU28mR" style="color:var(--gold)">contact us on Discord</a>.');
+  });
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+})();
+</script>
+</body>
+</html>
