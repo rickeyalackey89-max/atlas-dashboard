@@ -7,7 +7,7 @@ export async function onRequestPost(context) {
     return new Response(JSON.stringify({ error: 'Missing env vars' }), { status: 200, headers: headers });
   }
 
-  var body = 'mode=subscription&ui_mode=embedded'
+  var body = 'mode=subscription&ui_mode=embedded_page'
     + '&line_items[0][price]=' + env.STRIPE_PRICE_ID
     + '&line_items[0][quantity]=1'
     + '&return_url=https%3A%2F%2Fatlassports.ai%2Fdashboard%2Fwelcome%3Fsession_id%3D%7BCHECKOUT_SESSION_ID%7D';
