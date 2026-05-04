@@ -19,8 +19,6 @@
     body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
       background-image:linear-gradient(rgba(0,212,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.018) 1px,transparent 1px);
       background-size:80px 80px;}
-
-    /* NAV */
     nav{position:sticky;top:0;z-index:100;height:56px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;
       background:rgba(0,0,0,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--b);}
     .nav-brand{display:flex;align-items:center;gap:10px;}
@@ -33,97 +31,105 @@
     .btn-outline{background:transparent;color:var(--text);border:1px solid var(--b2);}
     .btn-gold{background:var(--gold);color:#000;}
     .btn-discord{background:#5865f2;color:#fff;}
-
-    /* LAYOUT */
     .page{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:32px 24px 80px;}
     @media(max-width:640px){.page{padding:20px 16px 60px;}}
-
-    /* PAGE HEADER */
     .page-header{padding:40px 0 32px;border-bottom:1px solid var(--b);margin-bottom:32px;}
     .page-eyebrow{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
     .page-eyebrow::before{content:"//";color:var(--t3);}
-    .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;}
+    .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;display:inline-block;}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
     .page-title{font-size:clamp(28px,5vw,48px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:.95;}
     .page-title span{color:var(--cyan);}
     .page-sub{margin-top:12px;font-size:14px;color:var(--t2);max-width:560px;}
-
-    /* GRID */
     .dash-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--b);}
-    .dash-grid-2{display:grid;grid-template-columns:2fr 1fr;gap:1px;background:var(--b);}
-    .dash-grid-full{display:grid;grid-template-columns:1fr;gap:1px;background:var(--b);}
-    @media(max-width:900px){.dash-grid,.dash-grid-2{grid-template-columns:1fr;}}
-    .gap{height:1px;background:var(--b);margin:32px 0;}
-
-    /* CARDS */
+    @media(max-width:640px){.dash-grid{grid-template-columns:1fr 1fr;}}
+    .stat-tile{background:var(--s1);padding:24px;}
+    .tile-val{font-size:36px;font-weight:900;letter-spacing:-.04em;line-height:1;}
+    .tile-lbl{font-size:9px;color:var(--t2);text-transform:uppercase;letter-spacing:.14em;margin-top:6px;}
+    .sport-tabs{display:flex;gap:0;border-bottom:1px solid var(--b);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+    .sport-tabs::-webkit-scrollbar{display:none;}
+    .sport-tab{padding:14px 22px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--t2);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s;display:flex;align-items:center;gap:7px;}
+    .sport-tab:hover{color:var(--text);}
+    .sport-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+    .sport-tab.disabled{cursor:default;opacity:.35;pointer-events:none;}
+    .coming-badge{font-size:8px;font-weight:800;letter-spacing:.08em;padding:2px 5px;border:1px solid var(--t3);color:var(--t2);}
+    .sub-tabs{display:flex;gap:0;border-bottom:1px solid var(--b);margin-bottom:28px;overflow-x:auto;scrollbar-width:none;}
+    .sub-tabs::-webkit-scrollbar{display:none;}
+    .sub-tab{padding:11px 20px;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--t2);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s;}
+    .sub-tab:hover{color:var(--text);}
+    .sub-tab.active{color:var(--text);border-bottom-color:var(--gold);}
     .card{background:var(--s1);padding:24px;}
     .card-label{font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--t2);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
-    .card-title{font-size:16px;font-weight:800;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:4px;}
-
-    /* PREMIUM LOCK */
+    .badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border:1px solid;}
+    .badge-free{color:#60a5fa;border-color:rgba(96,165,250,.35);}
+    .badge-premium{color:var(--gold);border-color:rgba(245,166,35,.35);}
+    .badge-live{color:var(--green);border-color:rgba(0,230,118,.35);}
+    .no-data{text-align:center;padding:32px;font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;}
     .lock-overlay{position:relative;overflow:hidden;}
     .lock-overlay .lock-blur{filter:blur(6px);pointer-events:none;user-select:none;opacity:.4;}
     .lock-badge{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;z-index:2;}
     .lock-icon{font-size:28px;}
     .lock-text{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
-    .lock-sub{font-size:11px;color:var(--t2);text-align:center;max-width:200px;line-height:1.5;}
-
-    /* PICKS */
-    .pick-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--b);}
-    .pick-row:last-child{border-bottom:none;}
-    .pick-player{font-size:15px;font-weight:800;letter-spacing:-.01em;}
-    .pick-meta{font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;}
-    .pick-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
-    .pick-line{font-size:22px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.04em;}
-    .dir-over{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;background:rgba(74,222,128,.1);color:#4ade80;}
-    .dir-under{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;background:rgba(248,113,113,.1);color:#f87171;}
-
-    /* SLIP CARDS */
-    .slip-card{padding:20px;border-bottom:1px solid var(--b);}
-    .slip-card:last-child{border-bottom:none;}
-    .slip-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-    .slip-name{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;}
-    .slip-badge{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border:1px solid;}
-    .slip-legs{display:flex;flex-direction:column;gap:8px;}
-    .slip-leg{display:flex;justify-content:space-between;align-items:center;font-size:13px;}
-    .slip-leg-left{color:var(--t2);}
-    .slip-leg-right{font-weight:700;font-variant-numeric:tabular-nums;}
-
-    /* STAT TILES */
-    .stat-tile{padding:24px;border-right:1px solid var(--b);}
-    .stat-tile:last-child{border-right:none;}
-    .tile-val{font-size:36px;font-weight:900;letter-spacing:-.04em;line-height:1;}
-    .tile-lbl{font-size:9px;color:var(--t2);text-transform:uppercase;letter-spacing:.14em;margin-top:6px;}
-
-    /* SLATE */
-    .game-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--b);}
+    .lock-sub{font-size:11px;color:var(--t2);text-align:center;max-width:220px;line-height:1.5;}
+    .prob-header{display:grid;grid-template-columns:2fr 0.7fr 0.7fr 0.7fr 0.7fr 1.2fr;gap:12px;padding:0 0 10px;border-bottom:1px solid var(--b);margin-bottom:2px;}
+    .prob-header-cell{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);}
+    .prob-row{display:grid;grid-template-columns:2fr 0.7fr 0.7fr 0.7fr 0.7fr 1.2fr;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--b);}
+    .prob-row:last-child{border-bottom:none;}
+    .prob-player{font-size:14px;font-weight:800;letter-spacing:-.01em;}
+    .prob-meta{font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.07em;margin-top:2px;}
+    .prob-cell{font-size:13px;font-weight:700;text-align:center;}
+    .prob-line{font-size:16px;font-weight:900;letter-spacing:-.03em;text-align:right;font-variant-numeric:tabular-nums;}
+    .prob-pct-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
+    .prob-pct{font-size:15px;font-weight:900;letter-spacing:-.02em;}
+    .prob-bar-track{width:70px;height:3px;background:var(--b2);border-radius:2px;}
+    .prob-bar-fill{height:100%;border-radius:2px;}
+    .ev-row{display:grid;grid-template-columns:2fr 0.7fr 0.7fr 0.7fr 0.9fr 1fr;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--b);}
+    .ev-row:last-child{border-bottom:none;}
+    .ev-edge{font-size:15px;font-weight:900;color:var(--cyan);text-align:right;}
+    .dir-over{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;background:rgba(74,222,128,.1);color:#4ade80;text-align:center;}
+    .dir-under{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;background:rgba(248,113,113,.1);color:#f87171;text-align:center;}
+    .tier-goblin{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:#a78bfa;border:1px solid rgba(167,139,250,.25);}
+    .tier-standard{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:#60a5fa;border:1px solid rgba(96,165,250,.25);}
+    .tier-demon{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:var(--gold);border:1px solid rgba(245,166,35,.25);}
+    @media(max-width:760px){
+      .prob-header,.prob-row{grid-template-columns:2fr 0.7fr 0.7fr 1fr;}
+      .ev-row{grid-template-columns:2fr 0.7fr 0.7fr 1fr;}
+      .prob-col-tier,.prob-col-stat,.ev-col-conf,.ev-col-stat{display:none;}
+    }
+    .prob-more-lock{padding:18px 0 4px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .prob-more-text{font-size:12px;color:var(--t2);}
+    .prob-more-text strong{color:var(--text);}
+    .game-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--b);}
     .game-row:last-child{border-bottom:none;}
-    .game-teams{font-size:14px;font-weight:700;letter-spacing:-.01em;}
-    .game-time{font-size:11px;color:var(--t2);margin-top:2px;}
+    .game-teams{font-size:15px;font-weight:800;letter-spacing:-.01em;}
     .game-meta{text-align:right;font-size:11px;color:var(--t2);}
-
-    /* EDUCATION */
     .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--b);}
     @media(max-width:700px){.edu-grid{grid-template-columns:1fr;}}
     .edu-card{background:var(--s1);padding:24px;}
     .edu-icon{font-size:24px;margin-bottom:12px;}
     .edu-title{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:8px;}
     .edu-body{font-size:13px;color:var(--t2);line-height:1.7;}
-
-    /* PREMIUM CTA */
-    .premium-cta{background:linear-gradient(135deg,rgba(245,166,35,.08) 0%,transparent 60%);border:1px solid rgba(245,166,35,.2);padding:40px;text-align:center;margin-top:32px;}
-    .premium-cta-title{font-size:clamp(22px,4vw,36px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:12px;}
-    .premium-cta-sub{font-size:14px;color:var(--t2);max-width:480px;margin:0 auto 28px;line-height:1.7;}
-
+    .slip-family{margin-bottom:28px;}
+    .slip-family-header{font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--t2);padding:14px 0 12px;border-bottom:1px solid var(--b);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .slip-card{background:var(--s2);padding:20px;margin-bottom:1px;}
+    .slip-card:last-child{margin-bottom:0;}
+    .slip-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0;gap:12px;flex-wrap:wrap;}
+    .slip-meta-row{display:flex;gap:18px;font-size:11px;color:var(--t2);}
+    .slip-meta-val{font-weight:800;color:var(--text);}
+    .slip-legs-list{display:flex;flex-direction:column;margin-top:14px;}
+    .slip-leg{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:8px 0;border-bottom:1px solid var(--b);}
+    .slip-leg:last-child{border-bottom:none;}
+    .slip-leg-left{color:var(--t2);}
+    .slip-leg-left strong{color:var(--text);font-weight:700;}
+    .slip-leg-right{display:flex;align-items:center;gap:8px;font-weight:700;font-variant-numeric:tabular-nums;}
+    .slip-n-badge{padding:3px 8px;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border:1px solid;}
     .section-gap{height:32px;}
     .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;}
     .section-head-title{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);}
     .section-head-title::before{content:"// ";color:var(--t3);}
-    .badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border:1px solid;}
-    .badge-free{color:#60a5fa;border-color:rgba(96,165,250,.35);}
-    .badge-premium{color:var(--gold);border-color:rgba(245,166,35,.35);}
-    .badge-live{color:var(--green);border-color:rgba(0,230,118,.35);}
-    .no-data{text-align:center;padding:32px;font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;}
+    .premium-cta{background:linear-gradient(135deg,rgba(245,166,35,.08) 0%,transparent 60%);border:1px solid rgba(245,166,35,.2);padding:40px;text-align:center;margin-top:48px;}
+    .premium-cta-title{font-size:clamp(22px,4vw,36px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:12px;}
+    .premium-cta-sub{font-size:14px;color:var(--t2);max-width:480px;margin:0 auto 28px;line-height:1.7;}
   </style>
 </head>
 <body>
@@ -134,277 +140,347 @@
     <span class="nav-wordmark">Atlas <span>Sports</span> AI</span>
   </div>
   <div class="nav-links">
-    <a href="/" class="btn btn-outline">← Home</a>
+    <a href="/" class="btn btn-outline">&#8592; Home</a>
     <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord">Discord</a>
-    <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" id="navPremiumBtn">Go Premium — $19.99/mo</a>
+    <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" id="navPremiumBtn">Go Premium</a>
   </div>
 </nav>
 
 <div class="page">
 
-  <!-- PAGE HEADER -->
   <div class="page-header">
-    <div class="page-eyebrow"><span class="live-dot"></span>Live — NBA 2025-26</div>
+    <div class="page-eyebrow"><span class="live-dot"></span>Live &#8212; NBA 2025-26</div>
     <h1 class="page-title">The <span>Revolution</span></h1>
-    <p class="page-sub">Your daily edge. AI-driven picks, slips, stats, and confidence rankings — all in one place. Premium unlocks the full model.</p>
+    <p class="page-sub">Your daily edge. AI-driven picks, slips, stats, and confidence rankings &#8212; all in one place. Premium unlocks the full model.</p>
   </div>
 
-  <!-- TOP STAT TILES -->
   <div class="dash-grid" style="margin-bottom:1px;">
-    <div class="stat-tile card"><div class="tile-val" style="color:var(--gold);" id="totalPicks">—</div><div class="tile-lbl">Picks Today</div></div>
-    <div class="stat-tile card"><div class="tile-val" style="color:var(--cyan);" id="totalSlips">—</div><div class="tile-lbl">Daily Slips</div></div>
-    <div class="stat-tile card"><div class="tile-val" style="color:var(--green);" id="slateGames">—</div><div class="tile-lbl">Games on Slate</div></div>
+    <div class="stat-tile"><div class="tile-val" style="color:var(--gold);" id="totalPicks">&#8212;</div><div class="tile-lbl">Picks Today</div></div>
+    <div class="stat-tile"><div class="tile-val" style="color:var(--cyan);" id="totalSlips">&#8212;</div><div class="tile-lbl">Daily Slips</div></div>
+    <div class="stat-tile"><div class="tile-val" style="color:var(--green);" id="slateGames">&#8212;</div><div class="tile-lbl">Games on Slate</div></div>
   </div>
 
   <div class="section-gap"></div>
 
-  <!-- PICKS + SLIPS ROW -->
-  <div class="dash-grid-2" style="margin-bottom:1px;">
+  <div class="sport-tabs">
+    <button class="sport-tab active"><span class="live-dot"></span>NBA</button>
+    <button class="sport-tab disabled">MLB <span class="coming-badge">Soon</span></button>
+    <button class="sport-tab disabled">NFL <span class="coming-badge">Soon</span></button>
+    <button class="sport-tab disabled">College <span class="coming-badge">Soon</span></button>
+    <button class="sport-tab disabled">Soccer <span class="coming-badge">Soon</span></button>
+  </div>
 
-    <!-- TODAY'S PICKS (FREE) -->
-    <div class="card">
-      <div class="card-label">Today's Picks <span class="badge badge-free">Free</span></div>
-      <div id="picksList"><div class="no-data">Loading picks...</div></div>
+  <div id="panel-nba">
+    <div class="sub-tabs" style="margin-top:0;">
+      <button class="sub-tab active" data-sub="probability" onclick="switchSubTab('probability')">Probability</button>
+      <button class="sub-tab" data-sub="ev" onclick="switchSubTab('ev')">EV Legs</button>
+      <button class="sub-tab" data-sub="stathub" onclick="switchSubTab('stathub')">Stat Hub</button>
+      <button class="sub-tab" data-sub="slips" onclick="switchSubTab('slips')">Slips</button>
     </div>
 
-    <!-- SLIPS (PREMIUM) -->
-    <div class="card lock-overlay" id="slipSection">
-      <div class="card-label">Optimized Slips <span class="badge badge-premium">Premium</span></div>
-      <div class="lock-blur">
-        <div class="slip-card">
-          <div class="slip-header"><span class="slip-name">System Slip A</span><span class="slip-badge" style="color:#4ade80;border-color:rgba(74,222,128,.35);">3-Leg</span></div>
-          <div class="slip-legs">
-            <div class="slip-leg"><span class="slip-leg-left">Player One — Points</span><span class="slip-leg-right">24.5 OVER</span></div>
-            <div class="slip-leg"><span class="slip-leg-left">Player Two — Assists</span><span class="slip-leg-right">6.5 OVER</span></div>
-            <div class="slip-leg"><span class="slip-leg-left">Player Three — Rebounds</span><span class="slip-leg-right">8.5 UNDER</span></div>
+    <!-- PROBABILITY -->
+    <div id="sub-probability" class="sub-panel">
+      <div class="card">
+        <div class="card-label">Probability Rankings <span class="badge badge-free" id="probBadge">Free Preview</span></div>
+        <div class="prob-header">
+          <div class="prob-header-cell">Player</div>
+          <div class="prob-header-cell prob-col-stat" style="text-align:center;">Stat</div>
+          <div class="prob-header-cell" style="text-align:right;">Line</div>
+          <div class="prob-header-cell" style="text-align:center;">Dir</div>
+          <div class="prob-header-cell prob-col-tier" style="text-align:center;">Tier</div>
+          <div class="prob-header-cell" style="text-align:right;">Probability</div>
+        </div>
+        <div id="probList"><div class="no-data">Loading picks...</div></div>
+      </div>
+    </div>
+
+    <!-- EV LEGS -->
+    <div id="sub-ev" class="sub-panel" style="display:none;">
+      <div class="lock-overlay" id="evLockWrap">
+        <div class="lock-blur">
+          <div class="card">
+            <div class="card-label">Edge Rankings <span class="badge badge-premium">Premium</span></div>
+            <div class="prob-header">
+              <div class="prob-header-cell">Player</div>
+              <div class="prob-header-cell ev-col-stat" style="text-align:center;">Stat</div>
+              <div class="prob-header-cell" style="text-align:right;">Line</div>
+              <div class="prob-header-cell" style="text-align:center;">Dir</div>
+              <div class="prob-header-cell ev-col-conf" style="text-align:right;">Confidence</div>
+              <div class="prob-header-cell" style="text-align:right;">Edge</div>
+            </div>
+            <div id="evList"><div class="no-data">Loading...</div></div>
           </div>
         </div>
-        <div class="slip-card">
-          <div class="slip-header"><span class="slip-name">System Slip B</span><span class="slip-badge" style="color:#60a5fa;border-color:rgba(96,165,250,.35);">4-Leg</span></div>
-          <div class="slip-legs">
-            <div class="slip-leg"><span class="slip-leg-left">Player A — Points</span><span class="slip-leg-right">31.5 OVER</span></div>
-            <div class="slip-leg"><span class="slip-leg-left">Player B — Threes</span><span class="slip-leg-right">2.5 OVER</span></div>
-            <div class="slip-leg"><span class="slip-leg-left">Player C — Points</span><span class="slip-leg-right">18.5 UNDER</span></div>
-            <div class="slip-leg"><span class="slip-leg-left">Player D — Assists</span><span class="slip-leg-right">9.5 OVER</span></div>
-          </div>
+        <div class="lock-badge">
+          <div class="lock-icon">&#128274;</div>
+          <div class="lock-text">Premium Feature</div>
+          <div class="lock-sub">Full edge rankings for every leg where the model has conviction above market</div>
+          <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
         </div>
       </div>
-      <div class="lock-badge">
-        <div class="lock-icon">🔒</div>
-        <div class="lock-text">Premium Feature</div>
-        <div class="lock-sub">Unlock all 3 optimized daily slips with full leg detail</div>
-        <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+    </div>
+
+    <!-- STAT HUB -->
+    <div id="sub-stathub" class="sub-panel" style="display:none;">
+      <div class="section-head"><span class="section-head-title">Today&#39;s Slate</span><span class="badge badge-live">Live</span></div>
+      <div class="card" style="margin-bottom:1px;">
+        <div id="slateList"><div class="no-data">Loading slate...</div></div>
+      </div>
+      <div class="section-gap"></div>
+      <div class="section-head"><span class="section-head-title">Betting Basics</span><span class="badge badge-free">Free</span></div>
+      <div class="edu-grid">
+        <div class="edu-card"><div class="edu-icon">&#128202;</div><div class="edu-title">What is a Parlay?</div><p class="edu-body">A parlay combines multiple picks into one slip. All legs must hit for you to win. Higher risk, higher payout. Atlas optimizes the leg selection so you play the highest-edge combinations.</p></div>
+        <div class="edu-card"><div class="edu-icon">&#9878;&#65039;</div><div class="edu-title">What is Expected Value?</div><p class="edu-body">EV measures the long-run return of a bet. A positive EV pick means the true probability of hitting exceeds what the market is pricing in. Atlas finds these edges daily.</p></div>
+        <div class="edu-card"><div class="edu-icon">&#127919;</div><div class="edu-title">Over vs Under</div><p class="edu-body">Over means a player exceeds a stat line. Under means they fall below it. Atlas scores both directions independently &#8212; some UNDER picks carry just as much edge as OVERs.</p></div>
+        <div class="edu-card"><div class="edu-icon">&#128200;</div><div class="edu-title">What is a Line?</div><p class="edu-body">The line is the threshold set by the sportsbook &#8212; e.g. "23.5 points." Atlas compares each player&#39;s simulated distribution against that line to find where the book is wrong.</p></div>
+        <div class="edu-card"><div class="edu-icon">&#128115;</div><div class="edu-title">Bankroll Management</div><p class="edu-body">Never bet more than you can afford to lose. A flat-unit approach &#8212; same stake per slip &#8212; is the most consistent way to grow over time. The edge compounds. Blown bankrolls don&#39;t.</p></div>
+        <div class="edu-card"><div class="edu-icon">&#128290;</div><div class="edu-title">What is Confidence?</div><p class="edu-body">Atlas confidence is the calibrated probability that a leg hits, expressed as a percentage. 80%+ is high. These are legs the model sees a strong signal on relative to the market line.</p></div>
+      </div>
+    </div>
+
+    <!-- SLIPS -->
+    <div id="sub-slips" class="sub-panel" style="display:none;">
+      <div class="lock-overlay" id="slipsLockWrap">
+        <div class="lock-blur">
+          <div id="slipsList"><div class="no-data">Loading slips...</div></div>
+        </div>
+        <div class="lock-badge">
+          <div class="lock-icon">&#128274;</div>
+          <div class="lock-text">Premium Feature</div>
+          <div class="lock-sub">All optimized slips &#8212; System, Windfall, and DemonHunter families with full leg detail</div>
+          <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+        </div>
       </div>
     </div>
 
   </div>
 
-  <div class="section-gap"></div>
-
-  <!-- CONFIDENCE + EV (PREMIUM) -->
-  <div class="section-head">
-    <span class="section-head-title">Confidence & EV Rankings</span>
-    <span class="badge badge-premium">Premium</span>
-  </div>
-  <div class="card lock-overlay" id="evSection" style="margin-bottom:1px;">
-    <div class="lock-blur" style="display:grid;grid-template-columns:repeat(4,1fr);">
-      <div style="padding:20px;border-right:1px solid var(--b);">
-        <div style="font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Player</div>
-        <div style="font-size:14px;font-weight:700;margin-bottom:6px;">P. Name</div>
-        <div style="font-size:14px;font-weight:700;margin-bottom:6px;">P. Name</div>
-        <div style="font-size:14px;font-weight:700;">P. Name</div>
-      </div>
-      <div style="padding:20px;border-right:1px solid var(--b);">
-        <div style="font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Confidence</div>
-        <div style="font-size:14px;font-weight:700;color:var(--green);margin-bottom:6px;">94%</div>
-        <div style="font-size:14px;font-weight:700;color:var(--green);margin-bottom:6px;">88%</div>
-        <div style="font-size:14px;font-weight:700;color:var(--gold);">76%</div>
-      </div>
-      <div style="padding:20px;border-right:1px solid var(--b);">
-        <div style="font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">EV Score</div>
-        <div style="font-size:14px;font-weight:700;color:var(--cyan);margin-bottom:6px;">+2.4</div>
-        <div style="font-size:14px;font-weight:700;color:var(--cyan);margin-bottom:6px;">+1.8</div>
-        <div style="font-size:14px;font-weight:700;color:var(--cyan);">+1.2</div>
-      </div>
-      <div style="padding:20px;">
-        <div style="font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Line</div>
-        <div style="font-size:14px;font-weight:700;margin-bottom:6px;">28.5 OVR</div>
-        <div style="font-size:14px;font-weight:700;margin-bottom:6px;">7.5 OVR</div>
-        <div style="font-size:14px;font-weight:700;">11.5 UND</div>
-      </div>
-    </div>
-    <div class="lock-badge">
-      <div class="lock-icon">🔒</div>
-      <div class="lock-text">Premium Feature</div>
-      <div class="lock-sub">Full confidence scores and EV rankings for every leg on the board</div>
-      <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
-    </div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- TODAY'S SLATE (FREE) -->
-  <div class="section-head">
-    <span class="section-head-title">Today's Slate</span>
-    <span class="badge badge-live">Live</span>
-  </div>
-  <div class="card" style="margin-bottom:1px;">
-    <div id="slateList"><div class="no-data">Loading slate...</div></div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- BETTING EDUCATION (FREE) -->
-  <div class="section-head">
-    <span class="section-head-title">Betting Basics</span>
-    <span class="badge badge-free">Free</span>
-  </div>
-  <div class="edu-grid" style="margin-bottom:1px;">
-    <div class="edu-card">
-      <div class="edu-icon">📊</div>
-      <div class="edu-title">What is a Parlay?</div>
-      <p class="edu-body">A parlay combines multiple picks into one slip. All legs must hit for you to win. Higher risk, higher payout. Atlas optimizes the leg selection so you play the highest-edge combinations.</p>
-    </div>
-    <div class="edu-card">
-      <div class="edu-icon">⚖️</div>
-      <div class="edu-title">What is Expected Value?</div>
-      <p class="edu-body">EV measures the long-run return of a bet. A positive EV pick means the true probability of hitting exceeds what the market is pricing in. Atlas finds these edges daily.</p>
-    </div>
-    <div class="edu-card">
-      <div class="edu-icon">🎯</div>
-      <div class="edu-title">Over vs Under</div>
-      <p class="edu-body">Over means a player exceeds a stat line. Under means they fall below it. Atlas scores both directions independently — some UNDER picks carry just as much edge as OVERs.</p>
-    </div>
-    <div class="edu-card">
-      <div class="edu-icon">📈</div>
-      <div class="edu-title">What is a Line?</div>
-      <p class="edu-body">The line is the threshold set by the sportsbook — e.g. "23.5 points." Atlas compares each player's simulated distribution against that line to find where the book is wrong.</p>
-    </div>
-    <div class="edu-card">
-      <div class="edu-icon">🛡️</div>
-      <div class="edu-title">Bankroll Management</div>
-      <p class="edu-body">Never bet more than you can afford to lose. A flat-unit approach — same stake per slip — is the most consistent way to grow over time. The edge compounds. Blown bankrolls don't.</p>
-    </div>
-    <div class="edu-card">
-      <div class="edu-icon">🔢</div>
-      <div class="edu-title">What is Confidence?</div>
-      <p class="edu-body">Atlas confidence is the calibrated probability that a leg hits, expressed as a percentage. 80%+ is high. These are legs the model sees a strong signal on relative to the market line.</p>
-    </div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- PREMIUM CTA -->
-  <div class="premium-cta" id="premium">
+  <div class="premium-cta" id="premiumCta">
     <div class="premium-cta-title">Unlock The Full <span style="color:var(--gold);">Edge</span></div>
-    <p class="premium-cta-sub">Optimized 3, 4, and 5-leg slips. Full confidence and EV rankings. Complete board. Multi-sport coverage when it launches. Everything the model knows — yours daily.</p>
+    <p class="premium-cta-sub">All 14 daily slips. Full probability and EV rankings for every leg on the board. Everything the model knows &#8212; yours daily.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord" style="padding:12px 28px;font-size:13px;">Join Discord — Free</a>
-      <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="padding:12px 28px;font-size:13px;">Unlock Premium — $19.99/mo</a>
+      <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord" style="padding:12px 28px;font-size:13px;">Join Discord &#8212; Free</a>
+      <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="padding:12px 28px;font-size:13px;">Unlock Premium &#8212; $19.99/mo</a>
     </div>
   </div>
 
 </div>
 
 <script>
-  function loadDashboard() {
-    fetch('/data/cloudflare_payload.json?t=' + Date.now())
-      .then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(data){
-        if (!data) return;
-        // Collect unique legs by tier
-        var TIER_ORDER = ['GOBLIN','STANDARD','DEMON'];
-        var seen = {}, allLegs = [];
-        var totalSlips = (data.system||[]).length + (data.system_winprob||[]).length +
-          (data.windfall||[]).length + (data.windfall_winprob||[]).length + (data.demonhunter||[]).length;
-        document.getElementById('totalSlips').textContent = totalSlips || '—';
-        var sources = (data.system||[]).concat(data.system_winprob||[]).concat(data.windfall||[])
-          .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.marketed_slips||[]);
-        for (var i=0;i<sources.length;i++){
-          var sl=sources[i], legs=sl.legs_detail||sl.legs||[];
-          for(var j=0;j<legs.length;j++){
-            var leg=legs[j], key=(leg.player||'')+'|'+(leg.stat||'')+'|'+(leg.line||'')+'|'+(leg.dir||'');
-            if(!seen[key]){seen[key]=true;allLegs.push(leg);}
-          }
-        }
-        // Top pick per tier
-        var picks={},ts={};
-        for(var i=0;i<allLegs.length;i++){
-          var leg=allLegs[i],t=(leg.tier||'').toUpperCase();
-          if(TIER_ORDER.indexOf(t)>=0&&!ts[t]){ts[t]=true;picks[t]=leg;}
-        }
-        var topLegs=[];
-        for(var k=0;k<TIER_ORDER.length;k++){if(picks[TIER_ORDER[k]])topLegs.push(picks[TIER_ORDER[k]]);}
+  var isPremium = false;
+  var FREE_PROB_LIMIT = 5;
 
-        // Render picks
-        document.getElementById('totalPicks').textContent = allLegs.length;
-        var pl = document.getElementById('picksList');
-        if(!topLegs.length){pl.innerHTML='<div class="no-data">No picks today yet.</div>';return;}
-        pl.innerHTML='';
-        for(var i=0;i<topLegs.length;i++){
-          var leg=topLegs[i], dir=(leg.dir||'').toLowerCase();
-          var row=document.createElement('div'); row.className='pick-row';
-          row.innerHTML='<div><div class="pick-player">'+esc(leg.player||'—')+'</div><div class="pick-meta">'+esc(leg.stat||'')+(leg.team?' · '+esc(leg.team):'')+' '+(leg.opp?'vs '+esc(leg.opp):'')+'</div></div>'+
-            '<div class="pick-right"><div class="pick-line">'+esc(String(leg.line||'—'))+'</div><span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span></div>';
-          pl.appendChild(row);
-        }
-
-        // Slate from teams in legs — normalize key so A@B and B@A are the same game
-        var teams={};
-        for(var i=0;i<allLegs.length;i++){
-          var leg=allLegs[i];
-          if(leg.team&&leg.opp){
-            var sorted=[leg.team,leg.opp].sort();
-            var gk=sorted[0]+'@'+sorted[1];
-            if(!teams[gk])teams[gk]={home:leg.opp,away:leg.team};
-          }
-        }
-        var games=Object.keys(teams);
-        document.getElementById('slateGames').textContent=games.length||'—';
-        var sl=document.getElementById('slateList');
-        if(!games.length){sl.innerHTML='<div class="no-data">Slate data loads with picks.</div>';return;}
-        sl.innerHTML='';
-        for(var i=0;i<games.length;i++){
-          var g=teams[games[i]];
-          var row=document.createElement('div'); row.className='game-row';
-          row.innerHTML='<div><div class="game-teams">'+esc(g.away)+' <span style="color:var(--t2);">@</span> '+esc(g.home)+'</div><div class="game-time">NBA · Today</div></div><div class="game-meta">Props available</div>';
-          sl.appendChild(row);
-        }
-      }).catch(function(){});
-  }
-  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-  // ── PREMIUM TOKEN GATE ──────────────────────────────────────────────────
-  var STRIPE_LINK = '/checkout/';
-
-  function verifyToken(token) {
-    try {
-      var data = JSON.parse(atob(token));
-      if (!data.expires || Date.now() > data.expires) return false;
-      return true;
-    } catch(e) { return false; }
-  }
-
-  function unlockPremium() {
-    // Remove lock overlays from premium sections
-    var sections = document.querySelectorAll('.lock-overlay');
-    sections.forEach(function(sec) {
-      sec.classList.remove('lock-overlay');
-      var blur = sec.querySelector('.lock-blur');
-      var badge = sec.querySelector('.lock-badge');
-      if (blur) { blur.style.filter = 'none'; blur.style.opacity = '1'; blur.style.pointerEvents = 'auto'; }
-      if (badge) badge.remove();
+  function switchSubTab(sub) {
+    document.querySelectorAll('.sub-tab').forEach(function(t){
+      t.classList.toggle('active', t.getAttribute('data-sub') === sub);
     });
-    // Update nav button
-    var btn = document.getElementById('navPremiumBtn');
-    if (btn) { btn.textContent = '✓ Premium'; btn.style.background = 'var(--green)'; btn.style.color = '#000'; btn.removeAttribute('href'); btn.removeAttribute('target'); }
+    document.querySelectorAll('.sub-panel').forEach(function(p){ p.style.display='none'; });
+    var panel = document.getElementById('sub-'+sub);
+    if (panel) panel.style.display='block';
   }
 
-  function checkPremiumAccess() {
-    var token = localStorage.getItem('atlas_premium_token');
-    if (token && verifyToken(token)) { unlockPremium(); return; }
-    // Check if returning from Stripe via welcome page redirect
-    // (welcome page stores token then sends user here)
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function pctColor(p){
+    if(p>=0.80) return 'var(--green)';
+    if(p>=0.65) return 'var(--gold)';
+    return 'var(--t2)';
+  }
+
+  function tierClass(tier){
+    var t=(tier||'').toUpperCase();
+    if(t==='GOBLIN') return 'tier-goblin';
+    if(t==='DEMON')  return 'tier-demon';
+    return 'tier-standard';
+  }
+
+  function getUniqueLegs(data){
+    var seen={},legs=[];
+    var slips=data.marketed_slips||[];
+    for(var i=0;i<slips.length;i++){
+      var ls=slips[i].legs||[];
+      for(var j=0;j<ls.length;j++){
+        var leg=ls[j],key=(leg.player||'')+'|'+(leg.stat||'')+'|'+(leg.line||'')+'|'+(leg.dir||'');
+        if(!seen[key]){seen[key]=true;legs.push(leg);}
+      }
+    }
+    return legs;
+  }
+
+  function getGames(legs){
+    var teams={};
+    for(var i=0;i<legs.length;i++){
+      var leg=legs[i];
+      if(leg.team&&leg.opp){
+        var sorted=[leg.team,leg.opp].sort();
+        var gk=sorted[0]+'@'+sorted[1];
+        if(!teams[gk])teams[gk]={away:leg.team,home:leg.opp};
+      }
+    }
+    return Object.keys(teams).map(function(k){return teams[k];});
+  }
+
+  function buildProbRow(leg){
+    var p=leg.p_cal||0,pPct=Math.round(p*100),barW=Math.max(0,Math.min(100,pPct)),color=pctColor(p),dir=(leg.dir||'').toLowerCase();
+    var row=document.createElement('div'); row.className='prob-row';
+    row.innerHTML=
+      '<div><div class="prob-player">'+esc(leg.player||'&#8212;')+'</div>'+
+        '<div class="prob-meta">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+'</div></div>'+
+      '<div class="prob-cell prob-col-stat" style="color:var(--t2);font-size:11px;text-transform:uppercase;letter-spacing:.07em;">'+esc(leg.stat||'&#8212;')+'</div>'+
+      '<div class="prob-line">'+esc(String(leg.line||'&#8212;'))+'</div>'+
+      '<div class="prob-cell"><span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span></div>'+
+      '<div class="prob-cell prob-col-tier"><span class="'+tierClass(leg.tier)+'">'+esc(leg.tier||'&#8212;')+'</span></div>'+
+      '<div class="prob-pct-wrap"><div class="prob-pct" style="color:'+color+';">'+pPct+'%</div>'+
+        '<div class="prob-bar-track"><div class="prob-bar-fill" style="width:'+barW+'%;background:'+color+';"></div></div></div>';
+    return row;
+  }
+
+  function buildStatTiles(data,allLegs){
+    var totalSlips=(data.system||[]).length+(data.system_winprob||[]).length+
+      (data.windfall||[]).length+(data.windfall_winprob||[]).length+(data.demonhunter||[]).length;
+    document.getElementById('totalPicks').textContent=allLegs.length||'&#8212;';
+    document.getElementById('totalSlips').textContent=totalSlips||'&#8212;';
+    document.getElementById('slateGames').textContent=getGames(allLegs).length||'&#8212;';
+  }
+
+  function buildProbTab(allLegs){
+    var sorted=allLegs.slice().sort(function(a,b){return(b.p_cal||0)-(a.p_cal||0);});
+    var pl=document.getElementById('probList'); pl.innerHTML='';
+    if(!sorted.length){pl.innerHTML='<div class="no-data">No picks today yet.</div>';return;}
+    var show=isPremium?sorted:sorted.slice(0,FREE_PROB_LIMIT);
+    for(var i=0;i<show.length;i++) pl.appendChild(buildProbRow(show[i]));
+    if(!isPremium&&sorted.length>FREE_PROB_LIMIT){
+      var extra=sorted.length-FREE_PROB_LIMIT;
+      var lock=document.createElement('div'); lock.className='prob-more-lock';
+      lock.innerHTML='<span class="prob-more-text"><strong>+'+extra+' more picks</strong> &#8212; unlock full rankings</span>'+
+        '<a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="font-size:11px;">Go Premium</a>';
+      pl.appendChild(lock);
+    }
+    if(isPremium){
+      var badge=document.getElementById('probBadge');
+      if(badge){badge.textContent='Premium';badge.className='badge badge-premium';}
+    }
+  }
+
+  function buildEVTab(allLegs){
+    var edgeLegs=allLegs.filter(function(l){return(l.p_cal||0)>0.50;})
+      .slice().sort(function(a,b){return(b.p_cal||0)-(a.p_cal||0);});
+    var el=document.getElementById('evList'); el.innerHTML='';
+    if(!edgeLegs.length){el.innerHTML='<div class="no-data">No edge legs today.</div>';return;}
+    for(var i=0;i<edgeLegs.length;i++){
+      var leg=edgeLegs[i],p=leg.p_cal||0,edge=Math.round((p-0.5)*100),pPct=Math.round(p*100),dir=(leg.dir||'').toLowerCase();
+      var row=document.createElement('div'); row.className='ev-row';
+      row.innerHTML=
+        '<div><div class="prob-player">'+esc(leg.player||'&#8212;')+'</div>'+
+          '<div class="prob-meta">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+'</div></div>'+
+        '<div class="prob-cell ev-col-stat" style="color:var(--t2);font-size:11px;text-transform:uppercase;letter-spacing:.07em;">'+esc(leg.stat||'&#8212;')+'</div>'+
+        '<div class="prob-line">'+esc(String(leg.line||'&#8212;'))+'</div>'+
+        '<div class="prob-cell"><span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span></div>'+
+        '<div class="ev-col-conf" style="text-align:right;font-size:13px;font-weight:700;color:'+pctColor(p)+';">'+pPct+'%</div>'+
+        '<div class="ev-edge">+'+edge+'%</div>';
+      el.appendChild(row);
+    }
+  }
+
+  function buildStatHub(games){
+    var sl=document.getElementById('slateList'); sl.innerHTML='';
+    if(!games.length){sl.innerHTML='<div class="no-data">Slate loads with picks.</div>';return;}
+    for(var i=0;i<games.length;i++){
+      var g=games[i],row=document.createElement('div'); row.className='game-row';
+      row.innerHTML='<div><div class="game-teams"><span style="color:var(--t2);">'+esc(g.away)+'</span> <span style="color:var(--t2);font-weight:400;">@</span> '+esc(g.home)+'</div></div>'+
+        '<div class="game-meta">NBA &middot; Today</div>';
+      sl.appendChild(row);
+    }
+  }
+
+  function buildSlipsTab(data){
+    var families=[
+      {key:'system',    label:'System',      desc:'Beam-search optimized for edge',   color:'#4ade80', bc:'rgba(74,222,128,.35)'},
+      {key:'windfall',  label:'Windfall',    desc:'Hybrid probability and edge model', color:'#60a5fa', bc:'rgba(96,165,250,.35)'},
+      {key:'demonhunter',label:'DemonHunter',desc:'All-DEMON tier &#8212; highest multiplier',color:'var(--gold)',bc:'rgba(245,166,35,.35)'},
+    ];
+    var container=document.getElementById('slipsList'); container.innerHTML=''; var anySlips=false;
+    for(var f=0;f<families.length;f++){
+      var fam=families[f],slips=data[fam.key]||[];
+      if(!slips.length) continue;
+      anySlips=true;
+      var famDiv=document.createElement('div'); famDiv.className='slip-family';
+      var famHead=document.createElement('div'); famHead.className='slip-family-header';
+      famHead.innerHTML='<span style="color:var(--text);">'+fam.label+'</span>'+
+        '<span style="font-size:9px;color:var(--t2);font-weight:400;text-transform:none;letter-spacing:0;">'+fam.desc+'</span>'+
+        '<span style="margin-left:auto;font-size:9px;font-weight:800;color:var(--t2);">'+slips.length+' SLIPS</span>';
+      famDiv.appendChild(famHead);
+      for(var s=0;s<slips.length;s++){
+        var slip=slips[s],legs=slip.legs_detail||[],nLegs=slip.n_legs||legs.length;
+        var hitPct=Math.round((slip.hit_prob||0)*100);
+        var evX=slip.ev_mult?slip.ev_mult.toFixed(2):null;
+        var payX=slip.payout_mult?slip.payout_mult+'x':null;
+        var nc=nLegs===3?'#4ade80':nLegs===4?'#60a5fa':'var(--gold)';
+        var nb=nLegs===3?'rgba(74,222,128,.35)':nLegs===4?'rgba(96,165,250,.35)':'rgba(245,166,35,.35)';
+        var legsHtml='';
+        for(var l=0;l<legs.length;l++){
+          var leg=legs[l],dir=(leg.dir||'').toLowerCase();
+          legsHtml+='<div class="slip-leg">'+
+            '<div class="slip-leg-left"><strong>'+esc(leg.player||'&#8212;')+'</strong> &#8212; '+esc(leg.stat||'')+'</div>'+
+            '<div class="slip-leg-right"><span>'+esc(String(leg.line||''))+'</span>'+
+              '<span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span>'+
+              '<span class="'+tierClass(leg.tier)+'" style="font-size:8px;">'+esc(leg.tier||'')+'</span>'+
+            '</div></div>';
+        }
+        var card=document.createElement('div'); card.className='slip-card';
+        card.innerHTML=
+          '<div class="slip-header">'+
+            '<span class="slip-n-badge" style="color:'+nc+';border-color:'+nb+';">'+nLegs+'-Leg</span>'+
+            '<div class="slip-meta-row">'+
+              '<span>Hit Prob&nbsp;<span class="slip-meta-val">'+hitPct+'%</span></span>'+
+              (evX?'<span>EV&nbsp;<span class="slip-meta-val">'+evX+'x</span></span>':'')+
+              (payX?'<span>Payout&nbsp;<span class="slip-meta-val">'+payX+'</span></span>':'')+
+            '</div>'+
+          '</div>'+
+          '<div class="slip-legs-list">'+legsHtml+'</div>';
+        famDiv.appendChild(card);
+      }
+      container.appendChild(famDiv);
+    }
+    if(!anySlips) container.innerHTML='<div class="no-data">No slips generated today.</div>';
+  }
+
+  function verifyToken(token){
+    try{var data=JSON.parse(atob(token));if(!data.expires||Date.now()>data.expires)return false;return true;}
+    catch(e){return false;}
+  }
+
+  function unlockPremiumUI(){
+    isPremium=true;
+    document.querySelectorAll('.lock-overlay').forEach(function(sec){
+      sec.classList.remove('lock-overlay');
+      var blur=sec.querySelector('.lock-blur'),badge=sec.querySelector('.lock-badge');
+      if(blur){blur.style.filter='none';blur.style.opacity='1';blur.style.pointerEvents='auto';}
+      if(badge) badge.remove();
+    });
+    var btn=document.getElementById('navPremiumBtn');
+    if(btn){btn.textContent='&#10003; Premium';btn.style.background='var(--green)';btn.style.color='#000';btn.removeAttribute('href');btn.removeAttribute('target');}
+    var cta=document.getElementById('premiumCta');
+    if(cta) cta.style.display='none';
+  }
+
+  function checkPremiumAccess(){
+    var token=localStorage.getItem('atlas_premium_token');
+    if(token&&verifyToken(token)) unlockPremiumUI();
+  }
+
+  function loadDashboard(){
+    fetch('/data/cloudflare_payload.json?t='+Date.now())
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(data){
+        if(!data) return;
+        var allLegs=getUniqueLegs(data),games=getGames(allLegs);
+        buildStatTiles(data,allLegs);
+        buildProbTab(allLegs);
+        buildEVTab(allLegs);
+        buildStatHub(games);
+        buildSlipsTab(data);
+      }).catch(function(){});
   }
 
   checkPremiumAccess();
