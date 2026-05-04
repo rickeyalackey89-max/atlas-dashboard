@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-05-04T08:04:42.449944-05:00",
-  "run_id": "20260504_080442",
+  "generated_at": "2026-05-04T11:06:13.627396-05:00",
+  "run_id": "20260504_110613",
   "system": [
     {
       "product": "System",
       "n_legs": 3,
-      "legs": "OG Anunoby OVER FG3M 1.5 (GOBLIN) [id:11844146] | Jalen Brunson OVER AST 6.5 (STANDARD) [id:11844737] | Jaden McDaniels OVER PTS 16.5 (STANDARD) [id:11812673]",
+      "legs": "OG Anunoby OVER FG3M 1.5 (GOBLIN) [id:11844146] | Kelly Oubre OVER RA 6.5 (STANDARD) [id:11845215] | De'Aaron Fox UNDER AST 6 (STANDARD) [id:11832318]",
       "legs_detail": [
         {
           "raw": "OG Anunoby OVER FG3M 1.5 (GOBLIN) [id:11844146]",
@@ -17,282 +17,43 @@
           "id": 11844146
         },
         {
-          "raw": "Jalen Brunson OVER AST 6.5 (STANDARD) [id:11844737]",
-          "player": "Jalen Brunson",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 6.5,
-          "tier": "STANDARD",
-          "id": 11844737
-        },
-        {
-          "raw": "Jaden McDaniels OVER PTS 16.5 (STANDARD) [id:11812673]",
-          "player": "Jaden McDaniels",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 16.5,
-          "tier": "STANDARD",
-          "id": 11812673
-        }
-      ],
-      "hit_prob": 0.4646016413802349,
-      "ev_mult": 1.991236436573703,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.044398634167798
-    },
-    {
-      "product": "System",
-      "n_legs": 4,
-      "legs": "Devin Vassell OVER REB 2.5 (GOBLIN) [id:11838233] | Mike Conley OVER PR 4.5 (GOBLIN) [id:11818344] | Julius Randle UNDER PRA 31.5 (STANDARD) [id:11812731] | Victor Wembanyama OVER RA 15 (STANDARD) [id:11813298]",
-      "legs_detail": [
-        {
-          "raw": "Devin Vassell OVER REB 2.5 (GOBLIN) [id:11838233]",
-          "player": "Devin Vassell",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11838233
-        },
-        {
-          "raw": "Mike Conley OVER PR 4.5 (GOBLIN) [id:11818344]",
-          "player": "Mike Conley",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11818344
-        },
-        {
-          "raw": "Julius Randle UNDER PRA 31.5 (STANDARD) [id:11812731]",
-          "player": "Julius Randle",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 31.5,
-          "tier": "STANDARD",
-          "id": 11812731
-        },
-        {
-          "raw": "Victor Wembanyama OVER RA 15 (STANDARD) [id:11813298]",
-          "player": "Victor Wembanyama",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 15.0,
-          "tier": "STANDARD",
-          "id": 11813298
-        }
-      ],
-      "hit_prob": 0.378474320335982,
-      "ev_mult": 1.9083868095851,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0426571812801142
-    },
-    {
-      "product": "System",
-      "n_legs": 5,
-      "legs": "OG Anunoby OVER FG3M 1.5 (GOBLIN) [id:11844146] | Devin Vassell OVER REB 2.5 (GOBLIN) [id:11838233] | Mike Conley OVER PTS 3.5 (GOBLIN) [id:11813633] | Julius Randle UNDER PR 26.5 (STANDARD) [id:11812726] | Jalen Brunson OVER RA 9.5 (STANDARD) [id:11844029]",
-      "legs_detail": [
-        {
-          "raw": "OG Anunoby OVER FG3M 1.5 (GOBLIN) [id:11844146]",
-          "player": "OG Anunoby",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11844146
-        },
-        {
-          "raw": "Devin Vassell OVER REB 2.5 (GOBLIN) [id:11838233]",
-          "player": "Devin Vassell",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
-          "tier": "GOBLIN",
-          "id": 11838233
-        },
-        {
-          "raw": "Mike Conley OVER PTS 3.5 (GOBLIN) [id:11813633]",
-          "player": "Mike Conley",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11813633
-        },
-        {
-          "raw": "Julius Randle UNDER PR 26.5 (STANDARD) [id:11812726]",
-          "player": "Julius Randle",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 26.5,
-          "tier": "STANDARD",
-          "id": 11812726
-        },
-        {
-          "raw": "Jalen Brunson OVER RA 9.5 (STANDARD) [id:11844029]",
-          "player": "Jalen Brunson",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 9.5,
-          "tier": "STANDARD",
-          "id": 11844029
-        }
-      ],
-      "hit_prob": 0.4399079924169843,
-      "ev_mult": 2.152395294252845,
-      "payout_mult": 20.0,
-      "avg_fragility": 0.0410557225318227
-    }
-  ],
-  "system_winprob": [
-    {
-      "product": "System WinProb",
-      "n_legs": 3,
-      "legs": "Dylan Harper OVER PTS 5.5 (GOBLIN) [id:11825820] | Quentin Grimes OVER REB 2.5 (STANDARD) [id:11847698] | Mitchell Robinson OVER PTS 4.5 (STANDARD) [id:11844914]",
-      "legs_detail": [
-        {
-          "raw": "Dylan Harper OVER PTS 5.5 (GOBLIN) [id:11825820]",
-          "player": "Dylan Harper",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 5.5,
-          "tier": "GOBLIN",
-          "id": 11825820
-        },
-        {
-          "raw": "Quentin Grimes OVER REB 2.5 (STANDARD) [id:11847698]",
-          "player": "Quentin Grimes",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
-          "tier": "STANDARD",
-          "id": 11847698
-        },
-        {
-          "raw": "Mitchell Robinson OVER PTS 4.5 (STANDARD) [id:11844914]",
-          "player": "Mitchell Robinson",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 4.5,
-          "tier": "STANDARD",
-          "id": 11844914
-        }
-      ],
-      "hit_prob": 0.3705229314674255,
-      "ev_mult": 2.223137588804553,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0135234918301549
-    },
-    {
-      "product": "System WinProb",
-      "n_legs": 4,
-      "legs": "Jordan Clarkson OVER PTS 3.5 (GOBLIN) [id:11862450] | Kelly Oubre OVER RA 4.5 (GOBLIN) [id:11844135] | Mitchell Robinson OVER PTS 4.5 (STANDARD) [id:11844914] | Luke Kornet OVER PRA 10.5 (STANDARD) [id:11816281]",
-      "legs_detail": [
-        {
-          "raw": "Jordan Clarkson OVER PTS 3.5 (GOBLIN) [id:11862450]",
-          "player": "Jordan Clarkson",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11862450
-        },
-        {
-          "raw": "Kelly Oubre OVER RA 4.5 (GOBLIN) [id:11844135]",
+          "raw": "Kelly Oubre OVER RA 6.5 (STANDARD) [id:11845215]",
           "player": "Kelly Oubre",
           "dir": "OVER",
           "stat": "RA",
-          "line": 4.5,
-          "tier": "GOBLIN",
-          "id": 11844135
+          "line": 6.5,
+          "tier": "STANDARD",
+          "id": 11845215
         },
         {
-          "raw": "Mitchell Robinson OVER PTS 4.5 (STANDARD) [id:11844914]",
-          "player": "Mitchell Robinson",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 4.5,
+          "raw": "De'Aaron Fox UNDER AST 6 (STANDARD) [id:11832318]",
+          "player": "De'Aaron Fox",
+          "dir": "UNDER",
+          "stat": "AST",
+          "line": 6.0,
           "tier": "STANDARD",
-          "id": 11844914
-        },
-        {
-          "raw": "Luke Kornet OVER PRA 10.5 (STANDARD) [id:11816281]",
-          "player": "Luke Kornet",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 10.5,
-          "tier": "STANDARD",
-          "id": 11816281
+          "id": 11832318
         }
       ],
-      "hit_prob": 0.2874107351574039,
-      "ev_mult": 2.8741073515740387,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0132656649894782
+      "hit_prob": 0.477095194063925,
+      "ev_mult": 1.988136641981912,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0345806942124256
     },
     {
-      "product": "System WinProb",
-      "n_legs": 5,
-      "legs": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11847699] | Miles McBride OVER FG3M 0.5 (GOBLIN) [id:11857992] | Tyrese Maxey OVER FG3M 1.5 (GOBLIN) [id:11844728] | Mitchell Robinson OVER PTS 4.5 (STANDARD) [id:11844914] | Luke Kornet OVER PRA 10.5 (STANDARD) [id:11816281]",
+      "product": "System",
+      "n_legs": 4,
+      "legs": "Devin Vassell OVER REB 2.5 (GOBLIN) [id:11838233] | Mike Conley OVER PTS 4.5 (GOBLIN) [id:11812745] | Jaden McDaniels OVER PA 19.5 (STANDARD) [id:11812679] | Dylan Harper OVER PTS 9.5 (STANDARD) [id:11812962]",
       "legs_detail": [
         {
-          "raw": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11847699]",
-          "player": "Quentin Grimes",
+          "raw": "Devin Vassell OVER REB 2.5 (GOBLIN) [id:11838233]",
+          "player": "Devin Vassell",
           "dir": "OVER",
           "stat": "REB",
-          "line": 1.5,
+          "line": 2.5,
           "tier": "GOBLIN",
-          "id": 11847699
+          "id": 11838233
         },
-        {
-          "raw": "Miles McBride OVER FG3M 0.5 (GOBLIN) [id:11857992]",
-          "player": "Miles McBride",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 11857992
-        },
-        {
-          "raw": "Tyrese Maxey OVER FG3M 1.5 (GOBLIN) [id:11844728]",
-          "player": "Tyrese Maxey",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11844728
-        },
-        {
-          "raw": "Mitchell Robinson OVER PTS 4.5 (STANDARD) [id:11844914]",
-          "player": "Mitchell Robinson",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 4.5,
-          "tier": "STANDARD",
-          "id": 11844914
-        },
-        {
-          "raw": "Luke Kornet OVER PRA 10.5 (STANDARD) [id:11816281]",
-          "player": "Luke Kornet",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 10.5,
-          "tier": "STANDARD",
-          "id": 11816281
-        }
-      ],
-      "hit_prob": 0.2504750968397319,
-      "ev_mult": 5.009501936794639,
-      "payout_mult": 20.0,
-      "avg_fragility": 0.0083603657991081
-    }
-  ],
-  "windfall": [
-    {
-      "product": "Windfall",
-      "n_legs": 3,
-      "legs": "Mike Conley OVER PTS 4.5 (GOBLIN) [id:11812745] | Mitchell Robinson OVER PTS 4.5 (STANDARD) [id:11844914] | Kelly Oubre OVER PR 16.5 (DEMON) [id:11848923]",
-      "legs_detail": [
         {
           "raw": "Mike Conley OVER PTS 4.5 (GOBLIN) [id:11812745]",
           "player": "Mike Conley",
@@ -301,109 +62,6 @@
           "line": 4.5,
           "tier": "GOBLIN",
           "id": 11812745
-        },
-        {
-          "raw": "Mitchell Robinson OVER PTS 4.5 (STANDARD) [id:11844914]",
-          "player": "Mitchell Robinson",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 4.5,
-          "tier": "STANDARD",
-          "id": 11844914
-        },
-        {
-          "raw": "Kelly Oubre OVER PR 16.5 (DEMON) [id:11848923]",
-          "player": "Kelly Oubre",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 16.5,
-          "tier": "DEMON",
-          "id": 11848923
-        }
-      ],
-      "hit_prob": 0.3223954198560816,
-      "ev_mult": 0.7345485427469803,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0184098974902492
-    },
-    {
-      "product": "Windfall",
-      "n_legs": 4,
-      "legs": "OG Anunoby OVER FG3M 1.5 (GOBLIN) [id:11844146] | Karl-Anthony Towns OVER AST 4 (STANDARD) [id:11850028] | Victor Wembanyama OVER PRA 42.5 (STANDARD) [id:11813289] | Joel Embiid OVER REB 10.5 (DEMON) [id:11844064]",
-      "legs_detail": [
-        {
-          "raw": "OG Anunoby OVER FG3M 1.5 (GOBLIN) [id:11844146]",
-          "player": "OG Anunoby",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 1.5,
-          "tier": "GOBLIN",
-          "id": 11844146
-        },
-        {
-          "raw": "Karl-Anthony Towns OVER AST 4 (STANDARD) [id:11850028]",
-          "player": "Karl-Anthony Towns",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 4.0,
-          "tier": "STANDARD",
-          "id": 11850028
-        },
-        {
-          "raw": "Victor Wembanyama OVER PRA 42.5 (STANDARD) [id:11813289]",
-          "player": "Victor Wembanyama",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 42.5,
-          "tier": "STANDARD",
-          "id": 11813289
-        },
-        {
-          "raw": "Joel Embiid OVER REB 10.5 (DEMON) [id:11844064]",
-          "player": "Joel Embiid",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 10.5,
-          "tier": "DEMON",
-          "id": 11844064
-        }
-      ],
-      "hit_prob": 0.2096371412406715,
-      "ev_mult": 0.901994233291871,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.037999912229135
-    },
-    {
-      "product": "Windfall",
-      "n_legs": 5,
-      "legs": "Mike Conley OVER PTS 3.5 (GOBLIN) [id:11813633] | Joel Embiid OVER RA 13.5 (GOBLIN) [id:11851949] | De'Aaron Fox UNDER PRA 27.5 (STANDARD) [id:11812901] | Jaden McDaniels OVER PA 19.5 (STANDARD) [id:11812679] | VJ Edgecombe OVER PTS 17.5 (DEMON) [id:11846103]",
-      "legs_detail": [
-        {
-          "raw": "Mike Conley OVER PTS 3.5 (GOBLIN) [id:11813633]",
-          "player": "Mike Conley",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 3.5,
-          "tier": "GOBLIN",
-          "id": 11813633
-        },
-        {
-          "raw": "Joel Embiid OVER RA 13.5 (GOBLIN) [id:11851949]",
-          "player": "Joel Embiid",
-          "dir": "OVER",
-          "stat": "RA",
-          "line": 13.5,
-          "tier": "GOBLIN",
-          "id": 11851949
-        },
-        {
-          "raw": "De'Aaron Fox UNDER PRA 27.5 (STANDARD) [id:11812901]",
-          "player": "De'Aaron Fox",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 27.5,
-          "tier": "STANDARD",
-          "id": 11812901
         },
         {
           "raw": "Jaden McDaniels OVER PA 19.5 (STANDARD) [id:11812679]",
@@ -415,111 +73,167 @@
           "id": 11812679
         },
         {
-          "raw": "VJ Edgecombe OVER PTS 17.5 (DEMON) [id:11846103]",
-          "player": "VJ Edgecombe",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 17.5,
-          "tier": "DEMON",
-          "id": 11846103
-        }
-      ],
-      "hit_prob": 0.1968891907145712,
-      "ev_mult": 0.98041836650708,
-      "payout_mult": 20.0,
-      "avg_fragility": 0.0443672796247601
-    }
-  ],
-  "windfall_winprob": [
-    {
-      "product": "Windfall WinProb",
-      "n_legs": 3,
-      "legs": "Dylan Harper OVER PTS 5.5 (GOBLIN) [id:11825820] | Quentin Grimes OVER REB 2.5 (STANDARD) [id:11847698] | Karl-Anthony Towns OVER AST 4.5 (DEMON) [id:11844716]",
-      "legs_detail": [
-        {
-          "raw": "Dylan Harper OVER PTS 5.5 (GOBLIN) [id:11825820]",
+          "raw": "Dylan Harper OVER PTS 9.5 (STANDARD) [id:11812962]",
           "player": "Dylan Harper",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 5.5,
-          "tier": "GOBLIN",
-          "id": 11825820
-        },
-        {
-          "raw": "Quentin Grimes OVER REB 2.5 (STANDARD) [id:11847698]",
-          "player": "Quentin Grimes",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 2.5,
+          "line": 9.5,
           "tier": "STANDARD",
-          "id": 11847698
-        },
-        {
-          "raw": "Karl-Anthony Towns OVER AST 4.5 (DEMON) [id:11844716]",
-          "player": "Karl-Anthony Towns",
-          "dir": "OVER",
-          "stat": "AST",
-          "line": 4.5,
-          "tier": "DEMON",
-          "id": 11844716
+          "id": 11812962
         }
       ],
-      "hit_prob": 0.3397235855532137,
-      "ev_mult": 2.038341513319282,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0216974106940845
+      "hit_prob": 0.362331409874818,
+      "ev_mult": 1.902355235991817,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0300308603922312
     },
     {
-      "product": "Windfall WinProb",
-      "n_legs": 4,
-      "legs": "Stephon Castle OVER FG3M 0.5 (GOBLIN) [id:11813229] | Mitchell Robinson OVER PTS 4.5 (STANDARD) [id:11844914] | Quentin Grimes OVER REB 2.5 (STANDARD) [id:11847698] | Karl-Anthony Towns OVER AST 4.5 (DEMON) [id:11844716]",
+      "product": "System",
+      "n_legs": 5,
+      "legs": "OG Anunoby OVER FG3M 1.5 (GOBLIN) [id:11844146] | Devin Vassell OVER REB 2.5 (GOBLIN) [id:11838233] | Mike Conley OVER PTS 2.5 (GOBLIN) [id:11868196] | Miles McBride UNDER PA 8.5 (STANDARD) [id:11852265] | Andre Drummond UNDER REB 3 (STANDARD) [id:11867163]",
       "legs_detail": [
         {
-          "raw": "Stephon Castle OVER FG3M 0.5 (GOBLIN) [id:11813229]",
-          "player": "Stephon Castle",
+          "raw": "OG Anunoby OVER FG3M 1.5 (GOBLIN) [id:11844146]",
+          "player": "OG Anunoby",
           "dir": "OVER",
           "stat": "FG3M",
-          "line": 0.5,
+          "line": 1.5,
           "tier": "GOBLIN",
-          "id": 11813229
+          "id": 11844146
         },
         {
-          "raw": "Mitchell Robinson OVER PTS 4.5 (STANDARD) [id:11844914]",
-          "player": "Mitchell Robinson",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 4.5,
-          "tier": "STANDARD",
-          "id": 11844914
-        },
-        {
-          "raw": "Quentin Grimes OVER REB 2.5 (STANDARD) [id:11847698]",
-          "player": "Quentin Grimes",
+          "raw": "Devin Vassell OVER REB 2.5 (GOBLIN) [id:11838233]",
+          "player": "Devin Vassell",
           "dir": "OVER",
           "stat": "REB",
           "line": 2.5,
-          "tier": "STANDARD",
-          "id": 11847698
+          "tier": "GOBLIN",
+          "id": 11838233
         },
         {
-          "raw": "Karl-Anthony Towns OVER AST 4.5 (DEMON) [id:11844716]",
-          "player": "Karl-Anthony Towns",
+          "raw": "Mike Conley OVER PTS 2.5 (GOBLIN) [id:11868196]",
+          "player": "Mike Conley",
           "dir": "OVER",
-          "stat": "AST",
-          "line": 4.5,
-          "tier": "DEMON",
-          "id": 11844716
+          "stat": "PTS",
+          "line": 2.5,
+          "tier": "GOBLIN",
+          "id": 11868196
+        },
+        {
+          "raw": "Miles McBride UNDER PA 8.5 (STANDARD) [id:11852265]",
+          "player": "Miles McBride",
+          "dir": "UNDER",
+          "stat": "PA",
+          "line": 8.5,
+          "tier": "STANDARD",
+          "id": 11852265
+        },
+        {
+          "raw": "Andre Drummond UNDER REB 3 (STANDARD) [id:11867163]",
+          "player": "Andre Drummond",
+          "dir": "UNDER",
+          "stat": "REB",
+          "line": 3.0,
+          "tier": "STANDARD",
+          "id": 11867163
         }
       ],
-      "hit_prob": 0.247857543878578,
-      "ev_mult": 2.4785754387857803,
-      "payout_mult": 10.0,
-      "avg_fragility": 0.0156260219403147
+      "hit_prob": 0.4430848363925648,
+      "ev_mult": 2.1498011645059303,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0344918073420999
+    }
+  ],
+  "system_winprob": [
+    {
+      "product": "System WinProb",
+      "n_legs": 3,
+      "legs": "Dylan Harper OVER REB 1.5 (GOBLIN) [id:11816851] | VJ Edgecombe OVER REB 5 (STANDARD) [id:11849995] | Jose Alvarado OVER PRA 5.5 (STANDARD) [id:11868527]",
+      "legs_detail": [
+        {
+          "raw": "Dylan Harper OVER REB 1.5 (GOBLIN) [id:11816851]",
+          "player": "Dylan Harper",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11816851
+        },
+        {
+          "raw": "VJ Edgecombe OVER REB 5 (STANDARD) [id:11849995]",
+          "player": "VJ Edgecombe",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11849995
+        },
+        {
+          "raw": "Jose Alvarado OVER PRA 5.5 (STANDARD) [id:11868527]",
+          "player": "Jose Alvarado",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 5.5,
+          "tier": "STANDARD",
+          "id": 11868527
+        }
+      ],
+      "hit_prob": 0.3983362002322874,
+      "ev_mult": 2.3900172013937246,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0213234070481553
     },
     {
-      "product": "Windfall WinProb",
+      "product": "System WinProb",
+      "n_legs": 4,
+      "legs": "Kelly Oubre OVER RA 4.5 (GOBLIN) [id:11844135] | Jordan Clarkson OVER PTS 3.5 (GOBLIN) [id:11862450] | Luke Kornet OVER PRA 10.5 (STANDARD) [id:11816281] | Jose Alvarado OVER PRA 5.5 (STANDARD) [id:11868527]",
+      "legs_detail": [
+        {
+          "raw": "Kelly Oubre OVER RA 4.5 (GOBLIN) [id:11844135]",
+          "player": "Kelly Oubre",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11844135
+        },
+        {
+          "raw": "Jordan Clarkson OVER PTS 3.5 (GOBLIN) [id:11862450]",
+          "player": "Jordan Clarkson",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11862450
+        },
+        {
+          "raw": "Luke Kornet OVER PRA 10.5 (STANDARD) [id:11816281]",
+          "player": "Luke Kornet",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 10.5,
+          "tier": "STANDARD",
+          "id": 11816281
+        },
+        {
+          "raw": "Jose Alvarado OVER PRA 5.5 (STANDARD) [id:11868527]",
+          "player": "Jose Alvarado",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 5.5,
+          "tier": "STANDARD",
+          "id": 11868527
+        }
+      ],
+      "hit_prob": 0.309983377385526,
+      "ev_mult": 3.0998337738552606,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0123594207249766
+    },
+    {
+      "product": "System WinProb",
       "n_legs": 5,
-      "legs": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11847699] | Stephon Castle OVER FG3M 0.5 (GOBLIN) [id:11813229] | Luke Kornet OVER PR 9 (STANDARD) [id:11813160] | Jordan Clarkson OVER PTS 5.5 (STANDARD) [id:11854671] | Paul George OVER FG3M 2.5 (DEMON) [id:11844925]",
+      "legs": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11847699] | VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:11862605] | Naz Reid OVER REB 3.5 (GOBLIN) [id:11818231] | Jose Alvarado OVER PRA 5.5 (STANDARD) [id:11868527] | Luke Kornet OVER PRA 10.5 (STANDARD) [id:11816281]",
       "legs_detail": [
         {
           "raw": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11847699]",
@@ -531,133 +245,419 @@
           "id": 11847699
         },
         {
-          "raw": "Stephon Castle OVER FG3M 0.5 (GOBLIN) [id:11813229]",
-          "player": "Stephon Castle",
+          "raw": "VJ Edgecombe OVER REB 3.5 (GOBLIN) [id:11862605]",
+          "player": "VJ Edgecombe",
           "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
+          "stat": "REB",
+          "line": 3.5,
           "tier": "GOBLIN",
-          "id": 11813229
+          "id": 11862605
         },
         {
-          "raw": "Luke Kornet OVER PR 9 (STANDARD) [id:11813160]",
+          "raw": "Naz Reid OVER REB 3.5 (GOBLIN) [id:11818231]",
+          "player": "Naz Reid",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11818231
+        },
+        {
+          "raw": "Jose Alvarado OVER PRA 5.5 (STANDARD) [id:11868527]",
+          "player": "Jose Alvarado",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 5.5,
+          "tier": "STANDARD",
+          "id": 11868527
+        },
+        {
+          "raw": "Luke Kornet OVER PRA 10.5 (STANDARD) [id:11816281]",
           "player": "Luke Kornet",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 9.0,
+          "stat": "PRA",
+          "line": 10.5,
           "tier": "STANDARD",
-          "id": 11813160
+          "id": 11816281
+        }
+      ],
+      "hit_prob": 0.3084942893369887,
+      "ev_mult": 6.169885786739774,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0125975138206553
+    }
+  ],
+  "windfall": [
+    {
+      "product": "Windfall",
+      "n_legs": 3,
+      "legs": "OG Anunoby OVER PTS 11.5 (GOBLIN) [id:11856403] | VJ Edgecombe OVER RA 8.5 (STANDARD) [id:11844874] | Stephon Castle OVER AST 8.5 (DEMON) [id:11813234]",
+      "legs_detail": [
+        {
+          "raw": "OG Anunoby OVER PTS 11.5 (GOBLIN) [id:11856403]",
+          "player": "OG Anunoby",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 11.5,
+          "tier": "GOBLIN",
+          "id": 11856403
         },
         {
-          "raw": "Jordan Clarkson OVER PTS 5.5 (STANDARD) [id:11854671]",
-          "player": "Jordan Clarkson",
+          "raw": "VJ Edgecombe OVER RA 8.5 (STANDARD) [id:11844874]",
+          "player": "VJ Edgecombe",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 8.5,
+          "tier": "STANDARD",
+          "id": 11844874
+        },
+        {
+          "raw": "Stephon Castle OVER AST 8.5 (DEMON) [id:11813234]",
+          "player": "Stephon Castle",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 8.5,
+          "tier": "DEMON",
+          "id": 11813234
+        }
+      ],
+      "hit_prob": 0.310767761618424,
+      "ev_mult": 0.7240989395443468,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0560399539797774
+    },
+    {
+      "product": "Windfall",
+      "n_legs": 4,
+      "legs": "Mike Conley OVER PTS 4.5 (GOBLIN) [id:11812745] | Mikal Bridges UNDER RA 5 (STANDARD) [id:11844662] | Jaden McDaniels OVER PTS 16.5 (STANDARD) [id:11812673] | Jalen Brunson OVER AST 9.5 (DEMON) [id:11844012]",
+      "legs_detail": [
+        {
+          "raw": "Mike Conley OVER PTS 4.5 (GOBLIN) [id:11812745]",
+          "player": "Mike Conley",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 11812745
+        },
+        {
+          "raw": "Mikal Bridges UNDER RA 5 (STANDARD) [id:11844662]",
+          "player": "Mikal Bridges",
+          "dir": "UNDER",
+          "stat": "RA",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11844662
+        },
+        {
+          "raw": "Jaden McDaniels OVER PTS 16.5 (STANDARD) [id:11812673]",
+          "player": "Jaden McDaniels",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 16.5,
+          "tier": "STANDARD",
+          "id": 11812673
+        },
+        {
+          "raw": "Jalen Brunson OVER AST 9.5 (DEMON) [id:11844012]",
+          "player": "Jalen Brunson",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 9.5,
+          "tier": "DEMON",
+          "id": 11844012
+        }
+      ],
+      "hit_prob": 0.2342105665081286,
+      "ev_mult": 0.9268545881175392,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0755948692164375
+    },
+    {
+      "product": "Windfall",
+      "n_legs": 5,
+      "legs": "Josh Hart OVER REB 6.5 (GOBLIN) [id:11844086] | Mike Conley OVER PTS 3.5 (GOBLIN) [id:11813633] | Anthony Edwards UNDER PR 29.5 (STANDARD) [id:11857988] | Joel Embiid OVER PRA 40.5 (STANDARD) [id:11844055] | Stephon Castle OVER AST 8.5 (DEMON) [id:11813234]",
+      "legs_detail": [
+        {
+          "raw": "Josh Hart OVER REB 6.5 (GOBLIN) [id:11844086]",
+          "player": "Josh Hart",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 6.5,
+          "tier": "GOBLIN",
+          "id": 11844086
+        },
+        {
+          "raw": "Mike Conley OVER PTS 3.5 (GOBLIN) [id:11813633]",
+          "player": "Mike Conley",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11813633
+        },
+        {
+          "raw": "Anthony Edwards UNDER PR 29.5 (STANDARD) [id:11857988]",
+          "player": "Anthony Edwards",
+          "dir": "UNDER",
+          "stat": "PR",
+          "line": 29.5,
+          "tier": "STANDARD",
+          "id": 11857988
+        },
+        {
+          "raw": "Joel Embiid OVER PRA 40.5 (STANDARD) [id:11844055]",
+          "player": "Joel Embiid",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 40.5,
+          "tier": "STANDARD",
+          "id": 11844055
+        },
+        {
+          "raw": "Stephon Castle OVER AST 8.5 (DEMON) [id:11813234]",
+          "player": "Stephon Castle",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 8.5,
+          "tier": "DEMON",
+          "id": 11813234
+        }
+      ],
+      "hit_prob": 0.2106626638768541,
+      "ev_mult": 1.0209147123912543,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0964787669505528
+    }
+  ],
+  "windfall_winprob": [
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 3,
+      "legs": "Dylan Harper OVER PTS 5.5 (GOBLIN) [id:11825820] | Jose Alvarado OVER PRA 5.5 (STANDARD) [id:11868527] | Luke Kornet OVER RA 5.5 (DEMON) [id:11818229]",
+      "legs_detail": [
+        {
+          "raw": "Dylan Harper OVER PTS 5.5 (GOBLIN) [id:11825820]",
+          "player": "Dylan Harper",
           "dir": "OVER",
           "stat": "PTS",
           "line": 5.5,
-          "tier": "STANDARD",
-          "id": 11854671
+          "tier": "GOBLIN",
+          "id": 11825820
         },
         {
-          "raw": "Paul George OVER FG3M 2.5 (DEMON) [id:11844925]",
-          "player": "Paul George",
+          "raw": "Jose Alvarado OVER PRA 5.5 (STANDARD) [id:11868527]",
+          "player": "Jose Alvarado",
           "dir": "OVER",
-          "stat": "FG3M",
-          "line": 2.5,
+          "stat": "PRA",
+          "line": 5.5,
+          "tier": "STANDARD",
+          "id": 11868527
+        },
+        {
+          "raw": "Luke Kornet OVER RA 5.5 (DEMON) [id:11818229]",
+          "player": "Luke Kornet",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 5.5,
           "tier": "DEMON",
-          "id": 11844925
+          "id": 11818229
         }
       ],
-      "hit_prob": 0.1923180994579005,
-      "ev_mult": 3.846361989158011,
+      "hit_prob": 0.3995540016631798,
+      "ev_mult": 2.397324009979079,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0081929863825897
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 4,
+      "legs": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11847699] | Jose Alvarado OVER PRA 5.5 (STANDARD) [id:11868527] | VJ Edgecombe OVER REB 5 (STANDARD) [id:11849995] | Luke Kornet OVER RA 5.5 (DEMON) [id:11818229]",
+      "legs_detail": [
+        {
+          "raw": "Quentin Grimes OVER REB 1.5 (GOBLIN) [id:11847699]",
+          "player": "Quentin Grimes",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 11847699
+        },
+        {
+          "raw": "Jose Alvarado OVER PRA 5.5 (STANDARD) [id:11868527]",
+          "player": "Jose Alvarado",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 5.5,
+          "tier": "STANDARD",
+          "id": 11868527
+        },
+        {
+          "raw": "VJ Edgecombe OVER REB 5 (STANDARD) [id:11849995]",
+          "player": "VJ Edgecombe",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "id": 11849995
+        },
+        {
+          "raw": "Luke Kornet OVER RA 5.5 (DEMON) [id:11818229]",
+          "player": "Luke Kornet",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 5.5,
+          "tier": "DEMON",
+          "id": 11818229
+        }
+      ],
+      "hit_prob": 0.3134824085636645,
+      "ev_mult": 3.134824085636645,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0182402196173063
+    },
+    {
+      "product": "Windfall WinProb",
+      "n_legs": 5,
+      "legs": "Keldon Johnson OVER RA 3.5 (GOBLIN) [id:11818220] | Naz Reid OVER REB 3.5 (GOBLIN) [id:11818231] | Quentin Grimes OVER REB 2.5 (STANDARD) [id:11847698] | Karl-Anthony Towns OVER AST 4 (STANDARD) [id:11850028] | Luke Kornet OVER RA 5.5 (DEMON) [id:11818229]",
+      "legs_detail": [
+        {
+          "raw": "Keldon Johnson OVER RA 3.5 (GOBLIN) [id:11818220]",
+          "player": "Keldon Johnson",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11818220
+        },
+        {
+          "raw": "Naz Reid OVER REB 3.5 (GOBLIN) [id:11818231]",
+          "player": "Naz Reid",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 11818231
+        },
+        {
+          "raw": "Quentin Grimes OVER REB 2.5 (STANDARD) [id:11847698]",
+          "player": "Quentin Grimes",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 2.5,
+          "tier": "STANDARD",
+          "id": 11847698
+        },
+        {
+          "raw": "Karl-Anthony Towns OVER AST 4 (STANDARD) [id:11850028]",
+          "player": "Karl-Anthony Towns",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 4.0,
+          "tier": "STANDARD",
+          "id": 11850028
+        },
+        {
+          "raw": "Luke Kornet OVER RA 5.5 (DEMON) [id:11818229]",
+          "player": "Luke Kornet",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 5.5,
+          "tier": "DEMON",
+          "id": 11818229
+        }
+      ],
+      "hit_prob": 0.2220736143114312,
+      "ev_mult": 4.441472286228624,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0150049343834466
+      "avg_fragility": 0.0182284233758853
     }
   ],
   "demonhunter": [
     {
       "product": "Demonhunter",
       "n_legs": 3,
-      "legs": "Victor Wembanyama OVER PRA 45.5 (DEMON) [id:11813290] | Ayo Dosunmu OVER REB 4.5 (DEMON) [id:11812659] | Mikal Bridges OVER PRA 19.5 (DEMON) [id:11844145]",
+      "legs": "Stephon Castle OVER REB 6.5 (DEMON) [id:11812808] | Rudy Gobert OVER PTS 10.5 (DEMON) [id:11813220] | Mikal Bridges OVER PR 16.5 (DEMON) [id:11856427]",
       "legs_detail": [
         {
-          "raw": "Victor Wembanyama OVER PRA 45.5 (DEMON) [id:11813290]",
-          "player": "Victor Wembanyama",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 45.5,
-          "tier": "DEMON",
-          "id": 11813290
-        },
-        {
-          "raw": "Ayo Dosunmu OVER REB 4.5 (DEMON) [id:11812659]",
-          "player": "Ayo Dosunmu",
+          "raw": "Stephon Castle OVER REB 6.5 (DEMON) [id:11812808]",
+          "player": "Stephon Castle",
           "dir": "OVER",
           "stat": "REB",
-          "line": 4.5,
+          "line": 6.5,
           "tier": "DEMON",
-          "id": 11812659
+          "id": 11812808
         },
         {
-          "raw": "Mikal Bridges OVER PRA 19.5 (DEMON) [id:11844145]",
+          "raw": "Rudy Gobert OVER PTS 10.5 (DEMON) [id:11813220]",
+          "player": "Rudy Gobert",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 10.5,
+          "tier": "DEMON",
+          "id": 11813220
+        },
+        {
+          "raw": "Mikal Bridges OVER PR 16.5 (DEMON) [id:11856427]",
           "player": "Mikal Bridges",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 19.5,
+          "stat": "PR",
+          "line": 16.5,
           "tier": "DEMON",
-          "id": 11844145
+          "id": 11856427
         }
       ],
-      "hit_prob": 0.0473141239743512,
-      "ev_mult": 0.4586326315779709,
+      "hit_prob": 0.0606157257247569,
+      "ev_mult": 0.405530556389325,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0198456412091438
+      "avg_fragility": 0.0353178183298156
     },
     {
       "product": "Demonhunter",
       "n_legs": 4,
-      "legs": "Luke Kornet OVER PA 9.5 (DEMON) [id:11856543] | Quentin Grimes OVER PRA 14.5 (DEMON) [id:11847695] | Mike Conley OVER PRA 19.5 (DEMON) [id:11812760] | Karl-Anthony Towns OVER PTS 22.5 (DEMON) [id:11847587]",
+      "legs": "Rudy Gobert OVER PTS 9.5 (DEMON) [id:11813222] | Karl-Anthony Towns OVER AST 6.5 (DEMON) [id:11844099] | Devin Vassell OVER PRA 20.5 (DEMON) [id:11813592] | VJ Edgecombe OVER PR 29.5 (DEMON) [id:11844228]",
       "legs_detail": [
         {
-          "raw": "Luke Kornet OVER PA 9.5 (DEMON) [id:11856543]",
-          "player": "Luke Kornet",
-          "dir": "OVER",
-          "stat": "PA",
-          "line": 9.5,
-          "tier": "DEMON",
-          "id": 11856543
-        },
-        {
-          "raw": "Quentin Grimes OVER PRA 14.5 (DEMON) [id:11847695]",
-          "player": "Quentin Grimes",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 14.5,
-          "tier": "DEMON",
-          "id": 11847695
-        },
-        {
-          "raw": "Mike Conley OVER PRA 19.5 (DEMON) [id:11812760]",
-          "player": "Mike Conley",
-          "dir": "OVER",
-          "stat": "PRA",
-          "line": 19.5,
-          "tier": "DEMON",
-          "id": 11812760
-        },
-        {
-          "raw": "Karl-Anthony Towns OVER PTS 22.5 (DEMON) [id:11847587]",
-          "player": "Karl-Anthony Towns",
+          "raw": "Rudy Gobert OVER PTS 9.5 (DEMON) [id:11813222]",
+          "player": "Rudy Gobert",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 22.5,
+          "line": 9.5,
           "tier": "DEMON",
-          "id": 11847587
+          "id": 11813222
+        },
+        {
+          "raw": "Karl-Anthony Towns OVER AST 6.5 (DEMON) [id:11844099]",
+          "player": "Karl-Anthony Towns",
+          "dir": "OVER",
+          "stat": "AST",
+          "line": 6.5,
+          "tier": "DEMON",
+          "id": 11844099
+        },
+        {
+          "raw": "Devin Vassell OVER PRA 20.5 (DEMON) [id:11813592]",
+          "player": "Devin Vassell",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 20.5,
+          "tier": "DEMON",
+          "id": 11813592
+        },
+        {
+          "raw": "VJ Edgecombe OVER PR 29.5 (DEMON) [id:11844228]",
+          "player": "VJ Edgecombe",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 29.5,
+          "tier": "DEMON",
+          "id": 11844228
         }
       ],
-      "hit_prob": 0.0342056515820431,
-      "ev_mult": 0.2013349641093296,
+      "hit_prob": 0.0340908024748122,
+      "ev_mult": 0.1963673106743881,
       "payout_mult": 10.0,
-      "avg_fragility": 0.031356414967116
+      "avg_fragility": 0.0626720988628847
     }
   ],
   "gamescript": [],
@@ -665,9 +665,49 @@
     {
       "label": "3-leg",
       "n_legs": 3,
-      "hit_prob": 0.7425913897478623,
+      "hit_prob": 0.6632806651560116,
       "payout_mult": 1.9309787692112594,
-      "ev": 1.4339282078022058,
+      "ev": 1.2807808824445808,
+      "high_confidence": true,
+      "legs": [
+        {
+          "player": "Jose Alvarado",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "team": "NYK",
+          "opp": "PHI",
+          "p_cal": 0.8598404636916216
+        },
+        {
+          "player": "Naz Reid",
+          "dir": "UNDER",
+          "stat": "PTS",
+          "line": 12.5,
+          "tier": "STANDARD",
+          "team": "MIN",
+          "opp": "SAS",
+          "p_cal": 0.7782171607967525
+        },
+        {
+          "player": "Andre Drummond",
+          "dir": "UNDER",
+          "stat": "REB",
+          "line": 3.0,
+          "tier": "STANDARD",
+          "team": "PHI",
+          "opp": "NYK",
+          "p_cal": 0.7997001747289785
+        }
+      ]
+    },
+    {
+      "label": "4-leg",
+      "n_legs": 4,
+      "hit_prob": 0.36745211392175536,
+      "payout_mult": 1.8973665961010275,
+      "ev": 0.697191366621848,
       "high_confidence": true,
       "legs": [
         {
@@ -678,36 +718,46 @@
           "tier": "GOBLIN",
           "team": "PHI",
           "opp": "NYK",
-          "p_cal": 0.8450427709799025
+          "p_cal": 0.8487925964152282
         },
         {
-          "player": "Naz Reid",
-          "dir": "UNDER",
-          "stat": "PA",
-          "line": 13.5,
-          "tier": "STANDARD",
-          "team": "MIN",
-          "opp": "SAS",
-          "p_cal": 0.8345680953536413
+          "player": "Quentin Grimes",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "team": "PHI",
+          "opp": "NYK",
+          "p_cal": 0.7748717288204637
         },
         {
           "player": "Mitchell Robinson",
           "dir": "UNDER",
-          "stat": "REB",
-          "line": 7.0,
+          "stat": "PRA",
+          "line": 13.5,
           "tier": "STANDARD",
           "team": "NYK",
           "opp": "PHI",
-          "p_cal": 0.823577852079483
+          "p_cal": 0.707872162275104
+        },
+        {
+          "player": "Anthony Edwards",
+          "dir": "UNDER",
+          "stat": "PTS",
+          "line": 23.5,
+          "tier": "STANDARD",
+          "team": "MIN",
+          "opp": "SAS",
+          "p_cal": 0.8040565805941473
         }
       ]
     },
     {
-      "label": "4-leg",
-      "n_legs": 4,
-      "hit_prob": 0.30553133869492577,
-      "payout_mult": 1.8973665961010275,
-      "ev": 0.5797049561017815,
+      "label": "5-leg",
+      "n_legs": 5,
+      "hit_prob": 0.1667042483540471,
+      "payout_mult": 2.1445422618829917,
+      "ev": 0.35750430583069215,
       "high_confidence": true,
       "legs": [
         {
@@ -721,94 +771,44 @@
           "p_cal": 0.7598879912566626
         },
         {
-          "player": "Mikal Bridges",
+          "player": "Luke Kornet",
           "dir": "OVER",
-          "stat": "PR",
-          "line": 9.5,
-          "tier": "GOBLIN",
-          "team": "NYK",
-          "opp": "PHI",
-          "p_cal": 0.7273575428953971
-        },
-        {
-          "player": "Anthony Edwards",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 29.5,
-          "tier": "STANDARD",
-          "team": "MIN",
-          "opp": "SAS",
-          "p_cal": 0.7978575639638804
-        },
-        {
-          "player": "De'Aaron Fox",
-          "dir": "UNDER",
-          "stat": "PRA",
-          "line": 27.5,
-          "tier": "STANDARD",
-          "team": "SAS",
-          "opp": "MIN",
-          "p_cal": 0.7432900253337209
-        }
-      ]
-    },
-    {
-      "label": "5-leg",
-      "n_legs": 5,
-      "hit_prob": 0.17947620277116874,
-      "payout_mult": 2.1445422618829917,
-      "ev": 0.3848943018450527,
-      "high_confidence": true,
-      "legs": [
-        {
-          "player": "Dylan Harper",
-          "dir": "OVER",
-          "stat": "RA",
+          "stat": "PA",
           "line": 4.5,
           "tier": "GOBLIN",
           "team": "SAS",
           "opp": "MIN",
-          "p_cal": 0.8077192043923291
-        },
-        {
-          "player": "Rudy Gobert",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 5.5,
-          "tier": "GOBLIN",
-          "team": "MIN",
-          "opp": "SAS",
-          "p_cal": 0.768074168968006
-        },
-        {
-          "player": "Quentin Grimes",
-          "dir": "UNDER",
-          "stat": "PR",
-          "line": 9.5,
-          "tier": "STANDARD",
-          "team": "PHI",
-          "opp": "NYK",
-          "p_cal": 0.6718742026647574
+          "p_cal": 0.757292837324257
         },
         {
           "player": "Tyrese Maxey",
           "dir": "UNDER",
-          "stat": "RA",
-          "line": 10.5,
+          "stat": "PTS",
+          "line": 25.5,
           "tier": "STANDARD",
           "team": "PHI",
           "opp": "NYK",
-          "p_cal": 0.7663580237013017
+          "p_cal": 0.7457883055772326
         },
         {
-          "player": "Jordan Clarkson",
+          "player": "Joel Embiid",
           "dir": "OVER",
-          "stat": "PRA",
-          "line": 10.5,
+          "stat": "PR",
+          "line": 36.0,
+          "tier": "STANDARD",
+          "team": "PHI",
+          "opp": "NYK",
+          "p_cal": 0.6798763415640756
+        },
+        {
+          "player": "Mikal Bridges",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 13.5,
           "tier": "DEMON",
           "team": "NYK",
           "opp": "PHI",
-          "p_cal": 0.6926428390070289
+          "p_cal": 0.564886286098871
         }
       ]
     }
