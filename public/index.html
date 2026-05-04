@@ -3,484 +3,315 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Atlas Dashboard</title>
+  <meta name="description" content="Atlas Sports AI — AI-powered daily player props for NBA, baseball, and beyond. Built on a real quantitative model."/>
+  <title>Atlas Sports AI — The Smartest Props Engine in Sports</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --border: #334155;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --green: #22c55e;
-      --yellow: #eab308;
-      --red: #ef4444;
-      --blue: #3b82f6;
-      --purple: #a855f7;
-      --cyan: #06b6d4;
-      --pink: #ec4899;
+      --bg:       #080d1a;
+      --card:     #111827;
+      --border:   #1f2d44;
+      --text:     #f1f5f9;
+      --muted:    #94a3b8;
+      --gold:     #f59e0b;
+      --gold-dim: #78350f;
+      --blue:     #3b82f6;
+      --green:    #22c55e;
+      --red:      #ef4444;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container { max-width: 1400px; margin: 0 auto; }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--border);
-    }
-    h1 { font-size: 28px; font-weight: 700; }
-    .status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      color: var(--muted);
-    }
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--green);
-    }
-    .dot.stale { background: var(--yellow); }
-    .dot.old { background: var(--red); }
-    
-    .section {
-      margin-bottom: 28px;
-    }
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid var(--border);
-    }
-    .section-title.system { color: var(--blue); border-color: var(--blue); }
-    .section-title.system_winprob { color: var(--cyan); border-color: var(--cyan); }
-    .section-title.windfall { color: var(--purple); border-color: var(--purple); }
-    .section-title.windfall_winprob { color: var(--pink); border-color: var(--pink); }
-    .section-title.demonhunter { color: var(--red); border-color: var(--red); }
-    .section-title.marketed { color: #f59e0b; border-color: #f59e0b; }
-    
-    .marketed-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    @media (max-width: 1000px) { .marketed-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 650px)  { .marketed-grid { grid-template-columns: 1fr; } }
-    
-    .marketed-card {
-      background: var(--card);
-      border: 1px solid #f59e0b44;
-      border-radius: 10px;
-      padding: 14px;
-    }
-    .marketed-badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      background: #78350f;
-      color: #fde68a;
-      margin-bottom: 8px;
-    }
-    
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    @media (max-width: 1000px) {
-      .grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 650px) {
-      .grid { grid-template-columns: 1fr; }
-    }
-    
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-    }
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .leg-count {
-      font-size: 22px;
-      font-weight: 700;
-    }
-    .leg-label {
-      font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-    
-    .hit-prob {
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--green);
-    }
-    .hit-label {
-      font-size: 9px;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-    
-    .meta {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 10px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-    
-    .legs {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .leg {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 8px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 5px;
-      font-size: 12px;
-    }
-    .leg-player {
-      font-weight: 500;
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 110px;
-    }
-    .leg-pick {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .dir {
-      padding: 2px 4px;
-      border-radius: 3px;
-      font-size: 9px;
-      font-weight: 600;
-    }
-    .dir.over { background: #166534; color: #bbf7d0; }
-    .dir.under { background: #991b1b; color: #fecaca; }
-    .stat-line {
-      font-family: ui-monospace, monospace;
-      font-size: 11px;
-    }
-    .tier {
-      padding: 2px 4px;
-      border-radius: 3px;
-      font-size: 8px;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-    .tier.standard { background: #374151; color: #9ca3af; }
-    .tier.goblin { background: #854d0e; color: #fef08a; }
-    .tier.demon { background: #7f1d1d; color: #fca5a5; }
-    
-    .no-data {
-      text-align: center;
-      padding: 20px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    
-    .refresh-btn {
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .refresh-btn:hover { background: var(--border); }
-    
-    .auto-refresh {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-    
-    footer {
-      margin-top: 20px;
-      padding-top: 14px;
-      border-top: 1px solid var(--border);
-      font-size: 11px;
-      color: var(--muted);
-      text-align: center;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(8,13,26,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { display: flex; align-items: center; gap: 12px; }
+    .nav-logo { height: 40px; width: 40px; object-fit: contain; filter: invert(1) brightness(10); }
+    .nav-wordmark { font-size: 18px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .nav-wordmark span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 20px; border-radius: 7px; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity .15s, transform .1s; border: none; text-decoration: none; }
+    .btn:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-discord { background: #5865f2; color: #fff; }
+    .btn-members { background: var(--gold); color: #0a0a0a; }
+    @media (max-width: 560px) { .nav-wordmark { display: none; } .btn { padding: 8px 14px; font-size: 13px; } }
+
+    .hero { min-height: calc(100vh - 64px); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 24px 60px; position: relative; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245,158,11,.12) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(59,130,246,.07) 0%, transparent 50%); pointer-events: none; }
+    .hero-logo { width: 120px; height: 120px; object-fit: contain; filter: invert(1) brightness(10); margin-bottom: 24px; animation: fadeUp .6s ease both; }
+    .hero-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; animation: fadeUp .6s .1s ease both; }
+    .hero-title { font-size: clamp(36px,7vw,72px); font-weight: 900; line-height: 1.08; letter-spacing: -.02em; max-width: 800px; animation: fadeUp .6s .15s ease both; }
+    .hero-title .accent { color: var(--gold); }
+    .hero-sub { margin-top: 20px; font-size: clamp(16px,2.5vw,20px); color: var(--muted); max-width: 560px; animation: fadeUp .6s .2s ease both; }
+    .hero-ctas { margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; animation: fadeUp .6s .28s ease both; }
+    .btn-lg { padding: 14px 32px; font-size: 16px; border-radius: 8px; font-weight: 700; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    .stats-strip { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 28px 24px; }
+    .stats-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 24px; }
+    .stat-item { text-align: center; }
+    .stat-value { font-size: 32px; font-weight: 900; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+
+    section { padding: 80px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .section-title { font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; letter-spacing: -.01em; margin-bottom: 16px; }
+    .section-sub { font-size: 16px; color: var(--muted); max-width: 540px; margin-bottom: 48px; }
+
+    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    @media (max-width: 700px) { .steps { grid-template-columns: 1fr; } }
+    .step-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+    .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--gold-dim); color: var(--gold); font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .step-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .step-body  { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    .props-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .props-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 14px; }
+    .prop-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .prop-player { font-weight: 700; font-size: 15px; }
+    .prop-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .prop-right { text-align: right; }
+    .prop-line { font-size: 20px; font-weight: 800; font-family: ui-monospace, monospace; }
+    .prop-dir { display: inline-block; margin-top: 4px; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+    .prop-dir.over  { background: #14532d; color: #86efac; }
+    .prop-dir.under { background: #7f1d1d; color: #fca5a5; }
+    .props-blur-note { margin-top: 20px; padding: 14px 20px; background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.2); border-radius: 8px; font-size: 13px; color: var(--muted); text-align: center; }
+    .props-blur-note strong { color: var(--gold); }
+    .no-data-msg { text-align: center; padding: 40px 0; color: var(--muted); font-size: 14px; }
+
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 640px) { .features-grid { grid-template-columns: 1fr; } }
+    .feature-col { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+    .feature-col.paid { border-color: var(--gold); background: linear-gradient(135deg,#111827 0%,#1a1000 100%); }
+    .feature-col-title { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+    .feature-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 20px; }
+    .badge-free { background: #1e3a5f; color: #93c5fd; }
+    .badge-paid { background: var(--gold-dim); color: var(--gold); }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--muted); }
+    .feature-list li .icon { flex-shrink: 0; margin-top: 1px; }
+    .feature-list li.active { color: var(--text); }
+    .check { color: var(--green); }
+    .lock  { color: var(--gold); }
+
+    .sports-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 40px; }
+    .sport-chip { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 600; border: 1px solid var(--border); background: var(--card); }
+    .sport-chip.live { border-color: var(--gold); color: var(--gold); }
+    .sport-chip.soon { color: var(--muted); }
+    .sport-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+    .sport-dot.soon { background: var(--muted); }
+
+    .discord-band { background: linear-gradient(135deg,#3730a3 0%,#1e1b4b 100%); border-top: 1px solid #4338ca; border-bottom: 1px solid #4338ca; text-align: center; padding: 72px 24px; }
+    .discord-band .section-title { color: #fff; }
+    .discord-band .section-sub { margin: 0 auto 36px; color: #c7d2fe; }
+
+    footer { padding: 40px 24px; border-top: 1px solid var(--border); }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-brand { display: flex; align-items: center; gap: 10px; }
+    .footer-logo { height: 28px; filter: invert(1) brightness(10); opacity: .8; }
+    .footer-name { font-size: 14px; font-weight: 700; opacity: .8; }
+    .footer-disclaimer { font-size: 11px; color: var(--muted); max-width: 540px; line-height: 1.5; }
+    .footer-links { display: flex; gap: 20px; font-size: 13px; color: var(--muted); }
+    .footer-links a:hover { color: var(--text); }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div>
-        <h1>Atlas Dashboard</h1>
-        <div class="status">
-          <span class="dot" id="statusDot"></span>
-          <span id="statusText">Loading...</span>
+
+  <nav>
+    <div class="nav-brand">
+      <img src="/atlas_logo_transparent.png" alt="Atlas" class="nav-logo"/>
+      <span class="nav-wordmark">Atlas <span>Sports</span> AI</span>
+    </div>
+    <div class="nav-links">
+      <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Join Discord
+      </a>
+      <a href="/members/" class="btn btn-members">Members</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <img src="/atlas_logo_transparent.png" alt="Atlas Sports AI" class="hero-logo"/>
+    <div class="hero-eyebrow">AI-Powered Player Props</div>
+    <h1 class="hero-title">The <span class="accent">Edge</span> Is Real.</h1>
+    <p class="hero-sub">Atlas is a quantitative sports analytics engine. Every day we run thousands of simulations so you don't have to guess.</p>
+    <div class="hero-ctas">
+      <a href="#props" class="btn btn-lg" style="background:var(--gold);color:#0a0a0a;">Today's Props &darr;</a>
+      <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord btn-lg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Join the Discord
+      </a>
+    </div>
+  </section>
+
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat-item"><div class="stat-value">47+</div><div class="stat-label">Dates Backtested</div></div>
+      <div class="stat-item"><div class="stat-value">10K</div><div class="stat-label">Simulations Per Pick</div></div>
+      <div class="stat-item"><div class="stat-value">2x</div><div class="stat-label">Daily Model Runs</div></div>
+      <div class="stat-item"><div class="stat-value">NBA</div><div class="stat-label">Live Now &mdash; More Coming</div></div>
+    </div>
+  </div>
+
+  <section class="props-section" id="props">
+    <div class="section-inner">
+      <div class="section-label">Updated Daily</div>
+      <h2 class="section-title">Today's Top Props</h2>
+      <p class="section-sub">Props available across DraftKings, FanDuel, Underdog, PrizePicks, and more.</p>
+      <div id="propsGrid" class="props-grid"><div class="no-data-msg">Loading today's picks...</div></div>
+      <div class="props-blur-note">
+        <strong>Members get the full edge</strong> &mdash; slip combinations, confidence tiers, model probabilities, and EV rankings.
+        <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;">Join the Discord</a> to get access.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <div class="section-label">Under the Hood</div>
+      <h2 class="section-title">How Atlas Works</h2>
+      <p class="section-sub">Not a gut feeling. Not a tipster. A real quantitative engine.</p>
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-title">Monte Carlo Simulation</div>
+          <div class="step-body">For every player and every stat, Atlas runs 10,000 game simulations using rolling performance data, matchup context, pace, and injury state.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-title">Machine Learning Calibration</div>
+          <div class="step-body">A 14-model GBM ensemble trained on tens of thousands of historical legs converts raw probabilities into calibrated, market-aware confidence scores.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-title">Optimal Slip Selection</div>
+          <div class="step-body">A beam-search optimizer assembles the best 3, 4, and 5-leg combinations balancing expected value, hit probability, and team diversity.</div>
         </div>
       </div>
-      <div style="display:flex;gap:12px;align-items:center">
-        <label class="auto-refresh">
-          <input type="checkbox" id="autoRefresh" checked />
-          Auto-refresh (30s)
-        </label>
-        <button class="refresh-btn" onclick="loadData()">Refresh</button>
-      </div>
-    </header>
-    
-    <div id="content">
-      <div class="no-data">Loading slips...</div>
     </div>
-    
-    <footer>
-      <span id="runId"></span>
-    </footer>
+  </section>
+
+  <section style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="section-inner">
+      <div class="section-label">Access Tiers</div>
+      <h2 class="section-title">Free vs Members</h2>
+      <p class="section-sub">The public sees the board. Members see the edge.</p>
+      <div class="features-grid">
+        <div class="feature-col">
+          <div class="feature-col-title">Free</div>
+          <div class="feature-badge badge-free">Public</div>
+          <ul class="feature-list">
+            <li class="active"><span class="icon check">&#10003;</span> Daily prop list (player, stat, line, direction)</li>
+            <li class="active"><span class="icon check">&#10003;</span> NBA coverage during season</li>
+            <li class="active"><span class="icon check">&#10003;</span> Betting basics and education</li>
+            <li class="active"><span class="icon check">&#10003;</span> Discord community access</li>
+            <li><span class="icon">&ndash;</span> Slip combinations</li>
+            <li><span class="icon">&ndash;</span> Model confidence rankings</li>
+            <li><span class="icon">&ndash;</span> Expected value scores</li>
+            <li><span class="icon">&ndash;</span> Multi-sport coverage</li>
+          </ul>
+        </div>
+        <div class="feature-col paid">
+          <div class="feature-col-title">Members</div>
+          <div class="feature-badge badge-paid">Coming Soon</div>
+          <ul class="feature-list">
+            <li class="active"><span class="icon check">&#10003;</span> Everything in Free</li>
+            <li class="active"><span class="lock">&#9733;</span> Optimized 3, 4, 5-leg slip combinations</li>
+            <li class="active"><span class="lock">&#9733;</span> Model confidence and probability scores</li>
+            <li class="active"><span class="lock">&#9733;</span> Expected value rankings</li>
+            <li class="active"><span class="lock">&#9733;</span> Confidence tier breakdowns</li>
+            <li class="active"><span class="lock">&#9733;</span> Baseball props (launching July 2026)</li>
+            <li class="active"><span class="lock">&#9733;</span> NFL props (launching Fall 2026)</li>
+            <li class="active"><span class="lock">&#9733;</span> Priority Discord access and picks alerts</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <div class="section-label">Roadmap</div>
+      <h2 class="section-title">More Sports Coming</h2>
+      <p class="section-sub">Atlas is built to be a multi-sport engine. NBA is first. The model architecture scales to any sport with player props.</p>
+      <div class="sports-row">
+        <div class="sport-chip live"><span class="sport-dot"></span> NBA &mdash; Live Now</div>
+        <div class="sport-chip soon"><span class="sport-dot soon"></span> MLB &mdash; July 2026</div>
+        <div class="sport-chip soon"><span class="sport-dot soon"></span> NFL &mdash; Fall 2026</div>
+        <div class="sport-chip soon"><span class="sport-dot soon"></span> More TBD</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="discord-band">
+    <div style="font-size:48px;margin-bottom:16px;">&#127918;</div>
+    <div class="section-inner" style="text-align:center;">
+      <h2 class="section-title">Get in Early</h2>
+      <p class="section-sub">We're building this in the open. Join the Discord to follow along, get daily picks alerts, and lock in founding member pricing before the paid tier launches.</p>
+      <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn" style="background:#fff;color:#3730a3;font-size:16px;padding:14px 36px;font-weight:800;border-radius:8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Join Discord &mdash; It's Free
+      </a>
+    </div>
   </div>
-  
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/atlas_logo_transparent.png" alt="Atlas" class="footer-logo"/>
+        <span class="footer-name">AtlasSports.ai</span>
+      </div>
+      <p class="footer-disclaimer">For entertainment and informational purposes only. AtlasSports.ai does not accept bets and is not a gambling operator. Always gamble responsibly. Must be 21+ where applicable.</p>
+      <div class="footer-links">
+        <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener">Discord</a>
+        <a href="/members/">Members</a>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    var refreshTimer = null;
-    
-    function loadData() {
+    function loadProps() {
       fetch('/data/cloudflare_payload.json?t=' + Date.now())
-        .then(function(resp) {
-          if (!resp.ok) throw new Error('Fetch failed');
-          return resp.json();
-        })
+        .then(function(r) { return r.ok ? r.json() : null; })
         .then(function(data) {
-          render(data);
-        })
-        .catch(function(e) {
-          document.getElementById('content').innerHTML = '<div class="no-data">Failed to load data</div>';
-          document.getElementById('statusText').textContent = 'Error loading';
-          document.getElementById('statusDot').className = 'dot old';
-        });
-    }
-    
-    function render(data) {
-      var genAt = new Date(data.generated_at);
-      var ageMin = Math.floor((Date.now() - genAt.getTime()) / 60000);
-      
-      var dot = document.getElementById('statusDot');
-      var statusText = document.getElementById('statusText');
-      
-      if (ageMin < 30) {
-        dot.className = 'dot';
-        statusText.textContent = 'Live ' + ageMin + 'm ago';
-      } else if (ageMin < 120) {
-        dot.className = 'dot stale';
-        statusText.textContent = ageMin + 'm ago';
-      } else {
-        dot.className = 'dot old';
-        statusText.textContent = 'Stale ' + Math.floor(ageMin / 60) + 'h ago';
-      }
-      
-      document.getElementById('runId').textContent = 'Run: ' + data.run_id + ' | Generated: ' + genAt.toLocaleString();
-      
-      var content = document.getElementById('content');
-      content.innerHTML = '';
-      
-      // System EV section
-      content.appendChild(makeSection('System (EV)', 'system', data.system || []));
-      
-      // System WinProb section
-      content.appendChild(makeSection('System (Win Prob)', 'system_winprob', data.system_winprob || []));
-      
-      // Windfall EV section
-      content.appendChild(makeSection('Windfall (EV)', 'windfall', data.windfall || []));
-      
-      // Windfall WinProb section
-      content.appendChild(makeSection('Windfall (Win Prob)', 'windfall_winprob', data.windfall_winprob || []));
-      
-      // Demonhunter section
-      content.appendChild(makeSection('Demonhunter', 'demonhunter', data.demonhunter || []));
-      
-      // Marketed slips section
-      var ms = data.marketed_slips || [];
-      if (ms.length > 0) {
-        content.appendChild(makeMarketedSection(ms));
-      }
-    }
-    
-    function makeSection(title, type, slips) {
-      var section = document.createElement('div');
-      section.className = 'section';
-      
-      var titleEl = document.createElement('div');
-      titleEl.className = 'section-title ' + type;
-      titleEl.textContent = title;
-      section.appendChild(titleEl);
-      
-      var grid = document.createElement('div');
-      grid.className = 'grid';
-      
-      for (var n = 3; n <= 5; n++) {
-        var slip = null;
-        for (var i = 0; i < slips.length; i++) {
-          if (slips[i].n_legs === n) {
-            slip = slips[i];
-            break;
+          if (!data) { showNoData(); return; }
+          var seen = {}, legs = [];
+          var sources = (data.system || []).concat(data.windfall || []);
+          for (var i = 0; i < sources.length; i++) {
+            var sl = sources[i], sl_legs = sl.legs_detail || [];
+            for (var j = 0; j < sl_legs.length; j++) {
+              var leg = sl_legs[j];
+              var key = (leg.player||'') + '|' + (leg.stat||'') + '|' + (leg.line||'') + '|' + (leg.dir||'');
+              if (!seen[key]) { seen[key] = true; legs.push(leg); }
+            }
           }
-        }
-        grid.appendChild(makeCard(slip, n, type));
-      }
-      
-      section.appendChild(grid);
-      return section;
+          var mk = data.marketed_slips || [];
+          for (var i = 0; i < mk.length; i++) {
+            var ml = mk[i].legs || [];
+            for (var j = 0; j < ml.length; j++) {
+              var leg = ml[j];
+              var key = (leg.player||'') + '|' + (leg.stat||'') + '|' + (leg.line||'') + '|' + (leg.dir||'');
+              if (!seen[key]) { seen[key] = true; legs.push(leg); }
+            }
+          }
+          if (!legs.length) { showNoData(); return; }
+          var grid = document.getElementById('propsGrid');
+          grid.innerHTML = '';
+          for (var i = 0; i < legs.length; i++) {
+            var leg = legs[i], dir = (leg.dir||'').toLowerCase();
+            var card = document.createElement('div');
+            card.className = 'prop-card';
+            card.innerHTML = '<div><div class="prop-player">' + esc(leg.player||'&mdash;') + '</div><div class="prop-meta">' + esc(leg.stat||'') + (leg.team ? ' &bull; ' + esc(leg.team) : '') + '</div></div>' +
+              '<div class="prop-right"><div class="prop-line">' + esc(String(leg.line||'&mdash;')) + '</div><span class="prop-dir ' + dir + '">' + esc(leg.dir||'') + '</span></div>';
+            grid.appendChild(card);
+          }
+        }).catch(showNoData);
     }
-    
-    function makeCard(slip, nLegs, type) {
-      var card = document.createElement('div');
-      card.className = 'card';
-      
-      if (!slip) {
-        card.innerHTML = '<div class="card-header"><div><div class="leg-count">' + nLegs + '</div><div class="leg-label">Leg Slip</div></div></div><div class="no-data" style="padding:15px">No slip</div>';
-        return card;
-      }
-      
-      var hitPct = (slip.hit_prob * 100).toFixed(1);
-      var evMult = slip.ev_mult.toFixed(2);
-      var payout = slip.payout_mult.toFixed(1);
-      
-      var legsHtml = '';
-      var legs = slip.legs_detail || [];
-      for (var i = 0; i < legs.length; i++) {
-        var leg = legs[i];
-        var dirClass = leg.dir.toLowerCase();
-        var tierClass = leg.tier.toLowerCase();
-        legsHtml += '<div class="leg">' +
-          '<span class="leg-player">' + leg.player + '</span>' +
-          '<div class="leg-pick">' +
-            '<span class="dir ' + dirClass + '">' + leg.dir + '</span>' +
-            '<span class="stat-line">' + leg.stat + ' ' + leg.line + '</span>' +
-            '<span class="tier ' + tierClass + '">' + leg.tier + '</span>' +
-          '</div>' +
-        '</div>';
-      }
-      
-      card.innerHTML = '<div class="card-header">' +
-          '<div>' +
-            '<div class="leg-count">' + slip.n_legs + '</div>' +
-            '<div class="leg-label">Leg Slip</div>' +
-          '</div>' +
-          '<div style="text-align:right">' +
-            '<div class="hit-prob">' + hitPct + '%</div>' +
-            '<div class="hit-label">Hit Prob</div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="meta">' +
-          '<span>EV: ' + evMult + 'x</span>' +
-          '<span>Payout: ' + payout + 'x</span>' +
-        '</div>' +
-        '<div class="legs">' + legsHtml + '</div>';
-      
-      return card;
+    function showNoData() {
+      document.getElementById('propsGrid').innerHTML = '<div class="no-data-msg">Today\'s picks post around 11 AM and 2:30 PM ET on game days.</div>';
     }
-    
-    function makeMarketedSection(slips) {
-      var section = document.createElement('div');
-      section.className = 'section';
-      var titleEl = document.createElement('div');
-      titleEl.className = 'section-title marketed';
-      titleEl.textContent = 'Atlas Picks (Marketed Slips)';
-      section.appendChild(titleEl);
-      var grid = document.createElement('div');
-      grid.className = 'marketed-grid';
-      for (var i = 0; i < slips.length; i++) {
-        grid.appendChild(makeMarketedCard(slips[i]));
-      }
-      section.appendChild(grid);
-      return section;
-    }
-    
-    function makeMarketedCard(slip) {
-      var card = document.createElement('div');
-      card.className = 'marketed-card';
-      
-      var hitPct  = slip.hit_prob  != null ? (slip.hit_prob * 100).toFixed(1) + '%' : '—';
-      var payout  = slip.payout_mult != null ? slip.payout_mult.toFixed(1) + 'x'   : '—';
-      var ev      = slip.ev != null ? slip.ev.toFixed(2) + 'x' : '—';
-      var label   = slip.label || (slip.n_legs + '-leg');
-      var badge   = slip.high_confidence ? '<span class="marketed-badge">High Confidence</span>' : '';
-      
-      var legsHtml = '';
-      var legs = slip.legs || [];
-      for (var i = 0; i < legs.length; i++) {
-        var leg = legs[i];
-        var dirClass  = (leg.dir  || '').toLowerCase();
-        var tierClass = (leg.tier || '').toLowerCase();
-        var pcalStr   = leg.p_cal != null ? '<span style="color:var(--muted);font-size:9px;margin-left:4px">' + (leg.p_cal * 100).toFixed(0) + '%</span>' : '';
-        legsHtml += '<div class="leg">' +
-          '<span class="leg-player">' + leg.player + '</span>' +
-          '<div class="leg-pick">' +
-            '<span class="dir ' + dirClass + '">' + leg.dir + '</span>' +
-            '<span class="stat-line">' + leg.stat + ' ' + leg.line + '</span>' +
-            '<span class="tier ' + tierClass + '">' + leg.tier + '</span>' +
-            pcalStr +
-          '</div>' +
-        '</div>';
-      }
-      
-      card.innerHTML =
-        badge +
-        '<div class="card-header">' +
-          '<div>' +
-            '<div class="leg-count">' + label + '</div>' +
-            '<div class="leg-label">Parlay</div>' +
-          '</div>' +
-          '<div style="text-align:right">' +
-            '<div class="hit-prob">' + hitPct + '</div>' +
-            '<div class="hit-label">Hit Prob</div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="meta">' +
-          '<span>EV: ' + ev + '</span>' +
-          '<span>Payout: ' + payout + '</span>' +
-        '</div>' +
-        '<div class="legs">' + legsHtml + '</div>';
-      
-      return card;
-    }
-    
-    function setupAutoRefresh() {
-      var cb = document.getElementById('autoRefresh');
-      cb.addEventListener('change', function() {
-        if (cb.checked) {
-          refreshTimer = setInterval(loadData, 30000);
-        } else {
-          clearInterval(refreshTimer);
-        }
-      });
-      refreshTimer = setInterval(loadData, 30000);
-    }
-    
-    loadData();
-    setupAutoRefresh();
+    function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    loadProps();
   </script>
 </body>
 </html>

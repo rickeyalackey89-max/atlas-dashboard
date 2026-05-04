@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Atlas Dashboard</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --purple: #a855f7;
+      --cyan: #06b6d4;
+      --pink: #ec4899;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 { font-size: 28px; font-weight: 700; }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+    .dot.stale { background: var(--yellow); }
+    .dot.old { background: var(--red); }
+    
+    .section {
+      margin-bottom: 28px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--border);
+    }
+    .section-title.system { color: var(--blue); border-color: var(--blue); }
+    .section-title.system_winprob { color: var(--cyan); border-color: var(--cyan); }
+    .section-title.windfall { color: var(--purple); border-color: var(--purple); }
+    .section-title.windfall_winprob { color: var(--pink); border-color: var(--pink); }
+    .section-title.demonhunter { color: var(--red); border-color: var(--red); }
+    .section-title.marketed { color: #f59e0b; border-color: #f59e0b; }
+    
+    .marketed-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 1000px) { .marketed-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 650px)  { .marketed-grid { grid-template-columns: 1fr; } }
+    
+    .marketed-card {
+      background: var(--card);
+      border: 1px solid #f59e0b44;
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .marketed-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: #78350f;
+      color: #fde68a;
+      margin-bottom: 8px;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 1000px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 650px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .leg-count {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .leg-label {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    
+    .hit-prob {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .hit-label {
+      font-size: 9px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    
+    .meta {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    
+    .legs {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .leg {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 8px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 5px;
+      font-size: 12px;
+    }
+    .leg-player {
+      font-weight: 500;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 110px;
+    }
+    .leg-pick {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .dir {
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-size: 9px;
+      font-weight: 600;
+    }
+    .dir.over { background: #166534; color: #bbf7d0; }
+    .dir.under { background: #991b1b; color: #fecaca; }
+    .stat-line {
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+    }
+    .tier {
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-size: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .tier.standard { background: #374151; color: #9ca3af; }
+    .tier.goblin { background: #854d0e; color: #fef08a; }
+    .tier.demon { background: #7f1d1d; color: #fca5a5; }
+    
+    .no-data {
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    
+    .refresh-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .refresh-btn:hover { background: var(--border); }
+    
+    .auto-refresh {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    
+    footer {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Atlas Dashboard</h1>
+        <div class="status">
+          <span class="dot" id="statusDot"></span>
+          <span id="statusText">Loading...</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <label class="auto-refresh">
+          <input type="checkbox" id="autoRefresh" checked />
+          Auto-refresh (30s)
+        </label>
+        <button class="refresh-btn" onclick="loadData()">Refresh</button>
+      </div>
+    </header>
+    
+    <div id="content">
+      <div class="no-data">Loading slips...</div>
+    </div>
+    
+    <footer>
+      <span id="runId"></span>
+    </footer>
+  </div>
+  
+  <script>
+    var refreshTimer = null;
+    
+    function loadData() {
+      fetch('/data/cloudflare_payload.json?t=' + Date.now())
+        .then(function(resp) {
+          if (!resp.ok) throw new Error('Fetch failed');
+          return resp.json();
+        })
+        .then(function(data) {
+          render(data);
+        })
+        .catch(function(e) {
+          document.getElementById('content').innerHTML = '<div class="no-data">Failed to load data</div>';
+          document.getElementById('statusText').textContent = 'Error loading';
+          document.getElementById('statusDot').className = 'dot old';
+        });
+    }
+    
+    function render(data) {
+      var genAt = new Date(data.generated_at);
+      var ageMin = Math.floor((Date.now() - genAt.getTime()) / 60000);
+      
+      var dot = document.getElementById('statusDot');
+      var statusText = document.getElementById('statusText');
+      
+      if (ageMin < 30) {
+        dot.className = 'dot';
+        statusText.textContent = 'Live ' + ageMin + 'm ago';
+      } else if (ageMin < 120) {
+        dot.className = 'dot stale';
+        statusText.textContent = ageMin + 'm ago';
+      } else {
+        dot.className = 'dot old';
+        statusText.textContent = 'Stale ' + Math.floor(ageMin / 60) + 'h ago';
+      }
+      
+      document.getElementById('runId').textContent = 'Run: ' + data.run_id + ' | Generated: ' + genAt.toLocaleString();
+      
+      var content = document.getElementById('content');
+      content.innerHTML = '';
+      
+      // System EV section
+      content.appendChild(makeSection('System (EV)', 'system', data.system || []));
+      
+      // System WinProb section
+      content.appendChild(makeSection('System (Win Prob)', 'system_winprob', data.system_winprob || []));
+      
+      // Windfall EV section
+      content.appendChild(makeSection('Windfall (EV)', 'windfall', data.windfall || []));
+      
+      // Windfall WinProb section
+      content.appendChild(makeSection('Windfall (Win Prob)', 'windfall_winprob', data.windfall_winprob || []));
+      
+      // Demonhunter section
+      content.appendChild(makeSection('Demonhunter', 'demonhunter', data.demonhunter || []));
+      
+      // Marketed slips section
+      var ms = data.marketed_slips || [];
+      if (ms.length > 0) {
+        content.appendChild(makeMarketedSection(ms));
+      }
+    }
+    
+    function makeSection(title, type, slips) {
+      var section = document.createElement('div');
+      section.className = 'section';
+      
+      var titleEl = document.createElement('div');
+      titleEl.className = 'section-title ' + type;
+      titleEl.textContent = title;
+      section.appendChild(titleEl);
+      
+      var grid = document.createElement('div');
+      grid.className = 'grid';
+      
+      for (var n = 3; n <= 5; n++) {
+        var slip = null;
+        for (var i = 0; i < slips.length; i++) {
+          if (slips[i].n_legs === n) {
+            slip = slips[i];
+            break;
+          }
+        }
+        grid.appendChild(makeCard(slip, n, type));
+      }
+      
+      section.appendChild(grid);
+      return section;
+    }
+    
+    function makeCard(slip, nLegs, type) {
+      var card = document.createElement('div');
+      card.className = 'card';
+      
+      if (!slip) {
+        card.innerHTML = '<div class="card-header"><div><div class="leg-count">' + nLegs + '</div><div class="leg-label">Leg Slip</div></div></div><div class="no-data" style="padding:15px">No slip</div>';
+        return card;
+      }
+      
+      var hitPct = (slip.hit_prob * 100).toFixed(1);
+      var evMult = slip.ev_mult.toFixed(2);
+      var payout = slip.payout_mult.toFixed(1);
+      
+      var legsHtml = '';
+      var legs = slip.legs_detail || [];
+      for (var i = 0; i < legs.length; i++) {
+        var leg = legs[i];
+        var dirClass = leg.dir.toLowerCase();
+        var tierClass = leg.tier.toLowerCase();
+        legsHtml += '<div class="leg">' +
+          '<span class="leg-player">' + leg.player + '</span>' +
+          '<div class="leg-pick">' +
+            '<span class="dir ' + dirClass + '">' + leg.dir + '</span>' +
+            '<span class="stat-line">' + leg.stat + ' ' + leg.line + '</span>' +
+            '<span class="tier ' + tierClass + '">' + leg.tier + '</span>' +
+          '</div>' +
+        '</div>';
+      }
+      
+      card.innerHTML = '<div class="card-header">' +
+          '<div>' +
+            '<div class="leg-count">' + slip.n_legs + '</div>' +
+            '<div class="leg-label">Leg Slip</div>' +
+          '</div>' +
+          '<div style="text-align:right">' +
+            '<div class="hit-prob">' + hitPct + '%</div>' +
+            '<div class="hit-label">Hit Prob</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="meta">' +
+          '<span>EV: ' + evMult + 'x</span>' +
+          '<span>Payout: ' + payout + 'x</span>' +
+        '</div>' +
+        '<div class="legs">' + legsHtml + '</div>';
+      
+      return card;
+    }
+    
+    function makeMarketedSection(slips) {
+      var section = document.createElement('div');
+      section.className = 'section';
+      var titleEl = document.createElement('div');
+      titleEl.className = 'section-title marketed';
+      titleEl.textContent = 'Atlas Picks (Marketed Slips)';
+      section.appendChild(titleEl);
+      var grid = document.createElement('div');
+      grid.className = 'marketed-grid';
+      for (var i = 0; i < slips.length; i++) {
+        grid.appendChild(makeMarketedCard(slips[i]));
+      }
+      section.appendChild(grid);
+      return section;
+    }
+    
+    function makeMarketedCard(slip) {
+      var card = document.createElement('div');
+      card.className = 'marketed-card';
+      
+      var hitPct  = slip.hit_prob  != null ? (slip.hit_prob * 100).toFixed(1) + '%' : '—';
+      var payout  = slip.payout_mult != null ? slip.payout_mult.toFixed(1) + 'x'   : '—';
+      var ev      = slip.ev != null ? slip.ev.toFixed(2) + 'x' : '—';
+      var label   = slip.label || (slip.n_legs + '-leg');
+      var badge   = slip.high_confidence ? '<span class="marketed-badge">High Confidence</span>' : '';
+      
+      var legsHtml = '';
+      var legs = slip.legs || [];
+      for (var i = 0; i < legs.length; i++) {
+        var leg = legs[i];
+        var dirClass  = (leg.dir  || '').toLowerCase();
+        var tierClass = (leg.tier || '').toLowerCase();
+        var pcalStr   = leg.p_cal != null ? '<span style="color:var(--muted);font-size:9px;margin-left:4px">' + (leg.p_cal * 100).toFixed(0) + '%</span>' : '';
+        legsHtml += '<div class="leg">' +
+          '<span class="leg-player">' + leg.player + '</span>' +
+          '<div class="leg-pick">' +
+            '<span class="dir ' + dirClass + '">' + leg.dir + '</span>' +
+            '<span class="stat-line">' + leg.stat + ' ' + leg.line + '</span>' +
+            '<span class="tier ' + tierClass + '">' + leg.tier + '</span>' +
+            pcalStr +
+          '</div>' +
+        '</div>';
+      }
+      
+      card.innerHTML =
+        badge +
+        '<div class="card-header">' +
+          '<div>' +
+            '<div class="leg-count">' + label + '</div>' +
+            '<div class="leg-label">Parlay</div>' +
+          '</div>' +
+          '<div style="text-align:right">' +
+            '<div class="hit-prob">' + hitPct + '</div>' +
+            '<div class="hit-label">Hit Prob</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="meta">' +
+          '<span>EV: ' + ev + '</span>' +
+          '<span>Payout: ' + payout + '</span>' +
+        '</div>' +
+        '<div class="legs">' + legsHtml + '</div>';
+      
+      return card;
+    }
+    
+    function setupAutoRefresh() {
+      var cb = document.getElementById('autoRefresh');
+      cb.addEventListener('change', function() {
+        if (cb.checked) {
+          refreshTimer = setInterval(loadData, 30000);
+        } else {
+          clearInterval(refreshTimer);
+        }
+      });
+      refreshTimer = setInterval(loadData, 30000);
+    }
+    
+    loadData();
+    setupAutoRefresh();
+  </script>
+</body>
+</html>
