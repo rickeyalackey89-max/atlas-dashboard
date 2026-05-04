@@ -51,7 +51,8 @@ export async function onRequestPost(context) {
     }
 
     if (!resp.ok || !session.client_secret) {
-      return new Response(JSON.stringify({ error: session.error?.message || ('Stripe status ' + resp.status) }), {
+      var errMsg = (session.error && session.error.message) ? session.error.message : ('Stripe status ' + resp.status);
+      return new Response(JSON.stringify({ error: errMsg }), {
         status: 502, headers: { 'Content-Type': 'application/json', ...CORS },
       });
     }
