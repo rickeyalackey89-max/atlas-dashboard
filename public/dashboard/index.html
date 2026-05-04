@@ -136,7 +136,7 @@
   <div class="nav-links">
     <a href="/" class="btn btn-outline">← Home</a>
     <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord">Discord</a>
-    <a href="https://buy.stripe.com/00w00lgsickF8JC0Ho3cc03" target="_blank" rel="noopener" class="btn btn-gold" id="navPremiumBtn">Go Premium — $19.99/mo</a>
+    <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" id="navPremiumBtn">Go Premium — $19.99/mo</a>
   </div>
 </nav>
 
@@ -193,7 +193,7 @@
         <div class="lock-icon">🔒</div>
         <div class="lock-text">Premium Feature</div>
         <div class="lock-sub">Unlock all 3 optimized daily slips with full leg detail</div>
-        <a href="https://buy.stripe.com/00w00lgsickF8JC0Ho3cc03" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+        <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
       </div>
     </div>
 
@@ -237,7 +237,7 @@
       <div class="lock-icon">🔒</div>
       <div class="lock-text">Premium Feature</div>
       <div class="lock-sub">Full confidence scores and EV rankings for every leg on the board</div>
-      <a href="https://buy.stripe.com/00w00lgsickF8JC0Ho3cc03" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+      <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
     </div>
   </div>
 
@@ -300,7 +300,7 @@
     <p class="premium-cta-sub">Optimized 3, 4, and 5-leg slips. Full confidence and EV rankings. Complete board. Multi-sport coverage when it launches. Everything the model knows — yours daily.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
       <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord" style="padding:12px 28px;font-size:13px;">Join Discord — Free</a>
-      <a href="https://buy.stripe.com/00w00lgsickF8JC0Ho3cc03" target="_blank" rel="noopener" class="btn btn-gold" style="padding:12px 28px;font-size:13px;">Unlock Premium — $19.99/mo</a>
+      <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="padding:12px 28px;font-size:13px;">Unlock Premium — $19.99/mo</a>
     </div>
   </div>
 
@@ -371,7 +371,7 @@
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
   // ── PREMIUM TOKEN GATE ──────────────────────────────────────────────────
-  var STRIPE_LINK = 'https://buy.stripe.com/00w00lgsickF8JC0Ho3cc03';
+  var STRIPE_LINK = '/checkout/';
 
   function verifyToken(token) {
     try {
