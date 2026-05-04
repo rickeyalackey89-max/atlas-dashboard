@@ -1,3 +1,4 @@
+// checkout function v3 - always 200 to avoid CF 5xx interception
 export async function onRequestPost(context) {
   var env = context.env;
   var headers = { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'https://atlassports.ai' };
@@ -19,9 +20,16 @@ export async function onRequestPost(context) {
     });
     var text = await resp.text();
     var session = {};
-    try { session = JSON.parse(text); } catch(e) { return new Response(JSON.stringify({ error: 'Stripe non-JSON: ' + text.slice(0,100) }), { status: 200, headers: headers }); }
-    if (!resp.ok) { return new Response(JSON.stringify({ error: (session.error && session.error.message) ? session.error.message : 'Stripe error ' + resp.status }), { status: 200, headers: headers }); }
-    if (!session.client_secret) { return new Response(JSON.stringify({ error: 'No client_secret returned' }), { status: 200, headers: headers }); }
+    try { session = JSON.parse(text); } catch(e) {
+      return new Response(JSON.stringify({ error: 'Stripe non-JSON: ' + text.slice(0,100) }), { status: 200, headers: headers });
+    }
+    if (!resp.ok) {
+      var msg = (session.error && session.error.message) ? session.error.message : ('Stripe error ' + resp.status);
+      return new Response(JSON.stringify({ error: msg }), { status: 200, headers: headers });
+    }
+    if (!session.client_secret) {
+      return new Response(JSON.stringify({ error: 'No client_secret returned' }), { status: 200, headers: headers });
+    }
     return new Response(JSON.stringify({ clientSecret: session.client_secret }), { status: 200, headers: headers });
   } catch(e) {
     return new Response(JSON.stringify({ error: 'Exception: ' + (e && e.message ? e.message : String(e)) }), { status: 200, headers: headers });
