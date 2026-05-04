@@ -58,7 +58,7 @@ export async function onRequestPost(context) {
     // 30-day expiry for one-time payments; subscriptions should use webhooks for revocation
     const expires = Date.now() + 30 * 24 * 60 * 60 * 1000;
     const payload = `${email}|${customerId}|${expires}`;
-    const sig = await hmacSign(payload, env.TOKEN_SECRET || 'dev-secret-change-me');
+    const sig = await hmacSign(payload, env.SECRET_TOKEN || 'dev-secret-change-me');
 
     const token = btoa(JSON.stringify({ email, customerId, expires, sig }));
 
