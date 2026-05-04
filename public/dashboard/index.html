@@ -152,7 +152,7 @@
   <!-- TOP STAT TILES -->
   <div class="dash-grid" style="margin-bottom:1px;">
     <div class="stat-tile card"><div class="tile-val" style="color:var(--gold);" id="totalPicks">—</div><div class="tile-lbl">Picks Today</div></div>
-    <div class="stat-tile card"><div class="tile-val" style="color:var(--cyan);">3</div><div class="tile-lbl">Daily Slips</div></div>
+    <div class="stat-tile card"><div class="tile-val" style="color:var(--cyan);" id="totalSlips">—</div><div class="tile-lbl">Daily Slips</div></div>
     <div class="stat-tile card"><div class="tile-val" style="color:var(--green);" id="slateGames">—</div><div class="tile-lbl">Games on Slate</div></div>
   </div>
 
@@ -315,7 +315,11 @@
         // Collect unique legs by tier
         var TIER_ORDER = ['GOBLIN','STANDARD','DEMON'];
         var seen = {}, allLegs = [];
-        var sources = (data.system||[]).concat(data.windfall||[]).concat(data.marketed_slips||[]);
+        var totalSlips = (data.system||[]).length + (data.system_winprob||[]).length +
+          (data.windfall||[]).length + (data.windfall_winprob||[]).length + (data.demonhunter||[]).length;
+        document.getElementById('totalSlips').textContent = totalSlips || '—';
+        var sources = (data.system||[]).concat(data.system_winprob||[]).concat(data.windfall||[])
+          .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.marketed_slips||[]);
         for (var i=0;i<sources.length;i++){
           var sl=sources[i], legs=sl.legs_detail||sl.legs||[];
           for(var j=0;j<legs.length;j++){
