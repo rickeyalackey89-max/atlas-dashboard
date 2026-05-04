@@ -95,18 +95,23 @@
   var stripe = Stripe(STRIPE_PK);
 
   fetch('/api/create-checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' } })
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if (!data.clientSecret) {
-        showError(data.error || 'Could not start checkout. Please try again.');
+    .then(function(r){
+      return r.text().then(function(txt){
+        try { return { ok: r.ok, status: r.status, data: JSON.parse(txt) }; }
+        catch(e) { return { ok: false, status: r.status, data: { error: 'Server error (' + r.status + '): ' + txt.slice(0,200) } }; }
+      });
+    })
+    .then(function(res){
+      if (!res.ok || !res.data.clientSecret) {
+        showError(res.data.error || 'Could not start checkout (status ' + res.status + ')');
         return;
       }
       document.getElementById('loadingMsg').remove();
-      stripe.initEmbeddedCheckout({ clientSecret: data.clientSecret })
+      stripe.initEmbeddedCheckout({ clientSecret: res.data.clientSecret })
         .then(function(checkout){ checkout.mount('#checkout-container'); });
     })
     .catch(function(e){
-      showError('Network error. Please refresh and try again.');
+      showError('Network error: ' + (e && e.message ? e.message : String(e)));
     });
 
   function showError(msg){
