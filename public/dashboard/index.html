@@ -345,11 +345,15 @@
           pl.appendChild(row);
         }
 
-        // Slate from teams in legs
+        // Slate from teams in legs — normalize key so A@B and B@A are the same game
         var teams={};
         for(var i=0;i<allLegs.length;i++){
           var leg=allLegs[i];
-          if(leg.team&&leg.opp){var gk=leg.team+'@'+leg.opp;if(!teams[gk])teams[gk]={home:leg.opp,away:leg.team};}
+          if(leg.team&&leg.opp){
+            var sorted=[leg.team,leg.opp].sort();
+            var gk=sorted[0]+'@'+sorted[1];
+            if(!teams[gk])teams[gk]={home:leg.opp,away:leg.team};
+          }
         }
         var games=Object.keys(teams);
         document.getElementById('slateGames').textContent=games.length||'—';
