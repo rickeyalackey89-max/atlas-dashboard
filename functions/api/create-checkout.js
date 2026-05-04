@@ -16,40 +16,55 @@ const CORS = {
 export async function onRequestPost(context) {
   const { env } = context;
 
-  if (!env.STRIPE_SECRET_KEY || !env.STRIPE_PRICE_ID) {
-    return new Response(JSON.stringify({ error: 'Server misconfiguration' }), {
+  try {
+    if (!env.STRIPE_SECRET_KEY || !env.STRIPE_PRICE_ID) {
+      return new Response(JSON.stringify({ error: 'Server misconfiguration: missing env vars' }), {
+        status: 500, headers: { 'Content-Type': 'application/json', ...CORS },
+      });
+    }
+
+    const params = new URLSearchParams({
+      mode: 'subscription',
+      ui_mode: 'embedded',
+      'line_items[0][price]': env.STRIPE_PRICE_ID,
+      'line_items[0][quantity]': '1',
+      return_url: 'https://atlassports.ai/dashboard/welcome?session_id={CHECKOUT_SESSION_ID}',
+    });
+
+    const resp = await fetch('https://api.stripe.com/v1/checkout/sessions', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: params.toString(),
+    });
+
+    const text = await resp.text();
+    let session;
+    try {
+      session = JSON.parse(text);
+    } catch (e) {
+      return new Response(JSON.stringify({ error: 'Stripe returned non-JSON: ' + text.slice(0, 300) }), {
+        status: 502, headers: { 'Content-Type': 'application/json', ...CORS },
+      });
+    }
+
+    if (!resp.ok || !session.client_secret) {
+      return new Response(JSON.stringify({ error: session.error?.message || ('Stripe status ' + resp.status) }), {
+        status: 502, headers: { 'Content-Type': 'application/json', ...CORS },
+      });
+    }
+
+    return new Response(JSON.stringify({ clientSecret: session.client_secret }), {
+      status: 200, headers: { 'Content-Type': 'application/json', ...CORS },
+    });
+
+  } catch (err) {
+    return new Response(JSON.stringify({ error: 'Function exception: ' + (err && err.message ? err.message : String(err)) }), {
       status: 500, headers: { 'Content-Type': 'application/json', ...CORS },
     });
   }
-
-  const params = new URLSearchParams({
-    mode: 'subscription',
-    ui_mode: 'embedded',
-    'line_items[0][price]': env.STRIPE_PRICE_ID,
-    'line_items[0][quantity]': '1',
-    return_url: 'https://atlassports.ai/dashboard/welcome?session_id={CHECKOUT_SESSION_ID}',
-  });
-
-  const resp = await fetch('https://api.stripe.com/v1/checkout/sessions', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: params.toString(),
-  });
-
-  const session = await resp.json();
-
-  if (!resp.ok || !session.client_secret) {
-    return new Response(JSON.stringify({ error: session.error?.message || 'Stripe error' }), {
-      status: 502, headers: { 'Content-Type': 'application/json', ...CORS },
-    });
-  }
-
-  return new Response(JSON.stringify({ clientSecret: session.client_secret }), {
-    status: 200, headers: { 'Content-Type': 'application/json', ...CORS },
-  });
 }
 
 export async function onRequestOptions() {
