@@ -270,39 +270,58 @@
   </footer>
 
   <script>
+    var TIER_ORDER = ['GOBLIN','STANDARD','DEMON'];
+    var TIER_STYLE = {
+      GOBLIN:   { bg:'#14532d', color:'#86efac', label:'Goblin' },
+      STANDARD: { bg:'#1e3a5f', color:'#93c5fd', label:'Standard' },
+      DEMON:    { bg:'#7f1d1d', color:'#fca5a5', label:'Demon' }
+    };
     function loadProps() {
       fetch('/data/cloudflare_payload.json?t=' + Date.now())
         .then(function(r) { return r.ok ? r.json() : null; })
         .then(function(data) {
           if (!data) { showNoData(); return; }
-          var seen = {}, legs = [];
-          var sources = (data.system || []).concat(data.windfall || []);
+          // Collect all unique legs from all slips, preserving first-seen order (highest ranked first)
+          var seen = {}, allLegs = [];
+          var sources = (data.system || []).concat(data.windfall || []).concat(data.marketed_slips || []);
           for (var i = 0; i < sources.length; i++) {
-            var sl = sources[i], sl_legs = sl.legs_detail || [];
+            var sl = sources[i];
+            var sl_legs = sl.legs_detail || sl.legs || [];
             for (var j = 0; j < sl_legs.length; j++) {
               var leg = sl_legs[j];
               var key = (leg.player||'') + '|' + (leg.stat||'') + '|' + (leg.line||'') + '|' + (leg.dir||'');
-              if (!seen[key]) { seen[key] = true; legs.push(leg); }
+              if (!seen[key]) { seen[key] = true; allLegs.push(leg); }
             }
           }
-          var mk = data.marketed_slips || [];
-          for (var i = 0; i < mk.length; i++) {
-            var ml = mk[i].legs || [];
-            for (var j = 0; j < ml.length; j++) {
-              var leg = ml[j];
-              var key = (leg.player||'') + '|' + (leg.stat||'') + '|' + (leg.line||'') + '|' + (leg.dir||'');
-              if (!seen[key]) { seen[key] = true; legs.push(leg); }
+          // Pick the first (highest-ranked) leg for each tier
+          var picks = {}, tierSeen = {};
+          for (var i = 0; i < allLegs.length; i++) {
+            var leg = allLegs[i];
+            var t = (leg.tier || '').toUpperCase();
+            if (TIER_ORDER.indexOf(t) >= 0 && !tierSeen[t]) {
+              tierSeen[t] = true;
+              picks[t] = leg;
             }
+          }
+          var legs = [];
+          for (var k = 0; k < TIER_ORDER.length; k++) {
+            if (picks[TIER_ORDER[k]]) legs.push(picks[TIER_ORDER[k]]);
           }
           if (!legs.length) { showNoData(); return; }
           var grid = document.getElementById('propsGrid');
           grid.innerHTML = '';
           for (var i = 0; i < legs.length; i++) {
             var leg = legs[i], dir = (leg.dir||'').toLowerCase();
+            var t = (leg.tier||'').toUpperCase();
+            var ts = TIER_STYLE[t] || { bg:'#1f2d44', color:'#94a3b8', label: leg.tier||'' };
             var card = document.createElement('div');
             card.className = 'prop-card';
-            card.innerHTML = '<div><div class="prop-player">' + esc(leg.player||'&mdash;') + '</div><div class="prop-meta">' + esc(leg.stat||'') + (leg.team ? ' &bull; ' + esc(leg.team) : '') + '</div></div>' +
-              '<div class="prop-right"><div class="prop-line">' + esc(String(leg.line||'&mdash;')) + '</div><span class="prop-dir ' + dir + '">' + esc(leg.dir||'') + '</span></div>';
+            card.innerHTML =
+              '<div><div class="prop-player">' + esc(leg.player||'&mdash;') + '</div>' +
+              '<div class="prop-meta">' + esc(leg.stat||'') + (leg.team ? ' &bull; ' + esc(leg.team) : '') + '</div>' +
+              '<span style="display:inline-block;margin-top:6px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:' + ts.bg + ';color:' + ts.color + '">' + esc(ts.label) + '</span></div>' +
+              '<div class="prop-right"><div class="prop-line">' + esc(String(leg.line||'&mdash;')) + '</div>' +
+              '<span class="prop-dir ' + dir + '">' + esc(leg.dir||'') + '</span></div>';
             grid.appendChild(card);
           }
         }).catch(showNoData);
