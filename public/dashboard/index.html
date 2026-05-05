@@ -135,6 +135,11 @@
     .btm-player-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
     .btm-chevron{font-size:10px;color:var(--t2);transition:transform .2s;}
     .btm-card{padding:0 16px 16px;display:none;}
+    .btm-stat-group{margin-bottom:16px;}
+    .btm-stat-group:last-child{margin-bottom:0;}
+    .btm-stat-header{font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);padding:10px 0 8px;border-bottom:1px solid var(--b);margin-bottom:10px;}
+    .btm-leg-row{padding-bottom:12px;}
+    .btm-leg-row-sep{padding-top:12px;border-top:1px dashed var(--b);}
     .btm-metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}
     @media(min-width:600px){.btm-metric-grid{grid-template-columns:repeat(3,1fr);}}
     .btm-metric{background:var(--s1);padding:14px;}
@@ -962,71 +967,68 @@
         +'</div>'
         +'</div>';
       var cardHtml='<div class="btm-card">';
-      for(var li=0;li<pLegs.length;li++){
-        var leg=pLegs[li], ldir=(leg.dir||'').toLowerCase();
-        var lPct=leg.p_cal!=null?Math.round(leg.p_cal*100):null;
-        var frag=leg.fragility!=null?leg.fragility:null;
-        var qbow=leg.q_blowout!=null?leg.q_blowout:null;
-        var edge=leg.l20_edge!=null?leg.l20_edge:null;
-        var role=leg.role_mult!=null?leg.role_mult:null;
-
-        // Stability: invert fragility — 0=very stable, high=fragile
-        var stabPct=frag!=null?Math.max(0,Math.round((1-Math.min(frag*5,1))*100)):null;
-        var stabColor=stabPct!=null?(stabPct>=70?'var(--green)':stabPct>=40?'var(--gold)':'#f87171'):'var(--t2)';
-
-        // Blowout: q_blowout is 0-1, high = risky
-        var blowPct=qbow!=null?Math.round(qbow*100):null;
-        var blowColor=blowPct!=null?(blowPct<=20?'var(--green)':blowPct<=50?'var(--gold)':'#f87171'):'var(--t2)';
-
-        // Edge: l20_edge, signed
-        var edgeTxt=edge!=null?(edge>=0?'+':'')+Math.round(edge*100)+'%':null;
-        var edgeColor=edge!=null?(edge>0?'var(--green)':edge<0?'#f87171':'var(--t2)'):'var(--t2)';
-
-        // Role: 1.0=neutral, >1=boosted, <1=dimmed
-        var roleColor=role!=null?(role>1.05?'var(--green)':role<0.95?'#f87171':'var(--t2)'):'var(--t2)';
-        var roleTxt=role!=null?role.toFixed(2)+'x':null;
-        var roleDesc=role!=null?(role>1.05?'Boosted — lineup favors more output':role<0.95?'Reduced — role limited by roster':'Neutral — no lineup adjustment'):'';
-
-        cardHtml+='<div style="margin-bottom:14px;padding-top:'+(li>0?'14px':0)+';'+(li>0?'border-top:1px solid var(--b)':'')+'">'
-          +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">'
-          +'<span class="dir-'+ldir+'">'+esc(leg.dir||'')+'</span>'
-          +'<span style="font-size:14px;font-weight:900;">'+esc(leg.stat||'')+'</span>'
-          +'<span style="font-size:14px;font-weight:700;color:var(--t2);">'+esc(String(leg.line||''))+'</span>'
-          +'<span class="'+tierClass(leg.tier||'')+'">'+tierLabel(leg.tier||'')+'</span>'
-          +'</div>'
-          +'<div class="btm-metric-grid">'
-          // 1. Model Confidence
-          +'<div class="btm-metric">'
-          +'<div class="btm-metric-label">Model Confidence</div>'
-          +'<div class="btm-metric-val" style="color:'+(lPct!=null?pctColor(leg.p_cal||0):'var(--t2)')+';">'+(lPct!=null?lPct+'%':'&#8212;')+'</div>'
-          +'<div class="btm-metric-desc">Probability this leg hits based on all model signals</div>'
-          +'</div>'
-          // 2. Leg Stability
-          +'<div class="btm-metric">'
-          +'<div class="btm-metric-label">Leg Stability</div>'
-          +'<div class="btm-metric-val" style="color:'+stabColor+';">'+(stabPct!=null?stabPct+'%':'&#8212;')+'</div>'
-          +'<div class="btm-metric-desc">How steady this prediction is. Low stability means the leg is sensitive to game flow.</div>'
-          +'</div>'
-          // 3. Blowout Risk
-          +'<div class="btm-metric">'
-          +'<div class="btm-metric-label">Blowout Risk</div>'
-          +'<div class="btm-metric-val" style="color:'+blowColor+';">'+(blowPct!=null?blowPct+'%':'&#8212;')+'</div>'
-          +'<div class="btm-metric-desc">Likelihood this game turns into a blowout, compressing minutes and stats.</div>'
-          +'</div>'
-          // 4. Recent Edge
-          +'<div class="btm-metric">'
-          +'<div class="btm-metric-label">Recent Edge</div>'
-          +'<div class="btm-metric-val" style="color:'+edgeColor+';">'+(edgeTxt||'&#8212;')+'</div>'
-          +'<div class="btm-metric-desc">Model\'s advantage on this player/stat over the last 20 games vs market.</div>'
-          +'</div>'
-          // 5. Role Signal
-          +'<div class="btm-metric" style="'+(pLegs.length===1?'grid-column:span 2':'')+'">'
-          +'<div class="btm-metric-label">Role Signal</div>'
-          +'<div class="btm-metric-val" style="color:'+roleColor+';">'+(roleTxt||'&#8212;')+'</div>'
-          +'<div class="btm-metric-desc">'+(roleDesc||'How current lineup and rotation context affects this player\'s output.')+'</div>'
-          +'</div>'
-          +'</div>'
+      // Render stat by stat — each stat gets its own header block
+      for(var gi=0;gi<statOrder.length;gi++){
+        var statName=statOrder[gi];
+        var statLegs=byStat[statName]; // already sorted low→high line
+        cardHtml+='<div class="btm-stat-group">'
+          +'<div class="btm-stat-header">'+esc(statName)
+          +' <span style="font-size:9px;font-weight:700;color:var(--t2);margin-left:6px;">'+statLegs.length+' line'+(statLegs.length>1?'s':'')+'</span>'
           +'</div>';
+        for(var li=0;li<statLegs.length;li++){
+          var leg=statLegs[li], ldir=(leg.dir||'').toLowerCase();
+          var lPct=leg.p_cal!=null?Math.round(leg.p_cal*100):null;
+          var frag=leg.fragility!=null?leg.fragility:null;
+          var qbow=leg.q_blowout!=null?leg.q_blowout:null;
+          var edge=leg.l20_edge!=null?leg.l20_edge:null;
+          var role=leg.role_mult!=null?leg.role_mult:null;
+
+          var stabPct=frag!=null?Math.max(0,Math.round((1-Math.min(frag*5,1))*100)):null;
+          var stabColor=stabPct!=null?(stabPct>=70?'var(--green)':stabPct>=40?'var(--gold)':'#f87171'):'var(--t2)';
+          var blowPct=qbow!=null?Math.round(qbow*100):null;
+          var blowColor=blowPct!=null?(blowPct<=20?'var(--green)':blowPct<=50?'var(--gold)':'#f87171'):'var(--t2)';
+          var edgeTxt=edge!=null?(edge>=0?'+':'')+Math.round(edge*100)+'%':null;
+          var edgeColor=edge!=null?(edge>0?'var(--green)':edge<0?'#f87171':'var(--t2)'):'var(--t2)';
+          var roleColor=role!=null?(role>1.05?'var(--green)':role<0.95?'#f87171':'var(--t2)'):'var(--t2)';
+          var roleTxt=role!=null?role.toFixed(2)+'x':null;
+          var roleDesc=role!=null?(role>1.05?'Boosted \u2014 lineup favors more output':role<0.95?'Reduced \u2014 role limited by roster':'Neutral \u2014 no lineup adjustment'):'';
+
+          cardHtml+='<div class="btm-leg-row'+(li>0?' btm-leg-row-sep':'')+'">'
+            +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">'
+            +'<span style="font-size:15px;font-weight:900;color:var(--text);">'+esc(String(leg.line||''))+'</span>'
+            +'<span class="dir-'+ldir+'">'+esc(leg.dir||'')+'</span>'
+            +'<span class="'+tierClass(leg.tier||'')+'">'+tierLabel(leg.tier||'')+'</span>'
+            +'</div>'
+            +'<div class="btm-metric-grid">'
+            +'<div class="btm-metric">'
+            +'<div class="btm-metric-label">Model Confidence</div>'
+            +'<div class="btm-metric-val" style="color:'+(lPct!=null?pctColor(leg.p_cal||0):'var(--t2)')+';">'+(lPct!=null?lPct+'%':'&#8212;')+'</div>'
+            +'<div class="btm-metric-desc">Probability this leg hits</div>'
+            +'</div>'
+            +'<div class="btm-metric">'
+            +'<div class="btm-metric-label">Leg Stability</div>'
+            +'<div class="btm-metric-val" style="color:'+stabColor+';">'+(stabPct!=null?stabPct+'%':'&#8212;')+'</div>'
+            +'<div class="btm-metric-desc">Sensitivity to game flow</div>'
+            +'</div>'
+            +'<div class="btm-metric">'
+            +'<div class="btm-metric-label">Blowout Risk</div>'
+            +'<div class="btm-metric-val" style="color:'+blowColor+';">'+(blowPct!=null?blowPct+'%':'&#8212;')+'</div>'
+            +'<div class="btm-metric-desc">Game blowout likelihood</div>'
+            +'</div>'
+            +'<div class="btm-metric">'
+            +'<div class="btm-metric-label">Recent Edge</div>'
+            +'<div class="btm-metric-val" style="color:'+edgeColor+';">'+(edgeTxt||'&#8212;')+'</div>'
+            +'<div class="btm-metric-desc">Model edge vs market L20</div>'
+            +'</div>'
+            +'<div class="btm-metric" style="grid-column:span 2">'
+            +'<div class="btm-metric-label">Role Signal</div>'
+            +'<div class="btm-metric-val" style="color:'+roleColor+';">'+(roleTxt||'&#8212;')+'</div>'
+            +'<div class="btm-metric-desc">'+(roleDesc||'Lineup &amp; rotation context')+'</div>'
+            +'</div>'
+            +'</div>'
+            +'</div>';
+        }
+        cardHtml+='</div>'; // end btm-stat-group
       }
       cardHtml+='</div>';
       pDiv.innerHTML=headerHtml+cardHtml;
