@@ -327,6 +327,14 @@
       }
     }
     
+    function tierLabel(tier) {
+      var t = (tier || '').toUpperCase();
+      if (t === 'GOBLIN')   return '\u2193 Alts';
+      if (t === 'DEMON')    return '\u2191 Alts';
+      if (t === 'STANDARD') return 'Standard';
+      return tier || '';
+    }
+
     function makeSection(title, type, slips) {
       var section = document.createElement('div');
       section.className = 'section';
@@ -378,7 +386,7 @@
           '<div class="leg-pick">' +
             '<span class="dir ' + dirClass + '">' + leg.dir + '</span>' +
             '<span class="stat-line">' + leg.stat + ' ' + leg.line + '</span>' +
-            '<span class="tier ' + tierClass + '">' + leg.tier + '</span>' +
+            '<span class="tier ' + tierClass + '">' + tierLabel(leg.tier) + '</span>' +
           '</div>' +
         '</div>';
       }
@@ -440,7 +448,7 @@
           '<div class="leg-pick">' +
             '<span class="dir ' + dirClass + '">' + leg.dir + '</span>' +
             '<span class="stat-line">' + leg.stat + ' ' + leg.line + '</span>' +
-            '<span class="tier ' + tierClass + '">' + leg.tier + '</span>' +
+            '<span class="tier ' + tierClass + '">' + tierLabel(leg.tier) + '</span>' +
             pcalStr +
           '</div>' +
         '</div>';

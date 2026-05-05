@@ -397,6 +397,14 @@
     return 'tier-standard';
   }
 
+  function tierLabel(tier){
+    var t=(tier||'').toUpperCase();
+    if(t==='GOBLIN') return '\u2193 Alts';
+    if(t==='DEMON')  return '\u2191 Alts';
+    if(t==='STANDARD') return 'Standard';
+    return tier||'';
+  }
+
   function getUniqueLegs(data){
     // Returns marketed_slips legs (carry p_cal, team, opp) — used for prob/EV rendering
     var seen={},legs=[];
@@ -450,7 +458,7 @@
       '<div class="prob-cell prob-col-stat" style="color:var(--t2);font-size:11px;text-transform:uppercase;letter-spacing:.07em;">'+esc(leg.stat||'&#8212;')+'</div>'+
       '<div class="prob-line">'+esc(String(leg.line||'&#8212;'))+'</div>'+
       '<div class="prob-cell"><span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span></div>'+
-      '<div class="prob-cell prob-col-tier"><span class="'+tierClass(leg.tier)+'">'+esc(leg.tier||'&#8212;')+'</span></div>'+
+      '<div class="prob-cell prob-col-tier"><span class="'+tierClass(leg.tier)+'">'+tierLabel(leg.tier)+'</span></div>'+
       '<div class="prob-pct-wrap"><div class="prob-pct" style="color:'+color+';">'+pPct+'%</div>'+
         '<div class="prob-bar-track"><div class="prob-bar-fill" style="width:'+barW+'%;background:'+color+';"></div></div></div>';
     return row;
@@ -761,7 +769,7 @@
             '<div class="slip-leg-right">'+confBadge+l10Badge+
               '<span>'+esc(String(leg.line||''))+'</span>'+
               '<span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span>'+
-              '<span class="'+tierClass(leg.tier)+'" style="font-size:8px;">'+esc(leg.tier||'')+'</span>'+
+              '<span class="'+tierClass(leg.tier)+'" style="font-size:8px;">'+tierLabel(leg.tier)+'</span>'+
             '</div></div>';
         }
         var mktCard=document.createElement('div'); mktCard.className='slip-card'; mktCard.style.borderColor='rgba(245,166,35,.4)';
@@ -808,7 +816,7 @@
             '<div class="slip-leg-right">'+confBadge+l10Badge+
               '<span>'+esc(String(leg.line||''))+'</span>'+
               '<span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span>'+
-              '<span class="'+tierClass(leg.tier)+'" style="font-size:8px;">'+esc(leg.tier||'')+'</span>'+
+              '<span class="'+tierClass(leg.tier)+'" style="font-size:8px;">'+tierLabel(leg.tier)+'</span>'+
             '</div></div>';
         }
         var card=document.createElement('div'); card.className='slip-card';
@@ -970,7 +978,7 @@
           +'<span class="dir-'+ldir+'">'+esc(leg.dir||'')+'</span>'
           +'<span style="font-size:14px;font-weight:900;">'+esc(leg.stat||'')+'</span>'
           +'<span style="font-size:14px;font-weight:700;color:var(--t2);">'+esc(String(leg.line||''))+'</span>'
-          +'<span class="'+tierClass(leg.tier||'')+'">'+esc(leg.tier||'')+'</span>'
+          +'<span class="'+tierClass(leg.tier||'')+'">'+tierLabel(leg.tier||'')+'</span>'
           +'</div>'
           +'<div class="btm-metric-grid">'
           // 1. Model Confidence
