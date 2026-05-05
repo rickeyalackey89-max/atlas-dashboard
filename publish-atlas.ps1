@@ -107,7 +107,18 @@ Write-Host ("Staged payload + status={0} invalidations={1} injury_invalidations=
 # Build lightweight picks_today.json (~10KB) for homepage
 $picksFields = @("player","team","opp","stat","line","dir","tier","p_cal")
 $allLegs = @($payload.all_legs)
-$topLegs = $allLegs | Select-Object -First 50
+# Guarantee 1 pick per tier (GOBLIN, STANDARD, DEMON) then fill to 50
+$tierOrder = @('GOBLIN','STANDARD','DEMON')
+$tierPicks = @{}
+$remaining = [System.Collections.Generic.List[object]]::new()
+foreach ($leg in $allLegs) {
+    $t = ($leg.tier + '').ToUpper()
+    if ($tierOrder -contains $t -and -not $tierPicks.ContainsKey($t)) { $tierPicks[$t] = $leg }
+    else { $remaining.Add($leg) }
+}
+$guaranteed = foreach ($t in $tierOrder) { if ($tierPicks.ContainsKey($t)) { $tierPicks[$t] } }
+$filler = $remaining | Select-Object -First ([Math]::Max(0, 50 - @($guaranteed).Count))
+$topLegs = @($guaranteed) + @($filler)
 $picksRows = foreach ($leg in $topLegs) {
     $row = [ordered]@{}
     foreach ($f in $picksFields) { $row[$f] = $leg.$f }
