@@ -479,7 +479,7 @@
       var tk=tierOrder[k],tn=tierCounts[tk]||0,total=allLegsForCount.length;
       if(!tn) continue;
       tdHtml+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">'+
-        '<span style="font-size:12px;font-weight:700;color:'+(tierColors[tk]||'var(--text)');'>'+esc(tierLabels[tk]||tk)+'</span>'+
+        '<span style="font-size:12px;font-weight:700;color:'+(tierColors[tk]||'var(--text)')+'">'+esc(tierLabels[tk]||tk)+'</span>'+
         '<span style="font-size:12px;font-weight:800;">'+tn+'</span></div>'+
         '<div style="height:3px;background:var(--b2);border-radius:2px;margin-bottom:10px;">'+
           '<div style="height:100%;width:'+(total>0?Math.round(tn/total*100):0)+'%;background:'+(tierColors[tk]||'var(--cyan)')+';"></div>'+
