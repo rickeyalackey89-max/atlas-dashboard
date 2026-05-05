@@ -144,6 +144,7 @@
   <div class="nav-links">
     <a href="/" class="btn btn-outline">&#8592; Home</a>
     <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord">Discord</a>
+    <a href="/login/" class="btn btn-outline" id="navLoginBtn">Login</a>
     <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" id="navPremiumBtn">Go Premium</a>
   </div>
 </nav>
@@ -200,6 +201,15 @@
     <div id="sub-ev" class="sub-panel" style="display:none;">
       <div class="lock-overlay" id="evLockWrap">
         <div class="lock-blur">
+          <!-- Edge summary tiles -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--b);margin-bottom:1px;">
+            <div class="card" id="evTileEdge"><div class="no-data">--</div></div>
+            <div class="card" id="evTileHigh"><div class="no-data">--</div></div>
+            <div class="card" id="evTileBest"><div class="no-data">--</div></div>
+          </div>
+          <!-- Best Bet spotlight -->
+          <div class="card" id="evBestBet" style="margin-bottom:1px;"></div>
+          <!-- Full edge rankings -->
           <div class="card">
             <div class="card-label">Edge Rankings <span class="badge badge-premium">Premium</span></div>
             <div class="prob-header">
@@ -207,7 +217,7 @@
               <div class="prob-header-cell ev-col-stat" style="text-align:center;">Stat</div>
               <div class="prob-header-cell" style="text-align:right;">Line</div>
               <div class="prob-header-cell" style="text-align:center;">Dir</div>
-              <div class="prob-header-cell ev-col-conf" style="text-align:right;">Confidence</div>
+              <div class="prob-header-cell ev-col-conf" style="text-align:right;">Conf</div>
               <div class="prob-header-cell" style="text-align:right;">Edge</div>
             </div>
             <div id="evList"><div class="no-data">Loading...</div></div>
@@ -434,12 +444,53 @@
       .slice().sort(function(a,b){return(b.p_cal||0)-(a.p_cal||0);});
     var el=document.getElementById('evList'); el.innerHTML='';
     if(!edgeLegs.length){el.innerHTML='<div class="no-data">No edge legs today.</div>';return;}
+
+    var above65=edgeLegs.filter(function(l){return(l.p_cal||0)>=0.65;}).length;
+    var topEdge=Math.round(((edgeLegs[0].p_cal||0)-0.5)*100);
+    var best=edgeLegs[0];
+
+    var t1=document.getElementById('evTileEdge');
+    if(t1) t1.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">65%+ Legs</div>'+
+      '<div style="font-size:32px;font-weight:900;color:var(--gold);letter-spacing:-.04em;">'+above65+'</div>'+
+      '<div style="font-size:10px;color:var(--t2);margin-top:4px;">of '+edgeLegs.length+' edge legs</div>';
+    var t2el=document.getElementById('evTileHigh');
+    if(t2el) t2el.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">Top Edge</div>'+
+      '<div style="font-size:32px;font-weight:900;color:var(--cyan);letter-spacing:-.04em;">+'+topEdge+'%</div>'+
+      '<div style="font-size:10px;color:var(--t2);margin-top:4px;">above market</div>';
+    var bestL10=best.l10_hr!=null?Math.round(best.l10_hr*best.l10_n)+'/'+best.l10_n+' L10':null;
+    var t3=document.getElementById('evTileBest');
+    if(t3) t3.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">Best Conf</div>'+
+      '<div style="font-size:32px;font-weight:900;color:var(--green);letter-spacing:-.04em;">'+Math.round((best.p_cal||0)*100)+'%</div>'+
+      (bestL10?'<div style="font-size:10px;color:var(--t2);margin-top:4px;">'+bestL10+'</div>':'');
+
+    var bb=document.getElementById('evBestBet');
+    if(bb){
+      var bbDir=(best.dir||'').toLowerCase();
+      var bbL10Txt=best.l10_hr!=null?'<span style="margin-left:12px;font-size:11px;font-weight:700;color:var(--t2);">L10: '+Math.round(best.l10_hr*best.l10_n)+'/'+best.l10_n+'</span>':'';
+      bb.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">&#9733; Best Bet Today</div>'+
+        '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">'+
+          '<div><div style="font-size:18px;font-weight:900;letter-spacing:-.02em;">'+esc(best.player||'')+'</div>'+
+            '<div style="font-size:11px;color:var(--t2);margin-top:4px;text-transform:uppercase;letter-spacing:.07em;">'+esc(best.team||'')+(best.opp?' vs '+esc(best.opp):'')+' &middot; '+esc(best.stat||'')+'</div></div>'+
+          '<div style="text-align:right;"><div style="font-size:28px;font-weight:900;color:var(--green);letter-spacing:-.04em;">'+Math.round((best.p_cal||0)*100)+'%</div>'+
+            '<div style="font-size:10px;color:var(--t2);margin-top:2px;">confidence</div></div>'+
+        '</div>'+
+        '<div style="display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap;">'+
+          '<span class="dir-'+bbDir+'">'+esc(best.dir||'')+'</span>'+
+          '<span style="font-size:16px;font-weight:900;letter-spacing:-.03em;">'+esc(String(best.line||''))+'</span>'+
+          '<span class="'+tierClass(best.tier)+'">'+esc(best.tier||'')+'</span>'+
+          bbL10Txt+'</div>';
+    }
+
     for(var i=0;i<edgeLegs.length;i++){
       var leg=edgeLegs[i],p=leg.p_cal||0,edge=Math.round((p-0.5)*100),pPct=Math.round(p*100),dir=(leg.dir||'').toLowerCase();
+      var l10txt=leg.l10_hr!=null?Math.round(leg.l10_hr*leg.l10_n)+'/'+leg.l10_n:'';
       var row=document.createElement('div'); row.className='ev-row';
       row.innerHTML=
         '<div><div class="prob-player">'+esc(leg.player||'&#8212;')+'</div>'+
-          '<div class="prob-meta">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+'</div></div>'+
+          '<div class="prob-meta">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+
+            '<span class="prob-stat-inline"> &middot; '+esc(leg.stat||'')+'</span>'+
+            (l10txt?'<span style="margin-left:6px;color:var(--gold);font-weight:700;">'+l10txt+' L10</span>':'')+
+          '</div></div>'+
         '<div class="prob-cell ev-col-stat" style="color:var(--t2);font-size:11px;text-transform:uppercase;letter-spacing:.07em;">'+esc(leg.stat||'&#8212;')+'</div>'+
         '<div class="prob-line">'+esc(String(leg.line||'&#8212;'))+'</div>'+
         '<div class="prob-cell"><span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span></div>'+
@@ -655,9 +706,12 @@
         var legsHtml='';
         for(var l=0;l<legs.length;l++){
           var leg=legs[l],dir=(leg.dir||'').toLowerCase();
+          var confBadge=leg.p_cal?'<span style="font-size:11px;font-weight:800;color:'+pctColor(leg.p_cal)+';">'+Math.round(leg.p_cal*100)+'%</span>':'';
+          var l10Badge=leg.l10_hr!=null?'<span style="font-size:10px;color:var(--t2);margin-left:4px;">'+Math.round(leg.l10_hr*leg.l10_n)+'/'+leg.l10_n+' L10</span>':'';
           legsHtml+='<div class="slip-leg">'+
             '<div class="slip-leg-left"><strong>'+esc(leg.player||'&#8212;')+'</strong> &#8212; '+esc(leg.stat||'')+'</div>'+
-            '<div class="slip-leg-right"><span>'+esc(String(leg.line||''))+'</span>'+
+            '<div class="slip-leg-right">'+confBadge+l10Badge+
+              '<span>'+esc(String(leg.line||''))+'</span>'+
               '<span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span>'+
               '<span class="'+tierClass(leg.tier)+'" style="font-size:8px;">'+esc(leg.tier||'')+'</span>'+
             '</div></div>';
@@ -669,7 +723,7 @@
             '<div class="slip-meta-row">'+
               '<span>Hit Prob&nbsp;<span class="slip-meta-val">'+hitPct+'%</span></span>'+
               (evX?'<span>EV&nbsp;<span class="slip-meta-val">'+evX+'x</span></span>':'')+
-              (payX?'<span>Payout&nbsp;<span class="slip-meta-val">'+payX+'</span></span>':'')+
+              (payX?'<span>Payout&nbsp;<span class="slip-meta-val" style="color:var(--gold);">'+payX+'</span></span>':'')+
             '</div>'+
           '</div>'+
           '<div class="slip-legs-list">'+legsHtml+'</div>';
@@ -695,6 +749,8 @@
     });
     var btn=document.getElementById('navPremiumBtn');
     if(btn){btn.textContent='&#10003; Premium';btn.style.background='var(--green)';btn.style.color='#000';btn.removeAttribute('href');btn.removeAttribute('target');}
+    var loginBtn=document.getElementById('navLoginBtn');
+    if(loginBtn) loginBtn.style.display='none';
     var cta=document.getElementById('premiumCta');
     if(cta) cta.style.display='none';
   }
