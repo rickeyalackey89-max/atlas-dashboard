@@ -584,8 +584,16 @@
           if (!allLegs.length) { showNoData(); return; }
           var grid = document.getElementById('propsGrid');
           grid.innerHTML = '';
-          // Show top legs sorted by p_cal desc (already sorted by payload builder)
-          var showLegs = allLegs.slice(0, 30);
+          // Pick exactly one per tier (top by p_cal, already sorted desc)
+          var TIER_ORDER = ['GOBLIN', 'STANDARD', 'DEMON'];
+          var seen = {};
+          var showLegs = [];
+          for (var j = 0; j < allLegs.length && showLegs.length < 3; j++) {
+            var t2 = (allLegs[j].tier||'').toUpperCase();
+            if (TIER_ORDER.indexOf(t2) !== -1 && !seen[t2]) { seen[t2] = true; showLegs.push(allLegs[j]); }
+          }
+          // Render in tier order: GOBLIN, STANDARD, DEMON
+          showLegs.sort(function(a,b){ return TIER_ORDER.indexOf((a.tier||'').toUpperCase()) - TIER_ORDER.indexOf((b.tier||'').toUpperCase()); });
           for (var i = 0; i < showLegs.length; i++) {
             var leg = showLegs[i];
             var t = (leg.tier||'').toUpperCase();
@@ -593,15 +601,10 @@
             var dir = (leg.dir||'').toLowerCase();
             var card = document.createElement('div');
             card.className = 'prop-card';
-            // Probability: blurred from row 4 onwards for non-premium
             var probHtml = '';
             if (leg.p_cal != null) {
               var pct = Math.round(leg.p_cal * 100);
-              var locked = (!isPremium && i >= 3);
-              probHtml = '<div class="prob-lock-wrap">' +
-                '<div class="prob-pill' + (locked ? ' prob-locked' : '') + '">' + pct + '%</div>' +
-                (locked ? '<a href="/checkout/" style="color:var(--gold);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;">&#128274; Unlock</a>' : '') +
-                '</div>';
+              probHtml = '<div class="prob-lock-wrap"><div class="prob-pill">' + pct + '%</div></div>';
             }
             var matchup = (leg.team && leg.opp) ? esc(leg.team) + ' vs ' + esc(leg.opp) : (leg.team ? esc(leg.team) : '');
             card.innerHTML =
@@ -617,13 +620,11 @@
               '</div>';
             grid.appendChild(card);
           }
-          // CTA row if more legs exist
-          if (data.total_legs > 30) {
-            var cta = document.createElement('div');
-            cta.style.cssText = 'padding:14px 20px;text-align:center;font-size:11px;color:var(--t2);border-top:1px solid var(--b);';
-            cta.innerHTML = 'Showing top 30 of ' + data.total_legs + ' picks &mdash; <a href="/dashboard/" style="color:var(--gold);font-weight:800;text-decoration:none;">See all in Dashboard &rarr;</a>';
-            grid.appendChild(cta);
-          }
+          // CTA to dashboard
+          var cta = document.createElement('div');
+          cta.style.cssText = 'padding:14px 20px;text-align:center;font-size:11px;color:var(--t2);border-top:1px solid var(--b);';
+          cta.innerHTML = 'Showing 1 pick per tier &mdash; <a href="/dashboard/" style="color:var(--gold);font-weight:800;text-decoration:none;">See all ' + data.total_legs + ' picks in Dashboard &rarr;</a>';
+          grid.appendChild(cta);
         }).catch(showNoData);
     }
     function showNoData() {
