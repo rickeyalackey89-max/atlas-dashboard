@@ -380,7 +380,9 @@
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
                 <div>
                   <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);margin-bottom:6px;">Player</div>
-                  <select id="pbPlayerSelect" onchange="pbOnPlayerChange()"
+                  <input type="text" id="pbPlayerSearch" placeholder="Filter players..." oninput="pbFilterPlayers()" autocomplete="off"
+                    style="background:#1a1a1a;border:1px solid #333;color:#e0e0e0;font-size:12px;padding:7px 12px;width:100%;font-family:var(--font);outline:none;margin-bottom:4px;box-sizing:border-box;"/>
+                  <select id="pbPlayerSelect" onchange="pbOnPlayerChange()" size="1"
                     style="background:#1a1a1a;border:1px solid #333;color:#e0e0e0;font-size:13px;padding:10px 14px;width:100%;font-family:var(--font);outline:none;">
                     <option value="" style="color:#888;background:#1a1a1a;">-- select player --</option>
                   </select>
@@ -404,7 +406,10 @@
             <div id="pbLegListCard" style="display:none;background:var(--s2);padding:20px;margin-bottom:1px;">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
                 <div style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);">Your Parlay <span id="pbLegCount" style="color:var(--text);"></span></div>
-                <button onclick="pbClearAll()" style="background:transparent;border:1px solid var(--b);color:var(--t2);font-size:10px;font-weight:700;padding:4px 10px;cursor:pointer;font-family:var(--font);">Clear All</button>
+                <div style="display:flex;gap:8px;">
+                  <button onclick="pbCopyParlay()" style="background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-size:10px;font-weight:700;padding:4px 10px;cursor:pointer;font-family:var(--font);">Copy Parlay</button>
+                  <button onclick="pbClearAll()" style="background:transparent;border:1px solid var(--b);color:var(--t2);font-size:10px;font-weight:700;padding:4px 10px;cursor:pointer;font-family:var(--font);">Clear All</button>
+                </div>
               </div>
               <div id="pbLegList"></div>
             </div>
@@ -1150,21 +1155,34 @@
 
   function pbInit(allLegs){
     _pb.allLegs=allLegs||[];
-    // Populate player dropdown
-    var seen={},players=[];
+    _pb.allPlayers=[];
+    var seen={};
     for(var i=0;i<_pb.allLegs.length;i++){
       var p=_pb.allLegs[i].player||'';
-      if(p&&!seen[p]){seen[p]=true;players.push(p);}
+      if(p&&!seen[p]){seen[p]=true;_pb.allPlayers.push(p);}
     }
-    players.sort();
+    _pb.allPlayers.sort();
+    pbPopulatePlayers(_pb.allPlayers);
+  }
+
+  function pbPopulatePlayers(list){
     var psel=document.getElementById('pbPlayerSelect');
     if(!psel) return;
-    for(var pi=0;pi<players.length;pi++){
+    var cur=psel.value;
+    psel.innerHTML='<option value="" style="color:#888;background:#1a1a1a;">-- select player --</option>';
+    for(var pi=0;pi<list.length;pi++){
       var opt=document.createElement('option');
-      opt.value=players[pi]; opt.textContent=players[pi];
+      opt.value=list[pi]; opt.textContent=list[pi];
       opt.style.color='#e0e0e0'; opt.style.background='#1a1a1a';
+      if(list[pi]===cur) opt.selected=true;
       psel.appendChild(opt);
     }
+  }
+
+  function pbFilterPlayers(){
+    var q=(document.getElementById('pbPlayerSearch').value||'').toLowerCase();
+    var filtered=_pb.allPlayers.filter(function(p){return p.toLowerCase().indexOf(q)>=0;});
+    pbPopulatePlayers(filtered);
   }
 
   function pbOnPlayerChange(){
@@ -1216,9 +1234,11 @@
     var prev=document.getElementById('pbPreview');
     if(match&&match.p_cal!=null){
       var pct=Math.round(match.p_cal*100);
+      var l20=match.l20_edge!=null?Math.round(match.l20_edge*100):null;
       prev.style.display='';
-      prev.innerHTML='Model confidence for <strong style="color:var(--text);">'+esc(player)+' '+esc(dir)+' '+esc(stat)+' '+esc(String(line))+'</strong>: '
-        +'<span style="font-weight:900;font-size:15px;color:'+pctColor(match.p_cal)+';">'+pct+'%</span>';
+      prev.innerHTML='<strong style="color:var(--text);">'+esc(player)+' '+esc(stat)+' '+esc(String(line))+' '+esc(dir)+'</strong><br>'
+        +'Model confidence: <span style="font-weight:900;font-size:15px;color:'+pctColor(match.p_cal)+';">'+pct+'%</span>'
+        +(l20!=null?'&nbsp;&nbsp;&middot;&nbsp;&nbsp;L20 hit rate: <span style="font-weight:800;color:'+pctColor(match.l20_edge)+';">'+l20+'%</span>':'');
     } else {
       prev.style.display='none';
     }
@@ -1237,13 +1257,36 @@
       if(l.player===player&&l.stat===stat&&(l.dir||'').toUpperCase()===dir.toUpperCase()&&Math.abs((l.line||0)-line)<0.01){match=l;break;}
     }
     _pb.legs.push({id:Date.now(),player:player,stat:stat,dir:dir,line:line,
-      p_cal:match?match.p_cal:null,tier:match?match.tier:'',team:match?match.team:'',opp:match?match.opp:''});
+      p_cal:match?match.p_cal:null,tier:match?match.tier:'',team:match?match.team:'',opp:match?match.opp:'',l20_edge:match?match.l20_edge:null});
     // reset form
+    document.getElementById('pbPlayerSearch').value='';
+    pbPopulatePlayers(_pb.allPlayers);
     document.getElementById('pbPlayerSelect').value='';
-    document.getElementById('pbStatSelect').innerHTML='<option value="" style="color:#000;background:#fff;">-- select player first --</option>';
+    document.getElementById('pbStatSelect').innerHTML='<option value="" style="color:#888;background:#1a1a1a;">-- select player first --</option>';
     document.getElementById('pbPreview').style.display='none';
     var btn=document.getElementById('pbAddBtn'); btn.disabled=true; btn.style.opacity='.4';
     pbRenderLegs();
+  }
+
+  function pbCopyParlay(){
+    if(!_pb.legs.length) return;
+    var n=_pb.legs.length;
+    var hitProb=1,allHave=true;
+    var lines=_pb.legs.map(function(leg){
+      if(leg.p_cal!=null) hitProb*=leg.p_cal; else allHave=false;
+      var pct=leg.p_cal!=null?Math.round(leg.p_cal*100)+'%':'?';
+      var l20=leg.l20_edge!=null?' | L20: '+Math.round(leg.l20_edge*100)+'%':'';
+      return leg.player+' — '+leg.stat+' '+leg.line+' '+leg.dir+' ('+pct+l20+')';
+    });
+    var payout=_PB_PAY[n]||null;
+    var summary='\ud83c\udfc0 Atlas Parlay ('+n+' legs)\n';
+    summary+=lines.join('\n');
+    if(allHave) summary+='\n\nHit Prob: '+Math.round(hitProb*100)+'%'+(payout?' | Payout: '+payout+'x | EV: '+(hitProb*payout).toFixed(2)+'x':'');
+    summary+='\n\natlassports.ai';
+    navigator.clipboard.writeText(summary).then(function(){
+      var btn=document.querySelector('[onclick="pbCopyParlay()"]');
+      if(btn){var old=btn.textContent;btn.textContent='Copied!';setTimeout(function(){btn.textContent=old;},1800);}
+    }).catch(function(){alert(summary);});
   }
 
   function pbRemoveLeg(id){
@@ -1268,11 +1311,12 @@
     for(var i=0;i<_pb.legs.length;i++){
       var leg=_pb.legs[i], dir=leg.dir.toLowerCase();
       var pct=leg.p_cal!=null?Math.round(leg.p_cal*100):null;
+      var l20txt=leg.l20_edge!=null?' &middot; L20: <span style="color:'+pctColor(leg.l20_edge)+';">'+Math.round(leg.l20_edge*100)+'%</span>':'';
       if(leg.p_cal!=null) hitProb*=leg.p_cal; else allHave=false;
       html+='<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 0;'+(i>0?'border-top:1px solid var(--b)':'')+';gap:12px;flex-wrap:wrap;">'
         +'<div>'
         +'<div style="font-size:14px;font-weight:800;">'+esc(leg.player)+'</div>'
-        +'<div style="font-size:11px;color:var(--t2);margin-top:2px;">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+' &middot; '+esc(leg.stat)+' '+esc(String(leg.line))+' &middot; <span class="'+tierClass(leg.tier||'')+'">'+tierLabel(leg.tier||'')+'</span></div>'
+        +'<div style="font-size:11px;color:var(--t2);margin-top:2px;">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+' &middot; '+esc(leg.stat)+' '+esc(String(leg.line))+' &middot; <span class="'+tierClass(leg.tier||'')+'">'+tierLabel(leg.tier||'')+'</span>'+l20txt+'</div>'
         +'</div>'
         +'<div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">'
         +'<span class="dir-'+dir+'">'+esc(leg.dir)+'</span>'
