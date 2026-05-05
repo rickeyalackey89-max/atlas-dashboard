@@ -95,7 +95,9 @@
       .prob-header,.prob-row{grid-template-columns:2fr 0.7fr 0.7fr 1fr;}
       .ev-row{grid-template-columns:2fr 0.7fr 0.7fr 1fr;}
       .prob-col-tier,.prob-col-stat,.ev-col-conf,.ev-col-stat{display:none;}
+      .prob-stat-inline{display:inline;}
     }
+    .prob-stat-inline{display:none;font-weight:700;color:var(--text);}
     .prob-more-lock{padding:18px 0 4px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
     .prob-more-text{font-size:12px;color:var(--t2);}
     .prob-more-text strong{color:var(--text);}
@@ -389,7 +391,8 @@
     var row=document.createElement('div'); row.className='prob-row';
     row.innerHTML=
       '<div><div class="prob-player">'+esc(leg.player||'&#8212;')+'</div>'+
-        '<div class="prob-meta">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+'</div></div>'+
+        '<div class="prob-meta">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+
+          '<span class="prob-stat-inline"> &middot; '+esc(leg.stat||'')+'</span></div></div>'+
       '<div class="prob-cell prob-col-stat" style="color:var(--t2);font-size:11px;text-transform:uppercase;letter-spacing:.07em;">'+esc(leg.stat||'&#8212;')+'</div>'+
       '<div class="prob-line">'+esc(String(leg.line||'&#8212;'))+'</div>'+
       '<div class="prob-cell"><span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span></div>'+
@@ -596,7 +599,7 @@
     } else {
       // header row
       var hdr=document.createElement('div');
-      hdr.style.cssText='display:grid;grid-template-columns:1fr 72px 80px 70px;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--b);margin-bottom:12px;';
+      hdr.style.cssText='display:grid;grid-template-columns:1fr 60px 56px 58px;gap:6px;padding-bottom:10px;border-bottom:1px solid var(--b);margin-bottom:12px;';
       hdr.innerHTML='<span style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);">Player</span>'+
         '<span style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);text-align:center;">Stat</span>'+
         '<span style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);text-align:center;">Line</span>'+
@@ -607,15 +610,15 @@
         var hits=Math.round((hl.l10_hr||0)*hl.l10_n);
         var pct=Math.round((hl.l10_hr||0)*100);
         var barColor=pct>=80?'var(--green)':pct>=65?'var(--gold)':'var(--cyan)';
-        var dirLabel=hl.dir==='OVER'?'<span style="color:#4ade80;font-size:10px;font-weight:700;">OVR</span>':'<span style="color:#f87171;font-size:10px;font-weight:700;">UND</span>';
+        var dirLabel=hl.dir==='OVER'?'<span style="color:#4ade80;font-size:9px;font-weight:800;">OVR</span>':'<span style="color:#f87171;font-size:9px;font-weight:800;">UND</span>';
         var row=document.createElement('div');
         row.style.cssText='margin-bottom:14px;';
         row.innerHTML=
-          '<div style="display:grid;grid-template-columns:1fr 72px 80px 70px;gap:8px;align-items:center;margin-bottom:5px;">'+
-            '<span style="font-size:13px;font-weight:700;">'+(hi===0?'<span style="color:var(--gold);">&#9733; </span>':'')+esc(hl.player)+'</span>'+
-            '<span style="text-align:center;">'+dirLabel+' <span style="font-size:11px;color:var(--t2);">'+esc(hl.stat)+'</span></span>'+
+          '<div style="display:grid;grid-template-columns:1fr 60px 56px 58px;gap:6px;align-items:center;margin-bottom:5px;">'+
+            '<span style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+(hi===0?'<span style="color:var(--gold);">&#9733; </span>':'')+esc(hl.player)+'</span>'+
+            '<span style="text-align:center;line-height:1.3;">'+dirLabel+'<br><span style="font-size:10px;color:var(--t2);">'+esc(hl.stat)+'</span></span>'+
             '<span style="text-align:center;font-size:12px;font-weight:700;color:var(--t2);">'+hl.line+'</span>'+
-            '<span style="text-align:right;font-size:14px;font-weight:900;color:'+barColor+';">'+hits+'/'+hl.l10_n+'</span>'+
+            '<span style="text-align:right;font-size:13px;font-weight:900;color:'+barColor+';white-space:nowrap;">'+hits+'/'+hl.l10_n+'</span>'+
           '</div>'+
           '<div style="height:3px;background:var(--b2);border-radius:2px;">'+
             '<div style="height:100%;width:'+pct+'%;background:'+barColor+';border-radius:2px;"></div>'+
