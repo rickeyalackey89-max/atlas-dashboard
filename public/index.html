@@ -161,9 +161,15 @@
       font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--green);
     }
     .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 1.5s infinite; }
-    .props-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--b); }
-    @media (max-width: 680px) { .props-grid { grid-template-columns: 1fr; } }
-    .prop-card { background: var(--s1); padding: 32px; display: flex; flex-direction: column; gap: 24px; }
+    .props-grid { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--b); }
+    .prop-card {
+      background: var(--s1); padding: 14px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; border-bottom: 1px solid var(--b);
+    }
+    .prop-card:last-child { border-bottom: none; }
+    .prop-card-left { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+    .prop-card-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .tier-badge {
       display: inline-block; font-size: 9px; font-weight: 800;
       letter-spacing: .18em; text-transform: uppercase; padding: 4px 10px; border: 1px solid;
@@ -171,20 +177,21 @@
     .tier-goblin   { color: #4ade80; border-color: rgba(74,222,128,.4); background: rgba(74,222,128,.06); }
     .tier-standard { color: #60a5fa; border-color: rgba(96,165,250,.4); background: rgba(96,165,250,.06); }
     .tier-demon    { color: #f87171; border-color: rgba(248,113,113,.4); background: rgba(248,113,113,.06); }
-    .prop-player { font-size: 22px; font-weight: 900; letter-spacing: -.02em; line-height: 1.1; }
-    .prop-stat   { font-size: 11px; color: var(--t2); text-transform: uppercase; letter-spacing: .12em; margin-top: 5px; }
-    .prop-bottom { display: flex; align-items: flex-end; justify-content: space-between; }
-    .prop-line { font-size: 48px; font-weight: 900; letter-spacing: -.05em; font-variant-numeric: tabular-nums; line-height: 1; }
+    .prop-player { font-size: 14px; font-weight: 800; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .prop-matchup { font-size: 10px; color: var(--t2); text-transform: uppercase; letter-spacing: .08em; }
+    .prop-stat-line { display: flex; align-items: center; gap: 8px; }
+    .prop-stat { font-size: 11px; font-weight: 700; color: var(--t2); text-transform: uppercase; letter-spacing: .1em; }
+    .prop-line { font-size: 15px; font-weight: 900; font-variant-numeric: tabular-nums; }
     .prop-dir {
-      font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
-      padding: 5px 12px; margin-bottom: 4px;
+      font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+      padding: 3px 8px;
     }
     .prob-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
     .prob-pill {
       display: inline-flex; align-items: center; gap: 5px;
-      font-size: 11px; font-weight: 800; letter-spacing: .06em;
-      padding: 4px 10px; border: 1px solid rgba(245,166,35,.35);
-      background: rgba(245,166,35,.07); color: #f5a623;
+      font-size: 11px; font-weight: 900; letter-spacing: .04em;
+      padding: 3px 9px; border: 1px solid rgba(245,166,35,.35);
+      background: rgba(245,166,35,.07); color: #f5a623; white-space: nowrap;
     }
     .prob-pill-label { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--t2); }
     .prob-locked {
@@ -306,7 +313,7 @@
       <span class="nav-wordmark">Atlas <span>Sports</span> AI</span>
     </div>
     <div class="nav-links">
-      <a href="/login/" class="btn btn-outline">Dashboard &rarr;</a>
+      <a href="/dashboard/" class="btn btn-outline" id="navDashBtn">Dashboard &rarr;</a>
       <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
         Discord
@@ -546,78 +553,77 @@
       DEMON:    { cls: 'demon',    label: '\u2191 Alts' }
     };
     function loadProps() {
+      // Check premium token
+      var isPremium = false;
+      try {
+        var tok = localStorage.getItem('atlas_premium_token');
+        if (tok) {
+          var td = JSON.parse(atob(tok));
+          isPremium = td && td.expires && Date.now() < td.expires;
+        }
+      } catch(e) {}
+      // If logged in, point Dashboard button to /dashboard/ (already is, just update text)
+      if (isPremium) {
+        var db = document.getElementById('navDashBtn');
+        if (db) db.textContent = 'Dashboard →';
+      }
+
       fetch('/data/cloudflare_payload.json?t=' + Date.now())
-        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(r) { return r.ok ? r.json() : Promise.reject('bad'); })
         .then(function(data) {
           if (!data) { showNoData(); return; }
-          var seen = {}, allLegs = [];
-          var totalSlips = (data.system||[]).length + (data.system_winprob||[]).length + (data.windfall||[]).length + (data.windfall_winprob||[]).length + (data.demonhunter||[]).length;
-          // Collect unique legs across ALL slip families for accurate pick count and card display
-          var sources = (data.system||[]).concat(data.system_winprob||[]).concat(data.windfall||[])
-            .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.marketed_slips||[]);
-          for (var i = 0; i < sources.length; i++) {
-            var sl_legs = sources[i].legs_detail || sources[i].legs || [];
-            for (var j = 0; j < sl_legs.length; j++) {
-              var leg = sl_legs[j];
-              var key = (leg.player||'')+'|'+(leg.stat||'')+'|'+(leg.line||'')+'|'+(leg.dir||'');
-              if (!seen[key]) { seen[key] = true; allLegs.push(leg); }
-            }
-          }
-          var picks = {}, tierSeen = {};
-          for (var i = 0; i < allLegs.length; i++) {
-            var leg = allLegs[i], t = (leg.tier||'').toUpperCase();
-            if (TIER_ORDER.indexOf(t) >= 0 && !tierSeen[t]) { tierSeen[t] = true; picks[t] = leg; }
-          }
-          var legs = [];
-          for (var k = 0; k < TIER_ORDER.length; k++) { if (picks[TIER_ORDER[k]]) legs.push(picks[TIER_ORDER[k]]); }
-          if (!legs.length) { showNoData(); return; }
-          // Update live counts
-          var totalPicks = allLegs.length;
+          // Use all_legs (sorted by p_cal desc by the payload builder) — has p_cal + full fields
+          var allLegs = data.all_legs || [];
+          // Count slips for hero
+          var totalSlips = (data.system||[]).length + (data.system_winprob||[]).length +
+            (data.windfall||[]).length + (data.windfall_winprob||[]).length + (data.demonhunter||[]).length;
           if (totalSlips > 0) { var sc = document.getElementById('heroSlipCount'); if(sc) sc.textContent = totalSlips; }
-          if (totalPicks > 0) {
+          if (allLegs.length > 0) {
             var pb = document.getElementById('heroPickBadge');
-            if(pb) { pb.textContent = totalPicks + ' prop picks today'; pb.style.display = 'inline'; }
+            if(pb) { pb.textContent = allLegs.length + ' prop picks today'; pb.style.display = 'inline'; }
           }
+          if (!allLegs.length) { showNoData(); return; }
           var grid = document.getElementById('propsGrid');
           grid.innerHTML = '';
-          // Check for premium token (same mechanism as dashboard)
-          var isPremium = false;
-          try {
-            var tok = localStorage.getItem('atlas_premium_token');
-            if (tok) {
-              var td = JSON.parse(atob(tok));
-              isPremium = td && td.expires && Date.now() < td.expires;
-            }
-          } catch(e) {}
-          for (var i = 0; i < legs.length; i++) {
-            var leg = legs[i], t = (leg.tier||'').toUpperCase();
+          // Show top legs sorted by p_cal desc (already sorted by payload builder)
+          var showLegs = allLegs.slice(0, 30);
+          for (var i = 0; i < showLegs.length; i++) {
+            var leg = showLegs[i];
+            var t = (leg.tier||'').toUpperCase();
             var ts = TIER_STYLE[t] || { cls: 'standard', label: '' };
             var dir = (leg.dir||'').toLowerCase();
             var card = document.createElement('div');
             card.className = 'prop-card';
-            // Probability pill — blur from 4th card onwards unless premium
+            // Probability: blurred from row 4 onwards for non-premium
             var probHtml = '';
             if (leg.p_cal != null) {
               var pct = Math.round(leg.p_cal * 100);
               var locked = (!isPremium && i >= 3);
-              probHtml = '<div class="prob-row">' +
-                '<div class="prob-lock-wrap">' +
-                '<div class="prob-pill' + (locked ? ' prob-locked' : '') + '">' + pct + '% model confidence</div>' +
-                (locked ? '<span class="prob-lock-icon">&#128274; <a href="/checkout/" style="color:var(--gold);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">Unlock</a></span>' : '') +
-                '</div>' +
+              probHtml = '<div class="prob-lock-wrap">' +
+                '<div class="prob-pill' + (locked ? ' prob-locked' : '') + '">' + pct + '%</div>' +
+                (locked ? '<a href="/checkout/" style="color:var(--gold);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;">&#128274; Unlock</a>' : '') +
                 '</div>';
             }
+            var matchup = (leg.team && leg.opp) ? esc(leg.team) + ' vs ' + esc(leg.opp) : (leg.team ? esc(leg.team) : '');
             card.innerHTML =
-              (ts.label ? '<span class="tier-badge tier-' + ts.cls + '">' + esc(ts.label) + '</span>' : '') +
-              '<div><div class="prop-player">' + esc(leg.player||'—') + '</div>' +
-              '<div class="prop-stat">' + esc(leg.stat||'') + (leg.team ? ' · ' + esc(leg.team) : '') + '</div>' +
-              probHtml +
+              '<div class="prop-card-left">' +
+              '<div class="prop-player">' + esc(leg.player||'—') + (ts.label ? ' <span class="tier-badge tier-' + ts.cls + '" style="font-size:8px;padding:2px 6px;vertical-align:middle;">' + esc(ts.label) + '</span>' : '') + '</div>' +
+              (matchup ? '<div class="prop-matchup">' + matchup + '</div>' : '') +
               '</div>' +
-              '<div class="prop-bottom">' +
-              '<div class="prop-line">' + esc(String(leg.line||'—')) + '</div>' +
-              '<span class="prop-dir dir-' + dir + '">' + esc(leg.dir||'') + '</span>' +
+              '<div class="prop-card-right">' +
+              '<span class="prop-stat">' + esc(leg.stat||'') + '</span>' +
+              '<span class="prop-line">' + esc(String(leg.line||'—')) + '</span>' +
+              '<span class="prop-dir dir-' + dir + '">' + esc((leg.dir||'').toUpperCase()) + '</span>' +
+              probHtml +
               '</div>';
             grid.appendChild(card);
+          }
+          // CTA row if more legs exist
+          if (allLegs.length > 30) {
+            var cta = document.createElement('div');
+            cta.style.cssText = 'padding:14px 20px;text-align:center;font-size:11px;color:var(--t2);border-top:1px solid var(--b);';
+            cta.innerHTML = 'Showing top 30 of ' + allLegs.length + ' picks &mdash; <a href="/dashboard/" style="color:var(--gold);font-weight:800;text-decoration:none;">See all in Dashboard &rarr;</a>';
+            grid.appendChild(cta);
           }
         }).catch(showNoData);
     }

@@ -57,6 +57,18 @@
 
 <script>
 (function(){
+  // If already logged in with a valid token, skip login and go straight to dashboard
+  try {
+    var existing = localStorage.getItem('atlas_premium_token');
+    if (existing) {
+      var ed = JSON.parse(atob(existing));
+      if (ed && ed.expires && Date.now() < ed.expires) {
+        window.location.replace('/dashboard/');
+        return;
+      }
+    }
+  } catch(e) {}
+
   var form = document.getElementById('loginForm');
   var btn  = document.getElementById('submitBtn');
   var err  = document.getElementById('errorMsg');
