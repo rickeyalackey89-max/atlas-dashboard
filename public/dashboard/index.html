@@ -222,11 +222,49 @@
 
     <!-- STAT HUB -->
     <div id="sub-stathub" class="sub-panel" style="display:none;">
-      <div class="section-head"><span class="section-head-title">Today&#39;s Slate</span><span class="badge badge-live">Live</span></div>
-      <div class="card" style="margin-bottom:1px;">
-        <div id="slateList"><div class="no-data">Loading slate...</div></div>
+
+      <!-- 1. BOARD BREAKDOWN -->
+      <div class="section-head"><span class="section-head-title">Board Breakdown</span><span class="badge badge-live">Live</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--b);margin-bottom:1px;">
+        <div class="card" id="hubOverUnder"><div class="no-data">Loading...</div></div>
+        <div class="card" id="hubTierDist"><div class="no-data">Loading...</div></div>
+        <div class="card" id="hubTopStat"><div class="no-data">Loading...</div></div>
       </div>
+
       <div class="section-gap"></div>
+
+      <!-- 2. PLAYER EXPOSURE -->
+      <div class="section-head"><span class="section-head-title">Player Exposure</span><span class="badge badge-live">Model Focus</span></div>
+      <div class="card" style="margin-bottom:1px;">
+        <div style="font-size:11px;color:var(--t2);margin-bottom:16px;line-height:1.6;">Players appearing across the most slips today. High exposure = high model conviction.</div>
+        <div id="hubExposure"><div class="no-data">Loading...</div></div>
+      </div>
+
+      <div class="section-gap"></div>
+
+      <!-- 3. GAME ACTIVITY -->
+      <div class="section-head"><span class="section-head-title">Game Activity</span><span class="badge badge-live">Live</span></div>
+      <div class="card" style="margin-bottom:1px;">
+        <div style="font-size:11px;color:var(--t2);margin-bottom:16px;line-height:1.6;">Where the model is focused. More picks in a game = more edge identified in that matchup.</div>
+        <div id="hubGameActivity"><div class="no-data">Loading...</div></div>
+      </div>
+
+      <div class="section-gap"></div>
+
+      <!-- 4. CONFIDENCE BANDS -->
+      <div class="section-head"><span class="section-head-title">Confidence Bands</span><span class="badge badge-premium">Premium Preview</span></div>
+      <div class="card" style="margin-bottom:1px;">
+        <div style="font-size:11px;color:var(--t2);margin-bottom:20px;line-height:1.6;">Distribution of calibrated hit probabilities across today&#39;s picks. A high-confidence slate means more legs sitting in the 80%+ range.</div>
+        <div id="hubConfBands"><div class="no-data">Loading...</div></div>
+        <div id="hubConfCta" style="display:none;margin-top:20px;padding-top:16px;border-top:1px solid var(--b);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+          <span style="font-size:12px;color:var(--t2);">Unlock <strong style="color:var(--text);">full probability scores</strong> for every pick in the EV Legs tab</span>
+          <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="font-size:11px;">Go Premium</a>
+        </div>
+      </div>
+
+      <div class="section-gap"></div>
+
+      <!-- BETTING BASICS -->
       <div class="section-head"><span class="section-head-title">Betting Basics</span><span class="badge badge-free">Free</span></div>
       <div class="edu-grid">
         <div class="edu-card"><div class="edu-icon">&#128202;</div><div class="edu-title">What is a Parlay?</div><p class="edu-body">A parlay combines multiple picks into one slip. All legs must hit for you to win. Higher risk, higher payout. Atlas optimizes the leg selection so you play the highest-edge combinations.</p></div>
@@ -399,14 +437,146 @@
     }
   }
 
-  function buildStatHub(games){
-    var sl=document.getElementById('slateList'); sl.innerHTML='';
-    if(!games.length){sl.innerHTML='<div class="no-data">Slate loads with picks.</div>';return;}
-    for(var i=0;i<games.length;i++){
-      var g=games[i],row=document.createElement('div'); row.className='game-row';
-      row.innerHTML='<div><div class="game-teams"><span style="color:var(--t2);">'+esc(g.away)+'</span> <span style="color:var(--t2);font-weight:400;">@</span> '+esc(g.home)+'</div></div>'+
-        '<div class="game-meta">NBA &middot; Today</div>';
-      sl.appendChild(row);
+  function buildStatHub(allLegsForCount, calLegs, games){
+    // ── 1. BOARD BREAKDOWN ──────────────────────────────────────────────
+    var overCount=0,underCount=0,tierCounts={},statCounts={};
+    for(var i=0;i<allLegsForCount.length;i++){
+      var leg=allLegsForCount[i];
+      var d=(leg.dir||'').toUpperCase();
+      if(d==='OVER') overCount++; else if(d==='UNDER') underCount++;
+      var t=(leg.tier||'').toUpperCase();
+      tierCounts[t]=(tierCounts[t]||0)+1;
+      var s=(leg.stat||'').toUpperCase();
+      statCounts[s]=(statCounts[s]||0)+1;
+    }
+    var topStat='—',topStatN=0;
+    Object.keys(statCounts).forEach(function(s){if(statCounts[s]>topStatN){topStatN=statCounts[s];topStat=s;}});
+    var tierLabels={GOBLIN:'Layup',STANDARD:'Jump Shot',DEMON:'Deep Three'};
+    // Over/Under tile
+    var ou=document.getElementById('hubOverUnder');
+    ou.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:14px;">Direction Split</div>'+
+      '<div style="display:flex;gap:16px;margin-bottom:12px;">'+
+        '<div><div style="font-size:28px;font-weight:900;color:#4ade80;letter-spacing:-.04em;">'+overCount+'</div><div style="font-size:9px;color:var(--t2);text-transform:uppercase;letter-spacing:.12em;margin-top:3px;">Over</div></div>'+
+        '<div style="width:1px;background:var(--b);"></div>'+
+        '<div><div style="font-size:28px;font-weight:900;color:#f87171;letter-spacing:-.04em;">'+underCount+'</div><div style="font-size:9px;color:var(--t2);text-transform:uppercase;letter-spacing:.12em;margin-top:3px;">Under</div></div>'+
+      '</div>'+
+      '<div style="height:4px;background:var(--b2);border-radius:2px;overflow:hidden;">'+
+        '<div style="height:100%;width:'+(overCount+underCount>0?Math.round(overCount/(overCount+underCount)*100):50)+'%;background:#4ade80;border-radius:2px;"></div>'+
+      '</div>';
+    // Tier dist tile
+    var tierOrder=['GOBLIN','STANDARD','DEMON'],tierColors={GOBLIN:'#a78bfa',STANDARD:'#60a5fa',DEMON:'var(--gold)'};
+    var tdHtml='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:14px;">Tier Distribution</div>';
+    for(var k=0;k<tierOrder.length;k++){
+      var tk=tierOrder[k],tn=tierCounts[tk]||0,total=allLegsForCount.length;
+      if(!tn) continue;
+      tdHtml+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">'+
+        '<span style="font-size:12px;font-weight:700;color:'+(tierColors[tk]||'var(--text)');'>'+esc(tierLabels[tk]||tk)+'</span>'+
+        '<span style="font-size:12px;font-weight:800;">'+tn+'</span></div>'+
+        '<div style="height:3px;background:var(--b2);border-radius:2px;margin-bottom:10px;">'+
+          '<div style="height:100%;width:'+(total>0?Math.round(tn/total*100):0)+'%;background:'+(tierColors[tk]||'var(--cyan)')+';"></div>'+
+        '</div>';
+    }
+    document.getElementById('hubTierDist').innerHTML=tdHtml;
+    // Top stat tile
+    var tsHtml='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:14px;">Most Targeted Stat</div>';
+    var statsSorted=Object.keys(statCounts).sort(function(a,b){return statCounts[b]-statCounts[a];}).slice(0,4);
+    for(var si=0;si<statsSorted.length;si++){
+      var sn=statsSorted[si],sv=statCounts[sn],stotal=allLegsForCount.length;
+      tsHtml+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'+
+        '<span style="font-size:12px;font-weight:700;color:'+(si===0?'var(--cyan)':'var(--text)')+';">'+esc(sn)+'</span>'+
+        '<span style="font-size:12px;font-weight:800;color:var(--t2);">'+sv+'</span></div>'+
+        '<div style="height:2px;background:var(--b2);border-radius:2px;margin-bottom:8px;">'+
+          '<div style="height:100%;width:'+(stotal>0?Math.round(sv/stotal*100):0)+'%;background:'+(si===0?'var(--cyan)':'var(--b2)')+';"></div>'+
+        '</div>';
+    }
+    document.getElementById('hubTopStat').innerHTML=tsHtml;
+
+    // ── 2. PLAYER EXPOSURE ─────────────────────────────────────────────
+    var playerSlipCount={};
+    var allFamilyLegs=allLegsForCount;
+    for(var i=0;i<allFamilyLegs.length;i++){
+      var p=(allFamilyLegs[i].player||'').trim();
+      if(p) playerSlipCount[p]=(playerSlipCount[p]||0)+1;
+    }
+    var players=Object.keys(playerSlipCount).sort(function(a,b){return playerSlipCount[b]-playerSlipCount[a];}).slice(0,8);
+    var maxExp=players.length?playerSlipCount[players[0]]:1;
+    var expEl=document.getElementById('hubExposure'); expEl.innerHTML='';
+    if(!players.length){expEl.innerHTML='<div class="no-data">No data.</div>';}
+    else{
+      for(var pi=0;pi<players.length;pi++){
+        var pn=players[pi],pc=playerSlipCount[pn];
+        var barPct=Math.round(pc/maxExp*100);
+        var expRow=document.createElement('div');
+        expRow.style.cssText='display:flex;align-items:center;gap:12px;margin-bottom:12px;';
+        expRow.innerHTML=
+          '<div style="width:130px;flex-shrink:0;font-size:13px;font-weight:700;">'+esc(pn)+'</div>'+
+          '<div style="flex:1;height:4px;background:var(--b2);border-radius:2px;">'+
+            '<div style="height:100%;width:'+barPct+'%;background:var(--cyan);border-radius:2px;"></div>'+
+          '</div>'+
+          '<div style="width:40px;text-align:right;font-size:12px;font-weight:800;color:var(--cyan);">'+pc+'x</div>';
+        expEl.appendChild(expRow);
+      }
+    }
+
+    // ── 3. GAME ACTIVITY ───────────────────────────────────────────────
+    var gameCounts={};
+    for(var i=0;i<allLegsForCount.length;i++){
+      var leg=allLegsForCount[i];
+      if(leg.team&&leg.opp){
+        var sorted=[leg.team,leg.opp].sort();
+        var gk=sorted[0]+'@'+sorted[1];
+        gameCounts[gk]=(gameCounts[gk]||{count:0,away:leg.team,home:leg.opp});
+        gameCounts[gk].count++;
+      }
+    }
+    var gameKeys=Object.keys(gameCounts).sort(function(a,b){return gameCounts[b].count-gameCounts[a].count;});
+    var maxGA=gameKeys.length?gameCounts[gameKeys[0]].count:1;
+    var gaEl=document.getElementById('hubGameActivity'); gaEl.innerHTML='';
+    if(!gameKeys.length){gaEl.innerHTML='<div class="no-data">No game data.</div>';}
+    else{
+      for(var gi=0;gi<gameKeys.length;gi++){
+        var gd=gameCounts[gameKeys[gi]],gPct=Math.round(gd.count/maxGA*100);
+        var gaRow=document.createElement('div');
+        gaRow.style.cssText='display:flex;align-items:center;gap:12px;margin-bottom:14px;';
+        gaRow.innerHTML=
+          '<div style="width:140px;flex-shrink:0;">'+
+            '<div style="font-size:14px;font-weight:800;">'+esc(gd.away)+' <span style="color:var(--t2);font-weight:400;">@</span> '+esc(gd.home)+'</div>'+
+          '</div>'+
+          '<div style="flex:1;height:4px;background:var(--b2);border-radius:2px;">'+
+            '<div style="height:100%;width:'+gPct+'%;background:var(--gold);border-radius:2px;"></div>'+
+          '</div>'+
+          '<div style="width:60px;text-align:right;font-size:12px;font-weight:800;color:var(--gold);">'+gd.count+' picks</div>';
+        gaEl.appendChild(gaRow);
+      }
+    }
+
+    // ── 4. CONFIDENCE BANDS ────────────────────────────────────────────
+    // Use marketed_slips legs (carry p_cal)
+    var bands=[{label:'80%+ (High)',min:0.80,max:1.01,color:'var(--green)'},{label:'65–79% (Solid)',min:0.65,max:0.80,color:'var(--gold)'},{label:'50–64% (Lean)',min:0.50,max:0.65,color:'var(--cyan)'}];
+    var bandCounts=[0,0,0];
+    for(var i=0;i<calLegs.length;i++){
+      var p=calLegs[i].p_cal||0;
+      for(var b=0;b<bands.length;b++){ if(p>=bands[b].min&&p<bands[b].max){ bandCounts[b]++; break; } }
+    }
+    var maxBand=Math.max.apply(null,bandCounts)||1;
+    var cbEl=document.getElementById('hubConfBands'); cbEl.innerHTML='';
+    for(var b=0;b<bands.length;b++){
+      var bRow=document.createElement('div');
+      bRow.style.cssText='margin-bottom:16px;';
+      bRow.innerHTML=
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">'+
+          '<span style="font-size:12px;font-weight:700;color:'+bands[b].color+';">'+esc(bands[b].label)+'</span>'+
+          '<span style="font-size:20px;font-weight:900;letter-spacing:-.03em;color:'+bands[b].color+';">'+bandCounts[b]+' <span style="font-size:10px;font-weight:400;color:var(--t2);">picks</span></span>'+
+        '</div>'+
+        '<div style="height:6px;background:var(--b2);border-radius:3px;">'+
+          '<div style="height:100%;width:'+Math.round(bandCounts[b]/maxBand*100)+'%;background:'+bands[b].color+';border-radius:3px;"></div>'+
+        '</div>';
+      cbEl.appendChild(bRow);
+    }
+    // Show premium CTA if not subscribed
+    if(!isPremium){
+      var ctaEl=document.getElementById('hubConfCta');
+      if(ctaEl) ctaEl.style.display='flex';
     }
   }
 
@@ -492,10 +662,21 @@
       .then(function(data){
         if(!data) return;
         var allLegs=getUniqueLegs(data),games=getGames(allLegs);
-        buildStatTiles(data,allLegs);
+        // allLegsForCount: all families deduped (for pick count + stat hub)
+        var seen2={},allLegsForCount=[];
+        var allSrc=(data.system||[]).concat(data.system_winprob||[]).concat(data.windfall||[])
+          .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.marketed_slips||[]);
+        for(var _i=0;_i<allSrc.length;_i++){
+          var _ls=allSrc[_i].legs_detail||allSrc[_i].legs||[];
+          for(var _j=0;_j<_ls.length;_j++){
+            var _leg=_ls[_j],_k=(_leg.player||'')+'|'+(_leg.stat||'')+'|'+(_leg.line||'')+'|'+(_leg.dir||'');
+            if(!seen2[_k]){seen2[_k]=true;allLegsForCount.push(_leg);}
+          }
+        }
+        buildStatTiles(data,allLegsForCount);
         buildProbTab(allLegs);
         buildEVTab(allLegs);
-        buildStatHub(games);
+        buildStatHub(allLegsForCount,allLegs,games);
         buildSlipsTab(data);
       }).catch(function(){});
   }
