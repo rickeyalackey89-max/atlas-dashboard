@@ -34,8 +34,17 @@ export async function onRequestPost(context) {
     }
 
     const adminPassword = env.ADMIN_PASSWORD;
+    const adminEmail    = (env.ADMIN_EMAIL || '').trim().toLowerCase();
     if (!adminPassword) {
       return new Response(JSON.stringify({ error: 'Server misconfiguration' }), { status: 500, headers });
+    }
+
+    // If ADMIN_EMAIL is set, enforce exact email match (constant-time)
+    if (adminEmail) {
+      const emailMatch = await safeCompare(email, adminEmail);
+      if (!emailMatch) {
+        return new Response(JSON.stringify({ error: 'Invalid credentials' }), { status: 401, headers });
+      }
     }
 
     // Constant-time comparison to avoid timing attacks
