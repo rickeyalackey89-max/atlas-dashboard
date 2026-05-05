@@ -496,9 +496,9 @@
   <script>
     var TIER_ORDER = ['GOBLIN','STANDARD','DEMON'];
     var TIER_STYLE = {
-      GOBLIN:   { cls: 'goblin',   label: 'Layup' },
-      STANDARD: { cls: 'standard', label: 'Jump Shot' },
-      DEMON:    { cls: 'demon',    label: 'Deep Three' }
+      GOBLIN:   { cls: 'goblin',   label: '\u2193' },
+      STANDARD: { cls: 'standard', label: 'Standard' },
+      DEMON:    { cls: 'demon',    label: '\u2191' }
     };
     function loadProps() {
       fetch('/data/cloudflare_payload.json?t=' + Date.now())

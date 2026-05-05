@@ -112,8 +112,8 @@
           </div>
         </div>
         <div>
-          <div class="field-label">Stat</div>
-          <select id="statSelect" onchange="onStatChange()">
+          <div class="field-label">Stat &amp; Line</div>
+          <select id="statSelect" onchange="onComboChange()">
             <option value="">-- select player first --</option>
           </select>
         </div>
@@ -252,53 +252,61 @@
     if(_acFocusIdx>=0) items[_acFocusIdx].scrollIntoView({block:'nearest'});
   }
 
+  function tierSym(t){
+    if((t||'').toUpperCase()==='GOBLIN') return '\u2193';
+    if((t||'').toUpperCase()==='DEMON')  return '\u2191';
+    return '';
+  }
+
   function selectPlayer(name){
     document.getElementById('playerInput').value=name;
     document.getElementById('acList').style.display='none';
-    // Populate stat dropdown with unique stats for this player
-    var stats={};
+    // Build grouped dropdown: optgroup per stat, option per (line, dir) combo sorted by line asc
+    var groups={};
     for(var i=0;i<_allLegs.length;i++){
-      if(_allLegs[i].player===name){
-        var key=_allLegs[i].stat+'|'+_allLegs[i].line+'|'+_allLegs[i].dir;
-        if(!stats[_allLegs[i].stat]) stats[_allLegs[i].stat]=[];
-        stats[_allLegs[i].stat].push(_allLegs[i]);
+      var l=_allLegs[i];
+      if(l.player===name){
+        if(!groups[l.stat]) groups[l.stat]=[];
+        groups[l.stat].push(l);
       }
     }
-    var sel=document.getElementById('statSelect'); sel.innerHTML='<option value="">-- choose stat --</option>';
-    Object.keys(stats).sort().forEach(function(s){
-      var opt=document.createElement('option'); opt.value=s; opt.textContent=s;
-      sel.appendChild(opt);
+    var sel=document.getElementById('statSelect');
+    sel.innerHTML='<option value="">-- choose stat & line --</option>';
+    Object.keys(groups).sort().forEach(function(s){
+      var grp=document.createElement('optgroup'); grp.label=s;
+      groups[s].sort(function(a,b){return (a.line||0)-(b.line||0)||(a.dir||'').localeCompare(b.dir||'');});
+      groups[s].forEach(function(l){
+        var sym=tierSym(l.tier);
+        var pct=l.p_cal!=null?(' \u00b7 '+(Math.round(l.p_cal*100))+'%'):'';
+        var opt=document.createElement('option');
+        opt.value=s+'|'+l.dir+'|'+l.line;
+        opt.textContent=l.line+' '+l.dir+(sym?' '+sym:'')+pct;
+        grp.appendChild(opt);
+      });
+      sel.appendChild(grp);
     });
-    // Auto-fill line from first match
     document.getElementById('lineInput').value='';
+    document.getElementById('dirSelect').value='OVER';
     document.getElementById('legPreview').style.display='none';
     document.getElementById('addBtn').disabled=true;
   }
 
-  function onStatChange(){
+  function onComboChange(){
     var player=document.getElementById('playerInput').value.trim();
-    var stat=document.getElementById('statSelect').value;
-    var dir=document.getElementById('dirSelect').value;
-    if(!player||!stat) return;
-    // find best matching leg for this player+stat+dir combo
+    var combo=document.getElementById('statSelect').value;
+    document.getElementById('addBtn').disabled=!(player&&combo);
+    if(!player||!combo) return;
+    var parts=combo.split('|'); // stat|dir|line
+    var stat=parts[0], dir=parts[1], line=parseFloat(parts[2]);
+    document.getElementById('dirSelect').value=dir||'OVER';
+    document.getElementById('lineInput').value=isNaN(line)?'':line;
     var match=null;
     for(var i=0;i<_allLegs.length;i++){
       var l=_allLegs[i];
-      if(l.player===player&&l.stat===stat&&l.dir===dir){match=l;break;}
+      if(l.player===player&&l.stat===stat&&l.dir===dir&&Math.abs((l.line||0)-line)<0.01){match=l;break;}
     }
-    if(!match){
-      // Try opposite dir
-      for(var i=0;i<_allLegs.length;i++){
-        var l=_allLegs[i];
-        if(l.player===player&&l.stat===stat){match=l;break;}
-      }
-    }
-    if(match){
-      document.getElementById('lineInput').value=match.line||'';
-      document.getElementById('dirSelect').value=match.dir||dir;
-      showPreview(match);
-    }
-    document.getElementById('addBtn').disabled=!(player&&stat&&document.getElementById('lineInput').value);
+    if(match) showPreview(match);
+    else document.getElementById('legPreview').style.display='none';
   }
 
   function showPreview(leg){
@@ -312,11 +320,13 @@
 
   function addLeg(){
     var player=document.getElementById('playerInput').value.trim();
-    var stat=document.getElementById('statSelect').value;
+    var combo=document.getElementById('statSelect').value;
     var dir=document.getElementById('dirSelect').value;
     var line=parseFloat(document.getElementById('lineInput').value);
-    if(!player||!stat||isNaN(line)) return;
+    if(!player||!combo||isNaN(line)) return;
     if(_parlayLegs.length>=5){alert('Maximum 5 legs per parlay.');return;}
+    var parts=combo.split('|');
+    var stat=parts[0];
 
     // Find matching leg in all_legs for p_cal
     var match=null;
@@ -328,7 +338,7 @@
     if(!match){
       for(var i=0;i<_allLegs.length;i++){
         var l=_allLegs[i];
-        if(l.player===player&&l.stat===stat){match=l;break;}
+        if(l.player===player&&l.stat===stat&&l.dir===dir){match=l;break;}
       }
     }
 
@@ -372,7 +382,7 @@
       item.innerHTML=
         '<div class="leg-info">'
         +'<div class="leg-name">'+esc(leg.player)+'</div>'
-        +'<div class="leg-meta">'+esc(leg.team)+(leg.opp?' vs '+esc(leg.opp):'')+' &middot; '+esc(leg.stat)+' '+esc(String(leg.line))+' &middot; '+esc(leg.tier)+'</div>'
+        +'<div class="leg-meta">'+esc(leg.team)+(leg.opp?' vs '+esc(leg.opp):'')+' &middot; '+esc(leg.stat)+' '+esc(String(leg.line))+(tierSym(leg.tier)?' &middot; '+tierSym(leg.tier):'')+'</div>'
         +'</div>'
         +'<div class="leg-right">'
         +'<span class="dir-'+ddir+'">'+esc(leg.dir)+'</span>'

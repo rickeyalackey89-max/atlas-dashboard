@@ -350,7 +350,7 @@
         <div class="lock-badge">
           <div class="lock-icon">&#128274;</div>
           <div class="lock-text">Premium Feature</div>
-          <div class="lock-sub">All optimized slips &#8212; System, Windfall, and DemonHunter families with full leg detail</div>
+          <div class="lock-sub">All optimized slips &#8212; System, Windfall, and &#8593; Alt Hunter families with full leg detail</div>
           <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
         </div>
       </div>
@@ -558,7 +558,7 @@
     }
     var topStat='—',topStatN=0;
     Object.keys(statCounts).forEach(function(s){if(statCounts[s]>topStatN){topStatN=statCounts[s];topStat=s;}});
-    var tierLabels={GOBLIN:'Layup',STANDARD:'Jump Shot',DEMON:'Deep Three'};
+    var tierLabels={GOBLIN:'\u2193',STANDARD:'Standard',DEMON:'\u2191'};
     // Over/Under tile
     var ou=document.getElementById('hubOverUnder');
     ou.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:14px;">Direction Split</div>'+
@@ -727,7 +727,7 @@
     var families=[
       {key:'system',    label:'System',      desc:'Beam-search optimized for edge',   color:'#4ade80', bc:'rgba(74,222,128,.35)'},
       {key:'windfall',  label:'Windfall',    desc:'Hybrid probability and edge model', color:'#60a5fa', bc:'rgba(96,165,250,.35)'},
-      {key:'demonhunter',label:'DemonHunter',desc:'All-DEMON tier &#8212; highest multiplier',color:'var(--gold)',bc:'rgba(245,166,35,.35)'},
+      {key:'demonhunter',label:'&#8593; Alt Hunter',desc:'All-&#8593; Alt tier &#8212; highest multiplier',color:'var(--gold)',bc:'rgba(245,166,35,.35)'},
     ];
     var container=document.getElementById('slipsList'); container.innerHTML=''; var anySlips=false;
 
