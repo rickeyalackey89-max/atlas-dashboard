@@ -41,7 +41,7 @@
     .page-title{font-size:clamp(28px,5vw,48px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:.95;}
     .page-title span{color:var(--cyan);}
     .page-sub{margin-top:12px;font-size:14px;color:var(--t2);max-width:560px;}
-    .dash-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--b);}
+    .dash-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:var(--b);}
     @media(max-width:640px){.dash-grid{grid-template-columns:1fr 1fr;}}
     .stat-tile{background:var(--s1);padding:24px;}
     .tile-val{font-size:36px;font-weight:900;letter-spacing:-.04em;line-height:1;}
@@ -188,6 +188,7 @@
     <div class="stat-tile"><div class="tile-val" style="color:var(--gold);" id="totalPicks">&#8212;</div><div class="tile-lbl">Picks Today</div></div>
     <div class="stat-tile"><div class="tile-val" style="color:var(--cyan);" id="totalSlips">&#8212;</div><div class="tile-lbl">Daily Slips</div></div>
     <div class="stat-tile"><div class="tile-val" style="color:var(--green);" id="slateGames">&#8212;</div><div class="tile-lbl">Games on Slate</div></div>
+    <div class="stat-tile"><div class="tile-val" style="color:#a78bfa;" id="scoredLegs">&#8212;</div><div class="tile-lbl">Legs Scored</div></div>
   </div>
 
   <div class="section-gap"></div>
@@ -208,6 +209,7 @@
       <button class="sub-tab" data-sub="beyond" onclick="switchSubTab('beyond')">Beyond the Metrics</button>
       <button class="sub-tab" data-sub="slips" onclick="switchSubTab('slips')">Slips</button>
       <button class="sub-tab" data-sub="parlay" onclick="switchSubTab('parlay')">Parlay Builder</button>
+      <button class="sub-tab" data-sub="market" onclick="switchSubTab('market')">Market</button>
     </div>
 
     <!-- PROBABILITY -->
@@ -449,6 +451,26 @@
 
   </div>
 
+    <!-- ===== MARKET ODDS ===== -->
+    <div id="sub-market" class="sub-panel" style="display:none;">
+      <div class="section-head"><span class="section-head-title">Market Odds</span><span class="badge badge-live">Live</span></div>
+      <div class="card" style="margin-bottom:1px;">
+        <div style="font-size:11px;color:var(--t2);margin-bottom:16px;line-height:1.6;">PrizePicks lines compared to live DraftKings &amp; FanDuel player prop odds. <strong style="color:var(--text);">Atlas</strong> is the model&#39;s calibrated probability. <strong style="color:var(--text);">Mkt Imp</strong> is the consensus market-implied probability (de-vigged). A positive edge means Atlas sees more probability than the market is pricing in. Underdog lines coming soon.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+          <select id="mktStatFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="">All Stats</option><option value="PTS">PTS</option><option value="REB">REB</option><option value="AST">AST</option><option value="FG3M">FG3M</option><option value="PRA">PRA</option><option value="PR">PR</option><option value="PA">PA</option></select>
+          <select id="mktDirFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="">Both Dirs</option><option value="OVER">OVER</option><option value="UNDER">UNDER</option></select>
+          <select id="mktSortFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="edge">Sort: Edge</option><option value="atlas">Sort: Atlas %</option><option value="line">Sort: Line</option></select>
+        </div>
+        <div style="overflow-x:auto;">
+          <div id="mktHeader" style="display:grid;grid-template-columns:2fr 60px 55px 50px 60px 70px 70px 60px;gap:0 8px;padding:6px 8px;border-bottom:1px solid var(--b);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);">
+            <div>Player</div><div style="text-align:center;">Stat</div><div style="text-align:right;">Line</div><div style="text-align:center;">Dir</div><div style="text-align:right;">Atlas</div><div style="text-align:right;">DK Odds</div><div style="text-align:right;">FD Odds</div><div style="text-align:right;">Edge</div>
+          </div>
+          <div id="mktList"><div class="no-data">Loading market data...</div></div>
+        </div>
+        <div id="mktNoOdds" style="display:none;margin-top:16px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid var(--b);font-size:11px;color:var(--t2);line-height:1.6;">&#9432; Market odds are fetched during each pipeline run. If no odds appear, the ODDSAPI_KEY env var may not be set or today&#39;s games haven&#39;t started yet. Run <code style="font-family:monospace;color:var(--cyan);">python tools/fetch_odds_today.py</code> to refresh.</div>
+      </div>
+    </div>
+
   <div class="premium-cta" id="premiumCta">
     <div class="premium-cta-title">Unlock The Full <span style="color:var(--gold);">Edge</span></div>
     <p class="premium-cta-sub">All 14 daily slips. Full probability and EV rankings for every leg on the board. Everything the model knows &#8212; yours daily.</p>
@@ -561,6 +583,7 @@
     document.getElementById('totalPicks').textContent=countAllLegs(data)||'&#8212;';
     document.getElementById('totalSlips').textContent=totalSlips||'&#8212;';
     document.getElementById('slateGames').textContent=getGames(allLegs).length||'&#8212;';
+    document.getElementById('scoredLegs').textContent=(data.all_legs||[]).length||'&#8212;';
   }
 
   function buildProbTab(allLegs){
@@ -979,8 +1002,87 @@
         buildStatHub(data, allLegsForCount, allLegs, games);
         buildSlipsTab(data);
         buildBeyondMetrics(data.all_legs||[]);
+        buildMarketTab(data.all_legs||[]);
         pbInit(data.all_legs||[]);
       }).catch(function(){});
+  }
+
+  // ---- Market Odds Tab ----
+  var _mktLegs = [];
+
+  function buildMarketTab(legs) {
+    _mktLegs = legs;
+    renderMarketTab();
+  }
+
+  function _fmtAmerican(v) {
+    if(v == null) return '<span style="color:var(--t2);">—</span>';
+    return (v >= 0 ? '<span style="color:var(--t2);">+' + v + '</span>' : '<span style="color:var(--t2);">' + v + '</span>');
+  }
+
+  function _mktImp(leg) {
+    // Average de-vigged implied probability for the leg's direction
+    var dk = leg.dir==='OVER' ? leg.dk_imp_over : (leg.dk_imp_over != null ? 1 - leg.dk_imp_over : null);
+    var fd = leg.dir==='OVER' ? leg.fd_imp_over : (leg.fd_imp_over != null ? 1 - leg.fd_imp_over : null);
+    if(dk != null && fd != null) return (dk + fd) / 2;
+    if(dk != null) return dk;
+    if(fd != null) return fd;
+    return null;
+  }
+
+  function renderMarketTab() {
+    var statF = (document.getElementById('mktStatFilter')||{}).value || '';
+    var dirF  = (document.getElementById('mktDirFilter') ||{}).value || '';
+    var sortF = (document.getElementById('mktSortFilter')||{}).value || 'edge';
+
+    var legs = _mktLegs.slice();
+    if(statF) legs = legs.filter(function(l){ return l.stat === statF; });
+    if(dirF)  legs = legs.filter(function(l){ return (l.dir||'') === dirF; });
+
+    // Sort
+    legs.sort(function(a, b){
+      if(sortF === 'atlas') return (b.p_cal||0) - (a.p_cal||0);
+      if(sortF === 'line')  return (b.line||0) - (a.line||0);
+      // default: edge (Atlas - mkt implied)
+      var ea = (a.p_cal||0) - (_mktImp(a)||a.p_cal||0);
+      var eb = (b.p_cal||0) - (_mktImp(b)||b.p_cal||0);
+      return eb - ea;
+    });
+
+    var el = document.getElementById('mktList');
+    var noOdds = document.getElementById('mktNoOdds');
+    if(!el) return;
+    if(!legs.length){ el.innerHTML='<div class="no-data">No legs match this filter.</div>'; return; }
+
+    var hasAnyOdds = legs.some(function(l){ return l.dk_over != null || l.fd_over != null; });
+    if(noOdds) noOdds.style.display = hasAnyOdds ? 'none' : 'block';
+
+    var html = '';
+    for(var i = 0; i < legs.length; i++){
+      var l = legs[i];
+      var p = l.p_cal != null ? Math.round(l.p_cal * 100) : null;
+      var mktP = _mktImp(l);
+      var edge = (p != null && mktP != null) ? Math.round(p - mktP * 100) : null;
+      var edgeStr = edge != null
+        ? '<span style="font-weight:800;color:' + (edge > 0 ? 'var(--green)' : edge < -4 ? '#f87171' : 'var(--t2)') + ';">' + (edge > 0 ? '+' : '') + edge + '%</span>'
+        : '<span style="color:var(--t2);">—</span>';
+      var atlasStr = p != null ? '<span style="font-weight:800;color:' + pctColor(l.p_cal||0) + ';">' + p + '%</span>' : '<span style="color:var(--t2);">—</span>';
+      var dirClass = (l.dir||'').toLowerCase();
+      // DK/FD odds for the relevant direction
+      var dkO = l.dir==='OVER' ? l.dk_over : l.dk_under;
+      var fdO = l.dir==='OVER' ? l.fd_over : l.fd_under;
+      html += '<div style="display:grid;grid-template-columns:2fr 60px 55px 50px 60px 70px 70px 60px;gap:0 8px;padding:9px 8px;border-bottom:1px solid var(--b);align-items:center;font-size:12px;">';
+      html += '<div><div style="font-weight:700;">' + esc(l.player||'') + '</div><div style="font-size:10px;color:var(--t2);">' + esc(l.team||'') + (l.opp?' vs '+esc(l.opp):'') + '</div></div>';
+      html += '<div style="text-align:center;font-size:10px;text-transform:uppercase;color:var(--t2);letter-spacing:.06em;">' + esc(l.stat||'') + '</div>';
+      html += '<div style="text-align:right;font-weight:700;">' + (l.line != null ? l.line : '—') + '</div>';
+      html += '<div style="text-align:center;"><span class="dir-' + dirClass + '">' + esc(l.dir||'') + '</span></div>';
+      html += '<div style="text-align:right;">' + atlasStr + '</div>';
+      html += '<div style="text-align:right;">' + _fmtAmerican(dkO) + '</div>';
+      html += '<div style="text-align:right;">' + _fmtAmerican(fdO) + '</div>';
+      html += '<div style="text-align:right;">' + edgeStr + '</div>';
+      html += '</div>';
+    }
+    el.innerHTML = html;
   }
 
   // ---- Beyond the Metrics ----
