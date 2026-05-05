@@ -420,7 +420,7 @@
             </div>
             <ul class="feature-list">
               <li class="on"><span class="fi fi-c">✓</span>Daily picks (player, stat, line, direction)</li>
-              <li class="on"><span class="fi fi-c">✓</span>Top Goblin / Standard / Demon each day</li>
+              <li class="on"><span class="fi fi-c">✓</span>Top Layup / Jump Shot / Deep Three pick each day</li>
               <li class="on"><span class="fi fi-c">✓</span>Full NBA season coverage</li>
               <li class="on"><span class="fi fi-c">✓</span>Discord community access</li>
               <li><span class="fi fi-x">—</span>Optimized multi-leg slip combinations</li>
@@ -508,7 +508,7 @@
           var seen = {}, allLegs = [];
           var sources = (data.system || []).concat(data.windfall || []).concat(data.marketed_slips || []);
           // Count total unique slips across all families
-          var totalSlips = (data.system||[]).length + (data.windfall||[]).length + (data.marketed_slips||[]).length;
+          var totalSlips = (data.system||[]).length + (data.system_winprob||[]).length + (data.windfall||[]).length + (data.windfall_winprob||[]).length + (data.demonhunter||[]).length;
           for (var i = 0; i < sources.length; i++) {
             var sl = sources[i], sl_legs = sl.legs_detail || sl.legs || [];
             for (var j = 0; j < sl_legs.length; j++) {
