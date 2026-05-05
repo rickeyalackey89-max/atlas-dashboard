@@ -568,8 +568,10 @@
         if (db) db.textContent = 'Dashboard →';
       }
 
-      fetch('/data/picks_today.json?t=' + Date.now())
-        .then(function(r) { return r.ok ? r.json() : Promise.reject('bad'); })
+      var _fetchCtrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      var _fetchTimeout = setTimeout(function() { if (_fetchCtrl) _fetchCtrl.abort(); showNoData(); }, 8000);
+      fetch('/data/picks_today.json?t=' + Date.now(), _fetchCtrl ? { signal: _fetchCtrl.signal } : {})
+        .then(function(r) { clearTimeout(_fetchTimeout); return r.ok ? r.json() : Promise.reject('http ' + r.status); })
         .then(function(data) {
           if (!data) { showNoData(); return; }
           var allLegs = data.picks || [];
