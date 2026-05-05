@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-04T17:34:58.258439-05:00",
+  "generated_at": "2026-05-04T20:03:47.244789-05:00",
   "run_id": "20260504_173457",
   "system": [
     {
@@ -678,7 +678,9 @@
           "tier": "GOBLIN",
           "team": "SAS",
           "opp": "MIN",
-          "p_cal": 0.8059431337345768
+          "p_cal": 0.8059431337345768,
+          "l10_hr": 1.0,
+          "l10_n": 10
         },
         {
           "player": "Naz Reid",
@@ -688,7 +690,9 @@
           "tier": "STANDARD",
           "team": "MIN",
           "opp": "SAS",
-          "p_cal": 0.8473832434470574
+          "p_cal": 0.8473832434470574,
+          "l10_hr": 0.6,
+          "l10_n": 10
         },
         {
           "player": "Andre Drummond",
@@ -698,7 +702,9 @@
           "tier": "STANDARD",
           "team": "PHI",
           "opp": "NYK",
-          "p_cal": 0.7997001747289785
+          "p_cal": 0.7997001747289785,
+          "l10_hr": 0.2,
+          "l10_n": 10
         }
       ]
     },
@@ -718,7 +724,9 @@
           "tier": "GOBLIN",
           "team": "PHI",
           "opp": "NYK",
-          "p_cal": 0.8450427709799025
+          "p_cal": 0.8450427709799025,
+          "l10_hr": 0.8,
+          "l10_n": 10
         },
         {
           "player": "Quentin Grimes",
@@ -728,7 +736,9 @@
           "tier": "GOBLIN",
           "team": "PHI",
           "opp": "NYK",
-          "p_cal": 0.7748717288204637
+          "p_cal": 0.7748717288204637,
+          "l10_hr": 0.6,
+          "l10_n": 10
         },
         {
           "player": "Mitchell Robinson",
@@ -738,7 +748,9 @@
           "tier": "STANDARD",
           "team": "NYK",
           "opp": "PHI",
-          "p_cal": 0.823577852079483
+          "p_cal": 0.823577852079483,
+          "l10_hr": 0.5,
+          "l10_n": 10
         },
         {
           "player": "Anthony Edwards",
@@ -748,7 +760,9 @@
           "tier": "STANDARD",
           "team": "MIN",
           "opp": "SAS",
-          "p_cal": 0.792908776597317
+          "p_cal": 0.792908776597317,
+          "l10_hr": 0.6,
+          "l10_n": 10
         }
       ]
     },
@@ -768,7 +782,9 @@
           "tier": "GOBLIN",
           "team": "SAS",
           "opp": "MIN",
-          "p_cal": 0.7598879912566626
+          "p_cal": 0.7598879912566626,
+          "l10_hr": 0.8,
+          "l10_n": 10
         },
         {
           "player": "Mikal Bridges",
@@ -778,7 +794,9 @@
           "tier": "GOBLIN",
           "team": "NYK",
           "opp": "PHI",
-          "p_cal": 0.7317536005532809
+          "p_cal": 0.7317536005532809,
+          "l10_hr": 0.7,
+          "l10_n": 10
         },
         {
           "player": "De'Aaron Fox",
@@ -788,7 +806,9 @@
           "tier": "STANDARD",
           "team": "SAS",
           "opp": "MIN",
-          "p_cal": 0.7948187710211465
+          "p_cal": 0.7948187710211465,
+          "l10_hr": 0.3,
+          "l10_n": 10
         },
         {
           "player": "Tyrese Maxey",
@@ -798,7 +818,9 @@
           "tier": "STANDARD",
           "team": "PHI",
           "opp": "NYK",
-          "p_cal": 0.7893041503890169
+          "p_cal": 0.7893041503890169,
+          "l10_hr": 0.6,
+          "l10_n": 10
         },
         {
           "player": "Jose Alvarado",
@@ -808,9 +830,93 @@
           "tier": "DEMON",
           "team": "NYK",
           "opp": "PHI",
-          "p_cal": 0.74162338725417
+          "p_cal": 0.74162338725417,
+          "l10_hr": 0.5,
+          "l10_n": 10
         }
       ]
+    }
+  ],
+  "top_hit_list": [
+    {
+      "player": "Luke Kornet",
+      "stat": "PR",
+      "dir": "OVER",
+      "line": 4.5,
+      "l10_hr": 1.0,
+      "l10_n": 10
+    },
+    {
+      "player": "VJ Edgecombe",
+      "stat": "PA",
+      "dir": "OVER",
+      "line": 11.5,
+      "l10_hr": 0.8,
+      "l10_n": 10
+    },
+    {
+      "player": "Keldon Johnson",
+      "stat": "PTS",
+      "dir": "OVER",
+      "line": 5.5,
+      "l10_hr": 0.8,
+      "l10_n": 10
+    },
+    {
+      "player": "Mikal Bridges",
+      "stat": "PR",
+      "dir": "OVER",
+      "line": 9.5,
+      "l10_hr": 0.7,
+      "l10_n": 10
+    },
+    {
+      "player": "Naz Reid",
+      "stat": "PRA",
+      "dir": "UNDER",
+      "line": 21.5,
+      "l10_hr": 0.6,
+      "l10_n": 10
+    },
+    {
+      "player": "Quentin Grimes",
+      "stat": "PTS",
+      "dir": "OVER",
+      "line": 3.5,
+      "l10_hr": 0.6,
+      "l10_n": 10
+    },
+    {
+      "player": "Anthony Edwards",
+      "stat": "PA",
+      "dir": "UNDER",
+      "line": 25.5,
+      "l10_hr": 0.6,
+      "l10_n": 10
+    },
+    {
+      "player": "Tyrese Maxey",
+      "stat": "PA",
+      "dir": "UNDER",
+      "line": 31.5,
+      "l10_hr": 0.6,
+      "l10_n": 10
+    },
+    {
+      "player": "Mitchell Robinson",
+      "stat": "REB",
+      "dir": "UNDER",
+      "line": 7.0,
+      "l10_hr": 0.5,
+      "l10_n": 10
+    },
+    {
+      "player": "Jose Alvarado",
+      "stat": "AST",
+      "dir": "OVER",
+      "line": 2.5,
+      "l10_hr": 0.5,
+      "l10_n": 10
     }
   ]
 }

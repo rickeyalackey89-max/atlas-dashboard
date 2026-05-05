@@ -264,6 +264,15 @@
 
       <div class="section-gap"></div>
 
+      <!-- TOP 10 HIT LIST -->
+      <div class="section-head"><span class="section-head-title">Top 10 Hit List</span><span class="badge badge-live">L10</span></div>
+      <div class="card" style="margin-bottom:1px;">
+        <div style="font-size:11px;color:var(--t2);margin-bottom:16px;line-height:1.6;">Players with the highest hit rate on today&#39;s exact stat line over their last 10 games. Minimum 5 games required.</div>
+        <div id="hubHitList"><div class="no-data">Loading...</div></div>
+      </div>
+
+      <div class="section-gap"></div>
+
       <!-- BETTING BASICS -->
       <div class="section-head"><span class="section-head-title">Betting Basics</span><span class="badge badge-free">Free</span></div>
       <div class="edu-grid">
@@ -577,6 +586,42 @@
     if(!isPremium){
       var ctaEl=document.getElementById('hubConfCta');
       if(ctaEl) ctaEl.style.display='flex';
+    }
+
+    // ── TOP 10 HIT LIST ───────────────────────────────────────────────
+    var hitList=(data.top_hit_list||[]).slice(0,10);
+    var hlEl=document.getElementById('hubHitList'); hlEl.innerHTML='';
+    if(!hitList.length){
+      hlEl.innerHTML='<div class="no-data">Hit list updates after the next run.</div>';
+    } else {
+      // header row
+      var hdr=document.createElement('div');
+      hdr.style.cssText='display:grid;grid-template-columns:1fr 72px 80px 70px;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--b);margin-bottom:12px;';
+      hdr.innerHTML='<span style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);">Player</span>'+
+        '<span style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);text-align:center;">Stat</span>'+
+        '<span style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);text-align:center;">Line</span>'+
+        '<span style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);text-align:right;">L10</span>';
+      hlEl.appendChild(hdr);
+      for(var hi=0;hi<hitList.length;hi++){
+        var hl=hitList[hi];
+        var hits=Math.round((hl.l10_hr||0)*hl.l10_n);
+        var pct=Math.round((hl.l10_hr||0)*100);
+        var barColor=pct>=80?'var(--green)':pct>=65?'var(--gold)':'var(--cyan)';
+        var dirLabel=hl.dir==='OVER'?'<span style="color:#4ade80;font-size:10px;font-weight:700;">OVR</span>':'<span style="color:#f87171;font-size:10px;font-weight:700;">UND</span>';
+        var row=document.createElement('div');
+        row.style.cssText='margin-bottom:14px;';
+        row.innerHTML=
+          '<div style="display:grid;grid-template-columns:1fr 72px 80px 70px;gap:8px;align-items:center;margin-bottom:5px;">'+
+            '<span style="font-size:13px;font-weight:700;">'+(hi===0?'<span style="color:var(--gold);">&#9733; </span>':'')+esc(hl.player)+'</span>'+
+            '<span style="text-align:center;">'+dirLabel+' <span style="font-size:11px;color:var(--t2);">'+esc(hl.stat)+'</span></span>'+
+            '<span style="text-align:center;font-size:12px;font-weight:700;color:var(--t2);">'+hl.line+'</span>'+
+            '<span style="text-align:right;font-size:14px;font-weight:900;color:'+barColor+';">'+hits+'/'+hl.l10_n+'</span>'+
+          '</div>'+
+          '<div style="height:3px;background:var(--b2);border-radius:2px;">'+
+            '<div style="height:100%;width:'+pct+'%;background:'+barColor+';border-radius:2px;"></div>'+
+          '</div>';
+        hlEl.appendChild(row);
+      }
     }
   }
 
