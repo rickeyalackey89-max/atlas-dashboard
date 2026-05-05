@@ -126,6 +126,26 @@
     .slip-leg-right{display:flex;align-items:center;gap:8px;font-weight:700;font-variant-numeric:tabular-nums;}
     .slip-n-badge{padding:3px 8px;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border:1px solid;}
     .section-gap{height:32px;}
+    /* Beyond the Metrics */
+    .btm-player-list{display:flex;flex-direction:column;gap:1px;}
+    .btm-player-row{background:var(--s2);cursor:pointer;user-select:none;}
+    .btm-player-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;gap:10px;}
+    .btm-player-name{font-size:14px;font-weight:800;letter-spacing:-.01em;}
+    .btm-player-meta{font-size:11px;color:var(--t2);margin-top:2px;}
+    .btm-player-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+    .btm-chevron{font-size:10px;color:var(--t2);transition:transform .2s;}
+    .btm-card{padding:0 16px 16px;display:none;}
+    .btm-metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}
+    @media(min-width:600px){.btm-metric-grid{grid-template-columns:repeat(3,1fr);}}
+    .btm-metric{background:var(--s1);padding:14px;}
+    .btm-metric-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-bottom:6px;}
+    .btm-metric-val{font-size:20px;font-weight:900;letter-spacing:-.04em;}
+    .btm-metric-desc{font-size:10px;color:var(--t2);margin-top:4px;line-height:1.5;}
+    .btm-filter-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+    .btm-filter-btn{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--b);background:transparent;color:var(--t2);cursor:pointer;}
+    .btm-filter-btn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(34,211,238,.08);}
+    .btm-search{background:var(--s2);border:1px solid var(--b);color:var(--text);font-size:13px;padding:8px 12px;width:100%;box-sizing:border-box;outline:none;margin-bottom:12px;}
+    .btm-search:focus{border-color:var(--cyan);}
     .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;}
     .section-head-title{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);}
     .section-head-title::before{content:"// ";color:var(--t3);}
@@ -178,6 +198,7 @@
       <button class="sub-tab active" data-sub="probability" onclick="switchSubTab('probability')">Probability</button>
       <button class="sub-tab" data-sub="ev" onclick="switchSubTab('ev')">EV Legs</button>
       <button class="sub-tab" data-sub="stathub" onclick="switchSubTab('stathub')">Stat Hub</button>
+      <button class="sub-tab" data-sub="beyond" onclick="switchSubTab('beyond')">Beyond the Metrics</button>
       <button class="sub-tab" data-sub="slips" onclick="switchSubTab('slips')">Slips</button>
     </div>
 
@@ -294,6 +315,29 @@
         <div class="edu-card"><div class="edu-icon">&#128200;</div><div class="edu-title">What is a Line?</div><p class="edu-body">The line is the threshold set by the sportsbook &#8212; e.g. "23.5 points." Atlas compares each player&#39;s simulated distribution against that line to find where the book is wrong.</p></div>
         <div class="edu-card"><div class="edu-icon">&#128115;</div><div class="edu-title">Bankroll Management</div><p class="edu-body">Never bet more than you can afford to lose. A flat-unit approach &#8212; same stake per slip &#8212; is the most consistent way to grow over time. The edge compounds. Blown bankrolls don&#39;t.</p></div>
         <div class="edu-card"><div class="edu-icon">&#128290;</div><div class="edu-title">What is Confidence?</div><p class="edu-body">Atlas confidence is the calibrated probability that a leg hits, expressed as a percentage. 80%+ is high. These are legs the model sees a strong signal on relative to the market line.</p></div>
+      </div>
+    </div>
+
+    <!-- BEYOND THE METRICS -->
+    <div id="sub-beyond" class="sub-panel" style="display:none;">
+      <div class="lock-overlay" id="beyondLockWrap">
+        <div class="lock-blur">
+          <div class="card" style="margin-bottom:1px;">
+            <div class="card-label">Player Intelligence <span class="badge badge-premium">Premium</span></div>
+            <div style="font-size:11px;color:var(--t2);margin-bottom:16px;line-height:1.6;">Every player on today&#39;s board. Click any name to see the 5 signals behind their prediction.</div>
+            <input class="btm-search" id="btmSearch" placeholder="Search player..." oninput="btmFilter()" />
+            <div class="btm-filter-row" id="btmFilters">
+              <button class="btm-filter-btn active" data-team="all" onclick="btmSetTeam(this,'all')">All</button>
+            </div>
+            <div class="btm-player-list" id="btmList"><div class="no-data">Loading...</div></div>
+          </div>
+        </div>
+        <div class="lock-badge">
+          <div class="lock-icon">&#128274;</div>
+          <div class="lock-text">Premium Feature</div>
+          <div class="lock-sub">Full model breakdown for every player on the board &#8212; confidence, stability, blowout risk, recent edge, and role signal</div>
+          <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+        </div>
       </div>
     </div>
 
@@ -833,7 +877,148 @@
         buildEVTab(allLegs);
         buildStatHub(data, allLegsForCount, allLegs, games);
         buildSlipsTab(data);
+        buildBeyondMetrics(data.all_legs||[]);
       }).catch(function(){});
+  }
+
+  // ---- Beyond the Metrics ----
+  var _btmLegs=[], _btmTeam='all';
+
+  function buildBeyondMetrics(legs){
+    _btmLegs=legs;
+    // Build team filter buttons
+    var teams=[]; var seen={};
+    for(var i=0;i<legs.length;i++){var t=legs[i].team||'';if(t&&!seen[t]){seen[t]=true;teams.push(t);}}
+    teams.sort();
+    var fRow=document.getElementById('btmFilters'); if(!fRow) return;
+    fRow.innerHTML='<button class="btm-filter-btn active" data-team="all" onclick="btmSetTeam(this,\'all\')">All</button>';
+    for(var ti=0;ti<teams.length;ti++){
+      var btn=document.createElement('button'); btn.className='btm-filter-btn'; btn.dataset.team=teams[ti];
+      btn.setAttribute('onclick','btmSetTeam(this,\''+teams[ti]+'\')');
+      btn.textContent=teams[ti]; fRow.appendChild(btn);
+    }
+    btmRender();
+  }
+
+  function btmSetTeam(btn,team){
+    _btmTeam=team;
+    document.querySelectorAll('#btmFilters .btm-filter-btn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    btmRender();
+  }
+
+  function btmFilter(){btmRender();}
+
+  function btmRender(){
+    var q=(document.getElementById('btmSearch')||{value:''}).value.toLowerCase().trim();
+    var legs=_btmLegs.filter(function(l){
+      if(_btmTeam!=='all'&&(l.team||'')!==_btmTeam) return false;
+      if(q&&!(l.player||'').toLowerCase().includes(q)) return false;
+      return true;
+    });
+    // Group by player
+    var byPlayer={}, playerOrder=[];
+    for(var i=0;i<legs.length;i++){
+      var p=legs[i].player||'Unknown';
+      if(!byPlayer[p]){byPlayer[p]=[];playerOrder.push(p);}
+      byPlayer[p].push(legs[i]);
+    }
+    var el=document.getElementById('btmList'); el.innerHTML='';
+    if(!playerOrder.length){el.innerHTML='<div class="no-data">No players match.</div>';return;}
+    for(var pi=0;pi<playerOrder.length;pi++){
+      var pName=playerOrder[pi], pLegs=byPlayer[pName];
+      var best=pLegs[0]; // highest p_cal (already sorted)
+      var pDiv=document.createElement('div'); pDiv.className='btm-player-row';
+      var pct=best.p_cal!=null?Math.round(best.p_cal*100):null;
+      var headerHtml='<div class="btm-player-header" onclick="btmToggle(this)">'
+        +'<div><div class="btm-player-name">'+esc(pName)+'</div>'
+        +'<div class="btm-player-meta">'+esc(best.team||'')+(best.opp?' vs '+esc(best.opp):'')+' &middot; '+pLegs.length+' prop'+(pLegs.length>1?'s':'')+'</div>'
+        +'</div>'
+        +'<div class="btm-player-right">'
+        +(pct!=null?'<span style="font-size:13px;font-weight:900;color:'+pctColor(best.p_cal||0)+';">'+pct+'%</span>':'')
+        +'<span class="btm-chevron">&#9660;</span>'
+        +'</div>'
+        +'</div>';
+      var cardHtml='<div class="btm-card">';
+      for(var li=0;li<pLegs.length;li++){
+        var leg=pLegs[li], ldir=(leg.dir||'').toLowerCase();
+        var lPct=leg.p_cal!=null?Math.round(leg.p_cal*100):null;
+        var frag=leg.fragility!=null?leg.fragility:null;
+        var qbow=leg.q_blowout!=null?leg.q_blowout:null;
+        var edge=leg.l20_edge!=null?leg.l20_edge:null;
+        var role=leg.role_mult!=null?leg.role_mult:null;
+
+        // Stability: invert fragility — 0=very stable, high=fragile
+        var stabPct=frag!=null?Math.max(0,Math.round((1-Math.min(frag*5,1))*100)):null;
+        var stabColor=stabPct!=null?(stabPct>=70?'var(--green)':stabPct>=40?'var(--gold)':'#f87171'):'var(--t2)';
+
+        // Blowout: q_blowout is 0-1, high = risky
+        var blowPct=qbow!=null?Math.round(qbow*100):null;
+        var blowColor=blowPct!=null?(blowPct<=20?'var(--green)':blowPct<=50?'var(--gold)':'#f87171'):'var(--t2)';
+
+        // Edge: l20_edge, signed
+        var edgeTxt=edge!=null?(edge>=0?'+':'')+Math.round(edge*100)+'%':null;
+        var edgeColor=edge!=null?(edge>0?'var(--green)':edge<0?'#f87171':'var(--t2)'):'var(--t2)';
+
+        // Role: 1.0=neutral, >1=boosted, <1=dimmed
+        var roleColor=role!=null?(role>1.05?'var(--green)':role<0.95?'#f87171':'var(--t2)'):'var(--t2)';
+        var roleTxt=role!=null?role.toFixed(2)+'x':null;
+        var roleDesc=role!=null?(role>1.05?'Boosted — lineup favors more output':role<0.95?'Reduced — role limited by roster':'Neutral — no lineup adjustment'):'';
+
+        cardHtml+='<div style="margin-bottom:14px;padding-top:'+(li>0?'14px':0)+';'+(li>0?'border-top:1px solid var(--b)':'')+'">'
+          +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">'
+          +'<span class="dir-'+ldir+'">'+esc(leg.dir||'')+'</span>'
+          +'<span style="font-size:14px;font-weight:900;">'+esc(leg.stat||'')+'</span>'
+          +'<span style="font-size:14px;font-weight:700;color:var(--t2);">'+esc(String(leg.line||''))+'</span>'
+          +'<span class="'+tierClass(leg.tier||'')+'">'+esc(leg.tier||'')+'</span>'
+          +'</div>'
+          +'<div class="btm-metric-grid">'
+          // 1. Model Confidence
+          +'<div class="btm-metric">'
+          +'<div class="btm-metric-label">Model Confidence</div>'
+          +'<div class="btm-metric-val" style="color:'+(lPct!=null?pctColor(leg.p_cal||0):'var(--t2)')+';">'+(lPct!=null?lPct+'%':'&#8212;')+'</div>'
+          +'<div class="btm-metric-desc">Probability this leg hits based on all model signals</div>'
+          +'</div>'
+          // 2. Leg Stability
+          +'<div class="btm-metric">'
+          +'<div class="btm-metric-label">Leg Stability</div>'
+          +'<div class="btm-metric-val" style="color:'+stabColor+';">'+(stabPct!=null?stabPct+'%':'&#8212;')+'</div>'
+          +'<div class="btm-metric-desc">How steady this prediction is. Low stability means the leg is sensitive to game flow.</div>'
+          +'</div>'
+          // 3. Blowout Risk
+          +'<div class="btm-metric">'
+          +'<div class="btm-metric-label">Blowout Risk</div>'
+          +'<div class="btm-metric-val" style="color:'+blowColor+';">'+(blowPct!=null?blowPct+'%':'&#8212;')+'</div>'
+          +'<div class="btm-metric-desc">Likelihood this game turns into a blowout, compressing minutes and stats.</div>'
+          +'</div>'
+          // 4. Recent Edge
+          +'<div class="btm-metric">'
+          +'<div class="btm-metric-label">Recent Edge</div>'
+          +'<div class="btm-metric-val" style="color:'+edgeColor+';">'+(edgeTxt||'&#8212;')+'</div>'
+          +'<div class="btm-metric-desc">Model\'s advantage on this player/stat over the last 20 games vs market.</div>'
+          +'</div>'
+          // 5. Role Signal
+          +'<div class="btm-metric" style="'+(pLegs.length===1?'grid-column:span 2':'')+'">'
+          +'<div class="btm-metric-label">Role Signal</div>'
+          +'<div class="btm-metric-val" style="color:'+roleColor+';">'+(roleTxt||'&#8212;')+'</div>'
+          +'<div class="btm-metric-desc">'+(roleDesc||'How current lineup and rotation context affects this player\'s output.')+'</div>'
+          +'</div>'
+          +'</div>'
+          +'</div>';
+      }
+      cardHtml+='</div>';
+      pDiv.innerHTML=headerHtml+cardHtml;
+      el.appendChild(pDiv);
+    }
+  }
+
+  function btmToggle(header){
+    var card=header.parentElement.querySelector('.btm-card');
+    var chev=header.querySelector('.btm-chevron');
+    if(!card) return;
+    var open=card.style.display==='block';
+    card.style.display=open?'none':'block';
+    if(chev) chev.style.transform=open?'':'rotate(180deg)';
   }
 
   checkPremiumAccess();

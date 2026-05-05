@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Parlay Builder | Atlas Sports AI</title>
+  <meta name="description" content="Build your own parlay from Atlas model data. Choose any player and prop, see the calibrated probability, and calculate your slip's hit probability."/>
+  <link rel="icon" href="/favicon.ico"/>
+  <style>
+    :root{
+      --bg:#0a0a0f;--s1:#111118;--s2:#16161f;--b:#1e1e2e;
+      --text:#f0f0f8;--t2:#8888aa;--t3:#444466;
+      --gold:#f5a623;--green:#4ade80;--cyan:#22d3ee;--red:#f87171;
+      --font:'Inter',system-ui,sans-serif;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;}
+    a{color:inherit;text-decoration:none;}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:var(--s1);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:100;}
+    .nav-brand{display:flex;align-items:center;gap:10px;}
+    .nav-logo{height:28px;}
+    .nav-wordmark{font-size:14px;font-weight:900;letter-spacing:-.02em;text-transform:uppercase;}
+    .nav-wordmark span{color:var(--gold);}
+    .nav-links{display:flex;align-items:center;gap:8px;}
+    .btn{display:inline-flex;align-items:center;padding:7px 16px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border:none;font-family:var(--font);}
+    .btn-outline{background:transparent;border:1px solid var(--b);color:var(--t2);}
+    .btn-gold{background:var(--gold);color:#000;}
+    .page{max-width:800px;margin:0 auto;padding:32px 16px 80px;}
+    .page-header{margin-bottom:32px;}
+    .page-eyebrow{font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;}
+    .page-title{font-size:clamp(24px,5vw,40px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:1.1;margin-bottom:10px;}
+    .page-title span{color:var(--gold);}
+    .page-sub{font-size:14px;color:var(--t2);line-height:1.7;max-width:560px;}
+    .card{background:var(--s1);padding:24px;margin-bottom:1px;}
+    .card-label{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+    .badge{font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;}
+    .badge-premium{background:rgba(245,166,35,.15);color:var(--gold);border:1px solid rgba(245,166,35,.3);}
+    .badge-free{background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.25);}
+    input,select{background:var(--s2);border:1px solid var(--b);color:var(--text);font-size:13px;padding:10px 14px;font-family:var(--font);outline:none;width:100%;}
+    input:focus,select:focus{border-color:var(--cyan);}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+    @media(max-width:500px){.field-row{grid-template-columns:1fr;}}
+    .field-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);margin-bottom:6px;}
+    .add-btn{margin-top:12px;background:var(--cyan);color:#000;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:11px 20px;cursor:pointer;border:none;font-family:var(--font);width:100%;}
+    .add-btn:hover{opacity:.88;}
+    .add-btn:disabled{opacity:.4;cursor:not-allowed;}
+    /* Leg list */
+    .leg-list{margin-top:20px;}
+    .leg-item{background:var(--s2);display:flex;align-items:center;justify-content:space-between;padding:12px 16px;margin-bottom:1px;gap:12px;flex-wrap:wrap;}
+    .leg-info{display:flex;flex-direction:column;gap:3px;}
+    .leg-name{font-size:14px;font-weight:800;}
+    .leg-meta{font-size:11px;color:var(--t2);}
+    .leg-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+    .leg-prob{font-size:16px;font-weight:900;}
+    .leg-remove{font-size:18px;color:var(--t2);cursor:pointer;line-height:1;padding:2px 6px;}
+    .leg-remove:hover{color:var(--red);}
+    .dir-over{color:var(--green);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(74,222,128,.12);padding:3px 7px;}
+    .dir-under{color:var(--red);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(248,113,113,.12);padding:3px 7px;}
+    /* Result card */
+    .result-card{background:linear-gradient(135deg,rgba(245,166,35,.07) 0%,transparent 60%);border:1px solid rgba(245,166,35,.25);padding:28px;margin-top:1px;}
+    .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--b);margin-top:20px;}
+    .result-tile{background:var(--s2);padding:18px;text-align:center;}
+    .result-tile-val{font-size:28px;font-weight:900;letter-spacing:-.04em;}
+    .result-tile-lbl{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-top:6px;}
+    /* Lock */
+    .lock-overlay{position:relative;}
+    .lock-blur .lock-blur-inner{filter:blur(4px);opacity:.45;pointer-events:none;user-select:none;}
+    .lock-badge{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px;}
+    .lock-icon{font-size:32px;margin-bottom:14px;}
+    .lock-text{font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:8px;}
+    .lock-sub{font-size:12px;color:var(--t2);max-width:280px;margin:0 auto;line-height:1.6;}
+    .no-data{font-size:13px;color:var(--t2);padding:24px 0;text-align:center;}
+    .autocomplete-wrap{position:relative;}
+    .autocomplete-list{position:absolute;top:100%;left:0;right:0;background:var(--s2);border:1px solid var(--cyan);z-index:200;max-height:220px;overflow-y:auto;display:none;}
+    .autocomplete-item{padding:10px 14px;font-size:13px;cursor:pointer;}
+    .autocomplete-item:hover,.autocomplete-item.focused{background:var(--b);}
+    .stat-select option{background:var(--s2);}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <img src="/atlas_logo_transparent.png" alt="Atlas" class="nav-logo"/>
+    <span class="nav-wordmark">Atlas <span>Sports</span> AI</span>
+  </div>
+  <div class="nav-links">
+    <a href="/dashboard/" class="btn btn-outline">&#8592; Dashboard</a>
+    <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" id="navPremiumBtn">Go Premium</a>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Premium Feature</div>
+    <h1 class="page-title">Parlay <span>Builder</span></h1>
+    <p class="page-sub">Build your own slip from today&#39;s Atlas data. Pick any player and stat on the board, choose OVER or UNDER, and see the model&#39;s calibrated probability for each leg — plus the combined hit probability for your full parlay.</p>
+  </div>
+
+  <div id="mainWrap">
+
+    <!-- Build panel -->
+    <div class="card">
+      <div class="card-label">Add a Leg <span class="badge badge-premium">Premium</span></div>
+
+      <div class="field-row">
+        <div>
+          <div class="field-label">Player</div>
+          <div class="autocomplete-wrap">
+            <input type="text" id="playerInput" placeholder="Search player name..." autocomplete="off" oninput="onPlayerInput()" onkeydown="onPlayerKeydown(event)"/>
+            <div class="autocomplete-list" id="acList"></div>
+          </div>
+        </div>
+        <div>
+          <div class="field-label">Stat</div>
+          <select id="statSelect" onchange="onStatChange()">
+            <option value="">-- select player first --</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <div class="field-label">Direction</div>
+          <select id="dirSelect">
+            <option value="OVER">OVER</option>
+            <option value="UNDER">UNDER</option>
+          </select>
+        </div>
+        <div>
+          <div class="field-label">Line</div>
+          <input type="number" id="lineInput" step="0.5" placeholder="e.g. 23.5"/>
+        </div>
+      </div>
+
+      <div id="legPreview" style="display:none;padding:12px;background:var(--s2);margin-top:4px;font-size:13px;color:var(--t2);"></div>
+
+      <button class="add-btn" id="addBtn" onclick="addLeg()" disabled>Add Leg</button>
+    </div>
+
+    <!-- Legs added -->
+    <div class="card" id="legListCard" style="display:none;">
+      <div class="card-label">Your Parlay <span id="legCountBadge" class="badge badge-free">0 Legs</span></div>
+      <div class="leg-list" id="legList"></div>
+    </div>
+
+    <!-- Result -->
+    <div class="result-card" id="resultCard" style="display:none;">
+      <div style="font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Parlay Summary</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.6;">Probabilities are Atlas calibrated model estimates — not guaranteed outcomes.</div>
+      <div class="result-grid">
+        <div class="result-tile"><div class="result-tile-val" id="resHitProb" style="color:var(--green);">&#8212;</div><div class="result-tile-lbl">Hit Probability</div></div>
+        <div class="result-tile"><div class="result-tile-val" id="resPayout" style="color:var(--gold);">&#8212;</div><div class="result-tile-lbl">PP Payout</div></div>
+        <div class="result-tile"><div class="result-tile-val" id="resEV">&#8212;</div><div class="result-tile-lbl">Expected Value</div></div>
+      </div>
+      <div style="margin-top:20px;font-size:11px;color:var(--t2);line-height:1.7;">
+        <strong style="color:var(--text);">How to read this:</strong> Hit Probability is the chance all legs win. Payout is the PrizePicks Power Play multiplier for that leg count. EV above 1.0x means positive expected return over time.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Lock overlay for non-premium -->
+  <div id="lockOverlay" style="display:none;text-align:center;padding:80px 32px;">
+    <div style="font-size:40px;margin-bottom:20px;">&#128274;</div>
+    <div style="font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:10px;">Premium Feature</div>
+    <div style="font-size:14px;color:var(--t2);max-width:360px;margin:0 auto 28px;line-height:1.7;">Build custom parlays from Atlas model data. See calibrated probabilities for every leg combination.</div>
+    <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="padding:14px 32px;font-size:13px;">Unlock Premium &#8212; $19.99/mo</a>
+    <div style="margin-top:16px;"><a href="/login/" class="btn btn-outline">Already a subscriber? Login</a></div>
+  </div>
+
+</div>
+
+<script>
+  var _allLegs=[], _parlayLegs=[], _acFocusIdx=-1;
+  var _PP_PAY={3:6,4:10,5:20};
+
+  function esc(s){
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function pctColor(p){
+    if(p>=0.75) return 'var(--green)';
+    if(p>=0.60) return 'var(--cyan)';
+    if(p>=0.50) return 'var(--gold)';
+    return 'var(--red)';
+  }
+
+  function verifyToken(token){
+    try{var d=JSON.parse(atob(token));return d.expires&&Date.now()<d.expires;}
+    catch(e){return false;}
+  }
+
+  function checkAccess(){
+    var token=localStorage.getItem('atlas_premium_token');
+    if(token&&verifyToken(token)){
+      document.getElementById('mainWrap').style.display='';
+      document.getElementById('lockOverlay').style.display='none';
+      var btn=document.getElementById('navPremiumBtn');
+      if(btn){btn.textContent='Premium';btn.style.background='var(--green)';btn.style.color='#000';btn.removeAttribute('href');btn.removeAttribute('target');}
+    } else {
+      document.getElementById('mainWrap').style.display='none';
+      document.getElementById('lockOverlay').style.display='';
+    }
+  }
+
+  function loadLegs(){
+    fetch('/data/cloudflare_payload.json?t='+Date.now())
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(data){
+        if(!data) return;
+        _allLegs=data.all_legs||[];
+      }).catch(function(){});
+  }
+
+  // ---- Autocomplete ----
+  function onPlayerInput(){
+    var q=(document.getElementById('playerInput').value||'').trim().toLowerCase();
+    var acList=document.getElementById('acList');
+    _acFocusIdx=-1;
+    if(q.length<2){acList.style.display='none';return;}
+    var seen={}, matches=[];
+    for(var i=0;i<_allLegs.length;i++){
+      var p=_allLegs[i].player||'';
+      if(!seen[p]&&p.toLowerCase().includes(q)){seen[p]=true;matches.push(p);}
+    }
+    matches.sort();
+    if(!matches.length){acList.style.display='none';return;}
+    acList.innerHTML='';
+    for(var mi=0;mi<Math.min(matches.length,12);mi++){
+      var item=document.createElement('div'); item.className='autocomplete-item';
+      item.textContent=matches[mi];
+      item.dataset.player=matches[mi];
+      item.onclick=function(){selectPlayer(this.dataset.player);};
+      acList.appendChild(item);
+    }
+    acList.style.display='block';
+  }
+
+  function onPlayerKeydown(e){
+    var acList=document.getElementById('acList');
+    var items=acList.querySelectorAll('.autocomplete-item');
+    if(!items.length) return;
+    if(e.key==='ArrowDown'){e.preventDefault();_acFocusIdx=Math.min(_acFocusIdx+1,items.length-1);highlightAC(items);}
+    else if(e.key==='ArrowUp'){e.preventDefault();_acFocusIdx=Math.max(_acFocusIdx-1,0);highlightAC(items);}
+    else if(e.key==='Enter'&&_acFocusIdx>=0){e.preventDefault();items[_acFocusIdx].click();}
+    else if(e.key==='Escape'){acList.style.display='none';}
+  }
+
+  function highlightAC(items){
+    items.forEach(function(it,idx){it.classList.toggle('focused',idx===_acFocusIdx);});
+    if(_acFocusIdx>=0) items[_acFocusIdx].scrollIntoView({block:'nearest'});
+  }
+
+  function selectPlayer(name){
+    document.getElementById('playerInput').value=name;
+    document.getElementById('acList').style.display='none';
+    // Populate stat dropdown with unique stats for this player
+    var stats={};
+    for(var i=0;i<_allLegs.length;i++){
+      if(_allLegs[i].player===name){
+        var key=_allLegs[i].stat+'|'+_allLegs[i].line+'|'+_allLegs[i].dir;
+        if(!stats[_allLegs[i].stat]) stats[_allLegs[i].stat]=[];
+        stats[_allLegs[i].stat].push(_allLegs[i]);
+      }
+    }
+    var sel=document.getElementById('statSelect'); sel.innerHTML='<option value="">-- choose stat --</option>';
+    Object.keys(stats).sort().forEach(function(s){
+      var opt=document.createElement('option'); opt.value=s; opt.textContent=s;
+      sel.appendChild(opt);
+    });
+    // Auto-fill line from first match
+    document.getElementById('lineInput').value='';
+    document.getElementById('legPreview').style.display='none';
+    document.getElementById('addBtn').disabled=true;
+  }
+
+  function onStatChange(){
+    var player=document.getElementById('playerInput').value.trim();
+    var stat=document.getElementById('statSelect').value;
+    var dir=document.getElementById('dirSelect').value;
+    if(!player||!stat) return;
+    // find best matching leg for this player+stat+dir combo
+    var match=null;
+    for(var i=0;i<_allLegs.length;i++){
+      var l=_allLegs[i];
+      if(l.player===player&&l.stat===stat&&l.dir===dir){match=l;break;}
+    }
+    if(!match){
+      // Try opposite dir
+      for(var i=0;i<_allLegs.length;i++){
+        var l=_allLegs[i];
+        if(l.player===player&&l.stat===stat){match=l;break;}
+      }
+    }
+    if(match){
+      document.getElementById('lineInput').value=match.line||'';
+      document.getElementById('dirSelect').value=match.dir||dir;
+      showPreview(match);
+    }
+    document.getElementById('addBtn').disabled=!(player&&stat&&document.getElementById('lineInput').value);
+  }
+
+  function showPreview(leg){
+    var prev=document.getElementById('legPreview');
+    if(!leg||leg.p_cal==null){prev.style.display='none';return;}
+    var pct=Math.round(leg.p_cal*100);
+    prev.style.display='';
+    prev.innerHTML='Model confidence for <strong style="color:var(--text);">'+esc(leg.player)+' '+esc(leg.dir)+' '+esc(leg.stat)+' '+esc(String(leg.line||''))+'</strong>: '
+      +'<span style="font-weight:900;color:'+pctColor(leg.p_cal)+';">'+pct+'%</span>';
+  }
+
+  function addLeg(){
+    var player=document.getElementById('playerInput').value.trim();
+    var stat=document.getElementById('statSelect').value;
+    var dir=document.getElementById('dirSelect').value;
+    var line=parseFloat(document.getElementById('lineInput').value);
+    if(!player||!stat||isNaN(line)) return;
+    if(_parlayLegs.length>=5){alert('Maximum 5 legs per parlay.');return;}
+
+    // Find matching leg in all_legs for p_cal
+    var match=null;
+    for(var i=0;i<_allLegs.length;i++){
+      var l=_allLegs[i];
+      if(l.player===player&&l.stat===stat&&l.dir===dir&&Math.abs((l.line||0)-line)<0.01){match=l;break;}
+    }
+    // If no exact match, find closest
+    if(!match){
+      for(var i=0;i<_allLegs.length;i++){
+        var l=_allLegs[i];
+        if(l.player===player&&l.stat===stat){match=l;break;}
+      }
+    }
+
+    var pCal=match?match.p_cal:null;
+    var tier=match?match.tier:'STANDARD';
+    var team=match?match.team:'';
+    var opp=match?match.opp:'';
+
+    _parlayLegs.push({player:player,stat:stat,dir:dir,line:line,p_cal:pCal,tier:tier,team:team,opp:opp,id:Date.now()});
+    renderParlay();
+
+    // Reset form
+    document.getElementById('playerInput').value='';
+    document.getElementById('statSelect').innerHTML='<option value="">-- select player first --</option>';
+    document.getElementById('lineInput').value='';
+    document.getElementById('legPreview').style.display='none';
+    document.getElementById('addBtn').disabled=true;
+  }
+
+  function removeLeg(id){
+    _parlayLegs=_parlayLegs.filter(function(l){return l.id!==id;});
+    renderParlay();
+  }
+
+  function renderParlay(){
+    var card=document.getElementById('legListCard');
+    var list=document.getElementById('legList');
+    var result=document.getElementById('resultCard');
+    var badge=document.getElementById('legCountBadge');
+    if(!_parlayLegs.length){card.style.display='none';result.style.display='none';return;}
+    card.style.display='';
+    badge.textContent=_parlayLegs.length+' Leg'+(_parlayLegs.length>1?'s':'');
+    list.innerHTML='';
+    var hitProb=1.0;
+    var allHaveProb=true;
+    for(var i=0;i<_parlayLegs.length;i++){
+      var leg=_parlayLegs[i], ddir=leg.dir.toLowerCase();
+      var pct=leg.p_cal!=null?Math.round(leg.p_cal*100):null;
+      if(leg.p_cal!=null) hitProb*=leg.p_cal; else allHaveProb=false;
+      var item=document.createElement('div'); item.className='leg-item';
+      item.innerHTML=
+        '<div class="leg-info">'
+        +'<div class="leg-name">'+esc(leg.player)+'</div>'
+        +'<div class="leg-meta">'+esc(leg.team)+(leg.opp?' vs '+esc(leg.opp):'')+' &middot; '+esc(leg.stat)+' '+esc(String(leg.line))+' &middot; '+esc(leg.tier)+'</div>'
+        +'</div>'
+        +'<div class="leg-right">'
+        +'<span class="dir-'+ddir+'">'+esc(leg.dir)+'</span>'
+        +(pct!=null?'<span class="leg-prob" style="color:'+pctColor(leg.p_cal||0)+';">'+pct+'%</span>':'<span class="leg-prob" style="color:var(--t2);">?</span>')
+        +'<span class="leg-remove" onclick="removeLeg('+leg.id+')">&#215;</span>'
+        +'</div>';
+      list.appendChild(item);
+    }
+    // Result
+    result.style.display='';
+    var n=_parlayLegs.length;
+    var payout=_PP_PAY[n]||null;
+    var hitPct=allHaveProb?Math.round(hitProb*100):null;
+    var ev=allHaveProb&&payout?(hitProb*payout):null;
+    document.getElementById('resHitProb').textContent=hitPct!=null?hitPct+'%':'?';
+    document.getElementById('resHitProb').style.color=hitPct!=null?pctColor(hitProb):'var(--t2)';
+    document.getElementById('resPayout').textContent=payout?payout+'x':'—';
+    if(ev!=null){
+      document.getElementById('resEV').textContent=ev.toFixed(2)+'x';
+      document.getElementById('resEV').style.color=ev>=1?'var(--green)':'var(--red)';
+    } else {
+      document.getElementById('resEV').textContent='—';
+      document.getElementById('resEV').style.color='var(--t2)';
+    }
+  }
+
+  // Close autocomplete on outside click
+  document.addEventListener('click',function(e){
+    var ac=document.getElementById('acList');
+    if(ac&&!ac.contains(e.target)&&e.target.id!=='playerInput') ac.style.display='none';
+  });
+
+  checkAccess();
+  loadLegs();
+</script>
+</body>
+</html>
