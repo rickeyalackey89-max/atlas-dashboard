@@ -380,18 +380,16 @@
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
                 <div>
                   <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);margin-bottom:6px;">Player</div>
-                  <div style="position:relative;">
-                    <input type="text" id="pbPlayerInput" placeholder="Search player..." autocomplete="off"
-                      style="background:var(--b);border:1px solid var(--b);color:var(--text);font-size:13px;padding:10px 14px;width:100%;font-family:var(--font);outline:none;"
-                      oninput="pbOnInput()" onkeydown="pbOnKeydown(event)" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='var(--b)'"/>
-                    <div id="pbAcList" style="position:absolute;top:100%;left:0;right:0;background:var(--s1);border:1px solid var(--cyan);z-index:300;max-height:200px;overflow-y:auto;display:none;"></div>
-                  </div>
+                  <select id="pbPlayerSelect" onchange="pbOnPlayerChange()"
+                    style="background:var(--b);border:1px solid var(--b);color:var(--text);font-size:13px;padding:10px 14px;width:100%;font-family:var(--font);outline:none;">
+                    <option value="" style="color:#000;background:#fff;">-- select player --</option>
+                  </select>
                 </div>
                 <div>
                   <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);margin-bottom:6px;">Stat &amp; Line</div>
                   <select id="pbStatSelect" onchange="pbOnComboChange()"
                     style="background:var(--b);border:1px solid var(--b);color:var(--text);font-size:13px;padding:10px 14px;width:100%;font-family:var(--font);outline:none;">
-                    <option value="">-- select player first --</option>
+                    <option value="" style="color:#000;background:#fff;">-- select player first --</option>
                   </select>
                 </div>
               </div>
@@ -1200,7 +1198,8 @@
   function pbSelectPlayer(name){
     document.getElementById('pbPlayerInput').value=name;
     document.getElementById('pbAcList').style.display='none';
-    // Build grouped stat dropdown: optgroup per stat, option = line|dir sorted low→high
+    if(!name){var sel2=document.getElementById('pbStatSelect');sel2.innerHTML='<option value="" style="color:#000;background:#fff;">-- select player first --</option>';return;}
+    // Build grouped stat dropdown: optgroup per stat, options OVER low→high then UNDER low→high
     var groups={};
     for(var i=0;i<_pb.allLegs.length;i++){
       var l=_pb.allLegs[i];
@@ -1209,10 +1208,9 @@
       groups[l.stat].push(l);
     }
     var sel=document.getElementById('pbStatSelect');
-    sel.innerHTML='<option value="">-- choose stat & line --</option>';
+    sel.innerHTML='<option value="" style="color:#000;background:#fff;">-- choose stat & line --</option>';
     Object.keys(groups).sort().forEach(function(s){
       var grp=document.createElement('optgroup'); grp.label=s;
-      // OVER first (line asc) then UNDER (line asc)
       var overs=groups[s].filter(function(l){return (l.dir||'').toUpperCase()==='OVER';}).sort(function(a,b){return (a.line||0)-(b.line||0);});
       var unders=groups[s].filter(function(l){return (l.dir||'').toUpperCase()==='UNDER';}).sort(function(a,b){return (a.line||0)-(b.line||0);});
       overs.concat(unders).forEach(function(l){
@@ -1221,6 +1219,7 @@
         var opt=document.createElement('option');
         opt.value=s+'|'+l.dir+'|'+l.line;
         opt.textContent=l.line+' '+l.dir+(sym?' '+sym:'')+pct;
+        opt.style.color='#000'; opt.style.background='#fff';
         grp.appendChild(opt);
       });
       sel.appendChild(grp);
@@ -1230,7 +1229,7 @@
   }
 
   function pbOnComboChange(){
-    var player=document.getElementById('pbPlayerInput').value.trim();
+    var player=document.getElementById('pbPlayerSelect').value;
     var combo=document.getElementById('pbStatSelect').value;
     var btn=document.getElementById('pbAddBtn');
     if(!player||!combo){btn.disabled=true;btn.style.opacity='.4';return;}
@@ -1254,7 +1253,7 @@
 
   function pbAddLeg(){
     if(_pb.legs.length>=6){alert('Maximum 6 legs.');return;}
-    var player=document.getElementById('pbPlayerInput').value.trim();
+    var player=document.getElementById('pbPlayerSelect').value;
     var combo=document.getElementById('pbStatSelect').value;
     if(!player||!combo) return;
     var parts=combo.split('|'), stat=parts[0], dir=parts[1], line=parseFloat(parts[2]);
@@ -1266,8 +1265,8 @@
     _pb.legs.push({id:Date.now(),player:player,stat:stat,dir:dir,line:line,
       p_cal:match?match.p_cal:null,tier:match?match.tier:'',team:match?match.team:'',opp:match?match.opp:''});
     // reset form
-    document.getElementById('pbPlayerInput').value='';
-    document.getElementById('pbStatSelect').innerHTML='<option value="">-- select player first --</option>';
+    document.getElementById('pbPlayerSelect').value='';
+    document.getElementById('pbStatSelect').innerHTML='<option value="" style="color:#000;background:#fff;">-- select player first --</option>';
     document.getElementById('pbPreview').style.display='none';
     var btn=document.getElementById('pbAddBtn'); btn.disabled=true; btn.style.opacity='.4';
     pbRenderLegs();
