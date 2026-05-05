@@ -568,19 +568,16 @@
         if (db) db.textContent = 'Dashboard →';
       }
 
-      fetch('/data/cloudflare_payload.json?t=' + Date.now())
+      fetch('/data/picks_today.json?t=' + Date.now())
         .then(function(r) { return r.ok ? r.json() : Promise.reject('bad'); })
         .then(function(data) {
           if (!data) { showNoData(); return; }
-          // Use all_legs (sorted by p_cal desc by the payload builder) — has p_cal + full fields
-          var allLegs = data.all_legs || [];
-          // Count slips for hero
-          var totalSlips = (data.system||[]).length + (data.system_winprob||[]).length +
-            (data.windfall||[]).length + (data.windfall_winprob||[]).length + (data.demonhunter||[]).length;
+          var allLegs = data.picks || [];
+          var totalSlips = data.total_slips || 0;
           if (totalSlips > 0) { var sc = document.getElementById('heroSlipCount'); if(sc) sc.textContent = totalSlips; }
-          if (allLegs.length > 0) {
+          if (data.total_legs > 0) {
             var pb = document.getElementById('heroPickBadge');
-            if(pb) { pb.textContent = allLegs.length + ' prop picks today'; pb.style.display = 'inline'; }
+            if(pb) { pb.textContent = data.total_legs + ' prop picks today'; pb.style.display = 'inline'; }
           }
           if (!allLegs.length) { showNoData(); return; }
           var grid = document.getElementById('propsGrid');
@@ -619,10 +616,10 @@
             grid.appendChild(card);
           }
           // CTA row if more legs exist
-          if (allLegs.length > 30) {
+          if (data.total_legs > 30) {
             var cta = document.createElement('div');
             cta.style.cssText = 'padding:14px 20px;text-align:center;font-size:11px;color:var(--t2);border-top:1px solid var(--b);';
-            cta.innerHTML = 'Showing top 30 of ' + allLegs.length + ' picks &mdash; <a href="/dashboard/" style="color:var(--gold);font-weight:800;text-decoration:none;">See all in Dashboard &rarr;</a>';
+            cta.innerHTML = 'Showing top 30 of ' + data.total_legs + ' picks &mdash; <a href="/dashboard/" style="color:var(--gold);font-weight:800;text-decoration:none;">See all in Dashboard &rarr;</a>';
             grid.appendChild(cta);
           }
         }).catch(showNoData);
