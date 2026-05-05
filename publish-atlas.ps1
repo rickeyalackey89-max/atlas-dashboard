@@ -104,6 +104,27 @@ $stagedInjInv = Copy-If-Exists $SrcInjuryInvalid $StageDir
 
 Write-Host ("Staged payload + status={0} invalidations={1} injury_invalidations={2}" -f $stagedStatus,$stagedInv,$stagedInjInv)
 
+# Build lightweight picks_today.json (~10KB) for homepage
+$picksFields = @("player","team","opp","stat","line","dir","tier","p_cal")
+$allLegs = @($payload.all_legs)
+$topLegs = $allLegs | Select-Object -First 50
+$picksRows = foreach ($leg in $topLegs) {
+    $row = [ordered]@{}
+    foreach ($f in $picksFields) { $row[$f] = $leg.$f }
+    $row
+}
+$systemCount   = if ($payload.system)     { @($payload.system).Count }     else { 0 }
+$windfallCount = if ($payload.windfall)   { @($payload.windfall).Count }   else { 0 }
+$demonCount    = if ($payload.demonhunter){ @($payload.demonhunter).Count } else { 0 }
+$picksPayload  = [ordered]@{
+    generated_at = $payload.generated_at
+    picks        = @($picksRows)
+    total_legs   = $allLegs.Count
+    total_slips  = $systemCount + $windfallCount + $demonCount
+}
+Write-JsonFile (Join-Path $StageDir "picks_today.json") $picksPayload
+Write-Host ("Built picks_today.json: {0} picks, {1} total_legs" -f @($picksRows).Count, $allLegs.Count)
+
 # For backward compatibility with old UI links: publish empty arrays safely
 Write-JsonFile (Join-Path $StageDir "recommended_latest.json")              (,@())
 Write-JsonFile (Join-Path $StageDir "recommended_windfall_latest.json")     (,@())
