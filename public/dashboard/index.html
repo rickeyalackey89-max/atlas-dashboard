@@ -381,15 +381,15 @@
                 <div>
                   <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);margin-bottom:6px;">Player</div>
                   <select id="pbPlayerSelect" onchange="pbOnPlayerChange()"
-                    style="background:var(--b);border:1px solid var(--b);color:var(--text);font-size:13px;padding:10px 14px;width:100%;font-family:var(--font);outline:none;">
-                    <option value="" style="color:#000;background:#fff;">-- select player --</option>
+                    style="background:#1a1a1a;border:1px solid #333;color:#e0e0e0;font-size:13px;padding:10px 14px;width:100%;font-family:var(--font);outline:none;">
+                    <option value="" style="color:#888;background:#1a1a1a;">-- select player --</option>
                   </select>
                 </div>
                 <div>
                   <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);margin-bottom:6px;">Stat &amp; Line</div>
                   <select id="pbStatSelect" onchange="pbOnComboChange()"
-                    style="background:var(--b);border:1px solid var(--b);color:var(--text);font-size:13px;padding:10px 14px;width:100%;font-family:var(--font);outline:none;">
-                    <option value="" style="color:#000;background:#fff;">-- select player first --</option>
+                    style="background:#1a1a1a;border:1px solid #333;color:#e0e0e0;font-size:13px;padding:10px 14px;width:100%;font-family:var(--font);outline:none;">
+                    <option value="" style="color:#888;background:#1a1a1a;">-- select player first --</option>
                   </select>
                 </div>
               </div>
@@ -1162,7 +1162,7 @@
     for(var pi=0;pi<players.length;pi++){
       var opt=document.createElement('option');
       opt.value=players[pi]; opt.textContent=players[pi];
-      opt.style.color='#000'; opt.style.background='#fff';
+      opt.style.color='#e0e0e0'; opt.style.background='#1a1a1a';
       psel.appendChild(opt);
     }
   }
@@ -1173,7 +1173,7 @@
     document.getElementById('pbPreview').style.display='none';
     var btn=document.getElementById('pbAddBtn'); btn.disabled=true; btn.style.opacity='.4';
     if(!name){
-      statSel.innerHTML='<option value="" style="color:#000;background:#fff;">-- select player first --</option>';
+      statSel.innerHTML='<option value="" style="color:#888;background:#1a1a1a;">-- select player first --</option>';
       return;
     }
     // Build grouped stat dropdown: optgroup per stat, OVER low->high then UNDER low->high
@@ -1184,7 +1184,7 @@
       if(!groups[l.stat]) groups[l.stat]=[];
       groups[l.stat].push(l);
     }
-    statSel.innerHTML='<option value="" style="color:#000;background:#fff;">-- choose stat & line --</option>';
+    statSel.innerHTML='<option value="" style="color:#888;background:#1a1a1a;">-- choose stat & line --</option>';
     Object.keys(groups).sort().forEach(function(s){
       var grp=document.createElement('optgroup'); grp.label=s;
       var overs=groups[s].filter(function(l){return (l.dir||'').toUpperCase()==='OVER';}).sort(function(a,b){return (a.line||0)-(b.line||0);});
@@ -1194,8 +1194,8 @@
         var pct=l.p_cal!=null?' \u00b7 '+(Math.round(l.p_cal*100))+'%':'';
         var opt=document.createElement('option');
         opt.value=s+'|'+l.dir+'|'+l.line;
-        opt.textContent=l.line+' '+l.dir+(sym?' '+sym:'')+pct;
-        opt.style.color='#000'; opt.style.background='#fff';
+        opt.textContent=s+' · '+l.line+' '+l.dir+(sym?' '+sym:'')+pct;
+        opt.style.color='#e0e0e0'; opt.style.background='#1a1a1a';
         grp.appendChild(opt);
       });
       statSel.appendChild(grp);
