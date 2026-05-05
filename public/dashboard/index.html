@@ -295,6 +295,7 @@
   }
 
   function getUniqueLegs(data){
+    // Returns marketed_slips legs (carry p_cal, team, opp) — used for prob/EV rendering
     var seen={},legs=[];
     var slips=data.marketed_slips||[];
     for(var i=0;i<slips.length;i++){
@@ -305,6 +306,22 @@
       }
     }
     return legs;
+  }
+
+  function countAllLegs(data){
+    // Dedupes across every slip family — the true total pick count
+    var seen={};
+    var sources=(data.system||[]).concat(data.system_winprob||[]).concat(data.windfall||[])
+      .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.marketed_slips||[]);
+    var count=0;
+    for(var i=0;i<sources.length;i++){
+      var ls=sources[i].legs_detail||sources[i].legs||[];
+      for(var j=0;j<ls.length;j++){
+        var leg=ls[j],key=(leg.player||'')+'|'+(leg.stat||'')+'|'+(leg.line||'')+'|'+(leg.dir||'');
+        if(!seen[key]){seen[key]=true;count++;}
+      }
+    }
+    return count;
   }
 
   function getGames(legs){
@@ -338,7 +355,7 @@
   function buildStatTiles(data,allLegs){
     var totalSlips=(data.system||[]).length+(data.system_winprob||[]).length+
       (data.windfall||[]).length+(data.windfall_winprob||[]).length+(data.demonhunter||[]).length;
-    document.getElementById('totalPicks').textContent=allLegs.length||'&#8212;';
+    document.getElementById('totalPicks').textContent=countAllLegs(data)||'&#8212;';
     document.getElementById('totalSlips').textContent=totalSlips||'&#8212;';
     document.getElementById('slateGames').textContent=getGames(allLegs).length||'&#8212;';
   }

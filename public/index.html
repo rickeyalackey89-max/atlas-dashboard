@@ -506,11 +506,12 @@
         .then(function(data) {
           if (!data) { showNoData(); return; }
           var seen = {}, allLegs = [];
-          // Source legs from marketed_slips only — same as dashboard, so counts match
           var totalSlips = (data.system||[]).length + (data.system_winprob||[]).length + (data.windfall||[]).length + (data.windfall_winprob||[]).length + (data.demonhunter||[]).length;
-          var slips = data.marketed_slips || [];
-          for (var i = 0; i < slips.length; i++) {
-            var sl_legs = slips[i].legs || [];
+          // Collect unique legs across ALL slip families for accurate pick count and card display
+          var sources = (data.system||[]).concat(data.system_winprob||[]).concat(data.windfall||[])
+            .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.marketed_slips||[]);
+          for (var i = 0; i < sources.length; i++) {
+            var sl_legs = sources[i].legs_detail || sources[i].legs || [];
             for (var j = 0; j < sl_legs.length; j++) {
               var leg = sl_legs[j];
               var key = (leg.player||'')+'|'+(leg.stat||'')+'|'+(leg.line||'')+'|'+(leg.dir||'');
