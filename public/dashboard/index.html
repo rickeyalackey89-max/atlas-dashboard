@@ -446,7 +446,7 @@
     }
   }
 
-  function buildStatHub(allLegsForCount, calLegs, games){
+  function buildStatHub(data, allLegsForCount, calLegs, games){
     // ── 1. BOARD BREAKDOWN ──────────────────────────────────────────────
     var overCount=0,underCount=0,tierCounts={},statCounts={};
     for(var i=0;i<allLegsForCount.length;i++){
@@ -721,7 +721,7 @@
         buildStatTiles(data,allLegsForCount);
         buildProbTab(allLegs);
         buildEVTab(allLegs);
-        buildStatHub(allLegsForCount,allLegs,games);
+        buildStatHub(data, allLegsForCount, allLegs, games);
         buildSlipsTab(data);
       }).catch(function(){});
   }
