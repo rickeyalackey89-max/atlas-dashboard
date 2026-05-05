@@ -192,6 +192,8 @@
     <div class="stat-tile"><div class="tile-val" style="color:var(--cyan);" id="totalSlips">&#8212;</div><div class="tile-lbl">Daily Slips</div></div>
     <div class="stat-tile"><div class="tile-val" style="color:var(--green);" id="slateGames">&#8212;</div><div class="tile-lbl">Games on Slate</div></div>
     <div class="stat-tile"><div class="tile-val" style="color:#a78bfa;" id="scoredLegs">&#8212;</div><div class="tile-lbl">Legs Scored</div></div>
+    <div class="stat-tile"><div class="tile-val" style="color:var(--green);" id="hitRate7d">&#8212;</div><div class="tile-lbl">7-Day Hit Rate</div></div>
+    <div class="stat-tile"><div class="tile-val" style="color:var(--cyan);" id="hitRate30d">&#8212;</div><div class="tile-lbl">30-Day Hit Rate</div></div>
   </div>
 
   <div class="section-gap"></div>
@@ -213,6 +215,7 @@
       <button class="sub-tab" data-sub="slips" onclick="switchSubTab('slips')">Slips</button>
       <button class="sub-tab" data-sub="parlay" onclick="switchSubTab('parlay')">Parlay Builder</button>
       <button class="sub-tab" data-sub="market" onclick="switchSubTab('market')">Market</button>
+      <button class="sub-tab" data-sub="injury" onclick="switchSubTab('injury')">Injury Report</button>
     </div>
 
     <!-- PROBABILITY -->
@@ -454,6 +457,20 @@
 
   </div>
 
+    <!-- ===== INJURY REPORT ===== -->
+    <div id="sub-injury" class="sub-panel" style="display:none;">
+      <div class="lock-overlay" id="injuryLockWrap">
+        <div class="lock-blur">
+          <div class="section-head"><span class="section-head-title">Injury Impact</span><span class="badge badge-live">Live</span></div>
+          <div style="font-size:11px;color:var(--t2);margin-bottom:18px;line-height:1.6;">Players whose probability was adjusted because a teammate is out. Atlas&#39; share matrix redistributes production when stars are inactive — this is where the edge comes from.</div>
+          <div id="roleBoostedList"><div class="no-data">Loading injury data...</div></div>
+          <div class="section-head" style="margin-top:32px;"><span class="section-head-title">Today&#39;s Injury Report</span><span id="injuryReportLabel" style="font-size:10px;color:var(--t2);margin-left:10px;"></span></div>
+          <div id="injuryReportList"><div class="no-data">Loading...</div></div>
+        </div>
+        <div class="lock-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Premium</div>
+      </div>
+    </div>
+
     <!-- ===== MARKET ODDS ===== -->
     <div id="sub-market" class="sub-panel" style="display:none;">
       <div class="section-head"><span class="section-head-title">Market Odds</span><span class="badge badge-live">Live</span></div>
@@ -587,6 +604,15 @@
     document.getElementById('totalSlips').textContent=totalSlips||'&#8212;';
     document.getElementById('slateGames').textContent=getGames(allLegs).length||'&#8212;';
     document.getElementById('scoredLegs').textContent=(data.all_legs||[]).length||'&#8212;';
+    // Hit rate tiles from performance stats
+    var perf=data.performance||{};
+    var ov=perf.overall||{};
+    var r7=ov.last_7d||{};
+    var r30=ov.last_30d||{};
+    var el7=document.getElementById('hitRate7d');
+    var el30=document.getElementById('hitRate30d');
+    if(el7) el7.textContent=r7.hit_rate!=null?Math.round(r7.hit_rate*100)+'%':'&#8212;';
+    if(el30) el30.textContent=r30.hit_rate!=null?Math.round(r30.hit_rate*100)+'%':'&#8212;';
   }
 
   function buildProbTab(allLegs){
@@ -1006,8 +1032,83 @@
         buildSlipsTab(data);
         buildBeyondMetrics(data.all_legs||[]);
         buildMarketTab(data.all_legs||[]);
+        buildInjuryTab(data.injury_context||{}, data.performance||{});
         pbInit(data.all_legs||[]);
       }).catch(function(){});
+  }
+
+  // ---- Injury & Role Context Tab ----
+  function buildInjuryTab(injCtx, perf) {
+    // Role-boosted picks
+    var boosted = injCtx.role_boosted || [];
+    var rbl = document.getElementById('roleBoostedList');
+    if (rbl) {
+      if (!boosted.length) {
+        rbl.innerHTML = '<div class="no-data" style="color:var(--t2);">No role adjustments today — no significant outs affecting modeled players.</div>';
+      } else {
+        var html = '<div style="display:grid;grid-template-columns:2fr 70px 55px 50px 50px 70px;gap:0 8px;padding:6px 8px;border-bottom:1px solid var(--b);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);">' +
+          '<div>Player</div><div style="text-align:center;">Stat</div><div style="text-align:right;">Line</div><div style="text-align:center;">Dir</div><div style="text-align:center;">Tier</div><div style="text-align:right;">Confidence</div></div>';
+        boosted.forEach(function(leg) {
+          var tc = tierClass(leg.tier||'');
+          var prob = leg.p_cal != null ? Math.round(leg.p_cal * 100) + '%' : '—';
+          var reason = esc(leg.role_reason || '');
+          html += '<div style="display:grid;grid-template-columns:2fr 70px 55px 50px 50px 70px;gap:0 8px;padding:10px 8px;border-bottom:1px solid rgba(255,255,255,0.04);align-items:center;">' +
+            '<div><div style="font-weight:700;font-size:13px;">' + esc(leg.player||'—') + '</div>' +
+            '<div style="font-size:10px;color:var(--t2);margin-top:2px;">&#8599; ' + reason + '</div></div>' +
+            '<div style="text-align:center;font-size:11px;font-weight:700;">' + esc(leg.stat||'—') + '</div>' +
+            '<div style="text-align:right;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;">' + esc(String(leg.line||'—')) + '</div>' +
+            '<div style="text-align:center;font-size:10px;font-weight:800;color:var(--t2);">' + esc(leg.dir||'—') + '</div>' +
+            '<div style="text-align:center;"><span class="tier-badge ' + tc + '">' + esc(leg.tier||'—') + '</span></div>' +
+            '<div style="text-align:right;font-weight:900;font-size:13px;color:' + pctColor(leg.p_cal||0) + ';">' + prob + '</div>' +
+            '</div>';
+        });
+        rbl.innerHTML = html;
+      }
+    }
+
+    // Hit rate by tier breakdown
+    var byTier = (perf.by_tier) || {};
+    // Injury report
+    var players = injCtx.invalidated_players || [];
+    var label = injCtx.report_label ? ' — ' + injCtx.report_label : '';
+    var labelEl = document.getElementById('injuryReportLabel');
+    if (labelEl) labelEl.textContent = (injCtx.report_date || '') + label;
+
+    var irl = document.getElementById('injuryReportList');
+    if (irl) {
+      if (!players.length) {
+        irl.innerHTML = '<div class="no-data" style="color:var(--t2);">No players invalidated in today\'s injury report.</div>';
+      } else {
+        // Group by team
+        var byTeam = {};
+        players.forEach(function(p) {
+          var t = p.team || 'UNK';
+          if (!byTeam[t]) byTeam[t] = [];
+          byTeam[t].push(p);
+        });
+        var html2 = '';
+        Object.keys(byTeam).sort().forEach(function(team) {
+          html2 += '<div style="margin-bottom:14px;">' +
+            '<div style="font-size:10px;font-weight:900;letter-spacing:.14em;color:var(--cyan);text-transform:uppercase;margin-bottom:8px;">' + esc(team) + '</div>';
+          byTeam[team].forEach(function(p) {
+            var statusColor = p.status === 'OUT' ? 'var(--red)' : p.status === 'DOUBTFUL' ? 'var(--gold)' : 'var(--t2)';
+            html2 += '<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);">' +
+              '<div style="font-size:12px;font-weight:700;flex:1;">' + esc(p.player||'—') + '</div>' +
+              '<div style="font-size:11px;font-weight:800;color:' + statusColor + ';">' + esc(p.status||'?') + '</div>' +
+              (p.reason ? '<div style="font-size:10px;color:var(--t2);max-width:180px;text-align:right;">' + esc(p.reason) + '</div>' : '') +
+              '</div>';
+          });
+          html2 += '</div>';
+        });
+        irl.innerHTML = html2;
+      }
+    }
+
+    // Lock overlay — premium only
+    var lockWrap = document.getElementById('injuryLockWrap');
+    if (lockWrap) {
+      lockWrap.classList.toggle('unlocked', isPremium);
+    }
   }
 
   // ---- Market Odds Tab ----
