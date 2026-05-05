@@ -207,6 +207,7 @@
       <button class="sub-tab" data-sub="stathub" onclick="switchSubTab('stathub')">Stat Hub</button>
       <button class="sub-tab" data-sub="beyond" onclick="switchSubTab('beyond')">Beyond the Metrics</button>
       <button class="sub-tab" data-sub="slips" onclick="switchSubTab('slips')">Slips</button>
+      <button class="sub-tab" data-sub="parlay" onclick="switchSubTab('parlay')">Parlay Builder</button>
     </div>
 
     <!-- PROBABILITY -->
@@ -358,6 +359,86 @@
           <div class="lock-icon">&#128274;</div>
           <div class="lock-text">Premium Feature</div>
           <div class="lock-sub">All optimized slips &#8212; System, Windfall, and &#8593; Alt Hunter families with full leg detail</div>
+          <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PARLAY BUILDER ===== -->
+    <div id="sub-parlay" class="sub-panel" style="display:none;">
+      <div class="lock-overlay" id="parlayLockWrap">
+        <div class="lock-blur" id="parlayContent">
+
+          <div style="max-width:680px;margin:0 auto;">
+            <div style="font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Premium Tool</div>
+            <div style="font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:6px;">Parlay <span style="color:var(--gold);">Builder</span></div>
+            <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:24px;">Pick any player and stat from today&#39;s board. Atlas gives you the calibrated probability for each leg and calculates your combined hit probability and EV for 2&#8211;6 legs.</div>
+
+            <!-- Add leg form -->
+            <div style="background:var(--s2);padding:20px;margin-bottom:1px;">
+              <div style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-bottom:16px;">Add a Leg</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+                <div>
+                  <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);margin-bottom:6px;">Player</div>
+                  <div style="position:relative;">
+                    <input type="text" id="pbPlayerInput" placeholder="Search player..." autocomplete="off"
+                      style="background:var(--b);border:1px solid var(--b);color:var(--text);font-size:13px;padding:10px 14px;width:100%;font-family:var(--font);outline:none;"
+                      oninput="pbOnInput()" onkeydown="pbOnKeydown(event)" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='var(--b)'"/>
+                    <div id="pbAcList" style="position:absolute;top:100%;left:0;right:0;background:var(--s1);border:1px solid var(--cyan);z-index:300;max-height:200px;overflow-y:auto;display:none;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);margin-bottom:6px;">Stat &amp; Line</div>
+                  <select id="pbStatSelect" onchange="pbOnComboChange()"
+                    style="background:var(--b);border:1px solid var(--b);color:var(--text);font-size:13px;padding:10px 14px;width:100%;font-family:var(--font);outline:none;">
+                    <option value="">-- select player first --</option>
+                  </select>
+                </div>
+              </div>
+              <div id="pbPreview" style="display:none;padding:10px 14px;background:var(--b);font-size:13px;color:var(--t2);margin-bottom:10px;"></div>
+              <button id="pbAddBtn" onclick="pbAddLeg()" disabled
+                style="width:100%;background:var(--cyan);color:#000;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:11px 20px;cursor:pointer;border:none;font-family:var(--font);opacity:.4;">
+                Add Leg
+              </button>
+            </div>
+
+            <!-- Legs list -->
+            <div id="pbLegListCard" style="display:none;background:var(--s2);padding:20px;margin-bottom:1px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <div style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);">Your Parlay <span id="pbLegCount" style="color:var(--text);"></span></div>
+                <button onclick="pbClearAll()" style="background:transparent;border:1px solid var(--b);color:var(--t2);font-size:10px;font-weight:700;padding:4px 10px;cursor:pointer;font-family:var(--font);">Clear All</button>
+              </div>
+              <div id="pbLegList"></div>
+            </div>
+
+            <!-- Result -->
+            <div id="pbResult" style="display:none;background:linear-gradient(135deg,rgba(245,166,35,.07),transparent 60%);border:1px solid rgba(245,166,35,.25);padding:24px;">
+              <div style="font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Parlay Summary</div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--b);">
+                <div style="background:var(--s2);padding:16px;text-align:center;">
+                  <div id="pbResHit" style="font-size:26px;font-weight:900;letter-spacing:-.04em;color:var(--green);">&#8212;</div>
+                  <div style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-top:6px;">Hit Probability</div>
+                </div>
+                <div style="background:var(--s2);padding:16px;text-align:center;">
+                  <div id="pbResPayout" style="font-size:26px;font-weight:900;letter-spacing:-.04em;color:var(--gold);">&#8212;</div>
+                  <div style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-top:6px;">Payout</div>
+                </div>
+                <div style="background:var(--s2);padding:16px;text-align:center;">
+                  <div id="pbResEV" style="font-size:26px;font-weight:900;letter-spacing:-.04em;">&#8212;</div>
+                  <div style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-top:6px;">Expected Value</div>
+                </div>
+              </div>
+              <div style="margin-top:16px;font-size:11px;color:var(--t2);line-height:1.7;">
+                <strong style="color:var(--text);">Payout scale:</strong> 2-leg 3x &middot; 3-leg 6x &middot; 4-leg 10x &middot; 5-leg 20x &middot; 6-leg 25x. EV above 1.0x = positive expected return.
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="lock-badge" id="parlayLockBadge">
+          <div class="lock-icon">&#128274;</div>
+          <div class="lock-text">Premium Feature</div>
+          <div class="lock-sub">Build your own parlays using Atlas model probabilities.</div>
           <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
         </div>
       </div>
@@ -893,6 +974,7 @@
         buildStatHub(data, allLegsForCount, allLegs, games);
         buildSlipsTab(data);
         buildBeyondMetrics(data.all_legs||[]);
+        pbInit(data.all_legs||[]);
       }).catch(function(){});
   }
 
@@ -1062,6 +1144,186 @@
     var open=card.style.display==='block';
     card.style.display=open?'none':'block';
     if(chev) chev.style.transform=open?'':'rotate(180deg)';
+  }
+
+  // ===== PARLAY BUILDER =====
+  var _pb={legs:[],acIdx:-1,allLegs:[]};
+  var _PB_PAY={2:3,3:6,4:10,5:20,6:25};
+
+  function pbInit(allLegs){
+    _pb.allLegs=allLegs||[];
+    document.addEventListener('click',function(e){
+      var ac=document.getElementById('pbAcList');
+      if(ac&&!ac.contains(e.target)&&e.target.id!=='pbPlayerInput') ac.style.display='none';
+    });
+  }
+
+  function pbOnInput(){
+    var q=(document.getElementById('pbPlayerInput').value||'').trim().toLowerCase();
+    var ac=document.getElementById('pbAcList'); _pb.acIdx=-1;
+    if(q.length<2){ac.style.display='none';return;}
+    var seen={},matches=[];
+    for(var i=0;i<_pb.allLegs.length;i++){
+      var p=_pb.allLegs[i].player||'';
+      if(!seen[p]&&p.toLowerCase().indexOf(q)>=0){seen[p]=true;matches.push(p);}
+    }
+    matches.sort();
+    if(!matches.length){ac.style.display='none';return;}
+    ac.innerHTML='';
+    for(var mi=0;mi<Math.min(matches.length,12);mi++){
+      var d=document.createElement('div');
+      d.style.cssText='padding:9px 14px;font-size:13px;cursor:pointer;';
+      d.textContent=matches[mi]; d.dataset.p=matches[mi];
+      d.onmouseenter=function(){this.style.background='var(--b)';};
+      d.onmouseleave=function(){this.style.background='';};
+      d.onclick=function(){pbSelectPlayer(this.dataset.p);};
+      ac.appendChild(d);
+    }
+    ac.style.display='block';
+  }
+
+  function pbOnKeydown(e){
+    var ac=document.getElementById('pbAcList');
+    var items=ac.querySelectorAll('div');
+    if(!items.length) return;
+    if(e.key==='ArrowDown'){e.preventDefault();_pb.acIdx=Math.min(_pb.acIdx+1,items.length-1);pbHighlight(items);}
+    else if(e.key==='ArrowUp'){e.preventDefault();_pb.acIdx=Math.max(_pb.acIdx-1,0);pbHighlight(items);}
+    else if(e.key==='Enter'&&_pb.acIdx>=0){e.preventDefault();items[_pb.acIdx].click();}
+    else if(e.key==='Escape'){ac.style.display='none';}
+  }
+
+  function pbHighlight(items){
+    items.forEach(function(it,idx){it.style.background=idx===_pb.acIdx?'var(--b)':'';});
+    if(_pb.acIdx>=0) items[_pb.acIdx].scrollIntoView({block:'nearest'});
+  }
+
+  function pbSelectPlayer(name){
+    document.getElementById('pbPlayerInput').value=name;
+    document.getElementById('pbAcList').style.display='none';
+    // Build grouped stat dropdown: optgroup per stat, option = line|dir sorted low→high
+    var groups={};
+    for(var i=0;i<_pb.allLegs.length;i++){
+      var l=_pb.allLegs[i];
+      if(l.player!==name) continue;
+      if(!groups[l.stat]) groups[l.stat]=[];
+      groups[l.stat].push(l);
+    }
+    var sel=document.getElementById('pbStatSelect');
+    sel.innerHTML='<option value="">-- choose stat & line --</option>';
+    Object.keys(groups).sort().forEach(function(s){
+      var grp=document.createElement('optgroup'); grp.label=s;
+      // OVER first (line asc) then UNDER (line asc)
+      var overs=groups[s].filter(function(l){return (l.dir||'').toUpperCase()==='OVER';}).sort(function(a,b){return (a.line||0)-(b.line||0);});
+      var unders=groups[s].filter(function(l){return (l.dir||'').toUpperCase()==='UNDER';}).sort(function(a,b){return (a.line||0)-(b.line||0);});
+      overs.concat(unders).forEach(function(l){
+        var sym=l.tier&&l.tier.toUpperCase()==='GOBLIN'?'\u2193 Alts':l.tier&&l.tier.toUpperCase()==='DEMON'?'\u2191 Alts':'';
+        var pct=l.p_cal!=null?' \u00b7 '+(Math.round(l.p_cal*100))+'%':'';
+        var opt=document.createElement('option');
+        opt.value=s+'|'+l.dir+'|'+l.line;
+        opt.textContent=l.line+' '+l.dir+(sym?' '+sym:'')+pct;
+        grp.appendChild(opt);
+      });
+      sel.appendChild(grp);
+    });
+    document.getElementById('pbPreview').style.display='none';
+    var btn=document.getElementById('pbAddBtn'); btn.disabled=true; btn.style.opacity='.4';
+  }
+
+  function pbOnComboChange(){
+    var player=document.getElementById('pbPlayerInput').value.trim();
+    var combo=document.getElementById('pbStatSelect').value;
+    var btn=document.getElementById('pbAddBtn');
+    if(!player||!combo){btn.disabled=true;btn.style.opacity='.4';return;}
+    var parts=combo.split('|'), stat=parts[0], dir=parts[1], line=parseFloat(parts[2]);
+    var match=null;
+    for(var i=0;i<_pb.allLegs.length;i++){
+      var l=_pb.allLegs[i];
+      if(l.player===player&&l.stat===stat&&(l.dir||'').toUpperCase()===dir.toUpperCase()&&Math.abs((l.line||0)-line)<0.01){match=l;break;}
+    }
+    var prev=document.getElementById('pbPreview');
+    if(match&&match.p_cal!=null){
+      var pct=Math.round(match.p_cal*100);
+      prev.style.display='';
+      prev.innerHTML='Model confidence for <strong style="color:var(--text);">'+esc(player)+' '+esc(dir)+' '+esc(stat)+' '+esc(String(line))+'</strong>: '
+        +'<span style="font-weight:900;font-size:15px;color:'+pctColor(match.p_cal)+';">'+pct+'%</span>';
+    } else {
+      prev.style.display='none';
+    }
+    btn.disabled=false; btn.style.opacity='1';
+  }
+
+  function pbAddLeg(){
+    if(_pb.legs.length>=6){alert('Maximum 6 legs.');return;}
+    var player=document.getElementById('pbPlayerInput').value.trim();
+    var combo=document.getElementById('pbStatSelect').value;
+    if(!player||!combo) return;
+    var parts=combo.split('|'), stat=parts[0], dir=parts[1], line=parseFloat(parts[2]);
+    var match=null;
+    for(var i=0;i<_pb.allLegs.length;i++){
+      var l=_pb.allLegs[i];
+      if(l.player===player&&l.stat===stat&&(l.dir||'').toUpperCase()===dir.toUpperCase()&&Math.abs((l.line||0)-line)<0.01){match=l;break;}
+    }
+    _pb.legs.push({id:Date.now(),player:player,stat:stat,dir:dir,line:line,
+      p_cal:match?match.p_cal:null,tier:match?match.tier:'',team:match?match.team:'',opp:match?match.opp:''});
+    // reset form
+    document.getElementById('pbPlayerInput').value='';
+    document.getElementById('pbStatSelect').innerHTML='<option value="">-- select player first --</option>';
+    document.getElementById('pbPreview').style.display='none';
+    var btn=document.getElementById('pbAddBtn'); btn.disabled=true; btn.style.opacity='.4';
+    pbRenderLegs();
+  }
+
+  function pbRemoveLeg(id){
+    _pb.legs=_pb.legs.filter(function(l){return l.id!==id;});
+    pbRenderLegs();
+  }
+
+  function pbClearAll(){
+    _pb.legs=[];
+    pbRenderLegs();
+  }
+
+  function pbRenderLegs(){
+    var n=_pb.legs.length;
+    var listCard=document.getElementById('pbLegListCard');
+    var result=document.getElementById('pbResult');
+    if(!n){listCard.style.display='none';result.style.display='none';return;}
+    listCard.style.display='';
+    document.getElementById('pbLegCount').textContent='('+n+' leg'+(n>1?'s':'')+')';
+    var html='';
+    var hitProb=1, allHave=true;
+    for(var i=0;i<_pb.legs.length;i++){
+      var leg=_pb.legs[i], dir=leg.dir.toLowerCase();
+      var pct=leg.p_cal!=null?Math.round(leg.p_cal*100):null;
+      if(leg.p_cal!=null) hitProb*=leg.p_cal; else allHave=false;
+      html+='<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 0;'+(i>0?'border-top:1px solid var(--b)':'')+';gap:12px;flex-wrap:wrap;">'
+        +'<div>'
+        +'<div style="font-size:14px;font-weight:800;">'+esc(leg.player)+'</div>'
+        +'<div style="font-size:11px;color:var(--t2);margin-top:2px;">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+' &middot; '+esc(leg.stat)+' '+esc(String(leg.line))+' &middot; <span class="'+tierClass(leg.tier||'')+'">'+tierLabel(leg.tier||'')+'</span></div>'
+        +'</div>'
+        +'<div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">'
+        +'<span class="dir-'+dir+'">'+esc(leg.dir)+'</span>'
+        +(pct!=null?'<span style="font-size:15px;font-weight:900;color:'+pctColor(leg.p_cal)+';">'+pct+'%</span>':'<span style="color:var(--t2);font-size:12px;">no model data</span>')
+        +'<span onclick="pbRemoveLeg('+leg.id+')" style="font-size:18px;color:var(--t2);cursor:pointer;padding:0 4px;line-height:1;" title="Remove">&times;</span>'
+        +'</div>'
+        +'</div>';
+    }
+    document.getElementById('pbLegList').innerHTML=html;
+    // Result
+    result.style.display='';
+    var payout=_PB_PAY[n]||null;
+    var hitPct=allHave?Math.round(hitProb*100):null;
+    var ev=allHave&&payout?(hitProb*payout):null;
+    var resHit=document.getElementById('pbResHit');
+    resHit.textContent=hitPct!=null?hitPct+'%':'?';
+    resHit.style.color=hitPct!=null?pctColor(hitProb):'var(--t2)';
+    document.getElementById('pbResPayout').textContent=payout?payout+'x':'—';
+    var resEV=document.getElementById('pbResEV');
+    if(ev!=null){resEV.textContent=ev.toFixed(2)+'x';resEV.style.color=ev>=1?'var(--green)':'#f87171';}
+    else{resEV.textContent='—';resEV.style.color='var(--t2)';}
+    // Disable add if at 6 legs
+    var btn=document.getElementById('pbAddBtn');
+    if(n>=6){btn.disabled=true;btn.style.opacity='.4';}
   }
 
   checkPremiumAccess();
