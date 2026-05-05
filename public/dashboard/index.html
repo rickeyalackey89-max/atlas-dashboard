@@ -700,8 +700,11 @@
       for(var ms=0;ms<mktSlips.length;ms++){
         var slip=mktSlips[ms],legs=slip.legs||[],nLegs=slip.n_legs||legs.length;
         var hitPct=Math.round((slip.hit_prob||0)*100);
-        var evX=slip.ev?slip.ev.toFixed(2):(slip.ev_mult?slip.ev_mult.toFixed(2):null);
-        var payX=slip.payout_mult?slip.payout_mult.toFixed(2)+'x':null;
+        // Use real PrizePicks Power Play face value by leg count — the stored payout_mult is a pp_kernel
+        // tier modifier (base=1.0) not the face value, so it would give misleading EV.
+        var _PP_PAY={3:6,4:10,5:20}; var _mPay=_PP_PAY[nLegs]||0, _mHP=slip.hit_prob||0;
+        var evX=(_mPay&&_mHP)?(_mHP*_mPay).toFixed(2):null;
+        var payX=_mPay?_mPay+'x':null;
         var nc=nLegs===3?'#4ade80':nLegs===4?'#60a5fa':'var(--gold)';
         var nb=nLegs===3?'rgba(74,222,128,.35)':nLegs===4?'rgba(96,165,250,.35)':'rgba(245,166,35,.35)';
         var legsHtml='';
@@ -746,8 +749,9 @@
       for(var s=0;s<slips.length;s++){
         var slip=slips[s],legs=slip.legs_detail||[],nLegs=slip.n_legs||legs.length;
         var hitPct=Math.round((slip.hit_prob||0)*100);
-        var evX=slip.ev_mult?slip.ev_mult.toFixed(2):null;
-        var payX=slip.payout_mult?slip.payout_mult+'x':null;
+        var _sPay=slip.payout_mult||0, _sHP=slip.hit_prob||0;
+        var evX=(_sPay&&_sHP)?(_sHP*_sPay).toFixed(2):null;
+        var payX=_sPay?_sPay+'x':null;
         var nc=nLegs===3?'#4ade80':nLegs===4?'#60a5fa':'var(--gold)';
         var nb=nLegs===3?'rgba(74,222,128,.35)':nLegs===4?'rgba(96,165,250,.35)':'rgba(245,166,35,.35)';
         var legsHtml='';
