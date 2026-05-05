@@ -934,8 +934,22 @@
     var el=document.getElementById('btmList'); el.innerHTML='';
     if(!playerOrder.length){el.innerHTML='<div class="no-data">No players match.</div>';return;}
     for(var pi=0;pi<playerOrder.length;pi++){
-      var pName=playerOrder[pi], pLegs=byPlayer[pName];
-      var best=pLegs[0]; // highest p_cal (already sorted)
+      var pName=playerOrder[pi], pLegsRaw=byPlayer[pName];
+      // Group by stat, sort stats alphabetically, sort lines ascending within each stat
+      var byStat={}, statOrder=[];
+      for(var si=0;si<pLegsRaw.length;si++){
+        var s=pLegsRaw[si].stat||'';
+        if(!byStat[s]){byStat[s]=[];statOrder.push(s);}
+        byStat[s].push(pLegsRaw[si]);
+      }
+      statOrder.sort();
+      var pLegs=[];
+      for(var si=0;si<statOrder.length;si++){
+        byStat[statOrder[si]].sort(function(a,b){return (a.line||0)-(b.line||0);});
+        pLegs=pLegs.concat(byStat[statOrder[si]]);
+      }
+      // best bet = highest p_cal across all legs
+      var best=pLegsRaw.slice().sort(function(a,b){return (b.p_cal||0)-(a.p_cal||0);})[0];
       var pDiv=document.createElement('div'); pDiv.className='btm-player-row';
       var pct=best.p_cal!=null?Math.round(best.p_cal*100):null;
       var headerHtml='<div class="btm-player-header" onclick="btmToggle(this)">'
