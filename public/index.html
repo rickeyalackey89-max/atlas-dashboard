@@ -161,16 +161,16 @@
       font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--green);
     }
     .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 1.5s infinite; }
-    .props-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
-    .prop-card {
-      padding: 24px 28px;
-      display: flex; flex-direction: column; gap: 10px;
-      border-right: 1px solid var(--b);
-    }
-    .prop-card:last-of-type { border-right: none; }
+    .props-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
+    .prop-card { display: flex; flex-direction: column; gap: 14px; }
     .prop-card-left { display: flex; flex-direction: column; gap: 4px; }
     .prop-card-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    @media (max-width: 640px) { .props-grid { grid-template-columns: 1fr; } .prop-card { border-right: none; border-bottom: 1px solid var(--b); } .prop-card:last-of-type { border-bottom: none; } }
+    .prop-dot-row { display: flex; align-items: center; gap: 8px; }
+    .prop-dot { width: 7px; height: 7px; border-radius: 50%; animation: blink 1.5s infinite; flex-shrink: 0; }
+    .prop-dot-goblin  { background: #4ade80; }
+    .prop-dot-standard{ background: #60a5fa; }
+    .prop-dot-demon   { background: #f87171; }
+    @media (max-width: 640px) { .props-grid { grid-template-columns: 1fr; gap: 28px; } }
     .tier-badge {
       display: inline-block; font-size: 9px; font-weight: 800;
       letter-spacing: .18em; text-transform: uppercase; padding: 4px 10px; border: 1px solid;
@@ -608,15 +608,19 @@
               probHtml = '<div class="prob-lock-wrap"><div class="prob-pill">' + pct + '%</div></div>';
             }
             var matchup = (leg.team && leg.opp) ? esc(leg.team) + ' vs ' + esc(leg.opp) : (leg.team ? esc(leg.team) : '');
+            var dotCls = 'prop-dot prop-dot-' + ts.cls;
             card.innerHTML =
+              '<div class="prop-dot-row">' +
+              '<span class="' + dotCls + '"></span>' +
+              (ts.label ? '<span style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:' + (t==='GOBLIN'?'#4ade80':t==='DEMON'?'#f87171':'#60a5fa') + ';">' + esc(ts.label) + '</span>' : '') +
+              '</div>' +
               '<div class="prop-card-left">' +
-              (ts.label ? '<div style="margin-bottom:4px;"><span class="tier-badge tier-' + ts.cls + '" style="font-size:9px;padding:3px 8px;">' + esc(ts.label) + '</span></div>' : '') +
-              '<div class="prop-player" style="font-size:18px;font-weight:800;">' + esc(leg.player||'—') + '</div>' +
-              (matchup ? '<div class="prop-matchup">' + matchup + '</div>' : '') +
+              '<div class="prop-player" style="font-size:22px;font-weight:900;letter-spacing:-.02em;line-height:1.1;">' + esc(leg.player||'\u2014') + '</div>' +
+              (matchup ? '<div class="prop-matchup" style="margin-top:2px;">' + matchup + '</div>' : '') +
               '</div>' +
               '<div class="prop-card-right">' +
               '<span class="prop-stat">' + esc(leg.stat||'') + '</span>' +
-              '<span class="prop-line">' + esc(String(leg.line||'—')) + '</span>' +
+              '<span class="prop-line" style="font-size:18px;">' + esc(String(leg.line||'\u2014')) + '</span>' +
               '<span class="prop-dir dir-' + dir + '">' + esc((leg.dir||'').toUpperCase()) + '</span>' +
               probHtml +
               '</div>';
@@ -624,8 +628,8 @@
           }
           // CTA to dashboard
           var cta = document.createElement('div');
-          cta.style.cssText = 'grid-column:1/-1;padding:14px 0;text-align:center;font-size:11px;color:var(--t2);';
-          cta.innerHTML = 'Top pick per tier &mdash; <a href="/dashboard/" style="color:var(--gold);font-weight:800;text-decoration:none;">See all ' + data.total_legs + ' picks in Dashboard &rarr;</a>';
+          cta.style.cssText = 'grid-column:1/-1;padding:20px 0 0;font-size:11px;color:var(--t2);';
+          cta.innerHTML = data.total_legs + ' prop picks today &mdash; <a href="/dashboard/" style="color:var(--gold);font-weight:800;text-decoration:none;">See full model in Dashboard &rarr;</a>';
           grid.appendChild(cta);
         }).catch(showNoData);
     }
