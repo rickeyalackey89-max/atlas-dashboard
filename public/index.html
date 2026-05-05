@@ -179,6 +179,24 @@
       font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
       padding: 5px 12px; margin-bottom: 4px;
     }
+    .prob-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+    .prob-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 800; letter-spacing: .06em;
+      padding: 4px 10px; border: 1px solid rgba(245,166,35,.35);
+      background: rgba(245,166,35,.07); color: #f5a623;
+    }
+    .prob-pill-label { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--t2); }
+    .prob-locked {
+      filter: blur(5px);
+      user-select: none;
+      pointer-events: none;
+      position: relative;
+    }
+    .prob-lock-wrap { position: relative; display: inline-flex; align-items: center; gap: 8px; }
+    .prob-lock-icon {
+      font-size: 10px; color: var(--t2); opacity: 0.5;
+    }
     .dir-over  { background: rgba(74,222,128,.1);  color: #4ade80; }
     .dir-under { background: rgba(248,113,113,.1); color: #f87171; }
     .props-footer {
@@ -562,16 +580,39 @@
           }
           var grid = document.getElementById('propsGrid');
           grid.innerHTML = '';
+          // Check for premium token (same mechanism as dashboard)
+          var isPremium = false;
+          try {
+            var tok = localStorage.getItem('atlas_premium_token');
+            if (tok) {
+              var td = JSON.parse(atob(tok));
+              isPremium = td && td.expires && Date.now() < td.expires;
+            }
+          } catch(e) {}
           for (var i = 0; i < legs.length; i++) {
             var leg = legs[i], t = (leg.tier||'').toUpperCase();
             var ts = TIER_STYLE[t] || { cls: 'standard', label: '' };
             var dir = (leg.dir||'').toLowerCase();
             var card = document.createElement('div');
             card.className = 'prop-card';
+            // Probability pill — blur from 4th card onwards unless premium
+            var probHtml = '';
+            if (leg.p_cal != null) {
+              var pct = Math.round(leg.p_cal * 100);
+              var locked = (!isPremium && i >= 3);
+              probHtml = '<div class="prob-row">' +
+                '<div class="prob-lock-wrap">' +
+                '<div class="prob-pill' + (locked ? ' prob-locked' : '') + '">' + pct + '% model confidence</div>' +
+                (locked ? '<span class="prob-lock-icon">&#128274; <a href="/checkout/" style="color:var(--gold);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">Unlock</a></span>' : '') +
+                '</div>' +
+                '</div>';
+            }
             card.innerHTML =
               (ts.label ? '<span class="tier-badge tier-' + ts.cls + '">' + esc(ts.label) + '</span>' : '') +
               '<div><div class="prop-player">' + esc(leg.player||'—') + '</div>' +
-              '<div class="prop-stat">' + esc(leg.stat||'') + (leg.team ? ' · ' + esc(leg.team) : '') + '</div></div>' +
+              '<div class="prop-stat">' + esc(leg.stat||'') + (leg.team ? ' · ' + esc(leg.team) : '') + '</div>' +
+              probHtml +
+              '</div>' +
               '<div class="prop-bottom">' +
               '<div class="prop-line">' + esc(String(leg.line||'—')) + '</div>' +
               '<span class="prop-dir dir-' + dir + '">' + esc(leg.dir||'') + '</span>' +
