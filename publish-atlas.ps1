@@ -16,7 +16,7 @@ $StageDir  = Join-Path $PublicDir "data_stage"
 $AtlasDashDir = Join-Path $AtlasRoot "data\output\dashboard"
 
 $SrcPayload = Join-Path $AtlasDashDir "cloudflare_payload.json"
-$DstPayload = Join-Path $StageDir   "cloudflare_payload.json"
+$DstPayload = Join-Path $LiveDir    "cloudflare_payload.json"
 
 # Keep these for legacy UI / quick status
 $SrcStatus = Join-Path $AtlasDashDir "status_latest.json"
