@@ -620,7 +620,7 @@
 
   function buildStatTiles(data,allLegs){
     var totalSlips=(data.system||[]).length+(data.system_winprob||[]).length+
-      (data.windfall||[]).length+(data.windfall_winprob||[]).length+(data.demonhunter||[]).length;
+      (data.windfall||[]).length+(data.windfall_winprob||[]).length+(data.demonhunter||[]).length+(data.marketed_slips||[]).length;
     document.getElementById('totalPicks').textContent=countAllLegs(data)||'&#8212;';
     document.getElementById('totalSlips').textContent=totalSlips||'&#8212;';
     document.getElementById('slateGames').textContent=getGames(allLegs).length||'&#8212;';
@@ -1059,12 +1059,34 @@
       }).catch(function(){});
   }
 
+  // ── Shared: render one injury row (OUT / DOUBTFUL / QUESTIONABLE) ──────────
+  function _injuryRow(p) {
+    var st = (p.status||'').toUpperCase();
+    var stColor, stBg;
+    if      (st==='OUT')          { stColor='var(--red)';  stBg='rgba(255,82,82,0.12)'; }
+    else if (st==='DOUBTFUL')     { stColor='var(--gold)'; stBg='rgba(245,166,35,0.12)'; }
+    else if (st==='QUESTIONABLE') { stColor='#f59e0b';     stBg='rgba(245,158,11,0.10)'; }
+    else                          { stColor='var(--t2)';   stBg='rgba(255,255,255,0.06)'; }
+    var pName = esc(p.player||'—').replace(/^(\S+),\s*(.+)$/, '$2 $1');
+    var html  = '<div style="display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);">';
+    html += '<div style="min-width:74px;padding:4px 8px;background:'+stBg+';border-radius:3px;text-align:center;">';
+    html += '<div style="font-size:11px;font-weight:900;color:'+stColor+';">'+esc(st)+'</div>';
+    html += '<div style="font-size:9px;color:var(--t2);letter-spacing:.06em;">'+esc(p.team||'')+'</div>';
+    html += '</div>';
+    html += '<div>';
+    html += '<div style="font-size:13px;font-weight:700;">' + pName + '</div>';
+    if (p.reason) html += '<div style="font-size:10px;color:var(--t2);margin-top:3px;">' + esc(p.reason) + '</div>';
+    html += '</div></div>';
+    return html;
+  }
+
   // ---- Injury & Role Context Tab ----
   function buildInjuryTab(injCtx) {
-    var boosted   = injCtx.role_boosted || [];
-    var players   = injCtx.invalidated_players || [];
-    var reportDate = injCtx.report_date || '';
-    var reportLabel = injCtx.report_label ? '  ' + injCtx.report_label : '';
+    var boosted       = injCtx.role_boosted || [];
+    var players       = injCtx.invalidated_players || [];
+    var questionable  = injCtx.questionable_players || [];
+    var reportDate    = injCtx.report_date || '';
+    var reportLabel   = injCtx.report_label ? '  ' + injCtx.report_label : '';
 
     var STAT_NAME = {PTS:'Points',REB:'Rebounds',AST:'Assists',FG3M:'3-Pointers',PRA:'Pts+Reb+Ast',PR:'Pts+Reb',PA:'Pts+Ast',RA:'Reb+Ast',STL:'Steals',BLK:'Blocks'};
 
@@ -1074,26 +1096,20 @@
       var rHtml = '<div style="font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;">Injury Report';
       if (reportDate) rHtml += ' <span style="color:var(--t2);font-weight:600;">— ' + esc(reportDate + reportLabel) + '</span>';
       rHtml += '</div>';
+
+      // OUT / DOUBTFUL
       if (!players.length) {
-        rHtml += '<div style="font-size:12px;color:var(--t2);padding:16px 0;">No players listed as Out or Doubtful today.</div>';
+        rHtml += '<div style="font-size:12px;color:var(--t2);padding:12px 0;">No players listed as Out or Doubtful today.</div>';
       } else {
-        players.forEach(function(p) {
-          var st = (p.status||'').toUpperCase();
-          var stColor = st==='OUT' ? 'var(--red)' : st==='DOUBTFUL' ? 'var(--gold)' : 'var(--t2)';
-          var stBg    = st==='OUT' ? 'rgba(255,82,82,0.12)' : st==='DOUBTFUL' ? 'rgba(245,166,35,0.12)' : 'rgba(255,255,255,0.06)';
-          var pName = esc(p.player||'—').replace(/^(\S+),\s*(.+)$/, '$2 $1'); // "Last, First" → "First Last"
-          rHtml += '<div style="display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);">';
-          rHtml += '<div style="min-width:74px;padding:4px 8px;background:'+stBg+';border-radius:3px;text-align:center;">';
-          rHtml += '<div style="font-size:11px;font-weight:900;color:'+stColor+';">'+esc(st)+'</div>';
-          rHtml += '<div style="font-size:9px;color:var(--t2);letter-spacing:.06em;">'+esc(p.team||'')+'</div>';
-          rHtml += '</div>';
-          rHtml += '<div>';
-          rHtml += '<div style="font-size:13px;font-weight:700;">' + pName + '</div>';
-          if (p.reason) rHtml += '<div style="font-size:10px;color:var(--t2);margin-top:3px;">' + esc(p.reason) + '</div>';
-          rHtml += '</div>';
-          rHtml += '</div>';
-        });
+        players.forEach(function(p) { rHtml += _injuryRow(p); });
       }
+
+      // QUESTIONABLE (amber section below)
+      if (questionable.length) {
+        rHtml += '<div style="font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;margin-top:20px;margin-bottom:10px;">Questionable</div>';
+        questionable.forEach(function(p) { rHtml += _injuryRow(p); });
+      }
+
       repCol.innerHTML = rHtml;
     }
 
