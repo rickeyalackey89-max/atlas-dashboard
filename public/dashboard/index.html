@@ -1090,46 +1090,61 @@
       if (!boosted.length) {
         iHtml += '<div style="font-size:12px;color:var(--t2);padding:16px 0;">No role adjustments today — no significant outs affecting active players.</div>';
       } else {
-        // Deduplicate: keep highest p_cal per player+stat pair
-        var seen = {}, uniq = [];
+        // Collapse to one card per player: avg role_mult + per-stat avg
+        var playerMap = {};
         boosted.forEach(function(leg) {
-          var k = (leg.player||'')+'|'+(leg.stat||'');
-          if (!seen[k] || (leg.p_cal||0) > (seen[k].p_cal||0)) { seen[k] = leg; }
+          var pKey = leg.player || '—';
+          if (!playerMap[pKey]) playerMap[pKey] = {player: leg.player, team: leg.team, mults: [], statMap: {}};
+          var m = leg.role_mult || 1.0;
+          playerMap[pKey].mults.push(m);
+          var s = leg.stat || '—';
+          if (!playerMap[pKey].statMap[s]) playerMap[pKey].statMap[s] = [];
+          playerMap[pKey].statMap[s].push(m);
         });
-        Object.values(seen).sort(function(a,b){ return (b.p_cal||0)-(a.p_cal||0); }).forEach(function(leg) {
-          var prob = leg.p_cal != null ? Math.round(leg.p_cal * 100) : null;
-          var pColor = prob != null ? pctColor(leg.p_cal) : 'var(--t2)';
-          var mult = leg.role_mult != null ? Math.round((leg.role_mult - 1) * 100) : null;
-          var multStr = mult != null ? (mult >= 0 ? '+' + mult + '%' : mult + '%') : null;
-          var statLabel = STAT_NAME[leg.stat] || leg.stat || '—';
-          var dir = (leg.dir||'').toUpperCase();
-          var dirArrow = dir === 'OVER' ? '↑' : dir === 'UNDER' ? '↓' : '';
+
+        // Sort players by avg role_mult descending
+        var players = Object.values(playerMap).sort(function(a,b){
+          var avgA = a.mults.reduce(function(s,v){return s+v;},0)/a.mults.length;
+          var avgB = b.mults.reduce(function(s,v){return s+v;},0)/b.mults.length;
+          return avgB - avgA;
+        });
+
+        var STAT_NAME = {PTS:'PTS',REB:'REB',AST:'AST',FG3M:'3PM',PRA:'PRA',PR:'P+R',PA:'P+A',RA:'R+A',STL:'STL',BLK:'BLK'};
+
+        players.forEach(function(pd) {
+          var avgMult = pd.mults.reduce(function(s,v){return s+v;},0)/pd.mults.length;
+          var avgPct = Math.round((avgMult - 1) * 100);
+          var adjColor = avgPct > 0 ? 'var(--green)' : avgPct < 0 ? 'var(--red)' : 'var(--t2)';
+          var adjStr = (avgPct >= 0 ? '+' : '') + avgPct + '%';
+
+          // Per-stat breakdown
+          var statLines = Object.keys(pd.statMap).map(function(s) {
+            var sm = pd.statMap[s];
+            var smAvg = sm.reduce(function(x,v){return x+v;},0)/sm.length;
+            var smPct = Math.round((smAvg - 1) * 100);
+            return {label: STAT_NAME[s]||s, pct: smPct};
+          }).filter(function(x){ return x.pct !== 0; })
+            .sort(function(a,b){ return Math.abs(b.pct)-Math.abs(a.pct); });
 
           iHtml += '<div style="padding:14px;margin-bottom:10px;background:rgba(255,255,255,0.03);border:1px solid var(--b);border-radius:4px;">';
-          // Player name + team
+          // Header
           iHtml += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">';
           iHtml += '<div>';
-          iHtml += '<div style="font-size:14px;font-weight:800;">' + esc(leg.player||'—') + '</div>';
-          iHtml += '<div style="font-size:10px;color:var(--t2);margin-top:1px;">' + esc(leg.team||'') + ' &nbsp;·&nbsp; Role boost active</div>';
+          iHtml += '<div style="font-size:14px;font-weight:800;">' + esc(pd.player||'—') + '</div>';
+          iHtml += '<div style="font-size:10px;color:var(--t2);margin-top:2px;">' + esc(pd.team||'') + ' &nbsp;·&nbsp; role boost active</div>';
           iHtml += '</div>';
-          if (multStr) {
-            iHtml += '<div style="font-size:13px;font-weight:900;color:var(--gold);">' + esc(multStr) + ' adj</div>';
-          }
+          iHtml += '<div style="font-size:22px;font-weight:900;color:'+adjColor+';">' + adjStr + '</div>';
           iHtml += '</div>';
-          // Stat + line + confidence
-          iHtml += '<div style="display:flex;align-items:center;gap:8px;">';
-          iHtml += '<div style="font-size:11px;font-weight:700;padding:3px 8px;background:rgba(255,255,255,0.07);border-radius:3px;">';
-          iHtml += dirArrow + ' ' + esc(statLabel) + ' ' + esc(String(leg.line||'—'));
-          iHtml += '</div>';
-          if (prob != null) {
-            iHtml += '<div style="font-size:18px;font-weight:900;color:'+pColor+';">' + prob + '%</div>';
-            iHtml += '<div style="font-size:10px;color:var(--t2);">confidence</div>';
-          }
-          iHtml += '</div>';
-          // Confidence bar
-          if (leg.p_cal != null) {
-            var bPct = Math.round(leg.p_cal * 100);
-            iHtml += '<div style="margin-top:8px;height:3px;background:rgba(255,255,255,0.08);border-radius:2px;"><div style="width:'+bPct+'%;height:100%;background:'+pColor+';border-radius:2px;"></div></div>';
+          // Per-stat chips
+          if (statLines.length) {
+            iHtml += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+            statLines.forEach(function(sl) {
+              var sc = sl.pct > 0 ? 'var(--green)' : 'var(--red)';
+              var sp = (sl.pct >= 0 ? '+' : '') + sl.pct + '%';
+              iHtml += '<div style="font-size:10px;font-weight:800;padding:3px 8px;background:rgba(255,255,255,0.06);border-radius:3px;">';
+              iHtml += esc(sl.label) + ' <span style="color:'+sc+';">'+sp+'</span></div>';
+            });
+            iHtml += '</div>';
           }
           iHtml += '</div>';
         });
