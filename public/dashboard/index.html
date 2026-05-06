@@ -460,11 +460,13 @@
     <div id="sub-injury" class="sub-panel" style="display:none;">
       <div class="lock-overlay" id="injuryLockWrap">
         <div class="lock-blur">
-          <div class="section-head"><span class="section-head-title">Injury Impact</span><span class="badge badge-live">Live</span></div>
-          <div style="font-size:11px;color:var(--t2);margin-bottom:18px;line-height:1.6;">Players whose probability was adjusted because a teammate is out. Atlas&#39; share matrix redistributes production when stars are inactive — this is where the edge comes from.</div>
-          <div id="roleBoostedList"><div class="no-data">Loading injury data...</div></div>
-          <div class="section-head" style="margin-top:32px;"><span class="section-head-title">Today&#39;s Injury Report</span><span id="injuryReportLabel" style="font-size:10px;color:var(--t2);margin-left:10px;"></span></div>
-          <div id="injuryReportList"><div class="no-data">Loading...</div></div>
+          <div class="section-head"><span class="section-head-title">Injury Report &amp; Impact</span><span class="badge badge-live">Live</span></div>
+          <div style="font-size:11px;color:var(--t2);margin-bottom:20px;line-height:1.6;">Today&#39;s injury news and how it shifts confidence on active player props.</div>
+          <div id="injuryTwoCol" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+            <div id="injuryReportCol"></div>
+            <div id="injuryImpactCol"></div>
+          </div>
+          <style>@media(max-width:640px){#injuryTwoCol{grid-template-columns:1fr!important;}}</style>
         </div>
         <div class="lock-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Premium</div>
       </div>
@@ -1045,66 +1047,94 @@
 
   // ---- Injury & Role Context Tab ----
   function buildInjuryTab(injCtx) {
-    // Role-boosted picks
-    var boosted = injCtx.role_boosted || [];
-    var rbl = document.getElementById('roleBoostedList');
-    if (rbl) {
-      if (!boosted.length) {
-        rbl.innerHTML = '<div class="no-data" style="color:var(--t2);">No role adjustments today — no significant outs affecting modeled players.</div>';
+    var boosted   = injCtx.role_boosted || [];
+    var players   = injCtx.invalidated_players || [];
+    var reportDate = injCtx.report_date || '';
+    var reportLabel = injCtx.report_label ? '  ' + injCtx.report_label : '';
+
+    var STAT_NAME = {PTS:'Points',REB:'Rebounds',AST:'Assists',FG3M:'3-Pointers',PRA:'Pts+Reb+Ast',PR:'Pts+Reb',PA:'Pts+Ast',RA:'Reb+Ast',STL:'Steals',BLK:'Blocks'};
+
+    // ── LEFT: Injury Report ──────────────────────────────────────────────────
+    var repCol = document.getElementById('injuryReportCol');
+    if (repCol) {
+      var rHtml = '<div style="font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;">Injury Report';
+      if (reportDate) rHtml += ' <span style="color:var(--t2);font-weight:600;">— ' + esc(reportDate + reportLabel) + '</span>';
+      rHtml += '</div>';
+      if (!players.length) {
+        rHtml += '<div style="font-size:12px;color:var(--t2);padding:16px 0;">No players listed as Out or Doubtful today.</div>';
       } else {
-        var html = '<div style="display:grid;grid-template-columns:2fr 70px 55px 50px 50px 70px;gap:0 8px;padding:6px 8px;border-bottom:1px solid var(--b);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);">' +
-          '<div>Player</div><div style="text-align:center;">Stat</div><div style="text-align:right;">Line</div><div style="text-align:center;">Dir</div><div style="text-align:center;">Tier</div><div style="text-align:right;">Confidence</div></div>';
-        boosted.forEach(function(leg) {
-          var tc = tierClass(leg.tier||'');
-          var prob = leg.p_cal != null ? Math.round(leg.p_cal * 100) + '%' : '—';
-          var reason = esc(leg.role_reason || '');
-          html += '<div style="display:grid;grid-template-columns:2fr 70px 55px 50px 50px 70px;gap:0 8px;padding:10px 8px;border-bottom:1px solid rgba(255,255,255,0.04);align-items:center;">' +
-            '<div><div style="font-weight:700;font-size:13px;">' + esc(leg.player||'—') + '</div>' +
-            '<div style="font-size:10px;color:var(--t2);margin-top:2px;">&#8599; ' + reason + '</div></div>' +
-            '<div style="text-align:center;font-size:11px;font-weight:700;">' + esc(leg.stat||'—') + '</div>' +
-            '<div style="text-align:right;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;">' + esc(String(leg.line||'—')) + '</div>' +
-            '<div style="text-align:center;font-size:10px;font-weight:800;color:var(--t2);">' + esc(leg.dir||'—') + '</div>' +
-            '<div style="text-align:center;"><span class="tier-badge ' + tc + '">' + esc(leg.tier||'—') + '</span></div>' +
-            '<div style="text-align:right;font-weight:900;font-size:13px;color:' + pctColor(leg.p_cal||0) + ';">' + prob + '</div>' +
-            '</div>';
+        players.forEach(function(p) {
+          var st = (p.status||'').toUpperCase();
+          var stColor = st==='OUT' ? 'var(--red)' : st==='DOUBTFUL' ? 'var(--gold)' : 'var(--t2)';
+          var stBg    = st==='OUT' ? 'rgba(255,82,82,0.12)' : st==='DOUBTFUL' ? 'rgba(245,166,35,0.12)' : 'rgba(255,255,255,0.06)';
+          var pName = esc(p.player||'—').replace(/^(\S+),\s*(.+)$/, '$2 $1'); // "Last, First" → "First Last"
+          rHtml += '<div style="display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);">';
+          rHtml += '<div style="min-width:74px;padding:4px 8px;background:'+stBg+';border-radius:3px;text-align:center;">';
+          rHtml += '<div style="font-size:11px;font-weight:900;color:'+stColor+';">'+esc(st)+'</div>';
+          rHtml += '<div style="font-size:9px;color:var(--t2);letter-spacing:.06em;">'+esc(p.team||'')+'</div>';
+          rHtml += '</div>';
+          rHtml += '<div>';
+          rHtml += '<div style="font-size:13px;font-weight:700;">' + pName + '</div>';
+          if (p.reason) rHtml += '<div style="font-size:10px;color:var(--t2);margin-top:3px;">' + esc(p.reason) + '</div>';
+          rHtml += '</div>';
+          rHtml += '</div>';
         });
-        rbl.innerHTML = html;
       }
+      repCol.innerHTML = rHtml;
     }
 
-    // Injury report
-    var players = injCtx.invalidated_players || [];
-    var label = injCtx.report_label ? ' — ' + injCtx.report_label : '';
-    var labelEl = document.getElementById('injuryReportLabel');
-    if (labelEl) labelEl.textContent = (injCtx.report_date || '') + label;
-
-    var irl = document.getElementById('injuryReportList');
-    if (irl) {
-      if (!players.length) {
-        irl.innerHTML = '<div class="no-data" style="color:var(--t2);">No players invalidated in today\'s injury report.</div>';
+    // ── RIGHT: Injury Impact ─────────────────────────────────────────────────
+    var impCol = document.getElementById('injuryImpactCol');
+    if (impCol) {
+      var iHtml = '<div style="font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Injury Impact — Who Benefits</div>';
+      if (!boosted.length) {
+        iHtml += '<div style="font-size:12px;color:var(--t2);padding:16px 0;">No role adjustments today — no significant outs affecting active players.</div>';
       } else {
-        var byTeam = {};
-        players.forEach(function(p) {
-          var t = p.team || 'UNK';
-          if (!byTeam[t]) byTeam[t] = [];
-          byTeam[t].push(p);
+        // Deduplicate: keep highest p_cal per player+stat pair
+        var seen = {}, uniq = [];
+        boosted.forEach(function(leg) {
+          var k = (leg.player||'')+'|'+(leg.stat||'');
+          if (!seen[k] || (leg.p_cal||0) > (seen[k].p_cal||0)) { seen[k] = leg; }
         });
-        var html2 = '';
-        Object.keys(byTeam).sort().forEach(function(team) {
-          html2 += '<div style="margin-bottom:14px;">' +
-            '<div style="font-size:10px;font-weight:900;letter-spacing:.14em;color:var(--cyan);text-transform:uppercase;margin-bottom:8px;">' + esc(team) + '</div>';
-          byTeam[team].forEach(function(p) {
-            var statusColor = p.status === 'OUT' ? 'var(--red)' : p.status === 'DOUBTFUL' ? 'var(--gold)' : 'var(--t2)';
-            html2 += '<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);">' +
-              '<div style="font-size:12px;font-weight:700;flex:1;">' + esc(p.player||'—') + '</div>' +
-              '<div style="font-size:11px;font-weight:800;color:' + statusColor + ';">' + esc(p.status||'?') + '</div>' +
-              (p.reason ? '<div style="font-size:10px;color:var(--t2);max-width:180px;text-align:right;">' + esc(p.reason) + '</div>' : '') +
-              '</div>';
-          });
-          html2 += '</div>';
+        Object.values(seen).sort(function(a,b){ return (b.p_cal||0)-(a.p_cal||0); }).forEach(function(leg) {
+          var prob = leg.p_cal != null ? Math.round(leg.p_cal * 100) : null;
+          var pColor = prob != null ? pctColor(leg.p_cal) : 'var(--t2)';
+          var mult = leg.role_mult != null ? Math.round((leg.role_mult - 1) * 100) : null;
+          var multStr = mult != null ? (mult >= 0 ? '+' + mult + '%' : mult + '%') : null;
+          var statLabel = STAT_NAME[leg.stat] || leg.stat || '—';
+          var dir = (leg.dir||'').toUpperCase();
+          var dirArrow = dir === 'OVER' ? '↑' : dir === 'UNDER' ? '↓' : '';
+
+          iHtml += '<div style="padding:14px;margin-bottom:10px;background:rgba(255,255,255,0.03);border:1px solid var(--b);border-radius:4px;">';
+          // Player name + team
+          iHtml += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">';
+          iHtml += '<div>';
+          iHtml += '<div style="font-size:14px;font-weight:800;">' + esc(leg.player||'—') + '</div>';
+          iHtml += '<div style="font-size:10px;color:var(--t2);margin-top:1px;">' + esc(leg.team||'') + ' &nbsp;·&nbsp; Role boost active</div>';
+          iHtml += '</div>';
+          if (multStr) {
+            iHtml += '<div style="font-size:13px;font-weight:900;color:var(--gold);">' + esc(multStr) + ' adj</div>';
+          }
+          iHtml += '</div>';
+          // Stat + line + confidence
+          iHtml += '<div style="display:flex;align-items:center;gap:8px;">';
+          iHtml += '<div style="font-size:11px;font-weight:700;padding:3px 8px;background:rgba(255,255,255,0.07);border-radius:3px;">';
+          iHtml += dirArrow + ' ' + esc(statLabel) + ' ' + esc(String(leg.line||'—'));
+          iHtml += '</div>';
+          if (prob != null) {
+            iHtml += '<div style="font-size:18px;font-weight:900;color:'+pColor+';">' + prob + '%</div>';
+            iHtml += '<div style="font-size:10px;color:var(--t2);">confidence</div>';
+          }
+          iHtml += '</div>';
+          // Confidence bar
+          if (leg.p_cal != null) {
+            var bPct = Math.round(leg.p_cal * 100);
+            iHtml += '<div style="margin-top:8px;height:3px;background:rgba(255,255,255,0.08);border-radius:2px;"><div style="width:'+bPct+'%;height:100%;background:'+pColor+';border-radius:2px;"></div></div>';
+          }
+          iHtml += '</div>';
         });
-        irl.innerHTML = html2;
       }
+      impCol.innerHTML = iHtml;
     }
 
     var lockWrap = document.getElementById('injuryLockWrap');
@@ -1121,48 +1151,69 @@
     }
     var ov = perf.overall || {};
     var byTier = perf.by_tier || {};
+    var ys = perf.yesterday_slips || {};
     var tiers = ['GOBLIN', 'STANDARD', 'DEMON'];
     var tierColors = {GOBLIN:'var(--green)',STANDARD:'var(--cyan)',DEMON:'var(--red)'};
+    var tierLabels = {GOBLIN:'Goblin (Low Alt)',STANDARD:'Standard',DEMON:'Demon (High Alt)'};
 
     function pctStr(v) { return v != null ? Math.round(v * 100) + '%' : '—'; }
-    function nStr(v) { return v != null ? v.toLocaleString() + ' legs' : '—'; }
-    function brierStr(v) { return v != null ? v.toFixed(4) : '—'; }
-    function barHtml(rate) {
+    function nStr(v) { return v != null ? v.toLocaleString() : '—'; }
+    function barHtml(rate, color) {
       if (rate == null) return '';
       var pct = Math.round(rate * 100);
-      var color = rate >= 0.70 ? 'var(--green)' : rate >= 0.60 ? 'var(--gold)' : 'var(--red)';
-      return '<div style="margin-top:6px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;"><div style="width:'+pct+'%;height:100%;background:'+color+';border-radius:2px;"></div></div>';
+      var c = color || (rate >= 0.70 ? 'var(--green)' : rate >= 0.58 ? 'var(--gold)' : 'var(--red)');
+      return '<div style="margin-top:6px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;"><div style="width:'+pct+'%;height:100%;background:'+c+';border-radius:2px;"></div></div>';
     }
 
     var html = '';
 
-    // Overall row
+    // ── Yesterday's Slip Record ──────────────────────────────────────────────
+    html += '<div style="margin-bottom:32px;">';
+    html += '<div style="font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:14px;">Yesterday\'s Marketed Slips</div>';
+    if (ys && ys.total > 0) {
+      var ysColor = ys.pct >= 0.50 ? 'var(--green)' : ys.pct >= 0.33 ? 'var(--gold)' : 'var(--red)';
+      var ysDate = ys.date ? ' — ' + ys.date : '';
+      html += '<div style="display:flex;align-items:flex-end;gap:32px;padding:24px;background:rgba(255,255,255,0.04);border:1px solid var(--b);max-width:480px;">';
+      html += '<div>';
+      html += '<div style="font-size:52px;font-weight:900;letter-spacing:-.04em;line-height:1;color:'+ysColor+';">' + ys.wins + '<span style="color:var(--t3);font-size:32px;">/'+ ys.total +'</span></div>';
+      html += '<div style="font-size:11px;font-weight:700;margin-top:6px;color:var(--text);">SLIPS HIT' + ysDate + '</div>';
+      html += '</div>';
+      html += '<div style="flex:1;">';
+      html += '<div style="font-size:28px;font-weight:900;color:'+ysColor+';">' + pctStr(ys.pct) + '</div>';
+      html += '<div style="font-size:10px;color:var(--t2);margin-top:2px;">Win Rate</div>';
+      html += barHtml(ys.pct, ysColor);
+      html += '</div>';
+      html += '</div>';
+    } else {
+      html += '<div style="padding:18px;background:rgba(255,255,255,0.04);border:1px solid var(--b);max-width:480px;font-size:12px;color:var(--t2);">Slip results available after 6am — check back after today\'s eval runs.</div>';
+    }
+    html += '</div>';
+
+    // ── Overall Leg Hit Rate ─────────────────────────────────────────────────
     html += '<div style="margin-bottom:28px;">';
-    html += '<div style="font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:16px;">Overall Model Hit Rate</div>';
+    html += '<div style="font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:14px;">Overall Leg Hit Rate</div>';
     html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:480px;">';
     var r7 = ov.last_7d || {};
     var r30 = ov.last_30d || {};
     html += '<div style="padding:18px;background:rgba(255,255,255,0.04);border:1px solid var(--b);">';
     html += '<div style="font-size:28px;font-weight:900;color:var(--green);">' + pctStr(r7.hit_rate) + '</div>';
     html += '<div style="font-size:11px;font-weight:700;margin-top:4px;">Last 7 Days</div>';
-    html += '<div style="font-size:10px;color:var(--t2);margin-top:4px;">' + nStr(r7.n) + ' &nbsp;&bull;&nbsp; Brier: ' + brierStr(r7.brier) + '</div>';
+    html += '<div style="font-size:10px;color:var(--t2);margin-top:4px);">' + nStr(r7.n) + ' legs</div>';
     html += barHtml(r7.hit_rate) + '</div>';
     html += '<div style="padding:18px;background:rgba(255,255,255,0.04);border:1px solid var(--b);">';
     html += '<div style="font-size:28px;font-weight:900;color:var(--cyan);">' + pctStr(r30.hit_rate) + '</div>';
     html += '<div style="font-size:11px;font-weight:700;margin-top:4px;">Last 30 Days</div>';
-    html += '<div style="font-size:10px;color:var(--t2);margin-top:4px;">' + nStr(r30.n) + ' &nbsp;&bull;&nbsp; Brier: ' + brierStr(r30.brier) + '</div>';
+    html += '<div style="font-size:10px;color:var(--t2);margin-top:4px);">' + nStr(r30.n) + ' legs</div>';
     html += barHtml(r30.hit_rate) + '</div>';
     html += '</div></div>';
 
-    // By-tier table
-    html += '<div style="font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:14px;">By Tier</div>';
+    // ── By-Tier ──────────────────────────────────────────────────────────────
+    html += '<div style="font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:14px;">Hit Rate By Tier</div>';
     html += '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:13px;">';
     html += '<thead><tr style="border-bottom:1px solid var(--b);">';
-    html += '<th style="text-align:left;padding:8px 12px;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);">Tier</th>';
-    html += '<th style="text-align:right;padding:8px 12px;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);">Hit Rate (7d)</th>';
-    html += '<th style="text-align:right;padding:8px 12px;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);">Legs (7d)</th>';
-    html += '<th style="text-align:right;padding:8px 12px;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);">Hit Rate (30d)</th>';
-    html += '<th style="text-align:right;padding:8px 12px;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);">Legs (30d)</th>';
+    ['Tier','7-Day','Legs (7d)','30-Day','Legs (30d)'].forEach(function(h,i){
+      html += '<th style="text-align:'+(i===0?'left':'right')+';padding:8px 12px;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);">'+h+'</th>';
+    });
     html += '</tr></thead><tbody>';
     tiers.forEach(function(tier) {
       var td = byTier[tier] || {};
@@ -1170,15 +1221,15 @@
       var t30 = td.last_30d || {};
       var col = tierColors[tier] || 'var(--text)';
       html += '<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">';
-      html += '<td style="padding:12px 12px;font-weight:800;color:'+col+';">'+tier+'</td>';
+      html += '<td style="padding:12px 12px;font-weight:800;color:'+col+';">'+tierLabels[tier]+'</td>';
       html += '<td style="text-align:right;padding:12px 12px;font-weight:900;font-size:15px;color:'+col+';">'+pctStr(t7.hit_rate)+'</td>';
-      html += '<td style="text-align:right;padding:12px 12px;font-size:11px;color:var(--t2);">'+( t7.n != null ? t7.n.toLocaleString() : '—')+'</td>';
+      html += '<td style="text-align:right;padding:12px 12px;font-size:11px;color:var(--t2);">'+(t7.n != null ? t7.n.toLocaleString() : '—')+'</td>';
       html += '<td style="text-align:right;padding:12px 12px;font-weight:900;font-size:15px;color:'+col+';">'+pctStr(t30.hit_rate)+'</td>';
-      html += '<td style="text-align:right;padding:12px 12px;font-size:11px;color:var(--t2);">'+( t30.n != null ? t30.n.toLocaleString() : '—')+'</td>';
+      html += '<td style="text-align:right;padding:12px 12px;font-size:11px;color:var(--t2);">'+(t30.n != null ? t30.n.toLocaleString() : '—')+'</td>';
       html += '</tr>';
     });
     html += '</tbody></table></div>';
-    html += '<div style="font-size:10px;color:var(--t2);margin-top:14px;line-height:1.7;">Hit rate computed from scored legs in the telemetry archive. Brier score measures calibration quality — lower is better. Data updates after each daily run.</div>';
+    html += '<div style="font-size:10px;color:var(--t2);margin-top:14px;line-height:1.7;">Leg hit rate computed from all scored legs in the telemetry archive. Slip record counts wins across all daily runs (3-leg, 4-leg, 5-leg). Updates after each live run, slip record updates at 6am.</div>';
 
     el.innerHTML = html;
   }
