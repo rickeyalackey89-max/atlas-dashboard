@@ -124,14 +124,15 @@ $picksRows = foreach ($leg in $topLegs) {
     foreach ($f in $picksFields) { $row[$f] = $leg.$f }
     $row
 }
-$systemCount   = if ($payload.system)     { @($payload.system).Count }     else { 0 }
-$windfallCount = if ($payload.windfall)   { @($payload.windfall).Count }   else { 0 }
-$demonCount    = if ($payload.demonhunter){ @($payload.demonhunter).Count } else { 0 }
+$systemCount    = if ($payload.system)        { @($payload.system).Count }        else { 0 }
+$windfallCount  = if ($payload.windfall)      { @($payload.windfall).Count }      else { 0 }
+$demonCount     = if ($payload.demonhunter)   { @($payload.demonhunter).Count }   else { 0 }
+$marketedCount  = if ($payload.marketed_slips){ @($payload.marketed_slips).Count } else { 0 }
 $picksPayload  = [ordered]@{
     generated_at = $payload.generated_at
     picks        = @($picksRows)
     total_legs   = $allLegs.Count
-    total_slips  = $systemCount + $windfallCount + $demonCount
+    total_slips  = $systemCount + $windfallCount + $demonCount + $marketedCount
 }
 Write-JsonFile (Join-Path $StageDir "picks_today.json") $picksPayload
 Write-Host ("Built picks_today.json: {0} picks, {1} total_legs" -f @($picksRows).Count, $allLegs.Count)
