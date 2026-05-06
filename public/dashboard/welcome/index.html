@@ -23,6 +23,12 @@
     .error-box{color:#f87171;font-size:14px;margin-bottom:20px;display:none;}
     .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px;}
     @keyframes spin{to{transform:rotate(360deg)}}
+    .field{margin-bottom:16px;text-align:left;}
+    label{display:block;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-bottom:8px;}
+    input[type=password]{width:100%;background:#111;border:1px solid rgba(255,255,255,.07);color:#fff;font-size:14px;padding:12px 14px;outline:none;font-family:inherit;box-sizing:border-box;}
+    input[type=password]:focus{border-color:var(--cyan);}
+    .pw-hint{font-size:11px;color:var(--t2);margin-top:6px;}
+    .pw-error{color:#f87171;font-size:12px;margin-top:10px;display:none;}
   </style>
 </head>
 <body>
@@ -34,23 +40,84 @@
 
 <script>
 (function(){
-  var params = new URLSearchParams(window.location.search);
+  var params    = new URLSearchParams(window.location.search);
   var sessionId = params.get('session_id');
-  var card = document.getElementById('card');
+  var card      = document.getElementById('card');
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
   function showError(msg){
     card.innerHTML = '<div class="icon">❌</div><h1>Verification <span style="color:#f87171">Failed</span></h1><p class="sub">'+msg+'</p><a href="/" class="btn btn-gold" style="margin-top:24px;">Return Home</a>';
   }
 
-  function showSuccess(email){
-    card.innerHTML = '<div class="icon">🏆</div><h1>Welcome to <span>Premium</span></h1>'+
+  // ── Phase 2: password creation form ────────────────────────────────────────
+  function showPasswordForm(email, token){
+    card.innerHTML =
+      '<div class="icon">🔐</div>'+
+      '<h1>Create Your <span>Password</span></h1>'+
       (email ? '<div class="email-badge">'+esc(email)+'</div>' : '')+
-      '<p class="sub">You now have full access to the Revolution dashboard — optimized slips, confidence rankings, EV scores, and everything the model produces daily.</p>'+
-      '<a href="/dashboard/" class="btn btn-gold">Enter The Revolution →</a>'+
-      '<p class="status">Access is stored in your browser. Use the same browser to retain access.</p>';
+      '<p class="sub" style="margin-bottom:20px;">Set a password to protect your account. You\'ll use this with your email every time you log in.</p>'+
+      '<form id="pwForm" style="text-align:left">'+
+        '<div class="field">'+
+          '<label for="pw1">Choose Password</label>'+
+          '<input type="password" id="pw1" placeholder="Min. 8 characters" autocomplete="new-password"/>'+
+        '</div>'+
+        '<div class="field">'+
+          '<label for="pw2">Confirm Password</label>'+
+          '<input type="password" id="pw2" placeholder="Repeat password" autocomplete="new-password"/>'+
+        '</div>'+
+        '<div class="pw-error" id="pwErr"></div>'+
+        '<button type="submit" class="btn btn-gold" id="pwBtn" style="width:100%;margin-top:8px;">Set Password &amp; Enter Dashboard →</button>'+
+      '</form>';
+
+    document.getElementById('pwForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var pw1   = document.getElementById('pw1').value;
+      var pw2   = document.getElementById('pw2').value;
+      var pwErr = document.getElementById('pwErr');
+      var pwBtn = document.getElementById('pwBtn');
+
+      if (pw1.length < 8) {
+        pwErr.textContent = 'Password must be at least 8 characters.';
+        pwErr.style.display = 'block'; return;
+      }
+      if (pw1 !== pw2) {
+        pwErr.textContent = 'Passwords do not match.';
+        pwErr.style.display = 'block'; return;
+      }
+
+      pwErr.style.display = 'none';
+      pwBtn.disabled = true;
+      pwBtn.innerHTML = '<span class="spinner" style="border-top-color:#000;border-color:rgba(0,0,0,.2)"></span>Saving...';
+
+      fetch('/api/set-password', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ session_id: sessionId, password: pw1 })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (data.ok && data.token) {
+          localStorage.setItem('atlas_premium_token', data.token);
+          window.location.href = '/dashboard/';
+        } else {
+          pwErr.textContent = data.error || 'Failed to save password. Please try again.';
+          pwErr.style.display = 'block';
+          pwBtn.disabled = false;
+          pwBtn.textContent = 'Set Password & Enter Dashboard →';
+        }
+      })
+      .catch(function(){
+        pwErr.textContent = 'Network error. Please try again.';
+        pwErr.style.display = 'block';
+        pwBtn.disabled = false;
+        pwBtn.textContent = 'Set Password & Enter Dashboard →';
+      });
+    });
   }
 
-  if(!sessionId){
+  // ── Phase 1: verify Stripe session ─────────────────────────────────────────
+  if (!sessionId) {
     showError('No session ID found. If you completed payment, <a href="https://discord.gg/uatU28mR" style="color:var(--gold)">contact us on Discord</a>.');
     return;
   }
@@ -58,13 +125,15 @@
   fetch('/api/verify', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({session_id: sessionId})
+    body: JSON.stringify({ session_id: sessionId })
   })
-  .then(function(r){return r.json();})
+  .then(function(r){ return r.json(); })
   .then(function(data){
-    if(data.ok && data.token){
+    if (data.ok && data.token) {
+      // Store a temporary token so the session is not lost if user navigates away
+      // before setting their password. It will be overwritten after set-password.
       localStorage.setItem('atlas_premium_token', data.token);
-      showSuccess(data.email);
+      showPasswordForm(data.email, data.token);
     } else {
       showError(data.error || 'Payment could not be verified. <a href="https://discord.gg/uatU28mR" style="color:var(--gold)">Contact us on Discord</a>.');
     }
@@ -72,8 +141,6 @@
   .catch(function(){
     showError('Network error during verification. Please try again or <a href="https://discord.gg/uatU28mR" style="color:var(--gold)">contact us on Discord</a>.');
   });
-
-  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 })();
 </script>
 
