@@ -155,6 +155,20 @@
     .btm-filter-btn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(34,211,238,.08);}
     .btm-search{background:var(--s2);border:1px solid var(--b);color:var(--text);font-size:13px;padding:8px 12px;width:100%;box-sizing:border-box;outline:none;margin-bottom:12px;}
     .btm-search:focus{border-color:var(--cyan);}
+    /* ── Market Odds Table ─────────────────────────────────────── */
+    .mkt-hdr,.mkt-row{display:grid;grid-template-columns:minmax(110px,2fr) 60px 55px 50px 60px 70px 70px 60px;gap:0 8px;align-items:center;}
+    .mkt-hdr{padding:6px 8px;border-bottom:1px solid var(--b);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);}
+    .mkt-row{padding:9px 8px;border-bottom:1px solid var(--b);font-size:12px;}
+    .mkt-row:last-child{border-bottom:none;}
+    .mkt-td-r{text-align:right;}
+    .mkt-td-c{text-align:center;}
+    @media(max-width:599px){
+      .mkt-hdr{display:none !important;}
+      .mkt-row{display:flex !important;flex-wrap:wrap;gap:0;padding:12px 8px;}
+      .mkt-cell-player{width:100%;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.05);}
+      .mkt-td{flex:1;min-width:44px;text-align:center !important;padding:3px 2px;}
+      .mkt-td::before{content:attr(data-label);display:block;font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);margin-bottom:3px;}
+    }
     .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;}
     .section-head-title{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);}
     .section-head-title::before{content:"// ";color:var(--t3);}
@@ -488,9 +502,9 @@
           <select id="mktDirFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="">Both Dirs</option><option value="OVER">OVER</option><option value="UNDER">UNDER</option></select>
           <select id="mktSortFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="edge">Sort: Edge</option><option value="atlas">Sort: Atlas %</option><option value="line">Sort: Line</option></select>
         </div>
-        <div style="overflow-x:auto;">
-          <div id="mktHeader" style="display:grid;grid-template-columns:2fr 60px 55px 50px 60px 70px 70px 60px;gap:0 8px;padding:6px 8px;border-bottom:1px solid var(--b);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);">
-            <div>Player</div><div style="text-align:center;">Stat</div><div style="text-align:right;">Line</div><div style="text-align:center;">Dir</div><div style="text-align:right;">Atlas</div><div style="text-align:right;">DK Odds</div><div style="text-align:right;">FD Odds</div><div style="text-align:right;">Edge</div>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+          <div id="mktHeader" class="mkt-hdr">
+            <div>Player</div><div class="mkt-td-c">Stat</div><div class="mkt-td-r">Line</div><div class="mkt-td-c">Dir</div><div class="mkt-td-r">Atlas</div><div class="mkt-td-r">DK Odds</div><div class="mkt-td-r">FD Odds</div><div class="mkt-td-r">Edge</div>
           </div>
           <div id="mktList"><div class="no-data">Loading market data...</div></div>
         </div>
@@ -1313,15 +1327,15 @@
       // DK/FD odds for the relevant direction
       var dkO = l.dir==='OVER' ? l.dk_over : l.dk_under;
       var fdO = l.dir==='OVER' ? l.fd_over : l.fd_under;
-      html += '<div style="display:grid;grid-template-columns:2fr 60px 55px 50px 60px 70px 70px 60px;gap:0 8px;padding:9px 8px;border-bottom:1px solid var(--b);align-items:center;font-size:12px;">';
-      html += '<div><div style="font-weight:700;">' + esc(l.player||'') + '</div><div style="font-size:10px;color:var(--t2);">' + esc(l.team||'') + (l.opp?' vs '+esc(l.opp):'') + '</div></div>';
-      html += '<div style="text-align:center;font-size:10px;text-transform:uppercase;color:var(--t2);letter-spacing:.06em;">' + esc(l.stat||'') + '</div>';
-      html += '<div style="text-align:right;font-weight:700;">' + (l.line != null ? l.line : '—') + '</div>';
-      html += '<div style="text-align:center;"><span class="dir-' + dirClass + '">' + esc(l.dir||'') + '</span></div>';
-      html += '<div style="text-align:right;">' + atlasStr + '</div>';
-      html += '<div style="text-align:right;">' + _fmtAmerican(dkO) + '</div>';
-      html += '<div style="text-align:right;">' + _fmtAmerican(fdO) + '</div>';
-      html += '<div style="text-align:right;">' + edgeStr + '</div>';
+      html += '<div class="mkt-row">';
+      html += '<div class="mkt-cell-player"><div style="font-weight:700;">' + esc(l.player||'') + '</div><div style="font-size:10px;color:var(--t2);">' + esc(l.team||'') + (l.opp?' vs '+esc(l.opp):'') + '</div></div>';
+      html += '<div class="mkt-td mkt-td-c" data-label="Stat"><span style="font-size:10px;text-transform:uppercase;color:var(--t2);letter-spacing:.06em;">' + esc(l.stat||'') + '</span></div>';
+      html += '<div class="mkt-td mkt-td-r" data-label="Line"><span style="font-weight:700;">' + (l.line != null ? l.line : '—') + '</span></div>';
+      html += '<div class="mkt-td mkt-td-c" data-label="Dir"><span class="dir-' + dirClass + '">' + esc(l.dir||'') + '</span></div>';
+      html += '<div class="mkt-td mkt-td-r" data-label="Atlas">' + atlasStr + '</div>';
+      html += '<div class="mkt-td mkt-td-r" data-label="DK">' + _fmtAmerican(dkO) + '</div>';
+      html += '<div class="mkt-td mkt-td-r" data-label="FD">' + _fmtAmerican(fdO) + '</div>';
+      html += '<div class="mkt-td mkt-td-r" data-label="Edge">' + edgeStr + '</div>';
       html += '</div>';
     }
     el.innerHTML = html;
