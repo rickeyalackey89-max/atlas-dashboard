@@ -1,13 +1,17 @@
 /**
  * Cloudflare Pages Function: /api/login
- * POST { email: string, password: string }
- * For owner/admin access without going through Stripe.
  *
- * Required Cloudflare Pages env vars:
- *   ADMIN_PASSWORD  — the owner password (set in CF Pages → Settings → Env vars)
- *   SECRET_TOKEN    — same secret used by verify.js for token signing
+ * Two auth paths:
  *
- * Returns same token format as /api/verify so the dashboard unlocks identically.
+ * 1. SUBSCRIBER — POST { email }
+ *    Looks up the email in Stripe. If there is an active subscription, issues a
+ *    fresh 30-day token (same format as /api/verify after checkout).
+ *    Required env vars: STRIPE_SECRET_KEY, SECRET_TOKEN
+ *
+ * 2. ADMIN — POST { email, password }
+ *    If the email + password match ADMIN_EMAIL + ADMIN_PASSWORD, issues a 365-day
+ *    admin token without touching Stripe.
+ *    Required env vars: ADMIN_EMAIL, ADMIN_PASSWORD, SECRET_TOKEN
  */
 
 export async function onRequestPost(context) {
@@ -20,50 +24,74 @@ export async function onRequestPost(context) {
   };
 
   try {
-    const body = await request.json();
-    const email    = (body?.email    || '').trim().toLowerCase();
-    const password = (body?.password || '').trim();
+    const body  = await request.json();
+    const email = (body?.email    || '').trim().toLowerCase();
+    const pass  = (body?.password || '').trim();
 
-    if (!email || !password) {
-      return new Response(JSON.stringify({ error: 'Email and password required' }), { status: 400, headers });
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return new Response(JSON.stringify({ error: 'A valid email address is required.' }), { status: 400, headers });
     }
 
-    // Basic email format check
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return new Response(JSON.stringify({ error: 'Invalid email' }), { status: 400, headers });
+    // ── Path 1: Admin bypass (email + password provided) ──────────────────────
+    const adminEmail = (env.ADMIN_EMAIL || '').trim().toLowerCase();
+    const adminPass  = (env.ADMIN_PASSWORD || '').trim();
+
+    if (pass && adminEmail && adminPass) {
+      const emailOk = await safeCompare(email, adminEmail);
+      const passOk  = await safeCompare(pass,  adminPass);
+      if (emailOk && passOk) {
+        const expires = Date.now() + 365 * 24 * 60 * 60 * 1000;
+        const token   = await issueToken(email, 'admin', expires, env.SECRET_TOKEN);
+        return new Response(JSON.stringify({ ok: true, token, email }), { status: 200, headers });
+      }
+      // Wrong admin credentials — fall through to Stripe check (don't reveal admin exists)
     }
 
-    const adminPassword = env.ADMIN_PASSWORD;
-    const adminEmail    = (env.ADMIN_EMAIL || '').trim().toLowerCase();
-    if (!adminPassword) {
-      return new Response(JSON.stringify({ error: 'Server misconfiguration' }), { status: 500, headers });
+    // ── Path 2: Subscriber — look up active subscription in Stripe ────────────
+    if (!env.STRIPE_SECRET_KEY) {
+      return new Response(JSON.stringify({ error: 'Server misconfiguration.' }), { status: 500, headers });
     }
 
-    // If ADMIN_EMAIL is set, enforce exact email match (constant-time)
-    if (adminEmail) {
-      const emailMatch = await safeCompare(email, adminEmail);
-      if (!emailMatch) {
-        return new Response(JSON.stringify({ error: 'Invalid credentials' }), { status: 401, headers });
+    // Search Stripe customers by email
+    const searchResp = await fetch(
+      `https://api.stripe.com/v1/customers?email=${encodeURIComponent(email)}&limit=5`,
+      { headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}` } }
+    );
+    if (!searchResp.ok) {
+      return new Response(JSON.stringify({ error: 'Unable to verify subscription. Please try again.' }), { status: 502, headers });
+    }
+    const searchData = await searchResp.json();
+    const customers  = (searchData.data || []);
+
+    // Walk each customer and look for at least one active subscription
+    let activeCustomerId = null;
+    for (const cust of customers) {
+      const subResp = await fetch(
+        `https://api.stripe.com/v1/subscriptions?customer=${cust.id}&status=active&limit=1`,
+        { headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}` } }
+      );
+      if (!subResp.ok) continue;
+      const subData = await subResp.json();
+      if (subData.data && subData.data.length > 0) {
+        activeCustomerId = cust.id;
+        break;
       }
     }
 
-    // Constant-time comparison to avoid timing attacks
-    const match = await safeCompare(password, adminPassword);
-    if (!match) {
-      // Generic message — don't reveal whether email or password was wrong
-      return new Response(JSON.stringify({ error: 'Invalid credentials' }), { status: 401, headers });
+    if (!activeCustomerId) {
+      return new Response(
+        JSON.stringify({ error: 'No active subscription found for that email. If you just subscribed, please wait a moment and try again.' }),
+        { status: 401, headers }
+      );
     }
 
-    // Issue a 365-day token for admin (same format as Stripe-issued tokens)
-    const expires = Date.now() + 365 * 24 * 60 * 60 * 1000;
-    const customerId = 'admin';
-    const payload = `${email}|${customerId}|${expires}`;
-    const sig = await hmacSign(payload, env.SECRET_TOKEN || 'dev-secret-change-me');
-    const token = btoa(JSON.stringify({ email, customerId, expires, sig }));
-
+    // Issue a fresh 30-day token (matches monthly billing cycle)
+    const expires = Date.now() + 30 * 24 * 60 * 60 * 1000;
+    const token   = await issueToken(email, activeCustomerId, expires, env.SECRET_TOKEN);
     return new Response(JSON.stringify({ ok: true, token, email }), { status: 200, headers });
+
   } catch (err) {
-    return new Response(JSON.stringify({ error: 'Internal error' }), { status: 500, headers });
+    return new Response(JSON.stringify({ error: 'Internal error.' }), { status: 500, headers });
   }
 }
 
@@ -76,6 +104,12 @@ export async function onRequestOptions() {
       'Access-Control-Allow-Headers': 'Content-Type',
     },
   });
+}
+
+async function issueToken(email, customerId, expires, secret) {
+  const payload = `${email}|${customerId}|${expires}`;
+  const sig     = await hmacSign(payload, secret || 'dev-secret-change-me');
+  return btoa(JSON.stringify({ email, customerId, expires, sig }));
 }
 
 async function safeCompare(a, b) {
