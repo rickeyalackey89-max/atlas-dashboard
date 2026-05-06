@@ -1292,6 +1292,10 @@
     var sortF = (document.getElementById('mktSortFilter')||{}).value || 'alpha';
 
     var legs = _mktLegs.slice();
+    // Drop legs with zero market signal (no DK and no FD odds in either direction)
+    legs = legs.filter(function(l){
+      return l.dk_over != null || l.dk_under != null || l.fd_over != null || l.fd_under != null;
+    });
     if(statF) legs = legs.filter(function(l){ return l.stat === statF; });
     if(dirF)  legs = legs.filter(function(l){ return (l.dir||'') === dirF; });
 
