@@ -500,7 +500,7 @@
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
           <select id="mktStatFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="">All Stats</option><option value="PTS">PTS</option><option value="REB">REB</option><option value="AST">AST</option><option value="FG3M">FG3M</option><option value="PRA">PRA</option><option value="PR">PR</option><option value="PA">PA</option></select>
           <select id="mktDirFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="">Both Dirs</option><option value="OVER">OVER</option><option value="UNDER">UNDER</option></select>
-          <select id="mktSortFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="edge">Sort: Edge</option><option value="atlas">Sort: Atlas %</option><option value="line">Sort: Line</option></select>
+          <select id="mktSortFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="alpha">Sort: A–Z</option><option value="edge">Sort: Edge</option><option value="atlas">Sort: Atlas %</option><option value="dk">Sort: DK Odds</option><option value="fd">Sort: FD Odds</option><option value="line">Sort: Line</option></select>
         </div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
           <div id="mktHeader" class="mkt-hdr">
@@ -1289,20 +1289,38 @@
   function renderMarketTab() {
     var statF = (document.getElementById('mktStatFilter')||{}).value || '';
     var dirF  = (document.getElementById('mktDirFilter') ||{}).value || '';
-    var sortF = (document.getElementById('mktSortFilter')||{}).value || 'edge';
+    var sortF = (document.getElementById('mktSortFilter')||{}).value || 'alpha';
 
     var legs = _mktLegs.slice();
     if(statF) legs = legs.filter(function(l){ return l.stat === statF; });
     if(dirF)  legs = legs.filter(function(l){ return (l.dir||'') === dirF; });
 
-    // Sort
+    // Helper: American odds numeric value for sorting (null = worst)
+    function _oddsVal(v){ return v != null ? v : -99999; }
+    // Alpha tiebreak (player A-Z, then stat, then dir)
+    function _alpha(a, b){
+      var pa = (a.player||'').toLowerCase(), pb = (b.player||'').toLowerCase();
+      if(pa < pb) return -1; if(pa > pb) return 1;
+      var sa = (a.stat||''), sb = (b.stat||'');
+      if(sa < sb) return -1; if(sa > sb) return 1;
+      return 0;
+    }
     legs.sort(function(a, b){
-      if(sortF === 'atlas') return (b.p_cal||0) - (a.p_cal||0);
-      if(sortF === 'line')  return (b.line||0) - (a.line||0);
-      // default: edge (Atlas - mkt implied)
+      if(sortF === 'alpha') return _alpha(a, b);
+      if(sortF === 'atlas'){ var d=(b.p_cal||0)-(a.p_cal||0); return d!==0?d:_alpha(a,b); }
+      if(sortF === 'line') { var d=(b.line||0)-(a.line||0);   return d!==0?d:_alpha(a,b); }
+      if(sortF === 'dk')   {
+        var dkA = a.dir==='OVER'?a.dk_over:a.dk_under, dkB = b.dir==='OVER'?b.dk_over:b.dk_under;
+        var d = _oddsVal(dkB) - _oddsVal(dkA); return d!==0?d:_alpha(a,b);
+      }
+      if(sortF === 'fd')   {
+        var fdA = a.dir==='OVER'?a.fd_over:a.fd_under, fdB = b.dir==='OVER'?b.fd_over:b.fd_under;
+        var d = _oddsVal(fdB) - _oddsVal(fdA); return d!==0?d:_alpha(a,b);
+      }
+      // edge (Atlas - mkt implied)
       var ea = (a.p_cal||0) - (_mktImp(a)||a.p_cal||0);
       var eb = (b.p_cal||0) - (_mktImp(b)||b.p_cal||0);
-      return eb - ea;
+      var d = eb - ea; return d!==0?d:_alpha(a,b);
     });
 
     var el = document.getElementById('mktList');
