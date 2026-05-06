@@ -1,8 +1,39 @@
 {
-  "report_date": "2026-05-04",
-  "report_label": "08:45AM",
-  "pulled_at_local": "2026-05-04T08:00:05-05:00",
-  "invalidated_players_count": 0,
-  "invalidated_players": [],
+  "report_date": "2026-05-05",
+  "report_label": "09:45PM",
+  "pulled_at_local": "2026-05-05T20:53:25-05:00",
+  "invalidated_players_count": 5,
+  "invalidated_players": [
+    {
+      "team": "DET",
+      "player": "Huerter, Kevin",
+      "status": "OUT",
+      "reason": ""
+    },
+    {
+      "team": "LAL",
+      "player": "Doncic, Luka",
+      "status": "OUT",
+      "reason": ""
+    },
+    {
+      "team": "MIN",
+      "player": "DiVincenzo, Donte",
+      "status": "OUT",
+      "reason": ""
+    },
+    {
+      "team": "OKC",
+      "player": "Sorber, Thomas",
+      "status": "OUT",
+      "reason": ""
+    },
+    {
+      "team": "OKC",
+      "player": "Williams, Jalen",
+      "status": "OUT",
+      "reason": ""
+    }
+  ],
   "policy": "Remove OUT/DOUBTFUL from eligibility. PROBABLE allowed but tagged."
 }
