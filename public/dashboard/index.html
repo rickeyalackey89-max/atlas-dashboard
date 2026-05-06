@@ -94,13 +94,11 @@
     .tier-standard{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:#60a5fa;border:1px solid rgba(96,165,250,.25);}
     .tier-demon{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:var(--gold);border:1px solid rgba(245,166,35,.25);}
     .prob-stat-inline{display:none;font-weight:700;color:var(--text);}
-    .prob-l10-inline{font-weight:700;}
     @media(max-width:760px){
       .prob-header,.prob-row{grid-template-columns:2fr 0.7fr 0.7fr 1fr;}
       .ev-row{grid-template-columns:2fr 0.7fr 0.7fr 1fr;}
       .prob-col-tier,.prob-col-stat,.ev-col-conf,.ev-col-stat{display:none;}
-      .prob-stat-inline{display:block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);margin-top:2px;}
-      .prob-l10-inline{display:none;}
+      .prob-stat-inline{display:inline;}
     }
     .prob-more-lock{padding:18px 0 4px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
     .prob-more-text{font-size:12px;color:var(--t2);}
@@ -706,10 +704,9 @@
       row.innerHTML=
         '<div><div class="prob-player">'+esc(leg.player||'&#8212;')+'</div>'+
           '<div class="prob-meta">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+
-            (l10txt?'<span class="prob-l10-inline" style="margin-left:6px;color:var(--gold);">'+l10txt+' L10</span>':'')+
-          '</div>'+
-          '<span class="prob-stat-inline">'+esc(leg.stat||'')+'</span>'+
-          '</div>'
+            '<span class="prob-stat-inline"> &middot; '+esc(leg.stat||'')+'</span>'+
+            (l10txt?'<span style="margin-left:6px;color:var(--gold);font-weight:700;">'+l10txt+' L10</span>':'')+
+          '</div></div>'+
         '<div class="prob-cell ev-col-stat" style="color:var(--t2);font-size:11px;text-transform:uppercase;letter-spacing:.07em;">'+esc(leg.stat||'&#8212;')+'</div>'+
         '<div class="prob-line">'+esc(String(leg.line||'&#8212;'))+'</div>'+
         '<div class="prob-cell"><span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span></div>'+
