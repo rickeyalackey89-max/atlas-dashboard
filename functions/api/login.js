@@ -4,8 +4,8 @@
  *
  * Two auth paths — both require email + password:
  *
- * 1. ADMIN — email+password match ADMIN_EMAIL+ADMIN_PASSWORD → 365-day token
- *    Required env vars: ADMIN_EMAIL, ADMIN_PASSWORD, SECRET_TOKEN
+ * 1. ADMIN — email+password match ADMIN_EMAIL+ADMIN_PASSWORD (or ADMIN_EMAIL2+ADMIN_PASSWORD2) → 365-day token
+ *    Required env vars: ADMIN_EMAIL, ADMIN_PASSWORD, SECRET_TOKEN (ADMIN_EMAIL2/ADMIN_PASSWORD2 optional second admin)
  *
  * 2. SUBSCRIBER — email+password verified against Stripe customer metadata
  *    - Looks up Stripe customer by email, confirms active subscription
@@ -39,12 +39,15 @@ export async function onRequestPost(context) {
     }
 
     // ── Path 1: Admin bypass ────────────────────────────────────────────────────
-    const adminEmail = (env.ADMIN_EMAIL || '').trim().toLowerCase();
-    const adminPass  = (env.ADMIN_PASSWORD || '').trim();
+    const adminCreds = [
+      { e: (env.ADMIN_EMAIL  || '').trim().toLowerCase(), p: (env.ADMIN_PASSWORD  || '').trim() },
+      { e: (env.ADMIN_EMAIL2 || '').trim().toLowerCase(), p: (env.ADMIN_PASSWORD2 || '').trim() },
+    ];
 
-    if (adminEmail && adminPass) {
-      const emailOk = await safeCompare(email, adminEmail);
-      const passOk  = await safeCompare(pass,  adminPass);
+    for (const cred of adminCreds) {
+      if (!cred.e || !cred.p) continue;
+      const emailOk = await safeCompare(email, cred.e);
+      const passOk  = await safeCompare(pass,  cred.p);
       if (emailOk && passOk) {
         const expires = Date.now() + 365 * 24 * 60 * 60 * 1000;
         const token   = await issueToken(email, 'admin', expires, env.SECRET_TOKEN);
