@@ -498,7 +498,7 @@
       <div class="card" style="margin-bottom:1px;">
         <div style="font-size:11px;color:var(--t2);margin-bottom:16px;line-height:1.6;">PrizePicks lines compared to live DraftKings &amp; FanDuel player prop odds. <strong style="color:var(--text);">Atlas</strong> is the model&#39;s calibrated probability. <strong style="color:var(--text);">Mkt Imp</strong> is the consensus market-implied probability (de-vigged). A positive edge means Atlas sees more probability than the market is pricing in. Underdog lines coming soon.</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
-          <select id="mktStatFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="">All Stats</option><option value="PTS">PTS</option><option value="REB">REB</option><option value="AST">AST</option><option value="FG3M">FG3M</option><option value="PRA">PRA</option><option value="PR">PR</option><option value="PA">PA</option></select>
+          <select id="mktStatFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="">All Stats</option><option value="PTS">PTS</option><option value="REB">REB</option><option value="AST">AST</option><option value="FG3M">FG3M</option><option value="PRA">PRA</option><option value="PR">PR</option><option value="PA">PA</option><option value="FTA">FTA</option></select>
           <select id="mktDirFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="">Both Dirs</option><option value="OVER">OVER</option><option value="UNDER">UNDER</option></select>
           <select id="mktSortFilter" onchange="renderMarketTab()" style="background:var(--s1);color:var(--text);border:1px solid var(--b);padding:5px 10px;font-size:11px;font-family:inherit;"><option value="alpha">Sort: A–Z</option><option value="edge">Sort: Edge</option><option value="atlas">Sort: Atlas %</option><option value="dk">Sort: DK Odds</option><option value="fd">Sort: FD Odds</option><option value="line">Sort: Line</option></select>
         </div>
@@ -1088,7 +1088,7 @@
     var reportDate    = injCtx.report_date || '';
     var reportLabel   = injCtx.report_label ? '  ' + injCtx.report_label : '';
 
-    var STAT_NAME = {PTS:'Points',REB:'Rebounds',AST:'Assists',FG3M:'3-Pointers',PRA:'Pts+Reb+Ast',PR:'Pts+Reb',PA:'Pts+Ast',RA:'Reb+Ast',STL:'Steals',BLK:'Blocks'};
+    var STAT_NAME = {PTS:'Points',REB:'Rebounds',AST:'Assists',FG3M:'3-Pointers',PRA:'Pts+Reb+Ast',PR:'Pts+Reb',PA:'Pts+Ast',RA:'Reb+Ast',STL:'Steals',BLK:'Blocks',FTA:'Free Throw Attempts'};
 
     // ── LEFT: Injury Report ──────────────────────────────────────────────────
     var repCol = document.getElementById('injuryReportCol');
@@ -1139,7 +1139,7 @@
           return avgB - avgA;
         });
 
-        var STAT_NAME = {PTS:'PTS',REB:'REB',AST:'AST',FG3M:'3PM',PRA:'PRA',PR:'P+R',PA:'P+A',RA:'R+A',STL:'STL',BLK:'BLK'};
+        var STAT_NAME = {PTS:'PTS',REB:'REB',AST:'AST',FG3M:'3PM',PRA:'PRA',PR:'P+R',PA:'P+A',RA:'R+A',STL:'STL',BLK:'BLK',FTA:'FTA'};
 
         players.forEach(function(pd) {
           var avgMult = pd.mults.reduce(function(s,v){return s+v;},0)/pd.mults.length;
