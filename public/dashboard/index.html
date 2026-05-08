@@ -895,6 +895,28 @@
     }
   }
 
+  // Per-leg-count summaries for Atlas Picks (Premium)
+  var SLIP_PREMIUM_DESC = {
+    3: {
+      tag: 'THE MONEY MAKER',
+      body: '1 anchor lock paired with 2 high-confidence market selections. This is our bread-and-butter slip — built to keep your bankroll moving with consistent, repeatable wins. Play it flat-unit every day.'
+    },
+    4: {
+      tag: 'BUILDER\'S SPECIAL',
+      body: '2 anchor legs combined with 2 market selections hand-picked by the builder. Our 4-leg Premium slip hits more often than any other selection we offer. When the model is locked in, this is where it shows.'
+    },
+    5: {
+      tag: 'POWER PLAY READY',
+      body: '2 anchors, 2 market selections, and 1 above-market edge leg — the full package. Perfect for a Power Play or Flex depending on your risk appetite. Higher ceiling, higher conviction across the board.'
+    }
+  };
+  // Family-level summaries for System / Windfall / Alt Hunter
+  var SLIP_FAMILY_DESC = {
+    system:      'Atlas\' core beam-search engine scores every possible leg combination for edge and probability, then assembles the highest-EV multi-leg slips of the day. No gut feel — pure model output.',
+    windfall:    'A hybrid optimizer that blends raw hit probability with edge to find slips where both confidence and market value align. When the model and the market disagree, Windfall is built to exploit it.',
+    demonhunter: 'All &#8593; Alt (DEMON) tier legs — the longest odds, highest multipliers on the board. These slips are for the high-conviction, high-reward player. Small stake, big ceiling.'
+  };
+
   function buildSlipsTab(data){
     var families=[
       {key:'system',    label:'System',      desc:'Beam-search optimized for edge',   color:'#4ade80', bc:'rgba(74,222,128,.35)'},
@@ -909,12 +931,34 @@
       anySlips=true;
       var mktDiv=document.createElement('div'); mktDiv.className='slip-family';
       var mktHead=document.createElement('div'); mktHead.className='slip-family-header';
-      mktHead.innerHTML='<span style="color:var(--gold);">&#9733; Atlas Picks</span>'+
-        '<span style="font-size:9px;color:var(--t2);font-weight:400;text-transform:none;letter-spacing:0;">Curated high-confidence slips</span>'+
+      mktHead.innerHTML='<span style="color:var(--gold);">&#9733; Premium Slips</span>'+
+        '<span style="font-size:9px;color:var(--t2);font-weight:400;text-transform:none;letter-spacing:0;">Atlas\' most decorated selection — curated for maximum win rate</span>'+
         '<span style="margin-left:auto;font-size:9px;font-weight:800;color:var(--t2);">'+mktSlips.length+' SLIPS</span>';
+      // Premium family intro card
+      var premIntro=document.createElement('div');
+      premIntro.style.cssText='padding:14px 18px;background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.2);border-top:none;margin-bottom:2px;font-size:11px;color:var(--t2);line-height:1.65;';
+      premIntro.innerHTML='<strong style="color:var(--gold);font-size:10px;letter-spacing:.1em;text-transform:uppercase;">Premium Slips</strong> are Atlas\' premier builder selection — our most decorated. Each slip is structured by leg count with a specific role for every pick. <span style="color:var(--text);">3-leg = bankroll builder. 4-leg = highest hit rate. 5-leg = max ceiling.</span>';
       mktDiv.appendChild(mktHead);
+      mktDiv.appendChild(premIntro);
+      var _lastMktN=-1;
       for(var ms=0;ms<mktSlips.length;ms++){
         var slip=mktSlips[ms],legs=slip.legs||[],nLegs=slip.n_legs||legs.length;
+        // Insert per-leg-count summary banner before first slip of each size
+        if(nLegs!==_lastMktN){
+          _lastMktN=nLegs;
+          var pd=SLIP_PREMIUM_DESC[nLegs]||{tag:'',body:''};
+          var nc0=nLegs===3?'#4ade80':nLegs===4?'#60a5fa':'var(--gold)';
+          var nb0=nLegs===3?'rgba(74,222,128,0.12)':nLegs===4?'rgba(96,165,250,0.12)':'rgba(245,166,35,0.12)';
+          var nb0b=nLegs===3?'rgba(74,222,128,0.3)':nLegs===4?'rgba(96,165,250,0.3)':'rgba(245,166,35,0.3)';
+          var legBanner=document.createElement('div');
+          legBanner.style.cssText='padding:12px 18px;background:'+nb0+';border-left:3px solid '+nc0+';margin-top:10px;margin-bottom:2px;';
+          legBanner.innerHTML='<div style="display:flex;align-items:center;gap:10px;margin-bottom:5px;">'+
+            '<span style="font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:'+nc0+';">'+nLegs+'-LEG PREMIUM</span>'+
+            (pd.tag?'<span style="font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);padding:2px 7px;border:1px solid '+nb0b+';">'+pd.tag+'</span>':'')+
+            '</div>'+
+            '<div style="font-size:11px;color:var(--t2);line-height:1.65;">'+pd.body+'</div>';
+          mktDiv.appendChild(legBanner);
+        }
         var hitPct=Math.round((slip.hit_prob||0)*100);
         // Use real PrizePicks Power Play face value by leg count — the stored payout_mult is a pp_kernel
         // tier modifier (base=1.0) not the face value, so it would give misleading EV.
@@ -958,10 +1002,17 @@
       anySlips=true;
       var famDiv=document.createElement('div'); famDiv.className='slip-family';
       var famHead=document.createElement('div'); famHead.className='slip-family-header';
+      var famDescFull=SLIP_FAMILY_DESC[fam.key]||fam.desc;
       famHead.innerHTML='<span style="color:var(--text);">'+fam.label+'</span>'+
         '<span style="font-size:9px;color:var(--t2);font-weight:400;text-transform:none;letter-spacing:0;">'+fam.desc+'</span>'+
         '<span style="margin-left:auto;font-size:9px;font-weight:800;color:var(--t2);">'+slips.length+' SLIPS</span>';
+      var famIntro=document.createElement('div');
+      var famBg=fam.key==='system'?'rgba(74,222,128,0.06)':fam.key==='windfall'?'rgba(96,165,250,0.06)':'rgba(245,166,35,0.06)';
+      var famBdr=fam.key==='system'?'rgba(74,222,128,0.25)':fam.key==='windfall'?'rgba(96,165,250,0.25)':'rgba(245,166,35,0.25)';
+      famIntro.style.cssText='padding:12px 18px;background:'+famBg+';border:1px solid '+famBdr+';border-top:none;margin-bottom:2px;font-size:11px;color:var(--t2);line-height:1.65;';
+      famIntro.innerHTML=famDescFull;
       famDiv.appendChild(famHead);
+      famDiv.appendChild(famIntro);
       for(var s=0;s<slips.length;s++){
         var slip=slips[s],legs=slip.legs_detail||[],nLegs=slip.n_legs||legs.length;
         var hitPct=Math.round((slip.hit_prob||0)*100);
