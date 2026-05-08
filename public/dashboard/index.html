@@ -1214,21 +1214,46 @@
 
     // ── Yesterday's Slip Record ──────────────────────────────────────────────
     html += '<div style="margin-bottom:32px;">';
-    html += '<div style="font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:14px;">Yesterday\'s Marketed Slips</div>';
+    html += '<div style="font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:14px;">Yesterday\'s Slip Results</div>';
     if (ys && ys.total > 0) {
       var ysColor = ys.pct >= 0.50 ? 'var(--green)' : ys.pct >= 0.33 ? 'var(--gold)' : 'var(--red)';
-      var ysDate = ys.date ? ' — ' + ys.date : '';
-      html += '<div style="display:flex;align-items:flex-end;gap:32px;padding:24px;background:rgba(255,255,255,0.04);border:1px solid var(--b);max-width:480px;">';
+      var ysDate = ys.date ? ys.date : '';
+      // Aggregate totals row
+      html += '<div style="padding:20px 24px 16px 24px;background:rgba(255,255,255,0.04);border:1px solid var(--b);max-width:520px;margin-bottom:14px;">';
+      html += '<div style="display:flex;align-items:flex-end;gap:32px;">';
       html += '<div>';
-      html += '<div style="font-size:52px;font-weight:900;letter-spacing:-.04em;line-height:1;color:'+ysColor+';">' + ys.wins + '<span style="color:var(--t3);font-size:32px;">/'+ ys.total +'</span></div>';
-      html += '<div style="font-size:11px;font-weight:700;margin-top:6px;color:var(--text);">SLIPS HIT' + ysDate + '</div>';
+      html += '<div style="font-size:48px;font-weight:900;letter-spacing:-.04em;line-height:1;color:'+ysColor+';">' + ys.wins + '<span style="color:var(--t3);font-size:28px;">/'+ ys.total +'</span></div>';
+      html += '<div style="font-size:10px;font-weight:700;margin-top:6px;color:var(--text);letter-spacing:.08em;">SLIPS HIT — ' + ysDate + '</div>';
       html += '</div>';
       html += '<div style="flex:1;">';
-      html += '<div style="font-size:28px;font-weight:900;color:'+ysColor+';">' + pctStr(ys.pct) + '</div>';
+      html += '<div style="font-size:26px;font-weight:900;color:'+ysColor+';">' + pctStr(ys.pct) + '</div>';
       html += '<div style="font-size:10px;color:var(--t2);margin-top:2px;">Win Rate</div>';
       html += barHtml(ys.pct, ysColor);
       html += '</div>';
       html += '</div>';
+      html += '</div>';
+      // Per-family breakdown
+      var families = [
+        {key:'market',  label:'Market',   color:'var(--gold)'},
+        {key:'system',  label:'System',   color:'var(--cyan)'},
+        {key:'windfall',label:'Windfall', color:'var(--green)'},
+      ];
+      html += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;max-width:520px;">';
+      families.forEach(function(fam) {
+        var fd = ys[fam.key] || {};
+        var fw = fd.wins != null ? fd.wins : '—';
+        var ft = fd.total != null ? fd.total : '—';
+        var fp = fd.pct != null ? pctStr(fd.pct) : '—';
+        var fc = fd.pct != null ? (fd.pct >= 0.50 ? 'var(--green)' : fd.pct >= 0.33 ? 'var(--gold)' : 'var(--red)') : 'var(--t2)';
+        html += '<div style="padding:14px 16px;background:rgba(255,255,255,0.03);border:1px solid var(--b);">';
+        html += '<div style="font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:'+fam.color+';margin-bottom:8px;">'+fam.label+'</div>';
+        html += '<div style="font-size:22px;font-weight:900;color:'+fc+';">'+fw+'<span style="color:var(--t3);font-size:14px;">/'+ft+'</span></div>';
+        html += '<div style="font-size:11px;color:var(--t2);margin-top:3px;">'+fp+' win rate</div>';
+        if (fd.pct != null) { html += barHtml(fd.pct, fc); }
+        html += '</div>';
+      });
+      html += '</div>';
+      html += '<div style="font-size:10px;color:var(--t2);margin-top:8px;">Last run only · Voided slips (DNP leg) excluded from totals</div>';
     } else {
       html += '<div style="padding:18px;background:rgba(255,255,255,0.04);border:1px solid var(--b);max-width:480px;font-size:12px;color:var(--t2);">Slip results available after 6am — check back after today\'s eval runs.</div>';
     }

@@ -84,10 +84,11 @@ if (-not (Test-Path -LiteralPath $SrcPayload)) {
   throw "Missing canonical payload from Atlas: $SrcPayload"
 }
 
-Copy-Item -LiteralPath $SrcPayload -Destination $DstPayload -Force
+$StagePayload = Join-Path $StageDir (Split-Path -Leaf $SrcPayload)
+Copy-Item -LiteralPath $SrcPayload -Destination $StagePayload -Force
 
 # Validate payload shape
-$payload = Read-JsonFile $DstPayload
+$payload = Read-JsonFile $StagePayload
 if ($null -eq $payload) { throw "Payload is unreadable JSON: $DstPayload" }
 
 # Must contain these keys (arrays allowed empty)

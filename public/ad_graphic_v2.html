@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Atlas Sports AI — Ad Graphic v2</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Bebas+Neue&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* ── CARD ── */
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 80px 72px;
+    /* Rich multi-stop background */
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%,   rgba(6,182,212,0.13) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, rgba(245,158,11,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 0% 100%,   rgba(6,182,212,0.06) 0%, transparent 50%),
+      #07090f;
+  }
+
+  /* ── WATERMARK LOGO (exact site treatment, scaled up for impact) ── */
+  .wm-logo {
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 640px;
+    height: 640px;
+    object-fit: contain;
+    opacity: 0.055;
+    filter: invert(1);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── SUBTLE SCAN LINES ── */
+  .scanlines {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0,0,0,0.08) 3px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── CORNER BRACKETS ── */
+  .bracket {
+    position: absolute;
+    width: 52px; height: 52px;
+    pointer-events: none; z-index: 2;
+  }
+  .bracket.tl { top: 26px; left: 26px; border-top: 2.5px solid rgba(6,182,212,0.7); border-left: 2.5px solid rgba(6,182,212,0.7); }
+  .bracket.tr { top: 26px; right: 26px; border-top: 2.5px solid rgba(6,182,212,0.7); border-right: 2.5px solid rgba(6,182,212,0.7); }
+  .bracket.bl { bottom: 26px; left: 26px; border-bottom: 2.5px solid rgba(245,158,11,0.7); border-left: 2.5px solid rgba(245,158,11,0.7); }
+  .bracket.br { bottom: 26px; right: 26px; border-bottom: 2.5px solid rgba(245,158,11,0.7); border-right: 2.5px solid rgba(245,158,11,0.7); }
+
+  /* ── TOP LOGO LOCKUP ── */
+  .logo-lockup {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+    position: relative; z-index: 1;
+  }
+  .logo-img {
+    width: 40px; height: 40px;
+    object-fit: contain;
+    filter: invert(1) drop-shadow(0 0 12px rgba(245,166,35,0.7));
+  }
+  .logo-wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .logo-wordmark .word-atlas {
+    font-family: 'Bebas Neue', 'Inter', sans-serif;
+    font-size: 22px;
+    letter-spacing: .24em;
+    color: #fff;
+    line-height: 1;
+  }
+  .logo-wordmark .word-sports {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.38);
+    line-height: 1;
+    margin-top: 2px;
+  }
+  .logo-sep {
+    width: 1px; height: 32px;
+    background: rgba(255,255,255,0.12);
+  }
+  .logo-tagline {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(6,182,212,0.7);
+  }
+
+  /* ── HERO SECTION ── */
+  .hero {
+    text-align: center;
+    position: relative; z-index: 1;
+    margin-bottom: 6px;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.32);
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', 'Inter', sans-serif;
+    font-size: 92px;
+    line-height: .88;
+    letter-spacing: .03em;
+    /* gold-to-white gradient this time */
+    background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 25%, #f59e0b 55%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 40px rgba(245,158,11,0.35));
+  }
+  .hero-sub {
+    font-family: 'Bebas Neue', 'Inter', sans-serif;
+    font-size: 44px;
+    letter-spacing: .14em;
+    color: #06b6d4;
+    text-shadow: 0 0 32px rgba(6,182,212,0.6);
+    line-height: 1;
+    margin-top: 4px;
+  }
+  .hero-desc {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: .01em;
+    margin-top: 14px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.55;
+  }
+  .hero-desc em {
+    color: rgba(255,255,255,0.8);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    position: relative; z-index: 1;
+    margin: 26px 0;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(245,158,11,0.5) 20%,
+      rgba(6,182,212,0.5) 50%,
+      rgba(245,158,11,0.5) 80%,
+      transparent 100%
+    );
+  }
+
+  /* ── FEATURES — HORIZONTAL PILL LIST ── */
+  .feat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    position: relative; z-index: 1;
+    margin-bottom: 32px;
+  }
+  .feat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .feat-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 14px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .feat-pill::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    border-radius: 12px 0 0 12px;
+  }
+  .feat-pill.c::after { background: #06b6d4; box-shadow: 0 0 12px rgba(6,182,212,0.8); }
+  .feat-pill.g::after { background: #f59e0b; box-shadow: 0 0 12px rgba(245,158,11,0.8); }
+  .feat-pill.w::after { background: rgba(255,255,255,0.5); }
+
+  .feat-pill-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .feat-pill-text {}
+  .feat-pill-name {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .feat-pill-name.c { color: #06b6d4; }
+  .feat-pill-name.g { color: #f59e0b; }
+  .feat-pill-desc {
+    font-size: 10.5px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.4;
+    margin-top: 2px;
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: 100%;
+    position: relative; z-index: 1;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 20px 0;
+    margin-bottom: 28px;
+  }
+  .stat-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+  .stat-item + .stat-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    height: 36px;
+    width: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .stat-val {
+    font-family: 'Bebas Neue', 'Inter', sans-serif;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: .04em;
+  }
+  .stat-val.c { color: #06b6d4; text-shadow: 0 0 24px rgba(6,182,212,0.5); }
+  .stat-val.g { color: #f59e0b; text-shadow: 0 0 24px rgba(245,158,11,0.5); }
+  .stat-val.w { color: #fff; }
+  .stat-lbl {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-top: 4px;
+  }
+
+  /* ── CTA ROW ── */
+  .cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative; z-index: 1;
+  }
+  .cta-btn {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: #000;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 100px;
+    padding: 15px 40px;
+    cursor: pointer;
+    box-shadow: 0 0 40px rgba(6,182,212,0.45), 0 4px 20px rgba(6,182,212,0.25);
+  }
+  .cta-sep { width: 1px; height: 28px; background: rgba(255,255,255,0.1); }
+  .cta-side { text-align: center; }
+  .cta-side-top {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .cta-side-url {
+    font-size: 15px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: .03em;
+    margin-top: 2px;
+  }
+
+  /* ── BOTTOM EDGE ── */
+  .bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f59e0b 0%, #d97706 30%, #06b6d4 70%, #0891b2 100%);
+  }
+  .top-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(6,182,212,0.6) 50%, transparent 100%);
+  }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <!-- TEXTURE -->
+  <div class="scanlines"></div>
+
+  <!-- WATERMARK LOGO — exact site treatment scaled up -->
+  <img class="wm-logo" src="atlas_logo_transparent.png" alt="" aria-hidden="true" id="wmLogo" crossorigin="anonymous">
+
+  <!-- CORNER BRACKETS -->
+  <div class="bracket tl"></div>
+  <div class="bracket tr"></div>
+  <div class="bracket bl"></div>
+  <div class="bracket br"></div>
+  <div class="top-bar"></div>
+
+  <!-- LOGO LOCKUP -->
+  <div class="logo-lockup">
+    <img class="logo-img" src="atlas_logo_transparent.png" alt="Atlas" id="logoImg" crossorigin="anonymous">
+    <div class="logo-wordmark">
+      <div class="word-atlas">ATLAS</div>
+      <div class="word-sports">Sports AI</div>
+    </div>
+    <div class="logo-sep"></div>
+    <div class="logo-tagline">NBA Prop Intelligence</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Stop guessing. Start winning.</div>
+    <div class="hero-title">PREMIUM</div>
+    <div class="hero-sub">Parlay Intelligence</div>
+    <div class="hero-desc">
+      <em>Monte Carlo simulation + ML calibration</em> — 33 features engineered to find the edge PrizePicks hasn't priced in.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FEATURE PILLS -->
+  <div class="feat-list">
+    <div class="feat-row">
+      <div class="feat-pill c">
+        <div class="feat-pill-icon">🎯</div>
+        <div class="feat-pill-text">
+          <div class="feat-pill-name c">AI-Built Daily Slips</div>
+          <div class="feat-pill-desc">3–5 leg optimized parlays, every day, automatically</div>
+        </div>
+      </div>
+      <div class="feat-pill g">
+        <div class="feat-pill-icon">⚡</div>
+        <div class="feat-pill-text">
+          <div class="feat-pill-name g">Parlay Builder</div>
+          <div class="feat-pill-desc">Beam-search portfolio construction with diversity scoring</div>
+        </div>
+      </div>
+      <div class="feat-pill w">
+        <div class="feat-pill-icon">📊</div>
+        <div class="feat-pill-text">
+          <div class="feat-pill-name">Beyond the Metrics</div>
+          <div class="feat-pill-desc">Role context, blowout risk, pace, injury impact baked in</div>
+        </div>
+      </div>
+    </div>
+    <div class="feat-row">
+      <div class="feat-pill g">
+        <div class="feat-pill-icon">📈</div>
+        <div class="feat-pill-text">
+          <div class="feat-pill-name g">Market Analysis</div>
+          <div class="feat-pill-desc">Find legs where Atlas probability beats the market price</div>
+        </div>
+      </div>
+      <div class="feat-pill c">
+        <div class="feat-pill-icon">🔬</div>
+        <div class="feat-pill-text">
+          <div class="feat-pill-name c">Full Pick Evaluations</div>
+          <div class="feat-pill-desc">Calibrated hit probability + edge rating on every leg</div>
+        </div>
+      </div>
+      <div class="feat-pill w">
+        <div class="feat-pill-icon">🏆</div>
+        <div class="feat-pill-text">
+          <div class="feat-pill-name">Premium Dashboard</div>
+          <div class="feat-pill-desc">Live injury alerts, role boosts, slip win-rate tracking</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS ROW -->
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-val g">11</div>
+      <div class="stat-lbl">Daily Slips</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val c">40%</div>
+      <div class="stat-lbl">Slip Hit Rate</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val w">10K</div>
+      <div class="stat-lbl">Simulations / Leg</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val g">33</div>
+      <div class="stat-lbl">Model Features</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-row">
+    <button class="cta-btn">Go Premium — $19.99/mo</button>
+    <div class="cta-sep"></div>
+    <div class="cta-side">
+      <div class="cta-side-top">Visit us at</div>
+      <div class="cta-side-url">atlassportsai.com</div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+</div>
+
+<!-- DOWNLOAD TOOLBAR -->
+<div id="toolbar" style="
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+  display:flex; gap:12px; z-index:999;
+  background:rgba(0,0,0,0.75); border:1px solid rgba(255,255,255,0.12);
+  border-radius:100px; padding:10px 20px; backdrop-filter:blur(12px);
+">
+  <button onclick="downloadPNG()" style="
+    background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000;
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:800;
+    letter-spacing:.1em; text-transform:uppercase; border:none;
+    border-radius:100px; padding:11px 28px; cursor:pointer;
+    box-shadow:0 0 24px rgba(6,182,212,0.4);
+  ">⬇ Download PNG</button>
+  <button onclick="downloadPDF()" style="
+    background:linear-gradient(135deg,#f59e0b,#d97706); color:#000;
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:800;
+    letter-spacing:.1em; text-transform:uppercase; border:none;
+    border-radius:100px; padding:11px 28px; cursor:pointer;
+    box-shadow:0 0 24px rgba(245,158,11,0.4);
+  ">⬇ Download PDF</button>
+</div>
+
+<script>
+  // Preload images so html2canvas captures them
+  window.addEventListener('load', function() {
+    var imgs = document.querySelectorAll('img[crossorigin]');
+    imgs.forEach(function(img) {
+      var src = img.src;
+      img.src = '';
+      img.src = src;
+    });
+  });
+
+  async function captureCard() {
+    const card = document.getElementById('card');
+    return await html2canvas(card, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#07090f',
+      width: 1080,
+      height: 1080,
+      logging: false
+    });
+  }
+
+  async function downloadPNG() {
+    const btn = event.target;
+    btn.textContent = 'Rendering…';
+    btn.disabled = true;
+    try {
+      const canvas = await captureCard();
+      const link = document.createElement('a');
+      link.download = 'atlas_sports_ai_ad_v2.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } finally {
+      btn.textContent = '⬇ Download PNG';
+      btn.disabled = false;
+    }
+  }
+
+  async function downloadPDF() {
+    const btn = event.target;
+    btn.textContent = 'Rendering…';
+    btn.disabled = true;
+    try {
+      const canvas = await captureCard();
+      const imgData = canvas.toDataURL('image/png');
+      const { jsPDF } = window.jspdf;
+      const size = 285.75;
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [size, size] });
+      pdf.addImage(imgData, 'PNG', 0, 0, size, size);
+      pdf.save('atlas_sports_ai_ad_v2.pdf');
+    } finally {
+      btn.textContent = '⬇ Download PDF';
+      btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>

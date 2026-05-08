@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Atlas Sports AI — Ad Graphic</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Bebas+Neue&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* ── CARD ── */
+  .card {
+    width: 1080px;
+    height: 1080px;
+    background: #050508;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 72px;
+  }
+
+  /* ── BACKGROUND GLOW BLOBS ── */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -160px; left: -160px;
+    width: 560px; height: 560px;
+    background: radial-gradient(circle, rgba(6,182,212,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; right: -120px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(245,158,11,0.14) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .mid-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 300px;
+    background: radial-gradient(ellipse, rgba(6,182,212,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── GRID LINES (subtle) ── */
+  .grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(6,182,212,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6,182,212,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* ── CORNER BRACKETS ── */
+  .bracket {
+    position: absolute;
+    width: 48px; height: 48px;
+    pointer-events: none;
+  }
+  .bracket.tl { top: 24px; left: 24px; border-top: 2px solid #06b6d4; border-left: 2px solid #06b6d4; }
+  .bracket.tr { top: 24px; right: 24px; border-top: 2px solid #06b6d4; border-right: 2px solid #06b6d4; }
+  .bracket.bl { bottom: 24px; left: 24px; border-bottom: 2px solid #f59e0b; border-left: 2px solid #f59e0b; }
+  .bracket.br { bottom: 24px; right: 24px; border-bottom: 2px solid #f59e0b; border-right: 2px solid #f59e0b; }
+
+  /* ── TOP BADGE ── */
+  .top-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(6,182,212,0.1);
+    border: 1px solid rgba(6,182,212,0.35);
+    border-radius: 100px;
+    padding: 7px 22px;
+    margin-bottom: 28px;
+    position: relative; z-index: 1;
+  }
+  .top-badge .dot {
+    width: 8px; height: 8px;
+    background: #06b6d4;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #06b6d4, 0 0 20px #06b6d4;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:.5; transform:scale(1.4); }
+  }
+  .top-badge span {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #06b6d4;
+  }
+
+  /* ── HEADLINE ── */
+  .headline-wrap {
+    text-align: center;
+    position: relative; z-index: 1;
+    margin-bottom: 10px;
+  }
+  .headline-kicker {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.38);
+    margin-bottom: 6px;
+  }
+  .headline-main {
+    font-family: 'Bebas Neue', 'Inter', sans-serif;
+    font-size: 106px;
+    line-height: .9;
+    letter-spacing: .02em;
+    background: linear-gradient(135deg, #fff 0%, #e0f7fa 40%, #06b6d4 75%, #0891b2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .headline-sub {
+    font-family: 'Bebas Neue', 'Inter', sans-serif;
+    font-size: 56px;
+    letter-spacing: .08em;
+    color: #f59e0b;
+    line-height: 1;
+    margin-top: 2px;
+    text-shadow: 0 0 40px rgba(245,158,11,0.5);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(6,182,212,0.4), rgba(245,158,11,0.4), transparent);
+    margin: 28px 0;
+    position: relative; z-index: 1;
+  }
+
+  /* ── TAGLINE ── */
+  .tagline {
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.58);
+    text-align: center;
+    letter-spacing: .01em;
+    margin-bottom: 36px;
+    position: relative; z-index: 1;
+    max-width: 680px;
+    line-height: 1.6;
+  }
+  .tagline strong {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* ── FEATURES GRID ── */
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    width: 100%;
+    position: relative; z-index: 1;
+    margin-bottom: 36px;
+  }
+  .feat {
+    background: rgba(255,255,255,0.032);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .feat::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    border-radius: 14px 14px 0 0;
+  }
+  .feat.cyan::before  { background: linear-gradient(90deg, #06b6d4, transparent); }
+  .feat.gold::before  { background: linear-gradient(90deg, #f59e0b, transparent); }
+  .feat.white::before { background: linear-gradient(90deg, rgba(255,255,255,0.5), transparent); }
+
+  .feat-icon {
+    font-size: 26px;
+    line-height: 1;
+  }
+  .feat-title {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .feat-title.cyan { color: #06b6d4; }
+  .feat-title.gold { color: #f59e0b; }
+  .feat-desc {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.48);
+    line-height: 1.5;
+  }
+
+  /* ── BOTTOM CTA ── */
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative; z-index: 1;
+  }
+  .cta-btn {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #000;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 100px;
+    padding: 16px 44px;
+    cursor: pointer;
+    box-shadow: 0 0 40px rgba(245,158,11,0.45), 0 4px 24px rgba(245,158,11,0.3);
+  }
+  .cta-divider {
+    width: 1px; height: 32px;
+    background: rgba(255,255,255,0.12);
+  }
+  .cta-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+  .cta-url {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    color: rgba(255,255,255,0.65);
+  }
+
+  /* ── BOTTOM BAR ── */
+  .bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #06b6d4 0%, #0e7490 30%, #f59e0b 70%, #d97706 100%);
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <!-- BG -->
+  <div class="grid-lines"></div>
+  <div class="mid-glow"></div>
+  <div class="bracket tl"></div>
+  <div class="bracket tr"></div>
+  <div class="bracket bl"></div>
+  <div class="bracket br"></div>
+
+  <!-- BADGE -->
+  <div class="top-badge">
+    <div class="dot"></div>
+    <span>AI-Powered Daily Parlays &nbsp;·&nbsp; NBA Props</span>
+  </div>
+
+  <!-- HEADLINE -->
+  <div class="headline-wrap">
+    <div class="headline-kicker">Stop guessing. Start winning.</div>
+    <div class="headline-main">ATLAS</div>
+    <div class="headline-sub">Sports AI</div>
+  </div>
+
+  <!-- TAGLINE -->
+  <div class="tagline">
+    <strong>Monte Carlo simulation + machine learning calibration</strong> — engineered to find the edge the market misses.
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="feat cyan">
+      <div class="feat-icon">🎯</div>
+      <div class="feat-title cyan">AI-Built Daily Slips</div>
+      <div class="feat-desc">Every day Atlas outputs optimized 3–5 leg slips. No guesswork — pure quantitative selection.</div>
+    </div>
+    <div class="feat gold">
+      <div class="feat-icon">⚡</div>
+      <div class="feat-title gold">Parlay Builder</div>
+      <div class="feat-desc">Beam-search portfolio construction. Diversified legs, penalized overlap, maximum edge per slip.</div>
+    </div>
+    <div class="feat white">
+      <div class="feat-icon">📊</div>
+      <div class="feat-title">Beyond the Metrics</div>
+      <div class="feat-desc">Role context, blowout risk, injury impact, pace — 33 features your sportsbook doesn't price in.</div>
+    </div>
+    <div class="feat gold">
+      <div class="feat-icon">📈</div>
+      <div class="feat-title gold">Market Analysis</div>
+      <div class="feat-desc">Compare Atlas probability to PrizePicks pricing. Surface legs where the market is wrong.</div>
+    </div>
+    <div class="feat cyan">
+      <div class="feat-icon">🔬</div>
+      <div class="feat-title cyan">Full Pick Evaluations</div>
+      <div class="feat-desc">Every leg scored with calibrated hit probability, edge rating, and tier classification.</div>
+    </div>
+    <div class="feat white">
+      <div class="feat-icon">🏆</div>
+      <div class="feat-title">Premium Dashboard</div>
+      <div class="feat-desc">Live injury report, role-boost alerts, slip win-rate tracking, and full prop breakdown — all in one place.</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-row">
+    <button class="cta-btn">Go Premium — $19.99/mo</button>
+    <div class="cta-divider"></div>
+    <div>
+      <div class="cta-label">Find us at</div>
+      <div class="cta-url">atlassportsai.com</div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+</div>
+
+<!-- DOWNLOAD TOOLBAR (outside card, not captured) -->
+<div id="toolbar" style="
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+  display:flex; gap:12px; z-index:999;
+  background:rgba(0,0,0,0.75); border:1px solid rgba(255,255,255,0.12);
+  border-radius:100px; padding:10px 20px; backdrop-filter:blur(12px);
+">
+  <button onclick="downloadPNG()" style="
+    background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000;
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:800;
+    letter-spacing:.1em; text-transform:uppercase; border:none;
+    border-radius:100px; padding:11px 28px; cursor:pointer;
+    box-shadow:0 0 24px rgba(6,182,212,0.4);
+  ">⬇ Download PNG</button>
+  <button onclick="downloadPDF()" style="
+    background:linear-gradient(135deg,#f59e0b,#d97706); color:#000;
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:800;
+    letter-spacing:.1em; text-transform:uppercase; border:none;
+    border-radius:100px; padding:11px 28px; cursor:pointer;
+    box-shadow:0 0 24px rgba(245,158,11,0.4);
+  ">⬇ Download PDF</button>
+</div>
+
+<script>
+  async function captureCard() {
+    const card = document.querySelector('.card');
+    return await html2canvas(card, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#050508',
+      width: 1080,
+      height: 1080,
+      logging: false
+    });
+  }
+
+  async function downloadPNG() {
+    const btn = event.target;
+    btn.textContent = 'Rendering…';
+    btn.disabled = true;
+    try {
+      const canvas = await captureCard();
+      const link = document.createElement('a');
+      link.download = 'atlas_sports_ai_ad.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } finally {
+      btn.textContent = '⬇ Download PNG';
+      btn.disabled = false;
+    }
+  }
+
+  async function downloadPDF() {
+    const btn = event.target;
+    btn.textContent = 'Rendering…';
+    btn.disabled = true;
+    try {
+      const canvas = await captureCard();
+      const imgData = canvas.toDataURL('image/png');
+      const { jsPDF } = window.jspdf;
+      // 1080x1080 px @ 96dpi = ~285.75mm square
+      const size = 285.75;
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [size, size] });
+      pdf.addImage(imgData, 'PNG', 0, 0, size, size);
+      pdf.save('atlas_sports_ai_ad.pdf');
+    } finally {
+      btn.textContent = '⬇ Download PDF';
+      btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
