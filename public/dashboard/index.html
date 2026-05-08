@@ -114,7 +114,10 @@
     .edu-title{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:8px;}
     .edu-body{font-size:13px;color:var(--t2);line-height:1.7;}
     .slip-family{margin-bottom:28px;}
-    .slip-family-header{font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--t2);padding:14px 0 12px;border-bottom:1px solid var(--b);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .slip-family-header{padding:22px 0 16px;border-bottom:1px solid var(--b);text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .slip-family-header .sfh-title{font-size:13px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--text);}
+    .slip-family-header .sfh-count{font-size:9px;font-weight:800;letter-spacing:.12em;color:var(--t2);text-transform:uppercase;}
+    .slip-family-header .sfh-desc{font-size:11px;font-weight:400;color:var(--t2);line-height:1.6;max-width:560px;text-transform:none;letter-spacing:0;}
     .slip-card{background:var(--s2);padding:20px;margin-bottom:1px;}
     .slip-card:last-child{margin-bottom:0;}
     .slip-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0;gap:12px;flex-wrap:wrap;}
@@ -931,9 +934,9 @@
       anySlips=true;
       var mktDiv=document.createElement('div'); mktDiv.className='slip-family';
       var mktHead=document.createElement('div'); mktHead.className='slip-family-header';
-      mktHead.innerHTML='<span style="color:var(--gold);">&#9733; Premium Slips</span>'+
-        '<span style="font-size:11px;color:var(--t2);font-weight:400;text-transform:none;letter-spacing:0;line-height:1.6;">Atlas\' most decorated selection — structured for consistency, upside, and daily winners.</span>'+
-        '<span style="margin-left:auto;font-size:9px;font-weight:800;color:var(--t2);">'+mktSlips.length+' SLIPS</span>';
+      mktHead.innerHTML='<span class="sfh-title" style="color:var(--gold);">&#9733; Premium Slips</span>'+
+        '<span class="sfh-desc">Atlas\' most decorated selection — structured for consistency, upside, and daily winners.</span>'+
+        '<span class="sfh-count">'+mktSlips.length+' Slips</span>';
       mktDiv.appendChild(mktHead);
       var _lastMktN=-1;
       for(var ms=0;ms<mktSlips.length;ms++){
@@ -943,10 +946,9 @@
           _lastMktN=nLegs;
           var pd=SLIP_PREMIUM_DESC[nLegs]||{tag:'',body:''};
           var legLabel=document.createElement('div');
-          legLabel.style.cssText='padding:14px 0 6px;border-top:'+(ms===0?'none':'1px solid var(--b)')+';margin-top:'+(ms===0?'0':'8px')+';';
-          legLabel.innerHTML='<span style="font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--text);">'+nLegs+'-Leg</span>'+
-            (pd.tag?' <span style="font-size:9px;font-weight:700;color:var(--t2);letter-spacing:.06em;text-transform:uppercase;">— '+pd.tag+'</span>':'')+
-            '<div style="font-size:11px;color:var(--t2);line-height:1.6;margin-top:4px;">'+pd.body+'</div>';
+          legLabel.style.cssText='padding:18px 0 10px;border-top:'+(ms===0?'none':'1px solid var(--b)')+';margin-top:'+(ms===0?'0':'10px')+';text-align:center;';
+          legLabel.innerHTML='<div style="font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--text);">'+nLegs+'-Leg'+(pd.tag?' <span style="color:var(--t2);font-weight:700;">— '+pd.tag+'</span>':'')+' </div>'+
+            '<div style="font-size:11px;color:var(--t2);line-height:1.6;margin-top:5px;max-width:560px;margin-left:auto;margin-right:auto;">'+pd.body+'</div>';
           mktDiv.appendChild(legLabel);
         }
         var hitPct=Math.round((slip.hit_prob||0)*100);
@@ -993,9 +995,9 @@
       var famDiv=document.createElement('div'); famDiv.className='slip-family';
       var famHead=document.createElement('div'); famHead.className='slip-family-header';
       var famDescFull=SLIP_FAMILY_DESC[fam.key]||fam.desc;
-      famHead.innerHTML='<span style="color:var(--text);">'+fam.label+'</span>'+
-        '<span style="font-size:11px;color:var(--t2);font-weight:400;text-transform:none;letter-spacing:0;line-height:1.6;">'+famDescFull+'</span>'+
-        '<span style="margin-left:auto;font-size:9px;font-weight:800;color:var(--t2);">'+slips.length+' SLIPS</span>';
+      famHead.innerHTML='<span class="sfh-title" style="color:'+fam.color+';">'+fam.label+'</span>'+
+        '<span class="sfh-desc">'+famDescFull+'</span>'+
+        '<span class="sfh-count">'+slips.length+' Slips</span>';
       famDiv.appendChild(famHead);
       for(var s=0;s<slips.length;s++){
         var slip=slips[s],legs=slip.legs_detail||[],nLegs=slip.n_legs||legs.length;
