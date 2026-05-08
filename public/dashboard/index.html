@@ -114,10 +114,10 @@
     .edu-title{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:8px;}
     .edu-body{font-size:13px;color:var(--t2);line-height:1.7;}
     .slip-family{margin-bottom:28px;}
-    .slip-family-header{padding:22px 0 16px;border-bottom:1px solid var(--b);text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;}
-    .slip-family-header .sfh-title{font-size:13px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--text);}
-    .slip-family-header .sfh-count{font-size:9px;font-weight:800;letter-spacing:.12em;color:var(--t2);text-transform:uppercase;}
-    .slip-family-header .sfh-desc{font-size:11px;font-weight:400;color:var(--t2);line-height:1.6;max-width:560px;text-transform:none;letter-spacing:0;}
+    .slip-family-header{padding:24px 0 18px;border-bottom:1px solid var(--b);text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;}
+    .slip-family-header .sfh-title{font-size:18px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--text);}
+    .slip-family-header .sfh-count{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--t2);text-transform:uppercase;}
+    .slip-family-header .sfh-desc{font-size:13px;font-weight:400;color:var(--t2);line-height:1.65;max-width:600px;text-transform:none;letter-spacing:0;}
     .slip-card{background:var(--s2);padding:20px;margin-bottom:1px;}
     .slip-card:last-child{margin-bottom:0;}
     .slip-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0;gap:12px;flex-wrap:wrap;}
@@ -916,7 +916,7 @@
   // Family-level summaries for System / Windfall / Alt Hunter
   var SLIP_FAMILY_DESC = {
     system:      'Atlas\' core beam-search engine scores every possible leg combination for edge and probability, then assembles the highest-EV multi-leg slips of the day. No gut feel — pure model output.',
-    windfall:    'A hybrid optimizer that blends raw hit probability with edge to find slips where both confidence and market value align. When the model and the market disagree, Windfall is built to exploit it.',
+    windfall:    'A hybrid optimizer that blends raw hit probability with edge to find slips where confidence and market value align. Designed for a <strong style="color:var(--text);">Power Play or Flex</strong> — run it however fits your bankroll. When the model and the market disagree, Windfall is built to exploit it.',
     demonhunter: 'All &#8593; Alt (DEMON) tier legs — the longest odds, highest multipliers on the board. These slips are for the high-conviction, high-reward player. Small stake, big ceiling.'
   };
 
@@ -946,9 +946,9 @@
           _lastMktN=nLegs;
           var pd=SLIP_PREMIUM_DESC[nLegs]||{tag:'',body:''};
           var legLabel=document.createElement('div');
-          legLabel.style.cssText='padding:18px 0 10px;border-top:'+(ms===0?'none':'1px solid var(--b)')+';margin-top:'+(ms===0?'0':'10px')+';text-align:center;';
-          legLabel.innerHTML='<div style="font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--text);">'+nLegs+'-Leg'+(pd.tag?' <span style="color:var(--t2);font-weight:700;">— '+pd.tag+'</span>':'')+' </div>'+
-            '<div style="font-size:11px;color:var(--t2);line-height:1.6;margin-top:5px;max-width:560px;margin-left:auto;margin-right:auto;">'+pd.body+'</div>';
+          legLabel.style.cssText='padding:18px 0 10px;border-top:'+(ms===0?'none':'1px solid var(--b)')+';margin-top:'+(ms===0?'0':'10px')+';';
+          legLabel.innerHTML='<div style="font-size:15px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--text);">'+nLegs+'-Leg'+(pd.tag?' <span style="color:var(--t2);font-weight:700;font-size:12px;">— '+pd.tag+'</span>':'')+' </div>'+
+            '<div style="font-size:13px;color:var(--t2);line-height:1.65;margin-top:6px;">'+pd.body+'</div>';
           mktDiv.appendChild(legLabel);
         }
         var hitPct=Math.round((slip.hit_prob||0)*100);
