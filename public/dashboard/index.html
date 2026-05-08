@@ -906,8 +906,8 @@
       body: '2 anchor legs combined with 2 market selections hand-picked by the builder. Our 4-leg Premium slip hits more often than any other selection we offer. When the model is locked in, this is where it shows.'
     },
     5: {
-      tag: 'POWER PLAY READY',
-      body: '2 anchors, 2 market selections, and 1 above-market edge leg — the full package. Perfect for a Power Play or Flex depending on your risk appetite. Higher ceiling, higher conviction across the board.'
+      tag: 'FLEX READY',
+      body: '2 anchors, 2 market selections, and 1 above-market edge leg — the full package. Run it as a Flex and you only need 4 of 5 to cash. Higher ceiling, higher conviction across the board.'
     }
   };
   // Family-level summaries for System / Windfall / Alt Hunter
@@ -932,7 +932,7 @@
       var mktDiv=document.createElement('div'); mktDiv.className='slip-family';
       var mktHead=document.createElement('div'); mktHead.className='slip-family-header';
       mktHead.innerHTML='<span style="color:var(--gold);">&#9733; Premium Slips</span>'+
-        '<span style="font-size:9px;color:var(--t2);font-weight:400;text-transform:none;letter-spacing:0;">Atlas\' most decorated selection — structured for consistency and upside</span>'+
+        '<span style="font-size:11px;color:var(--t2);font-weight:400;text-transform:none;letter-spacing:0;line-height:1.6;">Atlas\' most decorated selection — structured for consistency, upside, and daily winners.</span>'+
         '<span style="margin-left:auto;font-size:9px;font-weight:800;color:var(--t2);">'+mktSlips.length+' SLIPS</span>';
       mktDiv.appendChild(mktHead);
       var _lastMktN=-1;
@@ -994,13 +994,9 @@
       var famHead=document.createElement('div'); famHead.className='slip-family-header';
       var famDescFull=SLIP_FAMILY_DESC[fam.key]||fam.desc;
       famHead.innerHTML='<span style="color:var(--text);">'+fam.label+'</span>'+
-        '<span style="font-size:9px;color:var(--t2);font-weight:400;text-transform:none;letter-spacing:0;">'+fam.desc+'</span>'+
+        '<span style="font-size:11px;color:var(--t2);font-weight:400;text-transform:none;letter-spacing:0;line-height:1.6;">'+famDescFull+'</span>'+
         '<span style="margin-left:auto;font-size:9px;font-weight:800;color:var(--t2);">'+slips.length+' SLIPS</span>';
-      var famIntro=document.createElement('div');
-      famIntro.style.cssText='font-size:11px;color:var(--t2);line-height:1.6;padding:10px 0 12px;';
-      famIntro.innerHTML=famDescFull;
       famDiv.appendChild(famHead);
-      famDiv.appendChild(famIntro);
       for(var s=0;s<slips.length;s++){
         var slip=slips[s],legs=slip.legs_detail||[],nLegs=slip.n_legs||legs.length;
         var hitPct=Math.round((slip.hit_prob||0)*100);
