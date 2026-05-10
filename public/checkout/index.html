@@ -47,6 +47,31 @@
 
     /* Stripe mounts iframe here — give it some breathing room */
     #checkout-container iframe{border-radius:0!important;}
+
+    /* Promo code box */
+    .promo-box{background:#080808;border:1px solid var(--b);padding:20px;margin-bottom:20px;}
+    .promo-label{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;}
+    .promo-row{display:flex;gap:8px;}
+    .promo-input{flex:1;background:#000;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:10px 12px;font-family:inherit;font-size:13px;letter-spacing:.05em;text-transform:uppercase;}
+    .promo-input:focus{outline:none;border-color:var(--gold);}
+    .promo-btn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:10px 18px;font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
+    .promo-btn:hover{background:var(--gold);color:#000;}
+    .promo-msg{font-size:12px;margin-top:10px;display:none;}
+    .promo-msg.ok{color:var(--green);display:block;}
+    .promo-msg.err{color:#f87171;display:block;}
+
+    /* Annual upsell — shown after valid promo */
+    .annual-upsell{display:none;background:linear-gradient(135deg,rgba(245,166,35,0.10),rgba(0,212,255,0.06));border:1px solid var(--gold);padding:24px;margin-bottom:20px;}
+    .annual-upsell.show{display:block;}
+    .annual-badge{display:inline-block;background:var(--gold);color:#000;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;margin-bottom:12px;}
+    .annual-title{font-size:18px;font-weight:900;letter-spacing:-.02em;margin-bottom:6px;}
+    .annual-title span{color:var(--gold);}
+    .annual-price{font-size:14px;color:var(--t2);margin-bottom:14px;}
+    .annual-price strong{color:#fff;font-size:18px;font-weight:900;}
+    .annual-price s{color:#555;margin-right:8px;}
+    .annual-btn{display:block;width:100%;background:var(--gold);color:#000;border:none;padding:14px 18px;font-family:inherit;font-size:13px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;text-decoration:none;text-align:center;transition:all .15s;}
+    .annual-btn:hover{background:#fff;}
+    .annual-or{font-size:11px;color:var(--t2);text-align:center;margin-top:10px;letter-spacing:.08em;text-transform:uppercase;}
   </style>
 </head>
 <body>
@@ -65,8 +90,9 @@
     <div class="pitch-eyebrow">Premium Membership</div>
     <h1 class="pitch-title">Unlock The Full <span>Edge</span></h1>
     <div class="pitch-price">$19.99<sub>/mo</sub></div>
-    <div class="pitch-note">Cancel anytime. Instant access after payment.</div>
+    <div class="pitch-note">Start with a <strong style="color:var(--green);">3-day free trial</strong>. Cancel anytime before trial ends. No charge until day 4.</div>
     <ul class="feature-list">
+      <li><strong>3-day free trial</strong> — full access, no commitment</li>
       <li>14 AI-generated daily slips — every slip Atlas builds (3, 4, and 5-leg across all families)</li>
       <li>Full confidence rankings for every leg on the board</li>
       <li>Expected Value (EV) scores — find the highest-edge plays</li>
@@ -81,6 +107,26 @@
   <!-- STRIPE EMBEDDED CHECKOUT -->
   <div class="checkout-wrap">
     <div class="checkout-header">Secure Checkout</div>
+
+    <!-- Promo code (Option A: valid code unlocks 50% annual upsell) -->
+    <div class="promo-box" id="promoBox">
+      <div class="promo-label">Have a promo code?</div>
+      <div class="promo-row">
+        <input type="text" class="promo-input" id="promoInput" placeholder="Enter code" autocomplete="off" spellcheck="false"/>
+        <button type="button" class="promo-btn" id="promoApply">Apply</button>
+      </div>
+      <div class="promo-msg" id="promoMsg"></div>
+    </div>
+
+    <!-- Annual upsell — revealed after valid promo -->
+    <div class="annual-upsell" id="annualUpsell">
+      <span class="annual-badge">Unlocked — 50% Off</span>
+      <div class="annual-title">Go <span>Annual</span> and Save</div>
+      <div class="annual-price"><s>$199.99</s><strong>$99.99/yr</strong> &nbsp;<span style="color:var(--green);">(vs $239.88 monthly — save 58%)</span></div>
+      <a href="#" class="annual-btn" id="annualBtn" target="_blank" rel="noopener">Continue to Annual Checkout →</a>
+      <div class="annual-or">— or continue with monthly below —</div>
+    </div>
+
     <div id="checkout-container">
       <div class="loading-msg" id="loadingMsg">Loading checkout...</div>
     </div>
@@ -94,7 +140,80 @@
   var STRIPE_PK = 'pk_live_51TTRqAQ92CPnHgnCQSYCEEfx2pTgauxZaIbFk9VV4nzhZHcmPvESe0ZaWfH8dX9nFjq6J54l0fsDR5zbrKlSX2lW00EH0aTiTi';
   var stripe = Stripe(STRIPE_PK);
 
-  fetch('/api/create-checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' } })
+  // ---- Annual upsell (Option A) ----
+  // Valid customer-facing promo codes that unlock the annual 50%-off offer.
+  // These map server-side to Stripe coupon Dahj55eZ (50% off) — we only need
+  // the code names here for client-side validation + URL injection.
+  var ANNUAL_URL = 'https://buy.stripe.com/14A9AV3Fw4Sdgc4eye3cc06';
+  var VALID_CODES = ['314MELL', 'KENFRMTHEMIT'];
+
+  // Capture affiliate ref + promo code from URL (?ref=streamerName&promo=KYLE10)
+  // Also persist ref to localStorage for 30 days so users who click an affiliate
+  // link, browse, and check out later still credit the referrer.
+  var params = new URLSearchParams(window.location.search);
+  var ref = params.get('ref') || '';
+  var promo = params.get('promo') || '';
+  try {
+    if (ref) {
+      localStorage.setItem('atlas_ref', JSON.stringify({ ref: ref, expires: Date.now() + 30*24*60*60*1000 }));
+    } else {
+      var saved = localStorage.getItem('atlas_ref');
+      if (saved) {
+        var parsed = JSON.parse(saved);
+        if (parsed && parsed.expires && Date.now() < parsed.expires) ref = parsed.ref || '';
+      }
+    }
+  } catch(e) {}
+
+  // ---- Promo code handling ----
+  function buildAnnualUrl(code) {
+    var url = ANNUAL_URL + '?prefilled_promo_code=' + encodeURIComponent(code);
+    if (ref) url += '&client_reference_id=' + encodeURIComponent(ref);
+    return url;
+  }
+
+  function applyPromo(raw) {
+    var msgEl = document.getElementById('promoMsg');
+    var upsell = document.getElementById('annualUpsell');
+    var btn = document.getElementById('annualBtn');
+    var code = (raw || '').trim().toUpperCase();
+    if (!code) {
+      msgEl.className = 'promo-msg err';
+      msgEl.textContent = 'Please enter a code.';
+      return false;
+    }
+    if (VALID_CODES.indexOf(code) === -1) {
+      msgEl.className = 'promo-msg err';
+      msgEl.textContent = 'That code isn\u2019t valid. Double-check with your referrer.';
+      upsell.classList.remove('show');
+      return false;
+    }
+    msgEl.className = 'promo-msg ok';
+    msgEl.textContent = 'Code accepted \u2014 annual 50% off unlocked below.';
+    btn.href = buildAnnualUrl(code);
+    upsell.classList.add('show');
+    return true;
+  }
+
+  document.getElementById('promoApply').addEventListener('click', function(){
+    applyPromo(document.getElementById('promoInput').value);
+  });
+  document.getElementById('promoInput').addEventListener('keydown', function(e){
+    if (e.key === 'Enter') { e.preventDefault(); applyPromo(this.value); }
+  });
+
+  // Auto-apply promo from URL (?promo=314MELL)
+  if (promo) {
+    document.getElementById('promoInput').value = promo.toUpperCase();
+    applyPromo(promo);
+  }
+
+  // ---- Monthly embedded checkout (unchanged) ----
+  fetch('/api/create-checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ref: ref, promo: promo })
+  })
     .then(function(r){
       return r.text().then(function(txt){
         try { return { ok: r.ok, status: r.status, data: JSON.parse(txt) }; }
