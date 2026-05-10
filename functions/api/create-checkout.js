@@ -1,16 +1,62 @@
-// checkout function v3 - always 200 to avoid CF 5xx interception
+// checkout function v4 - 3-day trial + promo codes + affiliate ref tracking
+// always 200 to avoid CF 5xx interception
 export async function onRequestPost(context) {
   var env = context.env;
+  var request = context.request;
   var headers = { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'https://atlassports.ai' };
 
   if (!env.STRIPE_SECRET_KEY || !env.STRIPE_PRICE_ID) {
     return new Response(JSON.stringify({ error: 'Missing env vars' }), { status: 200, headers: headers });
   }
 
-  var body = 'mode=subscription&ui_mode=embedded_page'
-    + '&line_items[0][price]=' + env.STRIPE_PRICE_ID
-    + '&line_items[0][quantity]=1'
-    + '&return_url=https%3A%2F%2Fatlassports.ai%2Fdashboard%2Fwelcome%3Fsession_id%3D%7BCHECKOUT_SESSION_ID%7D';
+  // Optional inputs from client: { ref: 'streamerName', promo: 'CODE' }
+  var ref = '';
+  var promo = '';
+  try {
+    var payload = await request.json();
+    if (payload && typeof payload.ref === 'string') ref = payload.ref.slice(0, 64).replace(/[^A-Za-z0-9_-]/g, '');
+    if (payload && typeof payload.promo === 'string') promo = payload.promo.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
+  } catch (e) { /* no body or invalid JSON - fine */ }
+
+  var parts = [
+    'mode=subscription',
+    'ui_mode=embedded_page',
+    'line_items[0][price]=' + encodeURIComponent(env.STRIPE_PRICE_ID),
+    'line_items[0][quantity]=1',
+    'return_url=' + encodeURIComponent('https://atlassports.ai/dashboard/welcome?session_id={CHECKOUT_SESSION_ID}'),
+    // 3-day free trial on the subscription
+    'subscription_data[trial_period_days]=3',
+    // require a payment method even during trial (so renewal is automatic)
+    'subscription_data[trial_settings][end_behavior][missing_payment_method]=cancel',
+    // allow user to type a promo code in Stripe's UI
+    'allow_promotion_codes=true'
+  ];
+
+  // Affiliate tracking metadata (visible in Stripe Dashboard on both Session and Subscription)
+  if (ref) {
+    parts.push('metadata[ref]=' + encodeURIComponent(ref));
+    parts.push('subscription_data[metadata][ref]=' + encodeURIComponent(ref));
+  }
+
+  // Auto-apply a promotion code if passed via URL (?promo=KYLE10)
+  // Requires looking up the promotion_code object by `code` field.
+  if (promo) {
+    try {
+      var lookupResp = await fetch('https://api.stripe.com/v1/promotion_codes?code=' + encodeURIComponent(promo) + '&active=true&limit=1', {
+        headers: { 'Authorization': 'Bearer ' + env.STRIPE_SECRET_KEY }
+      });
+      var lookupJson = await lookupResp.json();
+      if (lookupJson && lookupJson.data && lookupJson.data.length > 0) {
+        parts.push('discounts[0][promotion_code]=' + encodeURIComponent(lookupJson.data[0].id));
+        // can't combine allow_promotion_codes with discounts; drop the allow flag
+        parts = parts.filter(function(p){ return p !== 'allow_promotion_codes=true'; });
+        parts.push('metadata[promo_applied]=' + encodeURIComponent(promo));
+        parts.push('subscription_data[metadata][promo_applied]=' + encodeURIComponent(promo));
+      }
+    } catch (e) { /* lookup failed - fall through with allow_promotion_codes still on */ }
+  }
+
+  var body = parts.join('&');
 
   try {
     var resp = await fetch('https://api.stripe.com/v1/checkout/sessions', {
