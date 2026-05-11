@@ -9,13 +9,17 @@ export async function onRequestPost(context) {
     return new Response(JSON.stringify({ error: 'Missing env vars' }), { status: 200, headers: headers });
   }
 
-  // Optional inputs from client: { ref: 'streamerName', promo: 'CODE' }
+  // Optional inputs from client: { ref: 'streamerName', promo: 'CODE', promo_attribution: 'CODE' }
+  // - `promo` = customer typed code AND wants discount auto-applied (used for annual upsell URLs)
+  // - `promo_attribution` = customer typed code but proceeding with monthly (no discount, just credit streamer)
   var ref = '';
   var promo = '';
+  var promoAttribution = '';
   try {
     var payload = await request.json();
     if (payload && typeof payload.ref === 'string') ref = payload.ref.slice(0, 64).replace(/[^A-Za-z0-9_-]/g, '');
     if (payload && typeof payload.promo === 'string') promo = payload.promo.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
+    if (payload && typeof payload.promo_attribution === 'string') promoAttribution = payload.promo_attribution.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
   } catch (e) { /* no body or invalid JSON - fine */ }
 
   var parts = [
@@ -36,6 +40,18 @@ export async function onRequestPost(context) {
   if (ref) {
     parts.push('metadata[ref]=' + encodeURIComponent(ref));
     parts.push('subscription_data[metadata][ref]=' + encodeURIComponent(ref));
+  }
+
+  // Streamer attribution: when user typed a promo code into our box but is proceeding
+  // with monthly checkout (no discount), still credit the streamer who referred them.
+  // Maps customer-facing code -> streamer slug for easy filtering in Stripe dashboard.
+  if (promoAttribution) {
+    var streamerMap = { '314MELL': '314MELL', 'KENFRMTHEMIT': 'kenfrmthemit' };
+    var streamerSlug = streamerMap[promoAttribution] || promoAttribution;
+    parts.push('metadata[promo_code]=' + encodeURIComponent(promoAttribution));
+    parts.push('metadata[streamer]=' + encodeURIComponent(streamerSlug));
+    parts.push('subscription_data[metadata][promo_code]=' + encodeURIComponent(promoAttribution));
+    parts.push('subscription_data[metadata][streamer]=' + encodeURIComponent(streamerSlug));
   }
 
   // Auto-apply a promotion code if passed via URL (?promo=KYLE10)

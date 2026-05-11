@@ -166,10 +166,56 @@
   } catch(e) {}
 
   // ---- Promo code handling ----
+  // State: when a valid promo is entered we (a) reveal the annual upsell and
+  // (b) re-create the embedded monthly checkout session with the promo attached
+  // as attribution metadata. That way the streamer gets credit even if the user
+  // declines the annual upsell and proceeds with monthly.
+  var checkoutInstance = null;
+  var appliedPromo = '';
+
   function buildAnnualUrl(code) {
     var url = ANNUAL_URL + '?prefilled_promo_code=' + encodeURIComponent(code);
     if (ref) url += '&client_reference_id=' + encodeURIComponent(ref);
     return url;
+  }
+
+  function mountCheckout(promoAttribution) {
+    var loadingEl = document.getElementById('loadingMsg');
+    if (loadingEl) loadingEl.style.display = 'block';
+    if (checkoutInstance) {
+      try { checkoutInstance.destroy(); } catch(e) {}
+      checkoutInstance = null;
+    }
+    var container = document.getElementById('checkout-container');
+    container.innerHTML = '<div class="loading-msg" id="loadingMsg">Loading checkout...</div>';
+
+    fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ref: ref, promo_attribution: promoAttribution || '' })
+    })
+      .then(function(r){
+        return r.text().then(function(txt){
+          try { return { ok: r.ok, status: r.status, data: JSON.parse(txt) }; }
+          catch(e) { return { ok: false, status: r.status, data: { error: 'Server error (' + r.status + '): ' + txt.slice(0,200) } }; }
+        });
+      })
+      .then(function(res){
+        if (!res.ok || !res.data.clientSecret) {
+          showError(res.data.error || 'Could not start checkout (status ' + res.status + ')');
+          return;
+        }
+        var lm = document.getElementById('loadingMsg');
+        if (lm) lm.remove();
+        stripe.initEmbeddedCheckout({ clientSecret: res.data.clientSecret })
+          .then(function(checkout){
+            checkoutInstance = checkout;
+            checkout.mount('#checkout-container');
+          });
+      })
+      .catch(function(e){
+        showError('Network error: ' + (e && e.message ? e.message : String(e)));
+      });
   }
 
   function applyPromo(raw) {
@@ -189,9 +235,15 @@
       return false;
     }
     msgEl.className = 'promo-msg ok';
-    msgEl.textContent = 'Code accepted \u2014 annual 50% off unlocked below.';
+    msgEl.textContent = 'Code accepted \u2014 annual 50% off unlocked below. Code is also credited to the streamer if you continue with monthly.';
     btn.href = buildAnnualUrl(code);
     upsell.classList.add('show');
+    // Re-mount monthly checkout with attribution so the streamer gets credit
+    // even if the user declines the annual upsell.
+    if (code !== appliedPromo) {
+      appliedPromo = code;
+      mountCheckout(code);
+    }
     return true;
   }
 
@@ -206,35 +258,14 @@
   if (promo) {
     document.getElementById('promoInput').value = promo.toUpperCase();
     applyPromo(promo);
+  } else {
+    // Initial mount with no attribution
+    mountCheckout('');
   }
 
-  // ---- Monthly embedded checkout (unchanged) ----
-  fetch('/api/create-checkout', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ref: ref, promo: promo })
-  })
-    .then(function(r){
-      return r.text().then(function(txt){
-        try { return { ok: r.ok, status: r.status, data: JSON.parse(txt) }; }
-        catch(e) { return { ok: false, status: r.status, data: { error: 'Server error (' + r.status + '): ' + txt.slice(0,200) } }; }
-      });
-    })
-    .then(function(res){
-      if (!res.ok || !res.data.clientSecret) {
-        showError(res.data.error || 'Could not start checkout (status ' + res.status + ')');
-        return;
-      }
-      document.getElementById('loadingMsg').remove();
-      stripe.initEmbeddedCheckout({ clientSecret: res.data.clientSecret })
-        .then(function(checkout){ checkout.mount('#checkout-container'); });
-    })
-    .catch(function(e){
-      showError('Network error: ' + (e && e.message ? e.message : String(e)));
-    });
-
   function showError(msg){
-    document.getElementById('loadingMsg').remove();
+    var lm = document.getElementById('loadingMsg');
+    if (lm) lm.remove();
     var el = document.getElementById('errorMsg');
     el.textContent = msg;
     el.style.display = 'block';
