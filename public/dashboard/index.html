@@ -191,7 +191,7 @@
     <a href="/" class="btn btn-outline">&#8592; Home</a>
     <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord">Discord</a>
     <a href="/login/" class="btn btn-outline" id="navLoginBtn">Login</a>
-    <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" id="navPremiumBtn">Free Trial</a>
+    <a href="/checkout/" class="btn btn-gold" id="navPremiumBtn">Free Trial</a>
   </div>
 </nav>
 
@@ -280,7 +280,7 @@
           <div class="lock-icon">&#128274;</div>
           <div class="lock-text">Premium Feature</div>
           <div class="lock-sub">Full edge rankings for every leg where the model has conviction above market</div>
-          <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+          <a href="/checkout/" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
         </div>
       </div>
     </div>
@@ -323,7 +323,7 @@
         <div id="hubConfBands"><div class="no-data">Loading...</div></div>
         <div id="hubConfCta" style="display:none;margin-top:20px;padding-top:16px;border-top:1px solid var(--b);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
           <span style="font-size:12px;color:var(--t2);">Unlock <strong style="color:var(--text);">full probability scores</strong> for every pick in the EV Legs tab</span>
-          <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="font-size:11px;">Go Premium</a>
+          <a href="/checkout/" class="btn btn-gold" style="font-size:11px;">Go Premium</a>
         </div>
       </div>
 
@@ -368,7 +368,7 @@
           <div class="lock-icon">&#128274;</div>
           <div class="lock-text">Premium Feature</div>
           <div class="lock-sub">Full model breakdown for every player on the board &#8212; confidence, stability, blowout risk, recent edge, and role signal</div>
-          <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+          <a href="/checkout/" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
         </div>
       </div>
     </div>
@@ -383,7 +383,7 @@
           <div class="lock-icon">&#128274;</div>
           <div class="lock-text">Premium Feature</div>
           <div class="lock-sub">All optimized slips &#8212; System, Windfall, and &#8593; Alt Hunter families with full leg detail</div>
-          <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+          <a href="/checkout/" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
         </div>
       </div>
     </div>
@@ -466,7 +466,7 @@
           <div class="lock-icon">&#128274;</div>
           <div class="lock-text">Premium Feature</div>
           <div class="lock-sub">Build your own parlays using Atlas model probabilities.</div>
-          <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
+          <a href="/checkout/" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
         </div>
       </div>
     </div>
@@ -520,7 +520,7 @@
     <p class="premium-cta-sub">All 14 daily slips. Full probability and EV rankings for every leg on the board. Everything the model knows &#8212; yours daily.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
       <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord" style="padding:12px 28px;font-size:13px;">Join Discord &#8212; Free</a>
-      <a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="padding:12px 28px;font-size:13px;">Unlock Premium &#8212; $19.99/mo</a>
+      <a href="/checkout/" class="btn btn-gold" style="padding:12px 28px;font-size:13px;">Unlock Premium &#8212; $19.99/mo</a>
     </div>
   </div>
 
@@ -649,7 +649,7 @@
       var extra=sorted.length-FREE_PROB_LIMIT;
       var lock=document.createElement('div'); lock.className='prob-more-lock';
       lock.innerHTML='<span class="prob-more-text"><strong>+'+extra+' more picks</strong> &#8212; unlock full rankings</span>'+
-        '<a href="/checkout/" target="_blank" rel="noopener" class="btn btn-gold" style="font-size:11px;">Go Premium</a>';
+        '<a href="/checkout/" class="btn btn-gold" style="font-size:11px;">Go Premium</a>';
       pl.appendChild(lock);
     }
     if(isPremium){

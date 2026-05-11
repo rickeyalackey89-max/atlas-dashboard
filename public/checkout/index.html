@@ -44,6 +44,14 @@
     #checkout-container{min-height:200px;}
     .loading-msg{text-align:center;padding:40px 20px;font-size:13px;color:var(--t2);}
     .error-msg{color:#f87171;font-size:13px;margin-top:12px;display:none;}
+    .social-checkout{padding:28px 20px;text-align:center;border:1px solid rgba(245,166,35,.28);background:rgba(245,166,35,.055);}
+    .social-title{font-size:16px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;color:var(--gold);}
+    .social-copy{font-size:13px;line-height:1.65;color:var(--t2);margin:0 auto 18px;max-width:360px;}
+    .checkout-btn{display:block;width:100%;background:var(--gold);color:#000;border:none;padding:15px 18px;font-family:inherit;font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;text-align:center;transition:all .15s;}
+    .checkout-btn:hover{background:#fff;}
+    .copy-btn{display:block;width:100%;margin-top:10px;background:transparent;color:var(--cyan);border:1px solid rgba(0,212,255,.35);padding:12px 16px;font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;}
+    .copy-note{font-size:11px;color:var(--green);margin-top:10px;display:none;}
+    .browser-help{font-size:11px;color:#666;line-height:1.55;margin-top:14px;}
 
     /* Stripe mounts iframe here — give it some breathing room */
     #checkout-container iframe{border-radius:0!important;}
@@ -123,7 +131,7 @@
       <span class="annual-badge">Unlocked — 50% Off</span>
       <div class="annual-title">Go <span>Annual</span> and Save</div>
       <div class="annual-price"><s>$199.99</s><strong>$99.99/yr</strong> &nbsp;<span style="color:var(--green);">(vs $239.88 monthly — save 58%)</span></div>
-      <a href="#" class="annual-btn" id="annualBtn" target="_blank" rel="noopener">Continue to Annual Checkout →</a>
+      <a href="#" class="annual-btn" id="annualBtn">Continue to Annual Checkout →</a>
       <div class="annual-or">— or continue with monthly below —</div>
     </div>
 
@@ -138,7 +146,8 @@
 <script>
 (function(){
   var STRIPE_PK = 'pk_live_51TTRqAQ92CPnHgnCQSYCEEfx2pTgauxZaIbFk9VV4nzhZHcmPvESe0ZaWfH8dX9nFjq6J54l0fsDR5zbrKlSX2lW00EH0aTiTi';
-  var stripe = Stripe(STRIPE_PK);
+  var stripe = window.Stripe ? Stripe(STRIPE_PK) : null;
+  var socialInAppBrowser = /Instagram|FBAN|FBAV|FB_IAB|FB4A|FBIOS|Messenger|Line\/|Twitter/i.test(navigator.userAgent || '');
 
   // ---- Annual upsell (Option A) ----
   // Valid customer-facing promo codes that unlock the annual 50%-off offer.
@@ -173,6 +182,58 @@
   var checkoutInstance = null;
   var appliedPromo = '';
 
+  function createCheckoutSession(mode, promoAttribution) {
+    return fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ref: ref,
+        promo_attribution: promoAttribution || '',
+        checkout_mode: mode || 'embedded'
+      })
+    })
+      .then(function(r){
+        return r.text().then(function(txt){
+          try { return { ok: r.ok, status: r.status, data: JSON.parse(txt) }; }
+          catch(e) { return { ok: false, status: r.status, data: { error: 'Server error (' + r.status + '): ' + txt.slice(0,200) } }; }
+        });
+      });
+  }
+
+  function renderHostedCheckout(promoAttribution, reason) {
+    var container = document.getElementById('checkout-container');
+    container.innerHTML = '<div class="loading-msg" id="loadingMsg">Creating secure checkout link...</div>';
+    createCheckoutSession('hosted', promoAttribution)
+      .then(function(res){
+        if (!res.ok || !res.data.url) {
+          showError(res.data.error || 'Could not start checkout (status ' + res.status + ')');
+          return;
+        }
+        var url = res.data.url;
+        container.innerHTML =
+          '<div class="social-checkout">' +
+            '<div class="social-title">Secure Checkout Ready</div>' +
+            '<p class="social-copy">' + (reason || 'Social app browsers can block embedded payment screens. Use Stripe\\'s secure checkout page to finish your trial.') + '</p>' +
+            '<a class="checkout-btn" id="hostedCheckoutBtn" href="' + escAttr(url) + '">Continue to Secure Checkout</a>' +
+            '<button type="button" class="copy-btn" id="copyCheckoutBtn">Copy Checkout Link</button>' +
+            '<div class="copy-note" id="copyNote">Checkout link copied.</div>' +
+            '<div class="browser-help">If Instagram or Facebook still stalls, tap the three dots and choose Open in Browser, then paste the copied link.</div>' +
+          '</div>';
+        document.getElementById('copyCheckoutBtn').addEventListener('click', function(){
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(function(){
+              document.getElementById('copyNote').style.display = 'block';
+            });
+          } else {
+            window.prompt('Copy this checkout link:', url);
+          }
+        });
+      })
+      .catch(function(e){
+        showError('Network error: ' + (e && e.message ? e.message : String(e)));
+      });
+  }
+
   function buildAnnualUrl(code) {
     var url = ANNUAL_URL + '?prefilled_promo_code=' + encodeURIComponent(code);
     if (ref) url += '&client_reference_id=' + encodeURIComponent(ref);
@@ -180,6 +241,10 @@
   }
 
   function mountCheckout(promoAttribution) {
+    if (socialInAppBrowser) {
+      renderHostedCheckout(promoAttribution, 'Instagram and Facebook browsers can block embedded payment screens. Continue through Stripe\\'s secure checkout page to finish your 3-day trial.');
+      return;
+    }
     var loadingEl = document.getElementById('loadingMsg');
     if (loadingEl) loadingEl.style.display = 'block';
     if (checkoutInstance) {
@@ -188,20 +253,22 @@
     }
     var container = document.getElementById('checkout-container');
     container.innerHTML = '<div class="loading-msg" id="loadingMsg">Loading checkout...</div>';
+    if (!stripe) {
+      renderHostedCheckout(promoAttribution, 'The embedded checkout script could not load here. Continue through Stripe\\'s secure checkout page instead.');
+      return;
+    }
 
-    fetch('/api/create-checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ref: ref, promo_attribution: promoAttribution || '' })
-    })
-      .then(function(r){
-        return r.text().then(function(txt){
-          try { return { ok: r.ok, status: r.status, data: JSON.parse(txt) }; }
-          catch(e) { return { ok: false, status: r.status, data: { error: 'Server error (' + r.status + '): ' + txt.slice(0,200) } }; }
-        });
-      })
+    var fallbackTriggered = false;
+    var fallbackTimer = setTimeout(function(){
+      fallbackTriggered = true;
+      renderHostedCheckout(promoAttribution, 'The embedded checkout is taking longer than expected. Use Stripe\\'s secure checkout page instead.');
+    }, 9000);
+
+    createCheckoutSession('embedded', promoAttribution)
       .then(function(res){
+        if (fallbackTriggered) return;
         if (!res.ok || !res.data.clientSecret) {
+          clearTimeout(fallbackTimer);
           showError(res.data.error || 'Could not start checkout (status ' + res.status + ')');
           return;
         }
@@ -209,11 +276,22 @@
         if (lm) lm.remove();
         stripe.initEmbeddedCheckout({ clientSecret: res.data.clientSecret })
           .then(function(checkout){
+            if (fallbackTriggered) {
+              try { checkout.destroy(); } catch(e) {}
+              return;
+            }
+            clearTimeout(fallbackTimer);
             checkoutInstance = checkout;
             checkout.mount('#checkout-container');
+          })
+          .catch(function(){
+            clearTimeout(fallbackTimer);
+            renderHostedCheckout(promoAttribution, 'The embedded checkout could not load here. Continue through Stripe\\'s secure checkout page instead.');
           });
       })
       .catch(function(e){
+        if (fallbackTriggered) return;
+        clearTimeout(fallbackTimer);
         showError('Network error: ' + (e && e.message ? e.message : String(e)));
       });
   }
@@ -269,6 +347,9 @@
     var el = document.getElementById('errorMsg');
     el.textContent = msg;
     el.style.display = 'block';
+  }
+  function escAttr(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 })();
 </script>

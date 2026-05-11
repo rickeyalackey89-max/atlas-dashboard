@@ -9,25 +9,26 @@ export async function onRequestPost(context) {
     return new Response(JSON.stringify({ error: 'Missing env vars' }), { status: 200, headers: headers });
   }
 
-  // Optional inputs from client: { ref: 'streamerName', promo: 'CODE', promo_attribution: 'CODE' }
+  // Optional inputs from client:
+  // { ref: 'streamerName', promo: 'CODE', promo_attribution: 'CODE', checkout_mode: 'hosted'|'embedded' }
   // - `promo` = customer typed code AND wants discount auto-applied (used for annual upsell URLs)
   // - `promo_attribution` = customer typed code but proceeding with monthly (no discount, just credit streamer)
   var ref = '';
   var promo = '';
   var promoAttribution = '';
+  var checkoutMode = 'embedded';
   try {
     var payload = await request.json();
     if (payload && typeof payload.ref === 'string') ref = payload.ref.slice(0, 64).replace(/[^A-Za-z0-9_-]/g, '');
     if (payload && typeof payload.promo === 'string') promo = payload.promo.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
     if (payload && typeof payload.promo_attribution === 'string') promoAttribution = payload.promo_attribution.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
+    if (payload && payload.checkout_mode === 'hosted') checkoutMode = 'hosted';
   } catch (e) { /* no body or invalid JSON - fine */ }
 
   var parts = [
     'mode=subscription',
-    'ui_mode=embedded_page',
     'line_items[0][price]=' + encodeURIComponent(env.STRIPE_PRICE_ID),
     'line_items[0][quantity]=1',
-    'return_url=' + encodeURIComponent('https://atlassports.ai/dashboard/welcome?session_id={CHECKOUT_SESSION_ID}'),
     // 3-day free trial on the subscription
     'subscription_data[trial_period_days]=3',
     // require a payment method even during trial (so renewal is automatic)
@@ -35,6 +36,14 @@ export async function onRequestPost(context) {
     // allow user to type a promo code in Stripe's UI
     'allow_promotion_codes=true'
   ];
+
+  if (checkoutMode === 'hosted') {
+    parts.push('success_url=' + encodeURIComponent('https://atlassports.ai/dashboard/welcome?session_id={CHECKOUT_SESSION_ID}'));
+    parts.push('cancel_url=' + encodeURIComponent('https://atlassports.ai/checkout/?checkout_cancelled=1'));
+  } else {
+    parts.push('ui_mode=embedded');
+    parts.push('return_url=' + encodeURIComponent('https://atlassports.ai/dashboard/welcome?session_id={CHECKOUT_SESSION_ID}'));
+  }
 
   // Affiliate tracking metadata (visible in Stripe Dashboard on both Session and Subscription)
   if (ref) {
@@ -88,6 +97,12 @@ export async function onRequestPost(context) {
     if (!resp.ok) {
       var msg = (session.error && session.error.message) ? session.error.message : ('Stripe error ' + resp.status);
       return new Response(JSON.stringify({ error: msg }), { status: 200, headers: headers });
+    }
+    if (checkoutMode === 'hosted') {
+      if (!session.url) {
+        return new Response(JSON.stringify({ error: 'No hosted checkout URL returned' }), { status: 200, headers: headers });
+      }
+      return new Response(JSON.stringify({ url: session.url }), { status: 200, headers: headers });
     }
     if (!session.client_secret) {
       return new Response(JSON.stringify({ error: 'No client_secret returned' }), { status: 200, headers: headers });
