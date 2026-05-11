@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-11T06:37:54.671340-05:00",
+  "generated_at": "2026-05-11T06:48:30.163100-05:00",
   "run_id": "20260510_174904",
   "system": [
     {
@@ -511,11 +511,13 @@
     "overall": {
       "last_7d": {
         "n": 10446,
+        "hits": 4522,
         "hit_rate": 0.4329,
         "brier": 0.227
       },
       "last_30d": {
         "n": 17505,
+        "hits": 7565,
         "hit_rate": 0.4322,
         "brier": 0.2342
       }
@@ -524,11 +526,13 @@
       "GOBLIN": {
         "last_7d": {
           "n": 3139,
+          "hits": 2068,
           "hit_rate": 0.6588,
           "brier": 0.2375
         },
         "last_30d": {
           "n": 5280,
+          "hits": 3370,
           "hit_rate": 0.6383,
           "brier": 0.2496
         }
@@ -536,11 +540,13 @@
       "STANDARD": {
         "last_7d": {
           "n": 2994,
+          "hits": 1452,
           "hit_rate": 0.485,
           "brier": 0.2624
         },
         "last_30d": {
           "n": 5143,
+          "hits": 2497,
           "hit_rate": 0.4855,
           "brier": 0.2671
         }
@@ -548,15 +554,32 @@
       "DEMON": {
         "last_7d": {
           "n": 4313,
+          "hits": 1002,
           "hit_rate": 0.2323,
           "brier": 0.1948
         },
         "last_30d": {
           "n": 7082,
+          "hits": 1698,
           "hit_rate": 0.2398,
           "brier": 0.1988
         }
       }
+    },
+    "meta": {
+      "source": "data/telemetry/live_runs/**/eval_legs.csv",
+      "updated_at": "2026-05-11T11:48:30.144979+00:00",
+      "latest_game_date": "2026-05-10",
+      "window_7d": {
+        "start": "2026-05-04",
+        "end": "2026-05-10"
+      },
+      "window_30d": {
+        "start": "2026-04-11",
+        "end": "2026-05-10"
+      },
+      "eval_files": 93,
+      "unique_scored_legs": 17505
     },
     "yesterday_slips": {
       "date": "2026-05-10",
