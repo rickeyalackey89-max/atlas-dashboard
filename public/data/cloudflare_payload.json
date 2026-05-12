@@ -1,31 +1,173 @@
 {
-  "generated_at": "2026-05-12T15:01:03.474510-05:00",
-  "run_id": "20260512_150102",
-  "system": [],
+  "generated_at": "2026-05-12T15:29:01.712861-05:00",
+  "run_id": "20260512_152901",
+  "system": [
+    {
+      "product": "System",
+      "n_legs": 3,
+      "legs": "Julian Champagnie OVER PTS 5.5 (GOBLIN) [id:12019547] | Julius Randle OVER REB 6 (STANDARD) [id:12046031] | Naz Reid OVER REB 7 (STANDARD) [id:12046032]",
+      "legs_detail": [
+        {
+          "raw": "Julian Champagnie OVER PTS 5.5 (GOBLIN) [id:12019547]",
+          "player": "Julian Champagnie",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 5.5,
+          "tier": "GOBLIN",
+          "id": 12019547
+        },
+        {
+          "raw": "Julius Randle OVER REB 6 (STANDARD) [id:12046031]",
+          "player": "Julius Randle",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 6.0,
+          "tier": "STANDARD",
+          "id": 12046031
+        },
+        {
+          "raw": "Naz Reid OVER REB 7 (STANDARD) [id:12046032]",
+          "player": "Naz Reid",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 7.0,
+          "tier": "STANDARD",
+          "id": 12046032
+        }
+      ],
+      "hit_prob": 0.3591092928254605,
+      "ev_mult": 1.7143903306437311,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0289249016485083
+    },
+    {
+      "product": "System",
+      "n_legs": 4,
+      "legs": "Keldon Johnson OVER PTS 4.5 (GOBLIN) [id:12019324] | Jaden McDaniels OVER REB 3.5 (GOBLIN) [id:12019272] | Naz Reid OVER RA 9.5 (STANDARD) [id:12019647] | Rudy Gobert OVER RA 11.5 (STANDARD) [id:12019381]",
+      "legs_detail": [
+        {
+          "raw": "Keldon Johnson OVER PTS 4.5 (GOBLIN) [id:12019324]",
+          "player": "Keldon Johnson",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 12019324
+        },
+        {
+          "raw": "Jaden McDaniels OVER REB 3.5 (GOBLIN) [id:12019272]",
+          "player": "Jaden McDaniels",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 12019272
+        },
+        {
+          "raw": "Naz Reid OVER RA 9.5 (STANDARD) [id:12019647]",
+          "player": "Naz Reid",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 9.5,
+          "tier": "STANDARD",
+          "id": 12019647
+        },
+        {
+          "raw": "Rudy Gobert OVER RA 11.5 (STANDARD) [id:12019381]",
+          "player": "Rudy Gobert",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 11.5,
+          "tier": "STANDARD",
+          "id": 12019381
+        }
+      ],
+      "hit_prob": 0.2496993665008927,
+      "ev_mult": 1.442417626773616,
+      "payout_mult": 10.0,
+      "avg_fragility": 0.0294527810764912
+    },
+    {
+      "product": "System",
+      "n_legs": 5,
+      "legs": "Terrence Shannon OVER PTS 4.5 (GOBLIN) [id:12022034] | Julius Randle OVER REB 4.5 (GOBLIN) [id:12019565] | Keldon Johnson OVER REB 1.5 (GOBLIN) [id:12020515] | Naz Reid OVER PRA 21.5 (STANDARD) [id:12019573] | Julian Champagnie OVER PA 10 (STANDARD) [id:12019633]",
+      "legs_detail": [
+        {
+          "raw": "Terrence Shannon OVER PTS 4.5 (GOBLIN) [id:12022034]",
+          "player": "Terrence Shannon",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 12022034
+        },
+        {
+          "raw": "Julius Randle OVER REB 4.5 (GOBLIN) [id:12019565]",
+          "player": "Julius Randle",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 4.5,
+          "tier": "GOBLIN",
+          "id": 12019565
+        },
+        {
+          "raw": "Keldon Johnson OVER REB 1.5 (GOBLIN) [id:12020515]",
+          "player": "Keldon Johnson",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 1.5,
+          "tier": "GOBLIN",
+          "id": 12020515
+        },
+        {
+          "raw": "Naz Reid OVER PRA 21.5 (STANDARD) [id:12019573]",
+          "player": "Naz Reid",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 21.5,
+          "tier": "STANDARD",
+          "id": 12019573
+        },
+        {
+          "raw": "Julian Champagnie OVER PA 10 (STANDARD) [id:12019633]",
+          "player": "Julian Champagnie",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 10.0,
+          "tier": "STANDARD",
+          "id": 12019633
+        }
+      ],
+      "hit_prob": 0.1748512861631173,
+      "ev_mult": 1.449199670013582,
+      "payout_mult": 20.0,
+      "avg_fragility": 0.0199579382018615
+    }
+  ],
   "system_winprob": [],
   "windfall": [
     {
       "product": "Windfall",
       "n_legs": 3,
-      "legs": "Devin Vassell OVER PTS 8.5 (GOBLIN) [id:12020979] | Rudy Gobert OVER FTA 2.5 (STANDARD) [id:12021625] | Julian Champagnie OVER REB 5.5 (DEMON) [id:12019554]",
+      "legs": "Ayo Dosunmu OVER FG3M 0.5 (GOBLIN) [id:12019143] | Naz Reid OVER PRA 21.5 (STANDARD) [id:12019573] | Julian Champagnie OVER REB 5.5 (DEMON) [id:12019554]",
       "legs_detail": [
         {
-          "raw": "Devin Vassell OVER PTS 8.5 (GOBLIN) [id:12020979]",
-          "player": "Devin Vassell",
+          "raw": "Ayo Dosunmu OVER FG3M 0.5 (GOBLIN) [id:12019143]",
+          "player": "Ayo Dosunmu",
           "dir": "OVER",
-          "stat": "PTS",
-          "line": 8.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 12020979
+          "id": 12019143
         },
         {
-          "raw": "Rudy Gobert OVER FTA 2.5 (STANDARD) [id:12021625]",
-          "player": "Rudy Gobert",
+          "raw": "Naz Reid OVER PRA 21.5 (STANDARD) [id:12019573]",
+          "player": "Naz Reid",
           "dir": "OVER",
-          "stat": "FTA",
-          "line": 2.5,
+          "stat": "PRA",
+          "line": 21.5,
           "tier": "STANDARD",
-          "id": 12021625
+          "id": 12019573
         },
         {
           "raw": "Julian Champagnie OVER REB 5.5 (DEMON) [id:12019554]",
@@ -37,42 +179,42 @@
           "id": 12019554
         }
       ],
-      "hit_prob": 0.2543084667691547,
-      "ev_mult": 0.6235797674155934,
+      "hit_prob": 0.2672910870734676,
+      "ev_mult": 0.625230522734256,
       "payout_mult": 6.0,
-      "avg_fragility": 0.0221417511274271
+      "avg_fragility": 0.0237526219099064
     },
     {
       "product": "Windfall",
       "n_legs": 4,
-      "legs": "Keldon Johnson OVER REB 1.5 (GOBLIN) [id:12020515] | Rudy Gobert OVER FTA 2.5 (STANDARD) [id:12021625] | De'Aaron Fox OVER FTA 4 (STANDARD) [id:12032602] | Julian Champagnie OVER PTS 9.5 (DEMON) [id:12019283]",
+      "legs": "Terrence Shannon OVER FG3M 0.5 (GOBLIN) [id:12021642] | Rudy Gobert OVER RA 11.5 (STANDARD) [id:12019381] | Naz Reid OVER REB 7 (STANDARD) [id:12046032] | Julian Champagnie OVER PTS 9.5 (DEMON) [id:12019283]",
       "legs_detail": [
         {
-          "raw": "Keldon Johnson OVER REB 1.5 (GOBLIN) [id:12020515]",
-          "player": "Keldon Johnson",
+          "raw": "Terrence Shannon OVER FG3M 0.5 (GOBLIN) [id:12021642]",
+          "player": "Terrence Shannon",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 1.5,
+          "stat": "FG3M",
+          "line": 0.5,
           "tier": "GOBLIN",
-          "id": 12020515
+          "id": 12021642
         },
         {
-          "raw": "Rudy Gobert OVER FTA 2.5 (STANDARD) [id:12021625]",
+          "raw": "Rudy Gobert OVER RA 11.5 (STANDARD) [id:12019381]",
           "player": "Rudy Gobert",
           "dir": "OVER",
-          "stat": "FTA",
-          "line": 2.5,
+          "stat": "RA",
+          "line": 11.5,
           "tier": "STANDARD",
-          "id": 12021625
+          "id": 12019381
         },
         {
-          "raw": "De'Aaron Fox OVER FTA 4 (STANDARD) [id:12032602]",
-          "player": "De'Aaron Fox",
+          "raw": "Naz Reid OVER REB 7 (STANDARD) [id:12046032]",
+          "player": "Naz Reid",
           "dir": "OVER",
-          "stat": "FTA",
-          "line": 4.0,
+          "stat": "REB",
+          "line": 7.0,
           "tier": "STANDARD",
-          "id": 12032602
+          "id": 12046032
         },
         {
           "raw": "Julian Champagnie OVER PTS 9.5 (DEMON) [id:12019283]",
@@ -84,73 +226,368 @@
           "id": 12019283
         }
       ],
-      "hit_prob": 0.1498894180964943,
-      "ev_mult": 0.7775230724416994,
+      "hit_prob": 0.1760630456158116,
+      "ev_mult": 0.7776767281936181,
       "payout_mult": 10.0,
-      "avg_fragility": 0.0176484813162986
+      "avg_fragility": 0.0269756846262422
     },
     {
       "product": "Windfall",
       "n_legs": 5,
-      "legs": "Stephon Castle OVER FG3M 0.5 (GOBLIN) [id:12019383] | Devin Vassell OVER PTS 8.5 (GOBLIN) [id:12020979] | Rudy Gobert OVER FTA 2.5 (STANDARD) [id:12021625] | Anthony Edwards UNDER FTA 7 (STANDARD) [id:12032600] | Julian Champagnie OVER REB 5.5 (DEMON) [id:12019554]",
+      "legs": "Terrence Shannon OVER PTS 5.5 (GOBLIN) [id:12022035] | Rudy Gobert OVER REB 6.5 (GOBLIN) [id:12052188] | De'Aaron Fox OVER FTA 4 (STANDARD) [id:12032602] | Naz Reid OVER RA 9.5 (STANDARD) [id:12019647] | Julian Champagnie OVER PRA 16.5 (DEMON) [id:12020211]",
       "legs_detail": [
         {
-          "raw": "Stephon Castle OVER FG3M 0.5 (GOBLIN) [id:12019383]",
-          "player": "Stephon Castle",
-          "dir": "OVER",
-          "stat": "FG3M",
-          "line": 0.5,
-          "tier": "GOBLIN",
-          "id": 12019383
-        },
-        {
-          "raw": "Devin Vassell OVER PTS 8.5 (GOBLIN) [id:12020979]",
-          "player": "Devin Vassell",
+          "raw": "Terrence Shannon OVER PTS 5.5 (GOBLIN) [id:12022035]",
+          "player": "Terrence Shannon",
           "dir": "OVER",
           "stat": "PTS",
-          "line": 8.5,
+          "line": 5.5,
           "tier": "GOBLIN",
-          "id": 12020979
+          "id": 12022035
         },
         {
-          "raw": "Rudy Gobert OVER FTA 2.5 (STANDARD) [id:12021625]",
+          "raw": "Rudy Gobert OVER REB 6.5 (GOBLIN) [id:12052188]",
           "player": "Rudy Gobert",
           "dir": "OVER",
-          "stat": "FTA",
-          "line": 2.5,
-          "tier": "STANDARD",
-          "id": 12021625
+          "stat": "REB",
+          "line": 6.5,
+          "tier": "GOBLIN",
+          "id": 12052188
         },
         {
-          "raw": "Anthony Edwards UNDER FTA 7 (STANDARD) [id:12032600]",
-          "player": "Anthony Edwards",
-          "dir": "UNDER",
+          "raw": "De'Aaron Fox OVER FTA 4 (STANDARD) [id:12032602]",
+          "player": "De'Aaron Fox",
+          "dir": "OVER",
           "stat": "FTA",
-          "line": 7.0,
+          "line": 4.0,
           "tier": "STANDARD",
-          "id": 12032600
+          "id": 12032602
         },
         {
-          "raw": "Julian Champagnie OVER REB 5.5 (DEMON) [id:12019554]",
+          "raw": "Naz Reid OVER RA 9.5 (STANDARD) [id:12019647]",
+          "player": "Naz Reid",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 9.5,
+          "tier": "STANDARD",
+          "id": 12019647
+        },
+        {
+          "raw": "Julian Champagnie OVER PRA 16.5 (DEMON) [id:12020211]",
           "player": "Julian Champagnie",
           "dir": "OVER",
-          "stat": "REB",
-          "line": 5.5,
+          "stat": "PRA",
+          "line": 16.5,
           "tier": "DEMON",
-          "id": 12019554
+          "id": 12020211
         }
       ],
-      "hit_prob": 0.1167277770934405,
-      "ev_mult": 0.7764374212459015,
+      "hit_prob": 0.1271592473185338,
+      "ev_mult": 0.7303010999750295,
       "payout_mult": 20.0,
-      "avg_fragility": 0.0945152588287688
+      "avg_fragility": 0.0295952508853849
     }
   ],
   "windfall_winprob": [],
-  "demonhunter": [],
+  "demonhunter": [
+    {
+      "product": "Demonhunter",
+      "n_legs": 3,
+      "legs": "Julian Champagnie OVER PA 11.5 (DEMON) [id:12020847] | Stephon Castle OVER PTS 18.5 (DEMON) [id:12020242] | Terrence Shannon OVER PTS 8.5 (DEMON) [id:12021726]",
+      "legs_detail": [
+        {
+          "raw": "Julian Champagnie OVER PA 11.5 (DEMON) [id:12020847]",
+          "player": "Julian Champagnie",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 11.5,
+          "tier": "DEMON",
+          "id": 12020847
+        },
+        {
+          "raw": "Stephon Castle OVER PTS 18.5 (DEMON) [id:12020242]",
+          "player": "Stephon Castle",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 18.5,
+          "tier": "DEMON",
+          "id": 12020242
+        },
+        {
+          "raw": "Terrence Shannon OVER PTS 8.5 (DEMON) [id:12021726]",
+          "player": "Terrence Shannon",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 8.5,
+          "tier": "DEMON",
+          "id": 12021726
+        }
+      ],
+      "hit_prob": 0.1575910092277413,
+      "ev_mult": 0.0684567317867995,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0259487675410816
+    }
+  ],
   "gamescript": [],
-  "marketed_slips": [],
-  "top_hit_list": [],
+  "marketed_slips": [
+    {
+      "label": "3-leg",
+      "n_legs": 3,
+      "hit_prob": 0.3630110036897786,
+      "payout_mult": 1.9309787692112594,
+      "ev": 0.7009665411150326,
+      "high_confidence": false,
+      "legs": [
+        {
+          "player": "Jaden McDaniels",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 5.5,
+          "tier": "GOBLIN",
+          "team": "MIN",
+          "opp": "SAS",
+          "p_cal": 0.730099950061904,
+          "l10_hr": 0.7,
+          "l10_n": 10
+        },
+        {
+          "player": "Julian Champagnie",
+          "dir": "OVER",
+          "stat": "PA",
+          "line": 10.0,
+          "tier": "STANDARD",
+          "team": "SAS",
+          "opp": "MIN",
+          "p_cal": 0.597076104713942,
+          "l10_hr": 0.5,
+          "l10_n": 10
+        },
+        {
+          "player": "Rudy Gobert",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 11.5,
+          "tier": "STANDARD",
+          "team": "MIN",
+          "opp": "SAS",
+          "p_cal": 0.639424692050594,
+          "l10_hr": 0.7,
+          "l10_n": 10
+        }
+      ]
+    },
+    {
+      "label": "4-leg",
+      "n_legs": 4,
+      "hit_prob": 0.23620268516193008,
+      "payout_mult": 1.8973665961010275,
+      "ev": 0.44816308473561395,
+      "high_confidence": false,
+      "legs": [
+        {
+          "player": "Julius Randle",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 7.5,
+          "tier": "GOBLIN",
+          "team": "MIN",
+          "opp": "SAS",
+          "p_cal": 0.7312359681689533,
+          "l10_hr": 0.7,
+          "l10_n": 10
+        },
+        {
+          "player": "Rudy Gobert",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 9.5,
+          "tier": "GOBLIN",
+          "team": "MIN",
+          "opp": "SAS",
+          "p_cal": 0.7348397992133301,
+          "l10_hr": 0.8,
+          "l10_n": 10
+        },
+        {
+          "player": "Naz Reid",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 9.5,
+          "tier": "STANDARD",
+          "team": "MIN",
+          "opp": "SAS",
+          "p_cal": 0.6841532099674489,
+          "l10_hr": 0.4,
+          "l10_n": 10
+        },
+        {
+          "player": "De'Aaron Fox",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 17.0,
+          "tier": "STANDARD",
+          "team": "SAS",
+          "opp": "MIN",
+          "p_cal": 0.5511404050062337,
+          "l10_hr": 0.5,
+          "l10_n": 10
+        }
+      ]
+    },
+    {
+      "label": "5-leg",
+      "n_legs": 5,
+      "hit_prob": 0.12406217105366563,
+      "payout_mult": 2.1445422618829917,
+      "ev": 0.2660565689255427,
+      "high_confidence": false,
+      "legs": [
+        {
+          "player": "Naz Reid",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 8.5,
+          "tier": "GOBLIN",
+          "team": "MIN",
+          "opp": "SAS",
+          "p_cal": 0.7351762945590556,
+          "l10_hr": 0.5,
+          "l10_n": 10
+        },
+        {
+          "player": "Devin Vassell",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 11.5,
+          "tier": "GOBLIN",
+          "team": "SAS",
+          "opp": "MIN",
+          "p_cal": 0.7364044451695518,
+          "l10_hr": 0.9,
+          "l10_n": 10
+        },
+        {
+          "player": "Julius Randle",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 6.0,
+          "tier": "STANDARD",
+          "team": "MIN",
+          "opp": "SAS",
+          "p_cal": 0.6600626384790957,
+          "l10_hr": 0.6,
+          "l10_n": 10
+        },
+        {
+          "player": "Jaden McDaniels",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 5.0,
+          "tier": "STANDARD",
+          "team": "MIN",
+          "opp": "SAS",
+          "p_cal": 0.597031163417346,
+          "l10_hr": 0.5,
+          "l10_n": 10
+        },
+        {
+          "player": "Julian Champagnie",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 9.5,
+          "tier": "DEMON",
+          "team": "SAS",
+          "opp": "MIN",
+          "p_cal": 0.5208100621270696,
+          "l10_hr": 0.4,
+          "l10_n": 10
+        }
+      ]
+    }
+  ],
+  "top_hit_list": [
+    {
+      "player": "Devin Vassell",
+      "stat": "PR",
+      "dir": "OVER",
+      "line": 11.5,
+      "l10_hr": 0.9,
+      "l10_n": 10
+    },
+    {
+      "player": "Rudy Gobert",
+      "stat": "RA",
+      "dir": "OVER",
+      "line": 9.5,
+      "l10_hr": 0.8,
+      "l10_n": 10
+    },
+    {
+      "player": "Jaden McDaniels",
+      "stat": "RA",
+      "dir": "OVER",
+      "line": 5.5,
+      "l10_hr": 0.7,
+      "l10_n": 10
+    },
+    {
+      "player": "Rudy Gobert",
+      "stat": "RA",
+      "dir": "OVER",
+      "line": 11.5,
+      "l10_hr": 0.7,
+      "l10_n": 10
+    },
+    {
+      "player": "Julius Randle",
+      "stat": "RA",
+      "dir": "OVER",
+      "line": 7.5,
+      "l10_hr": 0.7,
+      "l10_n": 10
+    },
+    {
+      "player": "Julius Randle",
+      "stat": "REB",
+      "dir": "OVER",
+      "line": 6.0,
+      "l10_hr": 0.6,
+      "l10_n": 10
+    },
+    {
+      "player": "Julian Champagnie",
+      "stat": "PA",
+      "dir": "OVER",
+      "line": 10.0,
+      "l10_hr": 0.5,
+      "l10_n": 10
+    },
+    {
+      "player": "De'Aaron Fox",
+      "stat": "PTS",
+      "dir": "OVER",
+      "line": 17.0,
+      "l10_hr": 0.5,
+      "l10_n": 10
+    },
+    {
+      "player": "Naz Reid",
+      "stat": "RA",
+      "dir": "OVER",
+      "line": 8.5,
+      "l10_hr": 0.5,
+      "l10_n": 10
+    },
+    {
+      "player": "Jaden McDaniels",
+      "stat": "REB",
+      "dir": "OVER",
+      "line": 5.0,
+      "l10_hr": 0.5,
+      "l10_n": 10
+    }
+  ],
   "performance": {
     "overall": {
       "last_7d": {
@@ -266,7 +703,7 @@
       }
     ],
     "report_date": "2026-05-12",
-    "report_label": "03:45PM",
+    "report_label": "04:15PM",
     "role_boosted": [
       {
         "player": "Naz Reid",
@@ -500,17 +937,6 @@
         "role_reason": "ok"
       },
       {
-        "player": "Mike Conley",
-        "team": "MIN",
-        "stat": "RA",
-        "line": 1.5,
-        "dir": "OVER",
-        "tier": "GOBLIN",
-        "p_cal": 0.7436884097691955,
-        "role_mult": 1.0156881343536828,
-        "role_reason": "ok_combo"
-      },
-      {
         "player": "Julius Randle",
         "team": "MIN",
         "stat": "REB",
@@ -711,23 +1137,23 @@
       {
         "player": "Terrence Shannon",
         "team": "MIN",
-        "stat": "PR",
-        "line": 8.5,
-        "dir": "OVER",
-        "tier": "GOBLIN",
-        "p_cal": 0.7332624687083402,
-        "role_mult": 1.0074028418899423,
-        "role_reason": "ok_combo"
-      },
-      {
-        "player": "Terrence Shannon",
-        "team": "MIN",
         "stat": "PA",
         "line": 7.5,
         "dir": "OVER",
         "tier": "GOBLIN",
         "p_cal": 0.7332624687083402,
         "role_mult": 1.009672662296983,
+        "role_reason": "ok_combo"
+      },
+      {
+        "player": "Terrence Shannon",
+        "team": "MIN",
+        "stat": "PR",
+        "line": 8.5,
+        "dir": "OVER",
+        "tier": "GOBLIN",
+        "p_cal": 0.7332624687083402,
+        "role_mult": 1.0074028418899423,
         "role_reason": "ok_combo"
       },
       {
@@ -773,17 +1199,6 @@
         "p_cal": 0.7315985814082371,
         "role_mult": 1.0115877999204184,
         "role_reason": "ok"
-      },
-      {
-        "player": "Terrence Shannon",
-        "team": "MIN",
-        "stat": "PA",
-        "line": 8.5,
-        "dir": "OVER",
-        "tier": "STANDARD",
-        "p_cal": 0.7312884745206633,
-        "role_mult": 1.009672662296983,
-        "role_reason": "ok_combo"
       },
       {
         "player": "Julius Randle",
@@ -885,17 +1300,6 @@
         "role_reason": "ok"
       },
       {
-        "player": "Terrence Shannon",
-        "team": "MIN",
-        "stat": "PRA",
-        "line": 11.5,
-        "dir": "OVER",
-        "tier": "STANDARD",
-        "p_cal": 0.7212979434196544,
-        "role_mult": 1.0161587090420632,
-        "role_reason": "ok_combo"
-      },
-      {
         "player": "Rudy Gobert",
         "team": "MIN",
         "stat": "PR",
@@ -904,6 +1308,17 @@
         "tier": "GOBLIN",
         "p_cal": 0.7212979434196544,
         "role_mult": 1.0650771093729148,
+        "role_reason": "ok_combo"
+      },
+      {
+        "player": "Terrence Shannon",
+        "team": "MIN",
+        "stat": "PRA",
+        "line": 11.5,
+        "dir": "OVER",
+        "tier": "STANDARD",
+        "p_cal": 0.7212979434196544,
+        "role_mult": 1.0161587090420632,
         "role_reason": "ok_combo"
       },
       {
@@ -992,6 +1407,17 @@
         "tier": "STANDARD",
         "p_cal": 0.7044403308415719,
         "role_mult": 1.0074028418899423,
+        "role_reason": "ok_combo"
+      },
+      {
+        "player": "Terrence Shannon",
+        "team": "MIN",
+        "stat": "PA",
+        "line": 9.5,
+        "dir": "OVER",
+        "tier": "STANDARD",
+        "p_cal": 0.7025658737346324,
+        "role_mult": 1.009672662296983,
         "role_reason": "ok_combo"
       },
       {
@@ -1402,17 +1828,6 @@
         "role_reason": "ok_combo"
       },
       {
-        "player": "Terrence Shannon",
-        "team": "MIN",
-        "stat": "PTS",
-        "line": 10.5,
-        "dir": "OVER",
-        "tier": "DEMON",
-        "p_cal": 0.610618767022807,
-        "role_mult": 1.0,
-        "role_reason": "ok"
-      },
-      {
         "player": "Ayo Dosunmu",
         "team": "MIN",
         "stat": "PTS",
@@ -1421,6 +1836,17 @@
         "tier": "GOBLIN",
         "p_cal": 0.610618767022807,
         "role_mult": 1.0287749855263757,
+        "role_reason": "ok"
+      },
+      {
+        "player": "Terrence Shannon",
+        "team": "MIN",
+        "stat": "PTS",
+        "line": 10.5,
+        "dir": "OVER",
+        "tier": "DEMON",
+        "p_cal": 0.610618767022807,
+        "role_mult": 1.0,
         "role_reason": "ok"
       },
       {
@@ -1664,6 +2090,17 @@
         "p_cal": 0.5643626604565175,
         "role_mult": 1.0,
         "role_reason": "ok"
+      },
+      {
+        "player": "Stephon Castle",
+        "team": "SAS",
+        "stat": "FTA",
+        "line": 5.5,
+        "dir": "OVER",
+        "tier": "STANDARD",
+        "p_cal": 0.5640118511015993,
+        "role_mult": 1.0,
+        "role_reason": "stat_unmapped"
       },
       {
         "player": "Victor Wembanyama",
@@ -2678,10 +3115,10 @@
         "role_reason": "ok"
       },
       {
-        "player": "Ayo Dosunmu",
+        "player": "Jaden McDaniels",
         "team": "MIN",
-        "stat": "PR",
-        "line": 17.5,
+        "stat": "PA",
+        "line": 19.5,
         "dir": "OVER",
         "tier": "DEMON",
         "p_cal": 0.4257728599601857,
@@ -2689,10 +3126,10 @@
         "role_reason": "ok_combo"
       },
       {
-        "player": "Jaden McDaniels",
+        "player": "Ayo Dosunmu",
         "team": "MIN",
-        "stat": "PA",
-        "line": 19.5,
+        "stat": "PR",
+        "line": 17.5,
         "dir": "OVER",
         "tier": "DEMON",
         "p_cal": 0.4257728599601857,
@@ -2764,6 +3201,17 @@
         "p_cal": 0.4170661798066262,
         "role_mult": 1.0,
         "role_reason": "ok"
+      },
+      {
+        "player": "Stephon Castle",
+        "team": "SAS",
+        "stat": "FTA",
+        "line": 5.5,
+        "dir": "UNDER",
+        "tier": "STANDARD",
+        "p_cal": 0.4153968539229494,
+        "role_mult": 1.0,
+        "role_reason": "stat_unmapped"
       },
       {
         "player": "Rudy Gobert",
@@ -2923,7 +3371,7 @@
         "player": "Anthony Edwards",
         "team": "MIN",
         "stat": "PRA",
-        "line": 35.5,
+        "line": 34.5,
         "dir": "OVER",
         "tier": "GOBLIN",
         "p_cal": 0.3930858151909897,
@@ -2934,7 +3382,7 @@
         "player": "Anthony Edwards",
         "team": "MIN",
         "stat": "PRA",
-        "line": 34.5,
+        "line": 35.5,
         "dir": "OVER",
         "tier": "GOBLIN",
         "p_cal": 0.3930858151909897,
@@ -3043,23 +3491,23 @@
       {
         "player": "Anthony Edwards",
         "team": "MIN",
-        "stat": "AST",
-        "line": 3.5,
-        "dir": "OVER",
-        "tier": "GOBLIN",
-        "p_cal": 0.3832655462834639,
-        "role_mult": 1.0779085170238845,
-        "role_reason": "ok"
-      },
-      {
-        "player": "Anthony Edwards",
-        "team": "MIN",
         "stat": "PTS",
         "line": 24.5,
         "dir": "OVER",
         "tier": "GOBLIN",
         "p_cal": 0.3832655462834639,
         "role_mult": 1.0720168450106449,
+        "role_reason": "ok"
+      },
+      {
+        "player": "Anthony Edwards",
+        "team": "MIN",
+        "stat": "AST",
+        "line": 3.5,
+        "dir": "OVER",
+        "tier": "GOBLIN",
+        "p_cal": 0.3832655462834639,
+        "role_mult": 1.0779085170238845,
         "role_reason": "ok"
       },
       {
@@ -3338,6 +3786,17 @@
         "role_reason": "ok_combo"
       },
       {
+        "player": "Terrence Shannon",
+        "team": "MIN",
+        "stat": "PA",
+        "line": 9.5,
+        "dir": "UNDER",
+        "tier": "STANDARD",
+        "p_cal": 0.3377865422331346,
+        "role_mult": 1.009672662296983,
+        "role_reason": "ok_combo"
+      },
+      {
         "player": "Naz Reid",
         "team": "MIN",
         "stat": "PRA",
@@ -3382,10 +3841,10 @@
         "role_reason": "ok"
       },
       {
-        "player": "Jaden McDaniels",
+        "player": "Rudy Gobert",
         "team": "MIN",
-        "stat": "AST",
-        "line": 3.5,
+        "stat": "REB",
+        "line": 11.5,
         "dir": "OVER",
         "tier": "DEMON",
         "p_cal": 0.3330041161470929,
@@ -3393,10 +3852,10 @@
         "role_reason": "ok"
       },
       {
-        "player": "Rudy Gobert",
+        "player": "Jaden McDaniels",
         "team": "MIN",
-        "stat": "REB",
-        "line": 11.5,
+        "stat": "AST",
+        "line": 3.5,
         "dir": "OVER",
         "tier": "DEMON",
         "p_cal": 0.3330041161470929,
@@ -3478,17 +3937,6 @@
         "tier": "STANDARD",
         "p_cal": 0.3214702927539247,
         "role_mult": 1.0452680221900188,
-        "role_reason": "ok_combo"
-      },
-      {
-        "player": "Terrence Shannon",
-        "team": "MIN",
-        "stat": "PA",
-        "line": 8.5,
-        "dir": "UNDER",
-        "tier": "STANDARD",
-        "p_cal": 0.3198067751342113,
-        "role_mult": 1.009672662296983,
         "role_reason": "ok_combo"
       },
       {
@@ -3844,10 +4292,10 @@
         "role_reason": "ok"
       },
       {
-        "player": "Naz Reid",
+        "player": "Julius Randle",
         "team": "MIN",
-        "stat": "PRA",
-        "line": 29.5,
+        "stat": "PA",
+        "line": 24.5,
         "dir": "OVER",
         "tier": "DEMON",
         "p_cal": 0.2476478044759494,
@@ -3855,10 +4303,10 @@
         "role_reason": "ok_combo"
       },
       {
-        "player": "Julius Randle",
+        "player": "Naz Reid",
         "team": "MIN",
-        "stat": "PA",
-        "line": 24.5,
+        "stat": "PRA",
+        "line": 29.5,
         "dir": "OVER",
         "tier": "DEMON",
         "p_cal": 0.2476478044759494,
@@ -4009,10 +4457,10 @@
         "role_reason": "ok"
       },
       {
-        "player": "Julius Randle",
+        "player": "Anthony Edwards",
         "team": "MIN",
-        "stat": "RA",
-        "line": 12.5,
+        "stat": "PA",
+        "line": 34.5,
         "dir": "OVER",
         "tier": "DEMON",
         "p_cal": 0.2113912673095958,
@@ -4020,10 +4468,10 @@
         "role_reason": "ok_combo"
       },
       {
-        "player": "Anthony Edwards",
+        "player": "Julius Randle",
         "team": "MIN",
-        "stat": "PA",
-        "line": 34.5,
+        "stat": "RA",
+        "line": 12.5,
         "dir": "OVER",
         "tier": "DEMON",
         "p_cal": 0.2113912673095958,
@@ -4768,10 +5216,10 @@
       "role_reason": "no_outs",
       "dk_over": -217,
       "dk_under": 162,
-      "fd_over": -225,
+      "fd_over": -215,
       "fd_under": 164,
       "dk_imp_over": 0.642,
-      "fd_imp_over": 0.6464
+      "fd_imp_over": 0.6431
     },
     {
       "player": "Naz Reid",
@@ -5125,10 +5573,10 @@
       "role_reason": "ok",
       "dk_over": null,
       "dk_under": null,
-      "fd_over": -140,
-      "fd_under": 106,
+      "fd_over": -138,
+      "fd_under": 108,
       "dk_imp_over": null,
-      "fd_imp_over": 0.5458
+      "fd_imp_over": 0.5467
     },
     {
       "player": "Keldon Johnson",
@@ -5417,27 +5865,6 @@
       "l20_edge": null,
       "role_mult": 1.0298448654032777,
       "role_reason": "ok",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": null,
-      "fd_imp_over": null
-    },
-    {
-      "player": "Mike Conley",
-      "team": "MIN",
-      "opp": "SAS",
-      "stat": "RA",
-      "line": 1.5,
-      "dir": "OVER",
-      "tier": "GOBLIN",
-      "p_cal": 0.7436884097691955,
-      "fragility": 0.0,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0156881343536828,
-      "role_reason": "ok_combo",
       "dk_over": null,
       "dk_under": null,
       "fd_over": null,
@@ -6058,15 +6485,15 @@
       "player": "Terrence Shannon",
       "team": "MIN",
       "opp": "SAS",
-      "stat": "PR",
-      "line": 8.5,
+      "stat": "PA",
+      "line": 7.5,
       "dir": "OVER",
       "tier": "GOBLIN",
       "p_cal": 0.7332624687083402,
-      "fragility": 0.0068613960097826,
+      "fragility": 0.0068270055417233,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
-      "role_mult": 1.0074028418899423,
+      "role_mult": 1.009672662296983,
       "role_reason": "ok_combo",
       "dk_over": null,
       "dk_under": null,
@@ -6079,15 +6506,15 @@
       "player": "Terrence Shannon",
       "team": "MIN",
       "opp": "SAS",
-      "stat": "PA",
-      "line": 7.5,
+      "stat": "PR",
+      "line": 8.5,
       "dir": "OVER",
       "tier": "GOBLIN",
       "p_cal": 0.7332624687083402,
-      "fragility": 0.0068270055417233,
+      "fragility": 0.0068613960097826,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
-      "role_mult": 1.009672662296983,
+      "role_mult": 1.0074028418899423,
       "role_reason": "ok_combo",
       "dk_over": null,
       "dk_under": null,
@@ -6199,27 +6626,6 @@
       "fd_over": null,
       "fd_under": null,
       "dk_imp_over": 0.5162,
-      "fd_imp_over": null
-    },
-    {
-      "player": "Terrence Shannon",
-      "team": "MIN",
-      "opp": "SAS",
-      "stat": "PA",
-      "line": 8.5,
-      "dir": "OVER",
-      "tier": "STANDARD",
-      "p_cal": 0.7312884745206633,
-      "fragility": 0.0073673988640345,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.009672662296983,
-      "role_reason": "ok_combo",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": null,
       "fd_imp_over": null
     },
     {
@@ -6341,12 +6747,12 @@
       "l20_edge": null,
       "role_mult": 1.0413254363513156,
       "role_reason": "ok",
-      "dk_over": -152,
-      "dk_under": 115,
-      "fd_over": -138,
-      "fd_under": 104,
-      "dk_imp_over": 0.5646,
-      "fd_imp_over": 0.5419
+      "dk_over": -160,
+      "dk_under": 121,
+      "fd_over": -136,
+      "fd_under": 106,
+      "dk_imp_over": 0.5763,
+      "fd_imp_over": 0.5428
     },
     {
       "player": "Dylan Harper",
@@ -6496,19 +6902,19 @@
       "fd_imp_over": null
     },
     {
-      "player": "Terrence Shannon",
-      "team": "MIN",
-      "opp": "SAS",
-      "stat": "PRA",
-      "line": 11.5,
+      "player": "De'Aaron Fox",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "PR",
+      "line": 16.5,
       "dir": "OVER",
-      "tier": "STANDARD",
-      "p_cal": 0.7212979434196544,
-      "fragility": 0.0056840873135803,
+      "tier": "GOBLIN",
+      "p_cal": 0.7227640527660261,
+      "fragility": 0.0420364240889093,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
-      "role_mult": 1.0161587090420632,
-      "role_reason": "ok_combo",
+      "role_mult": 1.0,
+      "role_reason": "no_outs",
       "dk_over": null,
       "dk_under": null,
       "fd_over": null,
@@ -6529,6 +6935,27 @@
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0650771093729148,
+      "role_reason": "ok_combo",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
+      "player": "Terrence Shannon",
+      "team": "MIN",
+      "opp": "SAS",
+      "stat": "PRA",
+      "line": 11.5,
+      "dir": "OVER",
+      "tier": "STANDARD",
+      "p_cal": 0.7212979434196544,
+      "fragility": 0.0056840873135803,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0161587090420632,
       "role_reason": "ok_combo",
       "dk_over": null,
       "dk_under": null,
@@ -6769,6 +7196,27 @@
       "fd_imp_over": null
     },
     {
+      "player": "Terrence Shannon",
+      "team": "MIN",
+      "opp": "SAS",
+      "stat": "PA",
+      "line": 9.5,
+      "dir": "OVER",
+      "tier": "STANDARD",
+      "p_cal": 0.7025658737346324,
+      "fragility": 0.0064766745555763,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.009672662296983,
+      "role_reason": "ok_combo",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
       "player": "Julian Champagnie",
       "team": "SAS",
       "opp": "MIN",
@@ -6866,11 +7314,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -169,
-      "dk_under": 128,
+      "dk_over": -170,
+      "dk_under": 129,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.5889,
+      "dk_imp_over": 0.5905,
       "fd_imp_over": null
     },
     {
@@ -6971,12 +7419,12 @@
       "l20_edge": null,
       "role_mult": 1.0452680221900188,
       "role_reason": "ok_combo",
-      "dk_over": -111,
-      "dk_under": -119,
-      "fd_over": 106,
-      "fd_under": -140,
-      "dk_imp_over": 0.4919,
-      "fd_imp_over": 0.4542
+      "dk_over": -105,
+      "dk_under": -125,
+      "fd_over": 108,
+      "fd_under": -138,
+      "dk_imp_over": 0.4797,
+      "fd_imp_over": 0.4533
     },
     {
       "player": "Rudy Gobert",
@@ -7118,12 +7566,12 @@
       "l20_edge": null,
       "role_mult": 1.0671972791041568,
       "role_reason": "ok_combo",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": -110,
-      "fd_under": -120,
-      "dk_imp_over": null,
-      "fd_imp_over": 0.4899
+      "dk_over": -126,
+      "dk_under": -105,
+      "fd_over": -108,
+      "fd_under": -118,
+      "dk_imp_over": 0.5212,
+      "fd_imp_over": 0.4896
     },
     {
       "player": "Jaden McDaniels",
@@ -7141,10 +7589,10 @@
       "role_reason": "ok",
       "dk_over": -156,
       "dk_under": 118,
-      "fd_over": -158,
-      "fd_under": 118,
+      "fd_over": -156,
+      "fd_under": 122,
       "dk_imp_over": 0.5705,
-      "fd_imp_over": 0.5717
+      "fd_imp_over": 0.575
     },
     {
       "player": "De'Aaron Fox",
@@ -7504,27 +7952,6 @@
       "fd_imp_over": null
     },
     {
-      "player": "Luke Kornet",
-      "team": "SAS",
-      "opp": "MIN",
-      "stat": "RA",
-      "line": 3.5,
-      "dir": "OVER",
-      "tier": "GOBLIN",
-      "p_cal": 0.6510667581551787,
-      "fragility": 0.0,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0,
-      "role_reason": "no_outs",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": null,
-      "fd_imp_over": null
-    },
-    {
       "player": "Stephon Castle",
       "team": "SAS",
       "opp": "MIN",
@@ -7601,11 +8028,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -158,
-      "dk_under": 120,
+      "dk_over": -152,
+      "dk_under": 115,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.574,
+      "dk_imp_over": 0.5646,
       "fd_imp_over": null
     },
     {
@@ -7664,12 +8091,12 @@
       "l20_edge": null,
       "role_mult": 1.0400208728599207,
       "role_reason": "ok_combo",
-      "dk_over": -119,
-      "dk_under": -111,
-      "fd_over": -104,
-      "fd_under": -128,
-      "dk_imp_over": 0.5081,
-      "fd_imp_over": 0.4759
+      "dk_over": -115,
+      "dk_under": -114,
+      "fd_over": -102,
+      "fd_under": -125,
+      "dk_imp_over": 0.501,
+      "fd_imp_over": 0.4761
     },
     {
       "player": "Devin Vassell",
@@ -7813,10 +8240,10 @@
       "role_reason": "ok_combo",
       "dk_over": -121,
       "dk_under": -109,
-      "fd_over": -104,
-      "fd_under": -128,
+      "fd_over": -102,
+      "fd_under": -125,
       "dk_imp_over": 0.5122,
-      "fd_imp_over": 0.4759
+      "fd_imp_over": 0.4761
     },
     {
       "player": "Mike Conley",
@@ -8042,12 +8469,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -124,
-      "dk_under": -106,
-      "fd_over": -118,
-      "fd_under": -112,
-      "dk_imp_over": 0.5183,
-      "fd_imp_over": 0.5061
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": -115,
+      "fd_under": -111,
+      "dk_imp_over": null,
+      "fd_imp_over": 0.5042
     },
     {
       "player": "Devin Vassell",
@@ -8084,11 +8511,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "ok",
-      "dk_over": 102,
-      "dk_under": -134,
+      "dk_over": 111,
+      "dk_under": -146,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.4637,
+      "dk_imp_over": 0.444,
       "fd_imp_over": null
     },
     {
@@ -8239,27 +8666,6 @@
       "fd_imp_over": null
     },
     {
-      "player": "Terrence Shannon",
-      "team": "MIN",
-      "opp": "SAS",
-      "stat": "PTS",
-      "line": 10.5,
-      "dir": "OVER",
-      "tier": "DEMON",
-      "p_cal": 0.610618767022807,
-      "fragility": 0.0110702864309182,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0,
-      "role_reason": "ok",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": null,
-      "fd_imp_over": null
-    },
-    {
       "player": "Ayo Dosunmu",
       "team": "MIN",
       "opp": "SAS",
@@ -8272,6 +8678,27 @@
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0287749855263757,
+      "role_reason": "ok",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
+      "player": "Terrence Shannon",
+      "team": "MIN",
+      "opp": "SAS",
+      "stat": "PTS",
+      "line": 10.5,
+      "dir": "OVER",
+      "tier": "DEMON",
+      "p_cal": 0.610618767022807,
+      "fragility": 0.0110702864309182,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
       "role_reason": "ok",
       "dk_over": null,
       "dk_under": null,
@@ -8378,11 +8805,11 @@
       "l20_edge": null,
       "role_mult": 1.0427313402162652,
       "role_reason": "ok_combo",
-      "dk_over": -117,
+      "dk_over": -118,
       "dk_under": -112,
       "fd_over": -104,
       "fd_under": -128,
-      "dk_imp_over": 0.5051,
+      "dk_imp_over": 0.5061,
       "fd_imp_over": 0.4759
     },
     {
@@ -8504,11 +8931,11 @@
       "l20_edge": null,
       "role_mult": 1.0900966349580172,
       "role_reason": "ok_combo",
-      "dk_over": -108,
-      "dk_under": -122,
+      "dk_over": null,
+      "dk_under": null,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.4858,
+      "dk_imp_over": null,
       "fd_imp_over": null
     },
     {
@@ -8630,12 +9057,12 @@
       "l20_edge": null,
       "role_mult": 1.0497704524969915,
       "role_reason": "ok",
-      "dk_over": -125,
-      "dk_under": -105,
-      "fd_over": -118,
-      "fd_under": -112,
-      "dk_imp_over": 0.5203,
-      "fd_imp_over": 0.5061
+      "dk_over": -120,
+      "dk_under": -109,
+      "fd_over": -115,
+      "fd_under": -111,
+      "dk_imp_over": 0.5112,
+      "fd_imp_over": 0.5042
     },
     {
       "player": "Rudy Gobert",
@@ -8651,11 +9078,11 @@
       "l20_edge": null,
       "role_mult": 1.0590376475254628,
       "role_reason": "ok_combo",
-      "dk_over": -107,
-      "dk_under": -123,
+      "dk_over": 101,
+      "dk_under": -133,
       "fd_over": -104,
       "fd_under": -128,
-      "dk_imp_over": 0.4838,
+      "dk_imp_over": 0.4657,
       "fd_imp_over": 0.4759
     },
     {
@@ -8672,11 +9099,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -153,
-      "dk_under": 116,
+      "dk_over": -157,
+      "dk_under": 119,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.5664,
+      "dk_imp_over": 0.5723,
       "fd_imp_over": null
     },
     {
@@ -8695,8 +9122,8 @@
       "role_reason": "no_outs",
       "dk_over": -110,
       "dk_under": -119,
-      "fd_over": -114,
-      "fd_under": -114,
+      "fd_over": -113,
+      "fd_under": -113,
       "dk_imp_over": 0.4908,
       "fd_imp_over": 0.5
     },
@@ -8903,11 +9330,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -115,
-      "dk_under": -115,
-      "fd_over": -114,
-      "fd_under": -114,
-      "dk_imp_over": 0.5,
+      "dk_over": -114,
+      "dk_under": -116,
+      "fd_over": -113,
+      "fd_under": -113,
+      "dk_imp_over": 0.498,
       "fd_imp_over": 0.5
     },
     {
@@ -8927,9 +9354,9 @@
       "dk_over": null,
       "dk_under": null,
       "fd_over": 142,
-      "fd_under": -192,
+      "fd_under": -186,
       "dk_imp_over": null,
-      "fd_imp_over": 0.3859
+      "fd_imp_over": 0.3885
     },
     {
       "player": "Dylan Harper",
@@ -8945,11 +9372,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": null,
-      "dk_under": null,
+      "dk_over": -102,
+      "dk_under": -129,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": null,
+      "dk_imp_over": 0.4727,
       "fd_imp_over": null
     },
     {
@@ -8968,10 +9395,10 @@
       "role_reason": "no_outs",
       "dk_over": -109,
       "dk_under": -120,
-      "fd_over": -106,
-      "fd_under": -125,
+      "fd_over": -104,
+      "fd_under": -122,
       "dk_imp_over": 0.4888,
-      "fd_imp_over": 0.4808
+      "fd_imp_over": 0.4812
     },
     {
       "player": "Julian Champagnie",
@@ -8987,12 +9414,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -115,
-      "dk_under": -111,
-      "fd_over": -120,
-      "fd_under": -110,
-      "dk_imp_over": 0.5042,
-      "fd_imp_over": 0.5101
+      "dk_over": -122,
+      "dk_under": -104,
+      "fd_over": -118,
+      "fd_under": -108,
+      "dk_imp_over": 0.5188,
+      "fd_imp_over": 0.5104
     },
     {
       "player": "Ayo Dosunmu",
@@ -9029,12 +9456,12 @@
       "l20_edge": null,
       "role_mult": 1.0207827640389668,
       "role_reason": "ok",
-      "dk_over": -146,
-      "dk_under": 111,
-      "fd_over": -130,
-      "fd_under": -102,
-      "dk_imp_over": 0.556,
-      "fd_imp_over": 0.5282
+      "dk_over": -152,
+      "dk_under": 115,
+      "fd_over": -128,
+      "fd_under": 100,
+      "dk_imp_over": 0.5646,
+      "fd_imp_over": 0.5289
     },
     {
       "player": "Victor Wembanyama",
@@ -9052,10 +9479,10 @@
       "role_reason": "no_outs",
       "dk_over": null,
       "dk_under": null,
-      "fd_over": -118,
-      "fd_under": -112,
+      "fd_over": -115,
+      "fd_under": -111,
       "dk_imp_over": null,
-      "fd_imp_over": 0.5061
+      "fd_imp_over": 0.5042
     },
     {
       "player": "Terrence Shannon",
@@ -9094,10 +9521,10 @@
       "role_reason": "no_outs",
       "dk_over": null,
       "dk_under": null,
-      "fd_over": -112,
-      "fd_under": -118,
+      "fd_over": -111,
+      "fd_under": -115,
       "dk_imp_over": null,
-      "fd_imp_over": 0.4939
+      "fd_imp_over": 0.4958
     },
     {
       "player": "Victor Wembanyama",
@@ -9155,11 +9582,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -124,
-      "dk_under": -106,
+      "dk_over": null,
+      "dk_under": null,
       "fd_over": -112,
       "fd_under": -118,
-      "dk_imp_over": 0.5183,
+      "dk_imp_over": null,
       "fd_imp_over": 0.4939
     },
     {
@@ -9239,12 +9666,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -108,
-      "dk_under": -122,
-      "fd_over": -108,
-      "fd_under": -122,
-      "dk_imp_over": 0.4858,
-      "fd_imp_over": 0.4858
+      "dk_over": -114,
+      "dk_under": -115,
+      "fd_over": -106,
+      "fd_under": -120,
+      "dk_imp_over": 0.499,
+      "fd_imp_over": 0.4854
     },
     {
       "player": "Keldon Johnson",
@@ -9262,10 +9689,10 @@
       "role_reason": "no_outs",
       "dk_over": -199,
       "dk_under": 150,
-      "fd_over": -194,
-      "fd_under": 144,
+      "fd_over": -188,
+      "fd_under": 146,
       "dk_imp_over": 0.6246,
-      "fd_imp_over": 0.6169
+      "fd_imp_over": 0.6162
     },
     {
       "player": "Keldon Johnson",
@@ -9325,10 +9752,10 @@
       "role_reason": "ok",
       "dk_over": -107,
       "dk_under": -120,
-      "fd_over": 102,
-      "fd_under": -136,
+      "fd_over": 104,
+      "fd_under": -132,
       "dk_imp_over": 0.4866,
-      "fd_imp_over": 0.4621
+      "fd_imp_over": 0.4628
     },
     {
       "player": "De'Aaron Fox",
@@ -9386,12 +9813,12 @@
       "l20_edge": null,
       "role_mult": 1.0650771093729148,
       "role_reason": "ok_combo",
-      "dk_over": -105,
-      "dk_under": -126,
+      "dk_over": null,
+      "dk_under": null,
       "fd_over": 100,
-      "fd_under": -132,
-      "dk_imp_over": 0.4788,
-      "fd_imp_over": 0.4677
+      "fd_under": -128,
+      "dk_imp_over": null,
+      "fd_imp_over": 0.4711
     },
     {
       "player": "Victor Wembanyama",
@@ -9407,12 +9834,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -114,
-      "dk_under": -112,
-      "fd_over": -106,
-      "fd_under": -125,
-      "dk_imp_over": 0.5021,
-      "fd_imp_over": 0.4808
+      "dk_over": -118,
+      "dk_under": -108,
+      "fd_over": -104,
+      "fd_under": -122,
+      "dk_imp_over": 0.5104,
+      "fd_imp_over": 0.4812
     },
     {
       "player": "Mike Conley",
@@ -9428,6 +9855,27 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "ok",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
+      "player": "Stephon Castle",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "FTA",
+      "line": 5.5,
+      "dir": "OVER",
+      "tier": "STANDARD",
+      "p_cal": 0.5640118511015993,
+      "fragility": 0.0286834413069656,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "stat_unmapped",
       "dk_over": null,
       "dk_under": null,
       "fd_over": null,
@@ -9575,12 +10023,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -123,
-      "dk_under": -107,
-      "fd_over": -125,
-      "fd_under": -106,
-      "dk_imp_over": 0.5162,
-      "fd_imp_over": 0.5192
+      "dk_over": -131,
+      "dk_under": -101,
+      "fd_over": -122,
+      "fd_under": -104,
+      "dk_imp_over": 0.5302,
+      "fd_imp_over": 0.5188
     },
     {
       "player": "Terrence Shannon",
@@ -9640,10 +10088,10 @@
       "role_reason": "no_outs",
       "dk_over": 103,
       "dk_under": -136,
-      "fd_over": 100,
-      "fd_under": -132,
+      "fd_over": 102,
+      "fd_under": -130,
       "dk_imp_over": 0.4609,
-      "fd_imp_over": 0.4677
+      "fd_imp_over": 0.4669
     },
     {
       "player": "Anthony Edwards",
@@ -9682,10 +10130,10 @@
       "role_reason": "no_outs",
       "dk_over": -178,
       "dk_under": 134,
-      "fd_over": -160,
-      "fd_under": 120,
+      "fd_over": -158,
+      "fd_under": 124,
       "dk_imp_over": 0.5997,
-      "fd_imp_over": 0.5752
+      "fd_imp_over": 0.5784
     },
     {
       "player": "De'Aaron Fox",
@@ -9730,6 +10178,27 @@
       "fd_imp_over": null
     },
     {
+      "player": "Stephon Castle",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "PR",
+      "line": 20.5,
+      "dir": "OVER",
+      "tier": "GOBLIN",
+      "p_cal": 0.5504197584626763,
+      "fragility": 0.052573373032752,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "no_outs",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
       "player": "Ayo Dosunmu",
       "team": "MIN",
       "opp": "SAS",
@@ -9766,10 +10235,10 @@
       "role_reason": "no_outs",
       "dk_over": -106,
       "dk_under": -125,
-      "fd_over": 102,
-      "fd_under": -136,
+      "fd_over": 104,
+      "fd_under": -132,
       "dk_imp_over": 0.4808,
-      "fd_imp_over": 0.4621
+      "fd_imp_over": 0.4628
     },
     {
       "player": "Julius Randle",
@@ -9787,10 +10256,10 @@
       "role_reason": "ok",
       "dk_over": 109,
       "dk_under": -143,
-      "fd_over": 116,
-      "fd_under": -154,
+      "fd_over": 118,
+      "fd_under": -150,
       "dk_imp_over": 0.4484,
-      "fd_imp_over": 0.433
+      "fd_imp_over": 0.4333
     },
     {
       "player": "De'Aaron Fox",
@@ -9911,11 +10380,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -104,
-      "dk_under": -126,
+      "dk_over": -108,
+      "dk_under": -122,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.4776,
+      "dk_imp_over": 0.4858,
       "fd_imp_over": null
     },
     {
@@ -9932,12 +10401,12 @@
       "l20_edge": null,
       "role_mult": 1.0298448654032777,
       "role_reason": "ok",
-      "dk_over": -113,
-      "dk_under": -113,
-      "fd_over": -110,
-      "fd_under": -120,
-      "dk_imp_over": 0.5,
-      "fd_imp_over": 0.4899
+      "dk_over": -107,
+      "dk_under": -119,
+      "fd_over": -108,
+      "fd_under": -118,
+      "dk_imp_over": 0.4875,
+      "fd_imp_over": 0.4896
     },
     {
       "player": "Jaden McDaniels",
@@ -9953,12 +10422,12 @@
       "l20_edge": null,
       "role_mult": 1.033887556483022,
       "role_reason": "ok_combo",
-      "dk_over": -126,
-      "dk_under": -104,
-      "fd_over": -130,
+      "dk_over": -122,
+      "dk_under": -108,
+      "fd_over": -125,
       "fd_under": -102,
-      "dk_imp_over": 0.5224,
-      "fd_imp_over": 0.5282
+      "dk_imp_over": 0.5142,
+      "fd_imp_over": 0.5239
     },
     {
       "player": "Jaden McDaniels",
@@ -10037,12 +10506,12 @@
       "l20_edge": null,
       "role_mult": 1.0283257433787578,
       "role_reason": "ok_combo",
-      "dk_over": -112,
-      "dk_under": -118,
-      "fd_over": -108,
-      "fd_under": -122,
-      "dk_imp_over": 0.4939,
-      "fd_imp_over": 0.4858
+      "dk_over": -117,
+      "dk_under": -113,
+      "fd_over": -106,
+      "fd_under": -120,
+      "dk_imp_over": 0.504,
+      "fd_imp_over": 0.4854
     },
     {
       "player": "Anthony Edwards",
@@ -10058,11 +10527,11 @@
       "l20_edge": null,
       "role_mult": 1.0720168450106449,
       "role_reason": "ok",
-      "dk_over": -107,
-      "dk_under": -119,
+      "dk_over": null,
+      "dk_under": null,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.4875,
+      "dk_imp_over": null,
       "fd_imp_over": null
     },
     {
@@ -10163,12 +10632,12 @@
       "l20_edge": null,
       "role_mult": 1.1066080340371378,
       "role_reason": "ok_combo",
-      "dk_over": -116,
-      "dk_under": -114,
-      "fd_over": -112,
-      "fd_under": -118,
-      "dk_imp_over": 0.502,
-      "fd_imp_over": 0.4939
+      "dk_over": -113,
+      "dk_under": -117,
+      "fd_over": -111,
+      "fd_under": -115,
+      "dk_imp_over": 0.496,
+      "fd_imp_over": 0.4958
     },
     {
       "player": "Julius Randle",
@@ -10331,12 +10800,12 @@
       "l20_edge": null,
       "role_mult": 1.089911383757805,
       "role_reason": "ok_combo",
-      "dk_over": -110,
-      "dk_under": -119,
-      "fd_over": -106,
-      "fd_under": -125,
-      "dk_imp_over": 0.4908,
-      "fd_imp_over": 0.4808
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": -104,
+      "fd_under": -122,
+      "dk_imp_over": null,
+      "fd_imp_over": 0.4812
     },
     {
       "player": "Dylan Harper",
@@ -10352,11 +10821,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -107,
-      "dk_under": -123,
+      "dk_over": -110,
+      "dk_under": -119,
       "fd_over": -106,
       "fd_under": -125,
-      "dk_imp_over": 0.4838,
+      "dk_imp_over": 0.4908,
       "fd_imp_over": 0.4808
     },
     {
@@ -10459,10 +10928,10 @@
       "role_reason": "no_outs",
       "dk_over": null,
       "dk_under": null,
-      "fd_over": 122,
+      "fd_over": 126,
       "fd_under": -162,
       "dk_imp_over": null,
-      "fd_imp_over": 0.4215
+      "fd_imp_over": 0.4171
     },
     {
       "player": "De'Aaron Fox",
@@ -10541,12 +11010,12 @@
       "l20_edge": null,
       "role_mult": 1.053222752389862,
       "role_reason": "ok_combo",
-      "dk_over": -107,
-      "dk_under": -122,
+      "dk_over": -111,
+      "dk_under": -118,
       "fd_over": -102,
-      "fd_under": -130,
-      "dk_imp_over": 0.4847,
-      "fd_imp_over": 0.4718
+      "fd_under": -125,
+      "dk_imp_over": 0.4929,
+      "fd_imp_over": 0.4761
     },
     {
       "player": "Julius Randle",
@@ -10562,12 +11031,12 @@
       "l20_edge": null,
       "role_mult": 1.0442434557182194,
       "role_reason": "ok_combo",
-      "dk_over": -139,
-      "dk_under": 106,
-      "fd_over": -136,
+      "dk_over": -141,
+      "dk_under": 107,
+      "fd_over": -130,
       "fd_under": 102,
-      "dk_imp_over": 0.5451,
-      "fd_imp_over": 0.5379
+      "dk_imp_over": 0.5477,
+      "fd_imp_over": 0.5331
     },
     {
       "player": "Julian Champagnie",
@@ -10607,9 +11076,9 @@
       "dk_over": null,
       "dk_under": null,
       "fd_over": 100,
-      "fd_under": -132,
+      "fd_under": -128,
       "dk_imp_over": null,
-      "fd_imp_over": 0.4677
+      "fd_imp_over": 0.4711
     },
     {
       "player": "Stephon Castle",
@@ -10648,10 +11117,10 @@
       "role_reason": "no_outs",
       "dk_over": -116,
       "dk_under": -114,
-      "fd_over": -128,
-      "fd_under": -104,
+      "fd_over": -125,
+      "fd_under": -102,
       "dk_imp_over": 0.502,
-      "fd_imp_over": 0.5241
+      "fd_imp_over": 0.5239
     },
     {
       "player": "Ayo Dosunmu",
@@ -10795,10 +11264,10 @@
       "role_reason": "no_outs",
       "dk_over": -132,
       "dk_under": 100,
-      "fd_over": -118,
-      "fd_under": -112,
+      "fd_over": -115,
+      "fd_under": -111,
       "dk_imp_over": 0.5323,
-      "fd_imp_over": 0.5061
+      "fd_imp_over": 0.5042
     },
     {
       "player": "Keldon Johnson",
@@ -10877,11 +11346,11 @@
       "l20_edge": null,
       "role_mult": 1.0313581489649626,
       "role_reason": "ok",
-      "dk_over": -127,
-      "dk_under": -104,
-      "fd_over": -114,
-      "fd_under": -114,
-      "dk_imp_over": 0.5232,
+      "dk_over": -134,
+      "dk_under": 102,
+      "fd_over": -113,
+      "fd_under": -113,
+      "dk_imp_over": 0.5363,
       "fd_imp_over": 0.5
     },
     {
@@ -10903,6 +11372,27 @@
       "fd_over": null,
       "fd_under": null,
       "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
+      "player": "Stephon Castle",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "PRA",
+      "line": 30.5,
+      "dir": "UNDER",
+      "tier": "STANDARD",
+      "p_cal": 0.5119581018279266,
+      "fragility": 0.1257315118793179,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "no_outs",
+      "dk_over": -111,
+      "dk_under": -119,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": 0.4919,
       "fd_imp_over": null
     },
     {
@@ -10942,10 +11432,10 @@
       "role_reason": "no_outs",
       "dk_over": -133,
       "dk_under": 101,
-      "fd_over": -130,
-      "fd_under": -102,
+      "fd_over": -128,
+      "fd_under": 100,
       "dk_imp_over": 0.5343,
-      "fd_imp_over": 0.5282
+      "fd_imp_over": 0.5289
     },
     {
       "player": "Ayo Dosunmu",
@@ -11003,12 +11493,12 @@
       "l20_edge": null,
       "role_mult": 1.0161016320879064,
       "role_reason": "ok",
-      "dk_over": -105,
-      "dk_under": -121,
+      "dk_over": -111,
+      "dk_under": -115,
       "fd_over": -104,
-      "fd_under": -128,
-      "dk_imp_over": 0.4833,
-      "fd_imp_over": 0.4759
+      "fd_under": -122,
+      "dk_imp_over": 0.4958,
+      "fd_imp_over": 0.4812
     },
     {
       "player": "Jaden McDaniels",
@@ -11129,12 +11619,12 @@
       "l20_edge": null,
       "role_mult": 1.0358598896518243,
       "role_reason": "ok_combo",
-      "dk_over": -116,
-      "dk_under": -113,
-      "fd_over": -112,
-      "fd_under": -118,
-      "dk_imp_over": 0.5031,
-      "fd_imp_over": 0.4939
+      "dk_over": -115,
+      "dk_under": -114,
+      "fd_over": -111,
+      "fd_under": -115,
+      "dk_imp_over": 0.501,
+      "fd_imp_over": 0.4958
     },
     {
       "player": "Stephon Castle",
@@ -11257,10 +11747,10 @@
       "role_reason": "no_outs",
       "dk_over": -114,
       "dk_under": -112,
-      "fd_over": -108,
-      "fd_under": -122,
+      "fd_over": -106,
+      "fd_under": -120,
       "dk_imp_over": 0.5021,
-      "fd_imp_over": 0.4858
+      "fd_imp_over": 0.4854
     },
     {
       "player": "Julian Champagnie",
@@ -11297,12 +11787,12 @@
       "l20_edge": null,
       "role_mult": 1.0287749855263757,
       "role_reason": "ok",
-      "dk_over": -105,
-      "dk_under": -126,
-      "fd_over": 100,
-      "fd_under": -132,
-      "dk_imp_over": 0.4788,
-      "fd_imp_over": 0.4677
+      "dk_over": -110,
+      "dk_under": -119,
+      "fd_over": 102,
+      "fd_under": -130,
+      "dk_imp_over": 0.4908,
+      "fd_imp_over": 0.4669
     },
     {
       "player": "Naz Reid",
@@ -11324,27 +11814,6 @@
       "fd_under": null,
       "dk_imp_over": null,
       "fd_imp_over": null
-    },
-    {
-      "player": "Stephon Castle",
-      "team": "SAS",
-      "opp": "MIN",
-      "stat": "PRA",
-      "line": 29.5,
-      "dir": "UNDER",
-      "tier": "STANDARD",
-      "p_cal": 0.4892939543998613,
-      "fragility": 0.0763003628370411,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0,
-      "role_reason": "no_outs",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": -120,
-      "fd_under": -110,
-      "dk_imp_over": null,
-      "fd_imp_over": 0.5101
     },
     {
       "player": "Anthony Edwards",
@@ -11381,12 +11850,12 @@
       "l20_edge": null,
       "role_mult": 1.0287749855263757,
       "role_reason": "ok",
-      "dk_over": -101,
-      "dk_under": -126,
-      "fd_over": -120,
-      "fd_under": -110,
-      "dk_imp_over": 0.474,
-      "fd_imp_over": 0.5101
+      "dk_over": -110,
+      "dk_under": -116,
+      "fd_over": -118,
+      "fd_under": -108,
+      "dk_imp_over": 0.4938,
+      "fd_imp_over": 0.5104
     },
     {
       "player": "Jaden McDaniels",
@@ -11402,11 +11871,11 @@
       "l20_edge": null,
       "role_mult": 1.03471082535413,
       "role_reason": "ok_combo",
-      "dk_over": null,
-      "dk_under": null,
+      "dk_over": -107,
+      "dk_under": -123,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": null,
+      "dk_imp_over": 0.4838,
       "fd_imp_over": null
     },
     {
@@ -11425,8 +11894,8 @@
       "role_reason": "no_outs",
       "dk_over": -108,
       "dk_under": -118,
-      "fd_over": -114,
-      "fd_under": -114,
+      "fd_over": -113,
+      "fd_under": -113,
       "dk_imp_over": 0.4896,
       "fd_imp_over": 0.5
     },
@@ -11528,12 +11997,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -103,
-      "dk_under": -128,
+      "dk_over": -108,
+      "dk_under": -122,
       "fd_over": 100,
-      "fd_under": -132,
-      "dk_imp_over": 0.4747,
-      "fd_imp_over": 0.4677
+      "fd_under": -128,
+      "dk_imp_over": 0.4858,
+      "fd_imp_over": 0.4711
     },
     {
       "player": "Ayo Dosunmu",
@@ -11549,11 +12018,11 @@
       "l20_edge": null,
       "role_mult": 1.080880268995237,
       "role_reason": "ok_combo",
-      "dk_over": -115,
-      "dk_under": -114,
+      "dk_over": -123,
+      "dk_under": -107,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.501,
+      "dk_imp_over": 0.5162,
       "fd_imp_over": null
     },
     {
@@ -11570,12 +12039,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -113,
-      "dk_under": -116,
-      "fd_over": -118,
-      "fd_under": -112,
-      "dk_imp_over": 0.4969,
-      "fd_imp_over": 0.5061
+      "dk_over": -118,
+      "dk_under": -112,
+      "fd_over": -115,
+      "fd_under": -111,
+      "dk_imp_over": 0.5061,
+      "fd_imp_over": 0.5042
     },
     {
       "player": "Ayo Dosunmu",
@@ -11614,8 +12083,8 @@
       "role_reason": "no_outs",
       "dk_over": -102,
       "dk_under": -129,
-      "fd_over": -114,
-      "fd_under": -114,
+      "fd_over": -113,
+      "fd_under": -113,
       "dk_imp_over": 0.4727,
       "fd_imp_over": 0.5
     },
@@ -11656,10 +12125,10 @@
       "role_reason": "ok",
       "dk_over": -122,
       "dk_under": -108,
-      "fd_over": -110,
-      "fd_under": -120,
+      "fd_over": -108,
+      "fd_under": -118,
       "dk_imp_over": 0.5142,
-      "fd_imp_over": 0.4899
+      "fd_imp_over": 0.4896
     },
     {
       "player": "Stephon Castle",
@@ -11698,10 +12167,10 @@
       "role_reason": "ok",
       "dk_over": -110,
       "dk_under": -119,
-      "fd_over": -110,
-      "fd_under": -120,
+      "fd_over": -108,
+      "fd_under": -118,
       "dk_imp_over": 0.4908,
-      "fd_imp_over": 0.4899
+      "fd_imp_over": 0.4896
     },
     {
       "player": "Keldon Johnson",
@@ -11719,8 +12188,8 @@
       "role_reason": "no_outs",
       "dk_over": -105,
       "dk_under": -125,
-      "fd_over": -114,
-      "fd_under": -114,
+      "fd_over": -113,
+      "fd_under": -113,
       "dk_imp_over": 0.4797,
       "fd_imp_over": 0.5
     },
@@ -11759,11 +12228,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -122,
-      "dk_under": -108,
+      "dk_over": -120,
+      "dk_under": -109,
       "fd_over": -122,
       "fd_under": -108,
-      "dk_imp_over": 0.5142,
+      "dk_imp_over": 0.5112,
       "fd_imp_over": 0.5142
     },
     {
@@ -11801,11 +12270,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -122,
-      "dk_under": -108,
-      "fd_over": -114,
-      "fd_under": -114,
-      "dk_imp_over": 0.5142,
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": -113,
+      "fd_under": -113,
+      "dk_imp_over": null,
       "fd_imp_over": 0.5
     },
     {
@@ -11846,9 +12315,9 @@
       "dk_over": null,
       "dk_under": null,
       "fd_over": 134,
-      "fd_under": -180,
+      "fd_under": -172,
       "dk_imp_over": null,
-      "fd_imp_over": 0.3993
+      "fd_imp_over": 0.4033
     },
     {
       "player": "Devin Vassell",
@@ -11885,11 +12354,11 @@
       "l20_edge": null,
       "role_mult": 1.0447375489169752,
       "role_reason": "ok_combo",
-      "dk_over": -129,
-      "dk_under": -102,
+      "dk_over": null,
+      "dk_under": null,
       "fd_over": -125,
       "fd_under": -106,
-      "dk_imp_over": 0.5273,
+      "dk_imp_over": null,
       "fd_imp_over": 0.5192
     },
     {
@@ -11948,12 +12417,12 @@
       "l20_edge": null,
       "role_mult": 1.04684798664707,
       "role_reason": "ok_combo",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": -112,
-      "fd_under": -118,
-      "dk_imp_over": null,
-      "fd_imp_over": 0.4939
+      "dk_over": -105,
+      "dk_under": -125,
+      "fd_over": -111,
+      "fd_under": -115,
+      "dk_imp_over": 0.4797,
+      "fd_imp_over": 0.4958
     },
     {
       "player": "Devin Vassell",
@@ -12014,9 +12483,9 @@
       "dk_over": 136,
       "dk_under": -180,
       "fd_over": 148,
-      "fd_under": -200,
+      "fd_under": -192,
       "dk_imp_over": 0.3973,
-      "fd_imp_over": 0.3769
+      "fd_imp_over": 0.3801
     },
     {
       "player": "Terrence Shannon",
@@ -12074,11 +12543,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -122,
-      "dk_under": -108,
-      "fd_over": -114,
-      "fd_under": -114,
-      "dk_imp_over": 0.5142,
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": -113,
+      "fd_under": -113,
+      "dk_imp_over": null,
       "fd_imp_over": 0.5
     },
     {
@@ -12158,12 +12627,12 @@
       "l20_edge": null,
       "role_mult": 1.04684798664707,
       "role_reason": "ok_combo",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": -112,
-      "fd_under": -118,
-      "dk_imp_over": null,
-      "fd_imp_over": 0.4939
+      "dk_over": -105,
+      "dk_under": -125,
+      "fd_over": -111,
+      "fd_under": -115,
+      "dk_imp_over": 0.4797,
+      "fd_imp_over": 0.4958
     },
     {
       "player": "Devin Vassell",
@@ -12200,12 +12669,12 @@
       "l20_edge": null,
       "role_mult": 1.0651223591778658,
       "role_reason": "ok_combo",
-      "dk_over": -114,
-      "dk_under": -115,
-      "fd_over": -106,
-      "fd_under": -125,
-      "dk_imp_over": 0.499,
-      "fd_imp_over": 0.4808
+      "dk_over": -115,
+      "dk_under": -114,
+      "fd_over": -104,
+      "fd_under": -122,
+      "dk_imp_over": 0.501,
+      "fd_imp_over": 0.4812
     },
     {
       "player": "Devin Vassell",
@@ -12221,11 +12690,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -122,
-      "dk_under": -108,
+      "dk_over": -120,
+      "dk_under": -109,
       "fd_over": -122,
       "fd_under": -108,
-      "dk_imp_over": 0.5142,
+      "dk_imp_over": 0.5112,
       "fd_imp_over": 0.5142
     },
     {
@@ -12242,12 +12711,12 @@
       "l20_edge": null,
       "role_mult": 1.0651223591778658,
       "role_reason": "ok_combo",
-      "dk_over": -114,
-      "dk_under": -115,
-      "fd_over": -106,
-      "fd_under": -125,
-      "dk_imp_over": 0.499,
-      "fd_imp_over": 0.4808
+      "dk_over": -115,
+      "dk_under": -114,
+      "fd_over": -104,
+      "fd_under": -122,
+      "dk_imp_over": 0.501,
+      "fd_imp_over": 0.4812
     },
     {
       "player": "Julius Randle",
@@ -12307,10 +12776,10 @@
       "role_reason": "ok",
       "dk_over": -115,
       "dk_under": -115,
-      "fd_over": -120,
-      "fd_under": -110,
+      "fd_over": -118,
+      "fd_under": -108,
       "dk_imp_over": 0.5,
-      "fd_imp_over": 0.5101
+      "fd_imp_over": 0.5104
     },
     {
       "player": "Julius Randle",
@@ -12433,10 +12902,10 @@
       "role_reason": "ok",
       "dk_over": -115,
       "dk_under": -115,
-      "fd_over": -120,
-      "fd_under": -110,
+      "fd_over": -118,
+      "fd_under": -108,
       "dk_imp_over": 0.5,
-      "fd_imp_over": 0.5101
+      "fd_imp_over": 0.5104
     },
     {
       "player": "Ayo Dosunmu",
@@ -12452,11 +12921,11 @@
       "l20_edge": null,
       "role_mult": 1.080880268995237,
       "role_reason": "ok_combo",
-      "dk_over": -115,
-      "dk_under": -114,
+      "dk_over": -123,
+      "dk_under": -107,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.501,
+      "dk_imp_over": 0.5162,
       "fd_imp_over": null
     },
     {
@@ -12578,11 +13047,11 @@
       "l20_edge": null,
       "role_mult": 1.03471082535413,
       "role_reason": "ok_combo",
-      "dk_over": null,
-      "dk_under": null,
+      "dk_over": -107,
+      "dk_under": -123,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": null,
+      "dk_imp_over": 0.4838,
       "fd_imp_over": null
     },
     {
@@ -12643,8 +13112,8 @@
       "role_reason": "no_outs",
       "dk_over": -105,
       "dk_under": -125,
-      "fd_over": -114,
-      "fd_under": -114,
+      "fd_over": -113,
+      "fd_under": -113,
       "dk_imp_over": 0.4797,
       "fd_imp_over": 0.5
     },
@@ -12664,10 +13133,10 @@
       "role_reason": "no_outs",
       "dk_over": -114,
       "dk_under": -112,
-      "fd_over": -108,
-      "fd_under": -122,
+      "fd_over": -106,
+      "fd_under": -120,
       "dk_imp_over": 0.5021,
-      "fd_imp_over": 0.4858
+      "fd_imp_over": 0.4854
     },
     {
       "player": "Victor Wembanyama",
@@ -12725,12 +13194,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -113,
-      "dk_under": -116,
-      "fd_over": -118,
-      "fd_under": -112,
-      "dk_imp_over": 0.4969,
-      "fd_imp_over": 0.5061
+      "dk_over": -118,
+      "dk_under": -112,
+      "fd_over": -115,
+      "fd_under": -111,
+      "dk_imp_over": 0.5061,
+      "fd_imp_over": 0.5042
     },
     {
       "player": "Keldon Johnson",
@@ -12748,8 +13217,8 @@
       "role_reason": "no_outs",
       "dk_over": -102,
       "dk_under": -129,
-      "fd_over": -114,
-      "fd_under": -114,
+      "fd_over": -113,
+      "fd_under": -113,
       "dk_imp_over": 0.4727,
       "fd_imp_over": 0.5
     },
@@ -12767,12 +13236,12 @@
       "l20_edge": null,
       "role_mult": 1.0287749855263757,
       "role_reason": "ok",
-      "dk_over": -101,
-      "dk_under": -126,
-      "fd_over": -120,
-      "fd_under": -110,
-      "dk_imp_over": 0.474,
-      "fd_imp_over": 0.5101
+      "dk_over": -110,
+      "dk_under": -116,
+      "fd_over": -118,
+      "fd_under": -108,
+      "dk_imp_over": 0.4938,
+      "fd_imp_over": 0.5104
     },
     {
       "player": "Ayo Dosunmu",
@@ -12788,12 +13257,12 @@
       "l20_edge": null,
       "role_mult": 1.0287749855263757,
       "role_reason": "ok",
-      "dk_over": -105,
-      "dk_under": -126,
-      "fd_over": 100,
-      "fd_under": -132,
-      "dk_imp_over": 0.4788,
-      "fd_imp_over": 0.4677
+      "dk_over": -110,
+      "dk_under": -119,
+      "fd_over": 102,
+      "fd_under": -130,
+      "dk_imp_over": 0.4908,
+      "fd_imp_over": 0.4669
     },
     {
       "player": "Naz Reid",
@@ -12830,11 +13299,11 @@
       "l20_edge": null,
       "role_mult": 1.0447375489169752,
       "role_reason": "ok_combo",
-      "dk_over": -129,
-      "dk_under": -102,
+      "dk_over": null,
+      "dk_under": null,
       "fd_over": -125,
       "fd_under": -106,
-      "dk_imp_over": 0.5273,
+      "dk_imp_over": null,
       "fd_imp_over": 0.5192
     },
     {
@@ -12872,12 +13341,12 @@
       "l20_edge": null,
       "role_mult": 1.0358598896518243,
       "role_reason": "ok_combo",
-      "dk_over": -116,
-      "dk_under": -113,
-      "fd_over": -112,
-      "fd_under": -118,
-      "dk_imp_over": 0.5031,
-      "fd_imp_over": 0.4939
+      "dk_over": -115,
+      "dk_under": -114,
+      "fd_over": -111,
+      "fd_under": -115,
+      "dk_imp_over": 0.501,
+      "fd_imp_over": 0.4958
     },
     {
       "player": "De'Aaron Fox",
@@ -12895,31 +13364,10 @@
       "role_reason": "no_outs",
       "dk_over": -116,
       "dk_under": -114,
-      "fd_over": -128,
-      "fd_under": -104,
+      "fd_over": -125,
+      "fd_under": -102,
       "dk_imp_over": 0.502,
-      "fd_imp_over": 0.5241
-    },
-    {
-      "player": "Stephon Castle",
-      "team": "SAS",
-      "opp": "MIN",
-      "stat": "PRA",
-      "line": 29.5,
-      "dir": "OVER",
-      "tier": "STANDARD",
-      "p_cal": 0.4432614019176418,
-      "fragility": 0.0651715329447433,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0,
-      "role_reason": "no_outs",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": -120,
-      "fd_under": -110,
-      "dk_imp_over": null,
-      "fd_imp_over": 0.5101
+      "fd_imp_over": 0.5239
     },
     {
       "player": "Julian Champagnie",
@@ -12977,12 +13425,12 @@
       "l20_edge": null,
       "role_mult": 1.0161016320879064,
       "role_reason": "ok",
-      "dk_over": -105,
-      "dk_under": -121,
+      "dk_over": -111,
+      "dk_under": -115,
       "fd_over": -104,
-      "fd_under": -128,
-      "dk_imp_over": 0.4833,
-      "fd_imp_over": 0.4759
+      "fd_under": -122,
+      "dk_imp_over": 0.4958,
+      "fd_imp_over": 0.4812
     },
     {
       "player": "Dylan Harper",
@@ -13061,11 +13509,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -107,
-      "dk_under": -123,
+      "dk_over": -110,
+      "dk_under": -119,
       "fd_over": -106,
       "fd_under": -125,
-      "dk_imp_over": 0.4838,
+      "dk_imp_over": 0.4908,
       "fd_imp_over": 0.4808
     },
     {
@@ -13105,10 +13553,10 @@
       "role_reason": "ok",
       "dk_over": -122,
       "dk_under": -108,
-      "fd_over": -110,
-      "fd_under": -120,
+      "fd_over": -108,
+      "fd_under": -118,
       "dk_imp_over": 0.5142,
-      "fd_imp_over": 0.4899
+      "fd_imp_over": 0.4896
     },
     {
       "player": "Jaden McDaniels",
@@ -13124,12 +13572,12 @@
       "l20_edge": null,
       "role_mult": 1.053222752389862,
       "role_reason": "ok_combo",
-      "dk_over": -107,
-      "dk_under": -122,
+      "dk_over": -111,
+      "dk_under": -118,
       "fd_over": -102,
-      "fd_under": -130,
-      "dk_imp_over": 0.4847,
-      "fd_imp_over": 0.4718
+      "fd_under": -125,
+      "dk_imp_over": 0.4929,
+      "fd_imp_over": 0.4761
     },
     {
       "player": "De'Aaron Fox",
@@ -13145,12 +13593,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -103,
-      "dk_under": -128,
+      "dk_over": -108,
+      "dk_under": -122,
       "fd_over": 100,
-      "fd_under": -132,
-      "dk_imp_over": 0.4747,
-      "fd_imp_over": 0.4677
+      "fd_under": -128,
+      "dk_imp_over": 0.4858,
+      "fd_imp_over": 0.4711
     },
     {
       "player": "Ayo Dosunmu",
@@ -13168,10 +13616,10 @@
       "role_reason": "ok",
       "dk_over": -110,
       "dk_under": -119,
-      "fd_over": -110,
-      "fd_under": -120,
+      "fd_over": -108,
+      "fd_under": -118,
       "dk_imp_over": 0.4908,
-      "fd_imp_over": 0.4899
+      "fd_imp_over": 0.4896
     },
     {
       "player": "Devin Vassell",
@@ -13250,11 +13698,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -104,
-      "dk_under": -126,
+      "dk_over": -108,
+      "dk_under": -122,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.4776,
+      "dk_imp_over": 0.4858,
       "fd_imp_over": null
     },
     {
@@ -13273,21 +13721,21 @@
       "role_reason": "no_outs",
       "dk_over": -108,
       "dk_under": -118,
-      "fd_over": -114,
-      "fd_under": -114,
+      "fd_over": -113,
+      "fd_under": -113,
       "dk_imp_over": 0.4896,
       "fd_imp_over": 0.5
     },
     {
-      "player": "Ayo Dosunmu",
+      "player": "Jaden McDaniels",
       "team": "MIN",
       "opp": "SAS",
-      "stat": "PR",
-      "line": 17.5,
+      "stat": "PA",
+      "line": 19.5,
       "dir": "OVER",
       "tier": "DEMON",
       "p_cal": 0.4257728599601857,
-      "fragility": 0.014915562382483,
+      "fragility": 0.0434691930595674,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -13300,15 +13748,15 @@
       "fd_imp_over": null
     },
     {
-      "player": "Jaden McDaniels",
+      "player": "Ayo Dosunmu",
       "team": "MIN",
       "opp": "SAS",
-      "stat": "PA",
-      "line": 19.5,
+      "stat": "PR",
+      "line": 17.5,
       "dir": "OVER",
       "tier": "DEMON",
       "p_cal": 0.4257728599601857,
-      "fragility": 0.0434691930595674,
+      "fragility": 0.014915562382483,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -13337,9 +13785,9 @@
       "dk_over": null,
       "dk_under": null,
       "fd_over": -138,
-      "fd_under": 104,
+      "fd_under": 108,
       "dk_imp_over": null,
-      "fd_imp_over": 0.5419
+      "fd_imp_over": 0.5467
     },
     {
       "player": "Ayo Dosunmu",
@@ -13376,12 +13824,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -123,
-      "dk_under": -107,
-      "fd_over": -125,
-      "fd_under": -106,
-      "dk_imp_over": 0.5162,
-      "fd_imp_over": 0.5192
+      "dk_over": -131,
+      "dk_under": -101,
+      "fd_over": -122,
+      "fd_under": -104,
+      "dk_imp_over": 0.5302,
+      "fd_imp_over": 0.5188
     },
     {
       "player": "Stephon Castle",
@@ -13418,12 +13866,12 @@
       "l20_edge": null,
       "role_mult": 1.0283257433787578,
       "role_reason": "ok_combo",
-      "dk_over": -112,
-      "dk_under": -118,
-      "fd_over": -108,
-      "fd_under": -122,
-      "dk_imp_over": 0.4939,
-      "fd_imp_over": 0.4858
+      "dk_over": -117,
+      "dk_under": -113,
+      "fd_over": -106,
+      "fd_under": -120,
+      "dk_imp_over": 0.504,
+      "fd_imp_over": 0.4854
     },
     {
       "player": "Anthony Edwards",
@@ -13502,12 +13950,12 @@
       "l20_edge": null,
       "role_mult": 1.033887556483022,
       "role_reason": "ok_combo",
-      "dk_over": -126,
-      "dk_under": -104,
-      "fd_over": -130,
+      "dk_over": -122,
+      "dk_under": -108,
+      "fd_over": -125,
       "fd_under": -102,
-      "dk_imp_over": 0.5224,
-      "fd_imp_over": 0.5282
+      "dk_imp_over": 0.5142,
+      "fd_imp_over": 0.5239
     },
     {
       "player": "Ayo Dosunmu",
@@ -13531,6 +13979,27 @@
       "fd_imp_over": null
     },
     {
+      "player": "Stephon Castle",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "FTA",
+      "line": 5.5,
+      "dir": "UNDER",
+      "tier": "STANDARD",
+      "p_cal": 0.4153968539229494,
+      "fragility": 0.0,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "stat_unmapped",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
       "player": "Rudy Gobert",
       "team": "MIN",
       "opp": "SAS",
@@ -13544,12 +14013,12 @@
       "l20_edge": null,
       "role_mult": 1.0298448654032777,
       "role_reason": "ok",
-      "dk_over": -113,
-      "dk_under": -113,
-      "fd_over": -110,
-      "fd_under": -120,
-      "dk_imp_over": 0.5,
-      "fd_imp_over": 0.4899
+      "dk_over": -107,
+      "dk_under": -119,
+      "fd_over": -108,
+      "fd_under": -118,
+      "dk_imp_over": 0.4875,
+      "fd_imp_over": 0.4896
     },
     {
       "player": "Dylan Harper",
@@ -13657,6 +14126,27 @@
       "fd_imp_over": null
     },
     {
+      "player": "Stephon Castle",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "PRA",
+      "line": 30.5,
+      "dir": "OVER",
+      "tier": "STANDARD",
+      "p_cal": 0.4110026942141103,
+      "fragility": 0.0598146350378338,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "no_outs",
+      "dk_over": -111,
+      "dk_under": -119,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": 0.4919,
+      "fd_imp_over": null
+    },
+    {
       "player": "Devin Vassell",
       "team": "SAS",
       "opp": "MIN",
@@ -13670,12 +14160,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -108,
-      "dk_under": -122,
-      "fd_over": -108,
-      "fd_under": -122,
-      "dk_imp_over": 0.4858,
-      "fd_imp_over": 0.4858
+      "dk_over": -114,
+      "dk_under": -115,
+      "fd_over": -106,
+      "fd_under": -120,
+      "dk_imp_over": 0.499,
+      "fd_imp_over": 0.4854
     },
     {
       "player": "Luke Kornet",
@@ -13712,11 +14202,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -115,
-      "dk_under": -115,
-      "fd_over": -114,
-      "fd_under": -114,
-      "dk_imp_over": 0.5,
+      "dk_over": -114,
+      "dk_under": -116,
+      "fd_over": -113,
+      "fd_under": -113,
+      "dk_imp_over": 0.498,
       "fd_imp_over": 0.5
     },
     {
@@ -13796,12 +14286,12 @@
       "l20_edge": null,
       "role_mult": 1.0650771093729148,
       "role_reason": "ok_combo",
-      "dk_over": -105,
-      "dk_under": -126,
+      "dk_over": null,
+      "dk_under": null,
       "fd_over": 100,
-      "fd_under": -132,
-      "dk_imp_over": 0.4788,
-      "fd_imp_over": 0.4677
+      "fd_under": -128,
+      "dk_imp_over": null,
+      "fd_imp_over": 0.4711
     },
     {
       "player": "Stephon Castle",
@@ -13838,12 +14328,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -115,
-      "dk_under": -111,
-      "fd_over": -120,
-      "fd_under": -110,
-      "dk_imp_over": 0.5042,
-      "fd_imp_over": 0.5101
+      "dk_over": -122,
+      "dk_under": -104,
+      "fd_over": -118,
+      "fd_under": -108,
+      "dk_imp_over": 0.5188,
+      "fd_imp_over": 0.5104
     },
     {
       "player": "Luke Kornet",
@@ -13987,10 +14477,10 @@
       "role_reason": "no_outs",
       "dk_over": null,
       "dk_under": null,
-      "fd_over": -146,
-      "fd_under": 110,
+      "fd_over": -142,
+      "fd_under": 112,
       "dk_imp_over": null,
-      "fd_imp_over": 0.5548
+      "fd_imp_over": 0.5544
     },
     {
       "player": "Julian Champagnie",
@@ -14029,8 +14519,8 @@
       "role_reason": "no_outs",
       "dk_over": -110,
       "dk_under": -119,
-      "fd_over": -114,
-      "fd_under": -114,
+      "fd_over": -113,
+      "fd_under": -113,
       "dk_imp_over": 0.4908,
       "fd_imp_over": 0.5
     },
@@ -14080,27 +14570,6 @@
       "player": "Victor Wembanyama",
       "team": "SAS",
       "opp": "MIN",
-      "stat": "PRA",
-      "line": 39.5,
-      "dir": "OVER",
-      "tier": "GOBLIN",
-      "p_cal": 0.4004292951105314,
-      "fragility": 0.0094471795863983,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0,
-      "role_reason": "no_outs",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": null,
-      "fd_imp_over": null
-    },
-    {
-      "player": "Victor Wembanyama",
-      "team": "SAS",
-      "opp": "MIN",
       "stat": "PA",
       "line": 29.5,
       "dir": "OVER",
@@ -14122,12 +14591,117 @@
       "player": "Victor Wembanyama",
       "team": "SAS",
       "opp": "MIN",
+      "stat": "PR",
+      "line": 35.5,
+      "dir": "OVER",
+      "tier": "GOBLIN",
+      "p_cal": 0.4004292951105314,
+      "fragility": 0.0110793984766027,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "no_outs",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
+      "player": "Victor Wembanyama",
+      "team": "SAS",
+      "opp": "MIN",
       "stat": "RA",
       "line": 15.5,
       "dir": "OVER",
       "tier": "GOBLIN",
       "p_cal": 0.4004292951105314,
       "fragility": 0.0162087962479662,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "no_outs",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
+      "player": "Victor Wembanyama",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "PRA",
+      "line": 39.5,
+      "dir": "OVER",
+      "tier": "GOBLIN",
+      "p_cal": 0.4004292951105314,
+      "fragility": 0.0094471795863983,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "no_outs",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
+      "player": "Victor Wembanyama",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "PRA",
+      "line": 41.5,
+      "dir": "OVER",
+      "tier": "GOBLIN",
+      "p_cal": 0.4004292951105314,
+      "fragility": 0.0,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "no_outs",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
+      "player": "Victor Wembanyama",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "RA",
+      "line": 14.5,
+      "dir": "OVER",
+      "tier": "GOBLIN",
+      "p_cal": 0.4004292951105314,
+      "fragility": 0.0293685073336719,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "no_outs",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
+      "player": "Victor Wembanyama",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "PR",
+      "line": 34.5,
+      "dir": "OVER",
+      "tier": "GOBLIN",
+      "p_cal": 0.4004292951105314,
+      "fragility": 0.0044921611328503,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -14206,75 +14780,12 @@
       "player": "Victor Wembanyama",
       "team": "SAS",
       "opp": "MIN",
-      "stat": "PR",
-      "line": 34.5,
-      "dir": "OVER",
-      "tier": "GOBLIN",
-      "p_cal": 0.4004292951105314,
-      "fragility": 0.0044921611328503,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0,
-      "role_reason": "no_outs",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": null,
-      "fd_imp_over": null
-    },
-    {
-      "player": "Victor Wembanyama",
-      "team": "SAS",
-      "opp": "MIN",
-      "stat": "RA",
-      "line": 14.5,
-      "dir": "OVER",
-      "tier": "GOBLIN",
-      "p_cal": 0.4004292951105314,
-      "fragility": 0.0293685073336719,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0,
-      "role_reason": "no_outs",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": null,
-      "fd_imp_over": null
-    },
-    {
-      "player": "Victor Wembanyama",
-      "team": "SAS",
-      "opp": "MIN",
-      "stat": "PRA",
-      "line": 41.5,
+      "stat": "PA",
+      "line": 28.5,
       "dir": "OVER",
       "tier": "GOBLIN",
       "p_cal": 0.4004292951105314,
       "fragility": 0.0,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0,
-      "role_reason": "no_outs",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": null,
-      "fd_imp_over": null
-    },
-    {
-      "player": "Victor Wembanyama",
-      "team": "SAS",
-      "opp": "MIN",
-      "stat": "PR",
-      "line": 35.5,
-      "dir": "OVER",
-      "tier": "GOBLIN",
-      "p_cal": 0.4004292951105314,
-      "fragility": 0.0110793984766027,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -14302,10 +14813,10 @@
       "role_reason": "ok",
       "dk_over": -107,
       "dk_under": -120,
-      "fd_over": 102,
-      "fd_under": -136,
+      "fd_over": 104,
+      "fd_under": -132,
       "dk_imp_over": 0.4866,
-      "fd_imp_over": 0.4621
+      "fd_imp_over": 0.4628
     },
     {
       "player": "De'Aaron Fox",
@@ -14405,11 +14916,11 @@
       "l20_edge": null,
       "role_mult": 1.0590376475254628,
       "role_reason": "ok_combo",
-      "dk_over": -107,
-      "dk_under": -123,
+      "dk_over": 101,
+      "dk_under": -133,
       "fd_over": -104,
       "fd_under": -128,
-      "dk_imp_over": 0.4838,
+      "dk_imp_over": 0.4657,
       "fd_imp_over": 0.4759
     },
     {
@@ -14501,11 +15012,11 @@
       "team": "MIN",
       "opp": "SAS",
       "stat": "PRA",
-      "line": 35.5,
+      "line": 34.5,
       "dir": "OVER",
       "tier": "GOBLIN",
       "p_cal": 0.3930858151909897,
-      "fragility": 0.0326723727566716,
+      "fragility": 0.0293517555894207,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.1066080340371378,
@@ -14522,11 +15033,11 @@
       "team": "MIN",
       "opp": "SAS",
       "stat": "PRA",
-      "line": 34.5,
+      "line": 35.5,
       "dir": "OVER",
       "tier": "GOBLIN",
       "p_cal": 0.3930858151909897,
-      "fragility": 0.0293517555894207,
+      "fragility": 0.0326723727566716,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.1066080340371378,
@@ -14552,12 +15063,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -124,
-      "dk_under": -106,
-      "fd_over": -118,
-      "fd_under": -112,
-      "dk_imp_over": 0.5183,
-      "fd_imp_over": 0.5061
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": -115,
+      "fd_under": -111,
+      "dk_imp_over": null,
+      "fd_imp_over": 0.5042
     },
     {
       "player": "Devin Vassell",
@@ -14594,11 +15105,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": 145,
-      "dk_under": -192,
+      "dk_over": 139,
+      "dk_under": -184,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.383,
+      "dk_imp_over": 0.3924,
       "fd_imp_over": null
     },
     {
@@ -14647,8 +15158,8 @@
       "player": "Victor Wembanyama",
       "team": "SAS",
       "opp": "MIN",
-      "stat": "FG3M",
-      "line": 1.5,
+      "stat": "PTS",
+      "line": 25.5,
       "dir": "OVER",
       "tier": "GOBLIN",
       "p_cal": 0.3906090262030056,
@@ -14668,12 +15179,12 @@
       "player": "Victor Wembanyama",
       "team": "SAS",
       "opp": "MIN",
-      "stat": "REB",
-      "line": 12.5,
+      "stat": "PTS",
+      "line": 24.5,
       "dir": "OVER",
       "tier": "GOBLIN",
       "p_cal": 0.3906090262030056,
-      "fragility": 0.0131170678701222,
+      "fragility": 0.0,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -14731,12 +15242,12 @@
       "player": "Victor Wembanyama",
       "team": "SAS",
       "opp": "MIN",
-      "stat": "PTS",
-      "line": 25.5,
+      "stat": "REB",
+      "line": 12.5,
       "dir": "OVER",
       "tier": "GOBLIN",
       "p_cal": 0.3906090262030056,
-      "fragility": 0.0,
+      "fragility": 0.0131170678701222,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -14773,8 +15284,8 @@
       "player": "Victor Wembanyama",
       "team": "SAS",
       "opp": "MIN",
-      "stat": "PTS",
-      "line": 24.5,
+      "stat": "FG3M",
+      "line": 1.5,
       "dir": "OVER",
       "tier": "GOBLIN",
       "p_cal": 0.3906090262030056,
@@ -14804,27 +15315,6 @@
       "l20_edge": null,
       "role_mult": 1.0900966349580172,
       "role_reason": "ok_combo",
-      "dk_over": -108,
-      "dk_under": -122,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": 0.4858,
-      "fd_imp_over": null
-    },
-    {
-      "player": "Luke Kornet",
-      "team": "SAS",
-      "opp": "MIN",
-      "stat": "RA",
-      "line": 6.5,
-      "dir": "OVER",
-      "tier": "DEMON",
-      "p_cal": 0.3903120973723118,
-      "fragility": 0.0,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0,
-      "role_reason": "no_outs",
       "dk_over": null,
       "dk_under": null,
       "fd_over": null,
@@ -14867,12 +15357,12 @@
       "l20_edge": null,
       "role_mult": 1.0497704524969915,
       "role_reason": "ok",
-      "dk_over": -125,
-      "dk_under": -105,
-      "fd_over": -118,
-      "fd_under": -112,
-      "dk_imp_over": 0.5203,
-      "fd_imp_over": 0.5061
+      "dk_over": -120,
+      "dk_under": -109,
+      "fd_over": -115,
+      "fd_under": -111,
+      "dk_imp_over": 0.5112,
+      "fd_imp_over": 0.5042
     },
     {
       "player": "Naz Reid",
@@ -14909,12 +15399,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "ok_combo",
-      "dk_over": 105,
-      "dk_under": -138,
-      "fd_over": 110,
-      "fd_under": -146,
-      "dk_imp_over": 0.4569,
-      "fd_imp_over": 0.4452
+      "dk_over": 100,
+      "dk_under": -132,
+      "fd_over": 112,
+      "fd_under": -142,
+      "dk_imp_over": 0.4677,
+      "fd_imp_over": 0.4456
     },
     {
       "player": "Stephon Castle",
@@ -14993,11 +15483,11 @@
       "l20_edge": null,
       "role_mult": 1.0427313402162652,
       "role_reason": "ok_combo",
-      "dk_over": -117,
+      "dk_over": -118,
       "dk_under": -112,
       "fd_over": -104,
       "fd_under": -128,
-      "dk_imp_over": 0.5051,
+      "dk_imp_over": 0.5061,
       "fd_imp_over": 0.4759
     },
     {
@@ -15016,31 +15506,10 @@
       "role_reason": "ok",
       "dk_over": null,
       "dk_under": null,
-      "fd_over": 118,
-      "fd_under": -158,
+      "fd_over": 122,
+      "fd_under": -156,
       "dk_imp_over": null,
-      "fd_imp_over": 0.4283
-    },
-    {
-      "player": "Anthony Edwards",
-      "team": "MIN",
-      "opp": "SAS",
-      "stat": "AST",
-      "line": 3.5,
-      "dir": "OVER",
-      "tier": "GOBLIN",
-      "p_cal": 0.3832655462834639,
-      "fragility": 0.0015832963174446,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0779085170238845,
-      "role_reason": "ok",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": null,
-      "fd_imp_over": null
+      "fd_imp_over": 0.425
     },
     {
       "player": "Anthony Edwards",
@@ -15067,6 +15536,27 @@
       "player": "Anthony Edwards",
       "team": "MIN",
       "opp": "SAS",
+      "stat": "AST",
+      "line": 3.5,
+      "dir": "OVER",
+      "tier": "GOBLIN",
+      "p_cal": 0.3832655462834639,
+      "fragility": 0.0015832963174446,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0779085170238845,
+      "role_reason": "ok",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
+      "player": "Anthony Edwards",
+      "team": "MIN",
+      "opp": "SAS",
       "stat": "FG3M",
       "line": 2.5,
       "dir": "OVER",
@@ -15077,12 +15567,12 @@
       "l20_edge": null,
       "role_mult": 1.0720168450106449,
       "role_reason": "ok",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": -162,
-      "fd_under": 122,
-      "dk_imp_over": null,
-      "fd_imp_over": 0.5785
+      "dk_over": -164,
+      "dk_under": 124,
+      "fd_over": -160,
+      "fd_under": 124,
+      "dk_imp_over": 0.5819,
+      "fd_imp_over": 0.5796
     },
     {
       "player": "Julian Champagnie",
@@ -15184,10 +15674,10 @@
       "role_reason": "no_outs",
       "dk_over": 120,
       "dk_under": -158,
-      "fd_over": 116,
-      "fd_under": -154,
+      "fd_over": 118,
+      "fd_under": -150,
       "dk_imp_over": 0.426,
-      "fd_imp_over": 0.433
+      "fd_imp_over": 0.4333
     },
     {
       "player": "Rudy Gobert",
@@ -15227,9 +15717,9 @@
       "dk_over": null,
       "dk_under": null,
       "fd_over": 100,
-      "fd_under": -132,
+      "fd_under": -128,
       "dk_imp_over": null,
-      "fd_imp_over": 0.4677
+      "fd_imp_over": 0.4711
     },
     {
       "player": "Devin Vassell",
@@ -15289,10 +15779,10 @@
       "role_reason": "no_outs",
       "dk_over": -132,
       "dk_under": 100,
-      "fd_over": -118,
-      "fd_under": -112,
+      "fd_over": -115,
+      "fd_under": -111,
       "dk_imp_over": 0.5323,
-      "fd_imp_over": 0.5061
+      "fd_imp_over": 0.5042
     },
     {
       "player": "Dylan Harper",
@@ -15394,10 +15884,10 @@
       "role_reason": "ok_combo",
       "dk_over": -121,
       "dk_under": -109,
-      "fd_over": -104,
-      "fd_under": -128,
+      "fd_over": -102,
+      "fd_under": -125,
       "dk_imp_over": 0.5122,
-      "fd_imp_over": 0.4759
+      "fd_imp_over": 0.4761
     },
     {
       "player": "Ayo Dosunmu",
@@ -15497,11 +15987,11 @@
       "l20_edge": null,
       "role_mult": 1.0313581489649626,
       "role_reason": "ok",
-      "dk_over": -127,
-      "dk_under": -104,
-      "fd_over": -114,
-      "fd_under": -114,
-      "dk_imp_over": 0.5232,
+      "dk_over": -134,
+      "dk_under": 102,
+      "fd_over": -113,
+      "fd_under": -113,
+      "dk_imp_over": 0.5363,
       "fd_imp_over": 0.5
     },
     {
@@ -15602,12 +16092,12 @@
       "l20_edge": null,
       "role_mult": 1.089911383757805,
       "role_reason": "ok_combo",
-      "dk_over": -110,
-      "dk_under": -119,
-      "fd_over": -106,
-      "fd_under": -125,
-      "dk_imp_over": 0.4908,
-      "fd_imp_over": 0.4808
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": -104,
+      "fd_under": -122,
+      "dk_imp_over": null,
+      "fd_imp_over": 0.4812
     },
     {
       "player": "Julius Randle",
@@ -15644,12 +16134,12 @@
       "l20_edge": null,
       "role_mult": 1.0400208728599207,
       "role_reason": "ok_combo",
-      "dk_over": -119,
-      "dk_under": -111,
-      "fd_over": -104,
-      "fd_under": -128,
-      "dk_imp_over": 0.5081,
-      "fd_imp_over": 0.4759
+      "dk_over": -115,
+      "dk_under": -114,
+      "fd_over": -102,
+      "fd_under": -125,
+      "dk_imp_over": 0.501,
+      "fd_imp_over": 0.4761
     },
     {
       "player": "Jaden McDaniels",
@@ -15772,10 +16262,10 @@
       "role_reason": "no_outs",
       "dk_over": 114,
       "dk_under": -150,
-      "fd_over": 118,
-      "fd_under": -158,
+      "fd_over": 122,
+      "fd_under": -154,
       "dk_imp_over": 0.4378,
-      "fd_imp_over": 0.4283
+      "fd_imp_over": 0.4263
     },
     {
       "player": "Rudy Gobert",
@@ -15875,12 +16365,12 @@
       "l20_edge": null,
       "role_mult": 1.1066080340371378,
       "role_reason": "ok_combo",
-      "dk_over": -116,
-      "dk_under": -114,
-      "fd_over": -112,
-      "fd_under": -118,
-      "dk_imp_over": 0.502,
-      "fd_imp_over": 0.4939
+      "dk_over": -113,
+      "dk_under": -117,
+      "fd_over": -111,
+      "fd_under": -115,
+      "dk_imp_over": 0.496,
+      "fd_imp_over": 0.4958
     },
     {
       "player": "Naz Reid",
@@ -16030,6 +16520,27 @@
       "fd_imp_over": null
     },
     {
+      "player": "Terrence Shannon",
+      "team": "MIN",
+      "opp": "SAS",
+      "stat": "PA",
+      "line": 9.5,
+      "dir": "UNDER",
+      "tier": "STANDARD",
+      "p_cal": 0.3377865422331346,
+      "fragility": 0.0,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.009672662296983,
+      "role_reason": "ok_combo",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
       "player": "Naz Reid",
       "team": "MIN",
       "opp": "SAS",
@@ -16043,12 +16554,12 @@
       "l20_edge": null,
       "role_mult": 1.0671972791041568,
       "role_reason": "ok_combo",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": -110,
-      "fd_under": -120,
-      "dk_imp_over": null,
-      "fd_imp_over": 0.4899
+      "dk_over": -126,
+      "dk_under": -105,
+      "fd_over": -108,
+      "fd_under": -118,
+      "dk_imp_over": 0.5212,
+      "fd_imp_over": 0.4896
     },
     {
       "player": "Keldon Johnson",
@@ -16156,15 +16667,15 @@
       "fd_imp_over": null
     },
     {
-      "player": "Jaden McDaniels",
+      "player": "Rudy Gobert",
       "team": "MIN",
       "opp": "SAS",
-      "stat": "AST",
-      "line": 3.5,
+      "stat": "REB",
+      "line": 11.5,
       "dir": "OVER",
       "tier": "DEMON",
       "p_cal": 0.3330041161470929,
-      "fragility": 0.0177074735821404,
+      "fragility": 0.0508940512145166,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -16177,15 +16688,15 @@
       "fd_imp_over": null
     },
     {
-      "player": "Rudy Gobert",
+      "player": "Jaden McDaniels",
       "team": "MIN",
       "opp": "SAS",
-      "stat": "REB",
-      "line": 11.5,
+      "stat": "AST",
+      "line": 3.5,
       "dir": "OVER",
       "tier": "DEMON",
       "p_cal": 0.3330041161470929,
-      "fragility": 0.0508940512145166,
+      "fragility": 0.0177074735821404,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -16234,10 +16745,10 @@
       "role_reason": "no_outs",
       "dk_over": -106,
       "dk_under": -125,
-      "fd_over": 102,
-      "fd_under": -136,
+      "fd_over": 104,
+      "fd_under": -132,
       "dk_imp_over": 0.4808,
-      "fd_imp_over": 0.4621
+      "fd_imp_over": 0.4628
     },
     {
       "player": "Julian Champagnie",
@@ -16316,11 +16827,11 @@
       "l20_edge": null,
       "role_mult": 1.0720168450106449,
       "role_reason": "ok",
-      "dk_over": -107,
-      "dk_under": -119,
+      "dk_over": null,
+      "dk_under": null,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.4875,
+      "dk_imp_over": null,
       "fd_imp_over": null
     },
     {
@@ -16513,27 +17024,6 @@
       "fd_imp_over": null
     },
     {
-      "player": "Luke Kornet",
-      "team": "SAS",
-      "opp": "MIN",
-      "stat": "RA",
-      "line": 7.5,
-      "dir": "OVER",
-      "tier": "DEMON",
-      "p_cal": 0.3245161041391134,
-      "fragility": 0.0,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.0,
-      "role_reason": "no_outs",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": null,
-      "fd_imp_over": null
-    },
-    {
       "player": "Julian Champagnie",
       "team": "SAS",
       "opp": "MIN",
@@ -16589,12 +17079,12 @@
       "l20_edge": null,
       "role_mult": 1.0452680221900188,
       "role_reason": "ok_combo",
-      "dk_over": -111,
-      "dk_under": -119,
-      "fd_over": 106,
-      "fd_under": -140,
-      "dk_imp_over": 0.4919,
-      "fd_imp_over": 0.4542
+      "dk_over": -105,
+      "dk_under": -125,
+      "fd_over": 108,
+      "fd_under": -138,
+      "dk_imp_over": 0.4797,
+      "fd_imp_over": 0.4533
     },
     {
       "player": "Julian Champagnie",
@@ -16610,27 +17100,6 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": null,
-      "dk_under": null,
-      "fd_over": null,
-      "fd_under": null,
-      "dk_imp_over": null,
-      "fd_imp_over": null
-    },
-    {
-      "player": "Terrence Shannon",
-      "team": "MIN",
-      "opp": "SAS",
-      "stat": "PA",
-      "line": 8.5,
-      "dir": "UNDER",
-      "tier": "STANDARD",
-      "p_cal": 0.3198067751342113,
-      "fragility": 0.0,
-      "q_blowout": 0.2315895196488551,
-      "l20_edge": null,
-      "role_mult": 1.009672662296983,
-      "role_reason": "ok_combo",
       "dk_over": null,
       "dk_under": null,
       "fd_over": null,
@@ -17198,12 +17667,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -114,
-      "dk_under": -112,
-      "fd_over": -106,
-      "fd_under": -125,
-      "dk_imp_over": 0.5021,
-      "fd_imp_over": 0.4808
+      "dk_over": -118,
+      "dk_under": -108,
+      "fd_over": -104,
+      "fd_under": -122,
+      "dk_imp_over": 0.5104,
+      "fd_imp_over": 0.4812
     },
     {
       "player": "Dylan Harper",
@@ -17240,12 +17709,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "ok",
-      "dk_over": 162,
-      "dk_under": -217,
-      "fd_over": 178,
-      "fd_under": -245,
-      "dk_imp_over": 0.358,
-      "fd_imp_over": 0.3362
+      "dk_over": 157,
+      "dk_under": -209,
+      "fd_over": 180,
+      "fd_under": -235,
+      "dk_imp_over": 0.3652,
+      "fd_imp_over": 0.3374
     },
     {
       "player": "Victor Wembanyama",
@@ -17263,10 +17732,10 @@
       "role_reason": "no_outs",
       "dk_over": null,
       "dk_under": null,
-      "fd_over": -112,
-      "fd_under": -118,
+      "fd_over": -111,
+      "fd_under": -115,
       "dk_imp_over": null,
-      "fd_imp_over": 0.4939
+      "fd_imp_over": 0.4958
     },
     {
       "player": "Victor Wembanyama",
@@ -17284,10 +17753,10 @@
       "role_reason": "no_outs",
       "dk_over": -109,
       "dk_under": -120,
-      "fd_over": -106,
-      "fd_under": -125,
+      "fd_over": -104,
+      "fd_under": -122,
       "dk_imp_over": 0.4888,
-      "fd_imp_over": 0.4808
+      "fd_imp_over": 0.4812
     },
     {
       "player": "Julius Randle",
@@ -17324,12 +17793,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -101,
-      "dk_under": -131,
-      "fd_over": 108,
-      "fd_under": -144,
-      "dk_imp_over": 0.4698,
-      "fd_imp_over": 0.4489
+      "dk_over": 103,
+      "dk_under": -135,
+      "fd_over": 110,
+      "fd_under": -140,
+      "dk_imp_over": 0.4616,
+      "fd_imp_over": 0.4494
     },
     {
       "player": "Julius Randle",
@@ -17366,11 +17835,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "no_outs",
-      "dk_over": -124,
-      "dk_under": -106,
+      "dk_over": null,
+      "dk_under": null,
       "fd_over": -112,
       "fd_under": -118,
-      "dk_imp_over": 0.5183,
+      "dk_imp_over": null,
       "fd_imp_over": 0.4939
     },
     {
@@ -17452,10 +17921,10 @@
       "role_reason": "no_outs",
       "dk_over": null,
       "dk_under": null,
-      "fd_over": -118,
-      "fd_under": -112,
+      "fd_over": -115,
+      "fd_under": -111,
       "dk_imp_over": null,
-      "fd_imp_over": 0.5061
+      "fd_imp_over": 0.5042
     },
     {
       "player": "Ayo Dosunmu",
@@ -17752,6 +18221,27 @@
       "fd_imp_over": null
     },
     {
+      "player": "Luke Kornet",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "PA",
+      "line": 9.5,
+      "dir": "OVER",
+      "tier": "DEMON",
+      "p_cal": 0.2666335347517041,
+      "fragility": 0.0,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "no_outs",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
       "player": "Keldon Johnson",
       "team": "SAS",
       "opp": "MIN",
@@ -17893,10 +18383,10 @@
       "role_reason": "no_outs",
       "dk_over": 130,
       "dk_under": -172,
-      "fd_over": 142,
-      "fd_under": -192,
+      "fd_over": 144,
+      "fd_under": -186,
       "dk_imp_over": 0.4074,
-      "fd_imp_over": 0.3859
+      "fd_imp_over": 0.3866
     },
     {
       "player": "Stephon Castle",
@@ -18062,9 +18552,9 @@
       "dk_over": 133,
       "dk_under": -177,
       "fd_over": 152,
-      "fd_under": -205,
+      "fd_under": -196,
       "dk_imp_over": 0.4018,
-      "fd_imp_over": 0.3712
+      "fd_imp_over": 0.3747
     },
     {
       "player": "Stephon Castle",
@@ -18109,15 +18599,15 @@
       "fd_imp_over": null
     },
     {
-      "player": "Naz Reid",
+      "player": "Julius Randle",
       "team": "MIN",
       "opp": "SAS",
-      "stat": "PRA",
-      "line": 29.5,
+      "stat": "PA",
+      "line": 24.5,
       "dir": "OVER",
       "tier": "DEMON",
       "p_cal": 0.2476478044759494,
-      "fragility": 0.0581540481739746,
+      "fragility": 0.0596654152487118,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -18130,15 +18620,15 @@
       "fd_imp_over": null
     },
     {
-      "player": "Julius Randle",
+      "player": "Naz Reid",
       "team": "MIN",
       "opp": "SAS",
-      "stat": "PA",
-      "line": 24.5,
+      "stat": "PRA",
+      "line": 29.5,
       "dir": "OVER",
       "tier": "DEMON",
       "p_cal": 0.2476478044759494,
-      "fragility": 0.0596654152487118,
+      "fragility": 0.0581540481739746,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -18180,6 +18670,27 @@
       "dir": "OVER",
       "tier": "DEMON",
       "p_cal": 0.2439827638759799,
+      "fragility": 0.0,
+      "q_blowout": 0.2315895196488551,
+      "l20_edge": null,
+      "role_mult": 1.0,
+      "role_reason": "no_outs",
+      "dk_over": null,
+      "dk_under": null,
+      "fd_over": null,
+      "fd_under": null,
+      "dk_imp_over": null,
+      "fd_imp_over": null
+    },
+    {
+      "player": "Victor Wembanyama",
+      "team": "SAS",
+      "opp": "MIN",
+      "stat": "PA",
+      "line": 33.5,
+      "dir": "OVER",
+      "tier": "DEMON",
+      "p_cal": 0.2435811589060368,
       "fragility": 0.0,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
@@ -18355,10 +18866,10 @@
       "role_reason": "ok",
       "dk_over": 120,
       "dk_under": -159,
-      "fd_over": 128,
-      "fd_under": -172,
+      "fd_over": 130,
+      "fd_under": -166,
       "dk_imp_over": 0.4254,
-      "fd_imp_over": 0.4095
+      "fd_imp_over": 0.4106
     },
     {
       "player": "Anthony Edwards",
@@ -18397,10 +18908,10 @@
       "role_reason": "no_outs",
       "dk_over": 121,
       "dk_under": -160,
-      "fd_over": 128,
-      "fd_under": -172,
+      "fd_over": 130,
+      "fd_under": -166,
       "dk_imp_over": 0.4237,
-      "fd_imp_over": 0.4095
+      "fd_imp_over": 0.4106
     },
     {
       "player": "Keldon Johnson",
@@ -18802,15 +19313,15 @@
       "fd_imp_over": null
     },
     {
-      "player": "Julius Randle",
+      "player": "Anthony Edwards",
       "team": "MIN",
       "opp": "SAS",
-      "stat": "RA",
-      "line": 12.5,
+      "stat": "PA",
+      "line": 34.5,
       "dir": "OVER",
       "tier": "DEMON",
       "p_cal": 0.2113912673095958,
-      "fragility": 0.0829241813167221,
+      "fragility": 0.0298420698945455,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -18823,15 +19334,15 @@
       "fd_imp_over": null
     },
     {
-      "player": "Anthony Edwards",
+      "player": "Julius Randle",
       "team": "MIN",
       "opp": "SAS",
-      "stat": "PA",
-      "line": 34.5,
+      "stat": "RA",
+      "line": 12.5,
       "dir": "OVER",
       "tier": "DEMON",
       "p_cal": 0.2113912673095958,
-      "fragility": 0.0298420698945455,
+      "fragility": 0.0829241813167221,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -18983,12 +19494,12 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "ok",
-      "dk_over": 132,
-      "dk_under": -174,
-      "fd_over": 138,
-      "fd_under": -186,
-      "dk_imp_over": 0.4043,
-      "fd_imp_over": 0.3925
+      "dk_over": 144,
+      "dk_under": -192,
+      "fd_over": 140,
+      "fd_under": -180,
+      "dk_imp_over": 0.384,
+      "fd_imp_over": 0.3933
     },
     {
       "player": "Jaden McDaniels",
@@ -19033,15 +19544,15 @@
       "fd_imp_over": null
     },
     {
-      "player": "Dylan Harper",
+      "player": "Devin Vassell",
       "team": "SAS",
       "opp": "MIN",
-      "stat": "FG3M",
-      "line": 1.5,
+      "stat": "REB",
+      "line": 7.5,
       "dir": "OVER",
       "tier": "DEMON",
       "p_cal": 0.1963246747482929,
-      "fragility": 0.0,
+      "fragility": 0.0227364349062797,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -19054,15 +19565,15 @@
       "fd_imp_over": null
     },
     {
-      "player": "Devin Vassell",
+      "player": "Dylan Harper",
       "team": "SAS",
       "opp": "MIN",
-      "stat": "REB",
-      "line": 7.5,
+      "stat": "FG3M",
+      "line": 1.5,
       "dir": "OVER",
       "tier": "DEMON",
       "p_cal": 0.1963246747482929,
-      "fragility": 0.0227364349062797,
+      "fragility": 0.0,
       "q_blowout": 0.2315895196488551,
       "l20_edge": null,
       "role_mult": 1.0,
@@ -19216,10 +19727,10 @@
       "role_reason": "no_outs",
       "dk_over": 123,
       "dk_under": -163,
-      "fd_over": 136,
-      "fd_under": -182,
+      "fd_over": 138,
+      "fd_under": -178,
       "dk_imp_over": 0.4198,
-      "fd_imp_over": 0.3963
+      "fd_imp_over": 0.3962
     },
     {
       "player": "Ayo Dosunmu",
@@ -20411,11 +20922,11 @@
       "l20_edge": null,
       "role_mult": 1.0,
       "role_reason": "ok",
-      "dk_over": 128,
-      "dk_under": -169,
+      "dk_over": null,
+      "dk_under": null,
       "fd_over": null,
       "fd_under": null,
-      "dk_imp_over": 0.4111,
+      "dk_imp_over": null,
       "fd_imp_over": null
     },
     {
@@ -21154,5 +21665,5 @@
       "fd_imp_over": null
     }
   ],
-  "total_slips": 3
+  "total_slips": 10
 }
