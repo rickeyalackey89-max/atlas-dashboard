@@ -95,14 +95,28 @@
     .tier-demon{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:var(--gold);border:1px solid rgba(245,166,35,.25);}
     .prob-stat-inline{display:none;font-weight:700;color:var(--text);}
     @media(max-width:760px){
-      .prob-header,.prob-row{grid-template-columns:2fr 0.7fr 0.7fr 1fr;}
+      .prob-header{display:none;}
+      .prob-row{grid-template-columns:1fr;gap:10px;padding:16px 0;}
       .ev-row{grid-template-columns:2fr 0.7fr 0.7fr 1fr;}
-      .prob-col-tier,.prob-col-stat,.ev-col-conf,.ev-col-stat{display:none;}
+      .prob-col-stat,.ev-col-conf,.ev-col-stat{display:none;}
       .prob-stat-inline{display:inline;}
+      .prob-line,.prob-pct-wrap{text-align:left;align-items:flex-start;}
+      .prob-line-main,.prob-line-pills,.prob-toggle-group{justify-content:flex-start;}
     }
     .prob-more-lock{padding:18px 0 4px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
     .prob-more-text{font-size:12px;color:var(--t2);}
     .prob-more-text strong{color:var(--text);}
+    .prob-toggle-group{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;}
+    .prob-mini-btn{font:inherit;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border:1px solid var(--b2);background:transparent;color:var(--t2);cursor:pointer;}
+    .prob-mini-btn:hover{color:var(--text);border-color:var(--b2);}
+    .prob-mini-btn.active{color:#000;background:var(--gold);border-color:var(--gold);}
+    .prob-mini-btn:disabled{opacity:.28;cursor:default;}
+    .prob-line-pills{display:flex;align-items:center;justify-content:flex-end;gap:5px;flex-wrap:wrap;margin-top:6px;}
+    .prob-line-pill{font:inherit;font-size:10px;font-weight:900;padding:3px 6px;border:1px solid var(--b);background:transparent;color:var(--t2);cursor:pointer;font-variant-numeric:tabular-nums;}
+    .prob-line-pill.active{color:var(--cyan);border-color:rgba(0,212,255,.45);background:rgba(0,212,255,.08);}
+    .prob-line-main{display:flex;align-items:baseline;justify-content:flex-end;gap:6px;}
+    .prob-line-note{font-size:8px;color:var(--t2);letter-spacing:.08em;text-transform:uppercase;}
+    .prob-prop-count{font-size:10px;color:var(--t2);font-weight:700;margin-left:6px;}
     .game-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--b);}
     .game-row:last-child{border-bottom:none;}
     .game-teams{font-size:15px;font-weight:800;letter-spacing:-.01em;}
@@ -264,14 +278,14 @@
           <div class="card" id="evBestBet" style="margin-bottom:1px;"></div>
           <!-- Full edge rankings -->
           <div class="card">
-            <div class="card-label">Edge Rankings <span class="badge badge-premium">Premium</span></div>
+            <div class="card-label">Atlas EV Rankings <span class="badge badge-premium">Premium</span></div>
             <div class="prob-header">
               <div class="prob-header-cell">Player</div>
               <div class="prob-header-cell ev-col-stat" style="text-align:center;">Stat</div>
               <div class="prob-header-cell" style="text-align:right;">Line</div>
               <div class="prob-header-cell" style="text-align:center;">Dir</div>
               <div class="prob-header-cell ev-col-conf" style="text-align:right;">Conf</div>
-              <div class="prob-header-cell" style="text-align:right;">Edge</div>
+              <div class="prob-header-cell" style="text-align:right;">EV</div>
             </div>
             <div id="evList"><div class="no-data">Loading...</div></div>
           </div>
@@ -279,7 +293,7 @@
         <div class="lock-badge">
           <div class="lock-icon">&#128274;</div>
           <div class="lock-text">Premium Feature</div>
-          <div class="lock-sub">Full edge rankings for every leg where the model has conviction above market</div>
+          <div class="lock-sub">Full Atlas EV rankings for every leg on today&#39;s board</div>
           <a href="/checkout/" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
         </div>
       </div>
@@ -605,17 +619,169 @@
     return Object.keys(teams).map(function(k){return teams[k];});
   }
 
-  function buildProbRow(leg){
-    var p=leg.p_cal||0,pPct=Math.round(p*100),barW=Math.max(0,Math.min(100,pPct)),color=pctColor(p),dir=(leg.dir||'').toLowerCase();
+  var _probGroups = [];
+  var _probState = {};
+
+  function numOrNull(v){
+    if(v===null||v===undefined||v==='') return null;
+    var n=Number(v);
+    return Number.isFinite(n)?n:null;
+  }
+
+  function fmtLine(v){
+    var n=numOrNull(v);
+    if(n===null) return '&#8212;';
+    return String(Math.round(n*10)/10).replace(/\.0$/,'');
+  }
+
+  function tierRank(tier){
+    var t=(tier||'').toUpperCase();
+    if(t==='STANDARD') return 0;
+    if(t==='GOBLIN') return 1;
+    if(t==='DEMON') return 2;
+    return 9;
+  }
+
+  function legEV(leg){
+    var ev=numOrNull(leg.atlas_ev);
+    if(ev!==null) return ev;
+    ev=numOrNull(leg.ev_mult);
+    if(ev!==null) return ev;
+    ev=numOrNull(leg.ev);
+    if(ev!==null) return ev;
+    var p=numOrNull(leg.p_cal);
+    if(p===null) return null;
+    var mod=numOrNull(leg.payout_modifier);
+    if(mod===null){
+      var t=(leg.tier||'').toUpperCase();
+      mod=t==='GOBLIN'?0.9:(t==='DEMON'?1.1:1.0);
+    }
+    return p*mod;
+  }
+
+  function groupProbabilityLegs(legs){
+    var map={}, groups=[];
+    for(var i=0;i<legs.length;i++){
+      var leg=legs[i]||{};
+      if(!leg.player||!leg.stat) continue;
+      var key=[leg.player,leg.team||'',leg.opp||'',String(leg.stat).toUpperCase()].join('|');
+      if(!map[key]){
+        map[key]={id:String(groups.length),player:leg.player,team:leg.team||'',opp:leg.opp||'',stat:String(leg.stat).toUpperCase(),variants:{}};
+        map[key].count=0;
+        groups.push(map[key]);
+      }
+      var g=map[key],dir=String(leg.dir||leg.direction||'').toUpperCase(),tier=String(leg.tier||'STANDARD').toUpperCase();
+      if(!dir) continue;
+      if(!g.variants[dir]) g.variants[dir]={};
+      if(!g.variants[dir][tier]) g.variants[dir][tier]=[];
+      g.variants[dir][tier].push(leg);
+      g.count++;
+    }
+    groups.forEach(function(g){
+      Object.keys(g.variants).forEach(function(dir){
+        Object.keys(g.variants[dir]).forEach(function(tier){
+          g.variants[dir][tier].sort(function(a,b){
+            var la=numOrNull(a.line),lb=numOrNull(b.line);
+            if(la===null) la=9999; if(lb===null) lb=9999;
+            return la-lb;
+          });
+        });
+      });
+    });
+    groups.sort(function(a,b){
+      var pa=(a.player||'').toLowerCase(),pb=(b.player||'').toLowerCase();
+      if(pa<pb) return -1; if(pa>pb) return 1;
+      if(a.stat<b.stat) return -1; if(a.stat>b.stat) return 1;
+      return 0;
+    });
+    groups.forEach(function(g,i){ g.id=String(i); });
+    return groups;
+  }
+
+  function getDefaultProbState(group){
+    var dirs=Object.keys(group.variants||{}).sort(function(a,b){
+      if(a==='OVER') return -1;
+      if(b==='OVER') return 1;
+      return a.localeCompare(b);
+    });
+    var dir=dirs.indexOf('OVER')>=0?'OVER':dirs[0];
+    var tiers=dir?Object.keys(group.variants[dir]||{}).sort(function(a,b){return tierRank(a)-tierRank(b);}):[];
+    var tier=tiers.indexOf('STANDARD')>=0?'STANDARD':tiers[0];
+    return {dir:dir||'',tier:tier||'',lineIndex:0};
+  }
+
+  function resolveProbLeg(group,state){
+    if(!group||!state) return null;
+    var dirMap=group.variants[state.dir]||{};
+    if(!dirMap[state.tier]){
+      var tiers=Object.keys(dirMap).sort(function(a,b){return tierRank(a)-tierRank(b);});
+      state.tier=tiers.indexOf('STANDARD')>=0?'STANDARD':tiers[0];
+      state.lineIndex=0;
+    }
+    var legs=dirMap[state.tier]||[];
+    if(!legs.length) return null;
+    if(state.lineIndex>=legs.length) state.lineIndex=0;
+    return legs[state.lineIndex]||legs[0];
+  }
+
+  function probSet(groupId,kind,value){
+    var group=_probGroups[Number(groupId)];
+    if(!group) return;
+    var state=_probState[group.id]||getDefaultProbState(group);
+    if(kind==='dir'){
+      state.dir=value;
+      var tiers=Object.keys(group.variants[state.dir]||{}).sort(function(a,b){return tierRank(a)-tierRank(b);});
+      state.tier=tiers.indexOf('STANDARD')>=0?'STANDARD':tiers[0];
+      state.lineIndex=0;
+    } else if(kind==='tier'){
+      state.tier=value;
+      state.lineIndex=0;
+    } else if(kind==='line'){
+      state.lineIndex=Number(value)||0;
+    }
+    _probState[group.id]=state;
+    buildProbTabFromGroups();
+  }
+  window.probSet=probSet;
+
+  function buildProbGroupRow(group){
+    var state=_probState[group.id]||getDefaultProbState(group);
+    _probState[group.id]=state;
+    var leg=resolveProbLeg(group,state);
+    if(!leg) return null;
+
+    var p=numOrNull(leg.p_cal)||0,pPct=Math.round(p*100),barW=Math.max(0,Math.min(100,pPct)),color=pctColor(p),dir=(state.dir||'').toLowerCase();
+    var dirs=Object.keys(group.variants||{}).sort(function(a,b){return a==='OVER'?-1:b==='OVER'?1:a.localeCompare(b);});
+    var tiers=Object.keys(group.variants[state.dir]||{}).sort(function(a,b){return tierRank(a)-tierRank(b);});
+    var lineLegs=(group.variants[state.dir]||{})[state.tier]||[];
+    var dirHtml='<div class="prob-toggle-group">';
+    dirs.forEach(function(d){dirHtml+='<button class="prob-mini-btn '+(d===state.dir?'active':'')+'" onclick="probSet(\''+group.id+'\',\'dir\',\''+d+'\')">'+esc(d)+'</button>';});
+    dirHtml+='</div>';
+    var tierHtml='<div class="prob-toggle-group">';
+    ['STANDARD','GOBLIN','DEMON'].forEach(function(t){
+      if(tiers.indexOf(t)>=0) tierHtml+='<button class="prob-mini-btn '+(t===state.tier?'active':'')+'" onclick="probSet(\''+group.id+'\',\'tier\',\''+t+'\')">'+tierLabel(t)+'</button>';
+      else tierHtml+='<button class="prob-mini-btn" disabled>'+tierLabel(t)+'</button>';
+    });
+    tierHtml+='</div>';
+
+    var lineHtml='<div class="prob-line-main"><span class="prob-line-note">'+tierLabel(state.tier)+'</span><span>'+fmtLine(leg.line)+'</span></div>';
+    if(lineLegs.length>1){
+      lineHtml+='<div class="prob-line-pills">';
+      for(var i=0;i<lineLegs.length;i++){
+        lineHtml+='<button class="prob-line-pill '+(i===state.lineIndex?'active':'')+'" onclick="probSet(\''+group.id+'\',\'line\',\''+i+'\')">'+fmtLine(lineLegs[i].line)+'</button>';
+      }
+      lineHtml+='</div>';
+    }
+
     var row=document.createElement('div'); row.className='prob-row';
     row.innerHTML=
-      '<div><div class="prob-player">'+esc(leg.player||'&#8212;')+'</div>'+
-        '<div class="prob-meta">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+
-          '<span class="prob-stat-inline"> &middot; '+esc(leg.stat||'')+'</span></div></div>'+
-      '<div class="prob-cell prob-col-stat" style="color:var(--t2);font-size:11px;text-transform:uppercase;letter-spacing:.07em;">'+esc(leg.stat||'&#8212;')+'</div>'+
-      '<div class="prob-line">'+esc(String(leg.line||'&#8212;'))+'</div>'+
-      '<div class="prob-cell"><span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span></div>'+
-      '<div class="prob-cell prob-col-tier"><span class="'+tierClass(leg.tier)+'">'+tierLabel(leg.tier)+'</span></div>'+
+      '<div><div class="prob-player">'+esc(group.player||'&#8212;')+'<span class="prob-prop-count">'+group.count+' lines</span></div>'+
+        '<div class="prob-meta">'+esc(group.team||'')+(group.opp?' vs '+esc(group.opp):'')+
+          '<span class="prob-stat-inline"> &middot; '+esc(group.stat||'')+'</span></div></div>'+
+      '<div class="prob-cell prob-col-stat" style="color:var(--t2);font-size:11px;text-transform:uppercase;letter-spacing:.07em;">'+esc(group.stat||'&#8212;')+'</div>'+
+      '<div class="prob-line">'+lineHtml+'</div>'+
+      '<div class="prob-cell">'+dirHtml+'</div>'+
+      '<div class="prob-cell prob-col-tier">'+tierHtml+'</div>'+
       '<div class="prob-pct-wrap"><div class="prob-pct" style="color:'+color+';">'+pPct+'%</div>'+
         '<div class="prob-bar-track"><div class="prob-bar-fill" style="width:'+barW+'%;background:'+color+';"></div></div></div>';
     return row;
@@ -640,15 +806,23 @@
   }
 
   function buildProbTab(allLegs){
-    var sorted=allLegs.slice().sort(function(a,b){return(b.p_cal||0)-(a.p_cal||0);});
+    _probGroups=groupProbabilityLegs(allLegs||[]);
+    _probState={};
+    buildProbTabFromGroups();
+  }
+
+  function buildProbTabFromGroups(){
     var pl=document.getElementById('probList'); pl.innerHTML='';
-    if(!sorted.length){pl.innerHTML='<div class="no-data">No picks today yet.</div>';return;}
-    var show=isPremium?sorted:sorted.slice(0,FREE_PROB_LIMIT);
-    for(var i=0;i<show.length;i++) pl.appendChild(buildProbRow(show[i]));
-    if(!isPremium&&sorted.length>FREE_PROB_LIMIT){
-      var extra=sorted.length-FREE_PROB_LIMIT;
+    if(!_probGroups.length){pl.innerHTML='<div class="no-data">No picks today yet.</div>';return;}
+    var show=isPremium?_probGroups:_probGroups.slice(0,FREE_PROB_LIMIT);
+    for(var i=0;i<show.length;i++){
+      var row=buildProbGroupRow(show[i]);
+      if(row) pl.appendChild(row);
+    }
+    if(!isPremium&&_probGroups.length>FREE_PROB_LIMIT){
+      var extra=_probGroups.length-FREE_PROB_LIMIT;
       var lock=document.createElement('div'); lock.className='prob-more-lock';
-      lock.innerHTML='<span class="prob-more-text"><strong>+'+extra+' more picks</strong> &#8212; unlock full rankings</span>'+
+      lock.innerHTML='<span class="prob-more-text"><strong>+'+extra+' more player props</strong> &#8212; unlock full rankings</span>'+
         '<a href="/checkout/" class="btn btn-gold" style="font-size:11px;">Go Premium</a>';
       pl.appendChild(lock);
     }
@@ -659,23 +833,27 @@
   }
 
   function buildEVTab(allLegs){
-    var edgeLegs=allLegs.filter(function(l){return(l.p_cal||0)>0.50;})
-      .slice().sort(function(a,b){return(b.p_cal||0)-(a.p_cal||0);});
+    var edgeLegs=(allLegs||[]).slice().filter(function(l){return legEV(l)!==null;})
+      .sort(function(a,b){
+        var d=(legEV(b)||0)-(legEV(a)||0);
+        if(d!==0) return d;
+        return (b.p_cal||0)-(a.p_cal||0);
+      });
     var el=document.getElementById('evList'); el.innerHTML='';
     if(!edgeLegs.length){el.innerHTML='<div class="no-data">No edge legs today.</div>';return;}
 
     var above65=edgeLegs.filter(function(l){return(l.p_cal||0)>=0.65;}).length;
-    var topEdge=Math.round(((edgeLegs[0].p_cal||0)-0.5)*100);
+    var topEv=legEV(edgeLegs[0])||0;
     var best=edgeLegs[0];
 
     var t1=document.getElementById('evTileEdge');
     if(t1) t1.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">65%+ Legs</div>'+
       '<div style="font-size:32px;font-weight:900;color:var(--gold);letter-spacing:-.04em;">'+above65+'</div>'+
-      '<div style="font-size:10px;color:var(--t2);margin-top:4px;">of '+edgeLegs.length+' edge legs</div>';
+      '<div style="font-size:10px;color:var(--t2);margin-top:4px;">of '+edgeLegs.length+' scored legs</div>';
     var t2el=document.getElementById('evTileHigh');
-    if(t2el) t2el.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">Top Edge</div>'+
-      '<div style="font-size:32px;font-weight:900;color:var(--cyan);letter-spacing:-.04em;">+'+topEdge+'%</div>'+
-      '<div style="font-size:10px;color:var(--t2);margin-top:4px;">above market</div>';
+    if(t2el) t2el.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">Top EV</div>'+
+      '<div style="font-size:32px;font-weight:900;color:var(--cyan);letter-spacing:-.04em;">'+topEv.toFixed(3)+'x</div>'+
+      '<div style="font-size:10px;color:var(--t2);margin-top:4px;">Atlas single-leg score</div>';
     var bestL10=best.l10_hr!=null?Math.round(best.l10_hr*best.l10_n)+'/'+best.l10_n+' L10':null;
     var t3=document.getElementById('evTileBest');
     if(t3) t3.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">Best Conf</div>'+
@@ -684,14 +862,14 @@
 
     var bb=document.getElementById('evBestBet');
     if(bb){
-      var bbDir=(best.dir||'').toLowerCase();
+      var bbDir=(best.dir||'').toLowerCase(),bbEv=legEV(best)||0;
       var bbL10Txt=best.l10_hr!=null?'<span style="margin-left:12px;font-size:11px;font-weight:700;color:var(--t2);">L10: '+Math.round(best.l10_hr*best.l10_n)+'/'+best.l10_n+'</span>':'';
-      bb.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">&#9733; Best Bet Today</div>'+
+      bb.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">&#9733; Top Atlas EV</div>'+
         '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">'+
           '<div><div style="font-size:18px;font-weight:900;letter-spacing:-.02em;">'+esc(best.player||'')+'</div>'+
             '<div style="font-size:11px;color:var(--t2);margin-top:4px;text-transform:uppercase;letter-spacing:.07em;">'+esc(best.team||'')+(best.opp?' vs '+esc(best.opp):'')+' &middot; '+esc(best.stat||'')+'</div></div>'+
-          '<div style="text-align:right;"><div style="font-size:28px;font-weight:900;color:var(--green);letter-spacing:-.04em;">'+Math.round((best.p_cal||0)*100)+'%</div>'+
-            '<div style="font-size:10px;color:var(--t2);margin-top:2px;">confidence</div></div>'+
+          '<div style="text-align:right;"><div style="font-size:28px;font-weight:900;color:var(--green);letter-spacing:-.04em;">'+bbEv.toFixed(3)+'x</div>'+
+            '<div style="font-size:10px;color:var(--t2);margin-top:2px;">EV</div></div>'+
         '</div>'+
         '<div style="display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap;">'+
           '<span class="dir-'+bbDir+'">'+esc(best.dir||'')+'</span>'+
@@ -701,7 +879,7 @@
     }
 
     for(var i=0;i<edgeLegs.length;i++){
-      var leg=edgeLegs[i],p=leg.p_cal||0,edge=Math.round((p-0.5)*100),pPct=Math.round(p*100),dir=(leg.dir||'').toLowerCase();
+      var leg=edgeLegs[i],p=leg.p_cal||0,ev=legEV(leg)||0,pPct=Math.round(p*100),dir=(leg.dir||'').toLowerCase();
       var l10txt=leg.l10_hr!=null?Math.round(leg.l10_hr*leg.l10_n)+'/'+leg.l10_n:'';
       var row=document.createElement('div'); row.className='ev-row';
       row.innerHTML=
@@ -714,7 +892,7 @@
         '<div class="prob-line">'+esc(String(leg.line||'&#8212;'))+'</div>'+
         '<div class="prob-cell"><span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span></div>'+
         '<div class="ev-col-conf" style="text-align:right;font-size:13px;font-weight:700;color:'+pctColor(p)+';">'+pPct+'%</div>'+
-        '<div class="ev-edge">+'+edge+'%</div>';
+        '<div class="ev-edge">'+ev.toFixed(3)+'x</div>';
       el.appendChild(row);
     }
   }
@@ -1071,7 +1249,8 @@
       .then(function(r){return r.ok?r.json():null;})
       .then(function(data){
         if(!data) return;
-        var allLegs=getUniqueLegs(data),games=getGames(allLegs);
+        var allModelLegs=(data.all_legs&&data.all_legs.length)?data.all_legs:getUniqueLegs(data);
+        var allLegs=allModelLegs,games=getGames(allLegs);
         // allLegsForCount: all families deduped (for pick count + stat hub)
         var seen2={},allLegsForCount=[];
         var allSrc=(data.system||[]).concat(data.system_winprob||[]).concat(data.windfall||[])
@@ -1083,6 +1262,7 @@
             if(!seen2[_k]){seen2[_k]=true;allLegsForCount.push(_leg);}
           }
         }
+        if(!allLegsForCount.length) allLegsForCount=allModelLegs;
         buildStatTiles(data,allLegsForCount);
         buildProbTab(allLegs);
         buildEVTab(allLegs);
