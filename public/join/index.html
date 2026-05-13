@@ -137,6 +137,16 @@
     .bonus-list strong{color:var(--text);}
     .contact-band{margin-top:26px;padding:22px;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.055);}
     .contact-band a{color:var(--cyan);font-weight:900;}
+    .application-form{margin-top:24px;padding:22px;border:1px solid var(--b);background:#050505;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .application-form label{display:block;margin:12px 0 7px;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);}
+    .application-form input,.application-form textarea{width:100%;background:#000;border:1px solid var(--b2);color:var(--text);padding:11px 12px;font:inherit;font-size:14px;outline:none;}
+    .application-form input{height:42px;}
+    .application-form textarea{min-height:96px;resize:vertical;}
+    .application-form input:focus,.application-form textarea:focus{border-color:var(--gold);}
+    .form-message{display:none;margin-top:14px;padding:13px;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.055);color:var(--t2);font-size:13px;line-height:1.7;}
+    .form-message.ok{display:block;border-color:rgba(0,230,118,.34);background:rgba(0,230,118,.055);}
+    .form-message.err{display:block;border-color:rgba(255,82,82,.34);background:rgba(255,82,82,.055);}
     footer{position:relative;z-index:1;padding:32px 28px;color:var(--t3);font-size:11px;line-height:1.8;}
     .footer-inner{max-width:1180px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid var(--b);padding-top:28px;}
     .legal-links{display:flex;gap:18px;flex-wrap:wrap;text-transform:uppercase;letter-spacing:.08em;font-weight:800;}
@@ -147,6 +157,7 @@
       .wrap{padding:0 18px;}
       .hero{padding-top:64px;}
       .hero-grid,.cards,.roadmap,.panel-grid,.pay-grid{grid-template-columns:1fr;}
+      .form-grid{grid-template-columns:1fr;}
       .metric,.card,.panel-main{border-right:0;border-bottom:1px solid var(--b);}
       .metric:last-child,.card:last-child{border-bottom:0;}
       .section-head{display:block;}
@@ -321,6 +332,27 @@
             <div class="contact-band">
               To apply, email <a href="mailto:support@atlassports.ai?subject=AtlasSportsAI%20Ambassador%20Application">support@atlassports.ai</a> and tell us why you would be a good AtlasSportsAI Ambassador.
             </div>
+            <form class="application-form" id="ambassadorApplication">
+              <h4 style="margin-top:0;">Quick Application</h4>
+              <div class="form-grid">
+                <div>
+                  <label for="appName">Name</label>
+                  <input id="appName" name="name" autocomplete="name" required/>
+                </div>
+                <div>
+                  <label for="appEmail">Email</label>
+                  <input id="appEmail" name="email" type="email" autocomplete="email" required/>
+                </div>
+              </div>
+              <label for="appPlatforms">Platforms / Communities</label>
+              <textarea id="appPlatforms" name="platforms" placeholder="TikTok, Twitch, YouTube, Instagram, Discord, local sports community, etc."></textarea>
+              <label for="appAudience">Why You Are A Good Fit</label>
+              <textarea id="appAudience" name="audienceNotes" placeholder="Audience size, sports niche, content style, coaching/community background, or how you plan to promote Atlas."></textarea>
+              <label for="appSponsor">Sponsor Code If Another Ambassador Invited You</label>
+              <input id="appSponsor" name="sponsorCode" placeholder="Optional"/>
+              <button class="btn btn-gold" type="submit" style="margin-top:18px;">Submit Application</button>
+              <div class="form-message" id="applicationMessage"></div>
+            </form>
           </div>
           <aside class="panel-side">
             <h3>Great Fits</h3>
@@ -414,6 +446,7 @@
 </footer>
 
 <script>
+  var AMBASSADOR_API = 'https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
   var buttons = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
   var panels = {
     developers: document.getElementById('tab-developers'),
@@ -434,6 +467,40 @@
   if (window.location.hash) {
     var hash = window.location.hash.replace('#', '');
     if (panels[hash]) activateTab(hash);
+  }
+  var applicationForm = document.getElementById('ambassadorApplication');
+  var applicationMessage = document.getElementById('applicationMessage');
+  if (applicationForm && applicationMessage) {
+    applicationForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      applicationMessage.className = 'form-message';
+      applicationMessage.style.display = 'block';
+      applicationMessage.textContent = 'Submitting application...';
+      var data = {
+        name: document.getElementById('appName').value,
+        email: document.getElementById('appEmail').value,
+        platforms: document.getElementById('appPlatforms').value,
+        audienceNotes: document.getElementById('appAudience').value,
+        sponsorCode: document.getElementById('appSponsor').value
+      };
+      fetch(AMBASSADOR_API + '/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function(resp) {
+        return resp.json().then(function(body) { return { ok: resp.ok, body: body }; });
+      }).then(function(result) {
+        if (!result.ok || !result.body.ok) {
+          throw new Error((result.body.error && result.body.error.message) || 'Application failed.');
+        }
+        applicationMessage.className = 'form-message ok';
+        applicationMessage.textContent = 'Application submitted. Atlas will review and follow up by email.';
+        applicationForm.reset();
+      }).catch(function(err) {
+        applicationMessage.className = 'form-message err';
+        applicationMessage.textContent = err.message || 'Application failed. Email support@atlassports.ai if this continues.';
+      });
+    });
   }
 </script>
 </body>

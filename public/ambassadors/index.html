@@ -137,7 +137,26 @@
 <script>
   document.getElementById('portalForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    document.getElementById('portalMessage').style.display = 'block';
+    var message = document.getElementById('portalMessage');
+    message.style.display = 'block';
+    message.innerHTML = '<strong>Checking portal...</strong><br/>Connecting to Atlas Ambassador backend.';
+    fetch('https://atlas-ambassador-platform.rickeyalackey89.workers.dev/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      })
+    }).then(function(resp) {
+      return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+    }).then(function(result) {
+      var serverMessage = result.body && result.body.error && result.body.error.message
+        ? result.body.error.message
+        : 'Portal setup in progress.';
+      message.innerHTML = '<strong>Portal setup in progress.</strong><br/>' + serverMessage + ' For current access questions, email support@atlassports.ai.';
+    }).catch(function() {
+      message.innerHTML = '<strong>Portal setup in progress.</strong><br/>Unable to reach the backend. For current access questions, email support@atlassports.ai.';
+    });
   });
 </script>
 </body>
