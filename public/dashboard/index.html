@@ -111,10 +111,14 @@
     .prob-mini-btn:hover{color:var(--text);border-color:var(--b2);}
     .prob-mini-btn.active{color:#000;background:var(--gold);border-color:var(--gold);}
     .prob-mini-btn:disabled{opacity:.28;cursor:default;}
+    .prob-select-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .prob-select-menu{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;}
+    .prob-static-pill{display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border:1px solid rgba(255,255,255,.08);color:var(--t2);}
     .prob-line-pills{display:flex;align-items:center;justify-content:flex-end;gap:5px;flex-wrap:wrap;margin-top:6px;}
     .prob-line-pill{font:inherit;font-size:10px;font-weight:900;padding:3px 6px;border:1px solid var(--b);background:transparent;color:var(--t2);cursor:pointer;font-variant-numeric:tabular-nums;}
     .prob-line-pill.active{color:var(--cyan);border-color:rgba(0,212,255,.45);background:rgba(0,212,255,.08);}
     .prob-line-main{display:flex;align-items:baseline;justify-content:flex-end;gap:6px;}
+    .prob-line-main.clickable{cursor:pointer;}
     .prob-line-note{font-size:8px;color:var(--t2);letter-spacing:.08em;text-transform:uppercase;}
     .prob-prop-count{font-size:10px;color:var(--t2);font-weight:700;margin-left:6px;}
     .game-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--b);}
@@ -576,6 +580,13 @@
     return tier||'';
   }
 
+  function tierShortLabel(tier){
+    var t=(tier||'').toUpperCase();
+    if(t==='GOBLIN') return '\u2193 Alts';
+    if(t==='DEMON') return '\u2191 Alts';
+    return 'Standard';
+  }
+
   function getUniqueLegs(data){
     // Returns marketed_slips legs (carry p_cal, team, opp) — used for prob/EV rendering
     var seen={},legs=[];
@@ -707,7 +718,7 @@
     var dir=dirs.indexOf('OVER')>=0?'OVER':dirs[0];
     var tiers=dir?Object.keys(group.variants[dir]||{}).sort(function(a,b){return tierRank(a)-tierRank(b);}):[];
     var tier=tiers.indexOf('STANDARD')>=0?'STANDARD':tiers[0];
-    return {dir:dir||'',tier:tier||'',lineIndex:0};
+    return {dir:dir||'',tier:tier||'',lineIndex:0,tierOpen:false,lineOpen:false,dirOpen:false};
   }
 
   function resolveProbLeg(group,state){
@@ -733,11 +744,29 @@
       var tiers=Object.keys(group.variants[state.dir]||{}).sort(function(a,b){return tierRank(a)-tierRank(b);});
       state.tier=tiers.indexOf('STANDARD')>=0?'STANDARD':tiers[0];
       state.lineIndex=0;
+      state.dirOpen=false;
+      state.tierOpen=false;
+      state.lineOpen=false;
     } else if(kind==='tier'){
       state.tier=value;
       state.lineIndex=0;
+      state.tierOpen=false;
+      state.lineOpen=false;
     } else if(kind==='line'){
       state.lineIndex=Number(value)||0;
+      state.lineOpen=false;
+    } else if(kind==='toggleTier'){
+      state.tierOpen=!state.tierOpen;
+      state.lineOpen=false;
+      state.dirOpen=false;
+    } else if(kind==='toggleLine'){
+      state.lineOpen=!state.lineOpen;
+      state.tierOpen=false;
+      state.dirOpen=false;
+    } else if(kind==='toggleDir'){
+      state.dirOpen=!state.dirOpen;
+      state.tierOpen=false;
+      state.lineOpen=false;
     }
     _probState[group.id]=state;
     buildProbTabFromGroups();
@@ -754,21 +783,45 @@
     var dirs=Object.keys(group.variants||{}).sort(function(a,b){return a==='OVER'?-1:b==='OVER'?1:a.localeCompare(b);});
     var tiers=Object.keys(group.variants[state.dir]||{}).sort(function(a,b){return tierRank(a)-tierRank(b);});
     var lineLegs=(group.variants[state.dir]||{})[state.tier]||[];
-    var dirHtml='<div class="prob-toggle-group">';
-    dirs.forEach(function(d){dirHtml+='<button class="prob-mini-btn '+(d===state.dir?'active':'')+'" onclick="probSet(\''+group.id+'\',\'dir\',\''+d+'\')">'+esc(d)+'</button>';});
-    dirHtml+='</div>';
-    var tierHtml='<div class="prob-toggle-group">';
-    ['STANDARD','GOBLIN','DEMON'].forEach(function(t){
-      if(tiers.indexOf(t)>=0) tierHtml+='<button class="prob-mini-btn '+(t===state.tier?'active':'')+'" onclick="probSet(\''+group.id+'\',\'tier\',\''+t+'\')">'+tierLabel(t)+'</button>';
-      else tierHtml+='<button class="prob-mini-btn" disabled>'+tierLabel(t)+'</button>';
-    });
-    tierHtml+='</div>';
+    var hasStandard=tiers.indexOf('STANDARD')>=0;
+    var tierSelectable=hasStandard&&tiers.length>1;
+    var dirSelectable=dirs.length>1;
+    var lineSelectable=lineLegs.length>1&&hasStandard;
 
-    var lineHtml='<div class="prob-line-main"><span class="prob-line-note">'+tierLabel(state.tier)+'</span><span>'+fmtLine(leg.line)+'</span></div>';
-    if(lineLegs.length>1){
+    var dirHtml='';
+    if(dirSelectable){
+      dirHtml='<div class="prob-select-wrap"><button class="prob-mini-btn active" onclick="probSet(\''+group.id+'\',\'toggleDir\',\'\')">'+esc(state.dir)+'</button>';
+      if(state.dirOpen){
+        dirHtml+='<div class="prob-select-menu">';
+        dirs.forEach(function(d){if(d!==state.dir) dirHtml+='<button class="prob-mini-btn" onclick="probSet(\''+group.id+'\',\'dir\',\''+d+'\')">'+esc(d)+'</button>';});
+        dirHtml+='</div>';
+      }
+      dirHtml+='</div>';
+    } else {
+      dirHtml='<span class="dir-'+dir+'">'+esc(state.dir||'')+'</span>';
+    }
+
+    var tierHtml='';
+    if(tierSelectable){
+      tierHtml='<div class="prob-select-wrap"><button class="prob-mini-btn active" onclick="probSet(\''+group.id+'\',\'toggleTier\',\'\')">'+tierShortLabel(state.tier)+'</button>';
+      if(state.tierOpen){
+        tierHtml+='<div class="prob-select-menu">';
+        ['STANDARD','GOBLIN','DEMON'].forEach(function(t){
+          if(tiers.indexOf(t)>=0&&t!==state.tier) tierHtml+='<button class="prob-mini-btn" onclick="probSet(\''+group.id+'\',\'tier\',\''+t+'\')">'+tierShortLabel(t)+'</button>';
+        });
+        tierHtml+='</div>';
+      }
+      tierHtml+='</div>';
+    } else {
+      tierHtml='<span class="'+tierClass(state.tier)+'">'+tierShortLabel(state.tier)+'</span>';
+    }
+
+    var lineClick=lineSelectable?' onclick="probSet(\''+group.id+'\',\'toggleLine\',\'\')"':'';
+    var lineHtml='<div class="prob-line-main'+(lineSelectable?' clickable':'')+'"'+lineClick+'><span class="prob-line-note">'+tierShortLabel(state.tier)+'</span><span>'+fmtLine(leg.line)+'</span></div>';
+    if(lineSelectable&&state.lineOpen){
       lineHtml+='<div class="prob-line-pills">';
       for(var i=0;i<lineLegs.length;i++){
-        lineHtml+='<button class="prob-line-pill '+(i===state.lineIndex?'active':'')+'" onclick="probSet(\''+group.id+'\',\'line\',\''+i+'\')">'+fmtLine(lineLegs[i].line)+'</button>';
+        if(i!==state.lineIndex) lineHtml+='<button class="prob-line-pill" onclick="probSet(\''+group.id+'\',\'line\',\''+i+'\')">'+fmtLine(lineLegs[i].line)+'</button>';
       }
       lineHtml+='</div>';
     }
