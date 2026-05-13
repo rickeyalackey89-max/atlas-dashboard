@@ -29,6 +29,13 @@
     textarea{min-height:104px;resize:vertical}
     input:focus,textarea:focus{border-color:var(--gold)}
     .hint{font-size:11px;color:#666;margin-top:6px}
+    .referral-toggle{margin-top:18px;border:1px solid var(--b);background:#050505;padding:14px}
+    .referral-question{color:#fff;font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+    .choice-row{display:flex;gap:10px;flex-wrap:wrap}
+    .choice{min-width:92px;border:1px solid var(--b2);background:#000;color:#fff;padding:10px 14px;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+    .choice.active{border-color:var(--cyan);background:rgba(0,212,255,.12);color:var(--cyan)}
+    .referral-field{display:none}
+    .referral-field.show{display:block}
     .msg{display:none;margin-top:18px;padding:14px;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.055);color:var(--t2);font-size:13px}
     .msg.ok{display:block;border-color:rgba(0,230,118,.3);background:rgba(0,230,118,.055)}
     .msg.err{display:block;border-color:rgba(255,82,82,.35);background:rgba(255,82,82,.055)}
@@ -75,8 +82,18 @@
       </div>
     </div>
 
-    <label for="sponsorCode">Ambassador Referral Code</label>
-    <input id="sponsorCode" name="sponsorCode" maxlength="12" autocomplete="off" spellcheck="false" placeholder="Optional"/>
+    <div class="referral-toggle">
+      <div class="referral-question">Were you referred by someone to join?</div>
+      <div class="choice-row" role="group" aria-label="Referral source">
+        <button class="choice active" type="button" id="referredNo" aria-pressed="true">No</button>
+        <button class="choice" type="button" id="referredYes" aria-pressed="false">Yes</button>
+      </div>
+      <div class="referral-field" id="referralField">
+        <label for="sponsorCode">Ambassador Referral Code</label>
+        <input id="sponsorCode" name="sponsorCode" maxlength="12" autocomplete="off" spellcheck="false" placeholder="Required if referred"/>
+        <div class="hint">Enter the Ambassador code from the person who invited you so they receive sponsor credit if you are approved.</div>
+      </div>
+    </div>
 
     <label for="platforms">Platforms</label>
     <input id="platforms" name="platforms" placeholder="TikTok, YouTube, Discord, Instagram, X, etc."/>
@@ -97,7 +114,25 @@
   var API = 'https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
   var form = document.getElementById('applyForm');
   var message = document.getElementById('message');
+  var referred = false;
+  var sponsorInput = document.getElementById('sponsorCode');
+  var referralField = document.getElementById('referralField');
+  var referredYes = document.getElementById('referredYes');
+  var referredNo = document.getElementById('referredNo');
   function cleanCode(value){ return String(value || '').trim().toUpperCase().replace(/[^A-Z0-9_-]/g,'').slice(0,12); }
+  function setReferred(value){
+    referred = value;
+    referredYes.classList.toggle('active', referred);
+    referredNo.classList.toggle('active', !referred);
+    referredYes.setAttribute('aria-pressed', referred ? 'true' : 'false');
+    referredNo.setAttribute('aria-pressed', referred ? 'false' : 'true');
+    referralField.classList.toggle('show', referred);
+    sponsorInput.required = referred;
+    if (!referred) sponsorInput.value = '';
+  }
+  referredYes.addEventListener('click', function(){ setReferred(true); });
+  referredNo.addEventListener('click', function(){ setReferred(false); });
+  setReferred(false);
   ['preferredCode','sponsorCode'].forEach(function(id){
     document.getElementById(id).addEventListener('input', function(){ this.value = cleanCode(this.value); });
   });
@@ -106,12 +141,18 @@
     message.className = 'msg';
     message.style.display = 'block';
     message.textContent = 'Submitting application...';
+    if (referred && !sponsorInput.value.trim()) {
+      message.className = 'msg err';
+      message.textContent = 'Enter the Ambassador referral code from the person who referred you.';
+      sponsorInput.focus();
+      return;
+    }
     var payload = {
       name: document.getElementById('name').value,
       phone: document.getElementById('phone').value,
       email: document.getElementById('email').value,
       preferredCode: document.getElementById('preferredCode').value,
-      sponsorCode: document.getElementById('sponsorCode').value,
+      sponsorCode: referred ? sponsorInput.value : '',
       password: document.getElementById('password').value,
       confirmPassword: document.getElementById('confirmPassword').value,
       platforms: document.getElementById('platforms').value,
