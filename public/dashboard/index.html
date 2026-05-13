@@ -141,7 +141,7 @@
     .hub-stat-row{padding:12px 0;border-bottom:1px solid var(--b);}
     .hub-stat-row:last-child{border-bottom:none;}
     .hub-player-wrap{display:flex;align-items:center;gap:10px;min-width:0;}
-    .hub-player-headshot{width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:top center;background:var(--s2);border:1px solid var(--b2);flex:0 0 38px;}
+    .hub-player-headshot{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top center;background:var(--s2);border:1px solid var(--b2);flex:0 0 44px;}
     .hub-player-name{font-size:13px;font-weight:800;letter-spacing:-.01em;}
     .hub-player-meta{font-size:10px;color:var(--t2);margin-top:2px;text-transform:uppercase;letter-spacing:.07em;}
     .hub-avg-cell{background:var(--s2);padding:11px 12px;min-height:62px;}
@@ -1211,7 +1211,7 @@
       var seriesLabel=opps.length?'Series Avg vs '+opps.join(', '):'Series Avg';
       var logo=team.logo_url?'<img class="hub-team-logo" src="'+esc(team.logo_url)+'" alt="'+esc(team.team||'')+'" loading="lazy" decoding="async" onerror="this.style.display=\'none\'"/>':'';
       html+='<div class="hub-team-card">';
-      html+='<div class="hub-team-title"><div class="hub-team-left">'+logo+'<div><div class="hub-team-name">'+esc(team.team||'Team')+'</div><div class="hub-team-meta">'+esc(team.team_name||team.market||'')+'</div></div></div><div class="hub-team-meta">'+(opps.length?'vs '+esc(opps.join(', ')):'Daily roster')+'</div></div>';
+      html+='<div class="hub-team-title"><div class="hub-team-left">'+logo+'<div><div class="hub-team-name">'+esc(team.team||'Team')+'</div><div class="hub-team-meta">'+esc(team.team_name||team.market||'')+'</div></div></div></div>';
       html+='<div class="hub-stat-head" style="grid-template-columns:'+cols+';">'+
         '<div class="hub-stat-head-cell">Player</div>'+
         '<div class="hub-stat-head-cell">Season Avg</div>'+
