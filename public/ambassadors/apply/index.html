@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Apply — AtlasSportsAI Ambassador</title>
+  <link rel="icon" type="image/png" href="/atlas_logo.png"/>
+  <style>
+    :root{--bg:#000;--s1:#080808;--b:rgba(255,255,255,.08);--b2:rgba(255,255,255,.16);--gold:#f5a623;--cyan:#00d4ff;--green:#00e676;--red:#ff5252;--t2:#888;}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;background:#000;color:#fff;line-height:1.6}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,212,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.022) 1px,transparent 1px);background-size:80px 80px}
+    nav{position:sticky;top:0;z-index:5;height:58px;padding:0 24px;background:rgba(0,0,0,.92);border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+    .brand{display:flex;gap:10px;align-items:center;color:#fff;text-decoration:none;font-weight:950;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+    .brand img{width:28px;filter:invert(1) drop-shadow(0 0 10px rgba(245,166,35,.35))}
+    .brand span span{color:var(--gold)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:9px 16px;border:1px solid var(--b2);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff;text-decoration:none;background:transparent;cursor:pointer}
+    .btn-gold{background:var(--gold);border-color:var(--gold);color:#000}
+    main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:64px 22px 90px}
+    .eyebrow{font-size:10px;color:var(--cyan);font-weight:900;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px}
+    h1{font-size:clamp(34px,7vw,68px);line-height:.94;text-transform:uppercase;letter-spacing:-.045em}
+    h1 span{color:var(--gold)}
+    .lead{margin-top:18px;color:var(--t2);font-size:15px;line-height:1.8}
+    form{margin-top:32px;border:1px solid var(--b);background:var(--s1);padding:28px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    label{display:block;margin:14px 0 7px;color:var(--t2);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    input,textarea{width:100%;background:#050505;border:1px solid var(--b2);color:#fff;padding:12px;font:inherit;outline:none}
+    input{height:44px}
+    textarea{min-height:104px;resize:vertical}
+    input:focus,textarea:focus{border-color:var(--gold)}
+    .hint{font-size:11px;color:#666;margin-top:6px}
+    .msg{display:none;margin-top:18px;padding:14px;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.055);color:var(--t2);font-size:13px}
+    .msg.ok{display:block;border-color:rgba(0,230,118,.3);background:rgba(0,230,118,.055)}
+    .msg.err{display:block;border-color:rgba(255,82,82,.35);background:rgba(255,82,82,.055)}
+    footer{margin-top:36px;color:#444;font-size:11px;line-height:1.8}
+    @media(max-width:680px){.grid{grid-template-columns:1fr}form{padding:22px}nav{padding:0 16px}.brand span{display:none}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/"><img src="/atlas_logo_transparent.png" alt="Atlas"/><span>Atlas <span>Sports</span> AI</span></a>
+  <a class="btn" href="/ambassadors/">Portal</a>
+</nav>
+<main>
+  <div class="eyebrow">Ambassador Onboarding</div>
+  <h1>Start Your <span>Ambassador</span> Application</h1>
+  <p class="lead">Submit your basic information and preferred code. Atlas reviews each application before promo codes, payouts, documents, or portal access are activated.</p>
+
+  <form id="applyForm">
+    <div class="grid">
+      <div>
+        <label for="name">Full Name</label>
+        <input id="name" name="name" autocomplete="name" required/>
+      </div>
+      <div>
+        <label for="phone">Phone Number</label>
+        <input id="phone" name="phone" autocomplete="tel" required/>
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required/>
+      </div>
+      <div>
+        <label for="preferredCode">Preferred Code</label>
+        <input id="preferredCode" name="preferredCode" maxlength="12" autocomplete="off" spellcheck="false" required/>
+        <div class="hint">4-12 letters/numbers. Short codes are best. Vulgar or blocked codes are rejected.</div>
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="new-password" required/>
+      </div>
+      <div>
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required/>
+      </div>
+    </div>
+
+    <label for="sponsorCode">Ambassador Referral Code</label>
+    <input id="sponsorCode" name="sponsorCode" maxlength="12" autocomplete="off" spellcheck="false" placeholder="Optional"/>
+
+    <label for="platforms">Platforms</label>
+    <input id="platforms" name="platforms" placeholder="TikTok, YouTube, Discord, Instagram, X, etc."/>
+
+    <label for="audienceNotes">Audience / Promotion Notes</label>
+    <textarea id="audienceNotes" name="audienceNotes" placeholder="Audience size, sports niche, communities, content style, or how you plan to promote Atlas."></textarea>
+
+    <button class="btn btn-gold" type="submit" style="width:100%;margin-top:20px">Submit Application</button>
+    <div class="msg" id="message"></div>
+  </form>
+
+  <footer>
+    Ambassador participation is performance-based and does not create guaranteed income. Payouts require approval, valid paid customer signups, completed onboarding, and compliance with program rules.
+  </footer>
+</main>
+<script>
+(function(){
+  var API = 'https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
+  var form = document.getElementById('applyForm');
+  var message = document.getElementById('message');
+  function cleanCode(value){ return String(value || '').trim().toUpperCase().replace(/[^A-Z0-9_-]/g,'').slice(0,12); }
+  ['preferredCode','sponsorCode'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', function(){ this.value = cleanCode(this.value); });
+  });
+  form.addEventListener('submit', function(event){
+    event.preventDefault();
+    message.className = 'msg';
+    message.style.display = 'block';
+    message.textContent = 'Submitting application...';
+    var payload = {
+      name: document.getElementById('name').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email').value,
+      preferredCode: document.getElementById('preferredCode').value,
+      sponsorCode: document.getElementById('sponsorCode').value,
+      password: document.getElementById('password').value,
+      confirmPassword: document.getElementById('confirmPassword').value,
+      platforms: document.getElementById('platforms').value,
+      audienceNotes: document.getElementById('audienceNotes').value
+    };
+    fetch(API + '/api/applications', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    }).then(function(resp){
+      return resp.json().then(function(body){ return {status:resp.status, body:body}; });
+    }).then(function(result){
+      if (!result.body.ok) throw new Error(result.body.error && result.body.error.message ? result.body.error.message : 'Application failed.');
+      message.className = 'msg ok';
+      message.textContent = 'Application received. Check your email for confirmation. Atlas will review and follow up after approval.';
+      form.reset();
+    }).catch(function(error){
+      message.className = 'msg err';
+      message.textContent = error.message || 'Application failed. Email support@atlassports.ai if this continues.';
+    });
+  });
+})();
+</script>
+</body>
+</html>

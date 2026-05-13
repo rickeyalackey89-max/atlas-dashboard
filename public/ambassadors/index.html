@@ -36,6 +36,8 @@
     input:focus{border-color:var(--gold);}
     .message{display:none;margin-top:18px;padding:14px;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.055);font-size:13px;color:var(--t2);line-height:1.7;}
     .message strong{color:var(--cyan);}
+    .new-link{display:block;margin-top:14px;text-align:center;color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;}
+    .new-link:hover{color:#fff;}
     .modules{display:grid;grid-template-columns:repeat(2,1fr);}
     .module{min-height:150px;padding:26px;border-right:1px solid var(--b);border-bottom:1px solid var(--b);background:rgba(255,255,255,.012);}
     .module:nth-child(2n){border-right:0;}
@@ -83,6 +85,7 @@
         <label for="password">Password</label>
         <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Portal password"/>
         <button class="btn btn-gold" type="submit" style="width:100%;margin-top:20px;">Log In</button>
+        <a class="new-link" href="/ambassadors/apply/">New Ambassador? Start here</a>
       </form>
       <div class="message" id="portalMessage">
         <strong>Portal setup in progress.</strong><br/>

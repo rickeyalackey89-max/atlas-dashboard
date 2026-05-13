@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Admin — Atlas Ambassadors</title>
+  <link rel="icon" type="image/png" href="/atlas_logo.png"/>
+  <style>
+    :root{--bg:#000;--s1:#080808;--s2:#111;--b:rgba(255,255,255,.08);--b2:rgba(255,255,255,.16);--gold:#f5a623;--cyan:#00d4ff;--green:#00e676;--red:#ff5252;--t2:#888}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;background:#000;color:#fff;line-height:1.55}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,212,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.02) 1px,transparent 1px);background-size:80px 80px}
+    nav{position:sticky;top:0;z-index:5;height:58px;padding:0 24px;background:rgba(0,0,0,.92);border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+    a{color:inherit;text-decoration:none}.brand{font-weight:950;font-size:13px;letter-spacing:.14em;text-transform:uppercase}.brand span{color:var(--gold)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:8px 14px;border:1px solid var(--b2);font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:transparent;cursor:pointer}
+    .btn-gold{background:var(--gold);border-color:var(--gold);color:#000}.btn-cyan{border-color:var(--cyan);color:var(--cyan)}
+    main{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:38px 20px 80px}
+    h1{font-size:clamp(30px,5vw,58px);line-height:.94;text-transform:uppercase;letter-spacing:-.04em}h1 span{color:var(--gold)}
+    .login{max-width:420px;margin-top:28px;border:1px solid var(--b);background:var(--s1);padding:24px}
+    label{display:block;margin:14px 0 7px;color:var(--t2);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    input{width:100%;height:42px;background:#050505;border:1px solid var(--b2);color:#fff;padding:0 12px;outline:none}
+    input:focus{border-color:var(--gold)}
+    .msg{display:none;margin-top:14px;color:var(--t2);font-size:13px}.msg.err{display:block;color:var(--red)}
+    .hub{display:none;margin-top:28px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+    .card{border:1px solid var(--b);background:var(--s1);padding:18px}.card b{display:block;color:var(--t2);font-size:10px;letter-spacing:.14em;text-transform:uppercase}.card span{display:block;margin-top:8px;font-size:28px;font-weight:950;color:var(--gold)}
+    section{border:1px solid var(--b);background:var(--s1);margin-top:18px;padding:18px;overflow:auto}
+    h2{font-size:14px;color:var(--cyan);text-transform:uppercase;letter-spacing:.14em;margin-bottom:14px}
+    table{width:100%;border-collapse:collapse;min-width:820px}th,td{padding:10px;border-bottom:1px solid var(--b);text-align:left;font-size:12px;vertical-align:top}th{color:var(--t2);font-size:9px;text-transform:uppercase;letter-spacing:.14em}
+    .status{display:inline-flex;padding:3px 7px;border:1px solid var(--b2);font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.status.approved,.status.valid{color:var(--green);border-color:rgba(0,230,118,.35)}.status.submitted,.status.pending{color:var(--gold);border-color:rgba(245,166,35,.35)}.status.auto_rejected,.status.failed,.status.voided{color:var(--red);border-color:rgba(255,82,82,.35)}
+    .tree{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;color:#ddd;white-space:pre-wrap;background:#050505;border:1px solid var(--b);padding:14px}
+    @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}nav{padding:0 16px}}@media(max-width:560px){.cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav><a class="brand" href="/">Atlas <span>Sports</span> AI</a><a class="btn" href="/ambassadors/">Portal</a></nav>
+<main>
+  <h1>Ambassador <span>Admin</span></h1>
+  <form class="login" id="loginForm">
+    <label for="password">Admin Password</label>
+    <input id="password" type="password" autocomplete="current-password"/>
+    <button class="btn btn-gold" type="submit" style="width:100%;margin-top:16px">Log In</button>
+    <div class="msg" id="loginMsg"></div>
+  </form>
+
+  <div class="hub" id="hub">
+    <div class="cards">
+      <div class="card"><b>Ambassadors</b><span id="ambCount">0</span></div>
+      <div class="card"><b>Applications</b><span id="appCount">0</span></div>
+      <div class="card"><b>Valid Signups</b><span id="validCount">0</span></div>
+      <div class="card"><b>Pending Payouts</b><span id="payoutTotal">$0</span></div>
+    </div>
+    <section><h2>Ambassador Tree</h2><div class="tree" id="tree"></div></section>
+    <section><h2>Applications</h2><div id="applications"></div></section>
+    <section><h2>Ambassadors</h2><div id="ambassadors"></div></section>
+    <section><h2>Signups</h2><div id="signups"></div></section>
+    <section><h2>Payout Ledger</h2><div id="payouts"></div></section>
+  </div>
+</main>
+<script>
+(function(){
+  var API='https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
+  var token=localStorage.getItem('atlas_admin_token')||'';
+  var loginForm=document.getElementById('loginForm');
+  var loginMsg=document.getElementById('loginMsg');
+  function money(cents){return '$'+((Number(cents)||0)/100).toFixed(2)}
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function status(s){return '<span class="status '+esc(s)+'">'+esc(s||'')+'</span>'}
+  function headers(){return {'Authorization':'Bearer '+token,'Content-Type':'application/json'}}
+  loginForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    loginMsg.style.display='block'; loginMsg.className='msg'; loginMsg.textContent='Checking...';
+    fetch(API+'/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:document.getElementById('password').value})})
+      .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
+      .then(function(res){if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Login failed'); token=res.body.token; localStorage.setItem('atlas_admin_token',token); loadHub();})
+      .catch(function(err){loginMsg.className='msg err'; loginMsg.textContent=err.message||'Login failed'});
+  });
+  function loadHub(){
+    fetch(API+'/api/admin/hub',{headers:headers()})
+      .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
+      .then(function(res){if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Admin load failed'); render(res.body);})
+      .catch(function(err){loginMsg.className='msg err'; loginMsg.style.display='block'; loginMsg.textContent=err.message||'Admin load failed';});
+  }
+  function render(data){
+    loginForm.style.display='none'; document.getElementById('hub').style.display='block';
+    document.getElementById('ambCount').textContent=data.ambassadors.length;
+    document.getElementById('appCount').textContent=data.applications.length;
+    document.getElementById('validCount').textContent=data.signups.filter(function(s){return s.status==='valid'}).length;
+    document.getElementById('payoutTotal').textContent=money(data.payouts.filter(function(p){return p.status==='pending'}).reduce(function(a,p){return a+(Number(p.amount_cents)||0)},0));
+    renderTree(data.ambassadors,data.edges);
+    renderApplications(data.applications);
+    table('ambassadors',data.ambassadors,['name','email','referral_code','sponsor_code','status','connect_onboarding_status','created_at']);
+    table('signups',data.signups,['customer_email','referral_code','plan_code','amount_cents','status','eligibility_reason','created_at'],{amount_cents:money,status:status});
+    table('payouts',data.payouts,['ambassador_id','source_signup_id','payout_type','amount_cents','status','reason','created_at'],{amount_cents:money,status:status});
+  }
+  function renderTree(ambassadors,edges){
+    var byId={}, children={}; ambassadors.forEach(function(a){byId[a.id]=a; children[a.id]=[]}); edges.filter(function(e){return e.depth===1}).forEach(function(e){ if(children[e.parent_ambassador_id]) children[e.parent_ambassador_id].push(e.child_ambassador_id); });
+    var roots=ambassadors.filter(function(a){return !a.parent_ambassador_id});
+    var lines=[]; function walk(id,depth){var a=byId[id]; if(!a)return; lines.push('  '.repeat(depth)+'- '+a.name+' / '+a.referral_code+' ('+a.status+')'); (children[id]||[]).forEach(function(cid){walk(cid,depth+1)});}
+    roots.forEach(function(a){walk(a.id,0)}); document.getElementById('tree').textContent=lines.join('\n')||'No Ambassadors yet.';
+  }
+  function renderApplications(apps){
+    var rows=apps.map(function(a){
+      var approve = a.status==='submitted' ? '<button class="btn btn-cyan" data-app="'+esc(a.id)+'">Approve</button>' : '';
+      return '<tr><td>'+esc(a.name)+'<br><span style="color:#777">'+esc(a.email)+'<br>'+esc(a.phone)+'</span></td><td>'+esc(a.preferred_code)+'</td><td>'+esc(a.sponsor_code||'')+'</td><td>'+status(a.status)+'</td><td>'+esc(a.auto_reject_reason||'')+'</td><td>'+esc(a.created_at)+'</td><td>'+approve+'</td></tr>';
+    }).join('');
+    document.getElementById('applications').innerHTML='<table><thead><tr><th>Applicant</th><th>Code</th><th>Sponsor</th><th>Status</th><th>Reason</th><th>Created</th><th>Action</th></tr></thead><tbody>'+rows+'</tbody></table>';
+    document.querySelectorAll('[data-app]').forEach(function(btn){btn.addEventListener('click',function(){approveApp(btn.getAttribute('data-app'));});});
+  }
+  function approveApp(id){
+    if(!window.confirm('Approve this Ambassador and create their backend code?')) return;
+    fetch(API+'/api/admin/ambassadors/approve',{method:'POST',headers:headers(),body:JSON.stringify({applicationId:id})})
+      .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
+      .then(function(res){if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Approve failed'); loadHub();})
+      .catch(function(err){alert(err.message||'Approve failed')});
+  }
+  function table(id,rows,cols,formatters){
+    formatters=formatters||{};
+    var html='<table><thead><tr>'+cols.map(function(c){return'<th>'+esc(c)+'</th>'}).join('')+'</tr></thead><tbody>';
+    html+=rows.map(function(row){return'<tr>'+cols.map(function(c){var v=row[c]; return'<td>'+ (formatters[c]?formatters[c](v):esc(v)) +'</td>';}).join('')+'</tr>';}).join('');
+    html+='</tbody></table>'; document.getElementById(id).innerHTML=html;
+  }
+  if(token) loadHub();
+})();
+</script>
+</body>
+</html>
