@@ -1,14 +1,138 @@
 {
-  "generated_at": "2026-05-13T09:56:47.374092-05:00",
+  "generated_at": "2026-05-13T10:24:48.800955-05:00",
   "run_id": "20260513_095636",
   "system": [],
   "system_winprob": [],
-  "windfall": [],
+  "windfall": [
+    {
+      "product": "Windfall",
+      "n_legs": 2,
+      "legs": "Tobias Harris OVER PTS 15.5 (GOBLIN) [id:12040462] | Max Strus OVER RA 3.5 (GOBLIN) [id:12055819]",
+      "legs_detail": [
+        {
+          "raw": "Tobias Harris OVER PTS 15.5 (GOBLIN) [id:12040462]",
+          "player": "Tobias Harris",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 15.5,
+          "tier": "GOBLIN",
+          "id": 12040462
+        },
+        {
+          "raw": "Max Strus OVER RA 3.5 (GOBLIN) [id:12055819]",
+          "player": "Max Strus",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 3.5,
+          "tier": "GOBLIN",
+          "id": 12055819
+        }
+      ],
+      "hit_prob": 0.7299377717487392,
+      "ev_mult": 0.9643737749812126,
+      "payout_mult": 3.0,
+      "avg_fragility": 0.0093660540513477
+    },
+    {
+      "product": "Windfall",
+      "n_legs": 3,
+      "legs": "Evan Mobley OVER PRA 19.5 (GOBLIN) [id:12040329] | Tobias Harris OVER PTS 12.5 (GOBLIN) [id:12040461] | Daniss Jenkins OVER RA 5.5 (STANDARD) [id:12041968]",
+      "legs_detail": [
+        {
+          "raw": "Evan Mobley OVER PRA 19.5 (GOBLIN) [id:12040329]",
+          "player": "Evan Mobley",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 19.5,
+          "tier": "GOBLIN",
+          "id": 12040329
+        },
+        {
+          "raw": "Tobias Harris OVER PTS 12.5 (GOBLIN) [id:12040461]",
+          "player": "Tobias Harris",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 12.5,
+          "tier": "GOBLIN",
+          "id": 12040461
+        },
+        {
+          "raw": "Daniss Jenkins OVER RA 5.5 (STANDARD) [id:12041968]",
+          "player": "Daniss Jenkins",
+          "dir": "OVER",
+          "stat": "RA",
+          "line": 5.5,
+          "tier": "STANDARD",
+          "id": 12041968
+        }
+      ],
+      "hit_prob": 0.5068181926767944,
+      "ev_mult": 1.297949250015631,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0113161834179557
+    }
+  ],
   "windfall_winprob": [],
   "demonhunter": [],
   "gamescript": [],
-  "marketed_slips": [],
-  "top_hit_list": [],
+  "marketed_slips": [
+    {
+      "label": "2-leg",
+      "n_legs": 2,
+      "hit_prob": 0.6976313182560092,
+      "payout_mult": 1.8,
+      "ev": 1.2557363728608166,
+      "high_confidence": false,
+      "legs": [
+        {
+          "player": "Tobias Harris",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 19.5,
+          "tier": "GOBLIN",
+          "team": "DET",
+          "opp": "CLE",
+          "p_cal": 0.861160694142244,
+          "is_questionable": 1,
+          "q_out_frac": 0.5,
+          "l10_hr": 0.9,
+          "l10_n": 10
+        },
+        {
+          "player": "Donovan Mitchell",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 24.5,
+          "tier": "GOBLIN",
+          "team": "CLE",
+          "opp": "DET",
+          "p_cal": 0.8101058524865471,
+          "is_questionable": 0,
+          "q_out_frac": 0.0,
+          "l10_hr": 0.9,
+          "l10_n": 10
+        }
+      ]
+    }
+  ],
+  "top_hit_list": [
+    {
+      "player": "Tobias Harris",
+      "stat": "PR",
+      "dir": "OVER",
+      "line": 19.5,
+      "l10_hr": 0.9,
+      "l10_n": 10
+    },
+    {
+      "player": "Donovan Mitchell",
+      "stat": "PR",
+      "dir": "OVER",
+      "line": 24.5,
+      "l10_hr": 0.9,
+      "l10_n": 10
+    }
+  ],
   "performance": {
     "overall": {
       "last_7d": {
@@ -21651,5 +21775,5 @@
       "fd_imp_over": null
     }
   ],
-  "total_slips": 0
+  "total_slips": 3
 }
