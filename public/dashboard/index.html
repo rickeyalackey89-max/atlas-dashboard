@@ -88,11 +88,11 @@
     .ev-row{display:grid;grid-template-columns:2fr 0.7fr 0.7fr 0.7fr 0.9fr 1fr;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--b);}
     .ev-row:last-child{border-bottom:none;}
     .ev-edge{font-size:15px;font-weight:900;color:var(--cyan);text-align:right;}
-    .dir-over{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;background:rgba(74,222,128,.1);color:#4ade80;text-align:center;}
-    .dir-under{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;background:rgba(248,113,113,.1);color:#f87171;text-align:center;}
-    .tier-goblin{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:#a78bfa;border:1px solid rgba(167,139,250,.25);}
-    .tier-standard{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:#60a5fa;border:1px solid rgba(96,165,250,.25);}
-    .tier-demon{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:var(--gold);border:1px solid rgba(245,166,35,.25);}
+    .dir-over{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;background:rgba(74,222,128,.1);color:#4ade80;text-align:center;border-radius:4px;}
+    .dir-under{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;background:rgba(248,113,113,.1);color:#f87171;text-align:center;border-radius:4px;}
+    .tier-goblin{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:#a78bfa;border:1px solid rgba(167,139,250,.25);border-radius:4px;}
+    .tier-standard{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:#60a5fa;border:1px solid rgba(96,165,250,.25);border-radius:4px;}
+    .tier-demon{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;color:var(--gold);border:1px solid rgba(245,166,35,.25);border-radius:4px;}
     .prob-stat-inline{display:none;font-weight:700;color:var(--text);}
     @media(max-width:760px){
       .prob-header{display:none;}
@@ -107,20 +107,23 @@
     .prob-more-text{font-size:12px;color:var(--t2);}
     .prob-more-text strong{color:var(--text);}
     .prob-toggle-group{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;}
-    .prob-mini-btn{font:inherit;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border:1px solid var(--b2);background:transparent;color:var(--t2);cursor:pointer;}
+    .prob-mini-btn{font:inherit;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border:1px solid var(--b2);background:transparent;color:var(--t2);cursor:pointer;border-radius:4px;}
     .prob-mini-btn:hover{color:var(--text);border-color:var(--b2);}
     .prob-mini-btn.active{color:#000;background:var(--gold);border-color:var(--gold);}
     .prob-mini-btn:disabled{opacity:.28;cursor:default;}
     .prob-select-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;}
     .prob-select-menu{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;}
-    .prob-static-pill{display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border:1px solid rgba(255,255,255,.08);color:var(--t2);}
+    .prob-static-pill{display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border:1px solid rgba(255,255,255,.08);color:var(--t2);border-radius:4px;}
     .prob-line-pills{display:flex;align-items:center;justify-content:flex-end;gap:5px;flex-wrap:wrap;margin-top:6px;}
-    .prob-line-pill{font:inherit;font-size:10px;font-weight:900;padding:3px 6px;border:1px solid var(--b);background:transparent;color:var(--t2);cursor:pointer;font-variant-numeric:tabular-nums;}
+    .prob-line-pill{font:inherit;font-size:10px;font-weight:900;padding:3px 6px;border:1px solid var(--b);background:transparent;color:var(--t2);cursor:pointer;font-variant-numeric:tabular-nums;border-radius:4px;}
     .prob-line-pill.active{color:var(--cyan);border-color:rgba(0,212,255,.45);background:rgba(0,212,255,.08);}
     .prob-line-main{display:flex;align-items:baseline;justify-content:flex-end;gap:6px;}
     .prob-line-main.clickable{cursor:pointer;}
     .prob-line-note{font-size:8px;color:var(--t2);letter-spacing:.08em;text-transform:uppercase;}
     .prob-prop-count{font-size:10px;color:var(--t2);font-weight:700;margin-left:6px;}
+    .ev-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--b);}
+    .ev-control-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+    .ev-control-label{font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-right:4px;}
     .game-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--b);}
     .game-row:last-child{border-bottom:none;}
     .game-teams{font-size:15px;font-weight:800;letter-spacing:-.01em;}
@@ -289,7 +292,21 @@
               <div class="prob-header-cell" style="text-align:right;">Line</div>
               <div class="prob-header-cell" style="text-align:center;">Dir</div>
               <div class="prob-header-cell ev-col-conf" style="text-align:right;">Conf</div>
-              <div class="prob-header-cell" style="text-align:right;">EV</div>
+              <div class="prob-header-cell" style="text-align:right;">EV Score</div>
+            </div>
+            <div class="ev-controls">
+              <div class="ev-control-group">
+                <span class="ev-control-label">Direction</span>
+                <button class="prob-mini-btn active" id="evDirAll" onclick="evSetDir('ALL')">All</button>
+                <button class="prob-mini-btn" id="evDirOver" onclick="evSetDir('OVER')">Over</button>
+                <button class="prob-mini-btn" id="evDirUnder" onclick="evSetDir('UNDER')">Under</button>
+              </div>
+              <div class="ev-control-group">
+                <span class="ev-control-label">Sort</span>
+                <button class="prob-mini-btn active" id="evSortEv" onclick="evSetSort('ev')">EV High</button>
+                <button class="prob-mini-btn" id="evSortAz" onclick="evSetSort('az')">A-Z</button>
+                <button class="prob-mini-btn" id="evSortZa" onclick="evSetSort('za')">Z-A</button>
+              </div>
             </div>
             <div id="evList"><div class="no-data">Loading...</div></div>
           </div>
@@ -297,7 +314,7 @@
         <div class="lock-badge">
           <div class="lock-icon">&#128274;</div>
           <div class="lock-text">Premium Feature</div>
-          <div class="lock-sub">Full Atlas EV rankings for every leg on today&#39;s board</div>
+          <div class="lock-sub">Full Atlas EV score rankings for every leg on today&#39;s board</div>
           <a href="/checkout/" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
         </div>
       </div>
@@ -670,6 +687,22 @@
     return p*mod;
   }
 
+  function evScorePct(leg){
+    var ev=legEV(leg);
+    return ev===null?null:ev*100;
+  }
+
+  function fmtEvScore(leg){
+    var pct=evScorePct(leg);
+    if(pct===null) return '&#8212;';
+    return pct.toFixed(1).replace(/\.0$/,'')+'%';
+  }
+
+  function fmtPctNumber(pct){
+    if(pct===null||pct===undefined||!Number.isFinite(Number(pct))) return '&#8212;';
+    return Number(pct).toFixed(1).replace(/\.0$/,'')+'%';
+  }
+
   function groupProbabilityLegs(legs){
     var map={}, groups=[];
     for(var i=0;i<legs.length;i++){
@@ -885,28 +918,71 @@
     }
   }
 
+  var _evLegs = [];
+  var _evDir = 'ALL';
+  var _evSort = 'ev';
+
+  function evSetDir(dir){
+    _evDir=dir||'ALL';
+    renderEVTab();
+  }
+  window.evSetDir=evSetDir;
+
+  function evSetSort(sortMode){
+    _evSort=sortMode||'ev';
+    renderEVTab();
+  }
+  window.evSetSort=evSetSort;
+
+  function setEvControlState(){
+    var ids={ALL:'evDirAll',OVER:'evDirOver',UNDER:'evDirUnder'};
+    Object.keys(ids).forEach(function(k){var el=document.getElementById(ids[k]); if(el) el.classList.toggle('active', _evDir===k);});
+    var sids={ev:'evSortEv',az:'evSortAz',za:'evSortZa'};
+    Object.keys(sids).forEach(function(k){var el=document.getElementById(sids[k]); if(el) el.classList.toggle('active', _evSort===k);});
+  }
+
+  function evAlpha(a,b){
+    var pa=(a.player||'').toLowerCase(),pb=(b.player||'').toLowerCase();
+    if(pa<pb) return -1; if(pa>pb) return 1;
+    var sa=(a.stat||''),sb=(b.stat||'');
+    if(sa<sb) return -1; if(sa>sb) return 1;
+    return (numOrNull(a.line)||0)-(numOrNull(b.line)||0);
+  }
+
   function buildEVTab(allLegs){
-    var edgeLegs=(allLegs||[]).slice().filter(function(l){return legEV(l)!==null;})
-      .sort(function(a,b){
-        var d=(legEV(b)||0)-(legEV(a)||0);
-        if(d!==0) return d;
-        return (b.p_cal||0)-(a.p_cal||0);
-      });
+    _evLegs=(allLegs||[]).slice();
+    _evDir='ALL';
+    _evSort='ev';
+    renderEVTab();
+  }
+
+  function renderEVTab(){
+    setEvControlState();
+    var edgeLegs=(_evLegs||[]).slice().filter(function(l){return legEV(l)!==null;});
+    if(_evDir!=='ALL') edgeLegs=edgeLegs.filter(function(l){return String(l.dir||'').toUpperCase()===_evDir;});
+    edgeLegs.sort(function(a,b){
+      if(_evSort==='az') return evAlpha(a,b);
+      if(_evSort==='za') return -evAlpha(a,b);
+      var d=(legEV(b)||0)-(legEV(a)||0);
+      if(d!==0) return d;
+      return evAlpha(a,b);
+    });
     var el=document.getElementById('evList'); el.innerHTML='';
-    if(!edgeLegs.length){el.innerHTML='<div class="no-data">No edge legs today.</div>';return;}
+    if(!edgeLegs.length){el.innerHTML='<div class="no-data">No EV legs match this filter.</div>';return;}
 
     var above65=edgeLegs.filter(function(l){return(l.p_cal||0)>=0.65;}).length;
-    var topEv=legEV(edgeLegs[0])||0;
-    var best=edgeLegs[0];
+    var topEvLeg=edgeLegs.slice().sort(function(a,b){return (legEV(b)||0)-(legEV(a)||0);})[0]||edgeLegs[0];
+    var topEvPct=evScorePct(topEvLeg)||0;
+    var best=topEvLeg;
 
     var t1=document.getElementById('evTileEdge');
     if(t1) t1.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">65%+ Legs</div>'+
       '<div style="font-size:32px;font-weight:900;color:var(--gold);letter-spacing:-.04em;">'+above65+'</div>'+
       '<div style="font-size:10px;color:var(--t2);margin-top:4px;">of '+edgeLegs.length+' scored legs</div>';
     var t2el=document.getElementById('evTileHigh');
-    if(t2el) t2el.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">Top EV</div>'+
-      '<div style="font-size:32px;font-weight:900;color:var(--cyan);letter-spacing:-.04em;">'+topEv.toFixed(3)+'x</div>'+
-      '<div style="font-size:10px;color:var(--t2);margin-top:4px;">Atlas single-leg score</div>';
+    if(t2el) t2el.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">Top EV Score</div>'+
+      '<div style="font-size:32px;font-weight:900;color:var(--cyan);letter-spacing:-.04em;">'+fmtPctNumber(topEvPct)+'</div>'+
+      '<div style="font-size:10px;color:var(--t2);margin-top:4px;">Atlas single-leg EV score</div>';
     var bestL10=best.l10_hr!=null?Math.round(best.l10_hr*best.l10_n)+'/'+best.l10_n+' L10':null;
     var t3=document.getElementById('evTileBest');
     if(t3) t3.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">Best Conf</div>'+
@@ -915,14 +991,14 @@
 
     var bb=document.getElementById('evBestBet');
     if(bb){
-      var bbDir=(best.dir||'').toLowerCase(),bbEv=legEV(best)||0;
+      var bbDir=(best.dir||'').toLowerCase();
       var bbL10Txt=best.l10_hr!=null?'<span style="margin-left:12px;font-size:11px;font-weight:700;color:var(--t2);">L10: '+Math.round(best.l10_hr*best.l10_n)+'/'+best.l10_n+'</span>':'';
       bb.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">&#9733; Top Atlas EV</div>'+
         '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">'+
           '<div><div style="font-size:18px;font-weight:900;letter-spacing:-.02em;">'+esc(best.player||'')+'</div>'+
             '<div style="font-size:11px;color:var(--t2);margin-top:4px;text-transform:uppercase;letter-spacing:.07em;">'+esc(best.team||'')+(best.opp?' vs '+esc(best.opp):'')+' &middot; '+esc(best.stat||'')+'</div></div>'+
-          '<div style="text-align:right;"><div style="font-size:28px;font-weight:900;color:var(--green);letter-spacing:-.04em;">'+bbEv.toFixed(3)+'x</div>'+
-            '<div style="font-size:10px;color:var(--t2);margin-top:2px;">EV</div></div>'+
+          '<div style="text-align:right;"><div style="font-size:28px;font-weight:900;color:var(--green);letter-spacing:-.04em;">'+fmtEvScore(best)+'</div>'+
+            '<div style="font-size:10px;color:var(--t2);margin-top:2px;">EV Score</div></div>'+
         '</div>'+
         '<div style="display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap;">'+
           '<span class="dir-'+bbDir+'">'+esc(best.dir||'')+'</span>'+
@@ -932,7 +1008,7 @@
     }
 
     for(var i=0;i<edgeLegs.length;i++){
-      var leg=edgeLegs[i],p=leg.p_cal||0,ev=legEV(leg)||0,pPct=Math.round(p*100),dir=(leg.dir||'').toLowerCase();
+      var leg=edgeLegs[i],p=leg.p_cal||0,pPct=Math.round(p*100),dir=(leg.dir||'').toLowerCase();
       var l10txt=leg.l10_hr!=null?Math.round(leg.l10_hr*leg.l10_n)+'/'+leg.l10_n:'';
       var row=document.createElement('div'); row.className='ev-row';
       row.innerHTML=
@@ -945,7 +1021,7 @@
         '<div class="prob-line">'+esc(String(leg.line||'&#8212;'))+'</div>'+
         '<div class="prob-cell"><span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span></div>'+
         '<div class="ev-col-conf" style="text-align:right;font-size:13px;font-weight:700;color:'+pctColor(p)+';">'+pPct+'%</div>'+
-        '<div class="ev-edge">'+ev.toFixed(3)+'x</div>';
+        '<div class="ev-edge">'+fmtEvScore(leg)+'</div>';
       el.appendChild(row);
     }
   }
