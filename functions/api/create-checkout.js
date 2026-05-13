@@ -1,4 +1,4 @@
-// checkout function v4 - 3-day trial + promo codes + affiliate ref tracking
+// checkout function v5 - 3-day trial + promo codes + Ambassador attribution
 // always 200 to avoid CF 5xx interception
 export async function onRequestPost(context) {
   var env = context.env;
@@ -10,20 +10,26 @@ export async function onRequestPost(context) {
   }
 
   // Optional inputs from client:
-  // { ref: 'streamerName', promo: 'CODE', promo_attribution: 'CODE', checkout_mode: 'hosted'|'embedded' }
+  // { ref: 'streamerName', promo: 'CODE', promo_attribution: 'CODE', ambassador_code: 'CODE', checkout_mode: 'hosted'|'embedded' }
   // - `promo` = customer typed code AND wants discount auto-applied (used for annual upsell URLs)
   // - `promo_attribution` = customer typed code but proceeding with monthly (no discount, just credit streamer)
+  // - `ambassador_code` = canonical referral/ambassador attribution code
   var ref = '';
   var promo = '';
   var promoAttribution = '';
+  var ambassadorCode = '';
   var checkoutMode = 'embedded';
   try {
     var payload = await request.json();
     if (payload && typeof payload.ref === 'string') ref = payload.ref.slice(0, 64).replace(/[^A-Za-z0-9_-]/g, '');
     if (payload && typeof payload.promo === 'string') promo = payload.promo.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
     if (payload && typeof payload.promo_attribution === 'string') promoAttribution = payload.promo_attribution.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
+    if (payload && typeof payload.ambassador_code === 'string') ambassadorCode = payload.ambassador_code.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
     if (payload && payload.checkout_mode === 'hosted') checkoutMode = 'hosted';
   } catch (e) { /* no body or invalid JSON - fine */ }
+
+  var attributionCode = ambassadorCode || promoAttribution || promo || ref;
+  attributionCode = attributionCode ? attributionCode.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase() : '';
 
   var parts = [
     'mode=subscription',
@@ -49,6 +55,16 @@ export async function onRequestPost(context) {
   if (ref) {
     parts.push('metadata[ref]=' + encodeURIComponent(ref));
     parts.push('subscription_data[metadata][ref]=' + encodeURIComponent(ref));
+  }
+
+  // Canonical Ambassador attribution. The private Ambassador backend reads this
+  // first, while still supporting legacy promo_code/streamer metadata.
+  if (attributionCode) {
+    parts.push('client_reference_id=' + encodeURIComponent(attributionCode));
+    parts.push('metadata[ambassador_code]=' + encodeURIComponent(attributionCode));
+    parts.push('metadata[referral_code]=' + encodeURIComponent(attributionCode));
+    parts.push('subscription_data[metadata][ambassador_code]=' + encodeURIComponent(attributionCode));
+    parts.push('subscription_data[metadata][referral_code]=' + encodeURIComponent(attributionCode));
   }
 
   // Streamer attribution: when user typed a promo code into our box but is proceeding

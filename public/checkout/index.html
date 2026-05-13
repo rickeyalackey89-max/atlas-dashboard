@@ -175,20 +175,20 @@
   } catch(e) {}
 
   // ---- Promo code handling ----
-  // State: when a valid promo is entered we (a) reveal the annual upsell and
-  // (b) re-create the embedded monthly checkout session with the promo attached
-  // as attribution metadata. That way the streamer gets credit even if the user
-  // declines the annual upsell and proceeds with monthly.
+  // State: when a code is entered we always attach it as Ambassador attribution.
+  // Only approved promo codes reveal the annual discount.
   var checkoutInstance = null;
   var appliedPromo = '';
 
   function createCheckoutSession(mode, promoAttribution) {
+    var code = sanitizeCode(promoAttribution || '');
     return fetch('/api/create-checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         ref: ref,
-        promo_attribution: promoAttribution || '',
+        promo_attribution: code,
+        ambassador_code: code,
         checkout_mode: mode || 'embedded'
       })
     })
@@ -236,7 +236,8 @@
 
   function buildAnnualUrl(code) {
     var url = ANNUAL_URL + '?prefilled_promo_code=' + encodeURIComponent(code);
-    if (ref) url += '&client_reference_id=' + encodeURIComponent(ref);
+    if (code) url += '&client_reference_id=' + encodeURIComponent(code);
+    else if (ref) url += '&client_reference_id=' + encodeURIComponent(ref);
     return url;
   }
 
@@ -300,22 +301,22 @@
     var msgEl = document.getElementById('promoMsg');
     var upsell = document.getElementById('annualUpsell');
     var btn = document.getElementById('annualBtn');
-    var code = (raw || '').trim().toUpperCase();
+    var code = sanitizeCode(raw || '');
     if (!code) {
       msgEl.className = 'promo-msg err';
       msgEl.textContent = 'Please enter a code.';
       return false;
     }
     if (VALID_CODES.indexOf(code) === -1) {
-      msgEl.className = 'promo-msg err';
-      msgEl.textContent = 'That code isn\u2019t valid. Double-check with your referrer.';
+      msgEl.className = 'promo-msg ok';
+      msgEl.textContent = 'Ambassador code applied. Annual discount is not attached to this code.';
       upsell.classList.remove('show');
-      return false;
+    } else {
+      msgEl.className = 'promo-msg ok';
+      msgEl.textContent = 'Code accepted \u2014 annual 50% off unlocked below. Code is also credited to the Ambassador if you continue with monthly.';
+      btn.href = buildAnnualUrl(code);
+      upsell.classList.add('show');
     }
-    msgEl.className = 'promo-msg ok';
-    msgEl.textContent = 'Code accepted \u2014 annual 50% off unlocked below. Code is also credited to the streamer if you continue with monthly.';
-    btn.href = buildAnnualUrl(code);
-    upsell.classList.add('show');
     // Re-mount monthly checkout with attribution so the streamer gets credit
     // even if the user declines the annual upsell.
     if (code !== appliedPromo) {
@@ -350,6 +351,9 @@
   }
   function escAttr(s) {
     return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function sanitizeCode(s) {
+    return String(s || '').trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '').slice(0, 32);
   }
 })();
 </script>
