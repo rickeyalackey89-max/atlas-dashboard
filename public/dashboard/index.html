@@ -724,11 +724,27 @@
     return vals.reduce(function(a,b){return a+b;},0)/vals.length;
   }
 
+  function legMarketImplied(leg){
+    var dir=String(leg.dir||'').toUpperCase();
+    var dk = dir==='OVER' ? leg.dk_imp_over : (leg.dk_imp_over != null ? 1 - leg.dk_imp_over : null);
+    var fd = dir==='OVER' ? leg.fd_imp_over : (leg.fd_imp_over != null ? 1 - leg.fd_imp_over : null);
+    var vals=[dk,fd].map(numOrNull).filter(function(v){return v!==null;});
+    if(!vals.length) return null;
+    return vals.reduce(function(a,b){return a+b;},0)/vals.length;
+  }
+
   function legMarketEVPct(leg){
     var p=numOrNull(leg.p_cal);
     var dec=legMarketDecimal(leg);
     if(p===null||dec===null) return null;
     return (p*dec-1)*100;
+  }
+
+  function legMarketEdgePct(leg){
+    var p=numOrNull(leg.p_cal);
+    var m=legMarketImplied(leg);
+    if(p===null||m===null) return null;
+    return (p-m)*100;
   }
 
   function fmtSignedPct(pct){
@@ -1724,13 +1740,7 @@
   }
 
   function _mktImp(leg) {
-    // Average de-vigged implied probability for the leg's direction
-    var dk = leg.dir==='OVER' ? leg.dk_imp_over : (leg.dk_imp_over != null ? 1 - leg.dk_imp_over : null);
-    var fd = leg.dir==='OVER' ? leg.fd_imp_over : (leg.fd_imp_over != null ? 1 - leg.fd_imp_over : null);
-    if(dk != null && fd != null) return (dk + fd) / 2;
-    if(dk != null) return dk;
-    if(fd != null) return fd;
-    return null;
+    return legMarketImplied(leg);
   }
 
   function renderMarketTab() {
@@ -1912,15 +1922,18 @@
             var lPct=leg.p_cal!=null?Math.round(leg.p_cal*100):null;
             var frag=leg.fragility!=null?leg.fragility:null;
             var qbow=leg.q_blowout!=null?leg.q_blowout:null;
-            var edge=leg.l20_edge!=null?leg.l20_edge:null;
             var role=leg.role_mult!=null?leg.role_mult:null;
+            var valuePct=valueScorePct(leg);
+            var marketEVPct=legMarketEVPct(leg);
+            var marketEdgePct=legMarketEdgePct(leg);
 
             var stabPct=frag!=null?Math.max(0,Math.round((1-Math.min(frag*5,1))*100)):null;
             var stabColor=stabPct!=null?(stabPct>=70?'var(--green)':stabPct>=40?'var(--gold)':'#f87171'):'var(--t2)';
             var blowPct=qbow!=null?Math.round(qbow*100):null;
             var blowColor=blowPct!=null?(blowPct<=20?'var(--green)':blowPct<=50?'var(--gold)':'#f87171'):'var(--t2)';
-            var edgeTxt=edge!=null?(edge>=0?'+':'')+Math.round(edge*100)+'%':null;
-            var edgeColor=edge!=null?(edge>0?'var(--green)':edge<0?'#f87171':'var(--t2)'):'var(--t2)';
+            var valueColor=valuePct!=null?(valuePct>=65?'var(--green)':valuePct>=50?'var(--gold)':'var(--t2)'):'var(--t2)';
+            var marketEVColor=evColorPct(marketEVPct);
+            var marketEdgeColor=evColorPct(marketEdgePct);
             var roleColor=role!=null?(role>1.05?'var(--green)':role<0.95?'#f87171':'var(--t2)'):'var(--t2)';
             var roleTxt=role!=null?role.toFixed(2)+'x':null;
             var roleDesc=role!=null?(role>1.05?'Boosted \u2014 lineup favors more output':role<0.95?'Reduced \u2014 role limited by roster':'Neutral \u2014 no lineup adjustment'):'';
@@ -1937,6 +1950,21 @@
               +'<div class="btm-metric-desc">Probability this leg hits</div>'
               +'</div>'
               +'<div class="btm-metric">'
+              +'<div class="btm-metric-label">Atlas Value</div>'
+              +'<div class="btm-metric-val" style="color:'+valueColor+';">'+fmtPctNumber(valuePct)+'</div>'
+              +'<div class="btm-metric-desc">Confidence adjusted by tier value</div>'
+              +'</div>'
+              +'<div class="btm-metric">'
+              +'<div class="btm-metric-label">Market EV</div>'
+              +'<div class="btm-metric-val" style="color:'+marketEVColor+';">'+fmtSignedPct(marketEVPct)+'</div>'
+              +'<div class="btm-metric-desc">Expected return vs DK/FD odds</div>'
+              +'</div>'
+              +'<div class="btm-metric">'
+              +'<div class="btm-metric-label">Market Edge</div>'
+              +'<div class="btm-metric-val" style="color:'+marketEdgeColor+';">'+fmtSignedPct(marketEdgePct)+'</div>'
+              +'<div class="btm-metric-desc">Atlas probability minus market implied</div>'
+              +'</div>'
+              +'<div class="btm-metric">'
               +'<div class="btm-metric-label">Leg Stability</div>'
               +'<div class="btm-metric-val" style="color:'+stabColor+';">'+(stabPct!=null?stabPct+'%':'&#8212;')+'</div>'
               +'<div class="btm-metric-desc">Sensitivity to game flow</div>'
@@ -1945,11 +1973,6 @@
               +'<div class="btm-metric-label">Blowout Risk</div>'
               +'<div class="btm-metric-val" style="color:'+blowColor+';">'+(blowPct!=null?blowPct+'%':'&#8212;')+'</div>'
               +'<div class="btm-metric-desc">Game blowout likelihood</div>'
-              +'</div>'
-              +'<div class="btm-metric">'
-              +'<div class="btm-metric-label">Recent Edge</div>'
-              +'<div class="btm-metric-val" style="color:'+edgeColor+';">'+(edgeTxt||'&#8212;')+'</div>'
-              +'<div class="btm-metric-desc">Model edge vs market L20</div>'
               +'</div>'
               +'<div class="btm-metric" style="grid-column:span 2">'
               +'<div class="btm-metric-label">Role Signal</div>'
