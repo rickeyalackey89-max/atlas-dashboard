@@ -1425,6 +1425,10 @@
 
   // Per-leg-count summaries for Atlas Picks (Premium)
   var SLIP_PREMIUM_DESC = {
+    2: {
+      tag: '2-MAN GANG',
+      body: 'Built for single-game playoff slates where quality beats volume. Two tightly paired Atlas legs, no filler — our specialty setup when the board is thin and every pick has to earn its spot.'
+    },
     3: {
       tag: 'THE MONEY MAKER',
       body: '1 anchor lock paired with 2 high-confidence market selections. This is our bread-and-butter slip — built to keep your bankroll moving with consistent, repeatable wins. Play it flat-unit every day.'
@@ -1479,11 +1483,12 @@
         var hitPct=Math.round((slip.hit_prob||0)*100);
         // Use real PrizePicks Power Play face value by leg count — the stored payout_mult is a pp_kernel
         // tier modifier (base=1.0) not the face value, so it would give misleading EV.
-        var _PP_PAY={3:6,4:10,5:20}; var _mPay=_PP_PAY[nLegs]||0, _mHP=slip.hit_prob||0;
-        var evX=(_mPay&&_mHP)?(_mHP*_mPay).toFixed(2):null;
+        var _PP_PAY={3:6,4:10,5:20}; var _mPay=_PP_PAY[nLegs]||Number(slip.payout_mult||0), _mHP=slip.hit_prob||0;
+        var evRaw=Number(slip.ev||0);
+        var evX=evRaw?evRaw.toFixed(2):((_mPay&&_mHP)?(_mHP*_mPay).toFixed(2):null);
         var payX=_mPay?_mPay+'x':null;
-        var nc=nLegs===3?'#4ade80':nLegs===4?'#60a5fa':'var(--gold)';
-        var nb=nLegs===3?'rgba(74,222,128,.35)':nLegs===4?'rgba(96,165,250,.35)':'rgba(245,166,35,.35)';
+        var nc=nLegs===2?'var(--gold)':nLegs===3?'#4ade80':nLegs===4?'#60a5fa':'var(--gold)';
+        var nb=nLegs===2?'rgba(245,166,35,.35)':nLegs===3?'rgba(74,222,128,.35)':nLegs===4?'rgba(96,165,250,.35)':'rgba(245,166,35,.35)';
         var legsHtml='';
         for(var ml=0;ml<legs.length;ml++){
           var leg=legs[ml],dir=(leg.dir||'').toLowerCase();
