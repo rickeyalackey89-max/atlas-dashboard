@@ -128,6 +128,31 @@
     .ev-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--b);}
     .ev-control-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
     .ev-control-label{font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-right:4px;}
+    .hub-team-grid{display:flex;flex-direction:column;gap:1px;background:var(--b);}
+    .hub-team-card{background:var(--s1);padding:22px 24px;}
+    .hub-team-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;}
+    .hub-team-name{font-size:18px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--text);}
+    .hub-team-meta{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);}
+    .hub-stat-head,.hub-stat-row{display:grid;gap:12px;align-items:stretch;}
+    .hub-stat-head{padding:0 0 9px;border-bottom:1px solid var(--b);margin-bottom:1px;}
+    .hub-stat-head-cell{font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);}
+    .hub-stat-row{padding:12px 0;border-bottom:1px solid var(--b);}
+    .hub-stat-row:last-child{border-bottom:none;}
+    .hub-player-name{font-size:13px;font-weight:800;letter-spacing:-.01em;}
+    .hub-player-meta{font-size:10px;color:var(--t2);margin-top:2px;text-transform:uppercase;letter-spacing:.07em;}
+    .hub-avg-cell{background:var(--s2);padding:11px 12px;min-height:62px;}
+    .hub-avg-label{display:none;font-size:8px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-bottom:5px;}
+    .hub-avg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 10px;}
+    .hub-avg-item{font-size:11px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--text);}
+    .hub-avg-item span{display:block;font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);margin-bottom:1px;}
+    .hub-empty{display:flex;align-items:center;height:100%;font-size:18px;font-weight:900;color:var(--t3);}
+    @media(max-width:760px){
+      .hub-team-card{padding:18px 16px;}
+      .hub-stat-head{display:none;}
+      .hub-stat-row{display:block !important;padding:14px 0;}
+      .hub-avg-cell{margin-top:8px;}
+      .hub-avg-label{display:block;}
+    }
     .game-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--b);}
     .game-row:last-child{border-bottom:none;}
     .game-teams{font-size:15px;font-weight:800;letter-spacing:-.01em;}
@@ -330,7 +355,13 @@
     <!-- STAT HUB -->
     <div id="sub-stathub" class="sub-panel" style="display:none;">
 
-      <!-- 1. BOARD BREAKDOWN -->
+      <!-- 1. TEAM PLAYER STATS -->
+      <div class="section-head"><span class="section-head-title">Team Player Stats</span><span class="badge badge-live">Daily Teams</span></div>
+      <div id="hubTeamStats"><div class="no-data">Loading team stats...</div></div>
+
+      <div class="section-gap"></div>
+
+      <!-- 2. BOARD BREAKDOWN -->
       <div class="section-head"><span class="section-head-title">Board Breakdown</span><span class="badge badge-live">Live</span></div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--b);margin-bottom:1px;">
         <div class="card" id="hubOverUnder"><div class="no-data">Loading...</div></div>
@@ -340,7 +371,7 @@
 
       <div class="section-gap"></div>
 
-      <!-- 2. PLAYER EXPOSURE -->
+      <!-- 3. PLAYER EXPOSURE -->
       <div class="section-head"><span class="section-head-title">Player Exposure</span><span class="badge badge-live">Model Focus</span></div>
       <div class="card" style="margin-bottom:1px;">
         <div style="font-size:11px;color:var(--t2);margin-bottom:16px;line-height:1.6;">Players appearing across the most slips today. High exposure = high model conviction.</div>
@@ -349,7 +380,7 @@
 
       <div class="section-gap"></div>
 
-      <!-- 3. GAME ACTIVITY -->
+      <!-- 4. GAME ACTIVITY -->
       <div class="section-head"><span class="section-head-title">Game Activity</span><span class="badge badge-live">Live</span></div>
       <div class="card" style="margin-bottom:1px;">
         <div style="font-size:11px;color:var(--t2);margin-bottom:16px;line-height:1.6;">Where the model is focused. More picks in a game = more edge identified in that matchup.</div>
@@ -358,7 +389,7 @@
 
       <div class="section-gap"></div>
 
-      <!-- 4. CONFIDENCE BANDS -->
+      <!-- 5. CONFIDENCE BANDS -->
       <div class="section-head"><span class="section-head-title">Confidence Bands</span><span class="badge badge-premium">Premium Preview</span></div>
       <div class="card" style="margin-bottom:1px;">
         <div style="font-size:11px;color:var(--t2);margin-bottom:20px;line-height:1.6;">Distribution of calibrated hit probabilities across today&#39;s picks. A high-confidence slate means more legs sitting in the 80%+ range.</div>
@@ -1136,7 +1167,73 @@
     }
   }
 
+  function hubAvgHtml(avg, label){
+    if(!avg||!avg.gp){
+      return '<div class="hub-avg-cell"><div class="hub-avg-label">'+esc(label)+'</div><span class="hub-empty">—</span></div>';
+    }
+    function val(v){return (v===null||v===undefined||v==='')?'—':String(v);}
+    var items=[
+      ['GP',avg.gp],
+      ['MIN',avg.min],
+      ['PTS',avg.pts],
+      ['REB',avg.reb],
+      ['AST',avg.ast],
+      ['3PM',avg.fg3m]
+    ];
+    var html='<div class="hub-avg-cell"><div class="hub-avg-label">'+esc(label)+'</div><div class="hub-avg-grid">';
+    for(var i=0;i<items.length;i++){
+      html+='<div class="hub-avg-item"><span>'+esc(items[i][0])+'</span>'+esc(val(items[i][1]))+'</div>';
+    }
+    html+='</div></div>';
+    return html;
+  }
+
+  function buildHubTeamStats(statHub){
+    var el=document.getElementById('hubTeamStats');
+    if(!el) return;
+    var teams=(statHub&&Array.isArray(statHub.teams))?statHub.teams:[];
+    var playoff=!!(statHub&&statHub.playoff_active);
+    if(!teams.length){
+      el.innerHTML='<div class="card"><div class="no-data">No team average data available.</div></div>';
+      return;
+    }
+    var cols=playoff?'minmax(170px,1.15fr) repeat(3,minmax(145px,1fr))':'minmax(170px,1.15fr) minmax(145px,1fr)';
+    var html='<div class="hub-team-grid">';
+    for(var t=0;t<teams.length;t++){
+      var team=teams[t]||{};
+      var opps=Array.isArray(team.opponents)?team.opponents:[];
+      var players=Array.isArray(team.players)?team.players:[];
+      html+='<div class="hub-team-card">';
+      html+='<div class="hub-team-title"><div class="hub-team-name">'+esc(team.team||'Team')+'</div><div class="hub-team-meta">'+(opps.length?'vs '+esc(opps.join(', ')):'Daily roster')+'</div></div>';
+      html+='<div class="hub-stat-head" style="grid-template-columns:'+cols+';">'+
+        '<div class="hub-stat-head-cell">Player</div>'+
+        '<div class="hub-stat-head-cell">Season Avg</div>'+
+        (playoff?'<div class="hub-stat-head-cell">Playoff Avg</div><div class="hub-stat-head-cell">Series Avg</div>':'')+
+        '</div>';
+      if(!players.length){
+        html+='<div class="no-data">No players found.</div>';
+      }else{
+        for(var p=0;p<players.length;p++){
+          var pl=players[p]||{};
+          html+='<div class="hub-stat-row" style="grid-template-columns:'+cols+';">';
+          html+='<div><div class="hub-player-name">'+esc(pl.player||'—')+'</div><div class="hub-player-meta">'+esc(team.team||'')+(opps.length?' vs '+esc(opps.join(', ')):'')+'</div></div>';
+          html+=hubAvgHtml(pl.season,'Season Avg');
+          if(playoff){
+            html+=hubAvgHtml(pl.playoffs,'Playoff Avg');
+            html+=hubAvgHtml(pl.series,'Series Avg');
+          }
+          html+='</div>';
+        }
+      }
+      html+='</div>';
+    }
+    html+='</div>';
+    el.innerHTML=html;
+  }
+
   function buildStatHub(data, allLegsForCount, calLegs, games){
+    buildHubTeamStats(data.stat_hub||{});
+
     // ── 1. BOARD BREAKDOWN ──────────────────────────────────────────────
     var overCount=0,underCount=0,tierCounts={},statCounts={};
     for(var i=0;i<allLegsForCount.length;i++){
