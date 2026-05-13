@@ -758,6 +758,42 @@
     return Number(pct)>0 ? 'var(--green)' : (Number(pct)<-4 ? '#f87171' : 'var(--t2)');
   }
 
+  function legUsageScore(leg){
+    var v=numOrNull(leg.usage_score);
+    if(v===null) v=numOrNull(leg.usage_dep);
+    return v;
+  }
+
+  function fmtUsageScore(leg){
+    var v=legUsageScore(leg);
+    if(v===null) return '&#8212;';
+    return (v*100).toFixed(0)+'%';
+  }
+
+  function usageColor(leg){
+    var v=legUsageScore(leg);
+    if(v===null) return 'var(--t2)';
+    return v>=1.03 ? 'var(--green)' : (v>=0.95 ? 'var(--gold)' : '#f87171');
+  }
+
+  function legMinuteVolatility(leg){
+    var v=numOrNull(leg.minute_volatility);
+    if(v===null) v=numOrNull(leg.minutes_cv);
+    return v;
+  }
+
+  function fmtMinuteVolatility(leg){
+    var v=legMinuteVolatility(leg);
+    if(v===null) return '&#8212;';
+    return (v*100).toFixed(0)+'%';
+  }
+
+  function minuteVolColor(leg){
+    var v=legMinuteVolatility(leg);
+    if(v===null) return 'var(--t2)';
+    return v<=0.15 ? 'var(--green)' : (v<=0.28 ? 'var(--gold)' : '#f87171');
+  }
+
   function groupProbabilityLegs(legs){
     var map={}, groups=[];
     for(var i=0;i<legs.length;i++){
@@ -1926,6 +1962,10 @@
             var valuePct=valueScorePct(leg);
             var marketEVPct=legMarketEVPct(leg);
             var marketEdgePct=legMarketEdgePct(leg);
+            var usageTxt=fmtUsageScore(leg);
+            var usageMetricColor=usageColor(leg);
+            var minuteVolTxt=fmtMinuteVolatility(leg);
+            var minuteVolMetricColor=minuteVolColor(leg);
 
             var stabPct=frag!=null?Math.max(0,Math.round((1-Math.min(frag*5,1))*100)):null;
             var stabColor=stabPct!=null?(stabPct>=70?'var(--green)':stabPct>=40?'var(--gold)':'#f87171'):'var(--t2)';
@@ -1948,6 +1988,16 @@
               +'<div class="btm-metric-label">Model Confidence</div>'
               +'<div class="btm-metric-val" style="color:'+(lPct!=null?pctColor(leg.p_cal||0):'var(--t2)')+';">'+(lPct!=null?lPct+'%':'&#8212;')+'</div>'
               +'<div class="btm-metric-desc">Probability this leg hits</div>'
+              +'</div>'
+              +'<div class="btm-metric">'
+              +'<div class="btm-metric-label">Usage Score</div>'
+              +'<div class="btm-metric-val" style="color:'+usageMetricColor+';">'+usageTxt+'</div>'
+              +'<div class="btm-metric-desc">Offensive burden signal for this market</div>'
+              +'</div>'
+              +'<div class="btm-metric">'
+              +'<div class="btm-metric-label">Minute Volatility</div>'
+              +'<div class="btm-metric-val" style="color:'+minuteVolMetricColor+';">'+minuteVolTxt+'</div>'
+              +'<div class="btm-metric-desc">Minute CV; lower is steadier</div>'
               +'</div>'
               +'<div class="btm-metric">'
               +'<div class="btm-metric-label">Atlas Value</div>'
