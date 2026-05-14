@@ -242,9 +242,6 @@
   }
 
   function mountCheckout(promoAttribution) {
-    renderHostedCheckout(promoAttribution, 'Continue through the secure Stripe checkout page to finish your 3-day trial.');
-    return;
-
     if (socialInAppBrowser) {
       renderHostedCheckout(promoAttribution, 'Instagram and Facebook browsers can block embedded payment screens. Continue through the secure Stripe checkout page to finish your 3-day trial.');
       return;
