@@ -87,17 +87,17 @@ h1,
   color: var(--atlas-steel) !important;
   background: linear-gradient(
     180deg,
-    #ffffff 0%,
-    #eef7fa 30%,
-    #aebdc5 52%,
-    #ffffff 58%,
-    #d5e0e6 72%,
-    #9aa9b1 100%
+    #f5fbfd 0%,
+    #d7e3e9 28%,
+    #788891 51%,
+    #f1f8fb 57%,
+    #a8b8c0 72%,
+    #5f6d75 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 11px rgba(196,232,244,.12));
+  filter: drop-shadow(0 0 11px rgba(196,232,244,.1));
 }
 
 h2,
@@ -109,11 +109,11 @@ h3,
   color: var(--atlas-steel) !important;
   background: linear-gradient(
     180deg,
-    #ffffff 0%,
-    #f3fbff 38%,
-    #c3d2da 56%,
-    #ffffff 62%,
-    #cfdce2 100%
+    #f2f8fb 0%,
+    #d8e4ea 36%,
+    #82929b 54%,
+    #edf5f8 61%,
+    #9dabb3 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -139,10 +139,51 @@ h3 span,
 .stat-value,
 .tile-val {
   color: var(--atlas-steel) !important;
-  background: linear-gradient(180deg, #ffffff 0%, #eef7fa 48%, #b8c8d1 100%);
+  background: linear-gradient(180deg, #edf5f8 0%, #b7c7cf 48%, #7d8d95 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.hero-title,
+.page-title,
+.pitch-title,
+.portal-hero h2,
+.premium-cta-title {
+  position: relative;
+}
+
+.page-title::after,
+.pitch-title::after,
+.portal-hero h2::after,
+.premium-cta-title::after {
+  content: "";
+  position: absolute;
+  left: 3%;
+  right: 3%;
+  top: 44%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(223,244,250,.75) 16%, rgba(0,216,255,.7) 50%, rgba(223,244,250,.72) 84%, transparent);
+  box-shadow: 0 0 12px rgba(0,216,255,.34), 0 0 24px rgba(238,246,249,.16);
+  opacity: .42;
+}
+
+.page-title::before,
+.pitch-title::before,
+.portal-hero h2::before,
+.premium-cta-title::before {
+  content: "";
+  position: absolute;
+  top: calc(44% - 3px);
+  left: 14%;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: rgba(255,255,255,.95);
+  box-shadow: 0 0 10px rgba(255,255,255,.85), 0 0 22px rgba(0,216,255,.7);
+  opacity: .46;
 }
 
 .eyebrow,
