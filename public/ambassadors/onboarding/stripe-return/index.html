@@ -34,7 +34,8 @@
     <h1>Payout Setup <span>Status</span></h1>
     <p>
       Stripe returned you to Atlas. Atlas checks the Stripe account status when this page loads.
-      Your portal login is the email and password created during Atlas onboarding, but portal access is not active until Stripe Express payout and tax onboarding is complete.
+      Your portal login is the email and password created during Atlas onboarding. Stripe Express verifies payout identity and collects the tax information Stripe needs for 1099 reporting.
+      Atlas Ambassador agreements and conduct documents are handled separately before final launch approval.
     </p>
     <div class="status" id="statusBox">Checking payout onboarding result...</div>
     <div class="actions">
@@ -52,7 +53,7 @@
     var box = document.getElementById('statusBox');
     function setBox(kind, html){ box.className = 'status ' + kind; box.innerHTML = html; }
     if (status === 'complete') {
-      setBox('good', '<strong>Stripe Express complete.</strong><br/>Payout and tax onboarding is complete. You can open the Ambassador portal with the email and password you created during onboarding.');
+      setBox('good', '<strong>Stripe Express complete.</strong><br/>Payout identity and Stripe tax collection are complete. Next, Atlas will finalize Ambassador documents, code approval, and portal activation. You can open the portal with the email and password you created during onboarding.');
     } else if (status === 'submitted') {
       setBox('', '<strong>Stripe Express submitted, but not complete yet.</strong><br/>Stripe still has onboarding requirements pending' + (requirements ? ' (' + requirements + ')' : '') + '. Continue onboarding if Stripe asks for more information. Portal access stays locked until Stripe reports complete.');
     } else if (status === 'restricted') {
