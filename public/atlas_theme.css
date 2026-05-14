@@ -3,13 +3,16 @@
 :root {
   --atlas-ui: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   --atlas-display: "Rajdhani", "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  --gold: #67eaff !important;
-  --gold2: rgba(0,216,255,.105) !important;
-  --atlas-glass: linear-gradient(135deg, rgba(255,255,255,.04), rgba(0,216,255,.026) 46%, rgba(125,190,255,.018));
-  --atlas-panel: rgba(3, 8, 10, .76);
-  --atlas-line: rgba(0, 216, 255, .2);
-  --atlas-line-soft: rgba(255,255,255,.09);
-  --atlas-shadow: 0 20px 70px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.045);
+  --gold: #00d8ff !important;
+  --gold2: rgba(0,190,255,.12) !important;
+  --atlas-steel: #eef6f9;
+  --atlas-steel-mid: #b8c8d1;
+  --atlas-steel-muted: #8fa2ad;
+  --atlas-glass: linear-gradient(135deg, rgba(238,246,249,.052), rgba(0,216,255,.02) 46%, rgba(132,157,173,.026));
+  --atlas-panel: rgba(2, 7, 9, .8);
+  --atlas-line: rgba(136, 223, 244, .22);
+  --atlas-line-soft: rgba(210,230,238,.12);
+  --atlas-shadow: 0 20px 70px rgba(0,0,0,.38), inset 0 1px 0 rgba(236,248,252,.07);
   --atlas-focus: 0 0 0 1px rgba(0,212,255,.34), 0 0 28px rgba(0,212,255,.11);
 }
 
@@ -19,8 +22,9 @@ html {
 
 body {
   font-family: var(--atlas-ui) !important;
+  color: var(--atlas-steel) !important;
   background:
-    radial-gradient(circle at 76% 14%, rgba(0,216,255,.105), transparent 32rem),
+    radial-gradient(circle at 76% 14%, rgba(0,190,255,.095), transparent 32rem),
     radial-gradient(circle at 18% 86%, rgba(95,145,255,.052), transparent 26rem),
     linear-gradient(180deg, #000 0%, #020607 42%, #000 100%) !important;
 }
@@ -65,9 +69,28 @@ h3,
 }
 
 h1,
+h2,
+h3,
 .hero-title,
-.page-title {
+.page-title,
+.pitch-title,
+.portal-hero h2 {
+  color: var(--atlas-steel) !important;
   line-height: 1 !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.18), 0 0 22px rgba(218,238,246,.1) !important;
+}
+
+h1 span,
+h2 span,
+h3 span,
+.hero-title .gold-line,
+.page-title span,
+.pitch-title span,
+.nav-wordmark span,
+.brand span,
+.brand span span {
+  color: var(--gold) !important;
+  text-shadow: 0 0 24px rgba(0,216,255,.2) !important;
 }
 
 .eyebrow,
@@ -345,7 +368,7 @@ td,
 .hub-team-meta,
 .tile-lbl,
 .stat-label {
-  color: rgba(190, 236, 245, .82) !important;
+  color: var(--atlas-steel-mid) !important;
 }
 
 .slip-family-header {
