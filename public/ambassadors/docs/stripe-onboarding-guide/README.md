@@ -42,7 +42,7 @@ Atlas does not collect or store your bank account, SSN, tax ID, or identity docu
 Atlas handles these items outside Stripe:
 
 - Ambassador agreement acceptance
-- Conduct requirements and responsible-use language
+- Conduct requirements and media rules
 - Media guide and promotional rules
 - Payout terms, program launch approval, and portal access rules
 
