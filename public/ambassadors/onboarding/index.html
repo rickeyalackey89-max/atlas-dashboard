@@ -38,7 +38,7 @@
     .step:last-child{border-right:0}
     .step b{display:block;color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
     .step p{color:var(--t2);font-size:13px;line-height:1.75}
-    .docs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
     .doc{min-height:220px;border:1px solid var(--b);background:var(--s1);padding:22px;display:flex;flex-direction:column;justify-content:space-between}
     .doc h3{font-size:15px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px}
     .doc p{color:var(--t2);font-size:13px;line-height:1.75}
@@ -93,6 +93,7 @@
   <div class="actions">
     <a class="btn btn-gold" href="/ambassadors/">Open Portal</a>
     <a class="btn btn-cyan" href="/join/#ambassador">Need To Apply?</a>
+    <a class="btn" href="/ambassadors/docs/stripe-onboarding-guide/">Stripe Guide</a>
     <a class="btn" href="mailto:support@atlassports.ai?subject=AtlasSportsAI%20Ambassador%20Onboarding">Contact Support</a>
   </div>
 
@@ -173,6 +174,10 @@
       <article class="doc">
         <div><h3>Opportunities</h3><p>Creator tracks, leaderboard timing, monthly top performer bonus, app roadmap, AtlasGPT, and growth paths.</p></div>
         <div class="doc-links"><a class="btn btn-gold" href="/ambassadors/docs/opportunities/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_opportunities.pdf">PDF</a></div>
+      </article>
+      <article class="doc">
+        <div><h3>Stripe Onboarding</h3><p>Step-by-step payout setup guidance, including what to enter for website, industry, business type, tax, and payout fields.</p></div>
+        <div class="doc-links"><a class="btn btn-gold" href="/ambassadors/docs/stripe-onboarding-guide/">Read</a></div>
       </article>
     </div>
   </section>
