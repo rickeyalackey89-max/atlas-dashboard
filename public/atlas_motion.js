@@ -9,10 +9,10 @@
   var ctx;
   var nodes = [];
   var active = false;
-  var duration = 980;
-  var arrivalDuration = 900;
-  var arrivalHold = 180;
-  var departureHold = 140;
+  var duration = 1180;
+  var arrivalDuration = 1080;
+  var arrivalHold = 230;
+  var departureHold = 180;
   var storageKey = "atlas_transition_handoff";
 
   function updateChromeShift() {

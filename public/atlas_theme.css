@@ -512,7 +512,7 @@ body.atlas-transition-out > *:not(.atlas-neural-transition) {
   opacity: .06;
   transform: scale(.965) translateY(-16px);
   filter: blur(8px) saturate(1.25);
-  transition: opacity .5s ease, transform .5s ease, filter .5s ease !important;
+  transition: opacity .68s ease, transform .68s ease, filter .68s ease !important;
 }
 
 body.atlas-transition-entering > *:not(.atlas-neural-transition) {
@@ -525,7 +525,7 @@ body.atlas-transition-in > *:not(.atlas-neural-transition) {
   opacity: 1;
   transform: none;
   filter: none;
-  transition: opacity .52s ease, transform .52s ease, filter .52s ease !important;
+  transition: opacity .72s ease, transform .72s ease, filter .72s ease !important;
 }
 
 .atlas-neural-transition {
@@ -538,7 +538,7 @@ body.atlas-transition-in > *:not(.atlas-neural-transition) {
     radial-gradient(circle at 50% 48%, rgba(0,216,255,.2), transparent 20rem),
     radial-gradient(circle at 62% 52%, rgba(210,230,238,.16), transparent 24rem),
     rgba(0, 4, 6, .94);
-  transition: opacity .28s ease;
+  transition: opacity .36s ease;
 }
 
 .atlas-neural-transition::before {
@@ -558,7 +558,7 @@ body.atlas-transition-in > *:not(.atlas-neural-transition) {
 }
 
 .atlas-neural-transition.is-arriving {
-  transition: opacity .52s ease;
+  transition: opacity .72s ease;
 }
 
 .atlas-neural-transition canvas {
