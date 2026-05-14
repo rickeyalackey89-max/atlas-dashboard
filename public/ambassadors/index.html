@@ -87,6 +87,23 @@
     .share-link-card p{color:var(--t2);font-size:13px;line-height:1.7;margin-bottom:12px;}
     .share-link-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;}
     .share-link-value{border:1px solid var(--b);background:#050505;color:#fff;padding:12px 14px;font-size:13px;line-height:1.45;overflow-wrap:anywhere;}
+    .social-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:22px;}
+    .social-card{display:flex;align-items:center;gap:12px;border:1px solid var(--b);background:rgba(255,255,255,.014);padding:14px;color:var(--text);}
+    .social-card:hover{border-color:rgba(0,212,255,.48);background:rgba(0,212,255,.045);}
+    .social-icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid rgba(0,212,255,.36);background:rgba(0,212,255,.08);color:var(--cyan);font-size:13px;font-weight:950;letter-spacing:.02em;flex:0 0 auto;}
+    .social-icon.fb{color:#fff;background:#1877f2;border-color:#1877f2;}
+    .social-icon.ig{color:#fff;background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);border-color:rgba(255,255,255,.18);}
+    .social-icon.x{color:#fff;background:#080808;border-color:#333;}
+    .social-icon.dc{color:#fff;background:#5865f2;border-color:#5865f2;}
+    .social-card b{display:block;font-size:11px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;}
+    .social-card span:last-child{display:block;margin-top:3px;color:var(--t2);font-size:12px;}
+    .media-hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .media-hub-card{border:1px solid var(--b);background:rgba(255,255,255,.014);padding:18px;}
+    .media-hub-card b{display:block;margin-bottom:8px;color:var(--cyan);font-size:11px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;}
+    .media-hub-card p{color:var(--t2);font-size:13px;line-height:1.7;}
+    .media-upload{margin-top:12px;border:1px dashed rgba(0,212,255,.32);background:rgba(0,212,255,.035);padding:14px;color:var(--t2);font-size:12px;line-height:1.65;}
+    .media-upload input{height:auto;margin-top:10px;padding:10px;color:var(--t2);opacity:.65;}
+    .media-pill{display:inline-flex;align-items:center;min-height:22px;padding:3px 8px;border:1px solid rgba(245,166,35,.34);color:var(--gold);font-size:9px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;margin-top:10px;}
     .document-list{display:grid;gap:8px;}
     .document-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--b);background:#050505;}
     .document-row a{color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;}
@@ -103,6 +120,7 @@
       .portal-hero-actions{justify-content:flex-start;margin-top:16px;}
       .portal-code{display:inline-flex;}
       .metric-grid,.content-grid,.profile-grid{grid-template-columns:1fr;}
+      .social-grid,.media-hub-grid{grid-template-columns:1fr;}
       .share-link-row{grid-template-columns:1fr;}
       .metric{border-right:0;border-bottom:1px solid var(--b);}
       .metric:last-child{border-bottom:0;}
@@ -179,7 +197,7 @@
         <div class="module">
           <b>Documents</b>
           <p>Review and complete Atlas paperwork, payout structure, conduct requirements, media guide, launch opportunities, and secure payout setup requirements.</p>
-          <a class="status" href="/ambassadors/onboarding/">Live</a>
+          <a class="status" href="/ambassadors/docs/payout-structure/">Read</a>
         </div>
         <div class="module">
           <b>Launch Updates</b>
@@ -288,6 +306,12 @@
 
   function renderMedia(data) {
     var code = data.ambassador && data.ambassador.referralCode ? data.ambassador.referralCode : 'YOURCODE';
+    var socials = [
+      { name: 'Facebook', handle: 'AtlasSportsAI', url: 'https://www.facebook.com/profile.php?id=61589229995882', icon: 'f', cls: 'fb' },
+      { name: 'Instagram', handle: '@atlassportsai', url: 'https://www.instagram.com/atlassportsai/', icon: '◎', cls: 'ig' },
+      { name: 'X', handle: '@AtlasSportsAI', url: 'https://x.com/AtlasSportsAI', icon: 'X', cls: 'x' },
+      { name: 'Discord', handle: 'Atlas community', url: 'https://discord.gg/uatU28mR', icon: 'D', cls: 'dc' }
+    ];
     var mediaCards = [
       {
         title: 'Approved Positioning',
@@ -310,7 +334,15 @@
         copy: 'Confirmed winners, daily slate heat checks, premium slip reveals, playoff model runs, MLB launch updates, app previews, AtlasGPT roadmap, and postgame winner recaps.'
       }
     ];
-    return '<div class="content-grid">' + mediaCards.map(function(card) {
+    return '<div class="section-title">Official Atlas Channels</div>' +
+      '<div class="social-grid">' + socials.map(function(social) {
+        return '<a class="social-card" href="' + esc(social.url) + '" target="_blank" rel="noopener">' +
+          '<span class="social-icon ' + esc(social.cls) + '">' + esc(social.icon) + '</span>' +
+          '<span><b>' + esc(social.name) + '</b><span>' + esc(social.handle) + '</span></span>' +
+        '</a>';
+      }).join('') + '</div>' +
+      '<div class="section-title">Copy Bank</div>' +
+      '<div class="content-grid">' + mediaCards.map(function(card) {
       return '<div class="content-card">' +
         '<b>' + esc(card.title) + '</b>' +
         '<p>' + esc(card.text) + '</p>' +
@@ -318,8 +350,46 @@
         '<button class="btn copy-btn" type="button" data-copy="' + esc(card.copy) + '">Copy</button>' +
       '</div>';
     }).join('') + '</div>' +
-      '<div class="section-title">Atlas-Made Content Hub</div>' +
-      '<div class="empty-state">Approved graphics, video clips, weekly talking points, and launch campaigns will appear here as Atlas publishes them.</div>';
+      '<div class="section-title">Media Hub</div>' +
+      '<div class="media-hub-grid">' +
+        '<div class="media-hub-card">' +
+          '<b>Atlas Content Library</b>' +
+          '<p>Approved graphics, video clips, winner recaps, launch campaigns, captions, and weekly talking points will appear here as Atlas publishes them.</p>' +
+          '<span class="media-pill">Atlas Upload Queue</span>' +
+        '</div>' +
+        '<div class="media-hub-card">' +
+          '<b>Ambassador Uploads</b>' +
+          '<p>Ambassadors will be able to submit graphics, clips, post ideas, and campaign assets for Atlas review and sharing.</p>' +
+          '<div class="media-upload">' +
+            'Cloudflare R2 storage is the planned backend for uploads and shared media. This keeps assets inside Atlas infrastructure without a separate media vendor.' +
+            '<input type="file" disabled />' +
+            '<span class="media-pill">R2 Backend Next</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="media-hub-card">' +
+          '<b>Shared Campaigns</b>' +
+          '<p>Reusable launch pushes, seasonal content, sport-specific promos, and Ambassador-created assets will be organized here for quick copying and sharing.</p>' +
+          '<span class="media-pill">Coming Online</span>' +
+        '</div>' +
+        '<div class="media-hub-card">' +
+          '<b>Creative Rules</b>' +
+          '<p>Create in your own voice. Use Atlas visuals accurately, avoid fake performance claims, avoid guarantees, and do not leak premium-only operational content.</p>' +
+          '<a class="status" href="/ambassadors/docs/media-guide/">Open Media Guide</a>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function documentUrl(doc) {
+    var title = String((doc && doc.title) || '').toLowerCase();
+    var url = String((doc && doc.url) || '');
+    if (url.indexOf('/ambassadors/onboarding/') === 0) {
+      if (title.indexOf('conduct') >= 0) return '/ambassadors/docs/conduct-requirements/';
+      if (title.indexOf('media') >= 0) return '/ambassadors/docs/media-guide/';
+      if (title.indexOf('opportunity') >= 0) return '/ambassadors/docs/opportunities/';
+      if (title.indexOf('stripe') >= 0) return '/ambassadors/docs/stripe-onboarding-guide/';
+      return '/ambassadors/docs/payout-structure/';
+    }
+    return url || '/ambassadors/docs/payout-structure/';
   }
 
   function ambassadorShareLink(code) {
@@ -363,7 +433,7 @@
         '<b>Atlas Agreement</b>' +
         '<p>Status: <strong>' + esc(agreement.signed ? 'signed' : (agreement.legacyAllowed ? 'legacy accepted' : 'required')) + '</strong><br/>Signed: ' + esc(dateShort(agreement.signedAt)) + '<br/>Version: ' + esc(agreement.version || (agreement.legacyAllowed ? 'legacy onboarding' : 'pending')) + '</p>' +
         agreementAction +
-        '<a class="btn" href="/ambassadors/onboarding/#atlasAgreement" style="margin-top:12px;">Open Atlas Paperwork</a>' +
+        '<a class="btn" href="/ambassadors/docs/payout-structure/" style="margin-top:12px;">Open Paperwork Library</a>' +
       '</div>' +
       '<div class="profile-block">' +
         '<b>Support</b>' +
@@ -372,7 +442,7 @@
     '</div>' +
     '<div class="section-title">Documents</div>' +
     '<div class="document-list">' + documents.map(function(doc) {
-      return '<div class="document-row"><span>' + esc(doc.title) + '<br/><span class="muted">' + esc(doc.status || 'available') + '</span></span><a href="' + esc(doc.url) + '">Open</a></div>';
+      return '<div class="document-row"><span>' + esc(doc.title) + '<br/><span class="muted">' + esc(doc.status || 'available') + '</span></span><a href="' + esc(documentUrl(doc)) + '">Open</a></div>';
     }).join('') + '</div>' +
     '<div class="section-title">Signed Document Records</div>' +
     renderRows(documentRecords, 'No signed Atlas document records are attached yet. Open Atlas Paperwork to complete the agreement, then return to Stripe Express for payout and tax identity setup.', [
