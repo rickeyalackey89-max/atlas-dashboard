@@ -117,12 +117,12 @@
 <main>
   <div class="eyebrow">Ambassador Operations</div>
   <h1>Ambassador <span>Portal</span></h1>
-  <p class="lead">This hub is being prepared for approved AtlasSportsAI Ambassadors. It will centralize onboarding, promo code access, signup metrics, payout status, signed documents, and Ambassador tree reporting.</p>
+  <p class="lead">The AtlasSportsAI Ambassador portal is live for approved Ambassadors. Use this hub to access your promo code, signup metrics, payout status, Atlas paperwork, Stripe Express payout setup, and direct Ambassador tree reporting.</p>
 
   <div class="portal-grid">
     <section class="panel login">
       <div class="panel-title">Portal Login</div>
-      <p class="panel-sub">Approved Ambassadors can log in with their Atlas-issued portal credentials. Pending applicants should use the Join page first.</p>
+      <p class="panel-sub">Approved Ambassadors can log in with their Atlas-issued portal credentials after Atlas paperwork and Stripe Express payout setup are complete. New applicants should start with the Join page or onboarding link sent by Atlas.</p>
       <form id="portalForm">
         <label for="email">Email</label>
         <input id="email" name="email" type="email" autocomplete="email" placeholder="ambassador@email.com"/>
@@ -139,7 +139,7 @@
         Enter your Ambassador email and password to load portal status.
       </div>
       <div class="notice">
-        Approved Ambassadors use the credentials issued by Atlas after approval. Site access starts in 7-day windows and renews when 2 valid paid customer signups are recorded. For support, email <a href="mailto:support@atlassports.ai?subject=AtlasSportsAI%20Ambassador%20Portal">support@atlassports.ai</a>.
+        Approved Ambassadors use the credentials created during Atlas onboarding. Site access starts in 7-day windows and renews when 2 valid paid customer signups are recorded. For support, email <a href="mailto:support@atlassports.ai?subject=AtlasSportsAI%20Ambassador%20Portal">support@atlassports.ai</a>.
       </div>
     </section>
 
@@ -148,32 +148,32 @@
         <div class="module">
           <b>Promo Code</b>
           <p>Each approved Ambassador receives a unique code for streams, social posts, communities, and direct referrals.</p>
-          <span class="status">Planned</span>
+          <span class="status">Live</span>
         </div>
         <div class="module">
           <b>Signup Metrics</b>
           <p>Track valid paid customer signups, plan type, pending validation, refunds, chargebacks, access renewal, and payout eligibility.</p>
-          <span class="status">Planned</span>
+          <span class="status">Live</span>
         </div>
         <div class="module">
           <b>Payouts</b>
-          <p>View one-time signup commissions, sponsor payouts, milestone bonuses, payout status, and payment history.</p>
-          <span class="status">Planned</span>
+          <p>View one-time signup commissions, sponsor payouts, milestone bonuses, payout status, and payment history. Stripe Express manages payout identity, banking, and tax identity.</p>
+          <span class="status">Live</span>
         </div>
         <div class="module">
           <b>Ambassador Tree</b>
-          <p>See Ambassadors you brought in, their valid customer sales, and downstream sponsor attribution where eligible.</p>
-          <span class="status">Planned</span>
+          <p>See Ambassadors you brought in, their valid customer sales, and direct sponsor attribution where eligible.</p>
+          <span class="status">Live</span>
         </div>
         <div class="module">
           <b>Documents</b>
-          <p>Review payout structure, conduct requirements, media guide, launch opportunities, and secure payout setup requirements.</p>
-          <a class="status" href="/ambassadors/onboarding/">Open</a>
+          <p>Review and complete Atlas paperwork, payout structure, conduct requirements, media guide, launch opportunities, and secure payout setup requirements.</p>
+          <a class="status" href="/ambassadors/onboarding/">Live</a>
         </div>
         <div class="module">
           <b>Launch Updates</b>
-          <p>Access program announcements, approved talking points, brand assets, and launch campaign updates.</p>
-          <span class="status">Planned</span>
+          <p>Access program announcements, talking points, brand assets, and launch campaign updates as Atlas publishes them.</p>
+          <span class="status">Live</span>
         </div>
       </div>
     </section>
@@ -307,12 +307,22 @@
     var documentRecords = (data.documents && data.documents.records) || [];
     var agreement = (data.documents && data.documents.agreement) || {};
     var websiteAccess = data.websiteAccess || {};
+    var agreementAction = agreement.signed
+      ? '<p class="muted" style="margin-top:10px;">Atlas agreement signature is on file. Stripe Express remains the place to update payout identity, banking, tax identity, and future 1099 tax forms.</p>'
+      : '<p class="muted" style="margin-top:10px;">Atlas paperwork is separate from Stripe Express. Sign the Atlas agreement here if a signed record is missing, then use Stripe Express for payout and tax identity setup.</p>' +
+        '<label for="agreementSignatureName">Legal Signature Name</label>' +
+        '<input id="agreementSignatureName" type="text" placeholder="Your legal name"/>' +
+        '<label style="display:flex;align-items:flex-start;gap:8px;line-height:1.45;">' +
+          '<input id="agreementAccept" type="checkbox" style="width:auto;height:auto;margin-top:3px;"/>' +
+          '<span>I have reviewed the Atlas Ambassador agreement, payout structure, conduct requirements, media guide, opportunity overview, and Stripe Express onboarding guide.</span>' +
+        '</label>' +
+        '<button class="btn btn-gold" type="button" data-sign-agreement="1" style="margin-top:12px;">Sign Atlas Agreement</button>';
     return '<div class="profile-grid">' +
       '<div class="profile-block">' +
         '<b>Account Status</b>' +
         '<p>Name: <strong>' + esc(ambassador.name || '-') + '</strong><br/>Email: ' + esc(ambassador.email || '-') + '<br/>Status: ' + esc(ambassador.status || '-') + '<br/>Payout setup: ' + esc(ambassador.connectOnboardingStatus || '-') + '</p>' +
         '<button class="btn btn-cyan" type="button" data-open-stripe-dashboard="1">Open Stripe Express</button>' +
-        '<p class="muted" style="margin-top:10px;">Use Stripe Express to update payout, banking, tax identity, and 1099 information.</p>' +
+        '<p class="muted" style="margin-top:10px;">Use Stripe Express to update payout identity, direct deposit, tax identity, and future 1099 tax forms. Stripe may not show a standalone 1099 form during setup if tax identity is already complete.</p>' +
       '</div>' +
       '<div class="profile-block">' +
         '<b>Account Details</b>' +
@@ -325,6 +335,8 @@
       '<div class="profile-block">' +
         '<b>Atlas Agreement</b>' +
         '<p>Status: <strong>' + esc(agreement.signed ? 'signed' : (agreement.legacyAllowed ? 'legacy accepted' : 'required')) + '</strong><br/>Signed: ' + esc(dateShort(agreement.signedAt)) + '<br/>Version: ' + esc(agreement.version || (agreement.legacyAllowed ? 'legacy onboarding' : 'pending')) + '</p>' +
+        agreementAction +
+        '<a class="btn" href="/ambassadors/onboarding/#atlasAgreement" style="margin-top:12px;">Open Atlas Paperwork</a>' +
       '</div>' +
       '<div class="profile-block">' +
         '<b>Support</b>' +
@@ -333,10 +345,10 @@
     '</div>' +
     '<div class="section-title">Documents</div>' +
     '<div class="document-list">' + documents.map(function(doc) {
-      return '<div class="document-row"><span>' + esc(doc.title) + '</span><a href="' + esc(doc.url) + '">Open</a></div>';
+      return '<div class="document-row"><span>' + esc(doc.title) + '<br/><span class="muted">' + esc(doc.status || 'available') + '</span></span><a href="' + esc(doc.url) + '">Open</a></div>';
     }).join('') + '</div>' +
     '<div class="section-title">Signed Document Records</div>' +
-    renderRows(documentRecords, 'No signed document records are attached yet. Atlas will add the final document-signing gate after the program docs are finalized.', [
+    renderRows(documentRecords, 'No signed Atlas document records are attached yet. Open Atlas Paperwork to complete the agreement, then return to Stripe Express for payout and tax identity setup.', [
       { label: 'Document', render: function(row) { return esc(String(row.document_type || '').replace(/_/g, ' ')); } },
       { label: 'Status', render: function(row) { return statusBadge(row.status); } },
       { label: 'Created', render: function(row) { return esc(dateShort(row.created_at)); } },
@@ -406,6 +418,42 @@
     });
   }
 
+  function signAtlasAgreement() {
+    var signatureInput = document.getElementById('agreementSignatureName');
+    var acceptInput = document.getElementById('agreementAccept');
+    var signatureName = signatureInput ? signatureInput.value.trim() : '';
+    var accepted = acceptInput ? acceptInput.checked : false;
+    if (!signatureName || !accepted) {
+      message.style.display = 'block';
+      message.innerHTML = '<strong>Atlas agreement not signed.</strong><br/>Enter your legal signature name and confirm the agreement review checkbox.';
+      return;
+    }
+
+    fetch(API + '/api/documents/sign-agreement', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        signatureName: signatureName,
+        agreementAccepted: true
+      })
+    }).then(function(resp) {
+      return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+    }).then(function(result) {
+      if (!result.body.ok) {
+        var serverMessage = result.body && result.body.error && result.body.error.message
+          ? result.body.error.message
+          : 'Unable to sign Atlas agreement.';
+        throw new Error(serverMessage);
+      }
+      message.style.display = 'block';
+      message.innerHTML = '<strong>Atlas agreement signed.</strong><br/>Reloading your portal records.';
+      loadPortal();
+    }).catch(function(error) {
+      message.style.display = 'block';
+      message.innerHTML = '<strong>Atlas agreement unavailable.</strong><br/>' + esc(error.message || 'Unable to sign Atlas agreement.');
+    });
+  }
+
   function loadPortal() {
     if (!token) return;
     fetch(API + '/api/me', {
@@ -470,6 +518,12 @@
     var stripeDashboardButton = target.closest('[data-open-stripe-dashboard]');
     if (stripeDashboardButton) {
       openStripeExpressDashboard();
+      return;
+    }
+
+    var agreementButton = target.closest('[data-sign-agreement]');
+    if (agreementButton) {
+      signAtlasAgreement();
       return;
     }
 
