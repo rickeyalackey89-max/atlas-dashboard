@@ -100,7 +100,7 @@
     <h2>Temporary Onboarding Access</h2>
     <p>
       Atlas approved your quick application to continue onboarding. Complete the fields below after reading the onboarding documents.
-      When this step is complete, your 7-day Ambassador portal access starts and you can continue to secure payout onboarding.
+      When this step is complete, Atlas saves your portal credentials and opens secure Stripe payout onboarding. Portal access activates after payout onboarding is submitted.
     </p>
     <form id="inviteOnboardingForm">
       <div class="invite-grid">
@@ -291,7 +291,7 @@
         event.preventDefault();
         completeInviteBtn.disabled = true;
         completeInviteBtn.textContent = 'Completing...';
-        showInviteMessage('<strong>Completing onboarding.</strong><br/>Creating your Ambassador record and 7-day portal access.');
+        showInviteMessage('<strong>Completing onboarding.</strong><br/>Creating your Ambassador record and preparing secure payout setup.');
         fetch(API + '/api/applications/complete-onboarding', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -320,7 +320,7 @@
           startInviteStripeBtn.style.display = 'inline-flex';
           showInviteMessage(
             '<strong>Onboarding complete.</strong><br/>' +
-            'Your 7-day Ambassador portal access is active. Continue to secure payout setup next, then use your portal login for status and tracking.'
+            'Your portal credentials are saved. Continue to secure payout setup next. Portal access activates after payout onboarding is submitted.'
           );
         }).catch(function(error) {
           completeInviteBtn.disabled = false;
