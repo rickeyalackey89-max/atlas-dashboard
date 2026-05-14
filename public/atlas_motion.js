@@ -2,7 +2,10 @@
   "use strict";
 
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduceMotion) return;
+  if (reduceMotion) {
+    document.documentElement.classList.remove("atlas-handoff-pending");
+    return;
+  }
 
   var overlay;
   var canvas;
@@ -21,7 +24,7 @@
     document.documentElement.style.setProperty("--atlas-scroll-shine", shift.toFixed(1) + "px");
   }
 
-  function createOverlay() {
+  function createOverlay(handoff) {
     if (overlay) return;
 
     overlay = document.createElement("div");
@@ -32,7 +35,7 @@
 
     canvas = overlay.querySelector("canvas");
     ctx = canvas.getContext("2d");
-    resizeCanvas();
+    resizeCanvas(handoff);
     window.addEventListener("resize", resizeCanvas, { passive: true });
   }
 
@@ -42,7 +45,7 @@
     if (label) label.textContent = text || "Model Sync";
   }
 
-  function resizeCanvas() {
+  function resizeCanvas(handoff) {
     if (!canvas) return;
     var dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
     var width = window.innerWidth;
@@ -52,7 +55,11 @@
     canvas.style.width = width + "px";
     canvas.style.height = height + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    seedNodes(width, height);
+    if (handoff && handoff.nodes && handoff.width && handoff.height) {
+      restoreNodes(handoff, width, height);
+    } else {
+      seedNodes(width, height);
+    }
   }
 
   function seedNodes(width, height) {
@@ -67,6 +74,57 @@
         r: 1.2 + Math.random() * 2.4
       });
     }
+  }
+
+  function restoreNodes(handoff, width, height) {
+    var sx = width / Math.max(1, handoff.width || width);
+    var sy = height / Math.max(1, handoff.height || height);
+    nodes = handoff.nodes.slice(0, 70).map(function (node) {
+      return {
+        x: Number(node.x || 0) * sx,
+        y: Number(node.y || 0) * sy,
+        vx: Number(node.vx || 0),
+        vy: Number(node.vy || 0),
+        r: Number(node.r || 2)
+      };
+    });
+    if (!nodes.length) seedNodes(width, height);
+  }
+
+  function snapshotNodes() {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+      nodes: nodes.map(function (node) {
+        return {
+          x: Math.round(node.x * 10) / 10,
+          y: Math.round(node.y * 10) / 10,
+          vx: Math.round(node.vx * 1000) / 1000,
+          vy: Math.round(node.vy * 1000) / 1000,
+          r: Math.round(node.r * 10) / 10
+        };
+      })
+    };
+  }
+
+  function easeInOut(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function writeHandoff(destination, extra) {
+    try {
+      var payload = {
+        from: window.location.pathname,
+        to: destination.pathname,
+        ts: Date.now()
+      };
+      if (extra) {
+        payload.width = extra.width;
+        payload.height = extra.height;
+        payload.nodes = extra.nodes;
+      }
+      sessionStorage.setItem(storageKey, JSON.stringify(payload));
+    } catch (err) {}
   }
 
   function draw(progress) {
@@ -137,23 +195,19 @@
     createOverlay();
     var destination = new URL(url, window.location.href);
     setLabel(labelForPath(destination.pathname, "Model Sync"));
-    try {
-      sessionStorage.setItem(storageKey, JSON.stringify({
-        from: window.location.pathname,
-        to: destination.pathname,
-        ts: Date.now()
-      }));
-    } catch (err) {}
+    writeHandoff(destination);
     document.body.classList.add("atlas-transition-out");
     overlay.classList.add("is-active");
 
     var start = performance.now();
     function frame(now) {
-      var progress = Math.min(1, (now - start) / duration);
+      var rawProgress = Math.min(1, (now - start) / duration);
+      var progress = easeInOut(rawProgress);
       draw(progress);
-      if (progress < 1) {
+      if (rawProgress < 1) {
         requestAnimationFrame(frame);
       } else {
+        writeHandoff(destination, snapshotNodes());
         window.setTimeout(function () {
           window.location.href = url;
         }, departureHold);
@@ -171,16 +225,20 @@
     } catch (err) {
       payload = null;
     }
-    if (!payload || !payload.ts || Date.now() - payload.ts > 5000) return;
+    if (!payload || !payload.ts || Date.now() - payload.ts > 5000) {
+      document.documentElement.classList.remove("atlas-handoff-pending");
+      return;
+    }
 
     active = true;
-    createOverlay();
+    createOverlay(payload);
     setLabel(labelForPath(window.location.pathname, "Model Ready"));
     document.body.classList.add("atlas-transition-entering");
     overlay.classList.add("is-active", "is-arriving");
     draw(1);
 
     window.setTimeout(function () {
+      document.documentElement.classList.remove("atlas-handoff-pending");
       document.body.classList.remove("atlas-transition-entering");
       document.body.classList.add("atlas-transition-in");
       overlay.classList.remove("is-active");

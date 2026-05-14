@@ -508,6 +508,12 @@ footer {
   border-top-color: rgba(126, 231, 255, .16) !important;
 }
 
+html.atlas-handoff-pending body > *:not(.atlas-neural-transition) {
+  opacity: 0;
+  transform: scale(1.012) translateY(8px);
+  filter: blur(8px) saturate(1.18);
+}
+
 body.atlas-transition-out > *:not(.atlas-neural-transition) {
   opacity: .06;
   transform: scale(.965) translateY(-16px);
