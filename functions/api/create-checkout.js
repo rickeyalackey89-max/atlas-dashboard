@@ -47,7 +47,8 @@ export async function onRequestPost(context) {
     parts.push('success_url=' + encodeURIComponent('https://atlassports.ai/dashboard/welcome?session_id={CHECKOUT_SESSION_ID}'));
     parts.push('cancel_url=' + encodeURIComponent('https://atlassports.ai/checkout/?checkout_cancelled=1'));
   } else {
-    parts.push('ui_mode=embedded');
+    // Stripe API 2026-04-22+ renamed the embedded Checkout UI mode to embedded_page.
+    parts.push('ui_mode=embedded_page');
     parts.push('return_url=' + encodeURIComponent('https://atlassports.ai/dashboard/welcome?session_id={CHECKOUT_SESSION_ID}'));
   }
 
