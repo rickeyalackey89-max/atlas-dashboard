@@ -8,6 +8,8 @@
   --atlas-steel: #eef6f9;
   --atlas-steel-mid: #b8c8d1;
   --atlas-steel-muted: #8fa2ad;
+  --atlas-amber: #ffb02e;
+  --atlas-amber-soft: rgba(255,176,46,.58);
   --atlas-glass: linear-gradient(135deg, rgba(238,246,249,.052), rgba(0,216,255,.02) 46%, rgba(132,157,173,.026));
   --atlas-panel: rgba(2, 7, 9, .8);
   --atlas-line: rgba(136, 223, 244, .22);
@@ -393,6 +395,61 @@ td,
   pointer-events: none;
   mix-blend-mode: screen;
   filter: invert(1) drop-shadow(0 0 34px rgba(0,216,255,.16));
+}
+
+.hero-wrap,
+.page-header,
+.portal-shell,
+.premium-cta,
+.checkout-wrap,
+.login {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-wrap::before,
+.page-header::before,
+.portal-shell::before,
+.premium-cta::before,
+.checkout-wrap::before,
+.login::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  height: 1px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 50%, rgba(255,240,202,.95) 0 2px, transparent 4px),
+    linear-gradient(90deg, transparent 0%, rgba(255,176,46,.12) 8%, var(--atlas-amber-soft) 18%, rgba(238,246,249,.38) 38%, rgba(0,216,255,.16) 64%, transparent 100%);
+  box-shadow: 0 0 12px rgba(255,176,46,.42), 0 0 28px rgba(255,176,46,.14);
+  opacity: .72;
+}
+
+.hero-wrap::before {
+  left: clamp(42px, 5vw, 82px);
+  top: clamp(112px, 18vh, 186px);
+  width: min(46vw, 580px);
+}
+
+.page-header::before {
+  left: 0;
+  top: clamp(70px, 38%, 112px);
+  width: min(40vw, 520px);
+}
+
+.portal-shell::before {
+  left: 22px;
+  top: 54px;
+  width: min(38vw, 470px);
+}
+
+.premium-cta::before,
+.checkout-wrap::before,
+.login::before {
+  left: 24px;
+  top: 18px;
+  width: min(34vw, 410px);
+  opacity: .54;
 }
 
 .page-header::after {
