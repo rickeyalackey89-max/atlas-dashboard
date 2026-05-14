@@ -213,7 +213,7 @@
         container.innerHTML =
           '<div class="social-checkout">' +
             '<div class="social-title">Secure Checkout Ready</div>' +
-            '<p class="social-copy">' + (reason || 'Social app browsers can block embedded payment screens. Use Stripe\\'s secure checkout page to finish your trial.') + '</p>' +
+            '<p class="social-copy">' + (reason || 'Social app browsers can block embedded payment screens. Use the secure Stripe checkout page to finish your trial.') + '</p>' +
             '<a class="checkout-btn" id="hostedCheckoutBtn" href="' + escAttr(url) + '">Continue to Secure Checkout</a>' +
             '<button type="button" class="copy-btn" id="copyCheckoutBtn">Copy Checkout Link</button>' +
             '<div class="copy-note" id="copyNote">Checkout link copied.</div>' +
@@ -242,11 +242,11 @@
   }
 
   function mountCheckout(promoAttribution) {
-    renderHostedCheckout(promoAttribution, 'Continue through Stripe\\'s secure checkout page to finish your 3-day trial.');
+    renderHostedCheckout(promoAttribution, 'Continue through the secure Stripe checkout page to finish your 3-day trial.');
     return;
 
     if (socialInAppBrowser) {
-      renderHostedCheckout(promoAttribution, 'Instagram and Facebook browsers can block embedded payment screens. Continue through Stripe\\'s secure checkout page to finish your 3-day trial.');
+      renderHostedCheckout(promoAttribution, 'Instagram and Facebook browsers can block embedded payment screens. Continue through the secure Stripe checkout page to finish your 3-day trial.');
       return;
     }
     var loadingEl = document.getElementById('loadingMsg');
@@ -258,14 +258,14 @@
     var container = document.getElementById('checkout-container');
     container.innerHTML = '<div class="loading-msg" id="loadingMsg">Loading checkout...</div>';
     if (!stripe) {
-      renderHostedCheckout(promoAttribution, 'The embedded checkout script could not load here. Continue through Stripe\\'s secure checkout page instead.');
+      renderHostedCheckout(promoAttribution, 'The embedded checkout script could not load here. Continue through the secure Stripe checkout page instead.');
       return;
     }
 
     var fallbackTriggered = false;
     var fallbackTimer = setTimeout(function(){
       fallbackTriggered = true;
-      renderHostedCheckout(promoAttribution, 'The embedded checkout is taking longer than expected. Use Stripe\\'s secure checkout page instead.');
+      renderHostedCheckout(promoAttribution, 'The embedded checkout is taking longer than expected. Use the secure Stripe checkout page instead.');
     }, 9000);
 
     createCheckoutSession('embedded', promoAttribution)
@@ -290,7 +290,7 @@
           })
           .catch(function(){
             clearTimeout(fallbackTimer);
-            renderHostedCheckout(promoAttribution, 'The embedded checkout could not load here. Continue through Stripe\\'s secure checkout page instead.');
+            renderHostedCheckout(promoAttribution, 'The embedded checkout could not load here. Continue through the secure Stripe checkout page instead.');
           });
       })
       .catch(function(e){
