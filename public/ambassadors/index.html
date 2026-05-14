@@ -205,6 +205,12 @@
         message.innerHTML = '<strong>Portal access not active.</strong><br/>' + serverMessage + ' For current access questions, email support@atlassports.ai.';
         return;
       }
+      if (result.body.role === 'admin') {
+        localStorage.setItem('atlas_admin_token', result.body.token);
+        message.innerHTML = '<strong>Admin verified.</strong><br/>Opening Ambassador admin hub.';
+        window.location.href = '/ambassadors/admin/';
+        return;
+      }
       token = result.body.token;
       localStorage.setItem('atlas_ambassador_token', token);
       renderPortal(result.body);
