@@ -38,9 +38,7 @@ export async function onRequestPost(context) {
     // 3-day free trial on the subscription
     'subscription_data[trial_period_days]=3',
     // require a payment method even during trial (so renewal is automatic)
-    'subscription_data[trial_settings][end_behavior][missing_payment_method]=cancel',
-    // allow user to type a promo code in Stripe's UI
-    'allow_promotion_codes=true'
+    'subscription_data[trial_settings][end_behavior][missing_payment_method]=cancel'
   ];
 
   if (checkoutMode === 'hosted') {
