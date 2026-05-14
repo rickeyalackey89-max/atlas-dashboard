@@ -36,6 +36,7 @@
   <a class="brand" href="/">Atlas <span>Sports</span> AI</a>
   <div style="display:flex;gap:8px;align-items:center;">
     <a class="btn" href="mailto:support@atlassports.ai?subject=AtlasSportsAI%20Ambassador%20Admin%20Support">Contact</a>
+    <button class="btn" id="adminLogout" type="button" style="display:none;">Sign Out</button>
     <a class="btn" href="/ambassadors/">Portal</a>
   </div>
 </nav>
@@ -68,10 +69,21 @@
   var token=localStorage.getItem('atlas_admin_token')||'';
   var loginForm=document.getElementById('loginForm');
   var loginMsg=document.getElementById('loginMsg');
+  var adminLogout=document.getElementById('adminLogout');
   function money(cents){return '$'+((Number(cents)||0)/100).toFixed(2)}
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function status(s){return '<span class="status '+esc(s)+'">'+esc(s||'')+'</span>'}
   function headers(){return {'Authorization':'Bearer '+token,'Content-Type':'application/json'}}
+  adminLogout.addEventListener('click', function(){
+    localStorage.removeItem('atlas_admin_token');
+    token='';
+    document.getElementById('hub').style.display='none';
+    loginForm.style.display='block';
+    adminLogout.style.display='none';
+    loginMsg.className='msg';
+    loginMsg.style.display='block';
+    loginMsg.textContent='Admin signed out.';
+  });
   loginForm.addEventListener('submit', function(e){
     e.preventDefault();
     loginMsg.style.display='block'; loginMsg.className='msg'; loginMsg.textContent='Checking...';
@@ -84,10 +96,20 @@
     fetch(API+'/api/admin/hub',{headers:headers()})
       .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
       .then(function(res){if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Admin load failed'); render(res.body);})
-      .catch(function(err){loginMsg.className='msg err'; loginMsg.style.display='block'; loginMsg.textContent=err.message||'Admin load failed';});
+      .catch(function(err){
+        localStorage.removeItem('atlas_admin_token');
+        token='';
+        document.getElementById('hub').style.display='none';
+        loginForm.style.display='block';
+        adminLogout.style.display='none';
+        loginMsg.className='msg err';
+        loginMsg.style.display='block';
+        loginMsg.textContent=err.message||'Admin load failed';
+      });
   }
   function render(data){
     loginForm.style.display='none'; document.getElementById('hub').style.display='block';
+    adminLogout.style.display='inline-flex';
     document.getElementById('ambCount').textContent=data.ambassadors.length;
     document.getElementById('appCount').textContent=data.applications.length;
     document.getElementById('validCount').textContent=data.signups.filter(function(s){return s.status==='valid'}).length;
@@ -121,7 +143,7 @@
       var connect = (a.connect_onboarding_status ? status(a.connect_onboarding_status) : status('not_started')) + (a.stripe_connect_account_id ? '<br><span style="color:#777">'+esc(a.stripe_connect_account_id)+'</span>' : '');
       var actions =
         '<button class="btn btn-cyan" data-promo="'+esc(a.id)+'">Attach Promo</button>' +
-        '<button class="btn" data-connect="'+esc(a.id)+'" style="margin-left:6px">Connect Link</button>';
+        '<button class="btn" data-connect="'+esc(a.id)+'" style="margin-left:6px">Payout Link</button>';
       return '<tr><td>'+esc(a.name)+'</td><td>'+esc(a.email)+'</td><td>'+esc(a.referral_code)+'</td><td>'+esc(a.sponsor_code||'')+'</td><td>'+status(a.status)+'</td><td>'+promo+'</td><td>'+connect+'</td><td>'+esc(a.created_at)+'</td><td>'+actions+'</td></tr>';
     }).join('');
     html+='</tbody></table>';
@@ -143,7 +165,15 @@
   function openConnectLink(id){
     fetch(API+'/api/stripe/connect/onboarding-link',{method:'POST',headers:headers(),body:JSON.stringify({ambassadorId:id})})
       .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
-      .then(function(res){if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Connect link failed'); window.open(res.body.onboardingUrl,'_blank','noopener'); loadHub();})
+      .then(function(res){
+        if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Connect link failed');
+        var url=res.body.onboardingUrl;
+        if(navigator.clipboard&&navigator.clipboard.writeText){
+          navigator.clipboard.writeText(url).catch(function(){});
+        }
+        window.prompt('Stripe payout onboarding link copied if browser permissions allow. Send this to the Ambassador/payee; do not complete it as admin.', url);
+        loadHub();
+      })
       .catch(function(err){alert(err.message||'Connect link failed')});
   }
   function approveApp(id){
