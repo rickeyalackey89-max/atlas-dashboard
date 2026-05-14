@@ -9,9 +9,17 @@
   var ctx;
   var nodes = [];
   var active = false;
-  var duration = 720;
-  var arrivalDuration = 680;
+  var duration = 980;
+  var arrivalDuration = 900;
+  var arrivalHold = 180;
+  var departureHold = 140;
   var storageKey = "atlas_transition_handoff";
+
+  function updateChromeShift() {
+    var y = window.scrollY || document.documentElement.scrollTop || 0;
+    var shift = ((y % 260) - 130) * 0.32;
+    document.documentElement.style.setProperty("--atlas-scroll-shine", shift.toFixed(1) + "px");
+  }
 
   function createOverlay() {
     if (overlay) return;
@@ -146,7 +154,9 @@
       if (progress < 1) {
         requestAnimationFrame(frame);
       } else {
-        window.location.href = url;
+        window.setTimeout(function () {
+          window.location.href = url;
+        }, departureHold);
       }
     }
     requestAnimationFrame(frame);
@@ -170,18 +180,18 @@
     overlay.classList.add("is-active", "is-arriving");
     draw(1);
 
-    requestAnimationFrame(function () {
+    window.setTimeout(function () {
       document.body.classList.remove("atlas-transition-entering");
       document.body.classList.add("atlas-transition-in");
       overlay.classList.remove("is-active");
-    });
+    }, arrivalHold);
 
     window.setTimeout(function () {
       document.body.classList.remove("atlas-transition-in");
       overlay.classList.remove("is-arriving");
       active = false;
       draw(0);
-    }, arrivalDuration);
+    }, arrivalDuration + arrivalHold);
   }
 
   function shouldHandle(event, link) {
@@ -212,6 +222,9 @@
     event.preventDefault();
     startTransition(link.href);
   });
+
+  window.addEventListener("scroll", updateChromeShift, { passive: true });
+  updateChromeShift();
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", playArrivalIfPending, { once: true });

@@ -14,6 +14,16 @@
   --atlas-line-soft: rgba(210,230,238,.12);
   --atlas-shadow: 0 20px 70px rgba(0,0,0,.38), inset 0 1px 0 rgba(236,248,252,.07);
   --atlas-focus: 0 0 0 1px rgba(0,212,255,.34), 0 0 28px rgba(0,212,255,.11);
+  --atlas-scroll-shine: 0px;
+  --atlas-chrome-display:
+    radial-gradient(ellipse at 14% 20%, rgba(255,255,255,.82) 0%, rgba(255,255,255,.24) 5%, transparent 15%),
+    radial-gradient(ellipse at 76% 70%, rgba(181,205,216,.62) 0%, rgba(181,205,216,.18) 8%, transparent 21%),
+    radial-gradient(ellipse at 42% 48%, rgba(0,216,255,.14) 0%, transparent 18%),
+    linear-gradient(118deg, #d7e4ea 0%, #f5fbfd 12%, #83939c 24%, #c7d6de 36%, #65747d 49%, #f0f7fa 60%, #9dabb4 74%, #e8f1f5 88%, #6b7880 100%);
+  --atlas-chrome-compact:
+    radial-gradient(ellipse at 18% 30%, rgba(255,255,255,.72) 0%, rgba(255,255,255,.18) 7%, transparent 18%),
+    radial-gradient(ellipse at 70% 66%, rgba(170,195,206,.5) 0%, transparent 20%),
+    linear-gradient(123deg, #cbd8df 0%, #f4fafc 16%, #7f8f98 31%, #dce7ec 48%, #6f7e86 63%, #eef6f9 81%, #91a0a8 100%);
 }
 
 html {
@@ -85,19 +95,17 @@ h1,
 .pitch-title,
 .portal-hero h2 {
   color: var(--atlas-steel) !important;
-  background: linear-gradient(
-    180deg,
-    #f5fbfd 0%,
-    #d7e3e9 28%,
-    #788891 51%,
-    #f1f8fb 57%,
-    #a8b8c0 72%,
-    #5f6d75 100%
-  );
+  background-image: var(--atlas-chrome-display);
+  background-size: 170% 150%, 150% 150%, 130% 120%, 240% 100%;
+  background-position:
+    calc(50% + var(--atlas-scroll-shine)) 48%,
+    calc(50% - var(--atlas-scroll-shine)) 52%,
+    50% 50%,
+    calc(50% + var(--atlas-scroll-shine)) 50%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 11px rgba(196,232,244,.1));
+  filter: drop-shadow(0 0 10px rgba(196,232,244,.11));
 }
 
 h2,
@@ -107,14 +115,12 @@ h3,
 .sfh-title,
 .premium-cta-title {
   color: var(--atlas-steel) !important;
-  background: linear-gradient(
-    180deg,
-    #f2f8fb 0%,
-    #d8e4ea 36%,
-    #82929b 54%,
-    #edf5f8 61%,
-    #9dabb3 100%
-  );
+  background-image: var(--atlas-chrome-compact);
+  background-size: 150% 140%, 130% 130%, 210% 100%;
+  background-position:
+    calc(48% + var(--atlas-scroll-shine)) 50%,
+    calc(52% - var(--atlas-scroll-shine)) 50%,
+    calc(50% + var(--atlas-scroll-shine)) 50%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -139,51 +145,15 @@ h3 span,
 .stat-value,
 .tile-val {
   color: var(--atlas-steel) !important;
-  background: linear-gradient(180deg, #edf5f8 0%, #b7c7cf 48%, #7d8d95 100%);
+  background-image: var(--atlas-chrome-compact);
+  background-size: 130% 130%, 130% 130%, 190% 100%;
+  background-position:
+    calc(50% + var(--atlas-scroll-shine)) 50%,
+    calc(50% - var(--atlas-scroll-shine)) 50%,
+    calc(50% + var(--atlas-scroll-shine)) 50%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.hero-title,
-.page-title,
-.pitch-title,
-.portal-hero h2,
-.premium-cta-title {
-  position: relative;
-}
-
-.page-title::after,
-.pitch-title::after,
-.portal-hero h2::after,
-.premium-cta-title::after {
-  content: "";
-  position: absolute;
-  left: 3%;
-  right: 3%;
-  top: 44%;
-  height: 1px;
-  pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(223,244,250,.75) 16%, rgba(0,216,255,.7) 50%, rgba(223,244,250,.72) 84%, transparent);
-  box-shadow: 0 0 12px rgba(0,216,255,.34), 0 0 24px rgba(238,246,249,.16);
-  opacity: .42;
-}
-
-.page-title::before,
-.pitch-title::before,
-.portal-hero h2::before,
-.premium-cta-title::before {
-  content: "";
-  position: absolute;
-  top: calc(44% - 3px);
-  left: 14%;
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  pointer-events: none;
-  background: rgba(255,255,255,.95);
-  box-shadow: 0 0 10px rgba(255,255,255,.85), 0 0 22px rgba(0,216,255,.7);
-  opacity: .46;
 }
 
 .eyebrow,
@@ -482,10 +452,10 @@ footer {
 }
 
 body.atlas-transition-out > *:not(.atlas-neural-transition) {
-  opacity: .18;
-  transform: scale(.986) translateY(-8px);
-  filter: blur(3px) saturate(1.18);
-  transition: opacity .32s ease, transform .32s ease, filter .32s ease !important;
+  opacity: .06;
+  transform: scale(.965) translateY(-16px);
+  filter: blur(8px) saturate(1.25);
+  transition: opacity .5s ease, transform .5s ease, filter .5s ease !important;
 }
 
 body.atlas-transition-entering > *:not(.atlas-neural-transition) {
@@ -511,7 +481,7 @@ body.atlas-transition-in > *:not(.atlas-neural-transition) {
     radial-gradient(circle at 50% 48%, rgba(0,216,255,.2), transparent 20rem),
     radial-gradient(circle at 62% 52%, rgba(210,230,238,.16), transparent 24rem),
     rgba(0, 4, 6, .94);
-  transition: opacity .18s ease;
+  transition: opacity .28s ease;
 }
 
 .atlas-neural-transition::before {
