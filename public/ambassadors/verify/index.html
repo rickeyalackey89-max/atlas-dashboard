@@ -58,7 +58,7 @@
       throw new Error((result.body.error && result.body.error.message) || 'Verification failed.');
     }
     message.className = 'msg ok';
-    message.textContent = result.body.message || 'Email verified. Atlas will review your Ambassador application.';
+    message.textContent = result.body.message || 'Email verified. Atlas will review your Ambassador onboarding.';
   }).catch(function(error){
     message.className = 'msg err';
     message.textContent = error.message || 'Verification failed. Contact support@atlassports.ai.';
