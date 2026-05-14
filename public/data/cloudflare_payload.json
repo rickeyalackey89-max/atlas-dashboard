@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-14T06:02:02.381414-05:00",
+  "generated_at": "2026-05-13T18:45:12.170484-05:00",
   "run_id": "20260513_184501",
   "system": [
     {
@@ -27,10 +27,69 @@
         }
       ],
       "hit_prob": 0.6220234048990486,
-      "ev_mult": 1.319886080817136,
-      "payout_mult": 3.0,
+      "ev_mult": 1.2440468097980972,
+      "payout_mult": 2.0,
       "avg_fragility": 0.0117349935237304,
-      "pp_quote_ok": false
+      "pp_quote_ok": true,
+      "pp_payout_quote": {
+        "source": "prizepicks_game_types",
+        "game_mode": "prizepools",
+        "amount_bet_cents": 2500,
+        "n_legs": 2,
+        "picks": [
+          {
+            "projection_id": "12040461",
+            "wager_type": "over"
+          },
+          {
+            "projection_id": "12074451",
+            "wager_type": "over"
+          }
+        ],
+        "raw": {
+          "data": [
+            {
+              "id": "2",
+              "type": "game_type",
+              "attributes": {
+                "id": 2,
+                "name": "Power Play",
+                "payouts": {
+                  "2": {
+                    "2": 2.0
+                  },
+                  "is_adjusted": true
+                },
+                "payouts_srp": {
+                  "power": [
+                    [
+                      1.1,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "is_cashout_eligible": true,
+                "is_max_payout_alert": false
+              }
+            }
+          ]
+        },
+        "power": {
+          "all_correct": 2.0,
+          "payouts": {
+            "2": {
+              "2": 2.0
+            },
+            "is_adjusted": true
+          },
+          "is_adjusted": true
+        }
+      },
+      "pp_power_payout_mult": 2.0,
+      "pp_flex_payout_mult": null,
+      "payout_mult_fallback": 3.0,
+      "ev": 1.2440468097980972
     },
     {
       "product": "System",
@@ -66,10 +125,144 @@
         }
       ],
       "hit_prob": 0.434061075489033,
-      "ev_mult": 1.9572266677989527,
-      "payout_mult": 6.0,
+      "ev_mult": 1.6277290330838738,
+      "payout_mult": 3.75,
       "avg_fragility": 0.025438226995465,
-      "pp_quote_ok": false
+      "pp_quote_ok": true,
+      "pp_payout_quote": {
+        "source": "prizepicks_game_types",
+        "game_mode": "prizepools",
+        "amount_bet_cents": 2500,
+        "n_legs": 3,
+        "picks": [
+          {
+            "projection_id": "12040316",
+            "wager_type": "over"
+          },
+          {
+            "projection_id": "12039679",
+            "wager_type": "over"
+          },
+          {
+            "projection_id": "12039531",
+            "wager_type": "over"
+          }
+        ],
+        "raw": {
+          "data": [
+            {
+              "id": "2",
+              "type": "game_type",
+              "attributes": {
+                "id": 2,
+                "name": "Power Play",
+                "payouts": {
+                  "3": {
+                    "3": 3.75
+                  },
+                  "is_adjusted": true
+                },
+                "payouts_srp": {
+                  "power": [
+                    [
+                      2.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.2,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  "flex": [
+                    [
+                      2.2,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.2,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "is_cashout_eligible": true,
+                "is_max_payout_alert": false
+              }
+            },
+            {
+              "id": "1",
+              "type": "game_type",
+              "attributes": {
+                "id": 1,
+                "name": "Flex Play",
+                "payouts": {
+                  "3": {
+                    "3": 3.0,
+                    "2": 0.5
+                  },
+                  "is_adjusted": true
+                },
+                "payouts_srp": {
+                  "power": [
+                    [
+                      2.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.2,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  "flex": [
+                    [
+                      2.2,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.2,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "is_cashout_eligible": true,
+                "is_max_payout_alert": false
+              }
+            }
+          ]
+        },
+        "power": {
+          "all_correct": 3.75,
+          "payouts": {
+            "3": {
+              "3": 3.75
+            },
+            "is_adjusted": true
+          },
+          "is_adjusted": true
+        },
+        "flex": {
+          "all_correct": 3.0,
+          "payouts": {
+            "3": {
+              "3": 3.0,
+              "2": 0.5
+            },
+            "is_adjusted": true
+          },
+          "is_adjusted": true
+        }
+      },
+      "pp_power_payout_mult": 3.75,
+      "pp_flex_payout_mult": 3.0,
+      "payout_mult_fallback": 6.0,
+      "ev": 1.6277290330838738
     }
   ],
   "system_winprob": [],
@@ -108,10 +301,144 @@
         }
       ],
       "hit_prob": 0.4984569880000651,
-      "ev_mult": 1.4212138183417102,
-      "payout_mult": 6.0,
+      "ev_mult": 1.2461424700001626,
+      "payout_mult": 2.5,
       "avg_fragility": 0.0255104734945655,
-      "pp_quote_ok": false
+      "pp_quote_ok": true,
+      "pp_payout_quote": {
+        "source": "prizepicks_game_types",
+        "game_mode": "prizepools",
+        "amount_bet_cents": 2500,
+        "n_legs": 3,
+        "picks": [
+          {
+            "projection_id": "12040257",
+            "wager_type": "over"
+          },
+          {
+            "projection_id": "12055819",
+            "wager_type": "over"
+          },
+          {
+            "projection_id": "12039671",
+            "wager_type": "over"
+          }
+        ],
+        "raw": {
+          "data": [
+            {
+              "id": "2",
+              "type": "game_type",
+              "attributes": {
+                "id": 2,
+                "name": "Power Play",
+                "payouts": {
+                  "3": {
+                    "3": 2.5
+                  },
+                  "is_adjusted": true
+                },
+                "payouts_srp": {
+                  "power": [
+                    [
+                      1.4,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.1,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  "flex": [
+                    [
+                      1.5,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.1,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "is_cashout_eligible": true,
+                "is_max_payout_alert": false
+              }
+            },
+            {
+              "id": "1",
+              "type": "game_type",
+              "attributes": {
+                "id": 1,
+                "name": "Flex Play",
+                "payouts": {
+                  "3": {
+                    "3": 2.0,
+                    "2": 0.5
+                  },
+                  "is_adjusted": true
+                },
+                "payouts_srp": {
+                  "power": [
+                    [
+                      1.4,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.1,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  "flex": [
+                    [
+                      1.5,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.1,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "is_cashout_eligible": true,
+                "is_max_payout_alert": false
+              }
+            }
+          ]
+        },
+        "power": {
+          "all_correct": 2.5,
+          "payouts": {
+            "3": {
+              "3": 2.5
+            },
+            "is_adjusted": true
+          },
+          "is_adjusted": true
+        },
+        "flex": {
+          "all_correct": 2.0,
+          "payouts": {
+            "3": {
+              "3": 2.0,
+              "2": 0.5
+            },
+            "is_adjusted": true
+          },
+          "is_adjusted": true
+        }
+      },
+      "pp_power_payout_mult": 2.5,
+      "pp_flex_payout_mult": 2.0,
+      "payout_mult_fallback": 6.0,
+      "ev": 1.2461424700001626
     }
   ],
   "windfall_winprob": [],
@@ -122,8 +449,8 @@
       "label": "2-leg",
       "n_legs": 2,
       "hit_prob": 0.6985667790928182,
-      "payout_mult": 1.8,
-      "ev": 1.2574202023670726,
+      "payout_mult": 1.3,
+      "ev": 0.9081368128206636,
       "high_confidence": false,
       "legs": [
         {
@@ -139,7 +466,7 @@
           "p_cal": 0.8605037723667995,
           "is_questionable": 0,
           "q_out_frac": 0.0,
-          "l10_hr": 0.8,
+          "l10_hr": 0.9,
           "l10_n": 10
         },
         {
@@ -159,10 +486,77 @@
           "l10_n": 10
         }
       ],
-      "pp_quote_ok": false
+      "pp_quote_ok": true,
+      "pp_payout_quote": {
+        "source": "prizepicks_game_types",
+        "game_mode": "prizepools",
+        "amount_bet_cents": 2500,
+        "n_legs": 2,
+        "picks": [
+          {
+            "projection_id": "12039672",
+            "wager_type": "over"
+          },
+          {
+            "projection_id": "12039521",
+            "wager_type": "over"
+          }
+        ],
+        "raw": {
+          "data": [
+            {
+              "id": "2",
+              "type": "game_type",
+              "attributes": {
+                "id": 2,
+                "name": "Power Play",
+                "payouts": {
+                  "2": {
+                    "2": 1.3
+                  },
+                  "is_adjusted": true
+                },
+                "payouts_srp": {
+                  "power": [
+                    [
+                      1.2,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                },
+                "is_cashout_eligible": true,
+                "is_max_payout_alert": false
+              }
+            }
+          ]
+        },
+        "power": {
+          "all_correct": 1.3,
+          "payouts": {
+            "2": {
+              "2": 1.3
+            },
+            "is_adjusted": true
+          },
+          "is_adjusted": true
+        }
+      },
+      "pp_power_payout_mult": 1.3,
+      "pp_flex_payout_mult": null,
+      "payout_mult_fallback": 1.8,
+      "ev_mult": 0.9081368128206636
     }
   ],
   "top_hit_list": [
+    {
+      "player": "Tobias Harris",
+      "stat": "PR",
+      "dir": "OVER",
+      "line": 19.5,
+      "l10_hr": 0.9,
+      "l10_n": 10
+    },
     {
       "player": "Donovan Mitchell",
       "stat": "PR",
@@ -170,110 +564,102 @@
       "line": 24.5,
       "l10_hr": 0.9,
       "l10_n": 10
-    },
-    {
-      "player": "Tobias Harris",
-      "stat": "PR",
-      "dir": "OVER",
-      "line": 19.5,
-      "l10_hr": 0.8,
-      "l10_n": 10
     }
   ],
   "performance": {
     "overall": {
       "last_7d": {
-        "n": 8867,
-        "hits": 3814,
-        "hit_rate": 0.4301,
-        "brier": 0.2324
+        "n": 9810,
+        "hits": 4158,
+        "hit_rate": 0.4239,
+        "brier": 0.2278
       },
       "last_30d": {
-        "n": 21296,
-        "hits": 9165,
-        "hit_rate": 0.4304,
-        "brier": 0.2356
+        "n": 20416,
+        "hits": 8727,
+        "hit_rate": 0.4275,
+        "brier": 0.2351
       }
     },
     "by_tier": {
       "GOBLIN": {
         "last_7d": {
-          "n": 2714,
-          "hits": 1724,
-          "hit_rate": 0.6352,
-          "brier": 0.2466
+          "n": 2988,
+          "hits": 1896,
+          "hit_rate": 0.6345,
+          "brier": 0.2435
         },
         "last_30d": {
-          "n": 6408,
-          "hits": 4064,
-          "hit_rate": 0.6342,
-          "brier": 0.251
+          "n": 6136,
+          "hits": 3869,
+          "hit_rate": 0.6305,
+          "brier": 0.2522
         }
       },
       "STANDARD": {
         "last_7d": {
-          "n": 2524,
-          "hits": 1236,
-          "hit_rate": 0.4897,
-          "brier": 0.2693
+          "n": 2809,
+          "hits": 1372,
+          "hit_rate": 0.4884,
+          "brier": 0.2652
         },
         "last_30d": {
-          "n": 6307,
-          "hits": 3069,
-          "hit_rate": 0.4866,
-          "brier": 0.2711
+          "n": 6045,
+          "hits": 2941,
+          "hit_rate": 0.4865,
+          "brier": 0.2706
         }
       },
       "DEMON": {
         "last_7d": {
-          "n": 3629,
-          "hits": 854,
-          "hit_rate": 0.2353,
-          "brier": 0.196
+          "n": 4013,
+          "hits": 890,
+          "hit_rate": 0.2218,
+          "brier": 0.1899
         },
         "last_30d": {
-          "n": 8581,
-          "hits": 2032,
-          "hit_rate": 0.2368,
-          "brier": 0.1979
+          "n": 8235,
+          "hits": 1917,
+          "hit_rate": 0.2328,
+          "brier": 0.1964
         }
       }
     },
     "meta": {
       "source": "data/telemetry/live_runs/**/eval_legs.csv",
-      "updated_at": "2026-05-14T11:02:02.360514+00:00",
-      "latest_game_date": "2026-05-13",
+      "updated_at": "2026-05-13T18:09:07.873260+00:00",
+      "latest_game_date": "2026-05-12",
       "window_7d": {
-        "start": "2026-05-07",
-        "end": "2026-05-13"
+        "start": "2026-05-06",
+        "end": "2026-05-12"
       },
       "window_30d": {
-        "start": "2026-04-14",
-        "end": "2026-05-13"
+        "start": "2026-04-13",
+        "end": "2026-05-12"
       },
-      "eval_files": 131,
-      "unique_scored_legs": 21296
+      "eval_files": 119,
+      "unique_scored_legs": 20416
     },
     "yesterday_slips": {
-      "date": "2026-05-13",
-      "run_id": "20260513_173239",
-      "wins": 1,
-      "total": 3,
-      "pct": 0.3333,
+      "date": "2026-05-12",
+      "run_id": "20260512_173258",
+      "wins": 0,
+      "total": 5,
+      "pct": 0.0,
       "market": {
         "wins": 0,
-        "total": 1,
+        "total": 3,
         "pct": 0.0
       },
       "system": {
         "wins": 0,
-        "total": 0,
-        "pct": 0
+        "total": 1,
+        "pct": 0.0
       },
       "windfall": {
-        "wins": 1,
-        "total": 2,
-        "pct": 0.5
+        "wins": 0,
+        "total": 1,
+        "pct": 0.0
       }
     }
   },
