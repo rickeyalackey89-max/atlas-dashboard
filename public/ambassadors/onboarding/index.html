@@ -3,214 +3,144 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="AtlasSportsAI approved Ambassador onboarding package, payout rules, conduct requirements, media guide, and launch opportunities."/>
   <title>Onboarding — AtlasSportsAI Ambassador</title>
   <link rel="icon" type="image/png" href="/atlas_logo.png"/>
   <style>
-    :root{--bg:#000;--s1:#080808;--b:rgba(255,255,255,.08);--b2:rgba(255,255,255,.16);--gold:#f5a623;--cyan:#00d4ff;--green:#00e676;--red:#ff5252;--t2:#888;}
+    :root{--bg:#000;--s1:#080808;--s2:#111;--b:rgba(255,255,255,.08);--b2:rgba(255,255,255,.16);--gold:#f5a623;--cyan:#00d4ff;--green:#00e676;--red:#ff5252;--t2:#888;--t3:#444}
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;background:#000;color:#fff;line-height:1.6}
     body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,212,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.022) 1px,transparent 1px);background-size:80px 80px}
-    nav{position:sticky;top:0;z-index:5;height:58px;padding:0 24px;background:rgba(0,0,0,.92);border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+    a{color:inherit;text-decoration:none}
+    nav{position:sticky;top:0;z-index:5;min-height:58px;padding:0 24px;background:rgba(0,0,0,.92);border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center;gap:12px}
     .brand{display:flex;gap:10px;align-items:center;color:#fff;text-decoration:none;font-weight:950;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
     .brand img{width:28px;filter:invert(1) drop-shadow(0 0 10px rgba(245,166,35,.35))}
     .brand span span{color:var(--gold)}
+    .nav-actions{display:flex;gap:8px;flex-wrap:wrap}
     .btn{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:9px 16px;border:1px solid var(--b2);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff;text-decoration:none;background:transparent;cursor:pointer}
-    .btn-gold{background:var(--gold);border-color:var(--gold);color:#000}
-    main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:64px 22px 90px}
+    .btn:hover{border-color:#fff;background:rgba(255,255,255,.04)}
+    .btn-gold{background:var(--gold);border-color:var(--gold);color:#000}.btn-gold:hover{background:#ffc04d;color:#000}
+    .btn-cyan{border-color:rgba(0,212,255,.55);color:var(--cyan)}
+    main{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:68px 24px 90px}
     .eyebrow{font-size:10px;color:var(--cyan);font-weight:900;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px}
-    h1{font-size:clamp(34px,7vw,68px);line-height:.94;text-transform:uppercase;letter-spacing:-.045em}
+    h1{max-width:900px;font-size:clamp(38px,7vw,78px);line-height:.92;text-transform:uppercase;letter-spacing:-.045em}
     h1 span{color:var(--gold)}
-    .lead{margin-top:18px;color:var(--t2);font-size:15px;line-height:1.8}
-    form{margin-top:32px;border:1px solid var(--b);background:var(--s1);padding:28px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    label{display:block;margin:14px 0 7px;color:var(--t2);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
-    input,textarea{width:100%;background:#050505;border:1px solid var(--b2);color:#fff;padding:12px;font:inherit;outline:none}
-    input{height:44px}
-    textarea{min-height:104px;resize:vertical}
-    input:focus,textarea:focus{border-color:var(--gold)}
-    .hint{font-size:11px;color:#666;margin-top:6px}
-    .referral-toggle{margin-top:18px;border:1px solid var(--b);background:#050505;padding:14px}
-    .referral-question{color:#fff;font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
-    .choice-row{display:flex;gap:10px;flex-wrap:wrap}
-    .choice{min-width:92px;border:1px solid var(--b2);background:#000;color:#fff;padding:10px 14px;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
-    .choice.active{border-color:var(--cyan);background:rgba(0,212,255,.12);color:var(--cyan)}
-    .referral-field{display:none}
-    .referral-field.show{display:block}
-    .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
-    .info-card{border:1px solid var(--b);background:rgba(255,255,255,.018);padding:18px}
-    .info-card b{display:block;color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
-    .info-card p{color:var(--t2);font-size:13px;line-height:1.7}
-    .bonus{margin-top:20px;border:1px solid rgba(245,166,35,.28);background:rgba(245,166,35,.045);padding:18px}
-    .bonus h2{font-size:14px;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
-    .bonus ul{padding-left:18px;color:var(--t2);font-size:13px;line-height:1.8}
-    .msg{display:none;margin-top:18px;padding:14px;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.055);color:var(--t2);font-size:13px}
-    .msg.ok{display:block;border-color:rgba(0,230,118,.3);background:rgba(0,230,118,.055)}
-    .msg.err{display:block;border-color:rgba(255,82,82,.35);background:rgba(255,82,82,.055)}
-    footer{margin-top:36px;color:#444;font-size:11px;line-height:1.8}
-    @media(max-width:680px){.grid,.info-grid{grid-template-columns:1fr}form{padding:22px}nav{padding:0 16px}.brand span{display:none}}
+    .lead{max-width:780px;margin-top:20px;color:var(--t2);font-size:16px;line-height:1.85}
+    .notice{margin-top:28px;border:1px solid rgba(245,166,35,.3);background:rgba(245,166,35,.055);padding:20px;color:#cfcfcf;font-size:14px;line-height:1.8}
+    .notice b{color:var(--gold)}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+    .section{margin-top:46px}
+    .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px}
+    h2{font-size:24px;text-transform:uppercase;letter-spacing:-.02em}
+    .sub{color:var(--t2);font-size:13px;line-height:1.7;max-width:620px}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--b)}
+    .step{padding:22px;border-right:1px solid var(--b);background:var(--s1)}
+    .step:last-child{border-right:0}
+    .step b{display:block;color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+    .step p{color:var(--t2);font-size:13px;line-height:1.75}
+    .docs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .doc{min-height:220px;border:1px solid var(--b);background:var(--s1);padding:22px;display:flex;flex-direction:column;justify-content:space-between}
+    .doc h3{font-size:15px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px}
+    .doc p{color:var(--t2);font-size:13px;line-height:1.75}
+    .doc-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .table{border:1px solid var(--b);background:var(--s1);overflow:auto}
+    table{width:100%;border-collapse:collapse;min-width:760px}
+    th,td{padding:14px;border-bottom:1px solid var(--b);text-align:left;vertical-align:top;font-size:13px}
+    th{font-size:9px;color:var(--t2);letter-spacing:.14em;text-transform:uppercase}
+    td strong{color:#fff}td span{color:var(--t2)}
+    footer{margin-top:50px;border-top:1px solid var(--b);padding-top:24px;color:var(--t3);font-size:11px;line-height:1.8}
+    @media(max-width:920px){.steps,.docs{grid-template-columns:1fr 1fr}.step:nth-child(2n){border-right:0}.step{border-bottom:1px solid var(--b)}}
+    @media(max-width:620px){nav{padding:0 16px}.brand span{display:none}main{padding:48px 18px 70px}.steps,.docs{grid-template-columns:1fr}.step{border-right:0}.section-head{display:block}.sub{margin-top:8px}}
   </style>
 </head>
 <body>
 <nav>
   <a class="brand" href="/"><img src="/atlas_logo_transparent.png" alt="Atlas"/><span>Atlas <span>Sports</span> AI</span></a>
-  <a class="btn" href="/ambassadors/">Portal</a>
+  <div class="nav-actions">
+    <a class="btn" href="/join/#ambassador">Apply</a>
+    <a class="btn" href="/ambassadors/">Portal</a>
+  </div>
 </nav>
+
 <main>
-  <div class="eyebrow">Ambassador Onboarding</div>
-  <h1>Complete Your <span>Ambassador</span> Onboarding</h1>
+  <div class="eyebrow">Approved Ambassador Onboarding</div>
+  <h1>Atlas Ambassador <span>Onboarding Package</span></h1>
   <p class="lead">
-    Use this page when you were referred, answered an Atlas ad, or are ready to move beyond the quick application.
-    Atlas reviews onboarding before promo codes, portal access, payout setup, and tax/direct-deposit steps are activated.
+    This page is for approved or invited AtlasSportsAI Ambassadors. If you are not approved yet, use the quick application on the Join page first.
+    Onboarding is where approved Ambassadors review payout rules, conduct requirements, media permissions, launch opportunities, and secure payout/tax setup.
   </p>
-
-  <div class="info-grid">
-    <div class="info-card">
-      <b>Step 1</b>
-      <p>Submit your identity, contact info, preferred Ambassador code, login password, sponsor code if referred, and promotion notes.</p>
-    </div>
-    <div class="info-card">
-      <b>Step 2</b>
-      <p>Atlas reviews the onboarding request, confirms the code, and activates the Ambassador portal if approved.</p>
-    </div>
-    <div class="info-card">
-      <b>Step 3</b>
-      <p>Tax forms and direct-deposit setup are handled through secure payout onboarding, not through public website fields.</p>
-    </div>
+  <div class="notice">
+    <b>Security note:</b> Atlas does not collect bank account information, tax IDs, or 1099 details through this public page.
+    Approved Ambassadors complete payout and tax onboarding through the secure payout flow provided after approval.
+  </div>
+  <div class="actions">
+    <a class="btn btn-gold" href="/ambassadors/">Open Portal</a>
+    <a class="btn btn-cyan" href="/join/#ambassador">Need To Apply?</a>
+    <a class="btn" href="mailto:support@atlassports.ai?subject=AtlasSportsAI%20Ambassador%20Onboarding">Contact Support</a>
   </div>
 
-  <div class="bonus">
-    <h2>Program Access And Bonuses</h2>
-    <ul>
-      <li>Approved Ambassadors receive a promo code, portal login, and site access instructions.</li>
-      <li>Site access starts in 7-day windows. Every 2 valid paid customer signups renews access for another 7 days.</li>
-      <li>The top performer each month receives a $500 bonus.</li>
-      <li>A public leaderboard begins after 20 approved Ambassadors have joined.</li>
-      <li>The first Ambassador to 1,000 valid signups receives an additional $2,500 bonus.</li>
-    </ul>
-  </div>
-
-  <form id="applyForm">
-    <div class="grid">
-      <div>
-        <label for="name">Full Name</label>
-        <input id="name" name="name" autocomplete="name" required/>
-      </div>
-      <div>
-        <label for="phone">Phone Number</label>
-        <input id="phone" name="phone" autocomplete="tel" required/>
-      </div>
-      <div>
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" autocomplete="email" required/>
-      </div>
-      <div>
-        <label for="preferredCode">Preferred Code</label>
-        <input id="preferredCode" name="preferredCode" maxlength="12" autocomplete="off" spellcheck="false" required/>
-        <div class="hint">4-12 letters/numbers. Short codes are best. Vulgar or blocked codes are rejected.</div>
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" autocomplete="new-password" required/>
-      </div>
-      <div>
-        <label for="confirmPassword">Confirm Password</label>
-        <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required/>
-      </div>
+  <section class="section">
+    <div class="section-head">
+      <h2>Onboarding Flow</h2>
+      <p class="sub">Approved Ambassadors should complete these steps before promotion and payouts begin.</p>
     </div>
-
-    <div class="referral-toggle">
-      <div class="referral-question">Were you referred by someone to join?</div>
-      <div class="choice-row" role="group" aria-label="Referral source">
-        <button class="choice active" type="button" id="referredNo" aria-pressed="true">No</button>
-        <button class="choice" type="button" id="referredYes" aria-pressed="false">Yes</button>
-      </div>
-      <div class="referral-field" id="referralField">
-        <label for="sponsorCode">Ambassador Referral Code</label>
-        <input id="sponsorCode" name="sponsorCode" maxlength="12" autocomplete="off" spellcheck="false" placeholder="Required if referred"/>
-        <div class="hint">Enter the Ambassador code from the person who invited you so they receive sponsor credit if you are approved.</div>
-      </div>
+    <div class="steps">
+      <div class="step"><b>1. Approval</b><p>Atlas confirms your Ambassador status, code, sponsor relationship if any, and portal login access.</p></div>
+      <div class="step"><b>2. Documents</b><p>Review the payout schedule, conduct requirements, media guide, and opportunity overview below.</p></div>
+      <div class="step"><b>3. Secure Payout</b><p>Complete direct-deposit and tax onboarding only through the secure payout flow after approval.</p></div>
+      <div class="step"><b>4. Launch</b><p>Use your code, follow the media rules, track valid signups, and maintain site access through sales activity.</p></div>
     </div>
+  </section>
 
-    <label for="platforms">Platforms</label>
-    <input id="platforms" name="platforms" placeholder="TikTok, YouTube, Discord, Instagram, X, etc."/>
+  <section class="section">
+    <div class="section-head">
+      <h2>Required Docs</h2>
+      <p class="sub">These documents are the operating handbook for the launch program. Each document can be read in the browser or downloaded as a PDF.</p>
+    </div>
+    <div class="docs">
+      <article class="doc">
+        <div><h3>Payout Structure</h3><p>Direct signup payouts, sponsor payouts, access renewal rules, bonus schedule, eligibility, and validation terms.</p></div>
+        <div class="doc-links"><a class="btn btn-gold" href="/ambassadors/docs/payout-structure/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_payout_structure.pdf">PDF</a></div>
+      </article>
+      <article class="doc">
+        <div><h3>Conduct Requirements</h3><p>Disclosure rules, prohibited claims, responsible promotion, brand conduct, compliance, and removal triggers.</p></div>
+        <div class="doc-links"><a class="btn btn-gold" href="/ambassadors/docs/conduct-requirements/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_conduct_requirements.pdf">PDF</a></div>
+      </article>
+      <article class="doc">
+        <div><h3>Media Guide</h3><p>Allowed platforms, creative tool permissions, approved talking points, content examples, and required disclosures.</p></div>
+        <div class="doc-links"><a class="btn btn-gold" href="/ambassadors/docs/media-guide/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_media_guide.pdf">PDF</a></div>
+      </article>
+      <article class="doc">
+        <div><h3>Opportunities</h3><p>Creator tracks, leaderboard timing, monthly top performer bonus, app roadmap, AtlasGPT, and growth paths.</p></div>
+        <div class="doc-links"><a class="btn btn-gold" href="/ambassadors/docs/opportunities/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_opportunities.pdf">PDF</a></div>
+      </article>
+    </div>
+  </section>
 
-    <label for="audienceNotes">Audience / Promotion Notes</label>
-    <textarea id="audienceNotes" name="audienceNotes" placeholder="Audience size, sports niche, communities, content style, or how you plan to promote Atlas."></textarea>
-
-    <button class="btn btn-gold" type="submit" style="width:100%;margin-top:20px">Submit Onboarding</button>
-    <div class="msg" id="message"></div>
-  </form>
+  <section class="section">
+    <div class="section-head">
+      <h2>Launch Payout Snapshot</h2>
+      <p class="sub">Final payout eligibility requires approved status, valid paid customer signups, completed secure payout setup, and no refund or chargeback disqualification.</p>
+    </div>
+    <div class="table">
+      <table>
+        <thead><tr><th>Category</th><th>Rule</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Monthly Customer</strong></td><td>$5 one-time payout per valid paid monthly customer.</td><td><span>Customer must convert to paid status and remain valid after review.</span></td></tr>
+          <tr><td><strong>Annual Customer</strong></td><td>$25 one-time payout per valid paid annual customer.</td><td><span>Customer must use assigned code or tracked attribution path.</span></td></tr>
+          <tr><td><strong>Sponsor Payout</strong></td><td>$5 or $25 when a personally sponsored Ambassador generates a valid paid customer sale.</td><td><span>No payout is earned for recruiting alone.</span></td></tr>
+          <tr><td><strong>Site Access</strong></td><td>Approved Ambassador access starts in 7-day windows and renews after 2 valid paid customer signups.</td><td><span>Access can lapse if the renewal threshold is not met.</span></td></tr>
+          <tr><td><strong>Monthly Bonus</strong></td><td>$500 to the top performer each month.</td><td><span>Leaderboard opens publicly after 20 approved Ambassadors join.</span></td></tr>
+          <tr><td><strong>First To 1,000</strong></td><td>Additional $2,500 bonus for the first Ambassador to reach 1,000 valid signups.</td><td><span>Subject to fraud, refund, and chargeback review.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <footer>
-    Ambassador participation is performance-based and does not create guaranteed income. Payouts require approval, valid paid customer signups, completed onboarding, and compliance with program rules.
+    AtlasSports.ai is a statistical analysis and informational platform. Ambassador participation is performance-based and does not create guaranteed income.
+    Payouts require valid paid customer signups, approval, completed secure payout onboarding, and compliance with program rules.
   </footer>
 </main>
-<script>
-(function(){
-  var API = 'https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
-  var form = document.getElementById('applyForm');
-  var message = document.getElementById('message');
-  var referred = false;
-  var sponsorInput = document.getElementById('sponsorCode');
-  var referralField = document.getElementById('referralField');
-  var referredYes = document.getElementById('referredYes');
-  var referredNo = document.getElementById('referredNo');
-  function cleanCode(value){ return String(value || '').trim().toUpperCase().replace(/[^A-Z0-9_-]/g,'').slice(0,12); }
-  function setReferred(value){
-    referred = value;
-    referredYes.classList.toggle('active', referred);
-    referredNo.classList.toggle('active', !referred);
-    referredYes.setAttribute('aria-pressed', referred ? 'true' : 'false');
-    referredNo.setAttribute('aria-pressed', referred ? 'false' : 'true');
-    referralField.classList.toggle('show', referred);
-    sponsorInput.required = referred;
-    if (!referred) sponsorInput.value = '';
-  }
-  referredYes.addEventListener('click', function(){ setReferred(true); });
-  referredNo.addEventListener('click', function(){ setReferred(false); });
-  setReferred(false);
-  ['preferredCode','sponsorCode'].forEach(function(id){
-    document.getElementById(id).addEventListener('input', function(){ this.value = cleanCode(this.value); });
-  });
-  form.addEventListener('submit', function(event){
-    event.preventDefault();
-    message.className = 'msg';
-    message.style.display = 'block';
-    message.textContent = 'Submitting onboarding...';
-    if (referred && !sponsorInput.value.trim()) {
-      message.className = 'msg err';
-      message.textContent = 'Enter the Ambassador referral code from the person who referred you.';
-      sponsorInput.focus();
-      return;
-    }
-    var payload = {
-      name: document.getElementById('name').value,
-      phone: document.getElementById('phone').value,
-      email: document.getElementById('email').value,
-      preferredCode: document.getElementById('preferredCode').value,
-      sponsorCode: referred ? sponsorInput.value : '',
-      password: document.getElementById('password').value,
-      confirmPassword: document.getElementById('confirmPassword').value,
-      platforms: document.getElementById('platforms').value,
-      audienceNotes: document.getElementById('audienceNotes').value
-    };
-    fetch(API + '/api/applications', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(payload)
-    }).then(function(resp){
-      return resp.json().then(function(body){ return {status:resp.status, body:body}; });
-    }).then(function(result){
-      if (!result.body.ok) throw new Error(result.body.error && result.body.error.message ? result.body.error.message : 'Onboarding failed.');
-      message.className = 'msg ok';
-      message.textContent = 'Onboarding received. Check your email for confirmation. Atlas will review and follow up after approval.';
-      form.reset();
-    }).catch(function(error){
-      message.className = 'msg err';
-      message.textContent = error.message || 'Onboarding failed. Email support@atlassports.ai if this continues.';
-    });
-  });
-})();
-</script>
 </body>
 </html>
