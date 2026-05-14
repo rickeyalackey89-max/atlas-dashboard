@@ -1,0 +1,375 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap");
+
+:root {
+  --atlas-ui: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --atlas-display: "Rajdhani", "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --atlas-glass: linear-gradient(135deg, rgba(255,255,255,.04), rgba(0,216,255,.022) 46%, rgba(245,166,35,.014));
+  --atlas-panel: rgba(3, 8, 10, .76);
+  --atlas-line: rgba(0, 216, 255, .2);
+  --atlas-line-soft: rgba(255,255,255,.09);
+  --atlas-shadow: 0 20px 70px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.045);
+  --atlas-focus: 0 0 0 1px rgba(0,212,255,.34), 0 0 28px rgba(0,212,255,.11);
+}
+
+html {
+  background: #000;
+}
+
+body {
+  font-family: var(--atlas-ui) !important;
+  background:
+    radial-gradient(circle at 76% 14%, rgba(0,216,255,.105), transparent 32rem),
+    radial-gradient(circle at 18% 86%, rgba(245,166,35,.055), transparent 26rem),
+    linear-gradient(180deg, #000 0%, #020607 42%, #000 100%) !important;
+}
+
+body::before {
+  opacity: .8;
+  background-size: 96px 96px !important;
+  background-image:
+    linear-gradient(rgba(0,216,255,.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,216,255,.026) 1px, transparent 1px) !important;
+}
+
+body > * {
+  position: relative;
+}
+
+h1,
+h2,
+h3,
+.page-title,
+.section-title,
+.pitch-title,
+.panel-title,
+.portal-hero h2,
+.sfh-title,
+.hero-title,
+.nav-wordmark,
+.brand,
+.hub-team-name,
+.card-label,
+.section-title,
+.module b,
+.content-card b,
+.profile-block b,
+.share-link-card b,
+.doc h3,
+.tile-val,
+.stat-value {
+  font-family: var(--atlas-display) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+}
+
+h1,
+.hero-title,
+.page-title {
+  line-height: 1 !important;
+}
+
+.eyebrow,
+.page-eyebrow,
+.section-label,
+.tile-lbl,
+.stat-label,
+.panel-sub,
+label,
+th,
+.badge,
+.status,
+.sport-tab,
+.sub-tab,
+.portal-tab,
+.btn,
+.btn-outline,
+.btn-gold,
+.btn-cyan,
+.checkout-header,
+.promo-label,
+.annual-badge,
+.live-pill,
+.tier-badge,
+.prob-mini-btn,
+.prob-static-pill,
+.ev-control-label,
+.hub-stat-head-cell,
+.hub-avg-item span,
+.module b,
+.section-title {
+  letter-spacing: 0 !important;
+}
+
+nav {
+  background: rgba(0, 2, 4, .84) !important;
+  border-bottom-color: rgba(126, 231, 255, .16) !important;
+  box-shadow: 0 8px 34px rgba(0,0,0,.28);
+}
+
+.nav-logo,
+.brand img {
+  filter: invert(1) drop-shadow(0 0 14px rgba(0,212,255,.24)) drop-shadow(0 0 9px rgba(245,166,35,.22)) !important;
+}
+
+.btn,
+.btn-outline,
+.btn-gold,
+.btn-cyan,
+.btn-discord,
+.checkout-btn,
+.copy-btn,
+.promo-btn,
+.annual-btn,
+.show-password,
+.portal-tab,
+.sport-tab,
+.sub-tab,
+.prob-mini-btn,
+.prob-line-pill {
+  border-radius: 999px !important;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease, opacity .16s ease !important;
+}
+
+.btn:hover,
+.checkout-btn:hover,
+.copy-btn:hover,
+.promo-btn:hover,
+.annual-btn:hover,
+.portal-tab:hover,
+.sport-tab:hover,
+.sub-tab:hover,
+.prob-mini-btn:hover,
+.prob-line-pill:hover {
+  transform: translateY(-1px);
+}
+
+.btn-gold,
+.checkout-btn,
+.annual-btn,
+.portal-tab.active,
+.prob-mini-btn.active {
+  background: linear-gradient(135deg, #ffbd45, #f5a623 46%, #d88b10) !important;
+  border-color: rgba(255, 198, 76, .92) !important;
+  box-shadow: 0 0 24px rgba(245,166,35,.16), inset 0 1px 0 rgba(255,255,255,.28);
+}
+
+.btn-cyan,
+.copy-btn,
+.sport-tab.active {
+  border-color: rgba(0,212,255,.48) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+input,
+textarea,
+select {
+  border-radius: 8px !important;
+  background: rgba(3, 7, 9, .92) !important;
+  border-color: rgba(126, 231, 255, .16) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(245,166,35,.72) !important;
+  box-shadow: var(--atlas-focus) !important;
+}
+
+.panel,
+.login,
+.portal-shell,
+.module,
+.card,
+.stat-tile,
+.edu-card,
+.slip-card,
+.hub-team-card,
+.hub-avg-cell,
+.content-card,
+.profile-block,
+.share-link-card,
+.notice,
+.access-required,
+.invite-panel,
+.step,
+.doc,
+.table,
+.metric-grid,
+.data-table,
+.document-row,
+.empty-state,
+.checkout-wrap,
+.promo-box,
+.annual-upsell,
+.social-checkout,
+.payout-action,
+.final-agreement,
+.agreement-box,
+.message,
+.premium-card,
+.feature-card,
+.prop-card {
+  border-radius: 8px !important;
+  border-color: var(--atlas-line) !important;
+  background: var(--atlas-glass), var(--atlas-panel) !important;
+  box-shadow: var(--atlas-shadow);
+}
+
+.dash-grid,
+.ev-summary-grid,
+.props-grid,
+.edu-grid,
+.hub-team-grid,
+.stats-inner,
+.modules,
+.steps {
+  gap: 10px !important;
+  background: transparent !important;
+}
+
+.data-table,
+table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  overflow: hidden;
+}
+
+th,
+td,
+.prob-row,
+.ev-row,
+.game-row,
+.hub-stat-row,
+.document-row {
+  border-color: rgba(255,255,255,.075) !important;
+}
+
+.hero-badge,
+.live-pill,
+.badge,
+.status,
+.tier-badge,
+.dir-over,
+.dir-under,
+.tier-goblin,
+.tier-standard,
+.tier-demon,
+.prob-pill,
+.portal-code,
+.coming-badge {
+  border-radius: 999px !important;
+}
+
+.hero-badge,
+.page-eyebrow,
+.section-label,
+.eyebrow,
+.section-title,
+.page-title span,
+.hero-title .gold-line {
+  text-shadow: 0 0 26px rgba(0,212,255,.12);
+}
+
+.hero-wrap::after,
+.page-header::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  right: clamp(28px, 7vw, 92px);
+  top: clamp(74px, 14vh, 150px);
+  width: min(26vw, 310px);
+  aspect-ratio: 1;
+  background: url("/atlas_logo_transparent.png") center / contain no-repeat;
+  opacity: .072;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: invert(1) drop-shadow(0 0 34px rgba(0,216,255,.16));
+}
+
+.page-header::after {
+  top: 24px;
+  right: 20px;
+  width: min(20vw, 230px);
+  opacity: .052;
+}
+
+.hero-wrap .hero {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logo-bg {
+  display: none !important;
+}
+
+.atlas-watermark {
+  display: none !important;
+}
+
+.section,
+.props-section,
+.features-section,
+.discord-band,
+.stats-strip {
+  border-color: rgba(126, 231, 255, .12) !important;
+}
+
+.card-label,
+.section-title,
+.section-label,
+.page-eyebrow,
+.eyebrow,
+.hub-team-meta,
+.tile-lbl,
+.stat-label {
+  color: rgba(190, 236, 245, .82) !important;
+}
+
+.slip-family-header {
+  border-bottom-color: rgba(126, 231, 255, .12) !important;
+}
+
+.slip-family-header .sfh-title {
+  font-size: 20px !important;
+}
+
+.sub-tab.active,
+.sport-tab.active {
+  border-bottom-color: var(--cyan) !important;
+}
+
+footer {
+  border-top-color: rgba(126, 231, 255, .16) !important;
+}
+
+@media (max-width: 760px) {
+  nav {
+    overflow: hidden;
+  }
+
+  .nav-links,
+  .nav-actions {
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-links::-webkit-scrollbar,
+  .nav-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links .btn,
+  .nav-actions .btn {
+    flex: 0 0 auto;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    white-space: nowrap;
+  }
+
+  .hero-wrap::after,
+  .page-header::after {
+    display: none;
+  }
+}
