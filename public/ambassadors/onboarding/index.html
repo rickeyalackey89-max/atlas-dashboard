@@ -48,6 +48,13 @@
     th,td{padding:14px;border-bottom:1px solid var(--b);text-align:left;vertical-align:top;font-size:13px}
     th{font-size:9px;color:var(--t2);letter-spacing:.14em;text-transform:uppercase}
     td strong{color:#fff}td span{color:var(--t2)}
+    .payout-action{margin-top:18px;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.045);padding:18px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .payout-action p{color:var(--t2);font-size:13px;line-height:1.7;max-width:720px}
+    .payout-form{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .payout-form input{height:38px;min-width:280px;background:#050505;border:1px solid var(--b2);color:#fff;padding:0 12px;outline:none}
+    .payout-form input:focus{border-color:var(--gold)}
+    .message{display:none;margin-top:12px;padding:13px;border:1px solid rgba(245,166,35,.35);background:rgba(245,166,35,.06);color:#cfcfcf;font-size:13px;line-height:1.7}
+    .message strong{color:var(--gold)}
     footer{margin-top:50px;border-top:1px solid var(--b);padding-top:24px;color:var(--t3);font-size:11px;line-height:1.8}
     @media(max-width:920px){.steps,.docs{grid-template-columns:1fr 1fr}.step:nth-child(2n){border-right:0}.step{border-bottom:1px solid var(--b)}}
     @media(max-width:620px){nav{padding:0 16px}.brand span{display:none}main{padding:48px 18px 70px}.steps,.docs{grid-template-columns:1fr}.step{border-right:0}.section-head{display:block}.sub{margin-top:8px}}
@@ -135,6 +142,16 @@
         </tbody>
       </table>
     </div>
+    <div class="payout-action">
+      <p>
+        Approved Ambassadors can continue secure payout onboarding through Stripe before portal access is finalized. Enter the approved Ambassador email and Atlas will send the secure Stripe continuation link.
+      </p>
+      <div class="payout-form">
+        <input id="stripeOnboardingEmail" type="email" placeholder="Approved Ambassador email" autocomplete="email"/>
+        <button class="btn btn-gold" id="stripeOnboardingBtn" type="button">Send Stripe Onboarding Link</button>
+      </div>
+    </div>
+    <div class="message" id="stripeOnboardingMessage"></div>
   </section>
 
   <footer>
@@ -142,5 +159,51 @@
     Payouts require valid paid customer signups, approval, completed secure payout onboarding, and compliance with program rules.
   </footer>
 </main>
+<script>
+  (function(){
+    var API = 'https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
+    var button = document.getElementById('stripeOnboardingBtn');
+    var emailInput = document.getElementById('stripeOnboardingEmail');
+    var message = document.getElementById('stripeOnboardingMessage');
+    function showMessage(html) {
+      message.style.display = 'block';
+      message.innerHTML = html;
+    }
+    if (!button) return;
+    button.addEventListener('click', function() {
+      var email = (emailInput.value || '').trim();
+      if (!email) {
+        showMessage('<strong>Email required.</strong><br/>Enter the approved Ambassador email address to request the secure Stripe onboarding link.');
+        return;
+      }
+      button.disabled = true;
+      button.textContent = 'Sending...';
+      showMessage('<strong>Preparing Stripe onboarding.</strong><br/>If the email is approved, Atlas will send the secure Stripe continuation link to that inbox.');
+      fetch(API + '/api/stripe/connect/onboarding-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email })
+      }).then(function(resp) {
+        return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+      }).then(function(result) {
+        if (!result.body.ok) {
+          var serverMessage = result.body && result.body.error && result.body.error.message
+            ? result.body.error.message
+            : 'Unable to send payout onboarding link.';
+          throw new Error(serverMessage);
+        }
+        button.disabled = false;
+        button.textContent = 'Send Stripe Onboarding Link';
+        showMessage('<strong>Stripe onboarding link sent.</strong><br/>Check the approved Ambassador email inbox. Complete payout onboarding first; portal login comes after onboarding is complete.');
+      }).catch(function(error) {
+        button.disabled = false;
+        button.textContent = 'Send Stripe Onboarding Link';
+        showMessage('<strong>Payout onboarding unavailable.</strong><br/>' + (error.message || 'Unable to send payout onboarding link. Contact support@atlassports.ai.'));
+      });
+    });
+  })();
+</script>
 </body>
 </html>
