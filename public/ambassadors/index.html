@@ -78,7 +78,7 @@
   <div class="portal-grid">
     <section class="panel login">
       <div class="panel-title">Portal Login</div>
-      <p class="panel-sub">Full portal access requires backend activation. Use the form below to confirm the portal path; no sensitive data is submitted yet.</p>
+      <p class="panel-sub">Approved Ambassadors can log in with the email and password submitted during application. Pending applications will show review status.</p>
       <form id="portalForm">
         <label for="email">Email</label>
         <input id="email" name="email" type="email" autocomplete="email" placeholder="ambassador@email.com"/>
@@ -89,10 +89,10 @@
       </form>
       <div class="message" id="portalMessage">
         <strong>Portal setup in progress.</strong><br/>
-        Account login, document signing, payout onboarding, and referral metrics will activate after the Ambassador backend is connected. For current access questions, email support@atlassports.ai.
+        Enter your Ambassador email and password to load portal status.
       </div>
       <div class="notice">
-        Approved Ambassadors will receive login instructions after onboarding. For support, email <a href="mailto:support@atlassports.ai?subject=AtlasSportsAI%20Ambassador%20Portal">support@atlassports.ai</a>.
+        Approved Ambassadors use the password created during application. For support, email <a href="mailto:support@atlassports.ai?subject=AtlasSportsAI%20Ambassador%20Portal">support@atlassports.ai</a>.
       </div>
     </section>
 
@@ -138,12 +138,57 @@
 </main>
 
 <script>
+  var API = 'https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
+  var token = localStorage.getItem('atlas_ambassador_token') || '';
+  var message = document.getElementById('portalMessage');
+
+  function money(cents) {
+    return '$' + ((Number(cents) || 0) / 100).toFixed(2);
+  }
+
+  function esc(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function renderPortal(data) {
+    var ambassador = data.ambassador || {};
+    var metrics = data.metrics || {};
+    message.style.display = 'block';
+    message.innerHTML =
+      '<strong>Welcome, ' + esc(ambassador.name || 'Ambassador') + '.</strong><br/>' +
+      'Code: <strong>' + esc(ambassador.referralCode || 'Pending') + '</strong><br/>' +
+      'Status: ' + esc(ambassador.status || 'unknown') + '<br/>' +
+      'Valid signups: ' + esc(metrics.validSignups || 0) + '<br/>' +
+      'Direct Ambassadors: ' + esc(metrics.directAmbassadors || 0) + '<br/>' +
+      'Pending payout: ' + money(metrics.pendingPayoutCents) + '<br/>' +
+      'Paid payout: ' + money(metrics.paidPayoutCents);
+  }
+
+  function loadPortal() {
+    if (!token) return;
+    fetch(API + '/api/me', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    }).then(function(resp) {
+      return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+    }).then(function(result) {
+      if (!result.body.ok) {
+        localStorage.removeItem('atlas_ambassador_token');
+        token = '';
+        return;
+      }
+      renderPortal(result.body);
+    }).catch(function() {});
+  }
+
   document.getElementById('portalForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    var message = document.getElementById('portalMessage');
     message.style.display = 'block';
     message.innerHTML = '<strong>Checking portal...</strong><br/>Connecting to Atlas Ambassador backend.';
-    fetch('https://atlas-ambassador-platform.rickeyalackey89.workers.dev/api/auth/login', {
+    fetch(API + '/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -153,14 +198,21 @@
     }).then(function(resp) {
       return resp.json().then(function(body) { return { status: resp.status, body: body }; });
     }).then(function(result) {
-      var serverMessage = result.body && result.body.error && result.body.error.message
-        ? result.body.error.message
-        : 'Portal setup in progress.';
-      message.innerHTML = '<strong>Portal setup in progress.</strong><br/>' + serverMessage + ' For current access questions, email support@atlassports.ai.';
+      if (!result.body.ok) {
+        var serverMessage = result.body && result.body.error && result.body.error.message
+          ? result.body.error.message
+          : 'Login failed.';
+        message.innerHTML = '<strong>Portal access not active.</strong><br/>' + serverMessage + ' For current access questions, email support@atlassports.ai.';
+        return;
+      }
+      token = result.body.token;
+      localStorage.setItem('atlas_ambassador_token', token);
+      renderPortal(result.body);
     }).catch(function() {
-      message.innerHTML = '<strong>Portal setup in progress.</strong><br/>Unable to reach the backend. For current access questions, email support@atlassports.ai.';
+      message.innerHTML = '<strong>Portal unavailable.</strong><br/>Unable to reach the backend. For current access questions, email support@atlassports.ai.';
     });
   });
+  loadPortal();
 </script>
 </body>
 </html>
