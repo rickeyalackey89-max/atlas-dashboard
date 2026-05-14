@@ -359,8 +359,8 @@
           completeInviteBtn.style.display = 'none';
           startInviteStripeBtn.style.display = 'inline-flex';
           showInviteMessage(
-            '<strong>Onboarding complete.</strong><br/>' +
-            'Your portal credentials are saved. Continue to secure payout setup next. Portal access activates after payout onboarding is submitted.'
+            '<strong>Atlas onboarding saved.</strong><br/>' +
+            'Your portal login will be the email and password you just created. Continue to Stripe Express payout and tax setup next. Portal access activates only after Stripe reports payout onboarding complete.'
           );
         }).catch(function(error) {
           completeInviteBtn.disabled = false;
@@ -414,7 +414,7 @@
         }
         button.disabled = false;
         button.textContent = 'Send Stripe Onboarding Link';
-        showMessage('<strong>Stripe onboarding link sent.</strong><br/>Check the approved Ambassador email inbox. Complete payout onboarding first; portal login comes after onboarding is complete.');
+        showMessage('<strong>Stripe Express onboarding link sent.</strong><br/>Check the approved Ambassador email inbox. Use the same portal email and password you created earlier. Portal access activates after Stripe reports payout onboarding complete.');
       }).catch(function(error) {
         button.disabled = false;
         button.textContent = 'Send Stripe Onboarding Link';
