@@ -136,6 +136,7 @@
       </label>
       <button class="btn btn-gold" id="completeInviteBtn" type="submit" style="margin-top:18px;">Complete Onboarding</button>
       <button class="btn btn-cyan" id="startInviteStripeBtn" type="button" style="display:none;margin-top:18px;margin-left:8px;">Start Secure Payout Setup</button>
+      <button class="btn btn-cyan" id="emailInviteStripeBtn" type="button" style="display:none;margin-top:18px;margin-left:8px;">Email Stripe Onboarding Link</button>
     </form>
     <div class="message" id="inviteMessage"></div>
   </section>
@@ -227,6 +228,7 @@
     var manualPayoutAction = document.getElementById('manualPayoutAction');
     var completeInviteBtn = document.getElementById('completeInviteBtn');
     var startInviteStripeBtn = document.getElementById('startInviteStripeBtn');
+    var emailInviteStripeBtn = document.getElementById('emailInviteStripeBtn');
     var invitePortalToken = localStorage.getItem('atlas_ambassador_token') || '';
 
     function showInviteMessage(html) {
@@ -291,6 +293,37 @@
       });
     }
 
+    function sendInviteStripeEmail() {
+      var email = document.getElementById('inviteEmail').value || '';
+      if (!email) {
+        showInviteMessage('<strong>Email missing.</strong><br/>Reload the onboarding link or contact support@atlassports.ai.');
+        return;
+      }
+      emailInviteStripeBtn.disabled = true;
+      emailInviteStripeBtn.textContent = 'Sending...';
+      fetch(API + '/api/stripe/connect/onboarding-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      }).then(function(resp) {
+        return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+      }).then(function(result) {
+        if (!result.body.ok) {
+          var serverMessage = result.body && result.body.error && result.body.error.message
+            ? result.body.error.message
+            : 'Unable to email Stripe onboarding link.';
+          throw new Error(serverMessage);
+        }
+        emailInviteStripeBtn.disabled = false;
+        emailInviteStripeBtn.textContent = 'Email Stripe Onboarding Link';
+        showInviteMessage('<strong>Stripe onboarding link sent.</strong><br/>Check your email. The secure payout onboarding link is good for 12 hours and is no longer valid after onboarding is submitted.');
+      }).catch(function(error) {
+        emailInviteStripeBtn.disabled = false;
+        emailInviteStripeBtn.textContent = 'Email Stripe Onboarding Link';
+        showInviteMessage('<strong>Stripe onboarding email failed.</strong><br/>' + (error.message || 'Contact support@atlassports.ai if this continues.'));
+      });
+    }
+
     if (inviteForm) {
       inviteForm.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -315,7 +348,9 @@
             var serverMessage = result.body && result.body.error && result.body.error.message
               ? result.body.error.message
               : 'Unable to complete onboarding.';
-            throw new Error(serverMessage);
+            var err = new Error(serverMessage);
+            err.code = result.body && result.body.error ? result.body.error.code : '';
+            throw err;
           }
           invitePortalToken = result.body.token || '';
           if (invitePortalToken) {
@@ -330,12 +365,18 @@
         }).catch(function(error) {
           completeInviteBtn.disabled = false;
           completeInviteBtn.textContent = 'Complete Onboarding';
+          if (error.code === 'ambassador_exists') {
+            emailInviteStripeBtn.style.display = 'inline-flex';
+          }
           showInviteMessage('<strong>Onboarding failed.</strong><br/>' + (error.message || 'Contact support@atlassports.ai if this continues.'));
         });
       });
     }
     if (startInviteStripeBtn) {
       startInviteStripeBtn.addEventListener('click', startInviteStripe);
+    }
+    if (emailInviteStripeBtn) {
+      emailInviteStripeBtn.addEventListener('click', sendInviteStripeEmail);
     }
     loadInviteAccess();
 
