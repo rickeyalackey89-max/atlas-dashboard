@@ -3,7 +3,9 @@
 :root {
   --atlas-ui: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   --atlas-display: "Rajdhani", "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  --atlas-glass: linear-gradient(135deg, rgba(255,255,255,.04), rgba(0,216,255,.022) 46%, rgba(245,166,35,.014));
+  --gold: #67eaff !important;
+  --gold2: rgba(0,216,255,.105) !important;
+  --atlas-glass: linear-gradient(135deg, rgba(255,255,255,.04), rgba(0,216,255,.026) 46%, rgba(125,190,255,.018));
   --atlas-panel: rgba(3, 8, 10, .76);
   --atlas-line: rgba(0, 216, 255, .2);
   --atlas-line-soft: rgba(255,255,255,.09);
@@ -19,7 +21,7 @@ body {
   font-family: var(--atlas-ui) !important;
   background:
     radial-gradient(circle at 76% 14%, rgba(0,216,255,.105), transparent 32rem),
-    radial-gradient(circle at 18% 86%, rgba(245,166,35,.055), transparent 26rem),
+    radial-gradient(circle at 18% 86%, rgba(95,145,255,.052), transparent 26rem),
     linear-gradient(180deg, #000 0%, #020607 42%, #000 100%) !important;
 }
 
@@ -108,7 +110,7 @@ nav {
 
 .nav-logo,
 .brand img {
-  filter: invert(1) drop-shadow(0 0 14px rgba(0,212,255,.24)) drop-shadow(0 0 9px rgba(245,166,35,.22)) !important;
+  filter: invert(1) drop-shadow(0 0 14px rgba(0,212,255,.24)) drop-shadow(0 0 9px rgba(125,190,255,.2)) !important;
 }
 
 .btn,
@@ -147,7 +149,12 @@ nav {
 .checkout-btn,
 .annual-btn,
 .portal-tab.active,
-.prob-mini-btn.active {
+.prob-mini-btn.active,
+.tab-btn.active,
+.choice-row input:checked + span,
+button.btn-gold,
+button[type="submit"].btn-gold,
+a.btn-gold {
   background: linear-gradient(135deg, #9ff4ff, #00d8ff 42%, #00a7d8) !important;
   border-color: rgba(121, 237, 255, .9) !important;
   color: #001014 !important;
@@ -158,7 +165,12 @@ nav {
 .checkout-btn:hover,
 .annual-btn:hover,
 .portal-tab.active:hover,
-.prob-mini-btn.active:hover {
+.prob-mini-btn.active:hover,
+.tab-btn.active:hover,
+.choice-row input:checked + span:hover,
+button.btn-gold:hover,
+button[type="submit"].btn-gold:hover,
+a.btn-gold:hover {
   background: linear-gradient(135deg, #c8fbff, #19e2ff 42%, #00b7ea) !important;
   border-color: rgba(180, 250, 255, .95) !important;
   color: #001014 !important;
@@ -182,7 +194,7 @@ select {
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: rgba(245,166,35,.72) !important;
+  border-color: rgba(0,216,255,.72) !important;
   box-shadow: var(--atlas-focus) !important;
 }
 
