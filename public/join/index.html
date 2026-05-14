@@ -144,6 +144,13 @@
     .application-form input{height:42px;}
     .application-form textarea{min-height:96px;resize:vertical;}
     .application-form input:focus,.application-form textarea:focus{border-color:var(--gold);}
+    .referral-question{margin-top:14px;padding:14px;border:1px solid var(--b);background:rgba(255,255,255,.018);}
+    .referral-question p{margin:0 0 10px;color:var(--text);font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;}
+    .choice-row{display:flex;gap:8px;flex-wrap:wrap;}
+    .choice-row label{margin:0!important;}
+    .choice-row input{position:absolute;opacity:0;pointer-events:none;}
+    .choice-row span{display:inline-flex;align-items:center;justify-content:center;min-width:74px;min-height:34px;border:1px solid var(--b2);color:var(--t2);font-size:11px;font-weight:950;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
+    .choice-row input:checked + span{background:var(--gold);border-color:var(--gold);color:#000;}
     .form-message{display:none;margin-top:14px;padding:13px;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.055);color:var(--t2);font-size:13px;line-height:1.7;}
     .form-message.ok{display:block;border-color:rgba(0,230,118,.34);background:rgba(0,230,118,.055);}
     .form-message.err{display:block;border-color:rgba(255,82,82,.34);background:rgba(255,82,82,.055);}
@@ -348,8 +355,26 @@
               <textarea id="quickPlatforms" name="platforms" placeholder="TikTok, Twitch, YouTube, Instagram, Discord, local sports community, etc."></textarea>
               <label for="quickAudience">Why You Are A Good Fit</label>
               <textarea id="quickAudience" name="audienceNotes" placeholder="Audience size, sports niche, content style, coaching/community background, or how you plan to promote Atlas."></textarea>
-              <label for="quickSponsor">Sponsor Code If Another Ambassador Invited You</label>
-              <input id="quickSponsor" name="sponsorCode" placeholder="Optional"/>
+              <div class="referral-question">
+                <p>Were you referred by another Ambassador?</p>
+                <div class="choice-row" role="radiogroup" aria-label="Were you referred by another Ambassador?">
+                  <label>
+                    <input type="radio" name="quickReferred" value="no" checked/>
+                    <span>No</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="quickReferred" value="yes"/>
+                    <span>Yes</span>
+                  </label>
+                </div>
+              </div>
+              <div id="quickSponsorWrap" style="display:none;">
+                <label for="quickSponsor">Parent Ambassador Code</label>
+                <input id="quickSponsor" name="sponsorCode" placeholder="Required if referred"/>
+                <p style="color:var(--t2);font-size:12px;line-height:1.6;margin-top:8px;">
+                  Enter the code from the Ambassador who invited you so they receive sponsor credit if you are approved.
+                </p>
+              </div>
               <button class="btn btn-gold" type="submit" style="margin-top:18px;">Submit Quick Application</button>
               <a class="btn" href="/ambassadors/onboarding/" style="margin-top:18px;margin-left:8px;">Onboarding</a>
               <div class="form-message" id="quickApplicationMessage"></div>
@@ -482,18 +507,45 @@
   var quickApplicationForm = document.getElementById('quickAmbassadorApplication');
   var quickApplicationMessage = document.getElementById('quickApplicationMessage');
   if (quickApplicationForm && quickApplicationMessage) {
+    var quickSponsorWrap = document.getElementById('quickSponsorWrap');
+    var quickSponsorInput = document.getElementById('quickSponsor');
+    function quickIsReferred() {
+      var selected = document.querySelector('input[name="quickReferred"]:checked');
+      return selected && selected.value === 'yes';
+    }
+    function syncQuickSponsorField() {
+      var referred = quickIsReferred();
+      if (quickSponsorWrap) quickSponsorWrap.style.display = referred ? 'block' : 'none';
+      if (quickSponsorInput) {
+        quickSponsorInput.required = referred;
+        if (!referred) quickSponsorInput.value = '';
+      }
+    }
+    Array.prototype.slice.call(document.querySelectorAll('input[name="quickReferred"]')).forEach(function(input) {
+      input.addEventListener('change', syncQuickSponsorField);
+    });
+    syncQuickSponsorField();
+
     quickApplicationForm.addEventListener('submit', function(event) {
       event.preventDefault();
       quickApplicationMessage.className = 'form-message';
       quickApplicationMessage.style.display = 'block';
       quickApplicationMessage.textContent = 'Submitting quick application...';
+      var referredByAmbassador = quickIsReferred();
+      var sponsorCode = quickSponsorInput ? quickSponsorInput.value.trim() : '';
+      if (referredByAmbassador && !sponsorCode) {
+        quickApplicationMessage.className = 'form-message err';
+        quickApplicationMessage.textContent = 'Parent Ambassador code is required when you were referred.';
+        return;
+      }
       var data = {
         applicationMode: 'quick',
         name: document.getElementById('quickName').value,
         email: document.getElementById('quickEmail').value,
         platforms: document.getElementById('quickPlatforms').value,
         audienceNotes: document.getElementById('quickAudience').value,
-        sponsorCode: document.getElementById('quickSponsor').value
+        referredByAmbassador: referredByAmbassador,
+        sponsorCode: referredByAmbassador ? sponsorCode : ''
       };
       fetch(AMBASSADOR_API + '/api/applications', {
         method: 'POST',
@@ -508,6 +560,7 @@
         quickApplicationMessage.className = 'form-message ok';
         quickApplicationMessage.textContent = 'Quick application received. Check your email to confirm your address. Atlas will follow up with onboarding steps.';
         quickApplicationForm.reset();
+        syncQuickSponsorField();
       }).catch(function(err) {
         quickApplicationMessage.className = 'form-message err';
         quickApplicationMessage.textContent = err.message || 'Application failed. Email support@atlassports.ai if this continues.';
