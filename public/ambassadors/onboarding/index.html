@@ -53,11 +53,21 @@
     .payout-form{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
     .payout-form input{height:38px;min-width:280px;background:#050505;border:1px solid var(--b2);color:#fff;padding:0 12px;outline:none}
     .payout-form input:focus{border-color:var(--gold)}
+    .invite-panel{display:none;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.045);padding:22px;margin-top:32px}
+    .invite-panel h2{font-size:20px;margin-bottom:8px}
+    .invite-panel p{color:var(--t2);font-size:13px;line-height:1.75;max-width:760px}
+    .invite-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+    .invite-panel label{display:block;margin:10px 0 7px;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--t2)}
+    .invite-panel input{width:100%;height:42px;background:#050505;border:1px solid var(--b2);color:#fff;padding:0 12px;outline:none}
+    .invite-panel input:focus{border-color:var(--gold)}
+    .invite-panel input[readonly]{color:#aaa;background:#020202}
+    .terms-row{display:flex;gap:10px;align-items:flex-start;margin-top:16px;color:var(--t2);font-size:13px;line-height:1.65}
+    .terms-row input{width:auto;height:auto;margin-top:4px}
     .message{display:none;margin-top:12px;padding:13px;border:1px solid rgba(245,166,35,.35);background:rgba(245,166,35,.06);color:#cfcfcf;font-size:13px;line-height:1.7}
     .message strong{color:var(--gold)}
     footer{margin-top:50px;border-top:1px solid var(--b);padding-top:24px;color:var(--t3);font-size:11px;line-height:1.8}
     @media(max-width:920px){.steps,.docs{grid-template-columns:1fr 1fr}.step:nth-child(2n){border-right:0}.step{border-bottom:1px solid var(--b)}}
-    @media(max-width:620px){nav{padding:0 16px}.brand span{display:none}main{padding:48px 18px 70px}.steps,.docs{grid-template-columns:1fr}.step{border-right:0}.section-head{display:block}.sub{margin-top:8px}}
+    @media(max-width:620px){nav{padding:0 16px}.brand span{display:none}main{padding:48px 18px 70px}.steps,.docs,.invite-grid{grid-template-columns:1fr}.step{border-right:0}.section-head{display:block}.sub{margin-top:8px}}
   </style>
 </head>
 <body>
@@ -85,6 +95,49 @@
     <a class="btn btn-cyan" href="/join/#ambassador">Need To Apply?</a>
     <a class="btn" href="mailto:support@atlassports.ai?subject=AtlasSportsAI%20Ambassador%20Onboarding">Contact Support</a>
   </div>
+
+  <section class="invite-panel" id="invitePanel">
+    <h2>Temporary Onboarding Access</h2>
+    <p>
+      Atlas approved your quick application to continue onboarding. Complete the fields below after reading the onboarding documents.
+      When this step is complete, your 7-day Ambassador portal access starts and you can continue to secure payout onboarding.
+    </p>
+    <form id="inviteOnboardingForm">
+      <div class="invite-grid">
+        <div>
+          <label for="inviteName">Name</label>
+          <input id="inviteName" readonly/>
+        </div>
+        <div>
+          <label for="inviteEmail">Email</label>
+          <input id="inviteEmail" readonly/>
+        </div>
+        <div>
+          <label for="invitePhone">Phone</label>
+          <input id="invitePhone" autocomplete="tel" required/>
+        </div>
+        <div>
+          <label for="invitePreferredCode">Preferred Ambassador Code</label>
+          <input id="invitePreferredCode" maxlength="12" placeholder="4-12 letters/numbers" required/>
+        </div>
+        <div>
+          <label for="invitePassword">Portal Password</label>
+          <input id="invitePassword" type="password" autocomplete="new-password" required/>
+        </div>
+        <div>
+          <label for="inviteConfirmPassword">Confirm Password</label>
+          <input id="inviteConfirmPassword" type="password" autocomplete="new-password" required/>
+        </div>
+      </div>
+      <label class="terms-row">
+        <input id="inviteAcceptedTerms" type="checkbox" required/>
+        <span>I have read the payout structure, conduct requirements, media guide, and opportunity overview, and I want to continue Ambassador onboarding.</span>
+      </label>
+      <button class="btn btn-gold" id="completeInviteBtn" type="submit" style="margin-top:18px;">Complete Onboarding</button>
+      <button class="btn btn-cyan" id="startInviteStripeBtn" type="button" style="display:none;margin-top:18px;margin-left:8px;">Start Secure Payout Setup</button>
+    </form>
+    <div class="message" id="inviteMessage"></div>
+  </section>
 
   <section class="section">
     <div class="section-head">
@@ -142,7 +195,7 @@
         </tbody>
       </table>
     </div>
-    <div class="payout-action">
+    <div class="payout-action" id="manualPayoutAction">
       <p>
         Approved Ambassadors can continue secure payout onboarding through Stripe before portal access is finalized. Enter the approved Ambassador email and Atlas will send the secure Stripe continuation link.
       </p>
@@ -162,6 +215,125 @@
 <script>
   (function(){
     var API = 'https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
+    var inviteToken = new URLSearchParams(window.location.search).get('token') || '';
+    var invitePanel = document.getElementById('invitePanel');
+    var inviteForm = document.getElementById('inviteOnboardingForm');
+    var inviteMessage = document.getElementById('inviteMessage');
+    var manualPayoutAction = document.getElementById('manualPayoutAction');
+    var completeInviteBtn = document.getElementById('completeInviteBtn');
+    var startInviteStripeBtn = document.getElementById('startInviteStripeBtn');
+    var invitePortalToken = localStorage.getItem('atlas_ambassador_token') || '';
+
+    function showInviteMessage(html) {
+      inviteMessage.style.display = 'block';
+      inviteMessage.innerHTML = html;
+    }
+
+    function loadInviteAccess() {
+      if (!inviteToken || !invitePanel) return;
+      invitePanel.style.display = 'block';
+      if (manualPayoutAction) manualPayoutAction.style.display = 'none';
+      showInviteMessage('<strong>Checking temporary onboarding access.</strong><br/>Validating your approved quick application.');
+      fetch(API + '/api/applications/onboarding-access?token=' + encodeURIComponent(inviteToken))
+        .then(function(resp) {
+          return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+        })
+        .then(function(result) {
+          if (!result.body.ok) {
+            var serverMessage = result.body && result.body.error && result.body.error.message
+              ? result.body.error.message
+              : 'Temporary onboarding access is invalid.';
+            throw new Error(serverMessage);
+          }
+          var app = result.body.application || {};
+          document.getElementById('inviteName').value = app.name || '';
+          document.getElementById('inviteEmail').value = app.email || '';
+          document.getElementById('invitePhone').value = app.phone || '';
+          document.getElementById('invitePreferredCode').value = app.preferredCode || '';
+          showInviteMessage('<strong>Temporary access active.</strong><br/>Read the docs below, then complete onboarding when ready.');
+        })
+        .catch(function(error) {
+          showInviteMessage('<strong>Onboarding access unavailable.</strong><br/>' + (error.message || 'Contact support@atlassports.ai for a new link.'));
+          if (completeInviteBtn) completeInviteBtn.disabled = true;
+        });
+    }
+
+    function startInviteStripe() {
+      if (!invitePortalToken) {
+        showInviteMessage('<strong>Portal token missing.</strong><br/>Complete onboarding first to activate 7-day access.');
+        return;
+      }
+      startInviteStripeBtn.disabled = true;
+      startInviteStripeBtn.textContent = 'Opening Stripe...';
+      fetch(API + '/api/stripe/connect/onboarding-link', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + invitePortalToken, 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      }).then(function(resp) {
+        return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+      }).then(function(result) {
+        if (!result.body.ok || !result.body.onboardingUrl) {
+          var serverMessage = result.body && result.body.error && result.body.error.message
+            ? result.body.error.message
+            : 'Unable to start secure payout setup.';
+          throw new Error(serverMessage);
+        }
+        window.location.href = result.body.onboardingUrl;
+      }).catch(function(error) {
+        startInviteStripeBtn.disabled = false;
+        startInviteStripeBtn.textContent = 'Start Secure Payout Setup';
+        showInviteMessage('<strong>Payout setup unavailable.</strong><br/>' + (error.message || 'Unable to start secure payout setup.'));
+      });
+    }
+
+    if (inviteForm) {
+      inviteForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        completeInviteBtn.disabled = true;
+        completeInviteBtn.textContent = 'Completing...';
+        showInviteMessage('<strong>Completing onboarding.</strong><br/>Creating your Ambassador record and 7-day portal access.');
+        fetch(API + '/api/applications/complete-onboarding', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            token: inviteToken,
+            phone: document.getElementById('invitePhone').value,
+            preferredCode: document.getElementById('invitePreferredCode').value,
+            password: document.getElementById('invitePassword').value,
+            confirmPassword: document.getElementById('inviteConfirmPassword').value,
+            acceptedTerms: document.getElementById('inviteAcceptedTerms').checked
+          })
+        }).then(function(resp) {
+          return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+        }).then(function(result) {
+          if (!result.body.ok) {
+            var serverMessage = result.body && result.body.error && result.body.error.message
+              ? result.body.error.message
+              : 'Unable to complete onboarding.';
+            throw new Error(serverMessage);
+          }
+          invitePortalToken = result.body.token || '';
+          if (invitePortalToken) {
+            localStorage.setItem('atlas_ambassador_token', invitePortalToken);
+          }
+          completeInviteBtn.style.display = 'none';
+          startInviteStripeBtn.style.display = 'inline-flex';
+          showInviteMessage(
+            '<strong>Onboarding complete.</strong><br/>' +
+            'Your 7-day Ambassador portal access is active. Continue to secure payout setup next, then use your portal login for status and tracking.'
+          );
+        }).catch(function(error) {
+          completeInviteBtn.disabled = false;
+          completeInviteBtn.textContent = 'Complete Onboarding';
+          showInviteMessage('<strong>Onboarding failed.</strong><br/>' + (error.message || 'Contact support@atlassports.ai if this continues.'));
+        });
+      });
+    }
+    if (startInviteStripeBtn) {
+      startInviteStripeBtn.addEventListener('click', startInviteStripe);
+    }
+    loadInviteAccess();
+
     var button = document.getElementById('stripeOnboardingBtn');
     var emailInput = document.getElementById('stripeOnboardingEmail');
     var message = document.getElementById('stripeOnboardingMessage');
