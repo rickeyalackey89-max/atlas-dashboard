@@ -53,6 +53,7 @@
     .portal-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:24px;padding-bottom:22px;border-bottom:1px solid var(--b);}
     .portal-hero h2{font-size:clamp(28px,4vw,46px);line-height:.95;text-transform:uppercase;letter-spacing:-.035em;}
     .portal-hero p{margin-top:8px;color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;}
+    .portal-hero-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
     .portal-code{border:1px solid rgba(245,166,35,.4);padding:12px 14px;color:var(--gold);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;background:rgba(245,166,35,.05);white-space:nowrap;}
     .portal-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
     .portal-tab{min-height:34px;padding:8px 14px;border:1px solid var(--b2);background:#050505;color:var(--t2);font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;}
@@ -92,7 +93,8 @@
       main{padding:54px 18px 72px;}
       .portal-grid,.modules{grid-template-columns:1fr;}
       .portal-hero{display:block;}
-      .portal-code{margin-top:16px;display:inline-flex;}
+      .portal-hero-actions{justify-content:flex-start;margin-top:16px;}
+      .portal-code{display:inline-flex;}
       .metric-grid,.content-grid,.profile-grid{grid-template-columns:1fr;}
       .metric{border-right:0;border-bottom:1px solid var(--b);}
       .metric:last-child{border-bottom:0;}
@@ -301,6 +303,12 @@
       '<div class="empty-state">Approved graphics, video clips, weekly talking points, and launch campaigns will appear here as Atlas publishes them.</div>';
   }
 
+  function ambassadorShareLink(code) {
+    var cleanCode = String(code || '').trim();
+    if (!cleanCode || cleanCode.toLowerCase() === 'pending') return 'https://atlassports.ai/join/#ambassador';
+    return 'https://atlassports.ai/join/?ref=' + encodeURIComponent(cleanCode) + '#ambassador';
+  }
+
   function renderProfile(data) {
     var ambassador = data.ambassador || {};
     var documents = (data.documents && data.documents.resources) || [];
@@ -358,6 +366,7 @@
 
   function renderPortal(data) {
     var ambassador = data.ambassador || {};
+    var shareLink = ambassadorShareLink(ambassador.referralCode);
     var workspace = document.getElementById('portalWorkspace');
     message.style.display = 'block';
     message.innerHTML = '<strong>Welcome, ' + esc(ambassador.name || 'Ambassador') + '.</strong><br/>Your Ambassador portal is active.';
@@ -365,7 +374,10 @@
       '<div class="portal-shell">' +
         '<div class="portal-hero">' +
           '<div><h2>Welcome, ' + esc(ambassador.name || 'Ambassador') + '</h2><p>Ambassador Portal</p></div>' +
-          '<div class="portal-code">Code ' + esc(ambassador.referralCode || 'Pending') + '</div>' +
+          '<div class="portal-hero-actions">' +
+            '<div class="portal-code">Code ' + esc(ambassador.referralCode || 'Pending') + '</div>' +
+            '<button class="btn btn-cyan" type="button" data-copy="' + esc(shareLink) + '" data-default-label="Copy Share Link">Copy Share Link</button>' +
+          '</div>' +
         '</div>' +
         '<div class="portal-tabs">' +
           '<button class="portal-tab active" type="button" data-tab="signups">Signups</button>' +
@@ -542,12 +554,13 @@
     var copyButton = target.closest('[data-copy]');
     if (copyButton) {
       var text = copyButton.getAttribute('data-copy') || '';
+      var defaultLabel = copyButton.getAttribute('data-default-label') || 'Copy';
       navigator.clipboard.writeText(text).then(function() {
         copyButton.textContent = 'Copied';
-        setTimeout(function() { copyButton.textContent = 'Copy'; }, 1200);
+        setTimeout(function() { copyButton.textContent = defaultLabel; }, 1200);
       }).catch(function() {
         copyButton.textContent = 'Copy Failed';
-        setTimeout(function() { copyButton.textContent = 'Copy'; }, 1200);
+        setTimeout(function() { copyButton.textContent = defaultLabel; }, 1200);
       });
     }
   });

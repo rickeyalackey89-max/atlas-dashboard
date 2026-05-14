@@ -503,6 +503,16 @@
       input.addEventListener('change', syncQuickSponsorField);
     });
     syncQuickSponsorField();
+    var incomingSponsorCode = new URLSearchParams(window.location.search).get('ref') ||
+      new URLSearchParams(window.location.search).get('sponsor') ||
+      new URLSearchParams(window.location.search).get('code') ||
+      '';
+    if (incomingSponsorCode && quickSponsorInput) {
+      var yesInput = document.querySelector('input[name="quickReferred"][value="yes"]');
+      if (yesInput) yesInput.checked = true;
+      quickSponsorInput.value = incomingSponsorCode.trim().toUpperCase();
+      syncQuickSponsorField();
+    }
 
     quickApplicationForm.addEventListener('submit', function(event) {
       event.preventDefault();
