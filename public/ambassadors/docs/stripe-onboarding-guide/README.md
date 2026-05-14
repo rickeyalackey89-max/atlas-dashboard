@@ -1,8 +1,8 @@
 # AtlasSportsAI Ambassador Stripe Onboarding Guide
 
-This guide helps approved AtlasSportsAI Ambassadors complete the secure Stripe payout onboarding step.
+This guide helps approved AtlasSportsAI Ambassadors complete the secure Stripe Express payout onboarding step.
 
-Stripe payout onboarding is separate from the Atlas Ambassador application. Atlas uses Stripe to collect payout, tax, identity, and direct-deposit information securely.
+Stripe Express payout onboarding is separate from the Atlas Ambassador application. Atlas uses Stripe to collect payout, tax, identity, and direct-deposit information securely.
 
 ## Process Overview
 
@@ -10,8 +10,8 @@ Stripe payout onboarding is separate from the Atlas Ambassador application. Atla
 2. If approved, open the temporary Atlas onboarding link.
 3. Read the Ambassador documents.
 4. Create your Atlas portal credentials.
-5. Continue to Stripe payout onboarding.
-6. Submit Stripe payout onboarding.
+5. Continue to Stripe Express payout onboarding.
+6. Submit Stripe Express payout onboarding.
 7. Atlas portal access activates after payout onboarding is submitted.
 
 ## Before You Start
@@ -43,7 +43,7 @@ When Stripe asks for a website, use your own public promotion location, such as:
 - Linktree or similar profile hub
 - Personal website
 
-Do not use `https://atlassports.ai` unless Atlas specifically tells you to. AtlasSportsAI is the platform. The Stripe connected account belongs to the Ambassador or payee completing payout onboarding.
+Do not use `https://atlassports.ai` unless Atlas specifically tells you to. AtlasSportsAI is the platform. The Stripe Express connected account belongs to the Ambassador or payee completing payout onboarding.
 
 ## Product Description
 
@@ -80,7 +80,7 @@ Atlas does not collect or store this information on the Atlas site. It is submit
 
 ## After Stripe Submission
 
-After Stripe payout onboarding is submitted:
+After Stripe Express payout onboarding is submitted:
 
 - Return to the Atlas Ambassador portal.
 - Log in with the email and password created during Atlas onboarding.

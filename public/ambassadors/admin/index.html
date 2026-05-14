@@ -150,15 +150,20 @@
       var promo = a.stripe_promotion_code ? esc(a.stripe_promotion_code) : '<span style="color:#777">Not attached</span>';
       var connect = (a.connect_onboarding_status ? status(a.connect_onboarding_status) : status('not_started')) + (a.stripe_connect_account_id ? '<br><span style="color:#777">'+esc(a.stripe_connect_account_id)+'</span>' : '');
       var onboard = status(onboardingStatus(a));
+      var reset = (a.connect_onboarding_status==='submitted'||a.connect_onboarding_status==='complete')
+        ? ''
+        : '<button class="btn btn-red" data-reset-connect="'+esc(a.id)+'" style="margin-left:6px">Reset Payout</button>';
       var actions =
         '<button class="btn btn-cyan" data-promo="'+esc(a.id)+'">Attach Promo</button>' +
-        '<button class="btn" data-connect="'+esc(a.id)+'" style="margin-left:6px">Payout Link</button>';
+        '<button class="btn" data-connect="'+esc(a.id)+'" style="margin-left:6px">Payout Link</button>' +
+        reset;
       return '<tr><td>'+esc(a.name)+'</td><td>'+esc(a.email)+'</td><td>'+esc(a.referral_code)+'</td><td>'+esc(a.sponsor_code||'')+'</td><td>'+status(a.status)+'</td><td>'+onboard+'</td><td>'+promo+'</td><td>'+connect+'</td><td>'+esc(a.created_at)+'</td><td>'+actions+'</td></tr>';
     }).join('');
     html+='</tbody></table>';
     document.getElementById('ambassadors').innerHTML=html;
     document.querySelectorAll('[data-promo]').forEach(function(btn){btn.addEventListener('click',function(){attachPromo(btn.getAttribute('data-promo'));});});
     document.querySelectorAll('[data-connect]').forEach(function(btn){btn.addEventListener('click',function(){openConnectLink(btn.getAttribute('data-connect'));});});
+    document.querySelectorAll('[data-reset-connect]').forEach(function(btn){btn.addEventListener('click',function(){resetConnect(btn.getAttribute('data-reset-connect'));});});
   }
   function attachPromo(id){
     var savedCoupon = localStorage.getItem('atlas_ambassador_coupon_id') || '';
@@ -180,10 +185,21 @@
         if(navigator.clipboard&&navigator.clipboard.writeText){
           navigator.clipboard.writeText(url).catch(function(){});
         }
-        window.prompt('Stripe payout onboarding link copied if browser permissions allow. Send this to the Ambassador/payee; do not complete it as admin.', url);
+        window.prompt('Stripe Express payout onboarding link copied if browser permissions allow. Send this to the Ambassador/payee; do not complete it as admin.', url);
         loadHub();
       })
       .catch(function(err){alert(err.message||'Connect link failed')});
+  }
+  function resetConnect(id){
+    if(!window.confirm('Reset this Ambassador payout onboarding? This clears the stored Stripe Connect account from Atlas and the next payout link will create a fresh Express account. It does not delete the old account inside Stripe.')) return;
+    fetch(API+'/api/admin/ambassadors/reset-connect',{method:'POST',headers:headers(),body:JSON.stringify({ambassadorId:id})})
+      .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
+      .then(function(res){
+        if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Reset failed');
+        alert('Payout onboarding reset. The next payout link will create a fresh Express account.');
+        loadHub();
+      })
+      .catch(function(err){alert(err.message||'Reset failed')});
   }
   function approveApp(id){
     if(!window.confirm('Approve this Ambassador and create their backend code?')) return;
