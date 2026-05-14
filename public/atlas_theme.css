@@ -144,6 +144,49 @@ h3 span,
   text-shadow: 0 0 24px rgba(0,216,255,.2) !important;
 }
 
+.join-hero-title {
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .08em;
+}
+
+.join-hero-title .join-title-line,
+.join-hero-title .join-title-steel {
+  display: block;
+  color: var(--atlas-steel) !important;
+  background-image: var(--atlas-chrome-display) !important;
+  background-size: 170% 150%, 150% 150%, 130% 120%, 240% 100% !important;
+  background-position:
+    calc(50% + var(--atlas-scroll-shine)) 48%,
+    calc(50% - var(--atlas-scroll-shine)) 52%,
+    50% 50%,
+    calc(50% + var(--atlas-scroll-shine)) 50% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.18), 0 0 22px rgba(218,238,246,.1) !important;
+}
+
+.join-hero-title .join-title-accent {
+  color: var(--gold) !important;
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-shadow: 0 0 24px rgba(0,216,255,.22), 0 0 44px rgba(0,216,255,.1) !important;
+}
+
+.join-hero-title .join-title-divider {
+  display: block;
+  width: min(760px, 88vw);
+  height: 2px;
+  margin: .04em 0 .03em;
+  background:
+    radial-gradient(circle at 16% 50%, rgba(255,247,214,.95) 0 2px, transparent 6px),
+    linear-gradient(90deg, transparent 0%, rgba(255,176,46,.16) 7%, var(--atlas-amber) 18%, rgba(255,240,198,.85) 48%, rgba(255,176,46,.5) 72%, transparent 100%) !important;
+  box-shadow: 0 0 18px rgba(255,176,46,.28), 0 0 42px rgba(255,176,46,.08);
+  -webkit-text-fill-color: currentColor !important;
+}
+
 .stat-value,
 .tile-val {
   color: var(--atlas-steel) !important;
