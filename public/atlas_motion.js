@@ -10,6 +10,8 @@
   var nodes = [];
   var active = false;
   var duration = 720;
+  var arrivalDuration = 680;
+  var storageKey = "atlas_transition_handoff";
 
   function createOverlay() {
     if (overlay) return;
@@ -24,6 +26,12 @@
     ctx = canvas.getContext("2d");
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas, { passive: true });
+  }
+
+  function setLabel(text) {
+    if (!overlay) return;
+    var label = overlay.querySelector(".atlas-transition-label");
+    if (label) label.textContent = text || "Model Sync";
   }
 
   function resizeCanvas() {
@@ -107,10 +115,28 @@
     }
   }
 
+  function labelForPath(pathname, fallback) {
+    if (pathname.indexOf("/dashboard") === 0) return "Entering Model";
+    if (pathname.indexOf("/checkout") === 0) return "Secure Checkout";
+    if (pathname.indexOf("/ambassadors") === 0) return "Ambassador Hub";
+    if (pathname.indexOf("/join") === 0) return "Atlas Network";
+    return fallback || "Model Sync";
+  }
+
   function startTransition(url) {
     if (active) return;
     active = true;
     createOverlay();
+    var destination = new URL(url, window.location.href);
+    setLabel(labelForPath(destination.pathname, "Model Sync"));
+    try {
+      sessionStorage.setItem(storageKey, JSON.stringify({
+        from: window.location.pathname,
+        to: destination.pathname,
+        ts: Date.now()
+      }));
+    } catch (err) {}
+    document.body.classList.add("atlas-transition-out");
     overlay.classList.add("is-active");
 
     var start = performance.now();
@@ -124,6 +150,38 @@
       }
     }
     requestAnimationFrame(frame);
+  }
+
+  function playArrivalIfPending() {
+    var payload = null;
+    try {
+      var raw = sessionStorage.getItem(storageKey);
+      if (raw) payload = JSON.parse(raw);
+      sessionStorage.removeItem(storageKey);
+    } catch (err) {
+      payload = null;
+    }
+    if (!payload || !payload.ts || Date.now() - payload.ts > 5000) return;
+
+    active = true;
+    createOverlay();
+    setLabel(labelForPath(window.location.pathname, "Model Ready"));
+    document.body.classList.add("atlas-transition-entering");
+    overlay.classList.add("is-active", "is-arriving");
+    draw(1);
+
+    requestAnimationFrame(function () {
+      document.body.classList.remove("atlas-transition-entering");
+      document.body.classList.add("atlas-transition-in");
+      overlay.classList.remove("is-active");
+    });
+
+    window.setTimeout(function () {
+      document.body.classList.remove("atlas-transition-in");
+      overlay.classList.remove("is-arriving");
+      active = false;
+      draw(0);
+    }, arrivalDuration);
   }
 
   function shouldHandle(event, link) {
@@ -154,4 +212,10 @@
     event.preventDefault();
     startTransition(link.href);
   });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", playArrivalIfPending, { once: true });
+  } else {
+    playArrivalIfPending();
+  }
 })();

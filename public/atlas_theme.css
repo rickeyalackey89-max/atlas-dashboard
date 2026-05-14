@@ -440,6 +440,26 @@ footer {
   border-top-color: rgba(126, 231, 255, .16) !important;
 }
 
+body.atlas-transition-out > *:not(.atlas-neural-transition) {
+  opacity: .18;
+  transform: scale(.986) translateY(-8px);
+  filter: blur(3px) saturate(1.18);
+  transition: opacity .32s ease, transform .32s ease, filter .32s ease !important;
+}
+
+body.atlas-transition-entering > *:not(.atlas-neural-transition) {
+  opacity: 0;
+  transform: scale(1.018) translateY(10px);
+  filter: blur(8px) saturate(1.2);
+}
+
+body.atlas-transition-in > *:not(.atlas-neural-transition) {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition: opacity .52s ease, transform .52s ease, filter .52s ease !important;
+}
+
 .atlas-neural-transition {
   position: fixed;
   inset: 0;
@@ -467,6 +487,10 @@ footer {
 .atlas-neural-transition.is-active {
   opacity: 1;
   pointer-events: auto;
+}
+
+.atlas-neural-transition.is-arriving {
+  transition: opacity .52s ease;
 }
 
 .atlas-neural-transition canvas {
