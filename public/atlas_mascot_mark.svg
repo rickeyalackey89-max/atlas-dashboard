@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Atlas AI mascot mark</title>
+  <desc id="desc">A small chrome Atlas AI mascot dribbling a basketball.</desc>
+  <defs>
+    <linearGradient id="chrome" x1="20" x2="100" y1="10" y2="118" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".22" stop-color="#c9d7df"/>
+      <stop offset=".46" stop-color="#6d7b84"/>
+      <stop offset=".68" stop-color="#eff8ff"/>
+      <stop offset="1" stop-color="#56626c"/>
+    </linearGradient>
+    <linearGradient id="visor" x1="35" x2="94" y1="38" y2="62" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#061116"/>
+      <stop offset=".52" stop-color="#102d38"/>
+      <stop offset="1" stop-color="#05080b"/>
+    </linearGradient>
+    <radialGradient id="ball" cx="36%" cy="30%" r="72%">
+      <stop offset="0" stop-color="#ffdca0"/>
+      <stop offset=".46" stop-color="#f4a21f"/>
+      <stop offset="1" stop-color="#9e520b"/>
+    </radialGradient>
+    <filter id="cyanGlow" x="-45%" y="-45%" width="190%" height="190%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0  0 0 0 0 .83  0 0 0 0 1  0 0 0 .8 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      .eye{animation:eyePulse 2.4s ease-in-out infinite}
+      .ball-spin{transform-origin:93px 91px;animation:ballSpin 3.4s linear infinite}
+      @keyframes eyePulse{0%,100%{opacity:.78}50%{opacity:1}}
+      @keyframes ballSpin{to{transform:rotate(360deg)}}
+      @media (prefers-reduced-motion: reduce){.eye,.ball-spin{animation:none}}
+    </style>
+  </defs>
+
+  <g filter="url(#cyanGlow)">
+    <path d="M64 10c22.7 0 40.6 17.2 40.6 39.7 0 17-9.4 29.6-23.2 35.2v12.5H46.6V84.9C32.9 79.3 23.4 66.7 23.4 49.7 23.4 27.2 41.3 10 64 10z" fill="url(#chrome)" stroke="#dff8ff" stroke-opacity=".48" stroke-width="2"/>
+    <path d="M36.8 42.7c5.3-7.1 14.8-10 27.2-10s21.9 2.9 27.2 10v12.2c-5.1 6.7-14.2 9.2-27.2 9.2s-22.1-2.5-27.2-9.2V42.7z" fill="url(#visor)" stroke="#62dfff" stroke-opacity=".65" stroke-width="2"/>
+    <path class="eye" d="M48.6 53.4c4.3-7.6 12.6-7.7 17.1 0" fill="none" stroke="#1fd7ff" stroke-linecap="round" stroke-width="5"/>
+    <path class="eye" d="M79.4 53.4c-4.3-7.6-12.6-7.7-17.1 0" fill="none" stroke="#1fd7ff" stroke-linecap="round" stroke-width="5"/>
+    <path d="M47 73.8c7.8 8 25.8 8 33.8 0" fill="none" stroke="#dff8ff" stroke-linecap="round" stroke-width="4"/>
+    <path d="M47.2 98.1h33.6l7.4 17.9H39.8l7.4-17.9z" fill="#111a20" stroke="#d5e8ef" stroke-opacity=".42" stroke-width="2"/>
+  </g>
+
+  <g class="ball-spin">
+    <circle cx="93" cy="91" r="20" fill="url(#ball)" stroke="#271505" stroke-width="2.2"/>
+    <path d="M73.8 87.5c11.5 1.8 23.2 1.8 38.4-1.4M78.2 101.6c9.4-9.1 17.3-17.2 27.6-28.6M87 72.7c8.2 10.5 13.4 21.1 17.1 36.5M73.8 91h38.4" fill="none" stroke="#241100" stroke-width="2.2" stroke-linecap="round" opacity=".82"/>
+    <circle cx="85.3" cy="80.5" r="2.8" fill="#fff3d8" opacity=".85"/>
+  </g>
+</svg>

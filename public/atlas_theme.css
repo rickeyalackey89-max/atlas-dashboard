@@ -201,6 +201,21 @@ nav {
   filter: invert(1) drop-shadow(0 0 14px rgba(0,212,255,.24)) drop-shadow(0 0 9px rgba(125,190,255,.2)) !important;
 }
 
+.nav-logo.atlas-mascot-mark,
+.brand img.atlas-mascot-mark {
+  width: 34px !important;
+  height: 34px !important;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(33, 216, 255, .45)) !important;
+  transition: filter .22s ease, transform .22s ease;
+}
+
+.nav-logo.atlas-mascot-mark:hover,
+.brand:hover img.atlas-mascot-mark {
+  transform: translateY(-1px) scale(1.04);
+  filter: drop-shadow(0 0 16px rgba(33, 216, 255, .72)) !important;
+}
+
 .btn,
 .btn-outline,
 .btn-gold,
