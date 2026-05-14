@@ -38,6 +38,10 @@
     .message strong{color:var(--cyan);}
     .new-link{display:block;margin-top:14px;text-align:center;color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;}
     .new-link:hover{color:#fff;}
+    .password-row{display:flex;gap:8px;align-items:center;}
+    .password-row input{flex:1;}
+    .show-password{height:44px;padding:0 12px;border:1px solid var(--b2);background:#050505;color:var(--cyan);font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;}
+    .show-password:hover{border-color:var(--cyan);}
     .modules{display:grid;grid-template-columns:repeat(2,1fr);}
     .module{min-height:150px;padding:26px;border-right:1px solid var(--b);border-bottom:1px solid var(--b);background:rgba(255,255,255,.012);}
     .module:nth-child(2n){border-right:0;}
@@ -83,7 +87,10 @@
         <label for="email">Email</label>
         <input id="email" name="email" type="email" autocomplete="email" placeholder="ambassador@email.com"/>
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Portal password"/>
+        <div class="password-row">
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Portal password"/>
+          <button class="show-password" id="showPassword" type="button">Show</button>
+        </div>
         <button class="btn btn-gold" type="submit" style="width:100%;margin-top:20px;">Log In</button>
         <a class="new-link" href="/ambassadors/apply/">New Ambassador? Start here</a>
       </form>
@@ -186,14 +193,16 @@
 
   document.getElementById('portalForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    var emailValue = document.getElementById('email').value.trim();
+    var passwordValue = document.getElementById('password').value.trim();
     message.style.display = 'block';
     message.innerHTML = '<strong>Checking portal...</strong><br/>Connecting to Atlas Ambassador backend.';
     fetch(API + '/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value
+        email: emailValue,
+        password: passwordValue
       })
     }).then(function(resp) {
       return resp.json().then(function(body) { return { status: resp.status, body: body }; });
@@ -217,6 +226,12 @@
     }).catch(function() {
       message.innerHTML = '<strong>Portal unavailable.</strong><br/>Unable to reach the backend. For current access questions, email support@atlassports.ai.';
     });
+  });
+  document.getElementById('showPassword').addEventListener('click', function() {
+    var input = document.getElementById('password');
+    var showing = input.type === 'text';
+    input.type = showing ? 'password' : 'text';
+    this.textContent = showing ? 'Show' : 'Hide';
   });
   loadPortal();
 </script>
