@@ -454,40 +454,6 @@
     var hash = window.location.hash.replace('#', '');
     if (panels[hash]) activateTab(hash);
   }
-  var applicationForm = document.getElementById('ambassadorApplication');
-  var applicationMessage = document.getElementById('applicationMessage');
-  if (applicationForm && applicationMessage) {
-    applicationForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      applicationMessage.className = 'form-message';
-      applicationMessage.style.display = 'block';
-      applicationMessage.textContent = 'Submitting application...';
-      var data = {
-        name: document.getElementById('appName').value,
-        email: document.getElementById('appEmail').value,
-        platforms: document.getElementById('appPlatforms').value,
-        audienceNotes: document.getElementById('appAudience').value,
-        sponsorCode: document.getElementById('appSponsor').value
-      };
-      fetch(AMBASSADOR_API + '/api/applications', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      }).then(function(resp) {
-        return resp.json().then(function(body) { return { ok: resp.ok, body: body }; });
-      }).then(function(result) {
-        if (!result.ok || !result.body.ok) {
-          throw new Error((result.body.error && result.body.error.message) || 'Application failed.');
-        }
-        applicationMessage.className = 'form-message ok';
-        applicationMessage.textContent = 'Application submitted. Atlas will review and follow up by email.';
-        applicationForm.reset();
-      }).catch(function(err) {
-        applicationMessage.className = 'form-message err';
-        applicationMessage.textContent = err.message || 'Application failed. Email support@atlassports.ai if this continues.';
-      });
-    });
-  }
 </script>
 </body>
 </html>
