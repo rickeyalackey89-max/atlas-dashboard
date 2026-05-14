@@ -94,7 +94,7 @@
     document.getElementById('payoutTotal').textContent=money(data.payouts.filter(function(p){return p.status==='pending'}).reduce(function(a,p){return a+(Number(p.amount_cents)||0)},0));
     renderTree(data.ambassadors,data.edges);
     renderApplications(data.applications);
-    table('ambassadors',data.ambassadors,['name','email','referral_code','sponsor_code','status','connect_onboarding_status','created_at']);
+    renderAmbassadors(data.ambassadors);
     table('signups',data.signups,['customer_email','referral_code','plan_code','amount_cents','status','eligibility_reason','created_at'],{amount_cents:money,status:status});
     table('payouts',data.payouts,['ambassador_id','source_signup_id','payout_type','amount_cents','status','reason','created_at'],{amount_cents:money,status:status});
   }
@@ -113,6 +113,38 @@
     document.getElementById('applications').innerHTML='<table><thead><tr><th>Applicant</th><th>Code</th><th>Sponsor</th><th>Status</th><th>Email</th><th>Reason</th><th>Created</th><th>Action</th></tr></thead><tbody>'+rows+'</tbody></table>';
     document.querySelectorAll('[data-app]').forEach(function(btn){btn.addEventListener('click',function(){approveApp(btn.getAttribute('data-app'));});});
     document.querySelectorAll('[data-resend]').forEach(function(btn){btn.addEventListener('click',function(){resendVerification(btn.getAttribute('data-resend'));});});
+  }
+  function renderAmbassadors(rows){
+    var html='<table><thead><tr><th>Name</th><th>Email</th><th>Code</th><th>Sponsor</th><th>Status</th><th>Stripe Promo</th><th>Connect</th><th>Created</th><th>Actions</th></tr></thead><tbody>';
+    html+=rows.map(function(a){
+      var promo = a.stripe_promotion_code ? esc(a.stripe_promotion_code) : '<span style="color:#777">Not attached</span>';
+      var connect = (a.connect_onboarding_status ? status(a.connect_onboarding_status) : status('not_started')) + (a.stripe_connect_account_id ? '<br><span style="color:#777">'+esc(a.stripe_connect_account_id)+'</span>' : '');
+      var actions =
+        '<button class="btn btn-cyan" data-promo="'+esc(a.id)+'">Attach Promo</button>' +
+        '<button class="btn" data-connect="'+esc(a.id)+'" style="margin-left:6px">Connect Link</button>';
+      return '<tr><td>'+esc(a.name)+'</td><td>'+esc(a.email)+'</td><td>'+esc(a.referral_code)+'</td><td>'+esc(a.sponsor_code||'')+'</td><td>'+status(a.status)+'</td><td>'+promo+'</td><td>'+connect+'</td><td>'+esc(a.created_at)+'</td><td>'+actions+'</td></tr>';
+    }).join('');
+    html+='</tbody></table>';
+    document.getElementById('ambassadors').innerHTML=html;
+    document.querySelectorAll('[data-promo]').forEach(function(btn){btn.addEventListener('click',function(){attachPromo(btn.getAttribute('data-promo'));});});
+    document.querySelectorAll('[data-connect]').forEach(function(btn){btn.addEventListener('click',function(){openConnectLink(btn.getAttribute('data-connect'));});});
+  }
+  function attachPromo(id){
+    var savedCoupon = localStorage.getItem('atlas_ambassador_coupon_id') || '';
+    var couponId = window.prompt('Stripe Coupon ID to use for Ambassador promo codes. Leave blank to use Worker default.', savedCoupon);
+    if (couponId === null) return;
+    couponId = String(couponId || '').trim();
+    if (couponId) localStorage.setItem('atlas_ambassador_coupon_id', couponId);
+    fetch(API+'/api/stripe/promotion-code',{method:'POST',headers:headers(),body:JSON.stringify({ambassadorId:id,couponId:couponId})})
+      .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
+      .then(function(res){if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Promo attach failed'); alert('Promotion code ready: '+res.body.code); loadHub();})
+      .catch(function(err){alert(err.message||'Promo attach failed')});
+  }
+  function openConnectLink(id){
+    fetch(API+'/api/stripe/connect/onboarding-link',{method:'POST',headers:headers(),body:JSON.stringify({ambassadorId:id})})
+      .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
+      .then(function(res){if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Connect link failed'); window.open(res.body.onboardingUrl,'_blank','noopener'); loadHub();})
+      .catch(function(err){alert(err.message||'Connect link failed')});
   }
   function approveApp(id){
     if(!window.confirm('Approve this Ambassador and create their backend code?')) return;

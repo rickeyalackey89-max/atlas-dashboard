@@ -150,11 +150,9 @@
   var socialInAppBrowser = /Instagram|FBAN|FBAV|FB_IAB|FB4A|FBIOS|Messenger|Line\/|Twitter/i.test(navigator.userAgent || '');
 
   // ---- Annual upsell (Option A) ----
-  // Valid customer-facing promo codes that unlock the annual 50%-off offer.
-  // These map server-side to Stripe coupon Dahj55eZ (50% off) — we only need
-  // the code names here for client-side validation + URL injection.
+  // Ambassador promo codes are created in Stripe and attached in the private
+  // Ambassador admin. The client should not need a deploy for every new code.
   var ANNUAL_URL = 'https://buy.stripe.com/14A9AV3Fw4Sdgc4eye3cc06';
-  var VALID_CODES = ['314MELL', 'KENFRMTHEMIT'];
 
   // Capture affiliate ref + promo code from URL (?ref=streamerName&promo=KYLE10)
   // Also persist ref to localStorage for 30 days so users who click an affiliate
@@ -307,16 +305,10 @@
       msgEl.textContent = 'Please enter a code.';
       return false;
     }
-    if (VALID_CODES.indexOf(code) === -1) {
-      msgEl.className = 'promo-msg ok';
-      msgEl.textContent = 'Ambassador code applied. Annual discount is not attached to this code.';
-      upsell.classList.remove('show');
-    } else {
-      msgEl.className = 'promo-msg ok';
-      msgEl.textContent = 'Code accepted \u2014 annual 50% off unlocked below. Code is also credited to the Ambassador if you continue with monthly.';
-      btn.href = buildAnnualUrl(code);
-      upsell.classList.add('show');
-    }
+    msgEl.className = 'promo-msg ok';
+    msgEl.textContent = 'Code applied for Ambassador credit. If this code has an annual promotion, Stripe will apply it at checkout.';
+    btn.href = buildAnnualUrl(code);
+    upsell.classList.add('show');
     // Re-mount monthly checkout with attribution so the streamer gets credit
     // even if the user declines the annual upsell.
     if (code !== appliedPromo) {

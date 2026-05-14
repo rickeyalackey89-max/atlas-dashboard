@@ -164,15 +164,46 @@
   function renderPortal(data) {
     var ambassador = data.ambassador || {};
     var metrics = data.metrics || {};
+    var connectStatus = ambassador.connectOnboardingStatus || 'not_started';
+    var connectButton = connectStatus === 'complete'
+      ? ''
+      : '<br/><button class="btn btn-gold" type="button" id="connectPayoutBtn" style="margin-top:14px;">Start Secure Payout Setup</button>';
     message.style.display = 'block';
     message.innerHTML =
       '<strong>Welcome, ' + esc(ambassador.name || 'Ambassador') + '.</strong><br/>' +
       'Code: <strong>' + esc(ambassador.referralCode || 'Pending') + '</strong><br/>' +
+      'Stripe promo: <strong>' + esc(ambassador.stripePromotionCode || 'Pending') + '</strong><br/>' +
       'Status: ' + esc(ambassador.status || 'unknown') + '<br/>' +
+      'Payout setup: ' + esc(connectStatus) + '<br/>' +
       'Valid signups: ' + esc(metrics.validSignups || 0) + '<br/>' +
       'Direct Ambassadors: ' + esc(metrics.directAmbassadors || 0) + '<br/>' +
       'Pending payout: ' + money(metrics.pendingPayoutCents) + '<br/>' +
-      'Paid payout: ' + money(metrics.paidPayoutCents);
+      'Paid payout: ' + money(metrics.paidPayoutCents) +
+      connectButton;
+    var connectBtn = document.getElementById('connectPayoutBtn');
+    if (connectBtn) {
+      connectBtn.addEventListener('click', startConnectOnboarding);
+    }
+  }
+
+  function startConnectOnboarding() {
+    fetch(API + '/api/stripe/connect/onboarding-link', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({})
+    }).then(function(resp) {
+      return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+    }).then(function(result) {
+      if (!result.body.ok || !result.body.onboardingUrl) {
+        var serverMessage = result.body && result.body.error && result.body.error.message
+          ? result.body.error.message
+          : 'Unable to start payout setup.';
+        throw new Error(serverMessage);
+      }
+      window.location.href = result.body.onboardingUrl;
+    }).catch(function(error) {
+      message.innerHTML += '<br/><br/><strong>Payout setup unavailable.</strong><br/>' + esc(error.message || 'Unable to start payout setup.');
+    });
   }
 
   function loadPortal() {
