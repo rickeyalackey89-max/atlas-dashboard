@@ -80,6 +80,11 @@
     .content-card p,.profile-block p{color:var(--t2);font-size:13px;line-height:1.7;}
     .copy-line{margin-top:12px;padding:10px;border:1px solid var(--b);background:#050505;color:#fff;font-size:12px;line-height:1.55;}
     .copy-btn{margin-top:12px;}
+    .share-link-card{border:1px solid rgba(0,212,255,.45);background:rgba(0,212,255,.055);padding:18px;margin-bottom:20px;}
+    .share-link-card b{display:block;color:var(--cyan);font-size:12px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;}
+    .share-link-card p{color:var(--t2);font-size:13px;line-height:1.7;margin-bottom:12px;}
+    .share-link-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;}
+    .share-link-value{border:1px solid var(--b);background:#050505;color:#fff;padding:12px 14px;font-size:13px;line-height:1.45;overflow-wrap:anywhere;}
     .document-list{display:grid;gap:8px;}
     .document-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--b);background:#050505;}
     .document-row a{color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;}
@@ -96,6 +101,7 @@
       .portal-hero-actions{justify-content:flex-start;margin-top:16px;}
       .portal-code{display:inline-flex;}
       .metric-grid,.content-grid,.profile-grid{grid-template-columns:1fr;}
+      .share-link-row{grid-template-columns:1fr;}
       .metric{border-right:0;border-bottom:1px solid var(--b);}
       .metric:last-child{border-bottom:0;}
       .data-table{display:block;overflow-x:auto;white-space:nowrap;}
@@ -230,11 +236,21 @@
   }
 
   function renderSignups(data) {
+    var ambassador = data.ambassador || {};
+    var shareLink = ambassadorShareLink(ambassador.referralCode);
     var metrics = data.metrics || {};
     var signups = data.signups || [];
     var tree = data.tree || [];
     var payouts = data.payouts || [];
     return '' +
+      '<div class="share-link-card">' +
+        '<b>Share Your Ambassador Link</b>' +
+        '<p>Send this link to anyone applying through you. It opens the Join page with your Ambassador code already attached.</p>' +
+        '<div class="share-link-row">' +
+          '<div class="share-link-value">' + esc(shareLink) + '</div>' +
+          '<button class="btn btn-cyan" type="button" data-copy="' + esc(shareLink) + '" data-default-label="Copy Share Link">Copy Share Link</button>' +
+        '</div>' +
+      '</div>' +
       '<div class="metric-grid">' +
         '<div class="metric"><b>Valid Signups</b><strong>' + esc(metrics.validSignups || 0) + '</strong></div>' +
         '<div class="metric"><b>Direct Ambassadors</b><strong>' + esc(metrics.directAmbassadors || 0) + '</strong></div>' +
