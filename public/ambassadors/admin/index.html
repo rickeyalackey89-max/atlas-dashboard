@@ -107,10 +107,12 @@
   function renderApplications(apps){
     var rows=apps.map(function(a){
       var approve = a.status==='submitted' ? '<button class="btn btn-cyan" data-app="'+esc(a.id)+'">Approve</button>' : '';
-      return '<tr><td>'+esc(a.name)+'<br><span style="color:#777">'+esc(a.email)+'<br>'+esc(a.phone)+'</span></td><td>'+esc(a.preferred_code)+'</td><td>'+esc(a.sponsor_code||'')+'</td><td>'+status(a.status)+'</td><td>'+(a.email_verified_at?'Verified':'Pending')+'</td><td>'+esc(a.auto_reject_reason||'')+'</td><td>'+esc(a.created_at)+'</td><td>'+approve+'</td></tr>';
+      var resend = !a.email_verified_at && a.status!=='auto_rejected' ? '<button class="btn" data-resend="'+esc(a.id)+'" style="margin-left:6px">Resend Email</button>' : '';
+      return '<tr><td>'+esc(a.name)+'<br><span style="color:#777">'+esc(a.email)+'<br>'+esc(a.phone)+'</span></td><td>'+esc(a.preferred_code)+'</td><td>'+esc(a.sponsor_code||'')+'</td><td>'+status(a.status)+'</td><td>'+(a.email_verified_at?'Verified':'Pending')+'</td><td>'+esc(a.auto_reject_reason||'')+'</td><td>'+esc(a.created_at)+'</td><td>'+approve+resend+'</td></tr>';
     }).join('');
     document.getElementById('applications').innerHTML='<table><thead><tr><th>Applicant</th><th>Code</th><th>Sponsor</th><th>Status</th><th>Email</th><th>Reason</th><th>Created</th><th>Action</th></tr></thead><tbody>'+rows+'</tbody></table>';
     document.querySelectorAll('[data-app]').forEach(function(btn){btn.addEventListener('click',function(){approveApp(btn.getAttribute('data-app'));});});
+    document.querySelectorAll('[data-resend]').forEach(function(btn){btn.addEventListener('click',function(){resendVerification(btn.getAttribute('data-resend'));});});
   }
   function approveApp(id){
     if(!window.confirm('Approve this Ambassador and create their backend code?')) return;
@@ -118,6 +120,12 @@
       .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
       .then(function(res){if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Approve failed'); loadHub();})
       .catch(function(err){alert(err.message||'Approve failed')});
+  }
+  function resendVerification(id){
+    fetch(API+'/api/admin/applications/resend-verification',{method:'POST',headers:headers(),body:JSON.stringify({applicationId:id})})
+      .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
+      .then(function(res){if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Resend failed'); alert('Verification email resent.'); loadHub();})
+      .catch(function(err){alert(err.message||'Resend failed')});
   }
   function table(id,rows,cols,formatters){
     formatters=formatters||{};
