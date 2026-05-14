@@ -305,6 +305,7 @@
     var ambassador = data.ambassador || {};
     var documents = (data.documents && data.documents.resources) || [];
     var documentRecords = (data.documents && data.documents.records) || [];
+    var agreement = (data.documents && data.documents.agreement) || {};
     var websiteAccess = data.websiteAccess || {};
     return '<div class="profile-grid">' +
       '<div class="profile-block">' +
@@ -318,6 +319,10 @@
       '<div class="profile-block">' +
         '<b>Website Access</b>' +
         '<p>Status: <strong>' + esc(websiteAccess.status || 'pending') + '</strong><br/>Access window: ' + esc(websiteAccess.windowDays || 7) + ' days<br/>Renewal rule: 2 valid paid customer signups per window.<br/>Current shortfall: ' + esc(websiteAccess.renewalShortfall || 0) + '</p>' +
+      '</div>' +
+      '<div class="profile-block">' +
+        '<b>Atlas Agreement</b>' +
+        '<p>Status: <strong>' + esc(agreement.signed ? 'signed' : (agreement.legacyAllowed ? 'legacy accepted' : 'required')) + '</strong><br/>Signed: ' + esc(dateShort(agreement.signedAt)) + '<br/>Version: ' + esc(agreement.version || (agreement.legacyAllowed ? 'legacy onboarding' : 'pending')) + '</p>' +
       '</div>' +
       '<div class="profile-block">' +
         '<b>Support</b>' +

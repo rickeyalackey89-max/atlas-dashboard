@@ -2,17 +2,17 @@
 
 This guide helps approved AtlasSportsAI Ambassadors complete the secure Stripe Express payout onboarding step.
 
-Stripe Express payout onboarding is separate from the Atlas Ambassador application. Atlas uses Stripe to collect payout, tax, identity, and direct-deposit information securely.
+Stripe Express payout onboarding is separate from the Atlas Ambassador application and Atlas agreement signature. Atlas uses Stripe to collect payout identity, banking, tax identity, and 1099 reporting data securely.
 
 ## Process Overview
 
 1. Submit a quick application or receive an invite from Atlas.
 2. If approved, open the temporary Atlas onboarding link.
-3. Read the Ambassador documents.
+3. Read the Ambassador documents and sign the Atlas Ambassador agreement.
 4. Create your Atlas portal credentials.
-5. Continue to Stripe Express payout onboarding.
-6. Submit Stripe Express payout onboarding.
-7. Atlas portal access activates after payout onboarding is submitted.
+5. Continue to Stripe Express payout, banking, tax identity, and 1099 reporting setup.
+6. Submit all required Stripe Express information.
+7. Atlas portal access activates after Atlas agreement signing and Stripe Express onboarding are both complete.
 
 ## Before You Start
 
@@ -22,8 +22,29 @@ Have these ready:
 - Email used for Atlas Ambassador onboarding
 - Public profile or website where you promote Atlas
 - Basic business/activity description
+- Completed Atlas agreement signature step
 - Tax and identity information requested by Stripe
 - Direct-deposit account details
+
+## What Stripe Express Handles
+
+Stripe Express handles:
+
+- Payout identity verification
+- Bank account or debit-card payout details
+- Tax identity information Stripe needs for 1099 reporting
+- Additional verification if Stripe requires it
+
+Atlas does not collect or store your bank account, SSN, tax ID, or identity document on the Atlas site.
+
+## What Atlas Handles Separately
+
+Atlas handles these items outside Stripe:
+
+- Ambassador agreement acceptance
+- Conduct requirements and required disclosures
+- Media guide and promotional rules
+- Payout terms, program launch approval, and portal access rules
 
 ## Stripe Email
 
@@ -84,7 +105,7 @@ After Stripe Express payout onboarding is submitted:
 
 - Return to the Atlas Ambassador portal.
 - Log in with the email and password created during Atlas onboarding.
-- Portal access activates after Stripe reports payout onboarding as submitted or complete.
+- Portal access activates after Atlas agreement signing and Stripe Express onboarding are both complete.
 
 If Stripe still shows incomplete requirements, finish the missing items from the Stripe flow.
 

@@ -61,6 +61,9 @@
     .invite-panel input{width:100%;height:42px;background:#050505;border:1px solid var(--b2);color:#fff;padding:0 12px;outline:none}
     .invite-panel input:focus{border-color:var(--gold)}
     .invite-panel input[readonly]{color:#aaa;background:#020202}
+    .agreement-box{margin-top:18px;border:1px solid rgba(245,166,35,.3);background:rgba(245,166,35,.045);padding:18px;color:#cfcfcf;font-size:13px;line-height:1.8}
+    .agreement-box b{display:block;color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+    .signature-row{margin-top:16px}
     .terms-row{display:flex;gap:10px;align-items:flex-start;margin-top:16px;color:var(--t2);font-size:13px;line-height:1.65}
     .terms-row input{width:auto;height:auto;margin-top:4px}
     .message{display:none;margin-top:12px;padding:13px;border:1px solid rgba(245,166,35,.35);background:rgba(245,166,35,.06);color:#cfcfcf;font-size:13px;line-height:1.7}
@@ -101,7 +104,7 @@
     <h2>Temporary Onboarding Access</h2>
     <p>
       Atlas approved your quick application to continue onboarding. Complete the fields below after reading the onboarding documents.
-      When this step is complete, Atlas saves your portal credentials and opens secure Stripe Express payout onboarding. Portal access activates after payout onboarding is submitted.
+      When this step is complete, Atlas records your signed Ambassador agreement, saves your portal credentials, and opens secure Stripe Express payout onboarding. Portal access activates after both Atlas agreement signing and Stripe Express payout onboarding are complete.
     </p>
     <form id="inviteOnboardingForm">
       <div class="invite-grid">
@@ -132,9 +135,23 @@
       </div>
       <label class="terms-row">
         <input id="inviteAcceptedTerms" type="checkbox" required/>
-        <span>I have read the payout structure, conduct requirements, media guide, and opportunity overview, and I want to continue Ambassador onboarding.</span>
+        <span>I have read the payout structure, conduct requirements, media guide, opportunity overview, and Stripe Express guide.</span>
       </label>
-      <button class="btn btn-gold" id="completeInviteBtn" type="submit" style="margin-top:18px;">Complete Onboarding</button>
+      <div class="agreement-box" id="atlasAgreement">
+        <b>Atlas Ambassador Agreement Signature</b>
+        <p>
+          By signing below, I confirm that I want to participate as an independent AtlasSportsAI Ambassador, that I understand payouts require valid paid customer signups and completed Stripe Express payout/tax onboarding, and that I agree to follow Atlas conduct, disclosure, media, and launch rules. Final program language may be updated before full launch approval.
+        </p>
+        <div class="signature-row">
+          <label for="inviteAgreementSignature">Legal Signature Name</label>
+          <input id="inviteAgreementSignature" autocomplete="name" placeholder="Type your legal name" required/>
+        </div>
+      </div>
+      <label class="terms-row">
+        <input id="inviteAgreementAccepted" type="checkbox" required/>
+        <span>I agree to the Atlas Ambassador agreement and understand that Stripe Express separately handles payout identity, banking, tax identity, and 1099 reporting data.</span>
+      </label>
+      <button class="btn btn-gold" id="completeInviteBtn" type="submit" style="margin-top:18px;">Sign Agreement & Continue</button>
       <button class="btn btn-cyan" id="startInviteStripeBtn" type="button" style="display:none;margin-top:18px;margin-left:8px;">Start Secure Payout Setup</button>
       <button class="btn btn-cyan" id="emailInviteStripeBtn" type="button" style="display:none;margin-top:18px;margin-left:8px;">Email Stripe Onboarding Link</button>
     </form>
@@ -148,9 +165,9 @@
     </div>
     <div class="steps">
       <div class="step"><b>1. Approval</b><p>Atlas confirms your Ambassador status, code, sponsor relationship if any, and portal login access.</p></div>
-      <div class="step"><b>2. Documents</b><p>Review the payout schedule, conduct requirements, media guide, and opportunity overview below.</p></div>
-      <div class="step"><b>3. Secure Payout</b><p>Complete direct-deposit and tax onboarding only through the secure payout flow after approval.</p></div>
-      <div class="step"><b>4. Launch</b><p>Use your code, follow the media rules, track valid signups, and maintain site access through sales activity.</p></div>
+      <div class="step"><b>2. Atlas Agreement</b><p>Review the payout schedule, conduct requirements, media guide, opportunity overview, and sign the Atlas Ambassador agreement.</p></div>
+      <div class="step"><b>3. Stripe Express</b><p>Complete payout identity, banking, tax identity, and 1099 reporting setup only through Stripe Express.</p></div>
+      <div class="step"><b>4. Portal Access</b><p>Portal access unlocks after Atlas agreement signing and Stripe Express onboarding are both complete.</p></div>
     </div>
   </section>
 
@@ -160,19 +177,19 @@
       <p class="sub">These documents are the operating handbook for the launch program. Each document can be read in the browser or downloaded as a PDF.</p>
     </div>
     <div class="docs">
-      <article class="doc">
+      <article class="doc" id="payout-structure">
         <div><h3>Payout Structure</h3><p>Direct signup payouts, sponsor payouts, access renewal rules, bonus schedule, eligibility, and validation terms.</p></div>
         <div class="doc-links"><a class="btn btn-gold" href="/ambassadors/docs/payout-structure/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_payout_structure.pdf">PDF</a></div>
       </article>
-      <article class="doc">
+      <article class="doc" id="conduct">
         <div><h3>Conduct Requirements</h3><p>Disclosure rules, prohibited claims, responsible promotion, brand conduct, compliance, and removal triggers.</p></div>
         <div class="doc-links"><a class="btn btn-gold" href="/ambassadors/docs/conduct-requirements/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_conduct_requirements.pdf">PDF</a></div>
       </article>
-      <article class="doc">
+      <article class="doc" id="media-guide">
         <div><h3>Media Guide</h3><p>Allowed platforms, creative tool permissions, approved talking points, content examples, and required disclosures.</p></div>
         <div class="doc-links"><a class="btn btn-gold" href="/ambassadors/docs/media-guide/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_media_guide.pdf">PDF</a></div>
       </article>
-      <article class="doc">
+      <article class="doc" id="opportunity">
         <div><h3>Opportunities</h3><p>Creator tracks, leaderboard timing, monthly top performer bonus, app roadmap, AtlasGPT, and growth paths.</p></div>
         <div class="doc-links"><a class="btn btn-gold" href="/ambassadors/docs/opportunities/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_opportunities.pdf">PDF</a></div>
       </article>
@@ -328,8 +345,8 @@
       inviteForm.addEventListener('submit', function(event) {
         event.preventDefault();
         completeInviteBtn.disabled = true;
-        completeInviteBtn.textContent = 'Completing...';
-        showInviteMessage('<strong>Completing onboarding.</strong><br/>Creating your Ambassador record and preparing secure payout setup.');
+        completeInviteBtn.textContent = 'Signing...';
+        showInviteMessage('<strong>Signing Atlas agreement.</strong><br/>Creating your Ambassador record before opening Stripe Express.');
         fetch(API + '/api/applications/complete-onboarding', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -339,7 +356,9 @@
             preferredCode: document.getElementById('invitePreferredCode').value,
             password: document.getElementById('invitePassword').value,
             confirmPassword: document.getElementById('inviteConfirmPassword').value,
-            acceptedTerms: document.getElementById('inviteAcceptedTerms').checked
+            acceptedTerms: document.getElementById('inviteAcceptedTerms').checked,
+            agreementAccepted: document.getElementById('inviteAgreementAccepted').checked,
+            agreementSignatureName: document.getElementById('inviteAgreementSignature').value
           })
         }).then(function(resp) {
           return resp.json().then(function(body) { return { status: resp.status, body: body }; });
@@ -359,12 +378,13 @@
           completeInviteBtn.style.display = 'none';
           startInviteStripeBtn.style.display = 'inline-flex';
           showInviteMessage(
-            '<strong>Atlas onboarding saved.</strong><br/>' +
-            'Your portal login will be the email and password you just created. Continue to Stripe Express payout and tax setup next. Portal access activates only after Stripe reports payout onboarding complete.'
+            '<strong>Atlas agreement signed.</strong><br/>' +
+            'Your portal login will be the email and password you just created. Opening Stripe Express payout identity, banking, tax identity, and 1099 reporting setup now.'
           );
+          setTimeout(startInviteStripe, 700);
         }).catch(function(error) {
           completeInviteBtn.disabled = false;
-          completeInviteBtn.textContent = 'Complete Onboarding';
+          completeInviteBtn.textContent = 'Sign Agreement & Continue';
           if (error.code === 'ambassador_exists') {
             emailInviteStripeBtn.style.display = 'inline-flex';
           }
