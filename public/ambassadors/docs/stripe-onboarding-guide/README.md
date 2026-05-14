@@ -33,6 +33,7 @@ Stripe Express handles:
 - Payout identity verification
 - Bank account or debit-card payout details
 - Tax identity information Stripe needs for 1099 reporting
+- Future Stripe Express tax form access when Stripe generates eligible 1099 forms
 - Additional verification if Stripe requires it
 
 Atlas does not collect or store your bank account, SSN, tax ID, or identity document on the Atlas site.
@@ -97,7 +98,9 @@ Stripe may ask for:
 - Tax classification
 - Additional identity verification
 
-Atlas does not collect or store this information on the Atlas site. It is submitted through Stripe.
+Stripe Express usually does not show a separate form labeled `1099` during initial onboarding. It collects the tax identity details Stripe needs for 1099 reporting, then makes eligible tax forms available inside Stripe Express later if forms are issued.
+
+Atlas does not collect or store this information on the Atlas site. It is submitted through Stripe Express.
 
 ## After Stripe Submission
 
