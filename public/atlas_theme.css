@@ -148,9 +148,20 @@ nav {
 .annual-btn,
 .portal-tab.active,
 .prob-mini-btn.active {
-  background: linear-gradient(135deg, #ffbd45, #f5a623 46%, #d88b10) !important;
-  border-color: rgba(255, 198, 76, .92) !important;
-  box-shadow: 0 0 24px rgba(245,166,35,.16), inset 0 1px 0 rgba(255,255,255,.28);
+  background: linear-gradient(135deg, #9ff4ff, #00d8ff 42%, #00a7d8) !important;
+  border-color: rgba(121, 237, 255, .9) !important;
+  color: #001014 !important;
+  box-shadow: 0 0 24px rgba(0,216,255,.2), inset 0 1px 0 rgba(255,255,255,.36);
+}
+
+.btn-gold:hover,
+.checkout-btn:hover,
+.annual-btn:hover,
+.portal-tab.active:hover,
+.prob-mini-btn.active:hover {
+  background: linear-gradient(135deg, #c8fbff, #19e2ff 42%, #00b7ea) !important;
+  border-color: rgba(180, 250, 255, .95) !important;
+  color: #001014 !important;
 }
 
 .btn-cyan,
