@@ -329,27 +329,13 @@
               <li>Complete Ambassador onboarding before payouts are issued.</li>
               <li>Be able to receive direct deposit payments and complete 1099 onboarding.</li>
             </ul>
-            <form class="application-form" id="ambassadorApplication">
+            <div class="application-form">
               <h4 style="margin-top:0;">Quick Application</h4>
-              <div class="form-grid">
-                <div>
-                  <label for="appName">Name</label>
-                  <input id="appName" name="name" autocomplete="name" required/>
-                </div>
-                <div>
-                  <label for="appEmail">Email</label>
-                  <input id="appEmail" name="email" type="email" autocomplete="email" required/>
-                </div>
-              </div>
-              <label for="appPlatforms">Platforms / Communities</label>
-              <textarea id="appPlatforms" name="platforms" placeholder="TikTok, Twitch, YouTube, Instagram, Discord, local sports community, etc."></textarea>
-              <label for="appAudience">Why You Are A Good Fit</label>
-              <textarea id="appAudience" name="audienceNotes" placeholder="Audience size, sports niche, content style, coaching/community background, or how you plan to promote Atlas."></textarea>
-              <label for="appSponsor">Sponsor Code If Another Ambassador Invited You</label>
-              <input id="appSponsor" name="sponsorCode" placeholder="Optional"/>
-              <button class="btn btn-gold" type="submit" style="margin-top:18px;">Submit Application</button>
-              <div class="form-message" id="applicationMessage"></div>
-            </form>
+              <p style="color:var(--t2);font-size:14px;line-height:1.7;margin-top:8px;">
+                Start the secure application with email verification, preferred code, password setup, and optional sponsor code.
+              </p>
+              <a class="btn btn-gold" href="/ambassadors/apply/" style="margin-top:18px;">Start Application</a>
+            </div>
             <div class="contact-band">
               Additional questions? Contact <a href="mailto:support@atlassports.ai?subject=AtlasSportsAI%20Ambassador%20Questions">support@atlassports.ai</a>.
             </div>

@@ -107,9 +107,9 @@
   function renderApplications(apps){
     var rows=apps.map(function(a){
       var approve = a.status==='submitted' ? '<button class="btn btn-cyan" data-app="'+esc(a.id)+'">Approve</button>' : '';
-      return '<tr><td>'+esc(a.name)+'<br><span style="color:#777">'+esc(a.email)+'<br>'+esc(a.phone)+'</span></td><td>'+esc(a.preferred_code)+'</td><td>'+esc(a.sponsor_code||'')+'</td><td>'+status(a.status)+'</td><td>'+esc(a.auto_reject_reason||'')+'</td><td>'+esc(a.created_at)+'</td><td>'+approve+'</td></tr>';
+      return '<tr><td>'+esc(a.name)+'<br><span style="color:#777">'+esc(a.email)+'<br>'+esc(a.phone)+'</span></td><td>'+esc(a.preferred_code)+'</td><td>'+esc(a.sponsor_code||'')+'</td><td>'+status(a.status)+'</td><td>'+(a.email_verified_at?'Verified':'Pending')+'</td><td>'+esc(a.auto_reject_reason||'')+'</td><td>'+esc(a.created_at)+'</td><td>'+approve+'</td></tr>';
     }).join('');
-    document.getElementById('applications').innerHTML='<table><thead><tr><th>Applicant</th><th>Code</th><th>Sponsor</th><th>Status</th><th>Reason</th><th>Created</th><th>Action</th></tr></thead><tbody>'+rows+'</tbody></table>';
+    document.getElementById('applications').innerHTML='<table><thead><tr><th>Applicant</th><th>Code</th><th>Sponsor</th><th>Status</th><th>Email</th><th>Reason</th><th>Created</th><th>Action</th></tr></thead><tbody>'+rows+'</tbody></table>';
     document.querySelectorAll('[data-app]').forEach(function(btn){btn.addEventListener('click',function(){approveApp(btn.getAttribute('data-app'));});});
   }
   function approveApp(id){

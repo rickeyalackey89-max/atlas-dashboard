@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Verify Email — AtlasSportsAI Ambassador</title>
+  <link rel="icon" type="image/png" href="/atlas_logo.png"/>
+  <style>
+    :root{--bg:#000;--s1:#080808;--b:rgba(255,255,255,.08);--b2:rgba(255,255,255,.16);--gold:#f5a623;--cyan:#00d4ff;--green:#00e676;--red:#ff5252;--t2:#888}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;background:#000;color:#fff;line-height:1.6}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,212,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.022) 1px,transparent 1px);background-size:80px 80px}
+    nav{position:sticky;top:0;z-index:5;height:58px;padding:0 24px;background:rgba(0,0,0,.92);border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+    .brand{display:flex;gap:10px;align-items:center;color:#fff;text-decoration:none;font-weight:950;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+    .brand img{width:28px;filter:invert(1) drop-shadow(0 0 10px rgba(245,166,35,.35))}
+    .brand span span{color:var(--gold)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:9px 16px;border:1px solid var(--b2);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff;text-decoration:none;background:transparent;cursor:pointer}
+    .btn-gold{background:var(--gold);border-color:var(--gold);color:#000}
+    main{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:72px 22px 90px}
+    .panel{border:1px solid var(--b);background:var(--s1);padding:30px}
+    .eyebrow{font-size:10px;color:var(--cyan);font-weight:900;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px}
+    h1{font-size:clamp(32px,7vw,62px);line-height:.94;text-transform:uppercase;letter-spacing:-.045em}
+    h1 span{color:var(--gold)}
+    .msg{margin-top:22px;padding:16px;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.055);color:var(--t2);font-size:14px}
+    .msg.ok{border-color:rgba(0,230,118,.3);background:rgba(0,230,118,.055)}
+    .msg.err{border-color:rgba(255,82,82,.35);background:rgba(255,82,82,.055)}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/"><img src="/atlas_logo_transparent.png" alt="Atlas"/><span>Atlas <span>Sports</span> AI</span></a>
+  <a class="btn" href="/ambassadors/">Portal</a>
+</nav>
+<main>
+  <section class="panel">
+    <div class="eyebrow">Ambassador Verification</div>
+    <h1>Email <span>Verification</span></h1>
+    <div class="msg" id="message">Verifying your email address...</div>
+    <a class="btn btn-gold" href="/ambassadors/" style="margin-top:20px;">Open Portal</a>
+  </section>
+</main>
+<script>
+(function(){
+  var API = 'https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
+  var message = document.getElementById('message');
+  var token = new URLSearchParams(window.location.search).get('token') || '';
+  if (!token) {
+    message.className = 'msg err';
+    message.textContent = 'Verification token is missing. Check the link in your email or contact support@atlassports.ai.';
+    return;
+  }
+  fetch(API + '/api/applications/verify?token=' + encodeURIComponent(token), {
+    method: 'GET'
+  }).then(function(resp){
+    return resp.json().then(function(body){ return { ok: resp.ok, body: body }; });
+  }).then(function(result){
+    if (!result.ok || !result.body.ok) {
+      throw new Error((result.body.error && result.body.error.message) || 'Verification failed.');
+    }
+    message.className = 'msg ok';
+    message.textContent = result.body.message || 'Email verified. Atlas will review your Ambassador application.';
+  }).catch(function(error){
+    message.className = 'msg err';
+    message.textContent = error.message || 'Verification failed. Contact support@atlassports.ai.';
+  });
+})();
+</script>
+</body>
+</html>
