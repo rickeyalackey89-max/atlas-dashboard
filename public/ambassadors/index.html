@@ -311,6 +311,8 @@
       '<div class="profile-block">' +
         '<b>Account Status</b>' +
         '<p>Name: <strong>' + esc(ambassador.name || '-') + '</strong><br/>Email: ' + esc(ambassador.email || '-') + '<br/>Status: ' + esc(ambassador.status || '-') + '<br/>Payout setup: ' + esc(ambassador.connectOnboardingStatus || '-') + '</p>' +
+        '<button class="btn btn-cyan" type="button" data-open-stripe-dashboard="1">Open Stripe Express</button>' +
+        '<p class="muted" style="margin-top:10px;">Use Stripe Express to update payout, banking, tax identity, and 1099 information.</p>' +
       '</div>' +
       '<div class="profile-block">' +
         '<b>Account Details</b>' +
@@ -384,6 +386,26 @@
     });
   }
 
+  function openStripeExpressDashboard() {
+    fetch(API + '/api/stripe/connect/dashboard-link', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({})
+    }).then(function(resp) {
+      return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+    }).then(function(result) {
+      if (!result.body.ok || !result.body.dashboardUrl) {
+        var serverMessage = result.body && result.body.error && result.body.error.message
+          ? result.body.error.message
+          : 'Unable to open Stripe Express.';
+        throw new Error(serverMessage);
+      }
+      window.location.href = result.body.dashboardUrl;
+    }).catch(function(error) {
+      message.innerHTML += '<br/><br/><strong>Stripe Express unavailable.</strong><br/>' + esc(error.message || 'Unable to open Stripe Express.');
+    });
+  }
+
   function loadPortal() {
     if (!token) return;
     fetch(API + '/api/me', {
@@ -445,6 +467,12 @@
   document.getElementById('portalWorkspace').addEventListener('click', function(event) {
     var target = event.target && event.target.closest ? event.target : null;
     if (!target) return;
+    var stripeDashboardButton = target.closest('[data-open-stripe-dashboard]');
+    if (stripeDashboardButton) {
+      openStripeExpressDashboard();
+      return;
+    }
+
     var tabButton = target.closest('.portal-tab');
     if (tabButton) {
       var tab = tabButton.getAttribute('data-tab');
