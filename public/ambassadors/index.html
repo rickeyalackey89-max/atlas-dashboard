@@ -49,6 +49,40 @@
     .module b{display:block;margin-bottom:10px;color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:.12em;}
     .module p{color:var(--t2);font-size:14px;line-height:1.7;}
     .status{display:inline-flex;margin-top:14px;padding:4px 9px;border:1px solid rgba(245,166,35,.36);color:var(--gold);font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;}
+    .portal-shell{padding:30px;}
+    .portal-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:24px;padding-bottom:22px;border-bottom:1px solid var(--b);}
+    .portal-hero h2{font-size:clamp(28px,4vw,46px);line-height:.95;text-transform:uppercase;letter-spacing:-.035em;}
+    .portal-hero p{margin-top:8px;color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;}
+    .portal-code{border:1px solid rgba(245,166,35,.4);padding:12px 14px;color:var(--gold);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;background:rgba(245,166,35,.05);white-space:nowrap;}
+    .portal-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+    .portal-tab{min-height:34px;padding:8px 14px;border:1px solid var(--b2);background:#050505;color:var(--t2);font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;}
+    .portal-tab.active{background:var(--gold);border-color:var(--gold);color:#000;}
+    .portal-view{display:none;}
+    .portal-view.active{display:block;}
+    .metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--b);margin-bottom:20px;}
+    .metric{padding:18px;border-right:1px solid var(--b);}
+    .metric:last-child{border-right:0;}
+    .metric b{display:block;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-bottom:8px;}
+    .metric strong{font-size:28px;line-height:1;color:var(--gold);}
+    .section-title{margin:26px 0 12px;color:var(--cyan);font-size:12px;font-weight:950;letter-spacing:.16em;text-transform:uppercase;}
+    .data-table{width:100%;border-collapse:collapse;border:1px solid var(--b);font-size:13px;}
+    .data-table th,.data-table td{padding:12px 10px;border-bottom:1px solid var(--b);text-align:left;vertical-align:top;}
+    .data-table th{color:var(--t2);font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;}
+    .data-table tr:last-child td{border-bottom:0;}
+    .muted{color:var(--t2);}
+    .badge{display:inline-flex;align-items:center;min-height:22px;padding:3px 8px;border:1px solid var(--b2);color:var(--t2);font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;}
+    .badge.good{border-color:rgba(0,230,118,.45);color:var(--green);}
+    .badge.warn{border-color:rgba(245,166,35,.45);color:var(--gold);}
+    .content-grid,.profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+    .content-card,.profile-block{border:1px solid var(--b);background:rgba(255,255,255,.014);padding:20px;}
+    .content-card b,.profile-block b{display:block;margin-bottom:8px;color:var(--gold);font-size:11px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;}
+    .content-card p,.profile-block p{color:var(--t2);font-size:13px;line-height:1.7;}
+    .copy-line{margin-top:12px;padding:10px;border:1px solid var(--b);background:#050505;color:#fff;font-size:12px;line-height:1.55;}
+    .copy-btn{margin-top:12px;}
+    .document-list{display:grid;gap:8px;}
+    .document-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--b);background:#050505;}
+    .document-row a{color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;}
+    .empty-state{padding:18px;border:1px solid var(--b);background:#050505;color:var(--t2);font-size:13px;line-height:1.7;}
     .notice{margin-top:24px;padding:20px;border:1px solid rgba(245,166,35,.26);background:rgba(245,166,35,.055);color:var(--t2);font-size:13px;line-height:1.8;}
     .notice a{color:var(--gold);font-weight:900;}
     footer{border-top:1px solid var(--b);padding-top:24px;margin-top:54px;color:var(--t3);font-size:11px;line-height:1.8;}
@@ -57,6 +91,12 @@
       .brand span{display:none;}
       main{padding:54px 18px 72px;}
       .portal-grid,.modules{grid-template-columns:1fr;}
+      .portal-hero{display:block;}
+      .portal-code{margin-top:16px;display:inline-flex;}
+      .metric-grid,.content-grid,.profile-grid{grid-template-columns:1fr;}
+      .metric{border-right:0;border-bottom:1px solid var(--b);}
+      .metric:last-child{border-bottom:0;}
+      .data-table{display:block;overflow-x:auto;white-space:nowrap;}
       .module{border-right:0;}
       .module:nth-last-child(2){border-bottom:1px solid var(--b);}
     }
@@ -103,7 +143,7 @@
       </div>
     </section>
 
-    <section class="panel">
+    <section class="panel" id="portalWorkspace">
       <div class="modules">
         <div class="module">
           <b>Promo Code</b>
@@ -161,29 +201,162 @@
       .replace(/"/g, '&quot;');
   }
 
+  function dateShort(value) {
+    if (!value) return '-';
+    var date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value).slice(0, 10);
+    return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function statusBadge(status) {
+    var normalized = String(status || 'pending').toLowerCase();
+    var cls = ['valid', 'active', 'approved', 'complete', 'paid'].indexOf(normalized) >= 0 ? 'good' : 'warn';
+    return '<span class="badge ' + cls + '">' + esc(normalized.replace(/_/g, ' ')) + '</span>';
+  }
+
+  function renderRows(rows, emptyText, columns) {
+    if (!rows || !rows.length) {
+      return '<div class="empty-state">' + esc(emptyText) + '</div>';
+    }
+    var head = columns.map(function(column) { return '<th>' + esc(column.label) + '</th>'; }).join('');
+    var body = rows.map(function(row) {
+      return '<tr>' + columns.map(function(column) {
+        return '<td>' + column.render(row) + '</td>';
+      }).join('') + '</tr>';
+    }).join('');
+    return '<table class="data-table"><thead><tr>' + head + '</tr></thead><tbody>' + body + '</tbody></table>';
+  }
+
+  function renderSignups(data) {
+    var metrics = data.metrics || {};
+    var signups = data.signups || [];
+    var tree = data.tree || [];
+    var payouts = data.payouts || [];
+    return '' +
+      '<div class="metric-grid">' +
+        '<div class="metric"><b>Valid Signups</b><strong>' + esc(metrics.validSignups || 0) + '</strong></div>' +
+        '<div class="metric"><b>Direct Ambassadors</b><strong>' + esc(metrics.directAmbassadors || 0) + '</strong></div>' +
+        '<div class="metric"><b>Pending Payout</b><strong>' + money(metrics.pendingPayoutCents) + '</strong></div>' +
+        '<div class="metric"><b>Paid Payout</b><strong>' + money(metrics.paidPayoutCents) + '</strong></div>' +
+      '</div>' +
+      '<div class="section-title">Customer Signups</div>' +
+      renderRows(signups, 'No customer signups are attached to your Ambassador code yet.', [
+        { label: 'Customer', render: function(row) { return esc(row.customer_email || 'Hidden customer'); } },
+        { label: 'Plan', render: function(row) { return esc(row.plan_code || '-'); } },
+        { label: 'Amount', render: function(row) { return money(row.amount_cents); } },
+        { label: 'Status', render: function(row) { return statusBadge(row.status); } },
+        { label: 'Created', render: function(row) { return esc(dateShort(row.created_at)); } }
+      ]) +
+      '<div class="section-title">Personal Ambassador Tree</div>' +
+      renderRows(tree, 'No direct Ambassadors are attached to your tree yet.', [
+        { label: 'Ambassador', render: function(row) { return '<strong>' + esc(row.name || 'Ambassador') + '</strong><br/><span class="muted">' + esc(row.email || '') + '</span>'; } },
+        { label: 'Code', render: function(row) { return esc(row.referral_code || 'Pending'); } },
+        { label: 'Status', render: function(row) { return statusBadge(row.connect_onboarding_status === 'complete' ? 'active' : row.status); } },
+        { label: 'Valid Signups', render: function(row) { return esc(row.valid_signups || 0); } },
+        { label: 'Sales Volume', render: function(row) { return money(row.valid_amount_cents); } }
+      ]) +
+      '<div class="section-title">Payout Ledger</div>' +
+      renderRows(payouts, 'No payout ledger entries have been created yet.', [
+        { label: 'Type', render: function(row) { return esc(String(row.payout_type || '').replace(/_/g, ' ')); } },
+        { label: 'Amount', render: function(row) { return money(row.amount_cents); } },
+        { label: 'Status', render: function(row) { return statusBadge(row.status); } },
+        { label: 'Reason', render: function(row) { return esc(row.reason || '-'); } },
+        { label: 'Created', render: function(row) { return esc(dateShort(row.created_at)); } }
+      ]);
+  }
+
+  function renderMedia(data) {
+    var code = data.ambassador && data.ambassador.referralCode ? data.ambassador.referralCode : 'YOURCODE';
+    var mediaCards = [
+      {
+        title: 'Approved Positioning',
+        text: 'Atlas is a data-driven sports analytics platform. Share probabilities, value rankings, injury context, and daily slips without promising guaranteed wins.',
+        copy: 'AtlasSportsAI uses model probabilities, market context, and slip construction rules to surface daily prop edges. Use code ' + code + ' at signup.'
+      },
+      {
+        title: 'Short Caption',
+        text: 'Use this for TikTok, X, YouTube Shorts, Instagram, Discord, and stream descriptions.',
+        copy: 'I use AtlasSportsAI for daily prop rankings, EV context, and model-built slips. Try it with code ' + code + '.'
+      },
+      {
+        title: 'Required Disclosure',
+        text: 'Use a clear disclaimer when posting betting or fantasy sports content.',
+        copy: 'No pick is guaranteed. Play responsibly. AtlasSportsAI is informational analysis, not financial advice.'
+      },
+      {
+        title: 'Content Ideas',
+        text: 'Reusable angles Atlas can turn into templates, reels, and graphics.',
+        copy: 'Daily top EV legs, injury report changes, single-game slate slips, market movement, playoff usage shifts, and postgame slip review.'
+      }
+    ];
+    return '<div class="content-grid">' + mediaCards.map(function(card) {
+      return '<div class="content-card">' +
+        '<b>' + esc(card.title) + '</b>' +
+        '<p>' + esc(card.text) + '</p>' +
+        '<div class="copy-line">' + esc(card.copy) + '</div>' +
+        '<button class="btn copy-btn" type="button" data-copy="' + esc(card.copy) + '">Copy</button>' +
+      '</div>';
+    }).join('') + '</div>' +
+      '<div class="section-title">Atlas-Made Content Hub</div>' +
+      '<div class="empty-state">Approved graphics, video clips, weekly talking points, and launch campaigns will appear here as Atlas publishes them.</div>';
+  }
+
+  function renderProfile(data) {
+    var ambassador = data.ambassador || {};
+    var documents = (data.documents && data.documents.resources) || [];
+    var documentRecords = (data.documents && data.documents.records) || [];
+    var websiteAccess = data.websiteAccess || {};
+    return '<div class="profile-grid">' +
+      '<div class="profile-block">' +
+        '<b>Account Status</b>' +
+        '<p>Name: <strong>' + esc(ambassador.name || '-') + '</strong><br/>Email: ' + esc(ambassador.email || '-') + '<br/>Status: ' + esc(ambassador.status || '-') + '<br/>Payout setup: ' + esc(ambassador.connectOnboardingStatus || '-') + '</p>' +
+      '</div>' +
+      '<div class="profile-block">' +
+        '<b>Account Details</b>' +
+        '<p>Ambassador code: <strong>' + esc(ambassador.referralCode || 'Pending') + '</strong><br/>Sponsor code: ' + esc(ambassador.sponsorCode || 'None') + '<br/>Stripe promo: ' + esc(ambassador.stripePromotionCode || 'Pending') + '</p>' +
+      '</div>' +
+      '<div class="profile-block">' +
+        '<b>Website Access</b>' +
+        '<p>Status: <strong>' + esc(websiteAccess.status || 'pending') + '</strong><br/>Access window: ' + esc(websiteAccess.windowDays || 7) + ' days<br/>Renewal rule: 2 valid paid customer signups per window.<br/>Current shortfall: ' + esc(websiteAccess.renewalShortfall || 0) + '</p>' +
+      '</div>' +
+      '<div class="profile-block">' +
+        '<b>Support</b>' +
+        '<p>For account, payout, or content questions, contact <a href="mailto:support@atlassports.ai">support@atlassports.ai</a>.</p>' +
+      '</div>' +
+    '</div>' +
+    '<div class="section-title">Documents</div>' +
+    '<div class="document-list">' + documents.map(function(doc) {
+      return '<div class="document-row"><span>' + esc(doc.title) + '</span><a href="' + esc(doc.url) + '">Open</a></div>';
+    }).join('') + '</div>' +
+    '<div class="section-title">Signed Document Records</div>' +
+    renderRows(documentRecords, 'No signed document records are attached yet. Atlas will add the final document-signing gate after the program docs are finalized.', [
+      { label: 'Document', render: function(row) { return esc(String(row.document_type || '').replace(/_/g, ' ')); } },
+      { label: 'Status', render: function(row) { return statusBadge(row.status); } },
+      { label: 'Created', render: function(row) { return esc(dateShort(row.created_at)); } },
+      { label: 'Signed', render: function(row) { return esc(dateShort(row.signed_at)); } }
+    ]);
+  }
+
   function renderPortal(data) {
     var ambassador = data.ambassador || {};
-    var metrics = data.metrics || {};
-    var connectStatus = ambassador.connectOnboardingStatus || 'not_started';
-    var connectButton = connectStatus === 'complete'
-      ? ''
-      : '<br/><button class="btn btn-gold" type="button" id="connectPayoutBtn" style="margin-top:14px;">Start Secure Payout Setup</button>';
+    var workspace = document.getElementById('portalWorkspace');
     message.style.display = 'block';
-    message.innerHTML =
-      '<strong>Welcome, ' + esc(ambassador.name || 'Ambassador') + '.</strong><br/>' +
-      'Code: <strong>' + esc(ambassador.referralCode || 'Pending') + '</strong><br/>' +
-      'Stripe promo: <strong>' + esc(ambassador.stripePromotionCode || 'Pending') + '</strong><br/>' +
-      'Status: ' + esc(ambassador.status || 'unknown') + '<br/>' +
-      'Payout setup: ' + esc(connectStatus) + '<br/>' +
-      'Valid signups: ' + esc(metrics.validSignups || 0) + '<br/>' +
-      'Direct Ambassadors: ' + esc(metrics.directAmbassadors || 0) + '<br/>' +
-      'Pending payout: ' + money(metrics.pendingPayoutCents) + '<br/>' +
-      'Paid payout: ' + money(metrics.paidPayoutCents) +
-      connectButton;
-    var connectBtn = document.getElementById('connectPayoutBtn');
-    if (connectBtn) {
-      connectBtn.addEventListener('click', startConnectOnboarding);
-    }
+    message.innerHTML = '<strong>Welcome, ' + esc(ambassador.name || 'Ambassador') + '.</strong><br/>Your Ambassador portal is active.';
+    workspace.innerHTML =
+      '<div class="portal-shell">' +
+        '<div class="portal-hero">' +
+          '<div><h2>Welcome, ' + esc(ambassador.name || 'Ambassador') + '</h2><p>Ambassador Portal</p></div>' +
+          '<div class="portal-code">Code ' + esc(ambassador.referralCode || 'Pending') + '</div>' +
+        '</div>' +
+        '<div class="portal-tabs">' +
+          '<button class="portal-tab active" type="button" data-tab="signups">Signups</button>' +
+          '<button class="portal-tab" type="button" data-tab="media">Media</button>' +
+          '<button class="portal-tab" type="button" data-tab="profile">Profile</button>' +
+        '</div>' +
+        '<div class="portal-view active" id="tab-signups">' + renderSignups(data) + '</div>' +
+        '<div class="portal-view" id="tab-media">' + renderMedia(data) + '</div>' +
+        '<div class="portal-view" id="tab-profile">' + renderProfile(data) + '</div>' +
+      '</div>';
   }
 
   function startConnectOnboarding() {
@@ -263,6 +436,33 @@
     var showing = input.type === 'text';
     input.type = showing ? 'password' : 'text';
     this.textContent = showing ? 'Show' : 'Hide';
+  });
+  document.getElementById('portalWorkspace').addEventListener('click', function(event) {
+    var target = event.target && event.target.closest ? event.target : null;
+    if (!target) return;
+    var tabButton = target.closest('.portal-tab');
+    if (tabButton) {
+      var tab = tabButton.getAttribute('data-tab');
+      document.querySelectorAll('.portal-tab').forEach(function(button) {
+        button.classList.toggle('active', button === tabButton);
+      });
+      document.querySelectorAll('.portal-view').forEach(function(view) {
+        view.classList.toggle('active', view.id === 'tab-' + tab);
+      });
+      return;
+    }
+
+    var copyButton = target.closest('[data-copy]');
+    if (copyButton) {
+      var text = copyButton.getAttribute('data-copy') || '';
+      navigator.clipboard.writeText(text).then(function() {
+        copyButton.textContent = 'Copied';
+        setTimeout(function() { copyButton.textContent = 'Copy'; }, 1200);
+      }).catch(function() {
+        copyButton.textContent = 'Copy Failed';
+        setTimeout(function() { copyButton.textContent = 'Copy'; }, 1200);
+      });
+    }
   });
   loadPortal();
 </script>
