@@ -529,15 +529,15 @@ td,
 .hero-wrap .hero-badge::after {
   content: "";
   position: absolute;
-  left: calc(100% + 12px);
+  left: 0;
   top: calc(100% + 18px);
   z-index: 1;
-  width: clamp(220px, 44vw, 620px);
+  width: clamp(240px, 54vw, 720px);
   height: 2px;
   pointer-events: none;
   background:
     radial-gradient(circle at 18% 50%, rgba(255,240,202,.98) 0 2px, transparent 5px),
-    linear-gradient(90deg, rgba(255,176,46,.88) 0%, rgba(255,237,194,.74) 18%, rgba(255,176,46,.44) 42%, rgba(0,216,255,.16) 72%, transparent 100%);
+    linear-gradient(90deg, rgba(255,176,46,.9) 0%, rgba(255,237,194,.78) 22%, rgba(255,176,46,.44) 46%, rgba(0,216,255,.16) 78%, transparent 100%);
   box-shadow: 0 0 14px rgba(255,176,46,.5), 0 0 36px rgba(255,176,46,.16);
   opacity: .92;
 }
