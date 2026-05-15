@@ -519,10 +519,27 @@ td,
 }
 
 .hero-wrap::before {
-  left: clamp(42px, 5vw, 82px);
-  top: clamp(148px, 24vh, 230px);
-  width: min(46vw, 580px);
-  opacity: .86;
+  display: none;
+}
+
+.hero-wrap .hero-badge {
+  position: relative;
+}
+
+.hero-wrap .hero-badge::after {
+  content: "";
+  position: absolute;
+  left: calc(100% + 12px);
+  top: calc(100% + 18px);
+  z-index: 1;
+  width: clamp(220px, 44vw, 620px);
+  height: 2px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 50%, rgba(255,240,202,.98) 0 2px, transparent 5px),
+    linear-gradient(90deg, rgba(255,176,46,.88) 0%, rgba(255,237,194,.74) 18%, rgba(255,176,46,.44) 42%, rgba(0,216,255,.16) 72%, transparent 100%);
+  box-shadow: 0 0 14px rgba(255,176,46,.5), 0 0 36px rgba(255,176,46,.16);
+  opacity: .92;
 }
 
 .page-header::before {
