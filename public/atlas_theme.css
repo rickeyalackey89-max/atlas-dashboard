@@ -455,22 +455,22 @@ td,
 }
 
 .hero-wrap::after {
-  right: clamp(18px, 10vw, 150px);
-  top: clamp(270px, 53vh, 455px);
-  width: min(38vw, 500px);
+  right: clamp(64px, 10vw, 150px);
+  top: clamp(104px, 16vh, 148px);
+  width: min(36vw, 500px);
   background: url("/atlas_ai_ball_hands.png") center / contain no-repeat !important;
-  opacity: .105;
+  opacity: .112;
   mix-blend-mode: screen;
   filter:
     invert(1)
-    grayscale(.26)
-    saturate(.62)
-    contrast(1.14)
-    brightness(.56)
-    drop-shadow(0 0 34px rgba(0,216,255,.10))
-    drop-shadow(0 0 48px rgba(255,176,46,.045));
+    grayscale(.18)
+    saturate(.70)
+    contrast(1.20)
+    brightness(.50)
+    drop-shadow(0 0 24px rgba(0,216,255,.10))
+    drop-shadow(0 0 30px rgba(255,176,46,.035));
   mask-image:
-    radial-gradient(ellipse at 50% 48%, #000 0%, rgba(0,0,0,.88) 38%, rgba(0,0,0,.30) 66%, transparent 84%);
+    radial-gradient(ellipse at 50% 42%, #000 0%, rgba(0,0,0,.86) 35%, rgba(0,0,0,.28) 64%, transparent 82%);
 }
 
 .hero-wrap,
@@ -545,18 +545,29 @@ td,
   content: "";
   position: absolute;
   z-index: 0;
-  right: clamp(24px, 10vw, 132px);
-  top: clamp(282px, 53vh, 452px);
-  width: min(30vw, 360px);
-  height: min(10vw, 130px);
+  left: clamp(610px, 58vw, 750px);
+  top: clamp(120px, 20vh, 168px);
+  width: min(30vw, 380px);
+  height: min(22vw, 270px);
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 48% 50%, rgba(255,196,74,.20) 0%, rgba(255,176,46,.10) 20%, transparent 58%),
-    linear-gradient(90deg, transparent 0%, rgba(255,176,46,.05) 22%, rgba(255,176,46,.15) 43%, rgba(0,216,255,.045) 72%, transparent 100%);
-  transform: translateY(-50%) rotate(-2deg);
-  opacity: .42;
-  filter: blur(18px);
+    radial-gradient(circle at 22% 28%, rgba(255,202,94,.92) 0 2px, transparent 3px),
+    radial-gradient(circle at 36% 18%, rgba(255,176,46,.72) 0 1px, transparent 3px),
+    radial-gradient(circle at 48% 34%, rgba(255,176,46,.66) 0 1px, transparent 3px),
+    radial-gradient(circle at 62% 23%, rgba(255,211,117,.70) 0 1px, transparent 3px),
+    radial-gradient(circle at 72% 42%, rgba(255,176,46,.58) 0 1px, transparent 3px),
+    radial-gradient(circle at 32% 52%, rgba(255,176,46,.58) 0 1px, transparent 3px),
+    radial-gradient(circle at 56% 62%, rgba(255,211,117,.62) 0 1px, transparent 3px),
+    linear-gradient(24deg, transparent 0 28%, rgba(255,176,46,.18) 29%, transparent 30% 100%),
+    linear-gradient(-17deg, transparent 0 44%, rgba(255,176,46,.12) 45%, transparent 46% 100%),
+    linear-gradient(7deg, transparent 0 56%, rgba(0,216,255,.07) 57%, transparent 58% 100%);
+  transform: rotate(-2deg);
+  opacity: .44;
+  filter:
+    drop-shadow(0 0 6px rgba(255,176,46,.34))
+    drop-shadow(0 0 16px rgba(255,176,46,.10));
   mix-blend-mode: screen;
+  mask-image: radial-gradient(ellipse at 46% 40%, #000 0%, rgba(0,0,0,.82) 48%, rgba(0,0,0,.22) 74%, transparent 92%);
 }
 
 .hero-logo-bg {
