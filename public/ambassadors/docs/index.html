@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#02090c"/>
+  <script>(function(){try{var r=sessionStorage.getItem("atlas_transition_handoff");if(r&&Date.now()-((JSON.parse(r)||{}).ts||0)<5000){document.documentElement.classList.add("atlas-handoff-pending");setTimeout(function(){document.documentElement.classList.remove("atlas-handoff-pending");},4500);}}catch(e){}})();</script>
+  <title>Atlas Ambassador Paperwork Library</title>
+  <link rel="stylesheet" href="/ambassadors/docs/doc.css"/>
+  <style>
+    .library-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:30px}
+    .library-card{border:1px solid rgba(255,255,255,.1);background:#080808;padding:22px}
+    .library-card h2{margin-bottom:8px}
+    .library-card p{min-height:76px}
+    .library-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .library-note{margin-top:28px;border:1px solid rgba(0,212,255,.24);background:rgba(0,212,255,.045);padding:18px;color:#b5b5b5}
+    @media(max-width:760px){.library-grid{grid-template-columns:1fr}.library-card p{min-height:0}}
+    @media print{.library-grid{display:block}.library-card{border:0;border-top:1px solid #d9d4ca;background:#fff;padding:.16in 0}.library-actions{display:none}.library-note{border:0;border-left:3px solid #007b91;background:#fff}}
+  </style>
+</head>
+<body>
+<nav><a class="brand" href="/">Atlas <span>Sports</span> AI</a><a class="btn" href="/ambassadors/">Portal</a></nav>
+<main>
+  <img class="pdf-letterhead" src="assets/atlas_pdf_logo_header.png" alt="AtlasSportsAI letterhead"/>
+  <div class="eyebrow">Ambassador Program</div>
+  <h1>Paperwork <span>Library</span></h1>
+  <p class="lead">Use this page as the central library for AtlasSportsAI Ambassador paperwork. These documents cover payout rules, conduct requirements, media permissions, growth opportunities, and Stripe Express setup.</p>
+
+  <div class="library-grid">
+    <article class="library-card">
+      <h2>Payout Structure</h2>
+      <p>Customer signup payouts, sponsor payout limits, access rules, launch bonuses, payout timing, and payout disclosures.</p>
+      <div class="library-actions"><a class="btn btn-gold" href="/ambassadors/docs/payout-structure/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_payout_structure.pdf">PDF</a></div>
+    </article>
+    <article class="library-card">
+      <h2>Conduct Requirements</h2>
+      <p>Brand conduct, prohibited claims, platform behavior, content boundaries, and removal triggers for the Ambassador program.</p>
+      <div class="library-actions"><a class="btn btn-gold" href="/ambassadors/docs/conduct-requirements/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_conduct_requirements.pdf">PDF</a></div>
+    </article>
+    <article class="library-card">
+      <h2>Media Guide</h2>
+      <p>Approved positioning, creative freedom, content ideas, platform usage, and how to use Atlas assets responsibly.</p>
+      <div class="library-actions"><a class="btn btn-gold" href="/ambassadors/docs/media-guide/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_media_guide.pdf">PDF</a></div>
+    </article>
+    <article class="library-card">
+      <h2>Opportunity Overview</h2>
+      <p>Growth paths, launch opportunities, creator tracks, leadership potential, and long-term Atlas expansion paths.</p>
+      <div class="library-actions"><a class="btn btn-gold" href="/ambassadors/docs/opportunities/">Read</a><a class="btn" href="/ambassadors/docs/downloads/atlas_ambassador_opportunities.pdf">PDF</a></div>
+    </article>
+    <article class="library-card">
+      <h2>Stripe Express Guide</h2>
+      <p>Step-by-step payout setup guidance for Stripe Express, including identity, banking, tax identity, and return-to-Atlas flow.</p>
+      <div class="library-actions"><a class="btn btn-gold" href="/ambassadors/docs/stripe-onboarding-guide/">Read</a></div>
+    </article>
+  </div>
+
+  <p class="library-note">Atlas paperwork and Stripe Express are separate. Atlas documents govern program expectations. Stripe Express handles payout identity, direct deposit, tax identity, and 1099 reporting data.</p>
+  <footer>AtlasSportsAI Ambassador Paperwork Library. For questions, contact support@atlassports.ai.</footer>
+</main>
+  <script src="/atlas_motion.js?v=20260514f" defer></script>
+</body>
+</html>

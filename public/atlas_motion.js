@@ -39,6 +39,22 @@
     window.addEventListener("resize", resizeCanvas, { passive: true });
   }
 
+  function resetTransitionVisuals(clearStoredHandoff) {
+    active = false;
+    document.documentElement.classList.remove("atlas-handoff-pending");
+    if (document.body) {
+      document.body.classList.remove("atlas-transition-out", "atlas-transition-entering", "atlas-transition-in");
+    }
+    if (overlay) {
+      overlay.classList.remove("is-active", "is-arriving");
+    }
+    if (clearStoredHandoff) {
+      try {
+        sessionStorage.removeItem(storageKey);
+      } catch (err) {}
+    }
+  }
+
   function setLabel(text) {
     if (!overlay) return;
     var label = overlay.querySelector(".atlas-transition-label");
@@ -279,6 +295,17 @@
     if (!shouldHandle(event, link)) return;
     event.preventDefault();
     startTransition(link.href);
+  });
+
+  window.addEventListener("pagehide", function () {
+    resetTransitionVisuals(false);
+  });
+
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      resetTransitionVisuals(true);
+      updateChromeShift();
+    }
   });
 
   window.addEventListener("scroll", updateChromeShift, { passive: true });

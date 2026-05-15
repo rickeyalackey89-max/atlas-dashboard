@@ -204,7 +204,7 @@
         <div class="module">
           <b>Documents</b>
           <p>Review and complete Atlas paperwork, payout structure, conduct requirements, media guide, launch opportunities, and secure payout setup requirements.</p>
-          <a class="status" href="/ambassadors/docs/payout-structure/">Read</a>
+          <a class="status" href="/ambassadors/docs/">Library</a>
         </div>
         <div class="module">
           <b>Launch Updates</b>
@@ -403,9 +403,10 @@
       if (title.indexOf('media') >= 0) return '/ambassadors/docs/media-guide/';
       if (title.indexOf('opportunity') >= 0) return '/ambassadors/docs/opportunities/';
       if (title.indexOf('stripe') >= 0) return '/ambassadors/docs/stripe-onboarding-guide/';
+      if (title.indexOf('agreement') >= 0 || title.indexOf('library') >= 0) return '/ambassadors/docs/';
       return '/ambassadors/docs/payout-structure/';
     }
-    return url || '/ambassadors/docs/payout-structure/';
+    return url || '/ambassadors/docs/';
   }
 
   function formatBytes(bytes) {
@@ -550,7 +551,7 @@
         '<b>Atlas Agreement</b>' +
         '<p>Status: <strong>' + esc(agreement.signed ? 'signed' : (agreement.legacyAllowed ? 'legacy accepted' : 'required')) + '</strong><br/>Signed: ' + esc(dateShort(agreement.signedAt)) + '<br/>Version: ' + esc(agreement.version || (agreement.legacyAllowed ? 'legacy onboarding' : 'pending')) + '</p>' +
         agreementAction +
-        '<a class="btn" href="/ambassadors/docs/payout-structure/" style="margin-top:12px;">Open Paperwork Library</a>' +
+        '<a class="btn" href="/ambassadors/docs/" style="margin-top:12px;">Open Paperwork Library</a>' +
       '</div>' +
       '<div class="profile-block">' +
         '<b>Support</b>' +
@@ -787,6 +788,6 @@
   });
   loadPortal();
 </script>
-  <script src="/atlas_motion.js?v=20260514e" defer></script>
+  <script src="/atlas_motion.js?v=20260514f" defer></script>
 </body>
 </html>
