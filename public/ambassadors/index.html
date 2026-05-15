@@ -102,7 +102,14 @@
     .media-hub-card b{display:block;margin-bottom:8px;color:var(--cyan);font-size:11px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;}
     .media-hub-card p{color:var(--t2);font-size:13px;line-height:1.7;}
     .media-upload{margin-top:12px;border:1px dashed rgba(0,212,255,.32);background:rgba(0,212,255,.035);padding:14px;color:var(--t2);font-size:12px;line-height:1.65;}
-    .media-upload input{height:auto;margin-top:10px;padding:10px;color:var(--t2);opacity:.65;}
+    .media-upload input{height:auto;margin-top:10px;padding:10px;color:var(--t2);}
+    .media-upload textarea{width:100%;min-height:86px;background:#050505;border:1px solid var(--b2);color:var(--text);padding:12px;font-size:13px;line-height:1.55;resize:vertical;outline:none;}
+    .media-upload textarea:focus{border-color:var(--cyan);}
+    .media-assets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px;}
+    .media-asset{border:1px solid var(--b);background:#050505;padding:14px;}
+    .media-asset b{display:block;color:var(--text);font-size:13px;letter-spacing:0;text-transform:none;}
+    .media-asset p{margin-top:6px;color:var(--t2);font-size:12px;line-height:1.55;}
+    .media-asset-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
     .media-pill{display:inline-flex;align-items:center;min-height:22px;padding:3px 8px;border:1px solid rgba(245,166,35,.34);color:var(--gold);font-size:9px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;margin-top:10px;}
     .document-list{display:grid;gap:8px;}
     .document-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--b);background:#050505;}
@@ -120,7 +127,7 @@
       .portal-hero-actions{justify-content:flex-start;margin-top:16px;}
       .portal-code{display:inline-flex;}
       .metric-grid,.content-grid,.profile-grid{grid-template-columns:1fr;}
-      .social-grid,.media-hub-grid{grid-template-columns:1fr;}
+      .social-grid,.media-hub-grid,.media-assets{grid-template-columns:1fr;}
       .share-link-row{grid-template-columns:1fr;}
       .metric{border-right:0;border-bottom:1px solid var(--b);}
       .metric:last-child{border-bottom:0;}
@@ -361,9 +368,16 @@
           '<b>Ambassador Uploads</b>' +
           '<p>Ambassadors will be able to submit graphics, clips, post ideas, and campaign assets for Atlas review and sharing.</p>' +
           '<div class="media-upload">' +
-            'Cloudflare R2 storage is the planned backend for uploads and shared media. This keeps assets inside Atlas infrastructure without a separate media vendor.' +
-            '<input type="file" disabled />' +
-            '<span class="media-pill">R2 Backend Next</span>' +
+            '<form id="mediaUploadForm">' +
+              '<label for="mediaTitle">Title</label>' +
+              '<input id="mediaTitle" name="title" type="text" maxlength="120" placeholder="Winner recap, reel idea, launch graphic, etc." />' +
+              '<label for="mediaDescription">Notes</label>' +
+              '<textarea id="mediaDescription" name="description" maxlength="500" placeholder="What is this asset for? Add campaign notes, caption ideas, or context."></textarea>' +
+              '<label for="mediaFile">File</label>' +
+              '<input id="mediaFile" name="file" type="file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm" />' +
+              '<button class="btn btn-cyan" type="submit" style="margin-top:12px;">Upload For Review</button>' +
+            '</form>' +
+            '<span class="media-pill">R2 Storage Active</span>' +
           '</div>' +
         '</div>' +
         '<div class="media-hub-card">' +
@@ -376,7 +390,9 @@
           '<p>Create in your own voice. Use Atlas visuals accurately, avoid fake performance claims, avoid guarantees, and do not leak premium-only operational content.</p>' +
           '<a class="status" href="/ambassadors/docs/media-guide/">Open Media Guide</a>' +
         '</div>' +
-      '</div>';
+      '</div>' +
+      '<div class="section-title">Shared Media Assets</div>' +
+      '<div id="mediaAssetList" class="empty-state">Open the Media tab to load approved Atlas assets and your submitted uploads.</div>';
   }
 
   function documentUrl(doc) {
@@ -390,6 +406,107 @@
       return '/ambassadors/docs/payout-structure/';
     }
     return url || '/ambassadors/docs/payout-structure/';
+  }
+
+  function formatBytes(bytes) {
+    var value = Number(bytes) || 0;
+    if (value >= 1024 * 1024) return (value / (1024 * 1024)).toFixed(1) + ' MB';
+    if (value >= 1024) return (value / 1024).toFixed(1) + ' KB';
+    return value + ' B';
+  }
+
+  function renderMediaAssets(assets) {
+    if (!assets || !assets.length) {
+      return '<div class="empty-state">No shared Atlas media assets are available yet. Uploaded Ambassador assets will appear here while they wait for Atlas review.</div>';
+    }
+    return '<div class="media-assets">' + assets.map(function(asset) {
+      return '<div class="media-asset">' +
+        '<b>' + esc(asset.title || asset.fileName || 'Media asset') + '</b>' +
+        '<p>' +
+          'Status: ' + esc(asset.status || 'pending') +
+          '<br/>Type: ' + esc(asset.contentType || '-') +
+          '<br/>Size: ' + esc(formatBytes(asset.sizeBytes)) +
+          '<br/>Uploaded: ' + esc(dateShort(asset.createdAt)) +
+          (asset.description ? '<br/>Notes: ' + esc(asset.description) : '') +
+        '</p>' +
+        '<div class="media-asset-actions">' +
+          '<button class="btn" type="button" data-media-download="' + esc(asset.id) + '" data-file-name="' + esc(asset.fileName || 'atlas-media') + '">Open</button>' +
+        '</div>' +
+      '</div>';
+    }).join('') + '</div>';
+  }
+
+  function loadMediaAssets() {
+    var target = document.getElementById('mediaAssetList');
+    if (!target || !token) return;
+    target.className = 'empty-state';
+    target.innerHTML = 'Loading Atlas media assets...';
+    fetch(API + '/api/media/assets', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    }).then(function(resp) {
+      return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+    }).then(function(result) {
+      if (!result.body.ok) {
+        throw new Error((result.body.error && result.body.error.message) || 'Unable to load media assets.');
+      }
+      target.className = '';
+      target.innerHTML = renderMediaAssets(result.body.assets || []);
+    }).catch(function(error) {
+      target.className = 'empty-state';
+      target.innerHTML = 'Media hub unavailable: ' + esc(error.message || 'Unable to load media assets.');
+    });
+  }
+
+  function uploadMediaAsset(form) {
+    var target = document.getElementById('mediaAssetList');
+    var fileInput = document.getElementById('mediaFile');
+    if (!fileInput || !fileInput.files || !fileInput.files.length) {
+      message.style.display = 'block';
+      message.innerHTML = '<strong>Upload missing file.</strong><br/>Choose an image, GIF, MP4, or WEBM file before uploading.';
+      return;
+    }
+    var formData = new FormData(form);
+    message.style.display = 'block';
+    message.innerHTML = '<strong>Uploading media.</strong><br/>Sending asset to Atlas media storage for review.';
+    fetch(API + '/api/media/upload', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token },
+      body: formData
+    }).then(function(resp) {
+      return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+    }).then(function(result) {
+      if (!result.body.ok) {
+        throw new Error((result.body.error && result.body.error.message) || 'Unable to upload media asset.');
+      }
+      form.reset();
+      message.innerHTML = '<strong>Media uploaded.</strong><br/>Atlas received the asset. It will remain pending until reviewed.';
+      if (target) target.innerHTML = 'Reloading media assets...';
+      loadMediaAssets();
+    }).catch(function(error) {
+      message.innerHTML = '<strong>Media upload failed.</strong><br/>' + esc(error.message || 'Unable to upload media asset.');
+    });
+  }
+
+  function openMediaAsset(assetId, fileName) {
+    fetch(API + '/api/media/file?assetId=' + encodeURIComponent(assetId), {
+      headers: { 'Authorization': 'Bearer ' + token }
+    }).then(function(resp) {
+      if (!resp.ok) throw new Error('Unable to open media asset.');
+      return resp.blob();
+    }).then(function(blob) {
+      var url = URL.createObjectURL(blob);
+      var opened = window.open(url, '_blank', 'noopener');
+      if (!opened) {
+        var link = document.createElement('a');
+        link.href = url;
+        link.download = fileName || 'atlas-media';
+        link.click();
+      }
+      setTimeout(function() { URL.revokeObjectURL(url); }, 60000);
+    }).catch(function(error) {
+      message.style.display = 'block';
+      message.innerHTML = '<strong>Media unavailable.</strong><br/>' + esc(error.message || 'Unable to open media asset.');
+    });
   }
 
   function ambassadorShareLink(code) {
@@ -622,6 +739,12 @@
       return;
     }
 
+    var mediaDownloadButton = target.closest('[data-media-download]');
+    if (mediaDownloadButton) {
+      openMediaAsset(mediaDownloadButton.getAttribute('data-media-download'), mediaDownloadButton.getAttribute('data-file-name'));
+      return;
+    }
+
     var agreementButton = target.closest('[data-sign-agreement]');
     if (agreementButton) {
       signAtlasAgreement();
@@ -637,6 +760,9 @@
       document.querySelectorAll('.portal-view').forEach(function(view) {
         view.classList.toggle('active', view.id === 'tab-' + tab);
       });
+      if (tab === 'media') {
+        loadMediaAssets();
+      }
       return;
     }
 
@@ -652,6 +778,12 @@
         setTimeout(function() { copyButton.textContent = defaultLabel; }, 1200);
       });
     }
+  });
+  document.getElementById('portalWorkspace').addEventListener('submit', function(event) {
+    var form = event.target && event.target.closest ? event.target.closest('#mediaUploadForm') : null;
+    if (!form) return;
+    event.preventDefault();
+    uploadMediaAsset(form);
   });
   loadPortal();
 </script>
