@@ -1,29 +1,45 @@
-:root{--bg:#000;--s1:#080808;--b:rgba(255,255,255,.1);--b2:rgba(255,255,255,.2);--gold:#f5a623;--cyan:#00d4ff;--green:#00e676;--red:#ff5252;--t2:#888}
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap");
+:root{
+  --bg:#000;
+  --s1:rgba(2,7,9,.82);
+  --b:rgba(126,231,255,.14);
+  --b2:rgba(126,231,255,.24);
+  --gold:#00d8ff;
+  --cyan:#00d8ff;
+  --amber:#ffb02e;
+  --green:#00e676;
+  --red:#ff5252;
+  --t2:#93a3ad;
+  --steel:#eef6f9;
+  --steel-mid:#b8c8d1;
+  --chrome:radial-gradient(ellipse at 14% 20%, rgba(255,255,255,.78) 0%, rgba(255,255,255,.22) 5%, transparent 15%),radial-gradient(ellipse at 76% 70%, rgba(181,205,216,.58) 0%, rgba(181,205,216,.16) 8%, transparent 21%),linear-gradient(118deg,#d7e4ea 0%,#f5fbfd 12%,#83939c 24%,#c7d6de 36%,#65747d 49%,#f0f7fa 60%,#9dabb4 74%,#e8f1f5 88%,#6b7880 100%)
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;background:#000;color:#fff;line-height:1.65}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,212,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.018) 1px,transparent 1px);background-size:80px 80px}
+body{font-family:"Inter",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;background:radial-gradient(circle at 76% 18%,rgba(0,216,255,.09),transparent 34rem),linear-gradient(180deg,#000 0%,#020607 44%,#000 100%);color:var(--steel);line-height:1.65}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,212,255,.024) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.024) 1px,transparent 1px);background-size:80px 80px}
 a{color:inherit;text-decoration:none}
-nav{position:sticky;top:0;z-index:5;min-height:56px;padding:0 24px;background:rgba(0,0,0,.92);border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
-.brand{font-size:13px;font-weight:950;letter-spacing:.14em;text-transform:uppercase}
+nav{position:sticky;top:0;z-index:5;min-height:56px;padding:0 24px;background:rgba(0,2,4,.88);border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 34px rgba(0,0,0,.28)}
+.brand{font-family:"Rajdhani","Inter",system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .brand span{color:var(--gold)}
 .nav-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:8px 14px;border:1px solid var(--b2);font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-.btn-gold{background:var(--gold);border-color:var(--gold);color:#000}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:8px 16px;border:1px solid var(--b2);border-radius:999px;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease}
+.btn:hover{transform:translateY(-1px);border-color:rgba(180,250,255,.72)}
+.btn-gold{background:linear-gradient(135deg,#9ff4ff,#00d8ff 42%,#00a7d8);border-color:rgba(121,237,255,.9);color:#001014;box-shadow:0 0 24px rgba(0,216,255,.18),inset 0 1px 0 rgba(255,255,255,.34)}
 .pdf-letterhead{display:none}
 main{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:56px 24px 86px}
-.eyebrow{font-size:10px;color:var(--cyan);font-weight:900;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px}
-h1{font-size:clamp(34px,6vw,68px);line-height:.95;text-transform:uppercase;letter-spacing:-.045em}
-h1 span{color:var(--gold)}
+.eyebrow{font-size:10px;color:var(--cyan);font-weight:900;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;text-shadow:0 0 18px rgba(0,216,255,.18)}
+h1{font-family:"Rajdhani","Inter",system-ui,sans-serif;font-size:clamp(34px,6vw,68px);font-weight:700;line-height:.95;text-transform:uppercase;letter-spacing:0;background-image:var(--chrome);background-size:170% 150%,150% 150%,240% 100%;background-position:48% 48%,52% 52%,50% 50%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 10px rgba(196,232,244,.11))}
+h1 span{color:var(--gold);background:none;-webkit-text-fill-color:currentColor;text-shadow:0 0 24px rgba(0,216,255,.2)}
 .lead{margin-top:18px;max-width:780px;color:var(--t2);font-size:15px;line-height:1.85}
-section{margin-top:34px;border:1px solid var(--b);background:#080808;padding:24px}
-h2{font-size:20px;text-transform:uppercase;letter-spacing:-.015em;margin-bottom:12px;color:#fff}
-h3{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin:22px 0 8px}
+section{margin-top:34px;border:1px solid var(--b);border-radius:8px;background:linear-gradient(135deg,rgba(238,246,249,.052),rgba(0,216,255,.02) 46%,rgba(132,157,173,.026)),var(--s1);padding:24px;box-shadow:0 20px 70px rgba(0,0,0,.38),inset 0 1px 0 rgba(236,248,252,.07)}
+h2{font-family:"Rajdhani","Inter",system-ui,sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:0;margin-bottom:12px;color:var(--steel)}
+h3{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--cyan);margin:22px 0 8px}
 p,li{color:#b5b5b5;font-size:14px;line-height:1.8}
 ul,ol{padding-left:22px;margin-top:8px}
 table{width:100%;border-collapse:collapse;margin-top:12px}
 th,td{padding:12px;border-bottom:1px solid var(--b);font-size:13px;text-align:left;vertical-align:top}
 th{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--t2)}
-.callout{border:1px solid rgba(245,166,35,.3);background:rgba(245,166,35,.055);padding:16px;margin-top:18px;color:#ddd}
+.callout{border:1px solid rgba(255,176,46,.34);border-radius:8px;background:linear-gradient(135deg,rgba(255,176,46,.075),rgba(0,216,255,.035));padding:16px;margin-top:18px;color:#ddd}
 .bad{color:var(--red)}
 .good{color:var(--green)}
 footer{margin-top:32px;color:#555;font-size:11px;line-height:1.8}
