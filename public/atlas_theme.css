@@ -545,29 +545,26 @@ td,
   content: "";
   position: absolute;
   z-index: 0;
-  left: clamp(610px, 58vw, 750px);
-  top: clamp(120px, 20vh, 168px);
-  width: min(30vw, 380px);
-  height: min(22vw, 270px);
+  left: clamp(590px, 55vw, 735px);
+  top: clamp(90px, 15vh, 130px);
+  width: min(22vw, 260px);
+  height: min(16vw, 190px);
   pointer-events: none;
   background:
-    radial-gradient(circle at 22% 28%, rgba(255,202,94,.92) 0 2px, transparent 3px),
-    radial-gradient(circle at 36% 18%, rgba(255,176,46,.72) 0 1px, transparent 3px),
-    radial-gradient(circle at 48% 34%, rgba(255,176,46,.66) 0 1px, transparent 3px),
-    radial-gradient(circle at 62% 23%, rgba(255,211,117,.70) 0 1px, transparent 3px),
-    radial-gradient(circle at 72% 42%, rgba(255,176,46,.58) 0 1px, transparent 3px),
-    radial-gradient(circle at 32% 52%, rgba(255,176,46,.58) 0 1px, transparent 3px),
-    radial-gradient(circle at 56% 62%, rgba(255,211,117,.62) 0 1px, transparent 3px),
-    linear-gradient(24deg, transparent 0 28%, rgba(255,176,46,.18) 29%, transparent 30% 100%),
-    linear-gradient(-17deg, transparent 0 44%, rgba(255,176,46,.12) 45%, transparent 46% 100%),
-    linear-gradient(7deg, transparent 0 56%, rgba(0,216,255,.07) 57%, transparent 58% 100%);
-  transform: rotate(-2deg);
-  opacity: .44;
+    radial-gradient(circle at 50% 38%, rgba(255,220,132,.84) 0 1px, transparent 2px),
+    radial-gradient(circle at 42% 48%, rgba(255,176,46,.72) 0 1px, transparent 2px),
+    radial-gradient(circle at 58% 50%, rgba(255,176,46,.70) 0 1px, transparent 2px),
+    radial-gradient(circle at 35% 58%, rgba(255,199,86,.58) 0 1px, transparent 2px),
+    radial-gradient(circle at 66% 62%, rgba(255,199,86,.52) 0 1px, transparent 2px),
+    radial-gradient(circle at 50% 52%, rgba(255,176,46,.16) 0 0.5px, transparent 1px),
+    radial-gradient(ellipse at 50% 52%, rgba(255,176,46,.055) 0%, rgba(255,176,46,.025) 34%, transparent 66%);
+  transform: rotate(-1deg);
+  opacity: .58;
   filter:
-    drop-shadow(0 0 6px rgba(255,176,46,.34))
-    drop-shadow(0 0 16px rgba(255,176,46,.10));
+    drop-shadow(0 0 5px rgba(255,176,46,.28))
+    drop-shadow(0 0 12px rgba(255,176,46,.10));
   mix-blend-mode: screen;
-  mask-image: radial-gradient(ellipse at 46% 40%, #000 0%, rgba(0,0,0,.82) 48%, rgba(0,0,0,.22) 74%, transparent 92%);
+  mask-image: radial-gradient(ellipse at 50% 52%, #000 0%, rgba(0,0,0,.78) 48%, rgba(0,0,0,.20) 72%, transparent 90%);
 }
 
 .hero-logo-bg {
