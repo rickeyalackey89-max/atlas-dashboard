@@ -448,7 +448,6 @@ td,
   top: clamp(74px, 14vh, 150px);
   width: min(26vw, 310px);
   aspect-ratio: 1;
-  background: url("/atlas_logo_transparent.png") center / contain no-repeat;
   opacity: .072;
   pointer-events: none;
   mix-blend-mode: screen;
@@ -533,6 +532,7 @@ td,
   top: 24px;
   right: 20px;
   width: min(20vw, 230px);
+  background: url("/atlas_logo_transparent.png") center / contain no-repeat;
   opacity: .052;
 }
 
