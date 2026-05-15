@@ -528,11 +528,53 @@ td,
 }
 
 .page-header::after {
-  top: 24px;
-  right: 20px;
-  width: min(20vw, 230px);
-  background: url("/atlas_logo_transparent.png") center / contain no-repeat;
-  opacity: .052;
+  top: clamp(22px, 8vh, 54px);
+  right: clamp(26px, 8vw, 118px);
+  width: min(30vw, 340px);
+  background: url("/atlas_ai_ball_hands_energy.png") center / contain no-repeat;
+  opacity: .18;
+  mix-blend-mode: screen;
+  filter:
+    saturate(.92)
+    contrast(1.08)
+    brightness(.66)
+    drop-shadow(0 0 24px rgba(0,216,255,.12))
+    drop-shadow(0 0 34px rgba(255,176,46,.10));
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 68%, rgba(0,0,0,.55) 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 68%, rgba(0,0,0,.55) 82%, transparent 100%);
+}
+
+.stat-tile {
+  min-height: 112px;
+  padding: 28px 30px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tile-val {
+  font-size: clamp(34px, 3.4vw, 46px) !important;
+}
+
+.prop-card {
+  min-height: 128px;
+  padding: 22px 24px !important;
+  justify-content: space-between;
+}
+
+.props-grid {
+  gap: 14px !important;
+}
+
+.prop-card-right {
+  margin-top: auto;
+  row-gap: 8px;
+}
+
+.prop-player {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
 }
 
 .hero-wrap .hero {
