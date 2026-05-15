@@ -1494,9 +1494,9 @@
           mktDiv.appendChild(legLabel);
         }
         var hitPct=Math.round((slip.hit_prob||0)*100);
-        // Use real PrizePicks Power Play face value by leg count — the stored payout_mult is a pp_kernel
-        // tier modifier (base=1.0) not the face value, so it would give misleading EV.
-        var _PP_PAY={3:6,4:10,5:20}; var _mPay=_PP_PAY[nLegs]||Number(slip.payout_mult||0), _mHP=slip.hit_prob||0;
+        // Prefer the real PrizePicks quote injected by the live payload builder.
+        // Fallback to payout_mult only for older payloads or quote failures.
+        var _mPay=Number(slip.pp_power_payout_mult||slip.payout_mult||0), _mHP=slip.hit_prob||0;
         var evRaw=Number(slip.ev||0);
         var evX=evRaw?evRaw.toFixed(2):((_mPay&&_mHP)?(_mHP*_mPay).toFixed(2):null);
         var payX=_mPay?_mPay+'x':null;
