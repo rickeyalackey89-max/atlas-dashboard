@@ -166,6 +166,21 @@
         </div>
         <button class="btn btn-gold" type="submit" style="width:100%;margin-top:20px;">Log In</button>
         <a class="new-link" href="/ambassadors/onboarding/">Onboarding</a>
+        <a class="new-link" href="#" id="forgotPasswordLink">Forgot password?</a>
+      </form>
+      <form id="forgotPasswordForm" style="display:none;">
+        <label for="forgotEmail">Email</label>
+        <input id="forgotEmail" name="email" type="email" autocomplete="email" placeholder="ambassador@email.com"/>
+        <button class="btn btn-gold" type="submit" style="width:100%;margin-top:20px;">Send Reset Link</button>
+        <a class="new-link" href="#" id="backToLoginFromForgot">Back to Login</a>
+      </form>
+      <form id="resetPasswordForm" style="display:none;">
+        <label for="resetPassword">New Password</label>
+        <input id="resetPassword" name="password" type="password" autocomplete="new-password" placeholder="New password"/>
+        <label for="resetPasswordConfirm">Confirm Password</label>
+        <input id="resetPasswordConfirm" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirm password"/>
+        <button class="btn btn-gold" type="submit" style="width:100%;margin-top:20px;">Update Password</button>
+        <a class="new-link" href="/ambassadors/">Back to Login</a>
       </form>
       <div class="message" id="portalMessage">
         <strong>Portal setup in progress.</strong><br/>
@@ -221,6 +236,16 @@
   var API = 'https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
   var token = localStorage.getItem('atlas_ambassador_token') || '';
   var message = document.getElementById('portalMessage');
+  var resetToken = new URLSearchParams(window.location.search).get('reset') || '';
+  var portalForm = document.getElementById('portalForm');
+  var forgotPasswordForm = document.getElementById('forgotPasswordForm');
+  var resetPasswordForm = document.getElementById('resetPasswordForm');
+
+  function showLoginMode(mode) {
+    portalForm.style.display = mode === 'login' ? 'block' : 'none';
+    forgotPasswordForm.style.display = mode === 'forgot' ? 'block' : 'none';
+    resetPasswordForm.style.display = mode === 'reset' ? 'block' : 'none';
+  }
 
   function money(cents) {
     return '$' + ((Number(cents) || 0) / 100).toFixed(2);
@@ -659,7 +684,7 @@
     }).catch(function() {});
   }
 
-  document.getElementById('portalForm').addEventListener('submit', function(event) {
+  portalForm.addEventListener('submit', function(event) {
     event.preventDefault();
     var emailValue = document.getElementById('email').value.trim();
     var passwordValue = document.getElementById('password').value.trim();
@@ -693,6 +718,77 @@
       renderPortal(result.body);
     }).catch(function() {
       message.innerHTML = '<strong>Portal unavailable.</strong><br/>Unable to reach the backend. For current access questions, email support@atlassports.ai.';
+    });
+  });
+  document.getElementById('forgotPasswordLink').addEventListener('click', function(event) {
+    event.preventDefault();
+    var currentEmail = document.getElementById('email').value.trim();
+    if (currentEmail) document.getElementById('forgotEmail').value = currentEmail;
+    message.style.display = 'block';
+    message.innerHTML = '<strong>Password reset.</strong><br/>Enter your Ambassador email and Atlas will send a secure reset link if portal access exists for that account.';
+    showLoginMode('forgot');
+  });
+  document.getElementById('backToLoginFromForgot').addEventListener('click', function(event) {
+    event.preventDefault();
+    message.style.display = 'block';
+    message.innerHTML = '<strong>Portal setup in progress.</strong><br/>Enter your Ambassador email and password to load portal status.';
+    showLoginMode('login');
+  });
+  forgotPasswordForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var emailValue = document.getElementById('forgotEmail').value.trim();
+    message.style.display = 'block';
+    message.innerHTML = '<strong>Sending reset link...</strong><br/>Checking the Ambassador portal records.';
+    fetch(API + '/api/auth/forgot-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: emailValue })
+    }).then(function(resp) {
+      return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+    }).then(function(result) {
+      if (!result.body.ok) {
+        var serverMessage = result.body && result.body.error && result.body.error.message
+          ? result.body.error.message
+          : 'Unable to send reset link.';
+        message.innerHTML = '<strong>Reset unavailable.</strong><br/>' + serverMessage;
+        return;
+      }
+      message.innerHTML = '<strong>Check your email.</strong><br/>If this email belongs to an approved Ambassador, a secure password reset link has been sent.';
+    }).catch(function() {
+      message.innerHTML = '<strong>Reset unavailable.</strong><br/>Unable to reach the backend. For current access questions, email support@atlassports.ai.';
+    });
+  });
+  resetPasswordForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var passwordValue = document.getElementById('resetPassword').value;
+    var confirmValue = document.getElementById('resetPasswordConfirm').value;
+    message.style.display = 'block';
+    message.innerHTML = '<strong>Updating password...</strong><br/>Submitting the one-time reset token.';
+    fetch(API + '/api/auth/reset-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token: resetToken,
+        password: passwordValue,
+        confirmPassword: confirmValue
+      })
+    }).then(function(resp) {
+      return resp.json().then(function(body) { return { status: resp.status, body: body }; });
+    }).then(function(result) {
+      if (!result.body.ok) {
+        var serverMessage = result.body && result.body.error && result.body.error.message
+          ? result.body.error.message
+          : 'Unable to update password.';
+        message.innerHTML = '<strong>Password reset failed.</strong><br/>' + serverMessage;
+        return;
+      }
+      resetToken = '';
+      history.replaceState(null, '', '/ambassadors/');
+      resetPasswordForm.reset();
+      message.innerHTML = '<strong>Password updated.</strong><br/>You can log in with your Ambassador email and new password now.';
+      showLoginMode('login');
+    }).catch(function() {
+      message.innerHTML = '<strong>Password reset unavailable.</strong><br/>Unable to reach the backend. For current access questions, email support@atlassports.ai.';
     });
   });
   document.getElementById('showPassword').addEventListener('click', function() {
@@ -756,7 +852,16 @@
     event.preventDefault();
     uploadMediaAsset(form);
   });
-  loadPortal();
+  if (resetToken) {
+    localStorage.removeItem('atlas_ambassador_token');
+    token = '';
+    message.style.display = 'block';
+    message.innerHTML = '<strong>Set a new password.</strong><br/>Enter and confirm the password you want to use for the Ambassador portal.';
+    showLoginMode('reset');
+  } else {
+    showLoginMode('login');
+    loadPortal();
+  }
 </script>
   <script src="/atlas_motion.js?v=20260514f" defer></script>
 </body>
