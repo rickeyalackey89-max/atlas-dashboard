@@ -733,12 +733,59 @@ body.atlas-transition-in > *:not(.atlas-neural-transition) {
     white-space: nowrap;
   }
 
-  .hero-wrap::after,
   .page-header::after {
     display: none;
   }
 
+  .hero-wrap::after {
+    display: block;
+    right: clamp(-92px, -16vw, -42px);
+    top: clamp(128px, 16vh, 172px);
+    width: min(78vw, 360px);
+    opacity: .14;
+    filter:
+      saturate(.9)
+      contrast(1.08)
+      brightness(.62)
+      drop-shadow(0 0 24px rgba(0,216,255,.10))
+      drop-shadow(0 0 32px rgba(255,176,46,.12));
+    mask-image: radial-gradient(ellipse at 50% 42%, #000 0%, rgba(0,0,0,.84) 44%, rgba(0,0,0,.24) 72%, transparent 90%);
+  }
+
+  .hero-wrap::before {
+    left: 22px;
+    top: clamp(188px, 24vh, 248px);
+    width: min(74vw, 360px);
+    opacity: .84;
+  }
+
   .hero-wrap .hero::before {
     display: none;
+  }
+
+  .stats-strip,
+  .props-section,
+  .features-section,
+  .discord-band {
+    position: relative;
+  }
+
+  .stats-strip::before,
+  .props-section::before,
+  .features-section::before,
+  .discord-band::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 22px;
+    top: 0;
+    width: min(48vw, 230px);
+    height: 1px;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(255,235,180,.95) 0 2px, transparent 4px),
+      linear-gradient(90deg, transparent 0%, rgba(255,176,46,.20) 12%, rgba(255,176,46,.58) 34%, rgba(0,216,255,.12) 74%, transparent 100%);
+    box-shadow: 0 0 12px rgba(255,176,46,.38), 0 0 26px rgba(255,176,46,.12);
+    opacity: .72;
   }
 }
