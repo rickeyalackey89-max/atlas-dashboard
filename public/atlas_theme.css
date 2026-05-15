@@ -26,6 +26,10 @@
     radial-gradient(ellipse at 18% 30%, rgba(255,255,255,.72) 0%, rgba(255,255,255,.18) 7%, transparent 18%),
     radial-gradient(ellipse at 70% 66%, rgba(170,195,206,.5) 0%, transparent 20%),
     linear-gradient(123deg, #cbd8df 0%, #f4fafc 16%, #7f8f98 31%, #dce7ec 48%, #6f7e86 63%, #eef6f9 81%, #91a0a8 100%);
+  --atlas-green-chrome:
+    radial-gradient(ellipse at 18% 28%, rgba(244,255,246,.9) 0%, rgba(244,255,246,.22) 7%, transparent 18%),
+    radial-gradient(ellipse at 72% 66%, rgba(123,255,159,.54) 0%, transparent 20%),
+    linear-gradient(123deg, #bbffd0 0%, #f0fff4 13%, #2dff68 28%, #0aa33c 43%, #d7ffe2 56%, #17df52 70%, #056d25 84%, #8dffab 100%);
 }
 
 html {
@@ -199,6 +203,21 @@ h3 span,
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.stat-value.hit-rate-green,
+.hit-rate-green {
+  color: #27f45f !important;
+  background-image: var(--atlas-green-chrome) !important;
+  background-size: 135% 135%, 135% 135%, 210% 100% !important;
+  background-position:
+    calc(50% + var(--atlas-scroll-shine)) 50%,
+    calc(50% - var(--atlas-scroll-shine)) 50%,
+    calc(50% + var(--atlas-scroll-shine)) 50% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 0 10px rgba(31,255,92,.18)) drop-shadow(0 0 22px rgba(31,255,92,.08));
 }
 
 .eyebrow,
