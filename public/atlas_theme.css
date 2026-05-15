@@ -455,22 +455,22 @@ td,
 }
 
 .hero-wrap::after {
-  right: clamp(-22px, 6vw, 88px);
-  top: clamp(210px, 44vh, 390px);
-  width: min(48vw, 610px);
+  right: clamp(18px, 10vw, 150px);
+  top: clamp(270px, 53vh, 455px);
+  width: min(38vw, 500px);
   background: url("/atlas_ai_ball_hands.png") center / contain no-repeat !important;
-  opacity: .145;
+  opacity: .105;
   mix-blend-mode: screen;
   filter:
     invert(1)
-    grayscale(.18)
-    saturate(.72)
-    contrast(1.18)
-    brightness(.68)
-    drop-shadow(0 0 44px rgba(0,216,255,.14))
-    drop-shadow(0 0 70px rgba(255,176,46,.08));
+    grayscale(.26)
+    saturate(.62)
+    contrast(1.14)
+    brightness(.56)
+    drop-shadow(0 0 34px rgba(0,216,255,.10))
+    drop-shadow(0 0 48px rgba(255,176,46,.045));
   mask-image:
-    radial-gradient(ellipse at 50% 47%, #000 0%, rgba(0,0,0,.94) 42%, rgba(0,0,0,.36) 71%, transparent 88%);
+    radial-gradient(ellipse at 50% 48%, #000 0%, rgba(0,0,0,.88) 38%, rgba(0,0,0,.30) 66%, transparent 84%);
 }
 
 .hero-wrap,
@@ -545,17 +545,17 @@ td,
   content: "";
   position: absolute;
   z-index: 0;
-  right: clamp(-40px, 3vw, 62px);
-  top: clamp(245px, 48vh, 424px);
-  width: min(44vw, 560px);
-  height: min(18vw, 230px);
+  right: clamp(24px, 10vw, 132px);
+  top: clamp(282px, 53vh, 452px);
+  width: min(30vw, 360px);
+  height: min(10vw, 130px);
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 46% 50%, rgba(255,196,74,.32) 0%, rgba(255,176,46,.18) 16%, transparent 44%),
-    linear-gradient(90deg, transparent 0%, rgba(255,176,46,.08) 14%, rgba(255,176,46,.26) 38%, rgba(0,216,255,.08) 68%, transparent 100%);
+    radial-gradient(ellipse at 48% 50%, rgba(255,196,74,.20) 0%, rgba(255,176,46,.10) 20%, transparent 58%),
+    linear-gradient(90deg, transparent 0%, rgba(255,176,46,.05) 22%, rgba(255,176,46,.15) 43%, rgba(0,216,255,.045) 72%, transparent 100%);
   transform: translateY(-50%) rotate(-2deg);
-  opacity: .74;
-  filter: blur(12px);
+  opacity: .42;
+  filter: blur(18px);
   mix-blend-mode: screen;
 }
 

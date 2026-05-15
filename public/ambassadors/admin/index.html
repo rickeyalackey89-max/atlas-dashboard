@@ -32,7 +32,7 @@
     .tree{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;color:#ddd;white-space:pre-wrap;background:#050505;border:1px solid var(--b);padding:14px}
     @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}nav{padding:0 16px}}@media(max-width:560px){.cards{grid-template-columns:1fr}}
   </style>
-  <link rel="stylesheet" href="/atlas_theme.css?v=20260514m"/>
+  <link rel="stylesheet" href="/atlas_theme.css?v=20260514q"/>
 </head>
 <body>
 <nav>
@@ -159,14 +159,14 @@
         : '<button class="btn btn-red" data-reset-connect="'+esc(a.id)+'" style="margin-left:6px">Reset Payout</button>';
       var actions =
         '<button class="btn btn-cyan" data-promo="'+esc(a.id)+'">Attach Promo</button>' +
-        '<button class="btn" data-connect="'+esc(a.id)+'" style="margin-left:6px">Payout Link</button>' +
+        '<button class="btn" data-connect-email="'+esc(a.email)+'" style="margin-left:6px">Send Payout Email</button>' +
         reset;
       return '<tr><td>'+esc(a.name)+'</td><td>'+esc(a.email)+'</td><td>'+esc(a.referral_code)+'</td><td>'+esc(a.sponsor_code||'')+'</td><td>'+status(a.status)+'</td><td>'+onboard+'</td><td>'+promo+'</td><td>'+connect+'</td><td>'+esc(a.created_at)+'</td><td>'+actions+'</td></tr>';
     }).join('');
     html+='</tbody></table>';
     document.getElementById('ambassadors').innerHTML=html;
     document.querySelectorAll('[data-promo]').forEach(function(btn){btn.addEventListener('click',function(){attachPromo(btn.getAttribute('data-promo'));});});
-    document.querySelectorAll('[data-connect]').forEach(function(btn){btn.addEventListener('click',function(){openConnectLink(btn.getAttribute('data-connect'));});});
+    document.querySelectorAll('[data-connect-email]').forEach(function(btn){btn.addEventListener('click',function(){sendPayoutEmail(btn.getAttribute('data-connect-email'));});});
     document.querySelectorAll('[data-reset-connect]').forEach(function(btn){btn.addEventListener('click',function(){resetConnect(btn.getAttribute('data-reset-connect'));});});
   }
   function attachPromo(id){
@@ -180,19 +180,16 @@
       .then(function(res){if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Promo attach failed'); alert('Promotion code ready: '+res.body.code); loadHub();})
       .catch(function(err){alert(err.message||'Promo attach failed')});
   }
-  function openConnectLink(id){
-    fetch(API+'/api/stripe/connect/onboarding-link',{method:'POST',headers:headers(),body:JSON.stringify({ambassadorId:id})})
+  function sendPayoutEmail(email){
+    if(!window.confirm('Send this Ambassador a secure Stripe Express payout onboarding email?')) return;
+    fetch(API+'/api/stripe/connect/onboarding-email',{method:'POST',headers:headers(),body:JSON.stringify({email:email})})
       .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
       .then(function(res){
-        if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Connect link failed');
-        var url=res.body.onboardingUrl;
-        if(navigator.clipboard&&navigator.clipboard.writeText){
-          navigator.clipboard.writeText(url).catch(function(){});
-        }
-        window.prompt('Stripe Express payout onboarding link copied if browser permissions allow. Send this to the Ambassador/payee; do not complete it as admin.', url);
+        if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Payout email failed');
+        alert(res.body.message || 'Payout onboarding email sent.');
         loadHub();
       })
-      .catch(function(err){alert(err.message||'Connect link failed')});
+      .catch(function(err){alert(err.message||'Payout email failed')});
   }
   function resetConnect(id){
     if(!window.confirm('Reset this Ambassador payout onboarding? This clears the stored Stripe Connect account from Atlas and the next payout link will create a fresh Express account. It does not delete the old account inside Stripe.')) return;
