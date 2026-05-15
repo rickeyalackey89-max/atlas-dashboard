@@ -455,22 +455,20 @@ td,
 }
 
 .hero-wrap::after {
-  right: clamp(64px, 10vw, 150px);
-  top: clamp(104px, 16vh, 148px);
-  width: min(36vw, 500px);
-  background: url("/atlas_ai_ball_hands.png") center / contain no-repeat !important;
-  opacity: .112;
+  right: clamp(8px, 4vw, 64px);
+  top: clamp(82px, 13vh, 126px);
+  width: min(34vw, 470px);
+  background: url("/atlas_ai_ball_hands_energy.png") center / contain no-repeat !important;
+  opacity: .28;
   mix-blend-mode: screen;
   filter:
-    invert(1)
-    grayscale(.18)
-    saturate(.70)
-    contrast(1.20)
-    brightness(.50)
+    saturate(.92)
+    contrast(1.10)
+    brightness(.70)
     drop-shadow(0 0 24px rgba(0,216,255,.10))
-    drop-shadow(0 0 30px rgba(255,176,46,.035));
+    drop-shadow(0 0 34px rgba(255,176,46,.10));
   mask-image:
-    radial-gradient(ellipse at 50% 42%, #000 0%, rgba(0,0,0,.86) 35%, rgba(0,0,0,.28) 64%, transparent 82%);
+    radial-gradient(ellipse at 50% 44%, #000 0%, rgba(0,0,0,.90) 42%, rgba(0,0,0,.38) 68%, transparent 86%);
 }
 
 .hero-wrap,
@@ -542,29 +540,7 @@ td,
 }
 
 .hero-wrap .hero::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  left: clamp(590px, 55vw, 735px);
-  top: clamp(90px, 15vh, 130px);
-  width: min(22vw, 260px);
-  height: min(16vw, 190px);
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 50% 38%, rgba(255,220,132,.84) 0 1px, transparent 2px),
-    radial-gradient(circle at 42% 48%, rgba(255,176,46,.72) 0 1px, transparent 2px),
-    radial-gradient(circle at 58% 50%, rgba(255,176,46,.70) 0 1px, transparent 2px),
-    radial-gradient(circle at 35% 58%, rgba(255,199,86,.58) 0 1px, transparent 2px),
-    radial-gradient(circle at 66% 62%, rgba(255,199,86,.52) 0 1px, transparent 2px),
-    radial-gradient(circle at 50% 52%, rgba(255,176,46,.16) 0 0.5px, transparent 1px),
-    radial-gradient(ellipse at 50% 52%, rgba(255,176,46,.055) 0%, rgba(255,176,46,.025) 34%, transparent 66%);
-  transform: rotate(-1deg);
-  opacity: .58;
-  filter:
-    drop-shadow(0 0 5px rgba(255,176,46,.28))
-    drop-shadow(0 0 12px rgba(255,176,46,.10));
-  mix-blend-mode: screen;
-  mask-image: radial-gradient(ellipse at 50% 52%, #000 0%, rgba(0,0,0,.78) 48%, rgba(0,0,0,.20) 72%, transparent 90%);
+  display: none;
 }
 
 .hero-logo-bg {
