@@ -111,9 +111,6 @@
     .media-asset p{margin-top:6px;color:var(--t2);font-size:12px;line-height:1.55;}
     .media-asset-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
     .media-pill{display:inline-flex;align-items:center;min-height:22px;padding:3px 8px;border:1px solid rgba(245,166,35,.34);color:var(--gold);font-size:9px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;margin-top:10px;}
-    .document-list{display:grid;gap:8px;}
-    .document-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--b);background:#050505;}
-    .document-row a{color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;}
     .empty-state{padding:18px;border:1px solid var(--b);background:#050505;color:var(--t2);font-size:13px;line-height:1.7;}
     .notice{margin-top:24px;padding:20px;border:1px solid rgba(245,166,35,.26);background:rgba(245,166,35,.055);color:var(--t2);font-size:13px;line-height:1.8;}
     .notice a{color:var(--gold);font-weight:900;}
@@ -395,20 +392,6 @@
       '<div id="mediaAssetList" class="empty-state">Open the Media tab to load approved Atlas assets and your submitted uploads.</div>';
   }
 
-  function documentUrl(doc) {
-    var title = String((doc && doc.title) || '').toLowerCase();
-    var url = String((doc && doc.url) || '');
-    if (url.indexOf('/ambassadors/onboarding/') === 0) {
-      if (title.indexOf('conduct') >= 0) return '/ambassadors/docs/conduct-requirements/';
-      if (title.indexOf('media') >= 0) return '/ambassadors/docs/media-guide/';
-      if (title.indexOf('opportunity') >= 0) return '/ambassadors/docs/opportunities/';
-      if (title.indexOf('stripe') >= 0) return '/ambassadors/docs/stripe-onboarding-guide/';
-      if (title.indexOf('agreement') >= 0 || title.indexOf('library') >= 0) return '/ambassadors/docs/';
-      return '/ambassadors/docs/payout-structure/';
-    }
-    return url || '/ambassadors/docs/';
-  }
-
   function formatBytes(bytes) {
     var value = Number(bytes) || 0;
     if (value >= 1024 * 1024) return (value / (1024 * 1024)).toFixed(1) + ' MB';
@@ -518,8 +501,6 @@
 
   function renderProfile(data) {
     var ambassador = data.ambassador || {};
-    var documents = (data.documents && data.documents.resources) || [];
-    var documentRecords = (data.documents && data.documents.records) || [];
     var agreement = (data.documents && data.documents.agreement) || {};
     var websiteAccess = data.websiteAccess || {};
     var agreementAction = agreement.signed
@@ -557,18 +538,7 @@
         '<b>Support</b>' +
         '<p>For account, payout, or content questions, contact <a href="mailto:support@atlassports.ai">support@atlassports.ai</a>.</p>' +
       '</div>' +
-    '</div>' +
-    '<div class="section-title">Documents</div>' +
-    '<div class="document-list">' + documents.map(function(doc) {
-      return '<div class="document-row"><span>' + esc(doc.title) + '<br/><span class="muted">' + esc(doc.status || 'available') + '</span></span><a href="' + esc(documentUrl(doc)) + '">Open</a></div>';
-    }).join('') + '</div>' +
-    '<div class="section-title">Signed Document Records</div>' +
-    renderRows(documentRecords, 'No signed Atlas document records are attached yet. Open Atlas Paperwork to complete the agreement, then return to Stripe Express for payout and tax identity setup.', [
-      { label: 'Document', render: function(row) { return esc(String(row.document_type || '').replace(/_/g, ' ')); } },
-      { label: 'Status', render: function(row) { return statusBadge(row.status); } },
-      { label: 'Created', render: function(row) { return esc(dateShort(row.created_at)); } },
-      { label: 'Signed', render: function(row) { return esc(dateShort(row.signed_at)); } }
-    ]);
+    '</div>';
   }
 
   function renderPortal(data) {
