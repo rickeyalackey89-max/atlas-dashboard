@@ -456,7 +456,7 @@ td,
 
 .hero-wrap::after {
   right: clamp(8px, 4vw, 64px);
-  top: clamp(82px, 13vh, 126px);
+  top: clamp(122px, 19vh, 174px);
   width: min(34vw, 470px);
   background: url("/atlas_ai_ball_hands_energy.png") center / contain no-repeat !important;
   opacity: .28;
@@ -501,8 +501,9 @@ td,
 
 .hero-wrap::before {
   left: clamp(42px, 5vw, 82px);
-  top: clamp(112px, 18vh, 186px);
+  top: clamp(148px, 24vh, 230px);
   width: min(46vw, 580px);
+  opacity: .86;
 }
 
 .page-header::before {
