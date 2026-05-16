@@ -290,6 +290,93 @@
     .sdot-live { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: blink 2s infinite; }
     .sdot-soon { width: 6px; height: 6px; border-radius: 50%; background: var(--t3); }
 
+    /* SPONSORS */
+    .sponsor-section {
+      padding: 46px 32px;
+      border-top: 1px solid rgba(0,212,255,0.08);
+      background: linear-gradient(90deg, rgba(0,212,255,0.035), transparent 46%, rgba(245,166,35,0.018));
+    }
+    .sponsor-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+    .sponsor-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      min-width: 220px;
+    }
+    .sponsor-title {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+    .sponsor-sub {
+      font-size: 13px;
+      color: var(--t2);
+      max-width: 460px;
+    }
+    .sponsor-list {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .sponsor-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 236px;
+      padding: 10px 14px 10px 10px;
+      border: 1px solid rgba(0,212,255,0.20);
+      border-radius: 999px;
+      background: rgba(2, 18, 23, 0.72);
+      box-shadow: 0 0 28px rgba(0,212,255,0.05), inset 0 1px 0 rgba(255,255,255,0.04);
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .sponsor-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(0,212,255,0.55);
+      background: rgba(4, 28, 35, 0.82);
+    }
+    .sponsor-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(126, 87, 255, .65);
+      box-shadow: 0 0 20px rgba(126, 87, 255, .18);
+      flex-shrink: 0;
+    }
+    .sponsor-name {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .sponsor-meta {
+      margin-top: 5px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #a78bfa;
+    }
+    @media (max-width: 640px) {
+      .sponsor-section { padding: 34px 20px; }
+      .sponsor-inner { align-items: flex-start; }
+      .sponsor-card { width: 100%; }
+      .sponsor-list { width: 100%; }
+    }
+
     /* DISCORD */
     .discord-band {
       padding: 100px 32px; text-align: center; position: relative; overflow: hidden;
@@ -517,6 +604,25 @@
           <div class="sport-chip chip-soon"><span class="sdot-soon"></span>NFL &mdash; Fall 2026</div>
           <div class="sport-chip" style="border-color:rgba(245,166,35,.4);color:var(--gold);"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;"></span>&nbsp;AtlasSportsAI App &mdash; GPT-Powered &mdash; Fall 2026</div>
           <div class="sport-chip chip-soon"><span class="sdot-soon"></span>More TBD</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPONSORS -->
+    <section class="sponsor-section" aria-label="Atlas sponsors">
+      <div class="sponsor-inner">
+        <div class="sponsor-copy">
+          <div class="sponsor-title">Atlas Sponsors</div>
+          <p class="sponsor-sub">Live creators and ambassadors bringing Atlas into the community.</p>
+        </div>
+        <div class="sponsor-list">
+          <a class="sponsor-card" href="https://www.twitch.tv/314mell" target="_blank" rel="noopener" aria-label="Open 314MELL Twitch stream">
+            <img class="sponsor-avatar" src="/sponsors/314mell.webp" alt="314MELL" loading="lazy"/>
+            <span>
+              <span class="sponsor-name">314MELL</span>
+              <span class="sponsor-meta">Twitch Stream &rarr;</span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
