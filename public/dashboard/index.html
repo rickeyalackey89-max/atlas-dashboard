@@ -759,6 +759,13 @@
     return Number(pct).toFixed(1).replace(/\.0$/,'')+'%';
   }
 
+  function fmtMult(v){
+    var n=numOrNull(v);
+    if(n===null) return null;
+    var digits = Math.abs(n) >= 10 ? 1 : 2;
+    return n.toFixed(digits).replace(/\.0+$/,'').replace(/(\.\d*[1-9])0+$/,'$1')+'x';
+  }
+
   function americanToDecimal(odds){
     var n=numOrNull(odds);
     if(n===null||n===0) return null;
@@ -1498,8 +1505,8 @@
         // Fallback to payout_mult only for older payloads or quote failures.
         var _mPay=Number(slip.pp_power_payout_mult||slip.payout_mult||0), _mHP=slip.hit_prob||0;
         var evRaw=Number(slip.ev||0);
-        var evX=evRaw?evRaw.toFixed(2):((_mPay&&_mHP)?(_mHP*_mPay).toFixed(2):null);
-        var payX=_mPay?_mPay+'x':null;
+        var evX=evRaw?fmtMult(evRaw):((_mPay&&_mHP)?fmtMult(_mHP*_mPay):null);
+        var payX=_mPay?fmtMult(_mPay):null;
         var nc=nLegs===2?'var(--gold)':nLegs===3?'#4ade80':nLegs===4?'#60a5fa':'var(--gold)';
         var nb=nLegs===2?'rgba(245,166,35,.35)':nLegs===3?'rgba(74,222,128,.35)':nLegs===4?'rgba(96,165,250,.35)':'rgba(245,166,35,.35)';
         var legsHtml='';
@@ -1522,7 +1529,7 @@
             (slip.high_confidence?'<span style="font-size:9px;font-weight:800;color:var(--gold);letter-spacing:.08em;">HIGH CONF</span>':'')+
             '<div class="slip-meta-row">'+
               '<span>Hit Prob&nbsp;<span class="slip-meta-val">'+hitPct+'%</span></span>'+
-              (evX?'<span>EV&nbsp;<span class="slip-meta-val">'+evX+'x</span></span>':'')+
+              (evX?'<span>EV&nbsp;<span class="slip-meta-val">'+evX+'</span></span>':'')+
               (payX?'<span>Payout&nbsp;<span class="slip-meta-val" style="color:var(--gold);">'+payX+'</span></span>':'')+
             '</div>'+
           '</div>'+
@@ -1546,8 +1553,8 @@
         var slip=slips[s],legs=slip.legs_detail||[],nLegs=slip.n_legs||legs.length;
         var hitPct=Math.round((slip.hit_prob||0)*100);
         var _sPay=slip.payout_mult||0, _sHP=slip.hit_prob||0;
-        var evX=(_sPay&&_sHP)?(_sHP*_sPay).toFixed(2):null;
-        var payX=_sPay?_sPay+'x':null;
+        var evX=(_sPay&&_sHP)?fmtMult(_sHP*_sPay):null;
+        var payX=_sPay?fmtMult(_sPay):null;
         var nc=nLegs===3?'#4ade80':nLegs===4?'#60a5fa':'var(--gold)';
         var nb=nLegs===3?'rgba(74,222,128,.35)':nLegs===4?'rgba(96,165,250,.35)':'rgba(245,166,35,.35)';
         var legsHtml='';
@@ -1569,7 +1576,7 @@
             '<span class="slip-n-badge" style="color:'+nc+';border-color:'+nb+';">'+nLegs+'-Leg</span>'+
             '<div class="slip-meta-row">'+
               '<span>Hit Prob&nbsp;<span class="slip-meta-val">'+hitPct+'%</span></span>'+
-              (evX?'<span>EV&nbsp;<span class="slip-meta-val">'+evX+'x</span></span>':'')+
+              (evX?'<span>EV&nbsp;<span class="slip-meta-val">'+evX+'</span></span>':'')+
               (payX?'<span>Payout&nbsp;<span class="slip-meta-val" style="color:var(--gold);">'+payX+'</span></span>':'')+
             '</div>'+
           '</div>'+
