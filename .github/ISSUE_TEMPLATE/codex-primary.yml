@@ -12,6 +12,16 @@ body:
 
         Use this for production-sensitive dashboard publishing, data contract, Cloudflare, or cross-repo work.
   - type: dropdown
+    id: codex_lane
+    attributes:
+      label: Codex Lane
+      description: This form defaults to the primary lane; labels are the routing source of truth.
+      options:
+        - Primary Codex
+        - 5.3 Spark
+    validations:
+      required: true
+  - type: dropdown
     id: area
     attributes:
       label: Area

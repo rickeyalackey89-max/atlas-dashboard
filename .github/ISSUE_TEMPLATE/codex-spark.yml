@@ -12,6 +12,16 @@ body:
 
         Use this for isolated dashboard bugs, UI polish, docs, tests, and small fixes that should not interrupt the primary Codex session.
   - type: dropdown
+    id: codex_lane
+    attributes:
+      label: Codex Lane
+      description: This form defaults to the 5.3 Spark lane; labels are the routing source of truth.
+      options:
+        - 5.3 Spark
+        - Primary Codex
+    validations:
+      required: true
+  - type: dropdown
     id: area
     attributes:
       label: Area
