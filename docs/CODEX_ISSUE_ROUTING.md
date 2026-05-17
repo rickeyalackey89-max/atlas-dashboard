@@ -24,4 +24,20 @@ Use labels codex, codex:primary, assigned:codex-primary, needs-triage.
 Assign it to rickeyalackey89-max.
 ```
 
+## Write Bridge Fallback
+
+If Chat can create a plain issue but labels or assignees do not persist, include one of these in the issue title, body, or a comment:
+
+```text
+Codex Lane: 5.3 Spark
+```
+
+```text
+@codex please implement this using 5.3 Spark.
+```
+
+The `Codex Issue Router` GitHub Action will add the lane labels and assign `rickeyalackey89-max`.
+
+If Chat cannot create an issue at all, open GitHub Actions, run `Codex Issue Router`, and fill in the title, body, lane, labels, and assignee inputs. The workflow will create the routed issue directly from GitHub.
+
 Every routed issue should include problem, reproduction/evidence, expected behavior, acceptance criteria, Codex Lane, target label lane, and a GitHub assignee when a human owner should be notified.

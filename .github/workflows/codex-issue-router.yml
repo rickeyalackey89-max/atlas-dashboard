@@ -1,0 +1,48 @@
+name: Codex Issue Router
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+  issue_comment:
+    types: [created, edited]
+  workflow_dispatch:
+    inputs:
+      title:
+        description: Issue title to create when Chat cannot create one
+        required: true
+        default: "[Codex Spark]: "
+      body:
+        description: Issue body
+        required: true
+      lane:
+        description: Codex lane
+        required: true
+        type: choice
+        default: spark
+        options:
+          - spark
+          - primary
+      labels:
+        description: Extra comma-separated labels
+        required: false
+        default: ""
+      assignee:
+        description: GitHub user to assign
+        required: false
+        default: rickeyalackey89-max
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Route or create Codex issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ROUTER_ASSIGNEE: rickeyalackey89-max
+          REPO_KIND: dashboard
+        run: python .github/scripts/codex_issue_router.py
