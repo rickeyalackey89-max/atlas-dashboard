@@ -1,0 +1,59 @@
+name: Codex Task - 5.3 Spark Lane
+description: Route a contained dashboard issue to the 5.3 Spark Codex lane.
+title: "[Codex Spark]: "
+labels: ["codex", "codex:5.3-spark", "assigned:codex-spark", "needs-triage"]
+assignees:
+  - rickeyalackey89-max
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Target lane: `codex:5.3-spark`
+
+        Use this for isolated dashboard bugs, UI polish, docs, tests, and small fixes that should not interrupt the primary Codex session.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - dashboard-ui
+        - graphics
+        - mobile
+        - docs
+        - tooling
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      placeholder: Include reproduction steps, expected behavior, actual behavior, and relevant files.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      placeholder: "- Root cause identified\n- Patch is scoped\n- Validation command/output is posted"
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+  - type: input
+    id: requested_assignee
+    attributes:
+      label: Requested GitHub Assignee
+      description: Optional human GitHub username to assign or notify. Codex lane assignment is controlled by labels.
+      placeholder: rickeyalackey89-max
+  - type: checkboxes
+    id: routing
+    attributes:
+      label: Routing Confirmation
+      options:
+        - label: This should be handled by the 5.3 Spark Codex lane.
+          required: true
+        - label: This is safe to work independently from the primary Codex lane.
+          required: true
