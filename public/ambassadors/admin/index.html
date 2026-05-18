@@ -29,6 +29,7 @@
     h2{font-size:14px;color:var(--cyan);text-transform:uppercase;letter-spacing:.14em;margin-bottom:14px}
     table{width:100%;border-collapse:collapse;min-width:820px}th,td{padding:10px;border-bottom:1px solid var(--b);text-align:left;font-size:12px;vertical-align:top}th{color:var(--t2);font-size:9px;text-transform:uppercase;letter-spacing:.14em}
     .status{display:inline-flex;padding:3px 7px;border:1px solid var(--b2);font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.status.approved,.status.valid,.status.active,.status.complete,.status.paypal_manual_complete{color:var(--green);border-color:rgba(0,230,118,.35)}.status.submitted,.status.pending,.status.onboarding,.status.link_created,.status.account_created,.status.stripe_pending,.status.stripe_submitted,.status.paypal_manual_review{color:var(--gold);border-color:rgba(245,166,35,.35)}.status.lead{color:var(--cyan);border-color:rgba(0,212,255,.35)}.status.auto_rejected,.status.failed,.status.voided,.status.rejected,.status.restricted,.status.paypal_manual_rejected{color:var(--red);border-color:rgba(255,82,82,.35)}
+    .provider{display:inline-flex;align-items:center;gap:6px;margin-bottom:5px;padding:4px 8px;border:1px solid var(--b2);font-size:9px;font-weight:950;letter-spacing:.1em;text-transform:uppercase}.provider:before{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:9px;font-weight:950;letter-spacing:0}.provider.stripe{color:#c7b8ff;border-color:rgba(99,91,255,.45)}.provider.stripe:before{content:"S";background:#635bff;color:#fff}.provider.paypal{color:#8fd0ff;border-color:rgba(0,112,186,.5)}.provider.paypal:before{content:"P";background:#0070ba;color:#fff}
     .tree{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;color:#ddd;white-space:pre-wrap;background:#050505;border:1px solid var(--b);padding:14px}
     @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}nav{padding:0 16px}}@media(max-width:560px){.cards{grid-template-columns:1fr}}
   </style>
@@ -85,6 +86,18 @@
     if(connect==='submitted') return 'stripe_submitted';
     if(connect==='link_created'||connect==='account_created') return 'stripe_pending';
     return connect;
+  }
+  function payoutProvider(a){
+    var provider=String(a.payout_provider||'').toLowerCase();
+    var connect=String(a.connect_onboarding_status||'').toLowerCase();
+    var paypal=String(a.paypal_onboarding_status||'').toLowerCase();
+    if(provider==='paypal'||connect.indexOf('paypal')===0||paypal) return 'paypal';
+    return 'stripe';
+  }
+  function providerBadge(provider){
+    return provider==='paypal'
+      ? '<span class="provider paypal">PayPal</span>'
+      : '<span class="provider stripe">Stripe</span>';
   }
   function headers(){return {'Authorization':'Bearer '+token,'Content-Type':'application/json'}}
   adminLogout.addEventListener('click', function(){
@@ -155,10 +168,10 @@
     var html='<table><thead><tr><th>Name</th><th>Email</th><th>Code</th><th>Sponsor</th><th>Status</th><th>Onboarding</th><th>Stripe Promo</th><th>Payout</th><th>Created</th><th>Actions</th></tr></thead><tbody>';
     html+=rows.map(function(a){
       var promo = a.stripe_promotion_code ? esc(a.stripe_promotion_code) : '<span style="color:#777">Not attached</span>';
-      var provider = a.payout_provider || 'stripe';
+      var provider = payoutProvider(a);
       var payout = provider === 'paypal'
-        ? status(a.paypal_onboarding_status || 'not_started') + '<br><span style="color:#777">' + esc(a.payout_country || '') + ' ' + esc(a.paypal_payout_email || '') + '</span>'
-        : (a.connect_onboarding_status ? status(a.connect_onboarding_status) : status('not_started')) + (a.stripe_connect_account_id ? '<br><span style="color:#777">'+esc(a.stripe_connect_account_id)+'</span>' : '');
+        ? providerBadge(provider) + '<br>' + status(a.paypal_onboarding_status || a.connect_onboarding_status || 'not_started') + '<br><span style="color:#777">' + esc(a.payout_country || '') + ' ' + esc(a.paypal_payout_email || '') + '</span>'
+        : providerBadge(provider) + '<br>' + (a.connect_onboarding_status ? status(a.connect_onboarding_status) : status('not_started')) + (a.stripe_connect_account_id ? '<br><span style="color:#777">'+esc(a.stripe_connect_account_id)+'</span>' : '');
       var onboard = status(onboardingStatus(a));
       var reset = (a.connect_onboarding_status==='complete')
         ? ''
