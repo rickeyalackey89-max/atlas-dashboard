@@ -91,7 +91,11 @@
     var provider=String(a.payout_provider||'').toLowerCase();
     var connect=String(a.connect_onboarding_status||'').toLowerCase();
     var paypal=String(a.paypal_onboarding_status||'').toLowerCase();
-    if(provider==='paypal'||connect.indexOf('paypal')===0||paypal) return 'paypal';
+    var hasPaypalProfile = !!(a.paypal_payout_email || a.payout_country);
+    var paypalSelected = provider==='paypal'
+      || connect.indexOf('paypal')===0
+      || (hasPaypalProfile && paypal && paypal !== 'not_started');
+    if(paypalSelected) return 'paypal';
     return 'stripe';
   }
   function providerBadge(provider){
