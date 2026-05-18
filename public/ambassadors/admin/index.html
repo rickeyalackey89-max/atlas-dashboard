@@ -28,7 +28,7 @@
     section{border:1px solid var(--b);background:var(--s1);margin-top:18px;padding:18px;overflow:auto}
     h2{font-size:14px;color:var(--cyan);text-transform:uppercase;letter-spacing:.14em;margin-bottom:14px}
     table{width:100%;border-collapse:collapse;min-width:820px}th,td{padding:10px;border-bottom:1px solid var(--b);text-align:left;font-size:12px;vertical-align:top}th{color:var(--t2);font-size:9px;text-transform:uppercase;letter-spacing:.14em}
-    .status{display:inline-flex;padding:3px 7px;border:1px solid var(--b2);font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.status.approved,.status.valid,.status.active,.status.complete{color:var(--green);border-color:rgba(0,230,118,.35)}.status.submitted,.status.pending,.status.onboarding,.status.link_created,.status.account_created,.status.stripe_pending,.status.stripe_submitted{color:var(--gold);border-color:rgba(245,166,35,.35)}.status.lead{color:var(--cyan);border-color:rgba(0,212,255,.35)}.status.auto_rejected,.status.failed,.status.voided,.status.rejected,.status.restricted{color:var(--red);border-color:rgba(255,82,82,.35)}
+    .status{display:inline-flex;padding:3px 7px;border:1px solid var(--b2);font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.status.approved,.status.valid,.status.active,.status.complete,.status.paypal_manual_complete{color:var(--green);border-color:rgba(0,230,118,.35)}.status.submitted,.status.pending,.status.onboarding,.status.link_created,.status.account_created,.status.stripe_pending,.status.stripe_submitted,.status.paypal_manual_review{color:var(--gold);border-color:rgba(245,166,35,.35)}.status.lead{color:var(--cyan);border-color:rgba(0,212,255,.35)}.status.auto_rejected,.status.failed,.status.voided,.status.rejected,.status.restricted,.status.paypal_manual_rejected{color:var(--red);border-color:rgba(255,82,82,.35)}
     .tree{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;color:#ddd;white-space:pre-wrap;background:#050505;border:1px solid var(--b);padding:14px}
     @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}nav{padding:0 16px}}@media(max-width:560px){.cards{grid-template-columns:1fr}}
   </style>
@@ -79,6 +79,9 @@
   function onboardingStatus(a){
     var connect=a.connect_onboarding_status||'not_started';
     if(connect==='complete') return 'active';
+    if(connect==='paypal_manual_complete') return 'paypal_manual_complete';
+    if(connect==='paypal_manual_review') return 'paypal_manual_review';
+    if(connect==='paypal_manual_rejected') return 'paypal_manual_rejected';
     if(connect==='submitted') return 'stripe_submitted';
     if(connect==='link_created'||connect==='account_created') return 'stripe_pending';
     return connect;
@@ -128,7 +131,7 @@
     renderApplications(data.applications);
     renderAmbassadors(data.ambassadors);
     table('signups',data.signups,['customer_email','referral_code','plan_code','amount_cents','status','eligibility_reason','created_at'],{amount_cents:money,status:status});
-    table('payouts',data.payouts,['ambassador_id','source_signup_id','payout_type','amount_cents','status','reason','created_at'],{amount_cents:money,status:status});
+    table('payouts',data.payouts,['ambassador_id','source_signup_id','payout_type','amount_cents','status','payout_provider','reason','created_at'],{amount_cents:money,status:status});
   }
   function renderTree(ambassadors,edges){
     var byId={}, children={}; ambassadors.forEach(function(a){byId[a.id]=a; children[a.id]=[]}); edges.filter(function(e){return e.depth===1}).forEach(function(e){ if(children[e.parent_ambassador_id]) children[e.parent_ambassador_id].push(e.child_ambassador_id); });
@@ -149,25 +152,31 @@
     document.querySelectorAll('[data-delete-app]').forEach(function(btn){btn.addEventListener('click',function(){deleteApp(btn.getAttribute('data-delete-app'));});});
   }
   function renderAmbassadors(rows){
-    var html='<table><thead><tr><th>Name</th><th>Email</th><th>Code</th><th>Sponsor</th><th>Status</th><th>Onboarding</th><th>Stripe Promo</th><th>Connect</th><th>Created</th><th>Actions</th></tr></thead><tbody>';
+    var html='<table><thead><tr><th>Name</th><th>Email</th><th>Code</th><th>Sponsor</th><th>Status</th><th>Onboarding</th><th>Stripe Promo</th><th>Payout</th><th>Created</th><th>Actions</th></tr></thead><tbody>';
     html+=rows.map(function(a){
       var promo = a.stripe_promotion_code ? esc(a.stripe_promotion_code) : '<span style="color:#777">Not attached</span>';
-      var connect = (a.connect_onboarding_status ? status(a.connect_onboarding_status) : status('not_started')) + (a.stripe_connect_account_id ? '<br><span style="color:#777">'+esc(a.stripe_connect_account_id)+'</span>' : '');
+      var provider = a.payout_provider || 'stripe';
+      var payout = provider === 'paypal'
+        ? status(a.paypal_onboarding_status || 'not_started') + '<br><span style="color:#777">' + esc(a.payout_country || '') + ' ' + esc(a.paypal_payout_email || '') + '</span>'
+        : (a.connect_onboarding_status ? status(a.connect_onboarding_status) : status('not_started')) + (a.stripe_connect_account_id ? '<br><span style="color:#777">'+esc(a.stripe_connect_account_id)+'</span>' : '');
       var onboard = status(onboardingStatus(a));
       var reset = (a.connect_onboarding_status==='complete')
         ? ''
         : '<button class="btn btn-red" data-reset-connect="'+esc(a.id)+'" style="margin-left:6px">Reset Payout</button>';
       var actions =
         '<button class="btn btn-cyan" data-promo="'+esc(a.id)+'">Attach Promo</button>' +
-        '<button class="btn" data-connect-email="'+esc(a.email)+'" style="margin-left:6px">Send Payout Email</button>' +
+        '<button class="btn" data-connect-email="'+esc(a.email)+'" style="margin-left:6px">Send Stripe Email</button>' +
+        (a.payout_provider==='paypal' ? '<button class="btn btn-cyan" data-paypal-approve="'+esc(a.id)+'" style="margin-left:6px">Confirm PayPal</button><button class="btn btn-red" data-paypal-reject="'+esc(a.id)+'" style="margin-left:6px">Reject PayPal</button>' : '') +
         reset;
-      return '<tr><td>'+esc(a.name)+'</td><td>'+esc(a.email)+'</td><td>'+esc(a.referral_code)+'</td><td>'+esc(a.sponsor_code||'')+'</td><td>'+status(a.status)+'</td><td>'+onboard+'</td><td>'+promo+'</td><td>'+connect+'</td><td>'+esc(a.created_at)+'</td><td>'+actions+'</td></tr>';
+      return '<tr><td>'+esc(a.name)+'</td><td>'+esc(a.email)+'</td><td>'+esc(a.referral_code)+'</td><td>'+esc(a.sponsor_code||'')+'</td><td>'+status(a.status)+'</td><td>'+onboard+'</td><td>'+promo+'</td><td>'+payout+'</td><td>'+esc(a.created_at)+'</td><td>'+actions+'</td></tr>';
     }).join('');
     html+='</tbody></table>';
     document.getElementById('ambassadors').innerHTML=html;
     document.querySelectorAll('[data-promo]').forEach(function(btn){btn.addEventListener('click',function(){attachPromo(btn.getAttribute('data-promo'));});});
     document.querySelectorAll('[data-connect-email]').forEach(function(btn){btn.addEventListener('click',function(){sendPayoutEmail(btn.getAttribute('data-connect-email'));});});
     document.querySelectorAll('[data-reset-connect]').forEach(function(btn){btn.addEventListener('click',function(){resetConnect(btn.getAttribute('data-reset-connect'));});});
+    document.querySelectorAll('[data-paypal-approve]').forEach(function(btn){btn.addEventListener('click',function(){reviewPayPal(btn.getAttribute('data-paypal-approve'),'approve');});});
+    document.querySelectorAll('[data-paypal-reject]').forEach(function(btn){btn.addEventListener('click',function(){reviewPayPal(btn.getAttribute('data-paypal-reject'),'reject');});});
   }
   function attachPromo(id){
     var savedCoupon = localStorage.getItem('atlas_ambassador_coupon_id') || '';
@@ -182,7 +191,10 @@
   }
   function sendPayoutEmail(email){
     if(!window.confirm('Send this Ambassador a secure Stripe Express payout onboarding email?')) return;
-    fetch(API+'/api/stripe/connect/onboarding-email',{method:'POST',headers:headers(),body:JSON.stringify({email:email})})
+    var country = window.prompt('Payout country code for Stripe Express. Use US only for legal US payees with required US tax information.', 'US');
+    if(country === null) return;
+    country = String(country || 'US').trim().toUpperCase().replace(/[^A-Z]/g,'').slice(0,2) || 'US';
+    fetch(API+'/api/stripe/connect/onboarding-email',{method:'POST',headers:headers(),body:JSON.stringify({email:email,country:country})})
       .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
       .then(function(res){
         if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'Payout email failed');
@@ -201,6 +213,19 @@
         loadHub();
       })
       .catch(function(err){alert(err.message||'Reset failed')});
+  }
+  function reviewPayPal(id, action){
+    var label = action === 'approve' ? 'approve this PayPal payout profile and unlock portal access' : 'reject this PayPal payout profile';
+    if(!window.confirm('Are you sure you want to '+label+'?')) return;
+    var note = window.prompt('Admin note for this PayPal review. Optional.', '') || '';
+    fetch(API+'/api/admin/paypal/payout-profile/review',{method:'POST',headers:headers(),body:JSON.stringify({ambassadorId:id,action:action,note:note})})
+      .then(function(r){return r.json().then(function(b){return{status:r.status,body:b}})})
+      .then(function(res){
+        if(!res.body.ok) throw new Error(res.body.error&&res.body.error.message?res.body.error.message:'PayPal review failed');
+        alert('PayPal payout profile '+(action==='approve'?'approved.':'rejected.'));
+        loadHub();
+      })
+      .catch(function(err){alert(err.message||'PayPal review failed')});
   }
   function approveApp(id){
     if(!window.confirm('Approve this Ambassador and create their backend code?')) return;

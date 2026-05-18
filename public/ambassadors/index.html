@@ -528,9 +528,16 @@
     var ambassador = data.ambassador || {};
     var agreement = (data.documents && data.documents.agreement) || {};
     var websiteAccess = data.websiteAccess || {};
+    var payoutProvider = ambassador.payoutProvider || 'stripe';
+    var payoutSetupHtml = payoutProvider === 'paypal'
+      ? '<p>Name: <strong>' + esc(ambassador.name || '-') + '</strong><br/>Email: ' + esc(ambassador.email || '-') + '<br/>Status: ' + esc(ambassador.status || '-') + '<br/>Payout setup: ' + esc(ambassador.connectOnboardingStatus || '-') + '<br/>PayPal: ' + esc(ambassador.paypalPayoutEmail || '-') + '<br/>Country: ' + esc(ambassador.payoutCountry || '-') + '</p>' +
+        '<p class="muted" style="margin-top:10px;">PayPal payout profile is on file. Contact support to change payout email or country.</p>'
+      : '<p>Name: <strong>' + esc(ambassador.name || '-') + '</strong><br/>Email: ' + esc(ambassador.email || '-') + '<br/>Status: ' + esc(ambassador.status || '-') + '<br/>Payout setup: ' + esc(ambassador.connectOnboardingStatus || '-') + '</p>' +
+        '<button class="btn btn-cyan" type="button" data-open-stripe-dashboard="1">Open Stripe Express</button>' +
+        '<p class="muted" style="margin-top:10px;">Use Stripe Express to update payout identity, direct deposit, tax identity, and future tax forms. Stripe may not show a standalone tax form during setup if tax identity is already complete.</p>';
     var agreementAction = agreement.signed
-      ? '<p class="muted" style="margin-top:10px;">Atlas agreement signature is on file. Stripe Express remains the place to update payout identity, banking, tax identity, and future 1099 tax forms.</p>'
-      : '<p class="muted" style="margin-top:10px;">Atlas paperwork is separate from Stripe Express. Sign the Atlas agreement here if a signed record is missing, then use Stripe Express for payout and tax identity setup.</p>' +
+      ? '<p class="muted" style="margin-top:10px;">Atlas agreement signature is on file. The selected payout provider remains the place to update payout identity, banking, and required tax details.</p>'
+      : '<p class="muted" style="margin-top:10px;">Atlas paperwork is separate from payout setup. Sign the Atlas agreement here if a signed record is missing, then use the approved payout provider for payout and tax identity setup.</p>' +
         '<label for="agreementSignatureName">Legal Signature Name</label>' +
         '<input id="agreementSignatureName" type="text" placeholder="Your legal name"/>' +
         '<label style="display:flex;align-items:flex-start;gap:8px;line-height:1.45;">' +
@@ -541,9 +548,7 @@
     return '<div class="profile-grid">' +
       '<div class="profile-block">' +
         '<b>Account Status</b>' +
-        '<p>Name: <strong>' + esc(ambassador.name || '-') + '</strong><br/>Email: ' + esc(ambassador.email || '-') + '<br/>Status: ' + esc(ambassador.status || '-') + '<br/>Payout setup: ' + esc(ambassador.connectOnboardingStatus || '-') + '</p>' +
-        '<button class="btn btn-cyan" type="button" data-open-stripe-dashboard="1">Open Stripe Express</button>' +
-        '<p class="muted" style="margin-top:10px;">Use Stripe Express to update payout identity, direct deposit, tax identity, and future 1099 tax forms. Stripe may not show a standalone 1099 form during setup if tax identity is already complete.</p>' +
+        payoutSetupHtml +
       '</div>' +
       '<div class="profile-block">' +
         '<b>Account Details</b>' +

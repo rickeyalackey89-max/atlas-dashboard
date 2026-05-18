@@ -2,7 +2,7 @@
 
 This guide helps approved AtlasSportsAI Ambassadors complete the secure Stripe Express payout onboarding step.
 
-Stripe Express payout onboarding is separate from the Atlas Ambassador application and Atlas agreement signature. Atlas uses Stripe to collect payout identity, banking, tax identity, and 1099 reporting data securely.
+Stripe Express payout onboarding is separate from the Atlas Ambassador application and Atlas agreement signature. Atlas uses Stripe to collect payout identity, banking, and required tax reporting data securely.
 
 ## Process Overview
 
@@ -10,7 +10,7 @@ Stripe Express payout onboarding is separate from the Atlas Ambassador applicati
 2. If approved, open the temporary Atlas onboarding link.
 3. Read the Ambassador documents and sign the Atlas Ambassador agreement.
 4. Create your Atlas portal credentials.
-5. Continue to Stripe Express payout, banking, tax identity, and 1099 reporting setup.
+5. Continue to Stripe Express payout, banking, and required tax reporting setup.
 6. Submit all required Stripe Express information.
 7. Atlas portal access activates after Atlas agreement signing and Stripe Express onboarding are both complete.
 
@@ -32,8 +32,8 @@ Stripe Express handles:
 
 - Payout identity verification
 - Bank account or debit-card payout details
-- Tax identity information Stripe needs for 1099 reporting
-- Future Stripe Express tax form access when Stripe generates eligible 1099 forms
+- Tax identity information Stripe needs for required reporting
+- Future Stripe Express tax form access when Stripe generates eligible forms
 - Additional verification if Stripe requires it
 
 Atlas does not collect or store your bank account, SSN, tax ID, or identity document on the Atlas site.
@@ -46,6 +46,14 @@ Atlas handles these items outside Stripe:
 - Conduct requirements and media rules
 - Media guide and promotional rules
 - Payout terms, program launch approval, and portal access rules
+
+## International Ambassadors
+
+Use the payout country where the payee legally receives payouts. Do not choose United States unless the payee can onboard as a US payee with required US tax information.
+
+Stripe Express availability is country-specific. If your country is not supported by Stripe Express, Atlas support must review the payout path manually before portal payout eligibility can be finalized.
+
+If you live outside the United States and do not have a US SSN or ITIN, do not force the US onboarding path. Contact `support@atlassports.ai` if Stripe cannot support your payout country.
 
 ## Stripe Email
 
@@ -93,12 +101,12 @@ Stripe may ask for:
 
 - Date of birth
 - Address
-- SSN or last four digits
+- SSN, ITIN, last four digits, or local tax identity details when Stripe requires them for the selected payout country
 - Bank account or debit card payout details
 - Tax classification
 - Additional identity verification
 
-Stripe Express usually does not show a separate form labeled `1099` during initial onboarding. It collects the tax identity details Stripe needs for 1099 reporting, then makes eligible tax forms available inside Stripe Express later if forms are issued.
+For US payees, Stripe Express usually does not show a separate form labeled `1099` during initial onboarding. It collects the tax identity details Stripe needs for required reporting, then makes eligible tax forms available inside Stripe Express later if forms are issued. Non-US payees can see different country-specific requirements.
 
 Atlas does not collect or store this information on the Atlas site. It is submitted through Stripe Express.
 
