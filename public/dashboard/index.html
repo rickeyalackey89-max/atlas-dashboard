@@ -1671,7 +1671,10 @@
 
   // ---- Injury & Role Context Tab ----
   function buildInjuryTab(injCtx) {
-    var boosted       = injCtx.role_boosted || [];
+    var boosted       = (injCtx.role_boosted || []).filter(function(leg){
+      var mult = Number(leg.role_mult);
+      return isFinite(mult) && Math.abs(mult - 1) >= 0.005;
+    });
     var players       = injCtx.invalidated_players || [];
     var questionable  = injCtx.questionable_players || [];
     var reportDate    = injCtx.report_date || '';
