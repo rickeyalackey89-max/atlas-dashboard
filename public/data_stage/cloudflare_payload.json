@@ -1,359 +1,9 @@
 {
-  "generated_at": "2026-05-18T20:57:47.739271-05:00",
+  "generated_at": "2026-05-18T21:06:47.457162-05:00",
   "run_id": "20260518_192937",
-  "system": [
-    {
-      "product": "System",
-      "n_legs": 2,
-      "legs": "Dylan Harper OVER PA 11.5 (GOBLIN) [id:12137441] | Ajay Mitchell OVER PTS 11.5 (STANDARD) [id:12136734]",
-      "legs_detail": [
-        {
-          "raw": "Dylan Harper OVER PA 11.5 (GOBLIN) [id:12137441]",
-          "player": "Dylan Harper",
-          "dir": "OVER",
-          "stat": "PA",
-          "line": 11.5,
-          "tier": "GOBLIN",
-          "id": 12137441
-        },
-        {
-          "raw": "Ajay Mitchell OVER PTS 11.5 (STANDARD) [id:12136734]",
-          "player": "Ajay Mitchell",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 11.5,
-          "tier": "STANDARD",
-          "id": 12136734
-        }
-      ],
-      "hit_prob": 0.6754175926489009,
-      "ev_mult": 2.0262527779467026,
-      "payout_mult": 3.0,
-      "avg_fragility": 0.0164671528955938,
-      "pp_quote_ok": false,
-      "pp_quote_status": "fallback_quote_request_failed",
-      "pp_payout_is_exact": false,
-      "pp_payout_quote_key": "4d91d08abb0411e9e3c05fdfd21fb57aa1868487d30694653d8b597a1186975e",
-      "pp_payout_quote": {
-        "schema_version": "atlas_prizepicks_quote_manifest_v1",
-        "tool_version": "prizepicks_quote_v2",
-        "generated_at_utc": "2026-05-19T01:57:48Z",
-        "source": "atlas_unadjusted_power_table",
-        "quote_status": "fallback_quote_request_failed",
-        "payout_is_exact": false,
-        "game_mode": "prizepools",
-        "amount_bet_cents": 2500,
-        "n_legs": 2,
-        "picks": [
-          {
-            "projection_id": "12137441",
-            "wager_type": "over"
-          },
-          {
-            "projection_id": "12136734",
-            "wager_type": "over"
-          }
-        ],
-        "quote_key": "4d91d08abb0411e9e3c05fdfd21fb57aa1868487d30694653d8b597a1186975e",
-        "request_sha256": "b8b9fb146a2c27195936f0e14a09cc9baa71ffade2492014e069e1afb11150c1",
-        "request": {
-          "game_mode": "prizepools",
-          "lat": 38.5777,
-          "lng": -90.25122,
-          "new_wager": {
-            "amount_bet_cents": 2500,
-            "pick_protection": false,
-            "picks": [
-              {
-                "projection_id": "12137441",
-                "wager_type": "over"
-              },
-              {
-                "projection_id": "12136734",
-                "wager_type": "over"
-              }
-            ]
-          }
-        },
-        "fallback_reason": "quote_request_failed",
-        "error": "HTTP Error 422: Unprocessable Entity",
-        "power": {
-          "all_correct": 3.0,
-          "is_adjusted": false,
-          "payouts": {},
-          "payout_source": "atlas_unadjusted_power_table"
-        },
-        "flex": {
-          "all_correct": 3.0,
-          "is_adjusted": false,
-          "payouts": {},
-          "payout_source": "atlas_unadjusted_flex_table"
-        },
-        "replay_fidelity": {
-          "run_mode": "live",
-          "network_allowed": false,
-          "requires_manifest_for_exact_replay": true
-        },
-        "chosen": {
-          "game_type": "power",
-          "all_correct": 3.0,
-          "payout_is_exact": false
-        }
-      },
-      "pp_power_payout_mult": 3.0,
-      "pp_flex_payout_mult": 3.0,
-      "payout_mult_fallback": 3.0,
-      "ev": 2.0262527779467026
-    },
-    {
-      "product": "System",
-      "n_legs": 3,
-      "legs": "Chet Holmgren OVER PTS 12.5 (GOBLIN) [id:12137707] | Ajay Mitchell OVER PR 15.5 (STANDARD) [id:12134860] | Dylan Harper OVER REB 4.5 (STANDARD) [id:12136854]",
-      "legs_detail": [
-        {
-          "raw": "Chet Holmgren OVER PTS 12.5 (GOBLIN) [id:12137707]",
-          "player": "Chet Holmgren",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 12.5,
-          "tier": "GOBLIN",
-          "id": 12137707
-        },
-        {
-          "raw": "Ajay Mitchell OVER PR 15.5 (STANDARD) [id:12134860]",
-          "player": "Ajay Mitchell",
-          "dir": "OVER",
-          "stat": "PR",
-          "line": 15.5,
-          "tier": "STANDARD",
-          "id": 12134860
-        },
-        {
-          "raw": "Dylan Harper OVER REB 4.5 (STANDARD) [id:12136854]",
-          "player": "Dylan Harper",
-          "dir": "OVER",
-          "stat": "REB",
-          "line": 4.5,
-          "tier": "STANDARD",
-          "id": 12136854
-        }
-      ],
-      "hit_prob": 0.506934134962306,
-      "ev_mult": 3.041604809773836,
-      "payout_mult": 6.0,
-      "avg_fragility": 0.0210614226134338,
-      "pp_quote_ok": false,
-      "pp_quote_status": "fallback_quote_request_failed",
-      "pp_payout_is_exact": false,
-      "pp_payout_quote_key": "29af31c5c675d77e612c630b01d57c862cf1a8f8945d1cde1653f1df4cbbced8",
-      "pp_payout_quote": {
-        "schema_version": "atlas_prizepicks_quote_manifest_v1",
-        "tool_version": "prizepicks_quote_v2",
-        "generated_at_utc": "2026-05-19T01:57:48Z",
-        "source": "atlas_unadjusted_power_table",
-        "quote_status": "fallback_quote_request_failed",
-        "payout_is_exact": false,
-        "game_mode": "prizepools",
-        "amount_bet_cents": 2500,
-        "n_legs": 3,
-        "picks": [
-          {
-            "projection_id": "12137707",
-            "wager_type": "over"
-          },
-          {
-            "projection_id": "12134860",
-            "wager_type": "over"
-          },
-          {
-            "projection_id": "12136854",
-            "wager_type": "over"
-          }
-        ],
-        "quote_key": "29af31c5c675d77e612c630b01d57c862cf1a8f8945d1cde1653f1df4cbbced8",
-        "request_sha256": "fa535de8684f237847a3b536ebeba9fc1a5538602a09d20cfcc5c9b4a3fb3632",
-        "request": {
-          "game_mode": "prizepools",
-          "lat": 38.5777,
-          "lng": -90.25122,
-          "new_wager": {
-            "amount_bet_cents": 2500,
-            "pick_protection": false,
-            "picks": [
-              {
-                "projection_id": "12137707",
-                "wager_type": "over"
-              },
-              {
-                "projection_id": "12134860",
-                "wager_type": "over"
-              },
-              {
-                "projection_id": "12136854",
-                "wager_type": "over"
-              }
-            ]
-          }
-        },
-        "fallback_reason": "quote_request_failed",
-        "error": "HTTP Error 422: Unprocessable Entity",
-        "power": {
-          "all_correct": 6.0,
-          "is_adjusted": false,
-          "payouts": {},
-          "payout_source": "atlas_unadjusted_power_table"
-        },
-        "flex": {
-          "all_correct": 3.0,
-          "is_adjusted": false,
-          "payouts": {},
-          "payout_source": "atlas_unadjusted_flex_table"
-        },
-        "replay_fidelity": {
-          "run_mode": "live",
-          "network_allowed": false,
-          "requires_manifest_for_exact_replay": true
-        },
-        "chosen": {
-          "game_type": "power",
-          "all_correct": 6.0,
-          "payout_is_exact": false
-        }
-      },
-      "pp_power_payout_mult": 6.0,
-      "pp_flex_payout_mult": 3.0,
-      "payout_mult_fallback": 6.0,
-      "ev": 3.041604809773836
-    }
-  ],
+  "system": [],
   "system_winprob": [],
-  "windfall": [
-    {
-      "product": "Windfall",
-      "n_legs": 2,
-      "legs": "Ajay Mitchell OVER PTS 9.5 (GOBLIN) [id:12135174] | Devin Vassell OVER PA 10.5 (GOBLIN) [id:12137828]",
-      "legs_detail": [
-        {
-          "raw": "Ajay Mitchell OVER PTS 9.5 (GOBLIN) [id:12135174]",
-          "player": "Ajay Mitchell",
-          "dir": "OVER",
-          "stat": "PTS",
-          "line": 9.5,
-          "tier": "GOBLIN",
-          "id": 12135174
-        },
-        {
-          "raw": "Devin Vassell OVER PA 10.5 (GOBLIN) [id:12137828]",
-          "player": "Devin Vassell",
-          "dir": "OVER",
-          "stat": "PA",
-          "line": 10.5,
-          "tier": "GOBLIN",
-          "id": 12137828
-        }
-      ],
-      "hit_prob": 0.7101321011190261,
-      "ev_mult": 1.6333038325737599,
-      "payout_mult": 2.3,
-      "avg_fragility": 0.0226606664943217,
-      "pp_quote_ok": true,
-      "pp_quote_status": "quoted",
-      "pp_payout_is_exact": true,
-      "pp_payout_quote_key": "092d0a11d5411509f1f806d9a7324c29394bedd42bbe94228efcaf3adcee127b",
-      "pp_payout_quote": {
-        "schema_version": "atlas_prizepicks_quote_manifest_v1",
-        "tool_version": "prizepicks_quote_v2",
-        "generated_at_utc": "2026-05-19T01:57:48Z",
-        "source": "prizepicks_game_types",
-        "quote_status": "quoted",
-        "payout_is_exact": true,
-        "game_mode": "prizepools",
-        "amount_bet_cents": 2500,
-        "n_legs": 2,
-        "picks": [
-          {
-            "projection_id": "12135174",
-            "wager_type": "over"
-          },
-          {
-            "projection_id": "12137828",
-            "wager_type": "over"
-          }
-        ],
-        "quote_key": "092d0a11d5411509f1f806d9a7324c29394bedd42bbe94228efcaf3adcee127b",
-        "request_sha256": "3f8e151207ed5525244c567c33b66befc9e6f23c20d2a21975ee633435b5b920",
-        "request": {
-          "game_mode": "prizepools",
-          "lat": 38.5777,
-          "lng": -90.25122,
-          "new_wager": {
-            "amount_bet_cents": 2500,
-            "pick_protection": false,
-            "picks": [
-              {
-                "projection_id": "12135174",
-                "wager_type": "over"
-              },
-              {
-                "projection_id": "12137828",
-                "wager_type": "over"
-              }
-            ]
-          }
-        },
-        "response_sha256": "366d00031a56d157439b7dbc9d526f133226bfeff1c98be38162c94cd4de9eca",
-        "raw": {
-          "data": [
-            {
-              "id": "2",
-              "type": "game_type",
-              "attributes": {
-                "id": 2,
-                "name": "Power Play",
-                "payouts": {
-                  "2": {
-                    "2": 2.3
-                  },
-                  "is_adjusted": true
-                },
-                "payouts_srp": {
-                  "power": [
-                    [
-                      1.3,
-                      0.0,
-                      0.0
-                    ]
-                  ]
-                },
-                "is_cashout_eligible": true,
-                "is_max_payout_alert": false
-              }
-            }
-          ]
-        },
-        "power": {
-          "all_correct": 2.3,
-          "payouts": {
-            "2": {
-              "2": 2.3
-            },
-            "is_adjusted": true
-          },
-          "is_adjusted": true,
-          "name": "Power Play"
-        },
-        "chosen": {
-          "game_type": "power",
-          "all_correct": 2.3,
-          "payout_is_exact": true
-        }
-      },
-      "pp_power_payout_mult": 2.3,
-      "pp_flex_payout_mult": null,
-      "payout_mult_fallback": 3.0,
-      "ev": 1.6333038325737599
-    }
-  ],
+  "windfall": [],
   "windfall_winprob": [],
   "demonhunter": [],
   "gamescript": [],
@@ -406,7 +56,7 @@
       "pp_payout_quote": {
         "schema_version": "atlas_prizepicks_quote_manifest_v1",
         "tool_version": "prizepicks_quote_v2",
-        "generated_at_utc": "2026-05-19T01:57:48Z",
+        "generated_at_utc": "2026-05-19T02:06:47Z",
         "source": "atlas_unadjusted_power_table",
         "quote_status": "fallback_quote_request_failed",
         "payout_is_exact": false,
@@ -478,8 +128,8 @@
       "label": "3-leg",
       "n_legs": 3,
       "hit_prob": 0.7195109003483047,
-      "payout_mult": 2.5,
-      "ev": 1.7987772508707618,
+      "payout_mult": 6.0,
+      "ev": 4.317065402089828,
       "high_confidence": true,
       "legs": [
         {
@@ -531,17 +181,17 @@
           "l10_n": 10
         }
       ],
-      "pp_quote_ok": true,
-      "pp_quote_status": "quoted",
-      "pp_payout_is_exact": true,
+      "pp_quote_ok": false,
+      "pp_quote_status": "fallback_quote_request_failed",
+      "pp_payout_is_exact": false,
       "pp_payout_quote_key": "e34495a468f61162dd9c3461dc01e3eafde948bf7ed231c0ed3b7b201b1f08a3",
       "pp_payout_quote": {
         "schema_version": "atlas_prizepicks_quote_manifest_v1",
         "tool_version": "prizepicks_quote_v2",
-        "generated_at_utc": "2026-05-19T01:57:49Z",
-        "source": "prizepicks_game_types",
-        "quote_status": "quoted",
-        "payout_is_exact": true,
+        "generated_at_utc": "2026-05-19T02:06:48Z",
+        "source": "atlas_unadjusted_power_table",
+        "quote_status": "fallback_quote_request_failed",
+        "payout_is_exact": false,
         "game_mode": "prizepools",
         "amount_bet_cents": 2500,
         "n_legs": 3,
@@ -584,129 +234,35 @@
             ]
           }
         },
-        "response_sha256": "6850d0f40d063db001c4ba9827a6265ac44ebafe3a2de8621fb775c5c6a87453",
-        "raw": {
-          "data": [
-            {
-              "id": "2",
-              "type": "game_type",
-              "attributes": {
-                "id": 2,
-                "name": "Power Play",
-                "payouts": {
-                  "3": {
-                    "3": 2.5
-                  },
-                  "is_adjusted": true
-                },
-                "payouts_srp": {
-                  "power": [
-                    [
-                      1.4,
-                      0.0,
-                      0.0
-                    ],
-                    [
-                      1.1,
-                      0.0,
-                      0.0
-                    ]
-                  ],
-                  "flex": [
-                    [
-                      1.5,
-                      0.0,
-                      0.0
-                    ],
-                    [
-                      1.1,
-                      0.0,
-                      0.0
-                    ]
-                  ]
-                },
-                "is_cashout_eligible": true,
-                "is_max_payout_alert": false
-              }
-            },
-            {
-              "id": "1",
-              "type": "game_type",
-              "attributes": {
-                "id": 1,
-                "name": "Flex Play",
-                "payouts": {
-                  "3": {
-                    "3": 2.0,
-                    "2": 0.5
-                  },
-                  "is_adjusted": true
-                },
-                "payouts_srp": {
-                  "power": [
-                    [
-                      1.4,
-                      0.0,
-                      0.0
-                    ],
-                    [
-                      1.1,
-                      0.0,
-                      0.0
-                    ]
-                  ],
-                  "flex": [
-                    [
-                      1.5,
-                      0.0,
-                      0.0
-                    ],
-                    [
-                      1.1,
-                      0.0,
-                      0.0
-                    ]
-                  ]
-                },
-                "is_cashout_eligible": true,
-                "is_max_payout_alert": false
-              }
-            }
-          ]
-        },
+        "fallback_reason": "quote_request_failed",
+        "error": "HTTP Error 422: Unprocessable Entity",
         "power": {
-          "all_correct": 2.5,
-          "payouts": {
-            "3": {
-              "3": 2.5
-            },
-            "is_adjusted": true
-          },
-          "is_adjusted": true,
-          "name": "Power Play"
+          "all_correct": 6.0,
+          "is_adjusted": false,
+          "payouts": {},
+          "payout_source": "atlas_unadjusted_power_table"
         },
         "flex": {
-          "all_correct": 2.0,
-          "payouts": {
-            "3": {
-              "3": 2.0,
-              "2": 0.5
-            },
-            "is_adjusted": true
-          },
-          "is_adjusted": true,
-          "name": "Flex Play"
+          "all_correct": 3.0,
+          "is_adjusted": false,
+          "payouts": {},
+          "payout_source": "atlas_unadjusted_flex_table"
+        },
+        "replay_fidelity": {
+          "run_mode": "live",
+          "network_allowed": false,
+          "requires_manifest_for_exact_replay": true
         },
         "chosen": {
           "game_type": "power",
-          "all_correct": 2.5,
-          "payout_is_exact": true
+          "all_correct": 6.0,
+          "payout_is_exact": false
         }
       },
-      "pp_power_payout_mult": 2.5,
-      "pp_flex_payout_mult": 2.0,
+      "pp_power_payout_mult": 6.0,
+      "pp_flex_payout_mult": 3.0,
       "payout_mult_fallback": 1.8643395035723154,
-      "ev_mult": 1.7987772508707618
+      "ev_mult": 4.317065402089828
     }
   ],
   "top_hit_list": [
@@ -824,8 +380,7 @@
       },
       "eval_files": 154,
       "unique_scored_legs": 24190
-    },
-    "yesterday_slips": {}
+    }
   },
   "injury_context": {
     "invalidated_players": [
@@ -35151,5 +34706,5 @@
     "slate_date": "2026-05-18",
     "source": "data/gamelogs/nba_gamelogs.csv"
   },
-  "total_slips": 5
+  "total_slips": 2
 }
