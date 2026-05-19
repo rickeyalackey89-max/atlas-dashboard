@@ -1,9 +1,337 @@
 {
-  "generated_at": "2026-05-18T21:06:47.457162-05:00",
+  "generated_at": "2026-05-18T21:17:35.699892-05:00",
   "run_id": "20260518_192937",
-  "system": [],
+  "system": [
+    {
+      "product": "System",
+      "n_legs": 2,
+      "legs": "Chet Holmgren OVER PTS 11.5 (GOBLIN) [id:12137643] | Dylan Harper OVER REB 4.5 (STANDARD) [id:12136854]",
+      "legs_detail": [
+        {
+          "raw": "Chet Holmgren OVER PTS 11.5 (GOBLIN) [id:12137643]",
+          "player": "Chet Holmgren",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 11.5,
+          "tier": "GOBLIN",
+          "id": 12137643
+        },
+        {
+          "raw": "Dylan Harper OVER REB 4.5 (STANDARD) [id:12136854]",
+          "player": "Dylan Harper",
+          "dir": "OVER",
+          "stat": "REB",
+          "line": 4.5,
+          "tier": "STANDARD",
+          "id": 12136854
+        }
+      ],
+      "hit_prob": 0.66136143264472,
+      "ev_mult": 1.9840842979341602,
+      "payout_mult": 3.0,
+      "avg_fragility": 0.0137919959943761,
+      "pp_quote_ok": false,
+      "pp_quote_status": "fallback_quote_request_failed",
+      "pp_payout_is_exact": false,
+      "pp_payout_quote_key": "9456df4e2a6836ea37a443c8fd6e41265d1c683b7325b970da742a995b1c49da",
+      "pp_payout_quote": {
+        "schema_version": "atlas_prizepicks_quote_manifest_v1",
+        "tool_version": "prizepicks_quote_v2",
+        "generated_at_utc": "2026-05-19T02:17:36Z",
+        "source": "atlas_unadjusted_power_table",
+        "quote_status": "fallback_quote_request_failed",
+        "payout_is_exact": false,
+        "game_mode": "prizepools",
+        "amount_bet_cents": 2500,
+        "n_legs": 2,
+        "picks": [
+          {
+            "projection_id": "12137643",
+            "wager_type": "over"
+          },
+          {
+            "projection_id": "12136854",
+            "wager_type": "over"
+          }
+        ],
+        "quote_key": "9456df4e2a6836ea37a443c8fd6e41265d1c683b7325b970da742a995b1c49da",
+        "request_sha256": "d9b531627089261e911de2c8a9a29c888c2df457e616e321758cdd7b27681798",
+        "request": {
+          "game_mode": "prizepools",
+          "lat": 38.5777,
+          "lng": -90.25122,
+          "new_wager": {
+            "amount_bet_cents": 2500,
+            "pick_protection": false,
+            "picks": [
+              {
+                "projection_id": "12137643",
+                "wager_type": "over"
+              },
+              {
+                "projection_id": "12136854",
+                "wager_type": "over"
+              }
+            ]
+          }
+        },
+        "fallback_reason": "quote_request_failed",
+        "error": "HTTP Error 422: Unprocessable Entity",
+        "power": {
+          "all_correct": 3.0,
+          "is_adjusted": false,
+          "payouts": {},
+          "payout_source": "atlas_unadjusted_power_table"
+        },
+        "flex": {
+          "all_correct": 3.0,
+          "is_adjusted": false,
+          "payouts": {},
+          "payout_source": "atlas_unadjusted_flex_table"
+        },
+        "replay_fidelity": {
+          "run_mode": "live",
+          "network_allowed": false,
+          "requires_manifest_for_exact_replay": true
+        },
+        "chosen": {
+          "game_type": "power",
+          "all_correct": 3.0,
+          "payout_is_exact": false
+        }
+      },
+      "pp_power_payout_mult": 3.0,
+      "pp_flex_payout_mult": 3.0,
+      "payout_mult_fallback": 3.0,
+      "ev": 1.9840842979341602
+    }
+  ],
   "system_winprob": [],
-  "windfall": [],
+  "windfall": [
+    {
+      "product": "Windfall",
+      "n_legs": 2,
+      "legs": "Ajay Mitchell OVER PTS 9.5 (GOBLIN) [id:12135174] | Dylan Harper OVER PR 11.5 (GOBLIN) [id:12137442]",
+      "legs_detail": [
+        {
+          "raw": "Ajay Mitchell OVER PTS 9.5 (GOBLIN) [id:12135174]",
+          "player": "Ajay Mitchell",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 9.5,
+          "tier": "GOBLIN",
+          "id": 12135174
+        },
+        {
+          "raw": "Dylan Harper OVER PR 11.5 (GOBLIN) [id:12137442]",
+          "player": "Dylan Harper",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 11.5,
+          "tier": "GOBLIN",
+          "id": 12137442
+        }
+      ],
+      "hit_prob": 0.737856574583651,
+      "ev_mult": 2.213569723750953,
+      "payout_mult": 3.0,
+      "avg_fragility": 0.0061546577913123,
+      "pp_quote_ok": false,
+      "pp_quote_status": "fallback_quote_request_failed",
+      "pp_payout_is_exact": false,
+      "pp_payout_quote_key": "9510bca80576e6f867cf7156ae18af3acecceeae5d0815a2f87e6876f99f8602",
+      "pp_payout_quote": {
+        "schema_version": "atlas_prizepicks_quote_manifest_v1",
+        "tool_version": "prizepicks_quote_v2",
+        "generated_at_utc": "2026-05-19T02:17:36Z",
+        "source": "atlas_unadjusted_power_table",
+        "quote_status": "fallback_quote_request_failed",
+        "payout_is_exact": false,
+        "game_mode": "prizepools",
+        "amount_bet_cents": 2500,
+        "n_legs": 2,
+        "picks": [
+          {
+            "projection_id": "12135174",
+            "wager_type": "over"
+          },
+          {
+            "projection_id": "12137442",
+            "wager_type": "over"
+          }
+        ],
+        "quote_key": "9510bca80576e6f867cf7156ae18af3acecceeae5d0815a2f87e6876f99f8602",
+        "request_sha256": "a349db3327273e8459145a89bd34eff1554314024478af207661785168f17cb5",
+        "request": {
+          "game_mode": "prizepools",
+          "lat": 38.5777,
+          "lng": -90.25122,
+          "new_wager": {
+            "amount_bet_cents": 2500,
+            "pick_protection": false,
+            "picks": [
+              {
+                "projection_id": "12135174",
+                "wager_type": "over"
+              },
+              {
+                "projection_id": "12137442",
+                "wager_type": "over"
+              }
+            ]
+          }
+        },
+        "fallback_reason": "quote_request_failed",
+        "error": "HTTP Error 422: Unprocessable Entity",
+        "power": {
+          "all_correct": 3.0,
+          "is_adjusted": false,
+          "payouts": {},
+          "payout_source": "atlas_unadjusted_power_table"
+        },
+        "flex": {
+          "all_correct": 3.0,
+          "is_adjusted": false,
+          "payouts": {},
+          "payout_source": "atlas_unadjusted_flex_table"
+        },
+        "replay_fidelity": {
+          "run_mode": "live",
+          "network_allowed": false,
+          "requires_manifest_for_exact_replay": true
+        },
+        "chosen": {
+          "game_type": "power",
+          "all_correct": 3.0,
+          "payout_is_exact": false
+        }
+      },
+      "pp_power_payout_mult": 3.0,
+      "pp_flex_payout_mult": 3.0,
+      "payout_mult_fallback": 3.0,
+      "ev": 2.213569723750953
+    },
+    {
+      "product": "Windfall",
+      "n_legs": 3,
+      "legs": "Alex Caruso OVER PRA 8.5 (GOBLIN) [id:12137887] | Devin Vassell OVER PTS 8.5 (GOBLIN) [id:12137712] | Julian Champagnie OVER PR 14.5 (STANDARD) [id:12135008]",
+      "legs_detail": [
+        {
+          "raw": "Alex Caruso OVER PRA 8.5 (GOBLIN) [id:12137887]",
+          "player": "Alex Caruso",
+          "dir": "OVER",
+          "stat": "PRA",
+          "line": 8.5,
+          "tier": "GOBLIN",
+          "id": 12137887
+        },
+        {
+          "raw": "Devin Vassell OVER PTS 8.5 (GOBLIN) [id:12137712]",
+          "player": "Devin Vassell",
+          "dir": "OVER",
+          "stat": "PTS",
+          "line": 8.5,
+          "tier": "GOBLIN",
+          "id": 12137712
+        },
+        {
+          "raw": "Julian Champagnie OVER PR 14.5 (STANDARD) [id:12135008]",
+          "player": "Julian Champagnie",
+          "dir": "OVER",
+          "stat": "PR",
+          "line": 14.5,
+          "tier": "STANDARD",
+          "id": 12135008
+        }
+      ],
+      "hit_prob": 0.4633411387834115,
+      "ev_mult": 2.780046832700469,
+      "payout_mult": 6.0,
+      "avg_fragility": 0.0310961042859907,
+      "pp_quote_ok": false,
+      "pp_quote_status": "fallback_quote_request_failed",
+      "pp_payout_is_exact": false,
+      "pp_payout_quote_key": "bf694f8f87568c71639bcf06d7277b07cc8dece841b4bb8febada6c501f064e5",
+      "pp_payout_quote": {
+        "schema_version": "atlas_prizepicks_quote_manifest_v1",
+        "tool_version": "prizepicks_quote_v2",
+        "generated_at_utc": "2026-05-19T02:17:36Z",
+        "source": "atlas_unadjusted_power_table",
+        "quote_status": "fallback_quote_request_failed",
+        "payout_is_exact": false,
+        "game_mode": "prizepools",
+        "amount_bet_cents": 2500,
+        "n_legs": 3,
+        "picks": [
+          {
+            "projection_id": "12137887",
+            "wager_type": "over"
+          },
+          {
+            "projection_id": "12137712",
+            "wager_type": "over"
+          },
+          {
+            "projection_id": "12135008",
+            "wager_type": "over"
+          }
+        ],
+        "quote_key": "bf694f8f87568c71639bcf06d7277b07cc8dece841b4bb8febada6c501f064e5",
+        "request_sha256": "838356626c891a8e262aebc4945865746571311655b69dff9271b75d798d4442",
+        "request": {
+          "game_mode": "prizepools",
+          "lat": 38.5777,
+          "lng": -90.25122,
+          "new_wager": {
+            "amount_bet_cents": 2500,
+            "pick_protection": false,
+            "picks": [
+              {
+                "projection_id": "12137887",
+                "wager_type": "over"
+              },
+              {
+                "projection_id": "12137712",
+                "wager_type": "over"
+              },
+              {
+                "projection_id": "12135008",
+                "wager_type": "over"
+              }
+            ]
+          }
+        },
+        "fallback_reason": "quote_request_failed",
+        "error": "HTTP Error 422: Unprocessable Entity",
+        "power": {
+          "all_correct": 6.0,
+          "is_adjusted": false,
+          "payouts": {},
+          "payout_source": "atlas_unadjusted_power_table"
+        },
+        "flex": {
+          "all_correct": 3.0,
+          "is_adjusted": false,
+          "payouts": {},
+          "payout_source": "atlas_unadjusted_flex_table"
+        },
+        "replay_fidelity": {
+          "run_mode": "live",
+          "network_allowed": false,
+          "requires_manifest_for_exact_replay": true
+        },
+        "chosen": {
+          "game_type": "power",
+          "all_correct": 6.0,
+          "payout_is_exact": false
+        }
+      },
+      "pp_power_payout_mult": 6.0,
+      "pp_flex_payout_mult": 3.0,
+      "payout_mult_fallback": 6.0,
+      "ev": 2.780046832700469
+    }
+  ],
   "windfall_winprob": [],
   "demonhunter": [],
   "gamescript": [],
@@ -56,7 +384,7 @@
       "pp_payout_quote": {
         "schema_version": "atlas_prizepicks_quote_manifest_v1",
         "tool_version": "prizepicks_quote_v2",
-        "generated_at_utc": "2026-05-19T02:06:47Z",
+        "generated_at_utc": "2026-05-19T02:17:36Z",
         "source": "atlas_unadjusted_power_table",
         "quote_status": "fallback_quote_request_failed",
         "payout_is_exact": false,
@@ -188,7 +516,7 @@
       "pp_payout_quote": {
         "schema_version": "atlas_prizepicks_quote_manifest_v1",
         "tool_version": "prizepicks_quote_v2",
-        "generated_at_utc": "2026-05-19T02:06:48Z",
+        "generated_at_utc": "2026-05-19T02:17:37Z",
         "source": "atlas_unadjusted_power_table",
         "quote_status": "fallback_quote_request_failed",
         "payout_is_exact": false,
@@ -34706,5 +35034,5 @@
     "slate_date": "2026-05-18",
     "source": "data/gamelogs/nba_gamelogs.csv"
   },
-  "total_slips": 2
+  "total_slips": 5
 }
