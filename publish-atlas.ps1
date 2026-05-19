@@ -108,18 +108,52 @@ Write-Host ("Staged payload + status={0} invalidations={1} injury_invalidations=
 # Build lightweight picks_today.json (~10KB) for homepage
 $picksFields = @("player","team","opp","stat","line","dir","tier","p_cal")
 $allLegs = @($payload.all_legs)
-# Guarantee 1 pick per tier (GOBLIN, STANDARD, DEMON) then fill to 50
+# Guarantee 1 pick per tier (GOBLIN, STANDARD, DEMON), while avoiding alternate
+# lines for the same player across the three public homepage cards.
 $tierOrder = @('GOBLIN','STANDARD','DEMON')
-$tierPicks = @{}
-$remaining = [System.Collections.Generic.List[object]]::new()
-foreach ($leg in $allLegs) {
-    $t = ($leg.tier + '').ToUpper()
-    if ($tierOrder -contains $t -and -not $tierPicks.ContainsKey($t)) { $tierPicks[$t] = $leg }
-    else { $remaining.Add($leg) }
+$selected = [System.Collections.Generic.List[object]]::new()
+$selectedKeys = @{}
+$usedPlayers = @{}
+function Leg-Key($leg) {
+  return (($leg.player + '') + '|' + ($leg.stat + '') + '|' + ($leg.line + '') + '|' + ($leg.tier + '')).ToLower()
 }
-$guaranteed = foreach ($t in $tierOrder) { if ($tierPicks.ContainsKey($t)) { $tierPicks[$t] } }
-$filler = $remaining | Select-Object -First ([Math]::Max(0, 50 - @($guaranteed).Count))
-$topLegs = @($guaranteed) + @($filler)
+function Player-Key($leg) {
+  return ($leg.player + '').Trim().ToLower()
+}
+foreach ($tier in $tierOrder) {
+  $tierRows = @($allLegs | Where-Object { (($_.tier + '').ToUpper()) -eq $tier })
+  $pick = $null
+  foreach ($leg in $tierRows) {
+    $pk = Player-Key $leg
+    if ($pk -and -not $usedPlayers.ContainsKey($pk)) { $pick = $leg; break }
+  }
+  if ($null -eq $pick -and $tierRows.Count -gt 0) { $pick = $tierRows[0] }
+  if ($null -ne $pick) {
+    $selected.Add($pick)
+    $selectedKeys[(Leg-Key $pick)] = $true
+    $pk = Player-Key $pick
+    if ($pk) { $usedPlayers[$pk] = $true }
+  }
+}
+foreach ($leg in $allLegs) {
+  if ($selected.Count -ge 50) { break }
+  $key = Leg-Key $leg
+  $pk = Player-Key $leg
+  if ($selectedKeys.ContainsKey($key)) { continue }
+  if ($pk -and $usedPlayers.ContainsKey($pk)) { continue }
+  $selected.Add($leg)
+  $selectedKeys[$key] = $true
+  if ($pk) { $usedPlayers[$pk] = $true }
+}
+foreach ($leg in $allLegs) {
+  if ($selected.Count -ge 50) { break }
+  $key = Leg-Key $leg
+  if (-not $selectedKeys.ContainsKey($key)) {
+    $selected.Add($leg)
+    $selectedKeys[$key] = $true
+  }
+}
+$topLegs = @($selected)
 $picksRows = foreach ($leg in $topLegs) {
     $row = [ordered]@{}
     foreach ($f in $picksFields) { $row[$f] = $leg.$f }
