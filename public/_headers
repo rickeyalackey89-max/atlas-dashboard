@@ -1,6 +1,12 @@
 /data/*.json
   Content-Type: application/json
   Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow, noai, noimageai
+
+/api/*
+  Cache-Control: private, no-store, max-age=0
+  X-Robots-Tag: noindex, nofollow, noai, noimageai
+  X-Content-Type-Options: nosniff
 
 /index.html
   Cache-Control: no-store

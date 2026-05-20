@@ -1593,6 +1593,11 @@
     catch(e){return false;}
   }
 
+  function getPremiumToken(){
+    var token=localStorage.getItem('atlas_premium_token');
+    return token&&verifyToken(token)?token:'';
+  }
+
   function unlockPremiumUI(){
     isPremium=true;
     document.querySelectorAll('.lock-overlay').forEach(function(sec){
@@ -1612,13 +1617,51 @@
   }
 
   function checkPremiumAccess(){
-    var token=localStorage.getItem('atlas_premium_token');
-    if(token&&verifyToken(token)) unlockPremiumUI();
+    var token=getPremiumToken();
+    if(token) unlockPremiumUI();
+  }
+
+  function publicDashboardFromPicks(data){
+    var legs=(data&&data.picks)||[];
+    return {
+      generated_at:(data&&data.generated_at)||new Date().toISOString(),
+      run_id:'public-preview',
+      all_legs:legs,
+      system:[],
+      system_winprob:[],
+      windfall:[],
+      windfall_winprob:[],
+      demonhunter:[],
+      marketed_slips:[],
+      injury_context:{},
+      performance:{}
+    };
+  }
+
+  function fetchPublicPreview(){
+    return fetch('/data/picks_today.json?t='+Date.now(),{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw new Error('public preview fetch failed');return r.json();})
+      .then(publicDashboardFromPicks);
+  }
+
+  function fetchDashboardPayload(){
+    var token=getPremiumToken();
+    if(!token) return fetchPublicPreview();
+    return fetch('/api/premium-data?dataset=dashboard&sport=nba&t='+Date.now(),{
+      cache:'no-store',
+      headers:{'Authorization':'Bearer '+token}
+    }).then(function(r){
+      if(r.ok) return r.json();
+      if(r.status===401||r.status===403){
+        localStorage.removeItem('atlas_premium_token');
+        isPremium=false;
+      }
+      return fetchPublicPreview();
+    });
   }
 
   function loadDashboard(){
-    fetch('/data/cloudflare_payload.json?t='+Date.now())
-      .then(function(r){return r.ok?r.json():null;})
+    fetchDashboardPayload()
       .then(function(data){
         if(!data) return;
         var allModelLegs=(data.all_legs&&data.all_legs.length)?data.all_legs:getUniqueLegs(data);

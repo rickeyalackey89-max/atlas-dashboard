@@ -208,8 +208,16 @@
   }
 
   function loadLegs(){
-    fetch('/data/cloudflare_payload.json?t='+Date.now())
-      .then(function(r){return r.ok?r.json():null;})
+    var token=localStorage.getItem('atlas_premium_token');
+    if(!token||!verifyToken(token)) return;
+    fetch('/api/premium-data?dataset=dashboard&sport=nba&t='+Date.now(),{
+      cache:'no-store',
+      headers:{'Authorization':'Bearer '+token}
+    })
+      .then(function(r){
+        if(r.status===401||r.status===403){localStorage.removeItem('atlas_premium_token');checkAccess();return null;}
+        return r.ok?r.json():null;
+      })
       .then(function(data){
         if(!data) return;
         _allLegs=data.all_legs||[];

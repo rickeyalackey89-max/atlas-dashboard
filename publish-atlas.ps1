@@ -1,6 +1,9 @@
 ﻿param(
   [string]$AtlasRoot = "C:\Users\13142\Atlas\NBA",
-  [switch]$NoGit
+  [switch]$NoGit,
+  [string]$PremiumKvNamespaceId = $env:ATLAS_PREMIUM_KV_NAMESPACE_ID,
+  [string]$PremiumKvKey = "premium:nba:dashboard:latest",
+  [switch]$ForcePublicPremiumPayload
 )
 
 Set-StrictMode -Version Latest
@@ -77,6 +80,13 @@ function Invoke-Git([string[]]$GitArgs, [string]$Label) {
   & git @GitArgs
   if ($LASTEXITCODE -ne 0) {
     throw "Git failed during ${Label}: git $($GitArgs -join ' ')"
+  }
+}
+
+function Invoke-Wrangler([string[]]$WranglerArgs, [string]$Label) {
+  & npx wrangler @WranglerArgs
+  if ($LASTEXITCODE -ne 0) {
+    throw "Wrangler failed during ${Label}: npx wrangler $($WranglerArgs -join ' ')"
   }
 }
 
@@ -211,6 +221,34 @@ Write-JsonFile (Join-Path $StageDir "recommended_risky_latest.json")        (,@(
 Write-JsonFile (Join-Path $StageDir "recommended_risky_3leg_latest.json")   (,@())
 Write-JsonFile (Join-Path $StageDir "recommended_risky_4leg_latest.json")   (,@())
 Write-JsonFile (Join-Path $StageDir "recommended_risky_5leg_latest.json")   (,@())
+
+# ============================================================
+# Private premium publish
+# ============================================================
+if ($PremiumKvNamespaceId -and -not $ForcePublicPremiumPayload) {
+  Write-Host "Premium KV configured: uploading cloudflare_payload.json to KV key '$PremiumKvKey'"
+  Invoke-Wrangler -WranglerArgs @(
+    "kv", "key", "put", $PremiumKvKey,
+    "--namespace-id", $PremiumKvNamespaceId,
+    "--path", $StagePayload,
+    "--remote"
+  ) -Label "premium KV upload"
+
+  $stub = [ordered]@{
+    ok = $false
+    error = "premium_data_moved"
+    message = "Premium dashboard payload is served through /api/premium-data after auth."
+    api = "/api/premium-data?dataset=dashboard&sport=nba"
+    public_preview = "/data/picks_today.json"
+    generated_at = $payload.generated_at
+    run_id = $payload.run_id
+  }
+  Write-JsonFile $StagePayload $stub
+  Write-Host "Public cloudflare_payload.json replaced with private-data stub."
+} else {
+  Write-Warning "Premium KV namespace not configured; publishing cloudflare_payload.json publicly as a compatibility fallback."
+  Write-Warning "Set ATLAS_PREMIUM_KV_NAMESPACE_ID and bind ATLAS_PREMIUM_KV in Cloudflare Pages to remove the public premium payload."
+}
 
 # ============================================================
 # Publish stage -> live

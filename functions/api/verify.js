@@ -5,7 +5,7 @@
  *
  * Required Cloudflare Pages secrets (set in dashboard → Settings → Environment variables):
  *   STRIPE_SECRET_KEY   — sk_live_... or sk_test_...
- *   TOKEN_SECRET        — any long random string (>= 32 chars), e.g. openssl rand -hex 32
+ *   SECRET_TOKEN        — any long random string (>= 32 chars), e.g. openssl rand -hex 32
  */
 
 export async function onRequestPost(context) {
@@ -27,6 +27,9 @@ export async function onRequestPost(context) {
     }
 
     if (!env.STRIPE_SECRET_KEY) {
+      return new Response(JSON.stringify({ error: 'Server misconfiguration' }), { status: 500, headers });
+    }
+    if (!env.SECRET_TOKEN) {
       return new Response(JSON.stringify({ error: 'Server misconfiguration' }), { status: 500, headers });
     }
 
@@ -58,7 +61,7 @@ export async function onRequestPost(context) {
     // 30-day expiry for one-time payments; subscriptions should use webhooks for revocation
     const expires = Date.now() + 30 * 24 * 60 * 60 * 1000;
     const payload = `${email}|${customerId}|${expires}`;
-    const sig = await hmacSign(payload, env.SECRET_TOKEN || 'dev-secret-change-me');
+    const sig = await hmacSign(payload, env.SECRET_TOKEN);
 
     const token = btoa(JSON.stringify({ email, customerId, expires, sig }));
 

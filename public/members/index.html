@@ -268,14 +268,40 @@
   
   <script>
     var refreshTimer = null;
+
+    function getPremiumToken() {
+      try {
+        var token = localStorage.getItem('atlas_premium_token') || '';
+        if (!token) return '';
+        var data = JSON.parse(atob(token));
+        if (!data.expires || Date.now() > data.expires) return '';
+        return token;
+      } catch(e) {
+        return '';
+      }
+    }
     
     function loadData() {
-      fetch('/data/cloudflare_payload.json?t=' + Date.now())
+      var token = getPremiumToken();
+      if (!token) {
+        window.location.href = '/login/';
+        return;
+      }
+      fetch('/api/premium-data?dataset=dashboard&sport=nba&t=' + Date.now(), {
+          cache: 'no-store',
+          headers: { 'Authorization': 'Bearer ' + token }
+        })
         .then(function(resp) {
+          if (resp.status === 401 || resp.status === 403) {
+            localStorage.removeItem('atlas_premium_token');
+            window.location.href = '/login/';
+            return null;
+          }
           if (!resp.ok) throw new Error('Fetch failed');
           return resp.json();
         })
         .then(function(data) {
+          if (!data) return;
           render(data);
         })
         .catch(function(e) {

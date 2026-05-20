@@ -26,10 +26,14 @@ Publishes JSON to:
 Cloudflare serves:
 - /data/status_latest.json
 - /data/invalidations_latest.json
-- /data/recommended_latest.json                (System feed; built from CSV)
-- /data/recommended_windfall_latest.json       (Windfall feed; built from CSV)
-- /data/recommended_gamescript_latest.json     (GameScript feed; empty if not exported)
-- /data/recommended_risky*_latest.json         (placeholders; empty arrays)
+- /data/picks_today.json                       (public homepage preview)
+- /api/premium-data?dataset=dashboard&sport=nba (authenticated premium dashboard payload)
+- /data/cloudflare_payload.json                (compatibility fallback only until KV is configured)
+
+Premium dashboard JSON should live in Cloudflare KV, not as a public file. The
+Pages Function `/api/premium-data` checks the signed Atlas premium token, applies
+rate limiting/logging when `ATLAS_SECURITY_KV` is bound, watermarks the payload,
+and then reads `premium:nba:dashboard:latest` from `ATLAS_PREMIUM_KV`.
 
 ## The two commands (canonical)
 
@@ -52,9 +56,34 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -AtlasRo
 
 This does:
 - Stage build into `.publish_stage/` outside the public Cloudflare directory
-- Copy stage → public/data/
+- Copy public preview/status files → public/data/
+- If `ATLAS_PREMIUM_KV_NAMESPACE_ID` is set, upload the full premium payload to KV
+  and publish only a public stub at `/data/cloudflare_payload.json`
 - Validate JSON
 - git add + commit + push public/data only when staged `public/data` changed
+
+### Required Cloudflare bindings/secrets
+
+Pages environment variables:
+- `SECRET_TOKEN` - required for premium token signing/verification.
+- `STRIPE_SECRET_KEY` - required for login/subscription verification.
+- `ATLAS_PREMIUM_RATE_LIMIT_PER_MINUTE` - optional, defaults to 120.
+
+Pages KV bindings:
+- `ATLAS_PREMIUM_KV` - stores private premium payloads.
+- `ATLAS_SECURITY_KV` - stores rate-limit counters, canary hits, and security events.
+
+Local publish environment variable:
+- `ATLAS_PREMIUM_KV_NAMESPACE_ID` - the namespace id for `ATLAS_PREMIUM_KV`.
+
+Example:
+```
+$env:ATLAS_PREMIUM_KV_NAMESPACE_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -AtlasRoot C:\Users\13142\Atlas\NBA
+```
+
+Use `-ForcePublicPremiumPayload` only as a temporary fallback if the KV binding is
+not ready and the dashboard must keep loading the old public payload.
 
 ## What publish-atlas.ps1 builds
 

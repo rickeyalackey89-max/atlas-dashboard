@@ -133,8 +133,9 @@ export async function onRequestOptions() {
 }
 
 async function issueToken(email, customerId, expires, secret) {
+  if (!secret) throw new Error('SECRET_TOKEN is required');
   const payload = `${email}|${customerId}|${expires}`;
-  const sig     = await hmacSign(payload, secret || 'dev-secret-change-me');
+  const sig     = await hmacSign(payload, secret);
   return btoa(JSON.stringify({ email, customerId, expires, sig }));
 }
 
