@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T07:31:09.097213-05:00",
+  "generated_at": "2026-05-20T07:49:46.550532-05:00",
   "run_id": "20260520_073054",
   "system": [
     {
@@ -47,7 +47,7 @@
       "pp_payout_quote": {
         "schema_version": "atlas_prizepicks_quote_manifest_v1",
         "tool_version": "prizepicks_quote_v2",
-        "generated_at_utc": "2026-05-20T12:31:09Z",
+        "generated_at_utc": "2026-05-20T12:49:47Z",
         "source": "prizepicks_game_types",
         "quote_status": "quoted",
         "payout_is_exact": true,
@@ -191,7 +191,7 @@
       "pp_payout_quote": {
         "schema_version": "atlas_prizepicks_quote_manifest_v1",
         "tool_version": "prizepicks_quote_v2",
-        "generated_at_utc": "2026-05-20T12:31:09Z",
+        "generated_at_utc": "2026-05-20T12:49:47Z",
         "source": "prizepicks_game_types",
         "quote_status": "quoted",
         "payout_is_exact": true,
@@ -432,7 +432,7 @@
       "pp_payout_quote": {
         "schema_version": "atlas_prizepicks_quote_manifest_v1",
         "tool_version": "prizepicks_quote_v2",
-        "generated_at_utc": "2026-05-20T12:31:10Z",
+        "generated_at_utc": "2026-05-20T12:49:47Z",
         "source": "prizepicks_game_types",
         "quote_status": "quoted",
         "payout_is_exact": true,
@@ -605,7 +605,7 @@
       "pp_payout_quote": {
         "schema_version": "atlas_prizepicks_quote_manifest_v1",
         "tool_version": "prizepicks_quote_v2",
-        "generated_at_utc": "2026-05-20T12:31:10Z",
+        "generated_at_utc": "2026-05-20T12:49:47Z",
         "source": "prizepicks_game_types",
         "quote_status": "quoted",
         "payout_is_exact": true,
@@ -824,89 +824,89 @@
   "performance": {
     "overall": {
       "last_7d": {
-        "n": 7494,
-        "hits": 3300,
-        "hit_rate": 0.4404,
-        "brier": 0.231
+        "n": 9279,
+        "hits": 4133,
+        "hit_rate": 0.4454,
+        "brier": 0.2286
       },
       "last_30d": {
-        "n": 24999,
-        "hits": 10865,
-        "hit_rate": 0.4346,
-        "brier": 0.2333
+        "n": 26784,
+        "hits": 11698,
+        "hit_rate": 0.4368,
+        "brier": 0.2323
       }
     },
     "by_tier": {
       "GOBLIN": {
         "last_7d": {
-          "n": 2296,
-          "hits": 1484,
-          "hit_rate": 0.6463,
-          "brier": 0.2392
+          "n": 2874,
+          "hits": 1901,
+          "hit_rate": 0.6614,
+          "brier": 0.2332
         },
         "last_30d": {
-          "n": 7576,
-          "hits": 4854,
-          "hit_rate": 0.6407,
-          "brier": 0.2464
+          "n": 8154,
+          "hits": 5271,
+          "hit_rate": 0.6464,
+          "brier": 0.2438
         }
       },
       "STANDARD": {
         "last_7d": {
-          "n": 2169,
-          "hits": 1057,
-          "hit_rate": 0.4873,
-          "brier": 0.2739
+          "n": 2633,
+          "hits": 1281,
+          "hit_rate": 0.4865,
+          "brier": 0.2715
         },
         "last_30d": {
-          "n": 7312,
-          "hits": 3554,
-          "hit_rate": 0.4861,
-          "brier": 0.2691
+          "n": 7776,
+          "hits": 3778,
+          "hit_rate": 0.4859,
+          "brier": 0.2686
         }
       },
       "DEMON": {
         "last_7d": {
-          "n": 3029,
-          "hits": 759,
-          "hit_rate": 0.2506,
-          "brier": 0.1942
+          "n": 3772,
+          "hits": 951,
+          "hit_rate": 0.2521,
+          "brier": 0.1951
         },
         "last_30d": {
-          "n": 10111,
-          "hits": 2457,
-          "hit_rate": 0.243,
-          "brier": 0.1974
+          "n": 10854,
+          "hits": 2649,
+          "hit_rate": 0.2441,
+          "brier": 0.1975
         }
       }
     },
     "meta": {
       "source": "published_dashboard_performance + current telemetry eval",
-      "updated_at": "2026-05-19T11:20:39.791399+00:00",
-      "latest_game_date": "2026-05-18",
+      "updated_at": "2026-05-20T12:49:46.545869+00:00",
+      "latest_game_date": "2026-05-19",
       "window_7d": {
-        "start": "2026-05-12",
-        "end": "2026-05-18"
+        "start": "2026-05-13",
+        "end": "2026-05-19"
       },
       "window_30d": {
-        "start": "2026-04-19",
-        "end": "2026-05-18"
+        "start": "2026-04-20",
+        "end": "2026-05-19"
       },
-      "eval_files": 155,
-      "unique_scored_legs": 24999,
-      "previous_latest_game_date": "2026-05-17",
+      "eval_files": 160,
+      "unique_scored_legs": 26784,
+      "previous_latest_game_date": "2026-05-18",
       "continuity_mode": "summary_merge_after_local_telemetry_cleanup"
     },
     "yesterday_slips": {
-      "date": "2026-05-18",
-      "run_id": "20260518_192937",
-      "wins": 1,
+      "date": "2026-05-19",
+      "run_id": "20260519_175811",
+      "wins": 2,
       "total": 5,
-      "pct": 0.2,
+      "pct": 0.4,
       "market": {
-        "wins": 0,
+        "wins": 1,
         "total": 2,
-        "pct": 0.0
+        "pct": 0.5
       },
       "system": {
         "wins": 0,
