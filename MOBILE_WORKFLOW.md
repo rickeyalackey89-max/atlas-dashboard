@@ -13,7 +13,7 @@ and handled later from desktop/Codex.
 
 ## Repository Roles
 
-- `C:\Users\13142\Atlas\Atlas` owns model runs, listener execution, dashboard
+- `C:\Users\13142\Atlas\NBA` owns NBA model runs, listener execution, dashboard
   payload generation, and publish automation.
 - `C:\Users\13142\Atlas\atlas-dashboard` owns the website, Cloudflare Pages
   functions, public assets, checkout flow, and hosted dashboard files.
@@ -23,7 +23,7 @@ and handled later from desktop/Codex.
 Run from the main Atlas repo:
 
 ```powershell
-cd C:\Users\13142\Atlas\Atlas
+cd C:\Users\13142\Atlas\NBA
 .\scripts\automation\atlas_cli_listener.ps1 listen
 ```
 
@@ -82,4 +82,3 @@ Avoid from mobile:
 - Cloudflare binding changes
 - destructive git operations
 - production publish without checking generated payloads
-

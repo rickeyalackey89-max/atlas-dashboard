@@ -1,5 +1,6 @@
 ﻿param(
-  [string]$AtlasRoot = "C:\Users\rick\projects\Atlas"
+  [string]$AtlasRoot = "C:\Users\13142\Atlas\NBA",
+  [switch]$NoGit
 )
 
 Set-StrictMode -Version Latest
@@ -11,7 +12,7 @@ $ErrorActionPreference = "Stop"
 $RepoRoot  = Split-Path -Parent $MyInvocation.MyCommand.Path
 $PublicDir = Join-Path $RepoRoot "public"
 $LiveDir   = Join-Path $PublicDir "data"
-$StageDir  = Join-Path $PublicDir "data_stage"
+$StageDir  = Join-Path $RepoRoot ".publish_stage"
 
 $AtlasDashDir = Join-Path $AtlasRoot "data\output\dashboard"
 
@@ -72,6 +73,29 @@ function Copy-If-Exists([string]$Src, [string]$DstDir) {
   return $false
 }
 
+function Invoke-Git([string[]]$GitArgs, [string]$Label) {
+  & git @GitArgs
+  if ($LASTEXITCODE -ne 0) {
+    throw "Git failed during ${Label}: git $($GitArgs -join ' ')"
+  }
+}
+
+# ============================================================
+# Preflight
+# ============================================================
+if (-not (Test-Path -LiteralPath $AtlasRoot)) {
+  throw "AtlasRoot does not exist: $AtlasRoot"
+}
+if (-not (Test-Path -LiteralPath $AtlasDashDir)) {
+  throw "Atlas dashboard output directory does not exist: $AtlasDashDir"
+}
+if (-not (Test-Path -LiteralPath $SrcPayload)) {
+  throw "Missing canonical payload from Atlas: $SrcPayload"
+}
+
+Write-Host "AtlasRoot: $AtlasRoot"
+Write-Host "Dashboard output: $AtlasDashDir"
+
 # ============================================================
 # Stage build
 # ============================================================
@@ -79,10 +103,6 @@ Write-Host "Staging into $StageDir (safe publish; live data not deleted until st
 Ensure-Dir $StageDir
 Ensure-Dir $LiveDir
 Clear-DirFiles $StageDir
-
-if (-not (Test-Path -LiteralPath $SrcPayload)) {
-  throw "Missing canonical payload from Atlas: $SrcPayload"
-}
 
 $StagePayload = Join-Path $StageDir (Split-Path -Leaf $SrcPayload)
 Copy-Item -LiteralPath $SrcPayload -Destination $StagePayload -Force
@@ -97,6 +117,17 @@ foreach ($k in @("system","windfall","gamescript")) {
     throw "Payload missing key '$k' in cloudflare_payload.json"
   }
 }
+foreach ($k in @("all_legs","generated_at","run_id")) {
+  if (-not ($payload.PSObject.Properties.Name -contains $k)) {
+    throw "Payload missing key '$k' in cloudflare_payload.json"
+  }
+}
+try {
+  $generatedAt = [datetime]::Parse(($payload.generated_at + ""))
+} catch {
+  throw "Payload generated_at is not parseable: $($payload.generated_at)"
+}
+Write-Host ("Payload run_id={0} generated_at={1:o} age_minutes={2:n1} all_legs={3}" -f $payload.run_id,$generatedAt,((Get-Date)-$generatedAt).TotalMinutes,@($payload.all_legs).Count)
 
 # Optional: stage status / invalidations if present
 $stagedStatus = Copy-If-Exists $SrcStatus $StageDir
@@ -203,11 +234,26 @@ Write-Host "Publish OK (payload JSON validated)"
 # ============================================================
 # Git publish
 # ============================================================
-Write-Host "Git: add public/data"
-git -C $RepoRoot add "public/data"
+if ($NoGit) {
+  Write-Host "NoGit set: staged/live files validated; skipping git commit/push."
+  Write-Host "Done."
+  exit 0
+}
 
-$porcelain = git -C $RepoRoot status --porcelain
-if ([string]::IsNullOrWhiteSpace($porcelain)) {
+Write-Host "Git: add public/data"
+Invoke-Git -GitArgs @("-C", $RepoRoot, "add", "public/data") -Label "add public/data"
+
+$stagedChanged = $true
+& git -C $RepoRoot diff --cached --quiet -- "public/data"
+if ($LASTEXITCODE -eq 0) {
+  $stagedChanged = $false
+} elseif ($LASTEXITCODE -eq 1) {
+  $stagedChanged = $true
+} else {
+  throw "Git failed during staged diff check"
+}
+
+if (-not $stagedChanged) {
   Write-Host "Git: no changes to commit/push (ok)"
   Write-Host "Done."
   exit 0
@@ -215,9 +261,9 @@ if ([string]::IsNullOrWhiteSpace($porcelain)) {
 
 Write-Host "Git: commit"
 $ts = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-git -C $RepoRoot commit -m "Publish data ($ts)"
+Invoke-Git -GitArgs @("-C", $RepoRoot, "commit", "-m", "Publish data ($ts)") -Label "commit"
 
 Write-Host "Git: push"
-git -C $RepoRoot push
+Invoke-Git -GitArgs @("-C", $RepoRoot, "push") -Label "push"
 
 Write-Host "Done."

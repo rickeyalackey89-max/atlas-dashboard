@@ -2,25 +2,26 @@
 
 ## What exists where
 
-### Atlas (engine workspace, NOT a git repo)
+### Atlas NBA (engine workspace)
 Runs the model, writes CSV outputs and dashboard JSON exports.
 
 Key outputs:
 - Latest CSVs (placeable):
-  - C:\Users\rick\projects\Atlas\data\output\latest\all\System\recommended_{3,4,5}leg.csv
-  - C:\Users\rick\projects\Atlas\data\output\latest\all\Windfall\recommended_{3,4,5}leg.csv
+  - C:\Users\13142\Atlas\NBA\data\output\latest\all\System\recommended_{3,4,5}leg.csv
+  - C:\Users\13142\Atlas\NBA\data\output\latest\all\Windfall\recommended_{3,4,5}leg.csv
 
 - Dashboard export JSONs (written by run_today_and_export.ps1):
-  - C:\Users\rick\projects\Atlas\data\output\dashboard\status_latest.json
-  - C:\Users\rick\projects\Atlas\data\output\dashboard\invalidations_latest.json
-  - (optional) C:\Users\rick\projects\Atlas\data\output\dashboard\recommended_gamescript_latest.json
+  - C:\Users\13142\Atlas\NBA\data\output\dashboard\cloudflare_payload.json
+  - C:\Users\13142\Atlas\NBA\data\output\dashboard\status_latest.json
+  - C:\Users\13142\Atlas\NBA\data\output\dashboard\invalidations_latest.json
+  - (optional) C:\Users\13142\Atlas\NBA\data\output\dashboard\recommended_gamescript_latest.json
 
 - Last-5 audit file (written by refresh_nba_gamelogs.py):
-  - C:\Users\rick\projects\Atlas\data\gamelogs\audit_last5_board.csv
+  - C:\Users\13142\Atlas\NBA\data\gamelogs\audit_last5_board.csv
 
 ### AtlasDashboard (git repo, Cloudflare serves this)
 Publishes JSON to:
-- C:\Users\rick\projects\AtlasDashboard\public\data\
+- C:\Users\13142\Atlas\atlas-dashboard\public\data\
 
 Cloudflare serves:
 - /data/status_latest.json
@@ -34,7 +35,8 @@ Cloudflare serves:
 
 ### 1) Run Atlas + export dashboard artifacts
 Run from Atlas:
-powershell -NoProfile -ExecutionPolicy Bypass -File .\run_today_and_export.ps1
+cd C:\Users\13142\Atlas\NBA
+py -m Atlas.cli live
 
 This refreshes:
 - gamelogs + audit_last5_board.csv
@@ -45,13 +47,14 @@ This refreshes:
 
 ### 2) Publish to Cloudflare (commit + push)
 Run from AtlasDashboard:
-powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1
+cd C:\Users\13142\Atlas\atlas-dashboard
+powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -AtlasRoot C:\Users\13142\Atlas\NBA
 
 This does:
-- Stage build into public/data_stage/
+- Stage build into `.publish_stage/` outside the public Cloudflare directory
 - Copy stage → public/data/
 - Validate JSON
-- git add + commit + push public/data
+- git add + commit + push public/data only when staged `public/data` changed
 
 ## What publish-atlas.ps1 builds
 
