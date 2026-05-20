@@ -8,6 +8,11 @@
   X-Robots-Tag: noindex, nofollow, noai, noimageai
   X-Content-Type-Options: nosniff
 
+/.well-known/security.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: no-store
+  X-Content-Type-Options: nosniff
+
 /index.html
   Cache-Control: no-store
 
