@@ -90,6 +90,23 @@ function Invoke-Wrangler([string[]]$WranglerArgs, [string]$Label) {
   }
 }
 
+function Resolve-PremiumKvNamespaceId([string]$ExistingId) {
+  if (-not [string]::IsNullOrWhiteSpace($ExistingId)) { return $ExistingId }
+  $configPath = Join-Path $RepoRoot "wrangler.toml"
+  if (-not (Test-Path -LiteralPath $configPath)) { return "" }
+  $raw = Get-Content -LiteralPath $configPath -Raw -ErrorAction SilentlyContinue
+  if ([string]::IsNullOrWhiteSpace($raw)) { return "" }
+  $matches = [regex]::Matches($raw, '(?s)\[\[kv_namespaces\]\]\s*binding\s*=\s*"([^"]+)"\s*id\s*=\s*"([^"]+)"')
+  foreach ($m in $matches) {
+    if ($m.Groups[1].Value -eq "ATLAS_PREMIUM_KV") {
+      return $m.Groups[2].Value
+    }
+  }
+  return ""
+}
+
+$PremiumKvNamespaceId = Resolve-PremiumKvNamespaceId $PremiumKvNamespaceId
+
 # ============================================================
 # Preflight
 # ============================================================

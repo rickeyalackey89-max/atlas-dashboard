@@ -73,12 +73,11 @@ Pages KV bindings:
 - `ATLAS_PREMIUM_KV` - stores private premium payloads.
 - `ATLAS_SECURITY_KV` - stores rate-limit counters, canary hits, and security events.
 
-Local publish environment variable:
-- `ATLAS_PREMIUM_KV_NAMESPACE_ID` - the namespace id for `ATLAS_PREMIUM_KV`.
+The publisher reads the `ATLAS_PREMIUM_KV` namespace id from `wrangler.toml`.
+You can override it with `ATLAS_PREMIUM_KV_NAMESPACE_ID` if needed.
 
 Example:
 ```
-$env:ATLAS_PREMIUM_KV_NAMESPACE_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -AtlasRoot C:\Users\13142\Atlas\NBA
 ```
 

@@ -1,0 +1,16 @@
+name = "atlas-dashboard"
+pages_build_output_dir = "public"
+compatibility_date = "2026-05-20"
+send_metrics = false
+
+[vars]
+ADMIN_EMAIL2 = "atlassportstester@gmail.com"
+ATLAS_PREMIUM_RATE_LIMIT_PER_MINUTE = "120"
+
+[[kv_namespaces]]
+binding = "ATLAS_PREMIUM_KV"
+id = "b2546d8fd5c04978909e1e2e2993df3f"
+
+[[kv_namespaces]]
+binding = "ATLAS_SECURITY_KV"
+id = "1ab0ed2a2e7f478898cb763eb80a996e"

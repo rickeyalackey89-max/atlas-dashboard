@@ -24,13 +24,10 @@ Set these Pages environment variables:
 
 - `SECRET_TOKEN`
 - `STRIPE_SECRET_KEY`
-- `ATLAS_PREMIUM_RATE_LIMIT_PER_MINUTE` (optional; default is `120`)
+- `ATLAS_PREMIUM_RATE_LIMIT_PER_MINUTE` is configured in `wrangler.toml` and defaults to `120`.
 
-Set this local publish environment variable:
-
-```powershell
-$env:ATLAS_PREMIUM_KV_NAMESPACE_ID="your-premium-kv-namespace-id"
-```
+The publisher reads the `ATLAS_PREMIUM_KV` namespace id from `wrangler.toml`.
+You can override it with `ATLAS_PREMIUM_KV_NAMESPACE_ID` if needed.
 
 Then publish with:
 
