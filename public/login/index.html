@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#02090c"/>
   <script>(function(){try{var r=sessionStorage.getItem("atlas_transition_handoff");if(r&&Date.now()-((JSON.parse(r)||{}).ts||0)<5000){document.documentElement.classList.add("atlas-handoff-pending");setTimeout(function(){document.documentElement.classList.remove("atlas-handoff-pending");},4500);}}catch(e){}})();</script>
   <title>Login — Atlas Premium</title>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
   <style>
     :root{--bg:#000;--s1:#0a0a0a;--b:rgba(255,255,255,.07);--gold:#f5a623;--cyan:#00d4ff;--green:#00e676;--t2:#888;--text:#fff;}
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -27,6 +28,7 @@
     .btn{display:block;width:100%;padding:14px;background:var(--gold);color:#000;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;margin-top:24px;font-family:inherit;}
     .btn:disabled{opacity:.5;cursor:not-allowed;}
     .error{color:#f87171;font-size:12px;margin-top:14px;display:none;line-height:1.5;}
+    .turnstile-box{margin-top:18px;min-height:65px;display:flex;justify-content:center;}
     .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px;}
     @keyframes spin{to{transform:rotate(360deg)}}
     .footer-links{text-align:center;margin-top:20px;font-size:12px;color:var(--t2);}
@@ -49,6 +51,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required/>
       </div>
+      <div class="turnstile-box" id="loginTurnstile"></div>
       <button class="btn" id="submitBtn" type="submit">Sign In</button>
       <div class="error" id="errorMsg"></div>
     </form>
@@ -75,12 +78,40 @@
   var form = document.getElementById('loginForm');
   var btn  = document.getElementById('submitBtn');
   var err  = document.getElementById('errorMsg');
+  var LOGIN_TURNSTILE_SITE_KEY = '0x4AAAAAADTOa92PUcIscgAO';
+  var loginTurnstileWidget = null;
+
+  function ensureLoginTurnstile(){
+    if (!window.turnstile || loginTurnstileWidget !== null) return;
+    var target = document.getElementById('loginTurnstile');
+    if (!target) return;
+    loginTurnstileWidget = window.turnstile.render(target, { sitekey: LOGIN_TURNSTILE_SITE_KEY });
+  }
+
+  function getLoginTurnstileToken(){
+    ensureLoginTurnstile();
+    if (!window.turnstile || loginTurnstileWidget === null) return '';
+    return window.turnstile.getResponse(loginTurnstileWidget) || '';
+  }
+
+  function resetLoginTurnstile(){
+    if (window.turnstile && loginTurnstileWidget !== null) {
+      window.turnstile.reset(loginTurnstileWidget);
+    }
+  }
+
+  window.addEventListener('load', function(){ setTimeout(ensureLoginTurnstile, 0); });
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var email    = document.getElementById('email').value.trim();
     var password = document.getElementById('password').value;
+    var turnstileToken = getLoginTurnstileToken();
     if (!email || !password) return;
+    if (!turnstileToken) {
+      showError('Complete the security verification before signing in.');
+      return;
+    }
 
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span>Signing in...';
@@ -89,7 +120,7 @@
     fetch('/api/login', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ email: email, password: password })
+      body: JSON.stringify({ email: email, password: password, turnstileToken: turnstileToken })
     })
     .then(function(r){ return r.json(); })
     .then(function(data){
@@ -110,6 +141,7 @@
     err.style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Sign In';
+    resetLoginTurnstile();
   }
 })();
 </script>

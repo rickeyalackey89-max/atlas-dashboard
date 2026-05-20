@@ -8,6 +8,7 @@
   <meta name="description" content="AtlasSportsAI Ambassador portal for onboarding, promo code access, signup metrics, payouts, and Ambassador tree reporting."/>
   <title>Ambassador Portal — AtlasSports.ai</title>
   <link rel="icon" type="image/png" href="/atlas_logo.png"/>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
   <style>
     :root{--bg:#000;--s1:#080808;--s2:#111;--b:rgba(255,255,255,.08);--b2:rgba(255,255,255,.16);--gold:#f5a623;--cyan:#00d4ff;--green:#00e676;--red:#ff5252;--text:#fff;--t2:#888;--t3:#444;}
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -37,6 +38,7 @@
     input{width:100%;height:44px;background:#050505;border:1px solid var(--b2);color:var(--text);padding:0 12px;font-size:14px;outline:none;}
     input:focus{border-color:var(--gold);}
     .message{display:none;margin-top:18px;padding:14px;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.055);font-size:13px;color:var(--t2);line-height:1.7;}
+    .turnstile-box{margin-top:16px;min-height:65px;display:flex;justify-content:flex-start;}
     .message strong{color:var(--cyan);}
     .new-link{display:block;margin-top:14px;text-align:center;color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;}
     .new-link:hover{color:#fff;}
@@ -164,6 +166,7 @@
           <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Portal password"/>
           <button class="show-password" id="showPassword" type="button">Show</button>
         </div>
+        <div class="turnstile-box" id="portalLoginTurnstile"></div>
         <button class="btn btn-gold" type="submit" style="width:100%;margin-top:20px;">Log In</button>
         <a class="new-link" href="/ambassadors/onboarding/">Onboarding</a>
         <a class="new-link" href="#" id="forgotPasswordLink">Forgot password?</a>
@@ -171,6 +174,7 @@
       <form id="forgotPasswordForm" style="display:none;">
         <label for="forgotEmail">Email</label>
         <input id="forgotEmail" name="email" type="email" autocomplete="email" placeholder="ambassador@email.com"/>
+        <div class="turnstile-box" id="portalForgotTurnstile"></div>
         <button class="btn btn-gold" type="submit" style="width:100%;margin-top:20px;">Send Reset Link</button>
         <a class="new-link" href="#" id="backToLoginFromForgot">Back to Login</a>
       </form>
@@ -179,6 +183,7 @@
         <input id="resetPassword" name="password" type="password" autocomplete="new-password" placeholder="New password"/>
         <label for="resetPasswordConfirm">Confirm Password</label>
         <input id="resetPasswordConfirm" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirm password"/>
+        <div class="turnstile-box" id="portalResetTurnstile"></div>
         <button class="btn btn-gold" type="submit" style="width:100%;margin-top:20px;">Update Password</button>
         <a class="new-link" href="/ambassadors/">Back to Login</a>
       </form>
@@ -234,6 +239,29 @@
 
 <script>
   var API = 'https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
+  var PORTAL_LOGIN_TURNSTILE_SITE_KEY = '0x4AAAAAADTOa92PUcIscgAO';
+  var PORTAL_RESET_TURNSTILE_SITE_KEY = '0x4AAAAAADTOwY6rfYP_wXmw';
+  var portalTurnstileWidgets = {};
+
+  function ensurePortalTurnstile(elementId, siteKey) {
+    if (!window.turnstile || portalTurnstileWidgets[elementId] !== undefined) return;
+    var target = document.getElementById(elementId);
+    if (!target) return;
+    portalTurnstileWidgets[elementId] = window.turnstile.render(target, { sitekey: siteKey });
+  }
+
+  function getPortalTurnstileToken(elementId, siteKey) {
+    ensurePortalTurnstile(elementId, siteKey);
+    var widget = portalTurnstileWidgets[elementId];
+    if (!window.turnstile || widget === undefined) return '';
+    return window.turnstile.getResponse(widget) || '';
+  }
+
+  function resetPortalTurnstile(elementId) {
+    var widget = portalTurnstileWidgets[elementId];
+    if (window.turnstile && widget !== undefined) window.turnstile.reset(widget);
+  }
+
   var token = localStorage.getItem('atlas_ambassador_token') || '';
   var message = document.getElementById('portalMessage');
   var resetToken = new URLSearchParams(window.location.search).get('reset') || '';
@@ -241,10 +269,27 @@
   var forgotPasswordForm = document.getElementById('forgotPasswordForm');
   var resetPasswordForm = document.getElementById('resetPasswordForm');
 
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      if (resetPasswordForm.style.display === 'block') {
+        ensurePortalTurnstile('portalResetTurnstile', PORTAL_RESET_TURNSTILE_SITE_KEY);
+      } else if (forgotPasswordForm.style.display === 'block') {
+        ensurePortalTurnstile('portalForgotTurnstile', PORTAL_RESET_TURNSTILE_SITE_KEY);
+      } else {
+        ensurePortalTurnstile('portalLoginTurnstile', PORTAL_LOGIN_TURNSTILE_SITE_KEY);
+      }
+    }, 0);
+  });
+
   function showLoginMode(mode) {
     portalForm.style.display = mode === 'login' ? 'block' : 'none';
     forgotPasswordForm.style.display = mode === 'forgot' ? 'block' : 'none';
     resetPasswordForm.style.display = mode === 'reset' ? 'block' : 'none';
+    setTimeout(function() {
+      if (mode === 'login') ensurePortalTurnstile('portalLoginTurnstile', PORTAL_LOGIN_TURNSTILE_SITE_KEY);
+      if (mode === 'forgot') ensurePortalTurnstile('portalForgotTurnstile', PORTAL_RESET_TURNSTILE_SITE_KEY);
+      if (mode === 'reset') ensurePortalTurnstile('portalResetTurnstile', PORTAL_RESET_TURNSTILE_SITE_KEY);
+    }, 0);
   }
 
   function money(cents) {
@@ -693,6 +738,12 @@
     event.preventDefault();
     var emailValue = document.getElementById('email').value.trim();
     var passwordValue = document.getElementById('password').value.trim();
+    var turnstileToken = getPortalTurnstileToken('portalLoginTurnstile', PORTAL_LOGIN_TURNSTILE_SITE_KEY);
+    if (!turnstileToken) {
+      message.style.display = 'block';
+      message.innerHTML = '<strong>Security check required.</strong><br/>Complete the verification before logging in.';
+      return;
+    }
     message.style.display = 'block';
     message.innerHTML = '<strong>Checking portal...</strong><br/>Connecting to Atlas Ambassador backend.';
     fetch(API + '/api/auth/login', {
@@ -700,7 +751,8 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: emailValue,
-        password: passwordValue
+        password: passwordValue,
+        turnstileToken: turnstileToken
       })
     }).then(function(resp) {
       return resp.json().then(function(body) { return { status: resp.status, body: body }; });
@@ -710,6 +762,7 @@
           ? result.body.error.message
           : 'Login failed.';
         message.innerHTML = '<strong>Portal access not active.</strong><br/>' + serverMessage + ' For current access questions, email support@atlassports.ai.';
+        resetPortalTurnstile('portalLoginTurnstile');
         return;
       }
       if (result.body.role === 'admin') {
@@ -723,6 +776,7 @@
       renderPortal(result.body);
     }).catch(function() {
       message.innerHTML = '<strong>Portal unavailable.</strong><br/>Unable to reach the backend. For current access questions, email support@atlassports.ai.';
+      resetPortalTurnstile('portalLoginTurnstile');
     });
   });
   document.getElementById('forgotPasswordLink').addEventListener('click', function(event) {
@@ -742,12 +796,18 @@
   forgotPasswordForm.addEventListener('submit', function(event) {
     event.preventDefault();
     var emailValue = document.getElementById('forgotEmail').value.trim();
+    var turnstileToken = getPortalTurnstileToken('portalForgotTurnstile', PORTAL_RESET_TURNSTILE_SITE_KEY);
+    if (!turnstileToken) {
+      message.style.display = 'block';
+      message.innerHTML = '<strong>Security check required.</strong><br/>Complete the verification before requesting a reset link.';
+      return;
+    }
     message.style.display = 'block';
     message.innerHTML = '<strong>Sending reset link...</strong><br/>Checking the Ambassador portal records.';
     fetch(API + '/api/auth/forgot-password', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: emailValue })
+      body: JSON.stringify({ email: emailValue, turnstileToken: turnstileToken })
     }).then(function(resp) {
       return resp.json().then(function(body) { return { status: resp.status, body: body }; });
     }).then(function(result) {
@@ -756,17 +816,26 @@
           ? result.body.error.message
           : 'Unable to send reset link.';
         message.innerHTML = '<strong>Reset unavailable.</strong><br/>' + serverMessage;
+        resetPortalTurnstile('portalForgotTurnstile');
         return;
       }
       message.innerHTML = '<strong>Check your email.</strong><br/>If this email belongs to an approved Ambassador, a secure password reset link has been sent.';
+      resetPortalTurnstile('portalForgotTurnstile');
     }).catch(function() {
       message.innerHTML = '<strong>Reset unavailable.</strong><br/>Unable to reach the backend. For current access questions, email support@atlassports.ai.';
+      resetPortalTurnstile('portalForgotTurnstile');
     });
   });
   resetPasswordForm.addEventListener('submit', function(event) {
     event.preventDefault();
     var passwordValue = document.getElementById('resetPassword').value;
     var confirmValue = document.getElementById('resetPasswordConfirm').value;
+    var turnstileToken = getPortalTurnstileToken('portalResetTurnstile', PORTAL_RESET_TURNSTILE_SITE_KEY);
+    if (!turnstileToken) {
+      message.style.display = 'block';
+      message.innerHTML = '<strong>Security check required.</strong><br/>Complete the verification before updating your password.';
+      return;
+    }
     message.style.display = 'block';
     message.innerHTML = '<strong>Updating password...</strong><br/>Submitting the one-time reset token.';
     fetch(API + '/api/auth/reset-password', {
@@ -775,7 +844,8 @@
       body: JSON.stringify({
         token: resetToken,
         password: passwordValue,
-        confirmPassword: confirmValue
+        confirmPassword: confirmValue,
+        turnstileToken: turnstileToken
       })
     }).then(function(resp) {
       return resp.json().then(function(body) { return { status: resp.status, body: body }; });
@@ -785,15 +855,18 @@
           ? result.body.error.message
           : 'Unable to update password.';
         message.innerHTML = '<strong>Password reset failed.</strong><br/>' + serverMessage;
+        resetPortalTurnstile('portalResetTurnstile');
         return;
       }
       resetToken = '';
       history.replaceState(null, '', '/ambassadors/');
       resetPasswordForm.reset();
       message.innerHTML = '<strong>Password updated.</strong><br/>You can log in with your Ambassador email and new password now.';
+      resetPortalTurnstile('portalResetTurnstile');
       showLoginMode('login');
     }).catch(function() {
       message.innerHTML = '<strong>Password reset unavailable.</strong><br/>Unable to reach the backend. For current access questions, email support@atlassports.ai.';
+      resetPortalTurnstile('portalResetTurnstile');
     });
   });
   document.getElementById('showPassword').addEventListener('click', function() {

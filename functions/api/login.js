@@ -17,6 +17,8 @@
  * no separate salt storage needed since Stripe metadata has no extra field to spare).
  */
 
+import { turnstileTokenFrom, verifyTurnstile } from '../_shared/turnstile.js';
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -30,6 +32,10 @@ export async function onRequestPost(context) {
     const body  = await request.json();
     const email = (body?.email    || '').trim().toLowerCase();
     const pass  = (body?.password || '');
+    const turnstile = await verifyTurnstile(request, env.TURNSTILE_LOGIN_SECRET, turnstileTokenFrom(body));
+    if (!turnstile.ok) {
+      return new Response(JSON.stringify({ error: turnstile.message, code: turnstile.code }), { status: turnstile.status, headers });
+    }
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return new Response(JSON.stringify({ error: 'A valid email address is required.' }), { status: 400, headers });

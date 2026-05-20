@@ -1,5 +1,7 @@
 // checkout function v5 - 3-day trial + promo codes + Ambassador attribution
 // always 200 to avoid CF 5xx interception
+import { turnstileTokenFrom, verifyTurnstile } from '../_shared/turnstile.js';
+
 export async function onRequestPost(context) {
   var env = context.env;
   var request = context.request;
@@ -19,14 +21,25 @@ export async function onRequestPost(context) {
   var promoAttribution = '';
   var ambassadorCode = '';
   var checkoutMode = 'embedded';
+  var payload = {};
   try {
-    var payload = await request.json();
+    payload = await request.json();
+  } catch (e) {
+    return new Response(JSON.stringify({ error: 'Invalid checkout request.' }), { status: 400, headers: headers });
+  }
+
+  var turnstile = await verifyTurnstile(request, env.TURNSTILE_CHECKOUT_SECRET, turnstileTokenFrom(payload));
+  if (!turnstile.ok) {
+    return new Response(JSON.stringify({ error: turnstile.message, code: turnstile.code }), { status: turnstile.status, headers: headers });
+  }
+
+  try {
     if (payload && typeof payload.ref === 'string') ref = payload.ref.slice(0, 64).replace(/[^A-Za-z0-9_-]/g, '');
     if (payload && typeof payload.promo === 'string') promo = payload.promo.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
     if (payload && typeof payload.promo_attribution === 'string') promoAttribution = payload.promo_attribution.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
     if (payload && typeof payload.ambassador_code === 'string') ambassadorCode = payload.ambassador_code.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase();
     if (payload && payload.checkout_mode === 'hosted') checkoutMode = 'hosted';
-  } catch (e) { /* no body or invalid JSON - fine */ }
+  } catch (e) { /* invalid optional inputs - ignore */ }
 
   var attributionCode = ambassadorCode || promoAttribution || promo || ref;
   attributionCode = attributionCode ? attributionCode.slice(0, 32).replace(/[^A-Za-z0-9_-]/g, '').toUpperCase() : '';

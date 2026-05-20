@@ -8,6 +8,7 @@
   <meta name="description" content="Join AtlasSports.ai as a developer, launch ambassador, creator, coach, athlete, or partner."/>
   <title>Join Us — AtlasSports.ai</title>
   <link rel="icon" type="image/png" href="/atlas_logo.png"/>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
   <style>
     :root {
       --bg:#000;
@@ -154,6 +155,7 @@
     .choice-row span{display:inline-flex;align-items:center;justify-content:center;min-width:74px;min-height:34px;border:1px solid var(--b2);color:var(--t2);font-size:11px;font-weight:950;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
     .choice-row input:checked + span{background:var(--gold);border-color:var(--gold);color:#000;}
     .form-message{display:none;margin-top:14px;padding:13px;border:1px solid rgba(0,212,255,.28);background:rgba(0,212,255,.055);color:var(--t2);font-size:13px;line-height:1.7;}
+    .turnstile-box{margin-top:16px;min-height:65px;display:flex;justify-content:flex-start;}
     .form-message.ok{display:block;border-color:rgba(0,230,118,.34);background:rgba(0,230,118,.055);}
     .form-message.err{display:block;border-color:rgba(255,82,82,.34);background:rgba(255,82,82,.055);}
     footer{position:relative;z-index:1;padding:32px 28px;color:var(--t3);font-size:11px;line-height:1.8;}
@@ -360,6 +362,7 @@
                   Enter the code from the Ambassador who invited you so they receive sponsor credit if you are approved.
                 </p>
               </div>
+              <div class="turnstile-box" id="ambassadorApplicationTurnstile"></div>
               <button class="btn btn-gold" type="submit" style="margin-top:18px;">Submit Quick Application</button>
               <a class="btn" href="/ambassadors/onboarding/" style="margin-top:18px;margin-left:8px;">Onboarding</a>
               <div class="form-message" id="quickApplicationMessage"></div>
@@ -468,6 +471,29 @@
 
 <script>
   var AMBASSADOR_API = 'https://atlas-ambassador-platform.rickeyalackey89.workers.dev';
+  var AMBASSADOR_APPLICATION_TURNSTILE_SITE_KEY = '0x4AAAAAADTOwDtZcE5zSlbh';
+  var ambassadorApplicationTurnstileWidget = null;
+
+  function ensureAmbassadorApplicationTurnstile() {
+    if (!window.turnstile || ambassadorApplicationTurnstileWidget !== null) return;
+    var target = document.getElementById('ambassadorApplicationTurnstile');
+    if (!target) return;
+    ambassadorApplicationTurnstileWidget = window.turnstile.render(target, { sitekey: AMBASSADOR_APPLICATION_TURNSTILE_SITE_KEY });
+  }
+
+  function getAmbassadorApplicationTurnstileToken() {
+    ensureAmbassadorApplicationTurnstile();
+    if (!window.turnstile || ambassadorApplicationTurnstileWidget === null) return '';
+    return window.turnstile.getResponse(ambassadorApplicationTurnstileWidget) || '';
+  }
+
+  function resetAmbassadorApplicationTurnstile() {
+    if (window.turnstile && ambassadorApplicationTurnstileWidget !== null) {
+      window.turnstile.reset(ambassadorApplicationTurnstileWidget);
+    }
+  }
+
+  window.addEventListener('load', function() { setTimeout(ensureAmbassadorApplicationTurnstile, 0); });
   var buttons = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
   var panels = {
     developers: document.getElementById('tab-developers'),
@@ -533,6 +559,12 @@
         quickApplicationMessage.textContent = 'Parent Ambassador code is required when you were referred.';
         return;
       }
+      var turnstileToken = getAmbassadorApplicationTurnstileToken();
+      if (!turnstileToken) {
+        quickApplicationMessage.className = 'form-message err';
+        quickApplicationMessage.textContent = 'Complete the security verification before submitting.';
+        return;
+      }
       var data = {
         applicationMode: 'quick',
         name: document.getElementById('quickName').value,
@@ -540,7 +572,8 @@
         platforms: document.getElementById('quickPlatforms').value,
         audienceNotes: document.getElementById('quickAudience').value,
         referredByAmbassador: referredByAmbassador,
-        sponsorCode: referredByAmbassador ? sponsorCode : ''
+        sponsorCode: referredByAmbassador ? sponsorCode : '',
+        turnstileToken: turnstileToken
       };
       fetch(AMBASSADOR_API + '/api/applications', {
         method: 'POST',
@@ -555,10 +588,12 @@
         quickApplicationMessage.className = 'form-message ok';
         quickApplicationMessage.textContent = 'Quick application received. Check your email to confirm your address. Atlas will follow up with onboarding steps.';
         quickApplicationForm.reset();
+        resetAmbassadorApplicationTurnstile();
         syncQuickSponsorField();
       }).catch(function(err) {
         quickApplicationMessage.className = 'form-message err';
         quickApplicationMessage.textContent = err.message || 'Application failed. Email support@atlassports.ai if this continues.';
+        resetAmbassadorApplicationTurnstile();
       });
     });
   }

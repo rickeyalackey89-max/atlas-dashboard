@@ -7,6 +7,7 @@
   <script>(function(){try{var r=sessionStorage.getItem("atlas_transition_handoff");if(r&&Date.now()-((JSON.parse(r)||{}).ts||0)<5000){document.documentElement.classList.add("atlas-handoff-pending");setTimeout(function(){document.documentElement.classList.remove("atlas-handoff-pending");},4500);}}catch(e){}})();</script>
   <title>Atlas Premium — Checkout</title>
   <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
   <style>
     :root{--bg:#000;--gold:#f5a623;--cyan:#00d4ff;--green:#00e676;--t2:#888;--b:rgba(255,255,255,0.07);}
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -46,6 +47,7 @@
     #checkout-container{min-height:200px;}
     .loading-msg{text-align:center;padding:40px 20px;font-size:13px;color:var(--t2);}
     .error-msg{color:#f87171;font-size:13px;margin-top:12px;display:none;}
+    .turnstile-box{margin:0 0 18px;min-height:65px;display:flex;justify-content:center;}
     .social-checkout{padding:28px 20px;text-align:center;border:1px solid rgba(245,166,35,.28);background:rgba(245,166,35,.055);}
     .social-title{font-size:16px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;color:var(--gold);}
     .social-copy{font-size:13px;line-height:1.65;color:var(--t2);margin:0 auto 18px;max-width:360px;}
@@ -138,6 +140,7 @@
       <div class="annual-or">— or continue with monthly below —</div>
     </div>
 
+    <div class="turnstile-box" id="checkoutTurnstile"></div>
     <div id="checkout-container">
       <div class="loading-msg" id="loadingMsg">Loading checkout...</div>
     </div>
@@ -151,6 +154,47 @@
   var STRIPE_PK = 'pk_live_51TTRqAQ92CPnHgnCQSYCEEfx2pTgauxZaIbFk9VV4nzhZHcmPvESe0ZaWfH8dX9nFjq6J54l0fsDR5zbrKlSX2lW00EH0aTiTi';
   var stripe = window.Stripe ? Stripe(STRIPE_PK) : null;
   var socialInAppBrowser = /Instagram|FBAN|FBAV|FB_IAB|FB4A|FBIOS|Messenger|Line\/|Twitter/i.test(navigator.userAgent || '');
+  var CHECKOUT_TURNSTILE_SITE_KEY = '0x4AAAAAADTOvyoyucaJivUE';
+  var checkoutTurnstileWidget = null;
+
+  function ensureCheckoutTurnstile(){
+    if (!window.turnstile || checkoutTurnstileWidget !== null) return;
+    var target = document.getElementById('checkoutTurnstile');
+    if (!target) return;
+    checkoutTurnstileWidget = window.turnstile.render(target, { sitekey: CHECKOUT_TURNSTILE_SITE_KEY });
+  }
+
+  function getCheckoutTurnstileToken(){
+    ensureCheckoutTurnstile();
+    return new Promise(function(resolve, reject){
+      var tries = 0;
+      function poll(){
+        ensureCheckoutTurnstile();
+        if (window.turnstile && checkoutTurnstileWidget !== null) {
+          var token = window.turnstile.getResponse(checkoutTurnstileWidget) || '';
+          if (token) {
+            resolve(token);
+            return;
+          }
+        }
+        tries += 1;
+        if (tries > 120) {
+          reject(new Error('Complete the security verification before checkout.'));
+          return;
+        }
+        setTimeout(poll, 100);
+      }
+      poll();
+    });
+  }
+
+  function resetCheckoutTurnstile(){
+    if (window.turnstile && checkoutTurnstileWidget !== null) {
+      window.turnstile.reset(checkoutTurnstileWidget);
+    }
+  }
+
+  window.addEventListener('load', function(){ setTimeout(ensureCheckoutTurnstile, 0); });
 
   // ---- Annual upsell (Option A) ----
   // Ambassador promo codes are created in Stripe and attached in the private
@@ -183,17 +227,22 @@
 
   function createCheckoutSession(mode, promoAttribution) {
     var code = sanitizeCode(promoAttribution || '');
-    return fetch('/api/create-checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ref: ref,
-        promo_attribution: code,
-        ambassador_code: code,
-        checkout_mode: mode || 'embedded'
+    return getCheckoutTurnstileToken()
+      .then(function(turnstileToken){
+        return fetch('/api/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ref: ref,
+            promo_attribution: code,
+            ambassador_code: code,
+            checkout_mode: mode || 'embedded',
+            turnstileToken: turnstileToken
+          })
+        });
       })
-    })
       .then(function(r){
+        resetCheckoutTurnstile();
         return r.text().then(function(txt){
           try { return { ok: r.ok, status: r.status, data: JSON.parse(txt) }; }
           catch(e) { return { ok: false, status: r.status, data: { error: 'Server error (' + r.status + '): ' + txt.slice(0,200) } }; }
