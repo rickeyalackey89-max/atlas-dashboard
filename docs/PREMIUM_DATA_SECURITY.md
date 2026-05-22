@@ -4,11 +4,13 @@ Atlas public pages can stay static, but premium model payloads should not be
 served from public JSON paths. The current secure path is:
 
 1. Model writes `cloudflare_payload.json` locally.
-2. `publish-atlas.ps1` writes public preview data to `public/data/picks_today.json`.
+2. `publish-atlas.ps1` writes public preview data to `public/data/picks_today.json`
+   for NBA or `public/data/mlb/picks_today.json` for MLB.
 3. When `ATLAS_PREMIUM_KV_NAMESPACE_ID` is configured, the full premium payload is
-   uploaded to Cloudflare KV at `premium:nba:dashboard:latest`.
+   uploaded to Cloudflare KV at `premium:<sport>:dashboard:latest`.
 4. Dashboard, Members, and Parlay Builder call:
-   `/api/premium-data?dataset=dashboard&sport=nba`
+   `/api/premium-data?dataset=dashboard&sport=nba` or
+   `/api/premium-data?dataset=dashboard&sport=mlb`.
 5. The Pages Function verifies the signed premium token, rate-limits/logs the
    request when `ATLAS_SECURITY_KV` is bound, watermarks the response, and returns
    the premium payload.
@@ -24,6 +26,8 @@ Set these Pages environment variables:
 
 - `SECRET_TOKEN`
 - `STRIPE_SECRET_KEY`
+- `TURNSTILE_LOGIN_SECRET`
+- `TURNSTILE_CHECKOUT_SECRET`
 - `ATLAS_PREMIUM_RATE_LIMIT_PER_MINUTE` is configured in `wrangler.toml` and defaults to `120`.
 
 The publisher reads the `ATLAS_PREMIUM_KV` namespace id from `wrangler.toml`.
@@ -33,6 +37,7 @@ Then publish with:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -AtlasRoot C:\Users\13142\Atlas\NBA
+powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -Sport mlb -AtlasRoot C:\Users\13142\Atlas\MLB
 ```
 
 If the KV namespace id is missing, the publisher keeps the old public premium JSON
@@ -51,6 +56,10 @@ after the Cloudflare binding is live.
   from that fingerprint when `ATLAS_SECURITY_KV` is bound.
 - `robots.txt` blocks `/api/`, `/data/`, `/dashboard/`, `/members/`, and common AI
   crawlers. This is advisory only; the API gate is the real protection.
+- `.well-known/security.txt` is enabled at
+  `https://atlassports.ai/.well-known/security.txt`.
+- Login and checkout API routes support Cloudflare Turnstile verification when
+  the corresponding Turnstile secrets are configured.
 
 ## Cloudflare Dashboard Settings
 
@@ -58,6 +67,8 @@ Recommended rollout order:
 
 1. Enable WAF managed rules and basic bot protection.
 2. Enable Cloudflare AI bot blocking for public content protection.
-3. Add Turnstile to login/checkout forms if bot pressure appears.
+3. Keep Turnstile enabled on login/checkout forms. If challenges are too
+   aggressive, tune Cloudflare WAF/challenge rules rather than removing
+   server-side Turnstile verification.
 4. Add Cloudflare rate-limit rules for `/api/*`, especially `/api/premium-data`.
 5. Upgrade to Super Bot Fight Mode if false positives or scrape pressure increase.

@@ -26,6 +26,7 @@ export async function onRequestPost(context) {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': 'https://atlassports.ai',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Cache-Control': 'no-store',
   };
 
   try {
@@ -57,7 +58,10 @@ export async function onRequestPost(context) {
       if (emailOk && passOk) {
         const expires = Date.now() + 365 * 24 * 60 * 60 * 1000;
         const token   = await issueToken(email, 'admin', expires, env.SECRET_TOKEN);
-        return new Response(JSON.stringify({ ok: true, token, email }), { status: 200, headers });
+        return new Response(JSON.stringify({ ok: true, token, email }), {
+          status: 200,
+          headers: authHeaders(headers, token, expires, request),
+        });
       }
     }
 
@@ -120,7 +124,10 @@ export async function onRequestPost(context) {
     // Issue 30-day token
     const expires = Date.now() + 30 * 24 * 60 * 60 * 1000;
     const token   = await issueToken(email, activeCustomer.id, expires, env.SECRET_TOKEN);
-    return new Response(JSON.stringify({ ok: true, token, email }), { status: 200, headers });
+    return new Response(JSON.stringify({ ok: true, token, email }), {
+      status: 200,
+      headers: authHeaders(headers, token, expires, request),
+    });
 
   } catch (err) {
     return new Response(JSON.stringify({ error: 'Internal error.' }), { status: 500, headers });
@@ -143,6 +150,31 @@ async function issueToken(email, customerId, expires, secret) {
   const payload = `${email}|${customerId}|${expires}`;
   const sig     = await hmacSign(payload, secret);
   return btoa(JSON.stringify({ email, customerId, expires, sig }));
+}
+
+function authHeaders(baseHeaders, token, expires, request) {
+  const out = new Headers(baseHeaders);
+  for (const cookie of authCookies(token, expires, request)) {
+    out.append('Set-Cookie', cookie);
+  }
+  return out;
+}
+
+function authCookies(token, expires, request) {
+  const ttl = Math.max(60, Math.floor((Number(expires) - Date.now()) / 1000));
+  const value = encodeURIComponent(token);
+  const cookies = [
+    `atlas_premium_token=${value}; Path=/; Max-Age=${ttl}; SameSite=Lax; Secure; HttpOnly`,
+    `atlas_premium_client_token=${value}; Path=/; Max-Age=${ttl}; SameSite=Lax; Secure`,
+  ];
+  try {
+    const host = new URL(request.url).hostname.toLowerCase();
+    if (host === 'atlassports.ai' || host.endsWith('.atlassports.ai')) {
+      cookies.push(`atlas_premium_token=${value}; Path=/; Max-Age=${ttl}; Domain=atlassports.ai; SameSite=Lax; Secure; HttpOnly`);
+      cookies.push(`atlas_premium_client_token=${value}; Path=/; Max-Age=${ttl}; Domain=atlassports.ai; SameSite=Lax; Secure`);
+    }
+  } catch {}
+  return cookies;
 }
 
 /**

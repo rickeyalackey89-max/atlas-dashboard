@@ -4,6 +4,8 @@ This guide helps approved AtlasSportsAI Ambassadors complete the secure Stripe E
 
 Stripe Express payout onboarding is separate from the Atlas Ambassador application and Atlas agreement signature. Atlas uses Stripe to collect payout identity, banking, and required tax reporting data securely.
 
+If Stripe is not available in your payout country, Atlas may route you through the PayPal payout-profile fallback instead. Do not force a United States Stripe path if you are not a US payee.
+
 ## Process Overview
 
 1. Submit a quick application or receive an invite from Atlas.
@@ -12,7 +14,7 @@ Stripe Express payout onboarding is separate from the Atlas Ambassador applicati
 4. Create your Atlas portal credentials.
 5. Continue to Stripe Express payout, banking, and required tax reporting setup.
 6. Submit all required Stripe Express information.
-7. Atlas portal access activates after Atlas agreement signing and Stripe Express onboarding are both complete.
+7. Atlas portal access activates after Atlas agreement signing and payout onboarding are complete, through Stripe where supported or PayPal fallback where approved.
 
 ## Before You Start
 
@@ -51,9 +53,9 @@ Atlas handles these items outside Stripe:
 
 Use the payout country where the payee legally receives payouts. Do not choose United States unless the payee can onboard as a US payee with required US tax information.
 
-Stripe Express availability is country-specific. If your country is not supported by Stripe Express, Atlas support must review the payout path manually before portal payout eligibility can be finalized.
+Stripe Express availability is country-specific. If your country is not supported by Stripe Express, Atlas support can route approved Ambassadors through the PayPal payout-profile fallback before portal payout eligibility is finalized.
 
-If you live outside the United States and do not have a US SSN or ITIN, do not force the US onboarding path. Contact `support@atlassports.ai` if Stripe cannot support your payout country.
+If you live outside the United States and do not have a US SSN or ITIN, do not force the US onboarding path. Contact `support@atlassports.ai` if Stripe cannot support your payout country or if you need the PayPal fallback link.
 
 ## Stripe Email
 
@@ -116,7 +118,7 @@ After Stripe Express payout onboarding is submitted:
 
 - Return to the Atlas Ambassador portal.
 - Log in with the email and password created during Atlas onboarding.
-- Portal access activates after Atlas agreement signing and Stripe Express onboarding are both complete.
+- Portal access activates after Atlas agreement signing and payout onboarding are complete. For supported countries this is Stripe Express; for approved fallback cases this can be the Atlas PayPal payout-profile flow.
 
 If Stripe still shows incomplete requirements, finish the missing items from the Stripe flow.
 

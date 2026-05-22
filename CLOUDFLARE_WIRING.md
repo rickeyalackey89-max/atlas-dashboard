@@ -22,18 +22,21 @@ Key outputs:
 ### AtlasDashboard (git repo, Cloudflare serves this)
 Publishes JSON to:
 - C:\Users\13142\Atlas\atlas-dashboard\public\data\
+- C:\Users\13142\Atlas\atlas-dashboard\public\data\mlb\
 
 Cloudflare serves:
 - /data/status_latest.json
 - /data/invalidations_latest.json
 - /data/picks_today.json                       (public homepage preview)
 - /api/premium-data?dataset=dashboard&sport=nba (authenticated premium dashboard payload)
+- /api/premium-data?dataset=dashboard&sport=mlb (authenticated MLB dashboard payload)
+- /data/mlb/picks_today.json                  (public MLB preview)
 - /data/cloudflare_payload.json                (compatibility fallback only until KV is configured)
 
 Premium dashboard JSON should live in Cloudflare KV, not as a public file. The
 Pages Function `/api/premium-data` checks the signed Atlas premium token, applies
 rate limiting/logging when `ATLAS_SECURITY_KV` is bound, watermarks the payload,
-and then reads `premium:nba:dashboard:latest` from `ATLAS_PREMIUM_KV`.
+and then reads `premium:<sport>:dashboard:latest` from `ATLAS_PREMIUM_KV`.
 
 ## The two commands (canonical)
 
@@ -67,6 +70,8 @@ This does:
 Pages environment variables:
 - `SECRET_TOKEN` - required for premium token signing/verification.
 - `STRIPE_SECRET_KEY` - required for login/subscription verification.
+- `TURNSTILE_LOGIN_SECRET` - required when login Turnstile verification is enabled.
+- `TURNSTILE_CHECKOUT_SECRET` - required when checkout Turnstile verification is enabled.
 - `ATLAS_PREMIUM_RATE_LIMIT_PER_MINUTE` - optional, defaults to 120.
 
 Pages KV bindings:
@@ -79,10 +84,23 @@ You can override it with `ATLAS_PREMIUM_KV_NAMESPACE_ID` if needed.
 Example:
 ```
 powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -AtlasRoot C:\Users\13142\Atlas\NBA
+powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -Sport mlb -AtlasRoot C:\Users\13142\Atlas\MLB
 ```
+
+The 6am evaluation automation is registered from the umbrella Atlas root:
+```
+C:\Users\13142\Atlas\run-6am-eval-and-publish.cmd -ContinueOnError
+```
+
+That wrapper runs prior-day evals for both NBA and MLB, rebuilds the sport
+dashboard payloads, then calls `publish-atlas.ps1` for `nba` and `mlb`.
 
 Use `-ForcePublicPremiumPayload` only as a temporary fallback if the KV binding is
 not ready and the dashboard must keep loading the old public payload.
+
+Security files:
+- `public\.well-known\security.txt` is published as
+  `https://atlassports.ai/.well-known/security.txt`.
 
 ## What publish-atlas.ps1 builds
 

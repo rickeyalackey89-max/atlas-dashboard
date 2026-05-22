@@ -63,15 +63,34 @@
 
 <script>
 (function(){
+  function validPremiumToken(token){
+    try {
+      var data = JSON.parse(atob(token));
+      return !!(data && data.email && data.customerId && data.sig && data.expires && Date.now() < data.expires);
+    } catch(e) {
+      return false;
+    }
+  }
+
+  function nextUrl(){
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var next = params.get('next') || '/dashboard/';
+      if (!next || next.indexOf('http') === 0 || next.charAt(0) !== '/') return '/dashboard/';
+      return next;
+    } catch(e) {
+      return '/dashboard/';
+    }
+  }
+
   // If already logged in with a valid token, skip login and go straight to dashboard
   try {
     var existing = localStorage.getItem('atlas_premium_token');
-    if (existing) {
-      var ed = JSON.parse(atob(existing));
-      if (ed && ed.expires && Date.now() < ed.expires) {
-        window.location.replace('/dashboard/');
-        return;
-      }
+    if (existing && validPremiumToken(existing)) {
+      window.location.replace(nextUrl());
+      return;
+    } else if (existing) {
+      localStorage.removeItem('atlas_premium_token');
     }
   } catch(e) {}
 
@@ -119,6 +138,7 @@
 
     fetch('/api/login', {
       method: 'POST',
+      credentials: 'same-origin',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ email: email, password: password, turnstileToken: turnstileToken })
     })
@@ -126,7 +146,11 @@
     .then(function(data){
       if (data.ok && data.token) {
         localStorage.setItem('atlas_premium_token', data.token);
-        window.location.href = '/dashboard/';
+        document.cookie = 'atlas_premium_client_token='+encodeURIComponent(data.token)+'; Path=/; Max-Age='+(30*24*60*60)+'; SameSite=Lax; Secure';
+        if(location.hostname==='atlassports.ai'||location.hostname.endsWith('.atlassports.ai')){
+          document.cookie = 'atlas_premium_client_token='+encodeURIComponent(data.token)+'; Path=/; Max-Age='+(30*24*60*60)+'; Domain=atlassports.ai; SameSite=Lax; Secure';
+        }
+        window.location.href = nextUrl();
       } else {
         showError(data.error || 'Sign in failed. Check your email and password.');
       }
@@ -147,7 +171,8 @@
 </script>
 
 <!-- LOGOUT BUTTON -->
-<button id="globalLogoutBtn" onclick="localStorage.removeItem('atlas_premium_token');window.location.href='/';" style="display:none;position:fixed;bottom:20px;right:20px;z-index:9999;background:#111;color:#888;border:1px solid rgba(255,255,255,0.1);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;cursor:pointer;font-family:inherit;">Sign Out</button>
+<button id="globalLogoutBtn" onclick="atlasLogout();" style="display:none;position:fixed;bottom:20px;right:20px;z-index:9999;background:#111;color:#888;border:1px solid rgba(255,255,255,0.1);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;cursor:pointer;font-family:inherit;">Sign Out</button>
+<script>function atlasLogout(){try{localStorage.removeItem('atlas_premium_token');}catch(e){}document.cookie='atlas_premium_client_token=; Path=/; Max-Age=0; SameSite=Lax; Secure';document.cookie='atlas_premium_client_token=; Path=/; Max-Age=0; Domain=atlassports.ai; SameSite=Lax; Secure';fetch('/api/logout',{method:'POST',cache:'no-store'}).finally(function(){window.location.href='/';});}</script>
 <script>(function(){try{var t=localStorage.getItem('atlas_premium_token');if(t){var d=JSON.parse(atob(t));if(d&&d.expires&&Date.now()<d.expires){document.getElementById('globalLogoutBtn').style.display='block';}}}catch(e){}})()</script>
 
 <!-- LEGAL FOOTER -->

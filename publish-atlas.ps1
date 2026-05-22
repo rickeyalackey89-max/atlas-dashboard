@@ -1,8 +1,11 @@
 ﻿param(
   [string]$AtlasRoot = "C:\Users\13142\Atlas\NBA",
+  [ValidateSet("nba","mlb")]
+  [string]$Sport = "nba",
+  [string]$DashboardOutputDir = "",
   [switch]$NoGit,
   [string]$PremiumKvNamespaceId = $env:ATLAS_PREMIUM_KV_NAMESPACE_ID,
-  [string]$PremiumKvKey = "premium:nba:dashboard:latest",
+  [string]$PremiumKvKey = "",
   [switch]$ForcePublicPremiumPayload
 )
 
@@ -14,10 +17,27 @@ $ErrorActionPreference = "Stop"
 # ============================================================
 $RepoRoot  = Split-Path -Parent $MyInvocation.MyCommand.Path
 $PublicDir = Join-Path $RepoRoot "public"
-$LiveDir   = Join-Path $PublicDir "data"
 $StageDir  = Join-Path $RepoRoot ".publish_stage"
 
-$AtlasDashDir = Join-Path $AtlasRoot "data\output\dashboard"
+$Sport = $Sport.ToLowerInvariant()
+if ([string]::IsNullOrWhiteSpace($PremiumKvKey)) {
+  $PremiumKvKey = "premium:${Sport}:dashboard:latest"
+}
+if ([string]::IsNullOrWhiteSpace($DashboardOutputDir)) {
+  if ($Sport -eq "mlb") {
+    $DashboardOutputDir = Join-Path $AtlasRoot "data\mlb\output\dashboard"
+  } else {
+    $DashboardOutputDir = Join-Path $AtlasRoot "data\output\dashboard"
+  }
+}
+
+$LiveDir = if ($Sport -eq "mlb") {
+  Join-Path (Join-Path $PublicDir "data") "mlb"
+} else {
+  Join-Path $PublicDir "data"
+}
+
+$AtlasDashDir = $DashboardOutputDir
 
 $SrcPayload = Join-Path $AtlasDashDir "cloudflare_payload.json"
 $DstPayload = Join-Path $LiveDir    "cloudflare_payload.json"
@@ -120,6 +140,7 @@ if (-not (Test-Path -LiteralPath $SrcPayload)) {
   throw "Missing canonical payload from Atlas: $SrcPayload"
 }
 
+Write-Host "Sport: $Sport"
 Write-Host "AtlasRoot: $AtlasRoot"
 Write-Host "Dashboard output: $AtlasDashDir"
 
@@ -150,7 +171,11 @@ foreach ($k in @("all_legs","generated_at","run_id")) {
   }
 }
 try {
-  $generatedAt = [datetime]::Parse(($payload.generated_at + ""))
+  if ($payload.generated_at -is [datetime]) {
+    $generatedAt = [datetime]$payload.generated_at
+  } else {
+    $generatedAt = [datetime]::Parse(($payload.generated_at + ""), [System.Globalization.CultureInfo]::InvariantCulture)
+  }
 } catch {
   throw "Payload generated_at is not parseable: $($payload.generated_at)"
 }
@@ -214,7 +239,10 @@ foreach ($leg in $allLegs) {
 $topLegs = @($selected)
 $picksRows = foreach ($leg in $topLegs) {
     $row = [ordered]@{}
-    foreach ($f in $picksFields) { $row[$f] = $leg.$f }
+    foreach ($f in $picksFields) {
+      $prop = $leg.PSObject.Properties[$f]
+      $row[$f] = if ($null -ne $prop) { $prop.Value } else { $null }
+    }
     $row
 }
 $systemCount    = if ($payload.system)        { @($payload.system).Count }        else { 0 }
@@ -223,6 +251,8 @@ $demonCount     = if ($payload.demonhunter)   { @($payload.demonhunter).Count } 
 $marketedCount  = if ($payload.marketed_slips){ @($payload.marketed_slips).Count } else { 0 }
 $picksPayload  = [ordered]@{
     generated_at = $payload.generated_at
+    run_id       = $payload.run_id
+    sport        = $Sport.ToUpperInvariant()
     picks        = @($picksRows)
     total_legs   = $allLegs.Count
     total_slips  = $systemCount + $windfallCount + $demonCount + $marketedCount
@@ -255,8 +285,8 @@ if ($PremiumKvNamespaceId -and -not $ForcePublicPremiumPayload) {
     ok = $false
     error = "premium_data_moved"
     message = "Premium dashboard payload is served through /api/premium-data after auth."
-    api = "/api/premium-data?dataset=dashboard&sport=nba"
-    public_preview = "/data/picks_today.json"
+    api = "/api/premium-data?dataset=dashboard&sport=$Sport"
+    public_preview = if ($Sport -eq "mlb") { "/data/mlb/picks_today.json" } else { "/data/picks_today.json" }
     generated_at = $payload.generated_at
     run_id = $payload.run_id
   }
