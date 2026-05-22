@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="description" content="Atlas Sports AI — AI-powered daily player props. Built on Monte Carlo simulation and machine learning. NBA live."/>
+  <meta name="description" content="Atlas Sports AI — AI-powered daily NBA and MLB player props, slips, probability rankings, and market-aware EV."/>
   <title>Atlas Sports AI — The Edge Is Real</title>
   <!-- PWA / home screen icon -->
   <link rel="manifest" href="/site-20260515-v5.webmanifest"/>
@@ -444,16 +444,16 @@
         <div class="hero-badge">
           <span class="hero-badge-dot"></span>
           <span>AI Model Active</span>
-          <span style="color:var(--t3);font-weight:400;">NBA 2025-26</span>
+          <span style="color:var(--t3);font-weight:400;">NBA + MLB Live</span>
         </div>
         <h1 class="hero-title">
           The<br/>
           <span class="gold-line">Edge</span>
           Is Real.
         </h1>
-        <p class="hero-sub">Monte Carlo simulation meets machine learning. 10,000 iterations per player, calibrated against hundreds of dates of real outcomes. Daily picks and slips — AI driven. Every player. Every stat. Quantitative analysis built to find the edge the market misses.</p>
+        <p class="hero-sub">Sport-specific simulation kernels meet calibrated machine learning. NBA and MLB boards are scored with market context, player history, matchup signals, injury context, and family-specific slip builders designed to find where the market is wrong.</p>
         <div class="hero-ctas">
-          <a href="/dashboard/" class="btn btn-gold btn-lg">See The Revolution ↗ <span id="heroPickBadge" style="display:none;font-size:12px;font-weight:700;background:rgba(0,0,0,0.3);border-radius:20px;padding:2px 8px;margin-left:6px;"></span></a>
+          <a href="/dashboard/" class="btn btn-gold btn-lg">Join The Revolution ↗</a>
           <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn btn-discord btn-lg">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
             Join Discord
@@ -465,9 +465,9 @@
     <!-- STATS -->
     <div class="stats-strip">
       <div class="stats-inner">
-        <div class="stat-item"><div class="stat-value hit-rate-green">50%</div><div class="stat-label">Slip Hit Rate</div></div>
-        <div class="stat-item"><div class="stat-value v-cyan">10K</div><div class="stat-label">Sims Per Pick</div></div>
-        <div class="stat-item"><div class="stat-value">4x</div><div class="stat-label">Daily Model Runs</div></div>
+        <div class="stat-item"><div class="stat-value hit-rate-green">2</div><div class="stat-label">Live Sports</div></div>
+        <div class="stat-item"><div class="stat-value v-cyan">CAT</div><div class="stat-label">Calibrated Engine</div></div>
+        <div class="stat-item"><div class="stat-value">4x</div><div class="stat-label">Daily Model Windows</div></div>
         <div class="stat-item"><div class="stat-value" style="color:#ffffff;">Over 1M</div><div class="stat-label">Trained Legs</div></div>
       </div>
     </div>
@@ -477,10 +477,10 @@
       <div class="section-inner" style="text-align:center;max-width:800px;">
         <div class="section-label" style="justify-content:center;">The System</div>
         <h2 class="section-title" style="font-size:clamp(32px,6vw,64px);margin-bottom:24px;">Tired of Missing<br/><span style="color:var(--cyan);">Daily Parlays?</span></h2>
-        <p style="font-size:clamp(16px,2.5vw,20px);color:var(--t2);line-height:1.8;margin-bottom:36px;">Let Atlas choose for you. Every day our AI builds <strong style="color:var(--text);">3 optimized slips</strong> using a full quantitative pipeline — Monte Carlo simulation, machine learning calibration, and portfolio-level optimization. Our system is engineered so that hitting just <strong style="color:var(--cyan);">2 out of 3 slips keeps you in the green</strong>. Stop guessing. Start playing with an edge.</p>
+        <p style="font-size:clamp(16px,2.5vw,20px);color:var(--t2);line-height:1.8;margin-bottom:36px;">Let Atlas choose for you. Every model run builds sport-specific slip families using calibrated probabilities, market context, matchup diagnostics, and portfolio-level optimization. The goal is simple: fewer guesses, better combinations, and a cleaner edge across NBA and MLB.</p>
         <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:40px;">
           <div style="text-align:center;">
-            <div id="heroSlipCount" style="font-size:48px;font-weight:900;color:var(--gold);letter-spacing:-.04em;line-height:1;">14</div>
+            <div id="heroSlipCount" style="font-size:48px;font-weight:900;color:var(--gold);letter-spacing:-.04em;line-height:1;">—</div>
             <div style="font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.14em;margin-top:6px;">Today&#39;s Slips</div>
           </div>
           <div style="width:1px;background:var(--b);align-self:stretch;"></div>
@@ -545,20 +545,20 @@
           <div class="step-card">
             <span class="step-ghost">01</span>
             <div class="step-num">Step 01</div>
-            <div class="step-title">Monte Carlo<br/>Simulation</div>
-            <p class="step-body">Every player. Every stat. 10,000 game simulations using rolling performance, matchup context, pace, and real-time injury data.</p>
+            <div class="step-title">Sport-Specific<br/>Engines</div>
+            <p class="step-body">NBA and MLB are scored by their own runtime pipelines, using the context that matters for each sport: market odds, injuries, player history, lineups, matchups, park/weather, and slate timing.</p>
           </div>
           <div class="step-card">
             <span class="step-ghost">02</span>
             <div class="step-num">Step 02</div>
-            <div class="step-title">GBM Ensemble<br/>Calibration</div>
-            <p class="step-body">A 14-model gradient boosting ensemble trained on 189,000+ historical legs converts raw probabilities into market-aware confidence scores.</p>
+            <div class="step-title">CAT + GBM<br/>Calibration</div>
+            <p class="step-body">The model converts raw projection signals into calibrated probabilities using sport-specific CAT/GBM layers, market priors, replay-tested contracts, and live-fidelity feature audits.</p>
           </div>
           <div class="step-card">
             <span class="step-ghost">03</span>
             <div class="step-num">Step 03</div>
-            <div class="step-title">Optimal Slip<br/>Selection</div>
-            <p class="step-body">A beam-search optimizer builds the best 3, 4, and 5-leg combinations — balancing expected value, hit probability, and portfolio diversity.</p>
+            <div class="step-title">Family Slip<br/>Builders</div>
+            <p class="step-body">Market, System, Windfall, and DemonHunter builders assemble the strongest eligible combinations while managing exposure, repeated shapes, hit probability, value, and family purpose.</p>
           </div>
         </div>
       </div>
@@ -579,14 +579,14 @@
             <ul class="feature-list">
               <li class="on"><span class="fi fi-c">✓</span>Daily picks (player, stat, line, direction)</li>
               <li class="on"><span class="fi fi-c">✓</span>Today's top picks — updated each model run</li>
-              <li class="on"><span class="fi fi-c">✓</span>Full NBA playoff coverage</li>
+              <li class="on"><span class="fi fi-c">✓</span>NBA and MLB public pick coverage</li>
               <li class="on"><span class="fi fi-c">✓</span>Discord community access</li>
               <li><span class="fi fi-x">—</span>Optimized multi-leg slip combinations</li>
               <li><span class="fi fi-x">—</span>Model probability &amp; calibrated confidence scores</li>
               <li><span class="fi fi-x">—</span>Expected value rankings for every leg</li>
-              <li><span class="fi fi-x">—</span>Parlay Builder with Atlas model EV meter</li>
+              <li><span class="fi fi-x">—</span>Multi-sport Parlay Builder with Atlas model EV meter</li>
               <li><span class="fi fi-x">—</span>Full board — all legs ranked by edge</li>
-              <li><span class="fi fi-x">—</span>Multi-sport access (MLB, NFL coming)</li>
+              <li><span class="fi fi-x">—</span>Premium multi-sport diagnostics and slips</li>
             </ul>
           </div>
           <div class="feature-col paid">
@@ -596,14 +596,14 @@
             </div>
             <ul class="feature-list">
               <li class="on"><span class="fi fi-c">✓</span>Everything in Free</li>
-              <li class="on"><span class="fi fi-l">★</span>4x daily updated slips &amp; leg EV/Probability — runs at 8AM, 11AM, 2:30PM &amp; 5:30PM ET based on current market</li>
-              <li class="on"><span class="fi fi-l">★</span>Optimized 3, 4, and 5-leg slips (System, Windfall, ↑ Alt Hunter families)</li>
+              <li class="on"><span class="fi fi-l">★</span>Daily updated NBA and MLB slips, EV, probability, and market context</li>
+              <li class="on"><span class="fi fi-l">★</span>Optimized slip families: Market, System, Windfall, and DemonHunter</li>
               <li class="on"><span class="fi fi-l">★</span>Calibrated model probability for every leg</li>
               <li class="on"><span class="fi fi-l">★</span>Expected value rankings — full board</li>
               <li class="on"><span class="fi fi-l">★</span>Stat Hub — player-level breakdowns &amp; trends</li>
               <li class="on"><span class="fi fi-l">★</span>Beyond the Metrics — deep model diagnostics per leg</li>
-              <li class="on"><span class="fi fi-l">★</span>Parlay Builder — build your own slip, Atlas rates it</li>
-              <li class="on"><span class="fi fi-l">★</span>MLB props — June 2026</li>
+              <li class="on"><span class="fi fi-l">★</span>Multi-sport Parlay Builder — mix NBA and MLB legs, Atlas rates it</li>
+              <li class="on"><span class="fi fi-l">★</span>MLB props — live now</li>
               <li class="on"><span class="fi fi-l">★</span>NFL props — Fall 2026</li>
             </ul>
           </div>
@@ -616,13 +616,14 @@
       <div class="section-inner">
         <div class="section-label">Roadmap</div>
         <h2 class="section-title">More Sports<br/>Coming</h2>
-        <p class="section-sub">The model architecture was built to scale. NBA is live. The rest of the calendar is next.</p>
+        <p class="section-sub">The model architecture was built to scale. NBA and MLB are live. Tennis, Golf, NFL, and college sports are next.</p>
         <div class="sports-row">
           <div class="sport-chip chip-live"><span class="sdot-live"></span>NBA &mdash; Live Now</div>
-          <div class="sport-chip chip-soon"><span class="sdot-soon"></span>MLB &mdash; June 2026</div>
+          <div class="sport-chip chip-live"><span class="sdot-live"></span>MLB &mdash; Live Now</div>
+          <div class="sport-chip chip-soon"><span class="sdot-soon"></span>Tennis &amp; Golf &mdash; Next</div>
           <div class="sport-chip chip-soon"><span class="sdot-soon"></span>NFL &mdash; Fall 2026</div>
           <div class="sport-chip" style="border-color:rgba(245,166,35,.4);color:var(--gold);"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;"></span>&nbsp;AtlasSportsAI App &mdash; GPT-Powered &mdash; Fall 2026</div>
-          <div class="sport-chip chip-soon"><span class="sdot-soon"></span>More TBD</div>
+          <div class="sport-chip chip-soon"><span class="sdot-soon"></span>College &amp; Soccer &mdash; TBD</div>
         </div>
       </div>
     </section>
@@ -632,7 +633,7 @@
       <div class="section-inner" style="position:relative;z-index:1;">
         <div class="section-label">Community</div>
         <h2 class="section-title" style="margin-bottom:14px;">Get In Early</h2>
-        <p class="section-sub">We're building this in public. Join the Discord to follow the model, get daily picks alerts, and lock in founding member pricing before the paid tier launches.</p>
+        <p class="section-sub">We're building this in public. Join the Discord to follow the model, get daily picks alerts, and stay close as NBA, MLB, and the next sports roll into the platform.</p>
         <a href="https://discord.gg/uatU28mR" target="_blank" rel="noopener" class="btn"
            style="background:#fff;color:#3730a3;font-size:14px;padding:16px 44px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;">
           Join Discord — It's Free
@@ -701,37 +702,47 @@
         if (db) db.textContent = 'Dashboard →';
       }
 
+      var sources = [
+        { sport: 'NBA', url: '/data/picks_today.json' },
+        { sport: 'MLB', url: '/data/mlb/picks_today.json' }
+      ];
       var _fetchCtrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
       var _fetchTimeout = setTimeout(function() { if (_fetchCtrl) _fetchCtrl.abort(); showNoData(); }, 8000);
-      fetch('/data/picks_today.json?t=' + Date.now(), _fetchCtrl ? { signal: _fetchCtrl.signal } : {})
-        .then(function(r) { clearTimeout(_fetchTimeout); return r.ok ? r.json() : Promise.reject('http ' + r.status); })
-        .then(function(data) {
-          if (!data) { showNoData(); return; }
-          var allLegs = data.picks || [];
-          var totalSlips = data.total_slips || 0;
+      Promise.allSettled(sources.map(function(src) {
+        return fetch(src.url + '?t=' + Date.now(), _fetchCtrl ? { signal: _fetchCtrl.signal } : {})
+          .then(function(r) { return r.ok ? r.json() : Promise.reject('http ' + r.status); })
+          .then(function(data) { return { sport: src.sport, data: data || {} }; });
+      }))
+        .then(function(results) {
+          clearTimeout(_fetchTimeout);
+          var allLegs = [];
+          var totalSlips = 0;
+          var totalLegs = 0;
+          results.forEach(function(res) {
+            if (!res || res.status !== 'fulfilled' || !res.value || !res.value.data) return;
+            var sport = res.value.sport;
+            var data = res.value.data;
+            totalSlips += Number(data.total_slips || 0);
+            totalLegs += Number(data.total_legs || 0);
+            (data.picks || []).forEach(function(leg) {
+              if (!leg || typeof leg !== 'object') return;
+              leg.sport = leg.sport || sport;
+              allLegs.push(leg);
+            });
+          });
           if (totalSlips > 0) { var sc = document.getElementById('heroSlipCount'); if(sc) sc.textContent = totalSlips; }
-          if (data.total_legs > 0) {
-            var pb = document.getElementById('heroPickBadge');
-            if(pb) { pb.textContent = data.total_legs + ' prop picks today'; pb.style.display = 'inline'; }
-          }
           if (!allLegs.length) { showNoData(); return; }
           var grid = document.getElementById('propsGrid');
           grid.innerHTML = '';
-          // Pick exactly one per tier (top by p_cal, already sorted desc)
-          var TIER_ORDER = ['GOBLIN', 'STANDARD', 'DEMON'];
-          var seen = {};
-          var showLegs = [];
-          for (var j = 0; j < allLegs.length && showLegs.length < 3; j++) {
-            var t2 = (allLegs[j].tier||'').toUpperCase();
-            if (TIER_ORDER.indexOf(t2) !== -1 && !seen[t2]) { seen[t2] = true; showLegs.push(allLegs[j]); }
-          }
-          // Render in tier order: GOBLIN, STANDARD, DEMON
-          showLegs.sort(function(a,b){ return TIER_ORDER.indexOf((a.tier||'').toUpperCase()) - TIER_ORDER.indexOf((b.tier||'').toUpperCase()); });
+          var showLegs = allLegs.slice().sort(function(a,b) {
+            return Number(b.p_cal || b.model_probability || 0) - Number(a.p_cal || a.model_probability || 0);
+          }).slice(0, 3);
           for (var i = 0; i < showLegs.length; i++) {
             var leg = showLegs[i];
             var t = (leg.tier||'').toUpperCase();
             var ts = TIER_STYLE[t] || { cls: 'standard', label: '' };
             var dir = (leg.dir||'').toLowerCase();
+            var sportLabel = (leg.sport || '').toUpperCase();
             var card = document.createElement('div');
             card.className = 'prop-card';
             var probHtml = '';
@@ -744,6 +755,7 @@
             card.innerHTML =
               '<div class="prop-dot-row">' +
               '<span class="' + dotCls + '"></span>' +
+              (sportLabel ? '<span style="font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);">' + esc(sportLabel) + '</span>' : '') +
               (ts.label ? '<span style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:' + (t==='GOBLIN'?'#4ade80':t==='DEMON'?'#f87171':'#60a5fa') + ';">' + esc(ts.label) + '</span>' : '') +
               '</div>' +
               '<div class="prop-card-left">' +
@@ -761,7 +773,7 @@
           // CTA to dashboard
           var cta = document.createElement('div');
           cta.style.cssText = 'grid-column:1/-1;padding:20px 0 0;font-size:11px;color:var(--t2);';
-          cta.innerHTML = data.total_legs + ' prop picks today &mdash; <a href="/dashboard/" style="color:var(--gold);font-weight:800;text-decoration:none;">See full model in Dashboard &rarr;</a>';
+          cta.innerHTML = totalLegs + ' public prop picks across NBA + MLB &mdash; <a href="/dashboard/" style="color:var(--gold);font-weight:800;text-decoration:none;">See full model in Dashboard &rarr;</a>';
           grid.appendChild(cta);
         }).catch(showNoData);
     }
