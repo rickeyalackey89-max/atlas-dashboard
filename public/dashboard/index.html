@@ -139,8 +139,15 @@
     .pb-more-less{display:flex;border:1px solid rgba(255,255,255,.11);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.035);}
     .pb-more-less span{padding:9px 18px;font-size:13px;font-weight:900;color:var(--t2);}
     .pb-more-less .active{background:var(--green);color:#061014;}
+    .pb-line-chips{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:2px 0 12px;}
+    .pb-line-chip{min-width:74px;padding:8px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.035);color:rgba(255,255,255,.82);font-size:18px;font-weight:900;text-align:center;line-height:1;}
+    .pb-line-chip small{display:block;margin-top:3px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);}
+    .pb-line-chip.selected{border-color:rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(255,255,255,.14),0 0 22px rgba(255,255,255,.08);color:var(--text);background:rgba(255,255,255,.08);}
+    .pb-line-chip.goblin{color:#65ff3d;border-color:rgba(101,255,61,.28);background:rgba(101,255,61,.05);}
+    .pb-line-chip.demon{color:#ff4454;border-color:rgba(255,68,84,.32);background:rgba(255,68,84,.05);}
     .pb-mini-graph{height:152px;position:relative;display:flex;align-items:stretch;justify-content:space-around;gap:10px;padding:18px 8px 34px;border-top:1px solid rgba(255,255,255,.08);}
     .pb-mini-line{position:absolute;left:10px;right:10px;top:66px;border-top:2px dashed rgba(255,255,255,.5);}
+    .pb-mini-threshold{position:absolute;right:2px;top:57px;font-size:12px;font-weight:900;color:rgba(255,255,255,.82);background:rgba(5,8,14,.78);padding-left:5px;}
     .pb-mini-bar-wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;flex:1;min-width:42px;height:100%;}
     .pb-mini-bar-area{position:relative;width:100%;height:74px;margin-top:2px;}
     .pb-mini-bar{position:absolute;left:50%;width:42px;max-width:100%;transform:translateX(-50%);background:#ff404f;box-shadow:0 0 18px rgba(255,64,79,.16);}
@@ -1201,6 +1208,21 @@
     return (p*dec-1)*100;
   }
 
+  function legPlayableMarketEVPct(leg){
+    var ev=legMarketEVPct(leg);
+    if(ev===null) return null;
+    var p=legProb(leg);
+    var m=legMarketImplied(leg);
+    if(p===null||m===null) return null;
+    var tier=String(leg.tier||'').toUpperCase();
+    var stat=String(leg.stat||'').toUpperCase();
+    var isAlt=tier==='GOBLIN'||tier==='DEMON'||stat.indexOf('FANTASY')>=0;
+    var minP=isAlt?0.55:0.50;
+    if(p<minP) return null;
+    if((p-m)<0.025) return null;
+    return ev;
+  }
+
   function legMarketEdgePct(leg){
     var p=legProb(leg);
     var m=legMarketImplied(leg);
@@ -1621,7 +1643,7 @@
     html+='<div class="edge-detail-grid edge-detail-grid-8">';
     ['Stat','Line','Proj','Dir','Tier','Conf','Value','EV'].forEach(function(h){html+='<div class="edge-detail-h">'+h+'</div>';});
     for(var i=0;i<rows.length;i++){
-      var l=rows[i],p=legProb(l),val=valueScorePct(l),ev=legMarketEVPct(l),dir=(l.dir||'').toLowerCase();
+      var l=rows[i],p=legProb(l),val=valueScorePct(l),ev=legPlayableMarketEVPct(l),dir=(l.dir||'').toLowerCase();
       html+='<div class="edge-detail-cell">'+esc(l.stat||'')+'</div>';
       html+='<div class="edge-detail-cell" style="font-weight:900;color:var(--text);">'+fmtLine(l.line)+'</div>';
       html+='<div class="edge-detail-cell" style="font-weight:900;color:'+projectionColor(l)+';">'+fmtProjection(l)+'</div>';
@@ -1712,7 +1734,7 @@
       if(_evSort==='az') return evAlpha(a,b);
       if(_evSort==='za') return -evAlpha(a,b);
       if(_evSort==='value') return evSortDesc(a,b,legEV);
-      return evSortDesc(a,b,legMarketEVPct);
+      return evSortDesc(a,b,legPlayableMarketEVPct);
     });
     var el=document.getElementById('evList'); el.innerHTML='';
     if(!edgeLegs.length){el.innerHTML='<div class="no-data">No EV legs match this filter.</div>';return;}
@@ -1720,9 +1742,9 @@
     var above65=edgeLegs.filter(function(l){return(l.p_cal||0)>=0.65;}).length;
     var topValueLeg=edgeLegs.slice().sort(function(a,b){return evSortDesc(a,b,legEV);})[0]||edgeLegs[0];
     var topValuePct=valueScorePct(topValueLeg)||0;
-    var marketLegs=edgeLegs.filter(function(l){return legMarketEVPct(l)!==null;});
-    var topActualLeg=marketLegs.slice().sort(function(a,b){return evSortDesc(a,b,legMarketEVPct);})[0]||null;
-    var topActualPct=topActualLeg ? legMarketEVPct(topActualLeg) : null;
+    var marketLegs=edgeLegs.filter(function(l){return legPlayableMarketEVPct(l)!==null;});
+    var topActualLeg=marketLegs.slice().sort(function(a,b){return evSortDesc(a,b,legPlayableMarketEVPct);})[0]||null;
+    var topActualPct=topActualLeg ? legPlayableMarketEVPct(topActualLeg) : null;
     var topConfLeg=edgeLegs.slice().sort(function(a,b){return evSortDesc(a,b,legProb);})[0]||topValueLeg;
     var best=(topActualLeg && topActualPct!==null && topActualPct>0) ? topActualLeg : topValueLeg;
 
@@ -1737,7 +1759,7 @@
     var tActual=document.getElementById('evTileActual');
     if(tActual) tActual.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">Top EV</div>'+
       '<div style="font-size:32px;font-weight:900;color:'+evColorPct(topActualPct)+';letter-spacing:-.04em;">'+fmtSignedPct(topActualPct)+'</div>'+
-      '<div style="font-size:10px;color:var(--t2);margin-top:4px;">'+(topActualPct===null?'No market odds published':'Atlas return vs market odds')+'</div>';
+      '<div style="font-size:10px;color:var(--t2);margin-top:4px;">'+(topActualPct===null?'No playable market edge':'Atlas return vs market odds')+'</div>';
     var bestL10=topConfLeg.l10_hr!=null?Math.round(topConfLeg.l10_hr*topConfLeg.l10_n)+'/'+topConfLeg.l10_n+' L10':null;
     var t3=document.getElementById('evTileBest');
     if(t3) t3.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;">Best Conf</div>'+
@@ -1748,7 +1770,7 @@
     if(bb){
       var bbDir=(best.dir||'').toLowerCase();
       var bbL10Txt=best.l10_hr!=null?'<span style="margin-left:12px;font-size:11px;font-weight:700;color:var(--t2);">L10: '+Math.round(best.l10_hr*best.l10_n)+'/'+best.l10_n+'</span>':'';
-      var bbActual=legMarketEVPct(best),bbValue=valueScorePct(best);
+      var bbActual=legPlayableMarketEVPct(best),bbValue=valueScorePct(best);
       bb.innerHTML='<div style="font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">&#9733; '+(bbActual!==null&&bbActual>0?'Top Atlas EV':'Top Atlas Value')+'</div>'+
         '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">'+
           '<div><div style="font-size:18px;font-weight:900;letter-spacing:-.02em;">'+esc(best.player||'')+'</div>'+
@@ -1768,7 +1790,7 @@
     var evGroups=groupLegsByPlayer(edgeLegs);
     for(var i=0;i<evGroups.length;i++){
       var group=evGroups[i],leg=group.legs[0],p=legProb(leg)||0,pPct=Math.round(p*100),dir=(leg.dir||'').toLowerCase();
-      var actualPct=legMarketEVPct(leg);
+      var actualPct=legPlayableMarketEVPct(leg);
       var l10txt=leg.l10_hr!=null?Math.round(leg.l10_hr*leg.l10_n)+'/'+leg.l10_n:'';
       var detailId='evDetail_'+i;
       var row=document.createElement('div'); row.className='ev-row';
@@ -2998,7 +3020,7 @@
             var qbow=leg.q_blowout!=null?leg.q_blowout:null;
             var role=leg.role_mult!=null?leg.role_mult:null;
             var valuePct=valueScorePct(leg);
-            var marketEVPct=legMarketEVPct(leg);
+            var marketEVPct=legPlayableMarketEVPct(leg);
             var marketEdgePct=legMarketEdgePct(leg);
             var usageTxt=fmtUsageScore(leg);
             var usageMetricColor=usageColor(leg);
@@ -3085,7 +3107,7 @@
               +'<div class="btm-metric">'
               +'<div class="btm-metric-label">Market EV</div>'
               +'<div class="btm-metric-val" style="color:'+marketEVColor+';">'+fmtSignedPct(marketEVPct)+'</div>'
-              +'<div class="btm-metric-desc">Expected return vs DK/FD odds</div>'
+              +'<div class="btm-metric-desc">Playable expected return vs DK/FD odds</div>'
               +'</div>'
               +'<div class="btm-metric">'
               +'<div class="btm-metric-label">Market Edge</div>'
@@ -3333,6 +3355,63 @@
     return rows;
   }
 
+  function pbLineChipTierClass(tier){
+    var t=String(tier||'').toUpperCase();
+    if(t==='GOBLIN') return 'goblin';
+    if(t==='DEMON') return 'demon';
+    return '';
+  }
+
+  function pbLineChipLabel(tier){
+    var t=String(tier||'').toUpperCase();
+    if(t==='GOBLIN') return '&#8595; Alts';
+    if(t==='DEMON') return '&#8593; Alts';
+    return 'Standard';
+  }
+
+  function pbLineChipsHtml(leg){
+    if(!leg) return '';
+    var selectedLine=numOrNull(leg.line);
+    if(selectedLine===null) return '';
+    var sport=String(leg.sport||'').toUpperCase();
+    var player=leg.player||'';
+    var stat=leg.stat||'';
+    var dir=String(leg.dir||'').toUpperCase();
+    var options=[];
+    var seen={};
+    for(var i=0;i<_pb.allLegs.length;i++){
+      var l=_pb.allLegs[i]||{};
+      if(l.player!==player) continue;
+      if(String(l.sport||'').toUpperCase()!==sport) continue;
+      if(l.stat!==stat) continue;
+      if(String(l.dir||'').toUpperCase()!==dir) continue;
+      var line=numOrNull(l.line);
+      if(line===null) continue;
+      var key=String(line);
+      if(seen[key]) continue;
+      seen[key]=true;
+      options.push({line:line,tier:l.tier||''});
+    }
+    if(options.length<=1) return '';
+    options.sort(function(a,b){return a.line-b.line;});
+    var selectedIndex=0;
+    for(var j=0;j<options.length;j++){
+      if(Math.abs(options[j].line-selectedLine)<0.01){selectedIndex=j;break;}
+    }
+    var indexes=[selectedIndex-1,selectedIndex,selectedIndex+1].filter(function(idx){return idx>=0&&idx<options.length;});
+    while(indexes.length<3&&indexes[0]>0) indexes.unshift(indexes[0]-1);
+    while(indexes.length<3&&indexes[indexes.length-1]<options.length-1) indexes.push(indexes[indexes.length-1]+1);
+    indexes=indexes.filter(function(idx,pos){return indexes.indexOf(idx)===pos;});
+    var html='<div class="pb-line-chips">';
+    for(var k=0;k<indexes.length;k++){
+      var opt=options[indexes[k]];
+      var selected=Math.abs(opt.line-selectedLine)<0.01;
+      html+='<div class="pb-line-chip '+pbLineChipTierClass(opt.tier)+(selected?' selected':'')+'">'+fmtLine(opt.line)+'<small>'+pbLineChipLabel(opt.tier)+'</small></div>';
+    }
+    html+='</div>';
+    return html;
+  }
+
   function pbMiniGraphHtml(leg){
     var rec=pbRecentRate(leg);
     if(!rec) return '<div class="pb-card-note">Recent game graph will populate when recent context is available for this leg.</div>';
@@ -3341,12 +3420,19 @@
     var rows=pbBuildRecentRows(leg,rec);
     var hits=rows.filter(function(row){return !!row.hit;}).length;
     var rate=rows.length?hits/rows.length:Math.max(0,Math.min(1,Number(rec.rate)));
-    var html='<div class="pb-mini-graph"><div class="pb-mini-line"></div>';
+    var maxDelta=1;
+    if(line!==null){
+      for(var d=0;d<rows.length;d++){
+        if(rows[d].value!==null) maxDelta=Math.max(maxDelta,Math.abs(Number(rows[d].value)-line));
+      }
+    }
+    var html='<div class="pb-mini-graph"><div class="pb-mini-line"></div>'+(line!==null?'<div class="pb-mini-threshold">'+fmtLine(line)+'</div>':'');
     for(var i=0;i<rows.length;i++){
       var row=rows[i];
       var hit=!!row.hit;
-      var above=(dir==='UNDER')?!hit:hit;
-      var height=hit?(36+(i%3)*8):(22+(i%2)*7);
+      var hasValue=row.value!==null;
+      var above=hasValue&&line!==null?(Number(row.value)>line):((dir==='UNDER')?!hit:hit);
+      var height=hasValue&&line!==null?(18+Math.round(Math.min(1,Math.abs(Number(row.value)-line)/maxDelta)*46)):(hit?(36+(i%3)*8):(22+(i%2)*7));
       var val=row.value!==null?fmtLine(row.value):(hit?'Hit':'Miss');
       html+='<div class="pb-mini-bar-wrap">'+
         '<div class="pb-mini-value">'+val+'</div>'+
@@ -3392,6 +3478,7 @@
           '<div><div class="pb-card-line">'+fmtLine(leg.line)+'</div><div class="pb-card-stat">'+esc(leg.stat||'')+' &middot; <span style="color:'+pctColor(pct||0)+';font-weight:900;">Atlas '+pctText+'</span>'+projText+'</div></div>'+
           '<div class="pb-more-less"><span class="'+(dir==='UNDER'?'active':'')+'">&#8595; Less</span><span class="'+(dir==='OVER'?'active':'')+'">&#8593; More</span></div>'+
         '</div>'+
+        pbLineChipsHtml(leg)+
         pbMiniGraphHtml(leg)+
       '</div>'+
     '</div>';
