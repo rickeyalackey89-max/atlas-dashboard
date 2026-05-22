@@ -3,8 +3,16 @@ const SECURITY_EVENT_TTL_SECONDS = 60 * 60 * 24 * 30;
 
 const DATASETS = {
   dashboard: {
-    kvKey: 'premium:nba:dashboard:latest',
-    assetPath: '/data/cloudflare_payload.json',
+    sports: {
+      nba: {
+        kvKey: 'premium:nba:dashboard:latest',
+        assetPath: '/data/cloudflare_payload.json',
+      },
+      mlb: {
+        kvKey: 'premium:mlb:dashboard:latest',
+        assetPath: '/data/mlb/cloudflare_payload.json',
+      },
+    },
   },
 };
 
@@ -13,33 +21,41 @@ export async function onRequestGet(context) {
   const headers = apiHeaders();
   const url = new URL(request.url);
   const dataset = (url.searchParams.get('dataset') || 'dashboard').toLowerCase();
-  const spec = DATASETS[dataset];
+  const sport = (url.searchParams.get('sport') || 'nba').toLowerCase();
+  const datasetSpec = DATASETS[dataset];
+  const spec = datasetSpec && datasetSpec.sports ? datasetSpec.sports[sport] : datasetSpec;
 
-  if (!spec) {
+  if (!datasetSpec) {
     return json({ ok: false, error: 'Unknown premium dataset.' }, 400, headers);
   }
 
+  if (!spec) {
+    return json({ ok: false, error: 'Unknown premium sport.' }, 400, headers);
+  }
+
   if (!env.SECRET_TOKEN) {
-    context.waitUntil(logSecurityEvent(context, request, 'server_misconfigured', { dataset }));
+    context.waitUntil(logSecurityEvent(context, request, 'server_misconfigured', { dataset, sport }));
     return json({ ok: false, error: 'Server misconfiguration.' }, 500, headers);
   }
 
   const auth = await verifyRequestToken(request, env.SECRET_TOKEN);
   if (!auth.ok) {
-    context.waitUntil(logSecurityEvent(context, request, 'premium_auth_failed', { dataset, reason: auth.reason }));
+    context.waitUntil(logSecurityEvent(context, request, 'premium_auth_failed', { dataset, sport, reason: auth.reason }));
     return json({ ok: false, error: 'Premium access required.' }, 401, headers);
   }
 
+  const datasetKey = `${dataset}:${sport}`;
   const fingerprint = await requestFingerprint(request, env.SECRET_TOKEN);
   if (await isCanaryFlagged(env, fingerprint)) {
-    context.waitUntil(logSecurityEvent(context, request, 'premium_blocked_canary', { dataset, email: auth.email }));
+    context.waitUntil(logSecurityEvent(context, request, 'premium_blocked_canary', { dataset, sport, email: auth.email }));
     return json({ ok: false, error: 'Request blocked.' }, 403, headers);
   }
 
-  const rate = await checkRateLimit(context, request, auth, dataset, fingerprint);
+  const rate = await checkRateLimit(context, request, auth, datasetKey, fingerprint);
   if (!rate.ok) {
     context.waitUntil(logSecurityEvent(context, request, 'premium_rate_limited', {
       dataset,
+      sport,
       email: auth.email,
       count: rate.count,
       limit: rate.limit,
@@ -49,14 +65,15 @@ export async function onRequestGet(context) {
 
   const loaded = await loadDataset(context, spec);
   if (!loaded.ok) {
-    context.waitUntil(logSecurityEvent(context, request, 'premium_dataset_missing', { dataset }));
+    context.waitUntil(logSecurityEvent(context, request, 'premium_dataset_missing', { dataset, sport }));
     return json({ ok: false, error: 'Premium data unavailable.' }, 502, headers);
   }
 
-  const watermark = await buildWatermark(env.SECRET_TOKEN, auth, dataset);
+  const watermark = await buildWatermark(env.SECRET_TOKEN, auth, datasetKey);
   const data = loaded.data && typeof loaded.data === 'object' ? loaded.data : {};
   data._atlas_security = {
     dataset,
+    sport,
     source: loaded.source,
     watermark_id: watermark,
     issued_at_utc: new Date().toISOString(),
@@ -66,6 +83,7 @@ export async function onRequestGet(context) {
 
   context.waitUntil(logSecurityEvent(context, request, 'premium_dataset_served', {
     dataset,
+    sport,
     email: auth.email,
     customerId: auth.customerId,
     source: loaded.source,
@@ -87,7 +105,7 @@ function apiHeaders(extra) {
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Atlas-Token',
     'Cache-Control': 'private, no-store, max-age=0',
-    'Vary': 'Authorization',
+    'Vary': 'Authorization, Cookie',
     'X-Robots-Tag': 'noindex, nofollow, noai, noimageai',
     ...(extra || {}),
   };
@@ -125,7 +143,12 @@ async function verifyRequestToken(request, secret) {
 function getBearerToken(request) {
   const auth = request.headers.get('Authorization') || '';
   if (/^Bearer\s+/i.test(auth)) return auth.replace(/^Bearer\s+/i, '').trim();
-  return (request.headers.get('X-Atlas-Token') || '').trim();
+  const headerToken = (request.headers.get('X-Atlas-Token') || '').trim();
+  if (headerToken) return headerToken;
+  const cookie = request.headers.get('Cookie') || '';
+  const match = cookie.match(/(?:^|;\s*)atlas_premium_token=([^;]+)/)
+    || cookie.match(/(?:^|;\s*)atlas_premium_client_token=([^;]+)/);
+  return match ? decodeURIComponent(match[1]) : '';
 }
 
 async function loadDataset(context, spec) {
