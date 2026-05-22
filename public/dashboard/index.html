@@ -154,8 +154,8 @@
     .pb-mini-bar-area{position:relative;width:100%;height:86px;margin-top:0;}
     .pb-mini-bar{position:absolute;left:50%;width:36px;max-width:100%;transform:translateX(-50%);background:#ff404f;box-shadow:0 0 18px rgba(255,64,79,.16);}
     .pb-mini-bar.hit{background:#45ff00;box-shadow:0 0 18px rgba(69,255,0,.22);}
-    .pb-mini-bar.above{bottom:43px;border-radius:10px 10px 4px 4px;}
-    .pb-mini-bar.below{top:43px;border-radius:4px 4px 10px 10px;}
+    .pb-mini-bar.above{bottom:47px;border-radius:10px 10px 4px 4px;}
+    .pb-mini-bar.below{top:47px;border-radius:4px 4px 10px 10px;}
     .pb-mini-label{font-size:10px;color:rgba(255,255,255,.68);font-weight:900;text-align:center;line-height:1.15;min-height:34px;margin-top:-2px;}
     .pb-mini-label .pb-mini-result{font-size:13px;color:var(--text);}
     .pb-mini-label span{display:block;}
@@ -3435,7 +3435,7 @@
       var row=rows[i];
       var hit=!!row.hit;
       var hasValue=row.value!==null;
-      var above=hasValue&&line!==null?(Number(row.value)>line):((dir==='UNDER')?!hit:hit);
+      var above=dir==='UNDER'?!hit:hit;
       var height=hasValue&&line!==null?(18+Math.round(Math.min(1,Math.abs(Number(row.value)-line)/maxDelta)*46)):(hit?34:24);
       var val=row.value!==null?fmtLine(row.value):(hit?'Hit':'Miss');
       html+='<div class="pb-mini-bar-wrap">'+
