@@ -289,6 +289,8 @@
     .mkt-hdr{padding:6px 8px;border-bottom:1px solid var(--b);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);}
     .mkt-row{padding:9px 8px;border-bottom:1px solid var(--b);font-size:12px;}
     .mkt-row:last-child{border-bottom:none;}
+    .row-title-line{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+    .row-title-line .edge-lines-btn{flex:0 0 auto;}
     .mkt-td-r{text-align:right;}
     .mkt-td-c{text-align:center;}
     .edge-detail{display:none;padding:12px 14px 16px;margin:0 0 1px;background:rgba(255,255,255,.025);border-bottom:1px solid var(--b);}
@@ -301,6 +303,7 @@
       .mkt-hdr{display:none !important;}
       .mkt-row{display:flex !important;flex-wrap:wrap;gap:0;padding:12px 8px;}
       .mkt-cell-player{width:100%;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.05);}
+      .row-title-line{align-items:flex-start;}
       .mkt-td{flex:1 1 0;min-width:0;text-align:center !important;padding:3px 2px;}
       .mkt-td::before{content:attr(data-label);display:block;font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);margin-bottom:3px;}
       .edge-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
@@ -679,7 +682,7 @@
         </div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
           <div id="mktHeader" class="mkt-hdr">
-            <div>Player</div><div class="mkt-td-c">Stat</div><div class="mkt-td-r">Line</div><div class="mkt-td-c">Dir</div><div class="mkt-td-r">Atlas</div><div class="mkt-td-r">DK / Source</div><div class="mkt-td-r">FD / Mkt</div><div class="mkt-td-r">Edge</div>
+            <div>Player</div><div class="mkt-td-c">Stat</div><div class="mkt-td-r">Line</div><div class="mkt-td-c">Dir</div><div class="mkt-td-r">Atlas</div><div class="mkt-td-r">Odds</div><div class="mkt-td-r">Mkt Imp</div><div class="mkt-td-r">Edge</div>
           </div>
           <div id="mktList"><div class="no-data">Loading market data...</div></div>
         </div>
@@ -1004,6 +1007,7 @@
   }
 
   function legMarketProb(leg){
+    if(isAltContestSource(leg)) return null;
     var direct=firstNum(leg, [
       'external_prior_market_prob',
       'exact_market_prob',
@@ -1029,25 +1033,34 @@
     return vals.reduce(function(a,b){return a+b;},0)/vals.length;
   }
 
-  function legMarketSourceLabel(leg){
-    var src=String(leg.market_context_source_type||leg.external_market_context_source||leg.external_prior_sources||'').trim();
-    if(!src) return '';
-    src=src.replace(/^external_/,'').replace(/_props$/,'').replace(/_/g,' ');
-    return sanitizeMarketSourceLabel(src);
+  function legRawMarketSource(leg){
+    return String((leg&&(
+      leg.market_context_source_type||
+      leg.external_market_context_source||
+      leg.external_prior_sources
+    ))||'').toLowerCase();
   }
 
-  function sanitizeMarketSourceLabel(label){
-    var src=String(label||'').trim();
-    if(!src) return '';
-    var compact=src.toLowerCase().replace(/[^a-z0-9]+/g,'');
-    if(compact.indexOf(externalPatternPrefix())>=0) return 'Market Consensus';
-    if(compact.indexOf('draftkings')>=0 || compact.indexOf('dk')===0) {
-      return src.replace(/\bmlb\b/ig,'MLB').replace(/\bnba\b/ig,'NBA').replace(/\bpick6\b/ig,'Pick6').replace(/\bdraftkings\b/ig,'DraftKings');
+  function isAltContestSource(leg){
+    return legRawMarketSource(leg).indexOf(['pick','6'].join(''))>=0;
+  }
+
+  function legSideAmericanPrice(leg){
+    if(!leg || isAltContestSource(leg)) return null;
+    var dir=String(leg.dir||leg.direction||'').toUpperCase();
+    var dk=dir==='UNDER'?leg.dk_under:leg.dk_over;
+    var fd=dir==='UNDER'?leg.fd_under:leg.fd_over;
+    var source=dir==='UNDER'?leg.market_under_price:leg.market_over_price;
+    var price=numOrNull(dk);
+    if(price!==null) return price;
+    price=numOrNull(fd);
+    if(price!==null) return price;
+    var raw=legRawMarketSource(leg);
+    if(raw.indexOf('draftkings')>=0 || raw.indexOf('fanduel')>=0 || raw.indexOf('sportsbook')>=0){
+      price=numOrNull(source);
+      if(price!==null) return price;
     }
-    if(compact.indexOf('fanduel')>=0 || compact.indexOf('fd')===0) {
-      return src.replace(/\bfanduel\b/ig,'FanDuel');
-    }
-    return 'Market Source';
+    return null;
   }
 
   function externalPatternPrefix(){
@@ -1149,19 +1162,14 @@
   }
 
   function legMarketDecimal(leg){
+    if(isAltContestSource(leg)) return null;
     var directDec=firstNum(leg, ['market_decimal','market_odds_decimal','decimal_odds','consensus_decimal']);
     if(directDec!==null && directDec>1) return directDec;
-    var dir=String(leg.dir||leg.direction||'').toUpperCase();
-    var sidePrice=dir==='UNDER'
-      ? firstNum(leg, ['market_under_price','source_under_price'])
-      : firstNum(leg, ['market_over_price','source_over_price']);
-    var directAmerican=sidePrice!==null ? sidePrice : firstNum(leg, ['market_price','market_american','american_odds','consensus_american']);
+    var directAmerican=legSideAmericanPrice(leg);
+    if(directAmerican===null) directAmerican=firstNum(leg, ['market_price','market_american','american_odds','consensus_american']);
     var fromAmerican=americanToDecimal(directAmerican);
     if(fromAmerican!==null) return fromAmerican;
-    var odds=dir==='OVER' ? [leg.dk_over,leg.fd_over] : [leg.dk_under,leg.fd_under];
-    var vals=odds.map(americanToDecimal).filter(function(v){return v!==null;});
-    if(!vals.length) return null;
-    return vals.reduce(function(a,b){return a+b;},0)/vals.length;
+    return null;
   }
 
   function legMarketImplied(leg){
@@ -1610,18 +1618,15 @@
   function renderMarketDetail(legs){
     var rows=(legs||[]).slice(0,12),html='';
     html+='<div class="edge-detail-grid">';
-    ['Stat','Line','Dir','Atlas','Source','Mkt Imp','Edge'].forEach(function(h){html+='<div class="edge-detail-h">'+h+'</div>';});
+    ['Stat','Line','Dir','Atlas','Odds','Mkt Imp','Edge'].forEach(function(h){html+='<div class="edge-detail-h">'+h+'</div>';});
     for(var i=0;i<rows.length;i++){
       var l=rows[i],p=legProb(l),mkt=_mktImp(l),edge=legMarketEdgePct(l),dir=(l.dir||'').toLowerCase();
-      var sourceO=l.dir==='OVER'?l.market_over_price:l.market_under_price;
-      var dkO=l.dir==='OVER'?l.dk_over:l.dk_under;
-      var fdO=l.dir==='OVER'?l.fd_over:l.fd_under;
-      var price=dkO!=null?dkO:(fdO!=null?fdO:sourceO);
+      var price=legSideAmericanPrice(l);
       html+='<div class="edge-detail-cell">'+esc(l.stat||'')+'</div>';
       html+='<div class="edge-detail-cell" style="font-weight:900;color:var(--text);">'+fmtLine(l.line)+'</div>';
       html+='<div class="edge-detail-cell"><span class="dir-'+dir+'">'+esc(l.dir||'')+'</span></div>';
       html+='<div class="edge-detail-cell" style="color:'+pctColor(p||0)+';font-weight:900;">'+(p!==null?Math.round(p*100)+'%':'&#8212;')+'</div>';
-      html+='<div class="edge-detail-cell">'+(price!=null?_fmtAmerican(price):'<span style="color:var(--t2);">'+esc(legMarketSourceLabel(l)||'&#8212;')+'</span>')+'</div>';
+      html+='<div class="edge-detail-cell">'+(price!=null?_fmtAmerican(price):'<span style="color:var(--t2);">&#8212;</span>')+'</div>';
       html+='<div class="edge-detail-cell">'+_fmtMarketImplied(mkt)+'</div>';
       html+='<div class="edge-detail-cell" style="color:'+evColorPct(edge)+';font-weight:900;">'+fmtSignedPct(edge)+'</div>';
     }
@@ -1745,7 +1750,7 @@
       var detailId='evDetail_'+i;
       var row=document.createElement('div'); row.className='ev-row';
       row.innerHTML=
-        '<div><div class="prob-player">'+esc(leg.player||'&#8212;')+' <span style="font-size:10px;color:var(--t2);font-weight:700;">'+group.legs.length+' lines</span></div>'+
+        '<div><div class="row-title-line"><div class="prob-player">'+esc(leg.player||'&#8212;')+' <span style="font-size:10px;color:var(--t2);font-weight:700;">'+group.legs.length+' lines</span></div><button class="edge-lines-btn" onclick="toggleEdgeDetail(\''+detailId+'\',this)">View Lines</button></div>'+
           '<div class="prob-meta">'+esc(leg.team||'')+(leg.opp?' vs '+esc(leg.opp):'')+
             '<span class="prob-stat-inline"> &middot; best '+esc(leg.stat||'')+'</span>'+
             (l10txt?'<span style="margin-left:6px;color:var(--gold);font-weight:700;">'+l10txt+' L10</span>':'')+
@@ -1755,7 +1760,7 @@
         '<div class="prob-cell"><span class="dir-'+dir+'">'+esc(leg.dir||'')+'</span></div>'+
         '<div class="ev-col-conf" style="text-align:right;font-size:13px;font-weight:700;color:'+pctColor(p)+';">'+pPct+'%</div>'+
         '<div class="ev-value">'+fmtValueScore(leg)+'</div>'+
-        '<div class="ev-actual" style="color:'+evColorPct(actualPct)+';">'+fmtSignedPct(actualPct)+'<div style="margin-top:6px;"><button class="edge-lines-btn" onclick="toggleEdgeDetail(\''+detailId+'\',this)">View Lines</button></div></div>';
+        '<div class="ev-actual" style="color:'+evColorPct(actualPct)+';">'+fmtSignedPct(actualPct)+'</div>';
       el.appendChild(row);
       var detail=document.createElement('div');
       detail.id=detailId;
@@ -2742,11 +2747,10 @@
     var sortF = (document.getElementById('mktSortFilter')||{}).value || 'alpha';
 
     var legs = _mktLegs.slice();
-    // Drop legs with zero market signal (no DK and no FD odds in either direction)
+    // Drop legs with no displayable sportsbook-style market odds. Pick'em/source-only
+    // feeds are useful to the engine, but they should not be shown as market odds.
     legs = legs.filter(function(l){
-      return l.dk_over != null || l.dk_under != null || l.fd_over != null || l.fd_under != null ||
-        l.external_market_context_available === true || l.external_market_context_available === 'True' ||
-        Boolean(l.market_context_source_type) || Boolean(l.external_market_context_source);
+      return legSideAmericanPrice(l)!==null;
     });
     if(statF) legs = legs.filter(function(l){ return l.stat === statF; });
     if(dirF)  legs = legs.filter(function(l){ return (l.dir||'') === dirF; });
@@ -2787,7 +2791,7 @@
     if(!legs.length){ el.innerHTML='<div class="no-data">No legs match this filter.</div>'; return; }
 
     var hasAnyOdds = legs.some(function(l){
-      return l.dk_over != null || l.dk_under != null || l.fd_over != null || l.fd_under != null || legMarketImplied(l)!==null || legMarketSourceLabel(l);
+      return legSideAmericanPrice(l)!==null;
     });
     if(noOdds) noOdds.style.display = hasAnyOdds ? 'none' : 'block';
 
@@ -2806,22 +2810,20 @@
       var atlasStr = p != null ? '<span style="font-weight:800;color:' + pctColor(pRaw||0) + ';">' + p + '%</span>' : '<span style="color:var(--t2);">—</span>';
       var dirClass = (l.dir||'').toLowerCase();
       // DK/FD odds for the relevant direction
-      var dkO = l.dir==='OVER' ? l.dk_over : l.dk_under;
+      var oddsPrice=legSideAmericanPrice(l);
       var fdO = l.dir==='OVER' ? l.fd_over : l.fd_under;
-      var sourceO = l.dir==='OVER' ? l.market_over_price : l.market_under_price;
-      var srcLabel = legMarketSourceLabel(l);
-      var dkCell = dkO != null ? _fmtAmerican(dkO) : (sourceO != null ? _fmtAmerican(sourceO)+'<div style="font-size:9px;color:var(--t2);margin-top:2px;">'+esc(srcLabel||'Source')+'</div>' : (srcLabel ? '<span style="color:var(--t2);font-size:10px;">'+esc(srcLabel)+'</span>' : '<span style="color:var(--t2);">—</span>'));
-      var fdCell = fdO != null ? _fmtAmerican(fdO) : _fmtMarketImplied(mktP);
+      var dkCell = oddsPrice != null ? _fmtAmerican(oddsPrice) : '<span style="color:var(--t2);">—</span>';
+      var fdCell = fdO != null && !isAltContestSource(l) ? _fmtAmerican(fdO) : _fmtMarketImplied(mktP);
       var detailId='mktDetail_'+i;
       html += '<div class="mkt-row">';
-      html += '<div class="mkt-cell-player"><div style="font-weight:700;">' + esc(l.player||'') + ' <span style="font-size:10px;color:var(--t2);font-weight:700;">'+group.legs.length+' lines</span></div><div style="font-size:10px;color:var(--t2);">' + esc(l.team||'') + (l.opp?' vs '+esc(l.opp):'') + '</div></div>';
+      html += '<div class="mkt-cell-player"><div class="row-title-line"><div style="font-weight:700;">' + esc(l.player||'') + ' <span style="font-size:10px;color:var(--t2);font-weight:700;">'+group.legs.length+' lines</span></div><button class="edge-lines-btn" onclick="toggleEdgeDetail(\''+detailId+'\',this)">View Lines</button></div><div style="font-size:10px;color:var(--t2);">' + esc(l.team||'') + (l.opp?' vs '+esc(l.opp):'') + '</div></div>';
       html += '<div class="mkt-td mkt-td-c" data-label="Stat"><span style="font-size:10px;text-transform:uppercase;color:var(--t2);letter-spacing:.06em;">' + esc(l.stat||'') + '</span></div>';
       html += '<div class="mkt-td mkt-td-r" data-label="Line"><span style="font-weight:700;">' + (l.line != null ? l.line : '—') + '</span></div>';
       html += '<div class="mkt-td mkt-td-c" data-label="Dir"><span class="dir-' + dirClass + '">' + esc(l.dir||'') + '</span></div>';
       html += '<div class="mkt-td mkt-td-r" data-label="Atlas">' + atlasStr + '</div>';
-      html += '<div class="mkt-td mkt-td-r" data-label="DK / Source">' + dkCell + '</div>';
-      html += '<div class="mkt-td mkt-td-r" data-label="FD / Mkt">' + fdCell + '</div>';
-      html += '<div class="mkt-td mkt-td-r" data-label="Edge">' + edgeStr + '<div style="margin-top:6px;"><button class="edge-lines-btn" onclick="toggleEdgeDetail(\''+detailId+'\',this)">View Lines</button></div></div>';
+      html += '<div class="mkt-td mkt-td-r" data-label="Odds">' + dkCell + '</div>';
+      html += '<div class="mkt-td mkt-td-r" data-label="Mkt Imp">' + fdCell + '</div>';
+      html += '<div class="mkt-td mkt-td-r" data-label="Edge">' + edgeStr + '</div>';
       html += '</div>';
       html += '<div id="'+detailId+'" class="edge-detail">'+renderMarketDetail(group.legs)+'</div>';
     }
