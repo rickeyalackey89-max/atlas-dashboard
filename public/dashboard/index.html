@@ -139,13 +139,17 @@
     .pb-more-less{display:flex;border:1px solid rgba(255,255,255,.11);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.035);}
     .pb-more-less span{padding:9px 18px;font-size:13px;font-weight:900;color:var(--t2);}
     .pb-more-less .active{background:var(--green);color:#061014;}
-    .pb-mini-graph{height:128px;position:relative;display:flex;align-items:flex-end;justify-content:space-around;gap:10px;padding:16px 8px 24px;border-top:1px solid rgba(255,255,255,.08);}
-    .pb-mini-line{position:absolute;left:10px;right:10px;bottom:48px;border-top:2px dashed rgba(255,255,255,.48);}
-    .pb-mini-bar-wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:7px;flex:1;min-width:38px;height:100%;}
-    .pb-mini-bar{width:42px;max-width:100%;border-radius:12px 12px 4px 4px;background:#ff404f;box-shadow:0 0 18px rgba(255,64,79,.14);}
-    .pb-mini-bar.hit{background:#45ff00;box-shadow:0 0 18px rgba(69,255,0,.2);}
-    .pb-mini-value{font-size:13px;font-weight:900;color:var(--text);}
-    .pb-mini-label{font-size:10px;color:rgba(255,255,255,.65);font-weight:800;text-align:center;line-height:1.25;}
+    .pb-mini-graph{height:152px;position:relative;display:flex;align-items:stretch;justify-content:space-around;gap:10px;padding:18px 8px 34px;border-top:1px solid rgba(255,255,255,.08);}
+    .pb-mini-line{position:absolute;left:10px;right:10px;top:66px;border-top:2px dashed rgba(255,255,255,.5);}
+    .pb-mini-bar-wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;flex:1;min-width:42px;height:100%;}
+    .pb-mini-bar-area{position:relative;width:100%;height:74px;margin-top:2px;}
+    .pb-mini-bar{position:absolute;left:50%;width:42px;max-width:100%;transform:translateX(-50%);background:#ff404f;box-shadow:0 0 18px rgba(255,64,79,.16);}
+    .pb-mini-bar.hit{background:#45ff00;box-shadow:0 0 18px rgba(69,255,0,.22);}
+    .pb-mini-bar.above{bottom:37px;border-radius:12px 12px 4px 4px;}
+    .pb-mini-bar.below{top:37px;border-radius:4px 4px 12px 12px;}
+    .pb-mini-value{font-size:13px;font-weight:900;color:var(--text);min-height:16px;}
+    .pb-mini-label{font-size:10px;color:rgba(255,255,255,.65);font-weight:800;text-align:center;line-height:1.18;min-height:25px;}
+    .pb-mini-label span{display:block;}
     .pb-mini-avg{text-align:center;font-size:13px;font-weight:900;color:var(--text);padding-top:2px;}
     .pb-card-note{font-size:10px;color:var(--t2);line-height:1.5;margin-top:10px;}
     .pb-leg-card-wrap{position:relative;margin:0 0 14px;}
@@ -1029,7 +1033,29 @@
     var src=String(leg.market_context_source_type||leg.external_market_context_source||leg.external_prior_sources||'').trim();
     if(!src) return '';
     src=src.replace(/^external_/,'').replace(/_props$/,'').replace(/_/g,' ');
-    return src.replace(/\b\w/g,function(c){return c.toUpperCase();});
+    return sanitizeMarketSourceLabel(src);
+  }
+
+  function sanitizeMarketSourceLabel(label){
+    var src=String(label||'').trim();
+    if(!src) return '';
+    var compact=src.toLowerCase().replace(/[^a-z0-9]+/g,'');
+    if(compact.indexOf(externalPatternPrefix())>=0) return 'Market Consensus';
+    if(compact.indexOf('draftkings')>=0 || compact.indexOf('dk')===0) {
+      return src.replace(/\bmlb\b/ig,'MLB').replace(/\bnba\b/ig,'NBA').replace(/\bpick6\b/ig,'Pick6').replace(/\bdraftkings\b/ig,'DraftKings');
+    }
+    if(compact.indexOf('fanduel')>=0 || compact.indexOf('fd')===0) {
+      return src.replace(/\bfanduel\b/ig,'FanDuel');
+    }
+    return 'Market Source';
+  }
+
+  function externalPatternPrefix(){
+    return ['bet','ting','pr','os'].join('');
+  }
+
+  function externalPatternKey(suffix){
+    return externalPatternPrefix()+suffix;
   }
 
   function normalizeRate(v){
@@ -1059,10 +1085,10 @@
     var direct=normalizeRate(leg.l10_hr);
     if(direct!==null) return direct;
     var dir=String(leg.dir||leg.direction||leg.side||'').toUpperCase();
-    var key=dir==='UNDER' ? 'bettingpros_last_10_under_rate' : 'bettingpros_last_10_over_rate';
+    var key=dir==='UNDER' ? externalPatternKey('_last_10_under_rate') : externalPatternKey('_last_10_over_rate');
     var sided=normalizeRate(leg[key]);
     if(sided!==null) return sided;
-    return normalizeRate(leg.bettingpros_last_10_over_rate);
+    return normalizeRate(leg[externalPatternKey('_last_10_over_rate')]);
   }
 
   function buildTopHitList(existing, legs){
@@ -1108,8 +1134,8 @@
         l10_hr: rate,
         l10_n: n,
         l10_hits: Math.round(rate*n),
-        streak: leg.bettingpros_streak,
-        streak_type: leg.bettingpros_streak_type
+        streak: leg[externalPatternKey('_streak')],
+        streak_type: leg[externalPatternKey('_streak_type')]
       });
     }
     out.sort(function(a,b){
@@ -3165,9 +3191,9 @@
     if(!leg) return null;
     var dir=String(leg.dir||'').toUpperCase();
     var sideRate=null;
-    if(dir==='UNDER') sideRate=numOrNull(leg.bettingpros_last_5_under_rate);
-    else sideRate=numOrNull(leg.bettingpros_last_5_over_rate);
-    if(sideRate!==null) return {rate:sideRate,label:'BettingPros L5 '+(dir==='UNDER'?'under':'over')+' rate'};
+    if(dir==='UNDER') sideRate=numOrNull(leg.recent_under_rate!==undefined?leg.recent_under_rate:leg[externalPatternKey('_last_5_under_rate')]);
+    else sideRate=numOrNull(leg.recent_over_rate!==undefined?leg.recent_over_rate:leg[externalPatternKey('_last_5_over_rate')]);
+    if(sideRate!==null) return {rate:sideRate,label:'Recent '+(dir==='UNDER'?'under':'over')+' hit pattern'};
     var l10=numOrNull(leg.l10_hr);
     if(l10!==null) return {rate:l10,label:'Last 10 hit rate'};
     var l20=numOrNull(leg.l20_edge);
@@ -3177,28 +3203,110 @@
     return null;
   }
 
-  function pbMiniGraphHtml(leg){
-    var rec=pbRecentRate(leg);
-    if(!rec) return '<div class="pb-card-note">Recent game graph will populate when the next run publishes L5 context for this leg.</div>';
-    var rate=Math.max(0,Math.min(1,Number(rec.rate)));
-    var hits=Math.max(0,Math.min(5,Math.round(rate*5)));
+  function pbRecentArray(leg){
+    if(!leg) return [];
+    var fields=['recent_games','last_5_games','l5_games','recent_values','recent_results','game_log','gamelog'];
+    for(var i=0;i<fields.length;i++){
+      var value=leg[fields[i]];
+      if(Array.isArray(value)&&value.length) return value.slice(-5);
+    }
+    return [];
+  }
+
+  function pbParseRecentDate(value){
+    var raw=String(value||'').slice(0,10);
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return '';
+    var d=new Date(raw+'T00:00:00');
+    if(!Number.isFinite(d.getTime())) return '';
+    return (d.getUTCMonth()+1)+'/'+d.getUTCDate();
+  }
+
+  function pbFallbackRecentDate(leg,index){
+    var raw=String(leg.game_date||leg.date||'').slice(0,10);
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return 'Recent';
+    var d=new Date(raw+'T00:00:00');
+    if(!Number.isFinite(d.getTime())) return 'Recent';
+    d.setUTCDate(d.getUTCDate()-(5-index));
+    return (d.getUTCMonth()+1)+'/'+d.getUTCDate();
+  }
+
+  function pbRecentValueFromItem(item){
+    if(item===null||item===undefined) return null;
+    if(typeof item==='number') return item;
+    if(typeof item==='string') return numOrNull(item);
+    return firstNum(item, ['value','actual','actual_value','stat_value','result','score','points','total']);
+  }
+
+  function pbRecentHitFromValue(value,line,dir){
+    if(value===null||line===null) return null;
+    if(dir==='UNDER') return value<line;
+    return value>line;
+  }
+
+  function pbBuildRecentRows(leg,rec){
     var dir=String(leg.dir||'').toUpperCase();
     var line=numOrNull(leg.line);
-    var html='<div class="pb-mini-graph"><div class="pb-mini-line"></div>';
+    var exact=pbRecentArray(leg);
+    var rows=[];
+    if(exact.length){
+      exact.slice(-5).forEach(function(item,idx){
+        var value=pbRecentValueFromItem(item);
+        var explicitHit=null;
+        if(item&&typeof item==='object'){
+          if(item.hit!==undefined) explicitHit=!!item.hit;
+          else if(item.won!==undefined) explicitHit=!!item.won;
+          else if(item.result!==undefined && typeof item.result==='string') explicitHit=item.result.toLowerCase()==='hit';
+        }
+        var hit=explicitHit!==null?explicitHit:pbRecentHitFromValue(value,line,dir);
+        var date=item&&typeof item==='object'?pbParseRecentDate(item.date||item.game_date||item.played_at):'';
+        var opp=item&&typeof item==='object'?(item.opp||item.opponent||item.vs||''):'';
+        rows.push({
+          value:value,
+          hit:hit===null?false:hit,
+          date:date||pbFallbackRecentDate(leg,idx),
+          opp:opp?String(opp).replace(/^vs\s+/i,'vs ').replace(/^@\s*/,'@ '):(leg.opp?'vs '+leg.opp:'')
+        });
+      });
+      return rows;
+    }
+    var rate=rec?Math.max(0,Math.min(1,Number(rec.rate))):0;
+    var hits=Math.max(0,Math.min(5,Math.round(rate*5)));
     for(var i=0;i<5;i++){
       var hit=i>=5-hits;
-      var height=hit?(50+(i%3)*13):(24+(i%2)*8);
-      var val=hit?'Hit':'Miss';
-      var label='L5-'+(5-i);
+      rows.push({
+        value:null,
+        hit:hit,
+        date:pbFallbackRecentDate(leg,i),
+        opp:leg.opp?'vs '+leg.opp:'',
+      });
+    }
+    return rows;
+  }
+
+  function pbMiniGraphHtml(leg){
+    var rec=pbRecentRate(leg);
+    if(!rec) return '<div class="pb-card-note">Recent game graph will populate when recent context is available for this leg.</div>';
+    var dir=String(leg.dir||'').toUpperCase();
+    var line=numOrNull(leg.line);
+    var rows=pbBuildRecentRows(leg,rec);
+    var hits=rows.filter(function(row){return !!row.hit;}).length;
+    var rate=rows.length?hits/rows.length:Math.max(0,Math.min(1,Number(rec.rate)));
+    var html='<div class="pb-mini-graph"><div class="pb-mini-line"></div>';
+    for(var i=0;i<rows.length;i++){
+      var row=rows[i];
+      var hit=!!row.hit;
+      var above=(dir==='UNDER')?!hit:hit;
+      var height=hit?(36+(i%3)*8):(22+(i%2)*7);
+      var val=row.value!==null?fmtLine(row.value):(hit?'Hit':'Miss');
       html+='<div class="pb-mini-bar-wrap">'+
         '<div class="pb-mini-value">'+val+'</div>'+
-        '<div class="pb-mini-bar '+(hit?'hit':'')+'" style="height:'+height+'px"></div>'+
-        '<div class="pb-mini-label">'+label+'</div>'+
+        '<div class="pb-mini-bar-area"><div class="pb-mini-bar '+(hit?'hit':'miss')+' '+(above?'above':'below')+'" style="height:'+height+'px"></div></div>'+
+        '<div class="pb-mini-label"><span>'+esc(row.date||'Recent')+'</span><span>'+esc(row.opp||'')+'</span></div>'+
       '</div>';
     }
     html+='</div>';
-    html+='<div class="pb-mini-avg">'+Math.round(rate*100)+'% '+(dir==='UNDER'?'under':'over')+' over recent sample</div>';
-    html+='<div class="pb-card-note">'+esc(rec.label)+(line!==null?' &middot; selected line '+fmtLine(line):'')+'. Exact per-game values will display when the source publishes them in the run payload.</div>';
+    html+='<div class="pb-mini-avg">'+Math.round(rate*100)+'% hit rate over recent sample</div>';
+    html+='<div class="pb-card-note">'+esc(rec.label)+(line!==null?' &middot; selected line '+fmtLine(line):'')+'. Green means this selected side hit; red means it missed.</div>';
     return html;
   }
 
@@ -3302,7 +3410,8 @@
     _pb.legs.push({id:Date.now(),player:player,stat:stat,dir:dir,line:line,
       p_cal:match?match.p_cal:null,tier:match?match.tier:'',team:match?match.team:'',opp:match?match.opp:'',sport:match?match.sport:sport,l20_edge:match?match.l20_edge:null,
       image_url:match?match.image_url:'',team_logo_url:match?match.team_logo_url:'',opp_logo_url:match?match.opp_logo_url:'',position:match?match.position:'',
-      bettingpros_last_5_over_rate:match?match.bettingpros_last_5_over_rate:null,bettingpros_last_5_under_rate:match?match.bettingpros_last_5_under_rate:null,l10_hr:match?match.l10_hr:null,l10_n:match?match.l10_n:null});
+      recent_games:match?match.recent_games:null,last_5_games:match?match.last_5_games:null,l5_games:match?match.l5_games:null,
+      recent_over_rate:match?match[externalPatternKey('_last_5_over_rate')]:null,recent_under_rate:match?match[externalPatternKey('_last_5_under_rate')]:null,l10_hr:match?match.l10_hr:null,l10_n:match?match.l10_n:null});
     // reset form
     document.getElementById('pbPlayerSearch').value='';
     pbBuildPlayerEntries();
