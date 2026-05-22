@@ -147,16 +147,16 @@
     .pb-line-chip.demon{color:#ff4454;border-color:rgba(255,68,84,.38);background:rgba(255,68,84,.06);}
     .pb-line-chip.selected.goblin{box-shadow:0 0 0 2px rgba(101,255,61,.34),0 0 18px rgba(255,255,255,.22),0 0 30px rgba(101,255,61,.56),0 0 50px rgba(0,229,255,.26);}
     .pb-line-chip.selected.demon{box-shadow:0 0 0 2px rgba(255,68,84,.34),0 0 18px rgba(255,255,255,.2),0 0 30px rgba(255,68,84,.56),0 0 50px rgba(0,229,255,.2);}
-    .pb-mini-graph{height:132px;position:relative;display:flex;align-items:stretch;justify-content:space-around;gap:10px;padding:6px 8px 34px;border-top:1px solid rgba(255,255,255,.08);}
-    .pb-mini-line{position:absolute;left:10px;right:10px;top:49px;border-top:2px dashed rgba(255,255,255,.52);}
-    .pb-mini-threshold{position:absolute;right:2px;top:40px;font-size:12px;font-weight:900;color:rgba(255,255,255,.82);background:rgba(5,8,14,.82);padding-left:5px;}
+    .pb-mini-graph{height:154px;position:relative;display:flex;align-items:flex-start;justify-content:space-around;gap:10px;padding:8px 8px 42px;border-top:1px solid rgba(255,255,255,.08);box-sizing:border-box;}
+    .pb-mini-line{position:absolute;left:10px;right:10px;top:58px;border-top:2px dashed rgba(255,255,255,.52);}
+    .pb-mini-threshold{position:absolute;right:2px;top:49px;font-size:12px;font-weight:900;color:rgba(255,255,255,.82);background:rgba(5,8,14,.82);padding-left:5px;}
     .pb-mini-bar-wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0;flex:1;min-width:42px;height:100%;}
-    .pb-mini-bar-area{position:relative;width:100%;height:86px;margin-top:0;}
+    .pb-mini-bar-area{position:relative;width:100%;height:96px;margin-top:0;flex:0 0 96px;}
     .pb-mini-bar{position:absolute;left:50%;width:36px;max-width:100%;transform:translateX(-50%);background:#ff404f;box-shadow:0 0 18px rgba(255,64,79,.16);}
     .pb-mini-bar.hit{background:#45ff00;box-shadow:0 0 18px rgba(69,255,0,.22);}
-    .pb-mini-bar.above{bottom:47px;border-radius:10px 10px 4px 4px;}
-    .pb-mini-bar.below{top:47px;border-radius:4px 4px 10px 10px;}
-    .pb-mini-label{font-size:10px;color:rgba(255,255,255,.68);font-weight:900;text-align:center;line-height:1.15;min-height:34px;margin-top:-2px;}
+    .pb-mini-bar.above{bottom:50px;border-radius:10px 10px 4px 4px;}
+    .pb-mini-bar.below{top:54px;border-radius:4px 4px 10px 10px;}
+    .pb-mini-label{font-size:10px;color:rgba(255,255,255,.68);font-weight:900;text-align:center;line-height:1.15;min-height:34px;margin-top:0;}
     .pb-mini-label .pb-mini-result{font-size:13px;color:var(--text);}
     .pb-mini-label span{display:block;}
     .pb-mini-avg{text-align:center;font-size:13px;font-weight:900;color:var(--text);padding-top:2px;}
@@ -3436,7 +3436,7 @@
       var hit=!!row.hit;
       var hasValue=row.value!==null;
       var above=dir==='UNDER'?!hit:hit;
-      var height=hasValue&&line!==null?(18+Math.round(Math.min(1,Math.abs(Number(row.value)-line)/maxDelta)*46)):(hit?34:24);
+      var height=hasValue&&line!==null?(18+Math.round(Math.min(1,Math.abs(Number(row.value)-line)/maxDelta)*22)):(hit?34:24);
       var val=row.value!==null?fmtLine(row.value):(hit?'Hit':'Miss');
       html+='<div class="pb-mini-bar-wrap">'+
         '<div class="pb-mini-bar-area"><div class="pb-mini-bar '+(hit?'hit':'miss')+' '+(above?'above':'below')+'" style="height:'+height+'px"></div></div>'+
