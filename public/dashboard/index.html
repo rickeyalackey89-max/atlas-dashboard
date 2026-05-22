@@ -142,9 +142,11 @@
     .pb-line-chips{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:2px 0 12px;}
     .pb-line-chip{min-width:74px;padding:8px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.035);color:rgba(255,255,255,.82);font-size:18px;font-weight:900;text-align:center;line-height:1;}
     .pb-line-chip small{display:block;margin-top:3px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);}
-    .pb-line-chip.selected{border-color:rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(255,255,255,.14),0 0 22px rgba(255,255,255,.08);color:var(--text);background:rgba(255,255,255,.08);}
-    .pb-line-chip.goblin{color:#65ff3d;border-color:rgba(101,255,61,.28);background:rgba(101,255,61,.05);}
-    .pb-line-chip.demon{color:#ff4454;border-color:rgba(255,68,84,.32);background:rgba(255,68,84,.05);}
+    .pb-line-chip.selected{border-color:rgba(255,255,255,1);box-shadow:0 0 0 2px rgba(255,255,255,.28),0 0 18px rgba(255,255,255,.28),0 0 32px rgba(0,229,255,.46),0 0 52px rgba(69,255,0,.34);color:var(--text);background:rgba(255,255,255,.13);}
+    .pb-line-chip.goblin{color:#65ff3d;border-color:rgba(101,255,61,.36);background:rgba(101,255,61,.06);}
+    .pb-line-chip.demon{color:#ff4454;border-color:rgba(255,68,84,.38);background:rgba(255,68,84,.06);}
+    .pb-line-chip.selected.goblin{box-shadow:0 0 0 2px rgba(101,255,61,.34),0 0 18px rgba(255,255,255,.22),0 0 30px rgba(101,255,61,.56),0 0 50px rgba(0,229,255,.26);}
+    .pb-line-chip.selected.demon{box-shadow:0 0 0 2px rgba(255,68,84,.34),0 0 18px rgba(255,255,255,.2),0 0 30px rgba(255,68,84,.56),0 0 50px rgba(0,229,255,.2);}
     .pb-mini-graph{height:132px;position:relative;display:flex;align-items:stretch;justify-content:space-around;gap:10px;padding:6px 8px 34px;border-top:1px solid rgba(255,255,255,.08);}
     .pb-mini-line{position:absolute;left:10px;right:10px;top:58px;border-top:2px dashed rgba(255,255,255,.52);}
     .pb-mini-threshold{position:absolute;right:2px;top:49px;font-size:12px;font-weight:900;color:rgba(255,255,255,.82);background:rgba(5,8,14,.82);padding-left:5px;}
@@ -3414,14 +3416,12 @@
 
   function pbMiniGraphHtml(leg){
     var rec=pbRecentRate(leg);
-    if(!rec) return '<div class="pb-card-note">Recent results pending</div>';
+    var exact=pbRecentArray(leg);
+    if(!rec&&!exact.length) return '<div class="pb-card-note">Recent results pending</div>';
     var dir=String(leg.dir||'').toUpperCase();
     var line=numOrNull(leg.line);
     var rows=pbBuildRecentRows(leg,rec);
     var hasExactValues=rows.some(function(row){return row.value!==null;});
-    if(!hasExactValues){
-      return '<div class="pb-card-note">Recent results pending</div>';
-    }
     var hits=rows.filter(function(row){return !!row.hit;}).length;
     var rate=rows.length?hits/rows.length:Math.max(0,Math.min(1,Number(rec.rate)));
     var maxDelta=1;
@@ -3436,15 +3436,21 @@
       var hit=!!row.hit;
       var hasValue=row.value!==null;
       var above=hasValue&&line!==null?(Number(row.value)>line):((dir==='UNDER')?!hit:hit);
-      var height=hasValue&&line!==null?(18+Math.round(Math.min(1,Math.abs(Number(row.value)-line)/maxDelta)*46)):(hit?(36+(i%3)*8):(22+(i%2)*7));
+      var height=hasValue&&line!==null?(18+Math.round(Math.min(1,Math.abs(Number(row.value)-line)/maxDelta)*46)):(hit?34:24);
       var val=row.value!==null?fmtLine(row.value):(hit?'Hit':'Miss');
       html+='<div class="pb-mini-bar-wrap">'+
         '<div class="pb-mini-bar-area"><div class="pb-mini-bar '+(hit?'hit':'miss')+' '+(above?'above':'below')+'" style="height:'+height+'px"></div></div>'+
-        '<div class="pb-mini-label"><span class="pb-mini-result">'+esc(val)+'</span><span>'+esc(row.opp||'')+'</span><span>'+esc(row.date||'')+'</span></div>'+
+        '<div class="pb-mini-label"><span class="pb-mini-result">'+esc(hasExactValues?val:(hit?'Hit':'Miss'))+'</span><span>'+esc(row.opp||'')+'</span><span>'+esc(row.date||'')+'</span></div>'+
       '</div>';
     }
     html+='</div>';
-    html+='<div class="pb-mini-avg">'+Math.round(rate*100)+'% recent hit rate</div>';
+    if(hasExactValues){
+      var values=rows.map(function(row){return row.value;}).filter(function(value){return value!==null&&Number.isFinite(Number(value));});
+      var avg=values.length?values.reduce(function(sum,value){return sum+Number(value);},0)/values.length:null;
+      html+='<div class="pb-mini-avg">'+(avg!==null?fmtLine(avg)+' avg last '+values.length:'Recent form')+'</div>';
+    }else{
+      html+='<div class="pb-mini-avg">Recent form</div>';
+    }
     return html;
   }
 

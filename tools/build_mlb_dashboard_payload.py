@@ -901,6 +901,97 @@ def _aggregate_season_gamelogs(path: Path | None) -> dict[int, dict[str, Any]]:
     return totals
 
 
+def _mlb_recent_stat_value(stat: dict[str, Any], market: str, group: str) -> float | None:
+    key = str(market or "").upper().strip()
+
+    def val(name: str) -> float:
+        return _num(stat.get(name)) or 0.0
+
+    if group == "hitting":
+        mapping = {
+            "HITS": val("hits"),
+            "SINGLES": max(0.0, val("hits") - val("doubles") - val("triples") - val("homeRuns")),
+            "DOUBLES": val("doubles"),
+            "TRIPLES": val("triples"),
+            "HOME RUNS": val("homeRuns"),
+            "RUNS": val("runs"),
+            "RBIS": val("rbi"),
+            "HITS+RUNS+RBIS": val("hits") + val("runs") + val("rbi"),
+            "TOTAL BASES": val("totalBases"),
+            "STOLEN BASES": val("stolenBases"),
+            "WALKS": val("baseOnBalls"),
+            "HITTER STRIKEOUTS": val("strikeOuts"),
+            "HITTER FANTASY SCORE": val("hits") * 3 + val("doubles") * 3 + val("triples") * 6 + val("homeRuns") * 10 + val("runs") + val("rbi") + val("baseOnBalls") + val("stolenBases") * 5,
+        }
+        return mapping.get(key)
+    mapping = {
+        "PITCHER STRIKEOUTS": val("strikeOuts"),
+        "PITCHING OUTS": val("outs"),
+        "HITS ALLOWED": val("hits"),
+        "EARNED RUNS ALLOWED": val("earnedRuns"),
+        "PITCHER WALKS": val("baseOnBalls"),
+        "PITCHES THROWN": val("pitchesThrown") or val("numberOfPitches"),
+    }
+    return mapping.get(key)
+
+
+def _mlb_recent_game_index(path: Path | None) -> dict[tuple[str, str], list[dict[str, Any]]]:
+    if not path or not path.exists():
+        return {}
+    out: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    with path.open("r", encoding="utf-8-sig", newline="") as fh:
+        reader = csv.DictReader(fh)
+        for row in reader:
+            name = row.get("player_name") or ""
+            team = _team_key(row.get("team_abbreviation") or row.get("player_team"))
+            group = str(row.get("group") or "").lower()
+            if not name or not team or group not in {"hitting", "pitching"}:
+                continue
+            try:
+                stat = json.loads(row.get("stat") or "{}")
+            except json.JSONDecodeError:
+                continue
+            out.setdefault((team, _name_key(name)), []).append(
+                {
+                    "date": str(row.get("game_date") or ""),
+                    "opp": _team_key(row.get("opponent_abbreviation")),
+                    "group": group,
+                    "stat": stat,
+                }
+            )
+    for rows in out.values():
+        rows.sort(key=lambda item: item.get("date") or "")
+    return out
+
+
+def _attach_recent_games_to_legs(legs: list[dict[str, Any]], season_path: Path | None, limit: int = 5) -> None:
+    index = _mlb_recent_game_index(season_path)
+    if not index:
+        return
+    for leg in legs:
+        team = _team_key(leg.get("team"))
+        player_key = _name_key(leg.get("player"))
+        rows = index.get((team, player_key)) or index.get(("", player_key)) or []
+        if not rows:
+            # Last fallback: player name is usually unique enough for the current slate.
+            rows = [row for (row_team, name), player_rows in index.items() if name == player_key for row in player_rows]
+            rows.sort(key=lambda item: item.get("date") or "")
+        stat_name = str(leg.get("stat") or "")
+        direction = str(leg.get("dir") or "").upper()
+        line = _num(leg.get("line"))
+        recent: list[dict[str, Any]] = []
+        for row in rows[-limit:]:
+            value = _mlb_recent_stat_value(row.get("stat") or {}, stat_name, str(row.get("group") or ""))
+            if value is None:
+                continue
+            hit = None
+            if line is not None:
+                hit = value < line if direction == "UNDER" else value > line
+            recent.append({"date": row.get("date"), "opp": row.get("opp"), "value": value, "hit": hit})
+        if recent:
+            leg["recent_games"] = recent
+
+
 def _hitting_fields(agg: dict[str, Any]) -> list[list[str]]:
     gp = _num(agg.get("gamesPlayed")) or 0
     ab = _num(agg.get("atBats")) or 0
@@ -1158,6 +1249,7 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
         raise SystemExit(f"MLB run not found: {run_dir}")
 
     all_legs = _load_all_legs(run_dir)
+    _attach_recent_games_to_legs(all_legs, mlb_root / "data" / "mlb" / "season_gamelogs" / "latest.csv")
     marketed = _load_marketed(run_dir)
     system = _load_family(run_dir, "system")
     windfall = _load_family(run_dir, "windfall")
