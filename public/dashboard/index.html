@@ -1049,10 +1049,7 @@
     if(fromAmerican!==null) return fromAmerican;
     var odds=dir==='OVER' ? [leg.dk_over,leg.fd_over] : [leg.dk_under,leg.fd_under];
     var vals=odds.map(americanToDecimal).filter(function(v){return v!==null;});
-    if(!vals.length){
-      var implied=legMarketProb(leg);
-      return implied ? 1/implied : null;
-    }
+    if(!vals.length) return null;
     return vals.reduce(function(a,b){return a+b;},0)/vals.length;
   }
 
@@ -1061,11 +1058,11 @@
   }
 
   function legMarketEVPct(leg){
-    var direct=firstNum(leg, ['market_ev_pct','market_edge_pct','market_expected_value_pct','sportsbook_ev_pct']);
-    if(direct!==null) return Math.abs(direct)<=2 ? direct*100 : direct;
     var p=legProb(leg);
     var dec=legMarketDecimal(leg);
     if(p===null||dec===null) return null;
+    var direct=firstNum(leg, ['market_ev_pct','market_expected_value_pct','sportsbook_ev_pct']);
+    if(direct!==null) return Math.abs(direct)<=2 ? direct*100 : direct;
     return (p*dec-1)*100;
   }
 
@@ -1505,7 +1502,6 @@
     ['Stat','Line','Dir','Atlas','Source','Mkt Imp','Edge'].forEach(function(h){html+='<div class="edge-detail-h">'+h+'</div>';});
     for(var i=0;i<rows.length;i++){
       var l=rows[i],p=legProb(l),mkt=_mktImp(l),edge=legMarketEdgePct(l),dir=(l.dir||'').toLowerCase();
-      if(edge===null) edge=legMarketEVPct(l);
       var sourceO=l.dir==='OVER'?l.market_over_price:l.market_under_price;
       var dkO=l.dir==='OVER'?l.dk_over:l.dk_under;
       var fdO=l.dir==='OVER'?l.fd_over:l.fd_under;
@@ -2668,10 +2664,8 @@
       }
       // edge (Atlas - mkt implied)
       var ea = legMarketEdgePct(a);
-      if(ea===null) ea = legMarketEVPct(a);
       if(ea===null) ea = -99999;
       var eb = legMarketEdgePct(b);
-      if(eb===null) eb = legMarketEVPct(b);
       if(eb===null) eb = -99999;
       var d = eb - ea; return d!==0?d:_alpha(a,b);
     });
@@ -2694,7 +2688,6 @@
       var p = pRaw != null ? Math.round(pRaw * 100) : null;
       var mktP = _mktImp(l);
       var edge = legMarketEdgePct(l);
-      if(edge===null) edge = legMarketEVPct(l);
       edge = edge != null ? Math.round(edge) : null;
       var edgeStr = edge != null
         ? '<span style="font-weight:800;color:' + (edge > 0 ? 'var(--green)' : edge < -4 ? '#f87171' : 'var(--t2)') + ';">' + (edge > 0 ? '+' : '') + edge + '%</span>'
