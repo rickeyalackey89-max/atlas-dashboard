@@ -28,9 +28,9 @@ Cloudflare serves:
 - /data/status_latest.json
 - /data/invalidations_latest.json
 - /data/picks_today.json                       (public homepage preview)
+- /data/mlb/picks_today.json                  (public MLB homepage preview)
 - /api/premium-data?dataset=dashboard&sport=nba (authenticated premium dashboard payload)
 - /api/premium-data?dataset=dashboard&sport=mlb (authenticated MLB dashboard payload)
-- /data/mlb/picks_today.json                  (public MLB preview)
 - /data/cloudflare_payload.json                (compatibility fallback only until KV is configured)
 
 Premium dashboard JSON should live in Cloudflare KV, not as a public file. The
@@ -95,6 +95,13 @@ C:\Users\13142\Atlas\run-6am-eval-and-publish.cmd -ContinueOnError
 That wrapper runs prior-day evals for both NBA and MLB, rebuilds the sport
 dashboard payloads, then calls `publish-atlas.ps1` for `nba` and `mlb`.
 
+Live automation also publishes current live payloads. MLB live refreshes are
+scheduled at 11:00 AM with NBA, then MLB-only at 1:30 PM, 4:30 PM, and 7:30 PM
+Central. NBA also has a first-tip runner registered from the umbrella root that
+fetches a fresh board and runs NBA live about 20 minutes before the first game.
+Eval automation is for prior-day performance results; it should not overwrite a
+current live slate with historical board data.
+
 Use `-ForcePublicPremiumPayload` only as a temporary fallback if the KV binding is
 not ready and the dashboard must keep loading the old public payload.
 
@@ -103,6 +110,29 @@ Security files:
   `https://atlassports.ai/.well-known/security.txt`.
 
 ## What publish-atlas.ps1 builds
+
+### Public homepage preview (`picks_today.json`)
+
+`publish-atlas.ps1` writes one small public preview file per sport:
+
+- NBA: `public/data/picks_today.json`
+- MLB: `public/data/mlb/picks_today.json`
+
+Each sport preview is intentionally limited. It starts with one candidate from
+each tier (`GOBLIN`, `STANDARD`, `DEMON`) when available and avoids repeating a
+player in that sport's top preview rows.
+
+The landing page then combines NBA and MLB preview files and selects the final
+three public cards:
+
+- one Goblin / below-alt;
+- one Standard;
+- one Demon / above-alt.
+
+The landing page ranks within each required tier by calibrated probability and
+skips any candidate whose player already appeared in the other selected cards.
+That means Today's Picks is a balanced cross-sport preview, not a raw top-three
+probability list.
 
 ### System feed (recommended_latest.json)
 Built from:

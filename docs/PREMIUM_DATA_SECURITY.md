@@ -15,6 +15,12 @@ served from public JSON paths. The current secure path is:
    request when `ATLAS_SECURITY_KV` is bound, watermarks the response, and returns
    the premium payload.
 
+The public preview files are not premium data and intentionally carry only a
+small subset of leg fields. The homepage combines NBA and MLB previews into
+three balanced cards: one Goblin, one Standard, and one Demon, with no repeated
+player. Full board rankings, slips, EV, market context, and diagnostics remain
+behind `/api/premium-data`.
+
 ## Cloudflare Bindings
 
 Create two KV namespaces and bind them to the Pages project:
