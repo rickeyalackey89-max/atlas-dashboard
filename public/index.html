@@ -686,6 +686,41 @@
       STANDARD: { cls: 'standard', label: 'Standard' },
       DEMON:    { cls: 'demon',    label: '\u2191 Alts' }
     };
+    function pickProbability(leg) {
+      var raw = leg && (leg.p_cal != null ? leg.p_cal : (leg.model_probability != null ? leg.model_probability : leg.probability));
+      var p = Number(raw || 0);
+      return isFinite(p) ? p : 0;
+    }
+    function normalizeTier(leg) {
+      var t = String((leg && (leg.tier || leg.tier_name || leg.line_tier || leg.alt_type)) || '').toUpperCase();
+      if (t.indexOf('GOBLIN') >= 0 || t.indexOf('BELOW') >= 0 || t.indexOf('DOWN') >= 0) return 'GOBLIN';
+      if (t.indexOf('DEMON') >= 0 || t.indexOf('ABOVE') >= 0 || t.indexOf('UP') >= 0) return 'DEMON';
+      if (t.indexOf('STANDARD') >= 0 || t.indexOf('NORMAL') >= 0) return 'STANDARD';
+      return TIER_ORDER.indexOf(t) >= 0 ? t : '';
+    }
+    function playerKey(leg) {
+      return String((leg && leg.player) || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+    function selectPublicPicks(allLegs) {
+      var usedPlayers = {};
+      var selected = [];
+      TIER_ORDER.forEach(function(requiredTier) {
+        var candidates = allLegs.filter(function(leg) {
+          return normalizeTier(leg) === requiredTier && playerKey(leg);
+        }).sort(function(a, b) {
+          return pickProbability(b) - pickProbability(a);
+        });
+        for (var i = 0; i < candidates.length; i++) {
+          var key = playerKey(candidates[i]);
+          if (!usedPlayers[key]) {
+            usedPlayers[key] = true;
+            selected.push(candidates[i]);
+            break;
+          }
+        }
+      });
+      return selected;
+    }
     function loadProps() {
       // Check premium token
       var isPremium = false;
@@ -734,20 +769,19 @@
           if (!allLegs.length) { showNoData(); return; }
           var grid = document.getElementById('propsGrid');
           grid.innerHTML = '';
-          var showLegs = allLegs.slice().sort(function(a,b) {
-            return Number(b.p_cal || b.model_probability || 0) - Number(a.p_cal || a.model_probability || 0);
-          }).slice(0, 3);
+          var showLegs = selectPublicPicks(allLegs);
           for (var i = 0; i < showLegs.length; i++) {
             var leg = showLegs[i];
-            var t = (leg.tier||'').toUpperCase();
+            var t = normalizeTier(leg);
             var ts = TIER_STYLE[t] || { cls: 'standard', label: '' };
             var dir = (leg.dir||'').toLowerCase();
             var sportLabel = (leg.sport || '').toUpperCase();
             var card = document.createElement('div');
             card.className = 'prop-card';
             var probHtml = '';
-            if (leg.p_cal != null) {
-              var pct = Math.round(leg.p_cal * 100);
+            var p = pickProbability(leg);
+            if (p > 0) {
+              var pct = Math.round(p * 100);
               probHtml = '<div class="prob-lock-wrap"><div class="prob-pill">' + pct + '%</div></div>';
             }
             var matchup = (leg.team && leg.opp) ? esc(leg.team) + ' vs ' + esc(leg.opp) : (leg.team ? esc(leg.team) : '');
