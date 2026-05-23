@@ -709,8 +709,16 @@ def _load_injury_context(run_dir: Path, all_legs: list[dict[str, Any]]) -> dict[
     slate_teams |= {str(leg.get("opp") or "").upper() for leg in all_legs}
     invalidated: list[dict[str, Any]] = []
     questionable: list[dict[str, Any]] = []
-    report_date = ""
-    pulled_at = ""
+    pulled_dates: list[str] = []
+    report_dates: list[str] = []
+    sources: set[str] = set()
+
+    def _date_prefix(value: Any) -> str:
+        text = str(value or "").strip()
+        if len(text) >= 10 and text[4:5] == "-" and text[7:8] == "-":
+            return text[:10]
+        return ""
+
     with injuries_path.open("r", encoding="utf-8") as fh:
         for line in fh:
             if not line.strip():
@@ -719,6 +727,15 @@ def _load_injury_context(run_dir: Path, all_legs: list[dict[str, Any]]) -> dict[
                 row = json.loads(line)
             except json.JSONDecodeError:
                 continue
+            pulled_date = _date_prefix(row.get("pulled_at_utc"))
+            if pulled_date:
+                pulled_dates.append(pulled_date)
+            row_report_date = _date_prefix(row.get("report_date"))
+            if row_report_date:
+                report_dates.append(row_report_date)
+            if row.get("source"):
+                sources.add(str(row.get("source") or ""))
+
             team = str(row.get("team") or "").upper()
             if slate_teams and team not in slate_teams:
                 continue
@@ -734,14 +751,14 @@ def _load_injury_context(run_dir: Path, all_legs: list[dict[str, Any]]) -> dict[
                 questionable.append(item)
             elif "IL" in status_u or "OUT" in status_u or "INACTIVE" in status_u:
                 invalidated.append(item)
-            report_date = report_date or str(row.get("report_date") or "")[:10]
-            pulled_at = pulled_at or str(row.get("pulled_at_utc") or "")
+    report_date = max(pulled_dates) if pulled_dates else (max(report_dates) if report_dates else "")
     return {
         "invalidated_players": invalidated[:80],
         "questionable_players": questionable[:80],
         "role_boosted": [],
         "report_date": report_date,
-        "report_label": "ESPN MLB injuries" if pulled_at else "",
+        "report_label": "MLB injuries" if report_date else "",
+        "source": sorted(sources),
     }
 
 
