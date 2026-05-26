@@ -1,307 +1,70 @@
 {
-    "generated_at":  "2026-05-25T18:36:30.496717Z",
-    "run_id":  "live_20260525_133010",
+    "generated_at":  "2026-05-26T19:27:19.661003Z",
+    "run_id":  "live_20260526_132210",
     "sport":  "MLB",
+    "model_engaged_at":  "2026-05-26T13:26:44.620475-05:00",
+    "model_engaged_at_local":  "2026-05-26 1:26 PM CT",
+    "model_engaged_label":  "model engaged at 2026-05-26 1:26 PM CT",
     "picks":  [
                   {
-                      "player":  "Cody Bellinger",
-                      "team":  "NYY",
-                      "opp":  "KC",
+                      "player":  "Vlad Guerrero Jr.",
+                      "team":  "TOR",
+                      "opp":  "MIA",
                       "stat":  "HITTER FANTASY SCORE",
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.853516
+                      "p_cal":  0.917969
                   },
                   {
-                      "player":  "Nick Lodolo",
-                      "team":  "CIN",
-                      "opp":  "NYM",
-                      "stat":  "PITCHES THROWN",
-                      "line":  93.5,
+                      "player":  "Nick Fortes",
+                      "team":  "TB",
+                      "opp":  "BAL",
+                      "stat":  "SINGLES",
+                      "line":  0.5,
                       "dir":  "UNDER",
                       "tier":  "STANDARD",
-                      "p_cal":  0.707031
+                      "p_cal":  0.744629
                   },
                   {
-                      "player":  "Mookie Betts",
-                      "team":  "LAD",
-                      "opp":  "COL",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
+                      "player":  "Braydon Fisher",
+                      "team":  "TOR",
+                      "opp":  "MIA",
+                      "stat":  "PITCHER STRIKEOUTS",
+                      "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "DEMON",
-                      "p_cal":  0.584961
+                      "p_cal":  0.750977
                   },
                   {
-                      "player":  "Elly De La Cruz",
-                      "team":  "CIN",
-                      "opp":  "NYM",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.833008
-                  },
-                  {
-                      "player":  "Teoscar Hernández",
-                      "team":  "LAD",
-                      "opp":  "COL",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.822754
-                  },
-                  {
-                      "player":  "Ketel Marte",
-                      "team":  "AZ",
-                      "opp":  "SF",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  3.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.819336
-                  },
-                  {
-                      "player":  "Jake Burger",
-                      "team":  "TEX",
-                      "opp":  "HOU",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.818359
-                  },
-                  {
-                      "player":  "Sal Stewart",
-                      "team":  "CIN",
-                      "opp":  "NYM",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.812988
-                  },
-                  {
-                      "player":  "Spencer Steer",
-                      "team":  "CIN",
-                      "opp":  "NYM",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.801758
-                  },
-                  {
-                      "player":  "Corbin Carroll",
-                      "team":  "AZ",
-                      "opp":  "SF",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  3.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.799805
-                  },
-                  {
-                      "player":  "Daulton Varsho",
-                      "team":  "TOR",
-                      "opp":  "MIA",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.799805
-                  },
-                  {
-                      "player":  "Randy Arozarena",
-                      "team":  "SEA",
-                      "opp":  "ATH",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.799805
-                  },
-                  {
-                      "player":  "Bo Bichette",
-                      "team":  "NYM",
-                      "opp":  "CIN",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.798828
-                  },
-                  {
-                      "player":  "Paul Goldschmidt",
-                      "team":  "NYY",
-                      "opp":  "KC",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.794434
-                  },
-                  {
-                      "player":  "Kazuma Okamoto",
-                      "team":  "TOR",
-                      "opp":  "MIA",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.793457
-                  },
-                  {
-                      "player":  "Bryce Harper",
-                      "team":  "PHI",
-                      "opp":  "SD",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.792969
-                  },
-                  {
-                      "player":  "Casey Schmitt",
-                      "team":  "SF",
-                      "opp":  "AZ",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.791504
-                  },
-                  {
-                      "player":  "Freddie Freeman",
-                      "team":  "LAD",
-                      "opp":  "COL",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.780762
-                  },
-                  {
-                      "player":  "Dominic Canzone",
-                      "team":  "SEA",
-                      "opp":  "ATH",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.779297
-                  },
-                  {
-                      "player":  "CJ Abrams",
-                      "team":  "WSH",
-                      "opp":  "CLE",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.777832
-                  },
-                  {
-                      "player":  "Brandon Marsh",
-                      "team":  "PHI",
-                      "opp":  "SD",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.777344
-                  },
-                  {
-                      "player":  "Kyle Tucker",
-                      "team":  "LAD",
-                      "opp":  "COL",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.773926
-                  },
-                  {
-                      "player":  "Nathaniel Lowe",
-                      "team":  "CIN",
-                      "opp":  "NYM",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.771484
-                  },
-                  {
-                      "player":  "Jesús Sánchez",
-                      "team":  "TOR",
-                      "opp":  "MIA",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.770996
-                  },
-                  {
-                      "player":  "Nolan Arenado",
-                      "team":  "AZ",
-                      "opp":  "SF",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.77002
-                  },
-                  {
-                      "player":  "Chase DeLauter",
-                      "team":  "CLE",
-                      "opp":  "WSH",
-                      "stat":  "HITS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.764648
-                  },
-                  {
-                      "player":  "Brett Baty",
-                      "team":  "NYM",
-                      "opp":  "CIN",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.763184
-                  },
-                  {
-                      "player":  "Jac Caglianone",
+                      "player":  "Bobby Witt Jr.",
                       "team":  "KC",
                       "opp":  "NYY",
                       "stat":  "HITTER FANTASY SCORE",
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.761719
+                      "p_cal":  0.905762
                   },
                   {
-                      "player":  "Will Smith",
-                      "team":  "LAD",
-                      "opp":  "COL",
+                      "player":  "Bryan Reynolds",
+                      "team":  "PIT",
+                      "opp":  "CHC",
                       "stat":  "HITTER FANTASY SCORE",
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.760254
+                      "p_cal":  0.894043
                   },
                   {
-                      "player":  "Kyle Schwarber",
-                      "team":  "PHI",
-                      "opp":  "SD",
+                      "player":  "Jesús Sánchez",
+                      "team":  "TOR",
+                      "opp":  "MIA",
                       "stat":  "HITTER FANTASY SCORE",
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.759277
+                      "p_cal":  0.874023
                   },
                   {
                       "player":  "Daylen Lile",
@@ -311,177 +74,207 @@
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.756836
+                      "p_cal":  0.87207
                   },
                   {
-                      "player":  "Ben Rice",
-                      "team":  "NYY",
-                      "opp":  "KC",
+                      "player":  "Dillon Dingler",
+                      "team":  "DET",
+                      "opp":  "LAA",
                       "stat":  "HITTER FANTASY SCORE",
                       "line":  3.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.755859
+                      "p_cal":  0.866211
                   },
                   {
-                      "player":  "J.P. Crawford",
-                      "team":  "SEA",
-                      "opp":  "ATH",
+                      "player":  "Yandy Díaz",
+                      "team":  "TB",
+                      "opp":  "BAL",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  3.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.865234
+                  },
+                  {
+                      "player":  "Fernando Tatis Jr.",
+                      "team":  "SD",
+                      "opp":  "PHI",
                       "stat":  "HITTER FANTASY SCORE",
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.755859
+                      "p_cal":  0.864746
                   },
                   {
-                      "player":  "José Ramírez",
+                      "player":  "Riley Greene",
+                      "team":  "DET",
+                      "opp":  "LAA",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.863281
+                  },
+                  {
+                      "player":  "Bailey Falter",
+                      "team":  "KC",
+                      "opp":  "NYY",
+                      "stat":  "PITCHING OUTS",
+                      "line":  8.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.861328
+                  },
+                  {
+                      "player":  "Nathaniel Lowe",
+                      "team":  "CIN",
+                      "opp":  "NYM",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.85498
+                  },
+                  {
+                      "player":  "Marcell Ozuna",
+                      "team":  "PIT",
+                      "opp":  "CHC",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.853027
+                  },
+                  {
+                      "player":  "Andrés Giménez",
+                      "team":  "TOR",
+                      "opp":  "MIA",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.851562
+                  },
+                  {
+                      "player":  "Kevin McGonigle",
+                      "team":  "DET",
+                      "opp":  "LAA",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  3.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.841797
+                  },
+                  {
+                      "player":  "Curtis Mead",
+                      "team":  "WSH",
+                      "opp":  "CLE",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.834473
+                  },
+                  {
+                      "player":  "Spencer Miles",
+                      "team":  "TOR",
+                      "opp":  "MIA",
+                      "stat":  "EARNED RUNS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.833008
+                  },
+                  {
+                      "player":  "Chase DeLauter",
+                      "team":  "CLE",
+                      "opp":  "WSH",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.831055
+                  },
+                  {
+                      "player":  "Isaac Collins",
+                      "team":  "KC",
+                      "opp":  "NYY",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.813965
+                  },
+                  {
+                      "player":  "Xander Bogaerts",
+                      "team":  "SD",
+                      "opp":  "PHI",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.812012
+                  },
+                  {
+                      "player":  "Eugenio Suárez",
+                      "team":  "CIN",
+                      "opp":  "NYM",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.811523
+                  },
+                  {
+                      "player":  "Nolan Schanuel",
+                      "team":  "LAA",
+                      "opp":  "DET",
+                      "stat":  "HITS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.811523
+                  },
+                  {
+                      "player":  "Masyn Winn",
+                      "team":  "STL",
+                      "opp":  "MIL",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.799805
+                  },
+                  {
+                      "player":  "Alec Burleson",
+                      "team":  "STL",
+                      "opp":  "MIL",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.797852
+                  },
+                  {
+                      "player":  "Angel Martínez",
                       "team":  "CLE",
                       "opp":  "WSH",
                       "stat":  "HITS+RUNS+RBIS",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.75293
+                      "p_cal":  0.796875
                   },
                   {
-                      "player":  "Miguel Rojas",
-                      "team":  "LAD",
-                      "opp":  "COL",
+                      "player":  "Oswald Peraza",
+                      "team":  "LAA",
+                      "opp":  "DET",
                       "stat":  "HITTER FANTASY SCORE",
                       "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.751465
-                  },
-                  {
-                      "player":  "Carson Benge",
-                      "team":  "NYM",
-                      "opp":  "CIN",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.750977
-                  },
-                  {
-                      "player":  "Mark Vientos",
-                      "team":  "NYM",
-                      "opp":  "CIN",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.746582
-                  },
-                  {
-                      "player":  "James Wood",
-                      "team":  "WSH",
-                      "opp":  "CLE",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.746094
-                  },
-                  {
-                      "player":  "Aaron Judge",
-                      "team":  "NYY",
-                      "opp":  "KC",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.744629
-                  },
-                  {
-                      "player":  "Harrison Bader",
-                      "team":  "SF",
-                      "opp":  "AZ",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.743652
-                  },
-                  {
-                      "player":  "Josh Naylor",
-                      "team":  "SEA",
-                      "opp":  "ATH",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.740723
-                  },
-                  {
-                      "player":  "JJ Bleday",
-                      "team":  "CIN",
-                      "opp":  "NYM",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.739258
-                  },
-                  {
-                      "player":  "Vinnie Pasquantino",
-                      "team":  "KC",
-                      "opp":  "NYY",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.739258
-                  },
-                  {
-                      "player":  "Zack Littell",
-                      "team":  "WSH",
-                      "opp":  "CLE",
-                      "stat":  "PITCHER FANTASY SCORE",
-                      "line":  11.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.73877
-                  },
-                  {
-                      "player":  "Adolis García",
-                      "team":  "PHI",
-                      "opp":  "SD",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.737793
-                  },
-                  {
-                      "player":  "Eugenio Suárez",
-                      "team":  "CIN",
-                      "opp":  "NYM",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.734863
-                  },
-                  {
-                      "player":  "Trent Grisham",
-                      "team":  "NYY",
-                      "opp":  "KC",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  3.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.734375
-                  },
-                  {
-                      "player":  "Julio Rodríguez",
-                      "team":  "SEA",
-                      "opp":  "ATH",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  3.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.733398
+                      "p_cal":  0.794922
                   },
                   {
                       "player":  "Kyle Isbel",
@@ -491,19 +284,229 @@
                       "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.72998
+                      "p_cal":  0.790527
                   },
                   {
-                      "player":  "Aaron Civale",
-                      "team":  "ATH",
-                      "opp":  "SEA",
-                      "stat":  "PITCHER FANTASY SCORE",
-                      "line":  13.5,
+                      "player":  "Sal Stewart",
+                      "team":  "CIN",
+                      "opp":  "NYM",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.728027
+                      "p_cal":  0.786621
+                  },
+                  {
+                      "player":  "Nick Castellanos",
+                      "team":  "SD",
+                      "opp":  "PHI",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.786133
+                  },
+                  {
+                      "player":  "Elly De La Cruz",
+                      "team":  "CIN",
+                      "opp":  "NYM",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.783203
+                  },
+                  {
+                      "player":  "Hunter Goodman",
+                      "team":  "COL",
+                      "opp":  "LAD",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.783203
+                  },
+                  {
+                      "player":  "Connor Norby",
+                      "team":  "MIA",
+                      "opp":  "TOR",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.782715
+                  },
+                  {
+                      "player":  "Kyle Freeland",
+                      "team":  "COL",
+                      "opp":  "LAD",
+                      "stat":  "PITCHER FANTASY SCORE",
+                      "line":  9.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.782227
+                  },
+                  {
+                      "player":  "Bryce Harper",
+                      "team":  "PHI",
+                      "opp":  "SD",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.779785
+                  },
+                  {
+                      "player":  "Taylor Ward",
+                      "team":  "BAL",
+                      "opp":  "TB",
+                      "stat":  "HITS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.779785
+                  },
+                  {
+                      "player":  "Jake Bauers",
+                      "team":  "MIL",
+                      "opp":  "STL",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.777832
+                  },
+                  {
+                      "player":  "Jarren Duran",
+                      "team":  "BOS",
+                      "opp":  "ATL",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.774902
+                  },
+                  {
+                      "player":  "Andy Pages",
+                      "team":  "LAD",
+                      "opp":  "COL",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.772949
+                  },
+                  {
+                      "player":  "Ernie Clement",
+                      "team":  "TOR",
+                      "opp":  "MIA",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.771973
+                  },
+                  {
+                      "player":  "Daulton Varsho",
+                      "team":  "TOR",
+                      "opp":  "MIA",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.769531
+                  },
+                  {
+                      "player":  "Henry Davis",
+                      "team":  "PIT",
+                      "opp":  "CHC",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.769531
+                  },
+                  {
+                      "player":  "Sean Burke",
+                      "team":  "CWS",
+                      "opp":  "MIN",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.768066
+                  },
+                  {
+                      "player":  "Munetaka Murakami",
+                      "team":  "CWS",
+                      "opp":  "MIN",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.767578
+                  },
+                  {
+                      "player":  "Yohel Pozo",
+                      "team":  "STL",
+                      "opp":  "MIL",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.76709
+                  },
+                  {
+                      "player":  "Kazuma Okamoto",
+                      "team":  "TOR",
+                      "opp":  "MIA",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.765137
+                  },
+                  {
+                      "player":  "Shohei Ohtani",
+                      "team":  "LAD",
+                      "opp":  "COL",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.764648
+                  },
+                  {
+                      "player":  "Shea Langeliers",
+                      "team":  "ATH",
+                      "opp":  "SEA",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.76416
+                  },
+                  {
+                      "player":  "Cody Bellinger",
+                      "team":  "NYY",
+                      "opp":  "KC",
+                      "stat":  "HITS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.763184
+                  },
+                  {
+                      "player":  "Colson Montgomery",
+                      "team":  "CWS",
+                      "opp":  "MIN",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.763184
                   }
               ],
-    "total_legs":  4209,
-    "total_slips":  2
+    "total_legs":  7268,
+    "total_slips":  0
 }

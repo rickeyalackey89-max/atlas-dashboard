@@ -5,9 +5,14 @@ import csv
 import json
 import re
 import unicodedata
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+
+try:
+    from zoneinfo import ZoneInfo
+except Exception:  # pragma: no cover - Windows fallback for stripped installs
+    ZoneInfo = None  # type: ignore[assignment]
 
 
 FAMILY_FILES = {
@@ -21,6 +26,59 @@ def _read_json(path: Path) -> Any:
     if not path.exists():
         return None
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _central_tz():
+    if ZoneInfo is not None:
+        return ZoneInfo("America/Chicago")
+    return timezone(timedelta(hours=-6))
+
+
+def _parse_datetime(value: Any) -> datetime | None:
+    raw = str(value or "").strip()
+    if not raw:
+        return None
+    try:
+        dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=_central_tz())
+    return dt
+
+
+def _format_ct(dt: datetime) -> str:
+    local = dt.astimezone(_central_tz())
+    hour = local.strftime("%I").lstrip("0") or "0"
+    return f"{local.strftime('%Y-%m-%d')} {hour}:{local.strftime('%M %p')} CT"
+
+
+def _model_engagement(run_dir: Path, manifest: dict[str, Any]) -> dict[str, str]:
+    dt = (
+        _parse_datetime(manifest.get("created_at_local"))
+        or _parse_datetime(manifest.get("created_at_utc"))
+    )
+    if dt is None:
+        match = re.search(r"(\d{8})_(\d{6})", run_dir.name)
+        if match:
+            try:
+                dt = datetime.strptime("".join(match.groups()), "%Y%m%d%H%M%S").replace(tzinfo=_central_tz())
+            except ValueError:
+                dt = None
+    if dt is None:
+        dt = datetime.now(_central_tz())
+    local = dt.astimezone(_central_tz())
+    return {
+        "model_engaged_at": local.isoformat(),
+        "model_engaged_at_local": _format_ct(local),
+        "model_engaged_label": f"model engaged at {_format_ct(local)}",
+    }
+
+
+def _attach_model_engagement(slips: list[dict[str, Any]], engagement: dict[str, str]) -> None:
+    for slip in slips:
+        if isinstance(slip, dict):
+            slip.update(engagement)
 
 
 def _num(value: Any) -> float | None:
@@ -725,14 +783,24 @@ def _find_nested_value(obj: Any, key: str) -> Any:
     return None
 
 
-def _load_injury_context(run_dir: Path, all_legs: list[dict[str, Any]]) -> dict[str, Any]:
+def _load_injury_context(
+    run_dir: Path,
+    all_legs: list[dict[str, Any]],
+    engagement: dict[str, str],
+) -> dict[str, Any]:
+    base = {
+        "invalidated_players": [],
+        "questionable_players": [],
+        "role_boosted": [],
+        **engagement,
+    }
     manifest = _read_json(run_dir / "run_manifest.json") or {}
     injuries_path_raw = _find_nested_value(manifest, "injuries_path")
     if not injuries_path_raw:
-        return {"invalidated_players": [], "questionable_players": [], "role_boosted": []}
+        return base
     injuries_path = Path(str(injuries_path_raw))
     if not injuries_path.exists():
-        return {"invalidated_players": [], "questionable_players": [], "role_boosted": []}
+        return base
 
     slate_teams = {str(leg.get("team") or "").upper() for leg in all_legs}
     slate_teams |= {str(leg.get("opp") or "").upper() for leg in all_legs}
@@ -788,6 +856,7 @@ def _load_injury_context(run_dir: Path, all_legs: list[dict[str, Any]]) -> dict[
         "report_date": report_date,
         "report_label": "MLB injuries" if report_date else "",
         "source": sorted(sources),
+        **engagement,
     }
 
 
@@ -1310,6 +1379,8 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
     if not run_dir.exists():
         raise SystemExit(f"MLB run not found: {run_dir}")
 
+    manifest = _read_json(run_dir / "run_manifest.json") or {}
+    engagement = _model_engagement(run_dir, manifest)
     all_legs = _load_all_legs(run_dir)
     _attach_recent_games_to_legs(all_legs, mlb_root / "data" / "mlb" / "season_gamelogs" / "latest.csv")
     marketed = _load_marketed(run_dir)
@@ -1317,8 +1388,10 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
     windfall = _load_family(run_dir, "windfall")
     demonhunter = _load_family(run_dir, "demonhunter")
     big_swings = _load_big_swings(run_dir)
+    for slips in (marketed, system, windfall, demonhunter, big_swings):
+        _attach_model_engagement(slips, engagement)
     source_context = _load_source_context(run_dir)
-    injury_context = _load_injury_context(run_dir, all_legs)
+    injury_context = _load_injury_context(run_dir, all_legs, engagement)
     performance = _load_performance(mlb_root)
     stat_hub = _load_mlb_stat_hub(mlb_root, run_dir, all_legs)
     generated = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -1327,6 +1400,7 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
         "generated_at": generated,
         "run_id": run_dir.name,
         "sport": "MLB",
+        **engagement,
         "system": system,
         "system_winprob": [],
         "windfall": windfall,
@@ -1351,6 +1425,7 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
         "generated_at": generated,
         "run_id": run_dir.name,
         "sport": "MLB",
+        **engagement,
         "picks": _public_picks(all_legs),
         "total_legs": len(all_legs),
         "total_slips": len(system) + len(windfall) + len(demonhunter) + len(marketed),
@@ -1358,7 +1433,10 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
     }
     (out_dir / "picks_today.json").write_text(json.dumps(picks_payload, indent=2), encoding="utf-8")
     (out_dir / "status_latest.json").write_text(
-        json.dumps({"ok": True, "sport": "MLB", "run_id": run_dir.name, "generated_at": generated}, indent=2),
+        json.dumps(
+            {"ok": True, "sport": "MLB", "run_id": run_dir.name, "generated_at": generated, **engagement},
+            indent=2,
+        ),
         encoding="utf-8",
     )
     return payload_path

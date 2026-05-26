@@ -17,9 +17,10 @@ $ErrorActionPreference = "Stop"
 # ============================================================
 $RepoRoot  = Split-Path -Parent $MyInvocation.MyCommand.Path
 $PublicDir = Join-Path $RepoRoot "public"
-$StageDir  = Join-Path $RepoRoot ".publish_stage"
+$StageRoot = Join-Path $RepoRoot ".publish_stage"
 
 $Sport = $Sport.ToLowerInvariant()
+$StageDir = Join-Path $StageRoot $Sport
 if ([string]::IsNullOrWhiteSpace($PremiumKvKey)) {
   $PremiumKvKey = "premium:${Sport}:dashboard:latest"
 }
@@ -253,6 +254,9 @@ $picksPayload  = [ordered]@{
     generated_at = $payload.generated_at
     run_id       = $payload.run_id
     sport        = $Sport.ToUpperInvariant()
+    model_engaged_at = if ($payload.PSObject.Properties["model_engaged_at"]) { $payload.model_engaged_at } else { $null }
+    model_engaged_at_local = if ($payload.PSObject.Properties["model_engaged_at_local"]) { $payload.model_engaged_at_local } else { $null }
+    model_engaged_label = if ($payload.PSObject.Properties["model_engaged_label"]) { $payload.model_engaged_label } else { $null }
     picks        = @($picksRows)
     total_legs   = $allLegs.Count
     total_slips  = $systemCount + $windfallCount + $demonCount + $marketedCount
@@ -289,6 +293,9 @@ if ($PremiumKvNamespaceId -and -not $ForcePublicPremiumPayload) {
     public_preview = if ($Sport -eq "mlb") { "/data/mlb/picks_today.json" } else { "/data/picks_today.json" }
     generated_at = $payload.generated_at
     run_id = $payload.run_id
+    model_engaged_at = if ($payload.PSObject.Properties["model_engaged_at"]) { $payload.model_engaged_at } else { $null }
+    model_engaged_at_local = if ($payload.PSObject.Properties["model_engaged_at_local"]) { $payload.model_engaged_at_local } else { $null }
+    model_engaged_label = if ($payload.PSObject.Properties["model_engaged_label"]) { $payload.model_engaged_label } else { $null }
   }
   Write-JsonFile $StagePayload $stub
   Write-Host "Public cloudflare_payload.json replaced with private-data stub."

@@ -258,6 +258,7 @@
     .slip-family-header .sfh-title{font-size:18px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--text);}
     .slip-family-header .sfh-count{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--t2);text-transform:uppercase;}
     .slip-family-header .sfh-desc{font-size:13px;font-weight:400;color:var(--t2);line-height:1.65;max-width:600px;text-transform:none;letter-spacing:0;}
+    .model-engaged-label{font-size:11px;font-weight:800;letter-spacing:.04em;color:var(--cyan);text-align:center;margin:0 0 18px;}
     .slip-card{background:var(--s2);padding:20px;margin-bottom:1px;}
     .slip-card:last-child{margin-bottom:0;}
     .slip-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0;gap:12px;flex-wrap:wrap;}
@@ -2167,6 +2168,13 @@
       {key:'big_swings',label:'The Big Swings',desc:'Individual high-upside flex picks',color:'var(--gold)',bc:'rgba(245,166,35,.35)'},
     ];
     var container=document.getElementById('slipsList'); container.innerHTML=''; var anySlips=false;
+    var engagedLabel=data.model_engaged_label||((data.injury_context||{}).model_engaged_label)||'';
+    if(engagedLabel){
+      var engaged=document.createElement('div');
+      engaged.className='model-engaged-label';
+      engaged.textContent=engagedLabel;
+      container.appendChild(engaged);
+    }
 
     // ---- Atlas Picks (marketed_slips) ----
     var mktSlips=data.marketed_slips||[];
@@ -2276,7 +2284,12 @@
       }
       container.appendChild(famDiv);
     }
-    if(!anySlips) container.innerHTML='<div class="no-data">No slips generated today.</div>';
+    if(!anySlips){
+      var noSlip=document.createElement('div');
+      noSlip.className='no-data';
+      noSlip.textContent='No slips generated today.';
+      container.appendChild(noSlip);
+    }
   }
 
   function verifyToken(token){
@@ -2549,6 +2562,7 @@
     var questionable  = injCtx.questionable_players || [];
     var reportDate    = injCtx.report_date || '';
     var reportLabel   = injCtx.report_label ? '  ' + injCtx.report_label : '';
+    var engagedLabel  = injCtx.model_engaged_label || '';
 
     var STAT_NAME = {PTS:'Points',REB:'Rebounds',AST:'Assists',FG3M:'3-Pointers',PRA:'Pts+Reb+Ast',PR:'Pts+Reb',PA:'Pts+Ast',RA:'Reb+Ast',STL:'Steals',BLK:'Blocks',FTA:'Free Throw Attempts'};
 
@@ -2558,6 +2572,9 @@
       var rHtml = '<div style="font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;">Injury Report';
       if (reportDate) rHtml += ' <span style="color:var(--t2);font-weight:600;">— ' + esc(reportDate + reportLabel) + '</span>';
       rHtml += '</div>';
+      if (engagedLabel) {
+        rHtml += '<div class="model-engaged-label" style="text-align:left;margin:-4px 0 14px;">' + esc(engagedLabel) + '</div>';
+      }
 
       // OUT / DOUBTFUL
       if (!players.length) {
