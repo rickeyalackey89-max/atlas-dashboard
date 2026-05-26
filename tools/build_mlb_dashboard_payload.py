@@ -792,10 +792,26 @@ def _load_injury_context(run_dir: Path, all_legs: list[dict[str, Any]]) -> dict[
 
 
 def _latest_eval_file(mlb_root: Path, name: str) -> Path | None:
-    eval_root = mlb_root / "data" / "mlb" / "eval"
-    if not eval_root.exists():
-        return None
-    matches = [p for p in eval_root.glob(f"**/{name}") if p.is_file()]
+    data_root = mlb_root / "data" / "mlb"
+    latest_names = {
+        "eval_summary.json": "latest_eval_summary.json",
+        "slip_eval.json": "latest_slip_eval.json",
+    }
+    roots = (
+        data_root / "live_runs",
+        data_root / "replay_runs",
+        data_root / "eval",
+    )
+    matches: list[Path] = []
+    for root in roots:
+        if not root.exists():
+            continue
+        matches.extend(p for p in root.glob(f"**/{name}") if p.is_file())
+    latest_name = latest_names.get(name)
+    if latest_name:
+        latest = data_root / "eval" / latest_name
+        if latest.is_file():
+            matches.append(latest)
     if not matches:
         return None
     return max(matches, key=lambda p: p.stat().st_mtime)
