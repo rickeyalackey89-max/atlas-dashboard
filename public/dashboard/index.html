@@ -1845,6 +1845,18 @@
     return html;
   }
 
+  function hubTeamMetaHtml(team, opps){
+    var parts=[];
+    var name=team.team_name||team.market||'';
+    if(name) parts.push(esc(name));
+    var matchup=opps.length?'vs '+esc(opps.join(', ')):'';
+    var time=team.game_time_label||team.game_time||'';
+    if(matchup&&time) parts.push(matchup+' '+esc(time));
+    else if(matchup) parts.push(matchup);
+    else if(time) parts.push(esc(time));
+    return parts.join(' &middot; ');
+  }
+
   function buildMlbTeamStats(statHub){
     var el=document.getElementById('hubTeamStats');
     if(!el) return;
@@ -1860,7 +1872,7 @@
       var sections=Array.isArray(team.sections)?team.sections:[];
       var logo=team.logo_url?'<img class="hub-team-logo" src="'+esc(team.logo_url)+'" alt="'+esc(team.team||'')+'" loading="lazy" decoding="async" onerror="this.style.display=\'none\'"/>':'';
       html+='<div class="hub-team-card">';
-      html+='<div class="hub-team-title"><div class="hub-team-left">'+logo+'<div><div class="hub-team-name">'+esc(team.team||'Team')+'</div><div class="hub-team-meta">'+esc(team.team_name||team.market||'')+(opps.length?' &middot; vs '+esc(opps.join(', ')):'')+'</div></div></div></div>';
+      html+='<div class="hub-team-title"><div class="hub-team-left">'+logo+'<div><div class="hub-team-name">'+esc(team.team||'Team')+'</div><div class="hub-team-meta">'+hubTeamMetaHtml(team,opps)+'</div></div></div></div>';
       if(!sections.length){
         html+='<div class="no-data">No players found.</div>';
       }
@@ -1923,7 +1935,7 @@
       var seriesLabel=opps.length?'Series Avg vs '+opps.join(', '):'Series Avg';
       var logo=team.logo_url?'<img class="hub-team-logo" src="'+esc(team.logo_url)+'" alt="'+esc(team.team||'')+'" loading="lazy" decoding="async" onerror="this.style.display=\'none\'"/>':'';
       html+='<div class="hub-team-card">';
-      html+='<div class="hub-team-title"><div class="hub-team-left">'+logo+'<div><div class="hub-team-name">'+esc(team.team||'Team')+'</div><div class="hub-team-meta">'+esc(team.team_name||team.market||'')+'</div></div></div></div>';
+      html+='<div class="hub-team-title"><div class="hub-team-left">'+logo+'<div><div class="hub-team-name">'+esc(team.team||'Team')+'</div><div class="hub-team-meta">'+hubTeamMetaHtml(team,opps)+'</div></div></div></div>';
       html+='<div class="hub-stat-head" style="grid-template-columns:'+cols+';">'+
         '<div class="hub-stat-head-cell">Player</div>'+
         '<div class="hub-stat-head-cell">Season Avg</div>'+

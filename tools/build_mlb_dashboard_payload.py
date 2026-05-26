@@ -53,6 +53,46 @@ def _format_ct(dt: datetime) -> str:
     return f"{local.strftime('%Y-%m-%d')} {hour}:{local.strftime('%M %p')} CT"
 
 
+def _format_game_time_ct(dt: datetime) -> str:
+    local = dt.astimezone(_central_tz())
+    hour = local.strftime("%I").lstrip("0") or "0"
+    return f"{hour}:{local.strftime('%M')}{local.strftime('%p').lower()} CT"
+
+
+def _team_game_meta_from_legs(all_legs: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    indexed: dict[str, dict[str, Any]] = {}
+
+    def add(team_raw: Any, opp_raw: Any, start_raw: Any) -> None:
+        team = _team_key(team_raw)
+        opp = _team_key(opp_raw)
+        if not team:
+            return
+        entry = indexed.setdefault(team, {"opponents": set(), "starts": []})
+        if opp:
+            entry["opponents"].add(opp)
+        start = _parse_datetime(start_raw)
+        if start is not None:
+            entry["starts"].append(start)
+
+    for leg in all_legs:
+        start_raw = leg.get("start_time") or leg.get("start_time_utc") or leg.get("commence_time")
+        team = leg.get("team") or leg.get("player_team")
+        opp = leg.get("opp") or leg.get("opponent")
+        add(team, opp, start_raw)
+        add(opp, team, start_raw)
+
+    out: dict[str, dict[str, Any]] = {}
+    for team, entry in indexed.items():
+        starts = sorted(entry["starts"])
+        first_start = starts[0] if starts else None
+        out[team] = {
+            "opponents": sorted(entry["opponents"]),
+            "game_start_time": first_start.isoformat() if first_start else "",
+            "game_time_label": _format_game_time_ct(first_start) if first_start else "",
+        }
+    return out
+
+
 def _model_engagement(run_dir: Path, manifest: dict[str, Any]) -> dict[str, str]:
     dt = (
         _parse_datetime(manifest.get("created_at_local"))
@@ -1232,15 +1272,18 @@ def _load_mlb_stat_hub(mlb_root: Path, run_dir: Path, all_legs: list[dict[str, A
                 return found
         return {}
 
+    game_meta_by_team = _team_game_meta_from_legs(all_legs)
     teams: list[dict[str, Any]] = []
     for team in sorted(slate_teams):
         team_info = teams_by_abbr.get(team, {})
+        game_meta = game_meta_by_team.get(team, {})
         opponents = sorted(
             {
                 _team_key(row.get("opponent_abbr"))
                 for row in lineups + pitchers
                 if _team_key(row.get("team_abbr")) == team and row.get("opponent_abbr")
             }
+            | set(game_meta.get("opponents") or [])
         )
         team_visual = pp_assets.get("teams", {}).get(team, {})
 
@@ -1329,6 +1372,8 @@ def _load_mlb_stat_hub(mlb_root: Path, run_dir: Path, all_legs: list[dict[str, A
                     "logo_url": team_visual.get("logo_url") or "",
                     "market": team_visual.get("market") or team_info.get("team_short_name") or "",
                     "opponents": opponents,
+                    "game_start_time": game_meta.get("game_start_time") or "",
+                    "game_time_label": game_meta.get("game_time_label") or "",
                     "sections": [
                         {
                             "label": "Hitting",
