@@ -250,6 +250,7 @@ function applyWatermark(data, watermark) {
     'windfall',
     'windfall_winprob',
     'demonhunter',
+    'big_swings',
     'marketed_slips',
     'all_legs',
   ];

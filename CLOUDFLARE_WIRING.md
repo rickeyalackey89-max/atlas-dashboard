@@ -93,12 +93,36 @@ C:\Users\13142\Atlas\run-6am-eval-and-publish.cmd -ContinueOnError
 ```
 
 That wrapper runs prior-day evals for both NBA and MLB, rebuilds the sport
-dashboard payloads, then calls `publish-atlas.ps1` for `nba` and `mlb`.
+dashboard payloads, calls `publish-atlas.ps1` for `nba` and `mlb`, then runs the
+shared report-only 5.3 Spark eval review:
+```
+C:\Users\13142\Atlas\tools\run_eval_ai_review.py --date <prior-day> --sports nba mlb --call-openai
+```
+
+The same eval review is also registered as a standalone 6:30 AM Central backup
+task:
+```
+C:\Users\13142\Atlas\run-630am-eval-ai-review.cmd
+```
+It writes deterministic and AI-assisted reports to:
+- `logs/eval_ai_review/`
+- `MLB/data/mlb/eval/ai_reviews/`
+- `NBA/data/output/eval_ai_reviews/`
+
+The reviewer lane is `5.3-spark`. The scheduler reads the local Spark key from
+`DONOTDELETE/SparkKey.txt` without printing it. If that lane label is not
+available as an OpenAI API model, the script keeps the lane name and uses the
+configured API fallback model; the review remains report-only and does not mutate
+payloads, evals, probabilities, or slips.
 
 Live automation also publishes current live payloads. MLB live refreshes are
-scheduled at 11:00 AM with NBA, then MLB-only at 1:30 PM, 4:30 PM, and 7:30 PM
-Central. NBA also has a first-tip runner registered from the umbrella root that
+scheduled at 11:00 AM with NBA, then MLB-only at 1:30 PM and 4:30 PM daily, plus
+7:30 PM Central Monday-Saturday. NBA also has a first-tip runner registered from
+the umbrella root that
 fetches a fresh board and runs NBA live about 20 minutes before the first game.
+The Sunday MLB 7:30 PM task is guarded in `C:\Users\13142\Atlas\run-live-sports.ps1`;
+after 6:30 PM Central on Sundays it exits before running MLB or publishing, so
+it cannot overwrite the site after the Sunday slate has already started.
 Eval automation is for prior-day performance results; it should not overwrite a
 current live slate with historical board data.
 

@@ -340,14 +340,8 @@
       // System WinProb section
       content.appendChild(makeSection('System (Win Prob)', 'system_winprob', data.system_winprob || []));
       
-      // Windfall EV section
-      content.appendChild(makeSection('Windfall (EV)', 'windfall', data.windfall || []));
-      
-      // Windfall WinProb section
-      content.appendChild(makeSection('Windfall (Win Prob)', 'windfall_winprob', data.windfall_winprob || []));
-      
-      // Demonhunter section
-      content.appendChild(makeSection('\u2191 Alt Hunter', 'demonhunter', data.demonhunter || []));
+      // MLB high-upside flex pick board
+      content.appendChild(makeSection('The Big Swings', 'big_swings', data.big_swings || []));
       
       // Marketed slips section
       var ms = data.marketed_slips || [];

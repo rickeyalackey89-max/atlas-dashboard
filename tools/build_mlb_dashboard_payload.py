@@ -666,6 +666,35 @@ def _load_family(run_dir: Path, family: str) -> list[dict[str, Any]]:
     return out
 
 
+def _load_big_swings(run_dir: Path) -> list[dict[str, Any]]:
+    raw = _read_json(run_dir / "slips" / "big_swings.json") or _read_json(run_dir / "big_swings.json") or {}
+    picks = raw.get("picks") if isinstance(raw, dict) else []
+    out: list[dict[str, Any]] = []
+    for item in picks or []:
+        if not isinstance(item, dict):
+            continue
+        leg = _normalize_leg(dict(item))
+        if not leg:
+            continue
+        out.append(
+            {
+                "sport": "MLB",
+                "product": "The Big Swings",
+                "family": "big_swings",
+                "n_legs": 1,
+                "label": "Flex Pick",
+                "rank": item.get("rank"),
+                "legs": [leg],
+                "legs_detail": [leg],
+                "hit_prob": leg.get("p_cal"),
+                "payout_mult": None,
+                "ev": None,
+                "use_case": item.get("use_case") or "individual_high_upside_flex_pick",
+            }
+        )
+    return out
+
+
 def _load_source_context(run_dir: Path) -> dict[str, Any]:
     operator = _read_json(run_dir / "operator" / "operator_input.json") or {}
     manifest = _read_json(run_dir / "run_manifest.json") or {}
@@ -1271,6 +1300,7 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
     system = _load_family(run_dir, "system")
     windfall = _load_family(run_dir, "windfall")
     demonhunter = _load_family(run_dir, "demonhunter")
+    big_swings = _load_big_swings(run_dir)
     source_context = _load_source_context(run_dir)
     injury_context = _load_injury_context(run_dir, all_legs)
     performance = _load_performance(mlb_root)
@@ -1286,6 +1316,7 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
         "windfall": windfall,
         "windfall_winprob": [],
         "demonhunter": demonhunter,
+        "big_swings": big_swings,
         "marketed_slips": marketed,
         "gamescript": [],
         "all_legs": all_legs,
@@ -1307,6 +1338,7 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
         "picks": _public_picks(all_legs),
         "total_legs": len(all_legs),
         "total_slips": len(system) + len(windfall) + len(demonhunter) + len(marketed),
+        "total_big_swings": len(big_swings),
     }
     (out_dir / "picks_today.json").write_text(json.dumps(picks_payload, indent=2), encoding="utf-8")
     (out_dir / "status_latest.json").write_text(

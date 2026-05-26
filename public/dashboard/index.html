@@ -564,7 +564,7 @@
         <div class="lock-badge">
           <div class="lock-icon">&#128274;</div>
           <div class="lock-text">Premium Feature</div>
-          <div class="lock-sub">All optimized slips &#8212; System, Windfall, and &#8593; Alt Hunter families with full leg detail</div>
+          <div class="lock-sub">All optimized slips &#8212; Market, System, and The Big Swings picks with full leg detail</div>
           <a href="/checkout/" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
         </div>
       </div>
@@ -909,7 +909,7 @@
     // Dedupes across every slip family — the true total pick count
     var seen={};
     var sources=(data.system||[]).concat(data.system_winprob||[]).concat(data.windfall||[])
-      .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.marketed_slips||[]);
+      .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.big_swings||[]).concat(data.marketed_slips||[]);
     var count=0;
     for(var i=0;i<sources.length;i++){
       var ls=Array.isArray(sources[i].legs_detail)?sources[i].legs_detail:(Array.isArray(sources[i].legs)?sources[i].legs:[]);
@@ -2153,18 +2153,18 @@
       body: '2 anchors, 2 market selections, and 1 above-market edge leg — the full package. Run it as a Flex and you only need 4 of 5 to cash. Higher ceiling, higher conviction across the board.'
     }
   };
-  // Family-level summaries for System / Windfall / Alt Hunter
+  // Family-level summaries for public MLB slip/pick families
   var SLIP_FAMILY_DESC = {
     system:      'Atlas\' core beam-search engine scores every possible leg combination for edge and probability, then assembles the highest-EV multi-leg slips of the day. No gut feel — pure model output.',
-    windfall:    'A hybrid optimizer that blends raw hit probability with edge to find slips where confidence and market value align. Designed for a <strong style="color:var(--text);">Power Play or Flex</strong> — run it however fits your bankroll. When the model and the market disagree, Windfall is built to exploit it.',
-    demonhunter: 'All &#8593; Alt (DEMON) tier legs — the longest odds, highest multipliers on the board. These slips are for the high-conviction, high-reward player. Small stake, big ceiling.'
+    windfall:    'Currently withheld from public MLB output while the model favors tighter Market and System construction.',
+    demonhunter: 'Legacy high-upside slip family. Public MLB output now uses The Big Swings instead.',
+    big_swings:  'Ranked individual &#8593; Alt flex picks. These are not full slips — they are selective high-upside adds for small-stake portfolio play.'
   };
 
   function buildSlipsTab(data){
     var families=[
       {key:'system',    label:'System',      desc:'Beam-search optimized for edge',   color:'#4ade80', bc:'rgba(74,222,128,.35)'},
-      {key:'windfall',  label:'Windfall',    desc:'Hybrid probability and edge model', color:'#60a5fa', bc:'rgba(96,165,250,.35)'},
-      {key:'demonhunter',label:'&#8593; Alt Hunter',desc:'All-&#8593; Alt tier &#8212; highest multiplier',color:'var(--gold)',bc:'rgba(245,166,35,.35)'},
+      {key:'big_swings',label:'The Big Swings',desc:'Individual high-upside flex picks',color:'var(--gold)',bc:'rgba(245,166,35,.35)'},
     ];
     var container=document.getElementById('slipsList'); container.innerHTML=''; var anySlips=false;
 
@@ -2238,7 +2238,7 @@
       var famDescFull=SLIP_FAMILY_DESC[fam.key]||fam.desc;
       famHead.innerHTML='<span class="sfh-title" style="color:'+fam.color+';">'+fam.label+'</span>'+
         '<span class="sfh-desc">'+famDescFull+'</span>'+
-        '<span class="sfh-count">'+slips.length+' Slips</span>';
+        '<span class="sfh-count">'+slips.length+(fam.key==='big_swings'?' Picks':' Slips')+'</span>';
       famDiv.appendChild(famHead);
       for(var s=0;s<slips.length;s++){
         var slip=slips[s],legs=Array.isArray(slip.legs_detail)?slip.legs_detail:(Array.isArray(slip.legs)?slip.legs:[]),nLegs=slip.n_legs||legs.length;
@@ -2264,7 +2264,7 @@
         var card=document.createElement('div'); card.className='slip-card';
         card.innerHTML=
           '<div class="slip-header">'+
-            '<span class="slip-n-badge" style="color:'+nc+';border-color:'+nb+';">'+nLegs+'-Leg</span>'+
+            '<span class="slip-n-badge" style="color:'+nc+';border-color:'+nb+';">'+(fam.key==='big_swings'?'Flex Pick':(nLegs+'-Leg'))+'</span>'+
             '<div class="slip-meta-row">'+
               '<span>Hit Prob&nbsp;<span class="slip-meta-val">'+hitPct+'%</span></span>'+
               (evX?'<span>EV&nbsp;<span class="slip-meta-val">'+evX+'</span></span>':'')+
@@ -2338,7 +2338,7 @@
 
   function renderDashboardLoadError(sport, message){
     var msg=message||'Premium model data is temporarily unavailable. Refresh or sign in again.';
-    buildStatTiles({all_legs:[],system:[],windfall:[],demonhunter:[],marketed_slips:[]},[]);
+    buildStatTiles({all_legs:[],system:[],windfall:[],demonhunter:[],big_swings:[],marketed_slips:[]},[]);
     buildProbTab([]);
     buildEVTab([]);
     buildStatHub({}, [], [], []);
@@ -2365,6 +2365,7 @@
       windfall:[],
       windfall_winprob:[],
       demonhunter:[],
+      big_swings:[],
       marketed_slips:[],
       injury_context:{},
       performance:{}
@@ -2447,7 +2448,7 @@
     if(!data||typeof data!=='object') data={};
     data.sport=data.sport||label;
     stampSportOnLegs(data.all_legs||[], label);
-    ['system','system_winprob','windfall','windfall_winprob','demonhunter','marketed_slips'].forEach(function(k){
+    ['system','system_winprob','windfall','windfall_winprob','demonhunter','big_swings','marketed_slips'].forEach(function(k){
       (data[k]||[]).forEach(function(slip){
         stampSportOnLegs(Array.isArray(slip.legs)?slip.legs:[], label);
         stampSportOnLegs(Array.isArray(slip.legs_detail)?slip.legs_detail:[], label);
@@ -2495,7 +2496,7 @@
         // allLegsForCount: all families deduped (for pick count + stat hub)
         var seen2={},allLegsForCount=[];
         var allSrc=(data.system||[]).concat(data.system_winprob||[]).concat(data.windfall||[])
-          .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.marketed_slips||[]);
+          .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.big_swings||[]).concat(data.marketed_slips||[]);
         for(var _i=0;_i<allSrc.length;_i++){
           var _ls=allSrc[_i].legs_detail||allSrc[_i].legs||[];
           for(var _j=0;_j<_ls.length;_j++){
