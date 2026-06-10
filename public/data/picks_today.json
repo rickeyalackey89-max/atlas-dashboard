@@ -1,10 +1,10 @@
 {
-    "generated_at":  "2026-06-10T00:24:38.527829-05:00",
-    "run_id":  "20260610_001909",
+    "generated_at":  "2026-06-10T18:05:55.845891-05:00",
+    "run_id":  "20260610_180005",
     "sport":  "NBA",
-    "model_engaged_at":  "2026-06-10T00:19:09-05:00",
-    "model_engaged_at_local":  "2026-06-10 12:19 AM CT",
-    "model_engaged_label":  "model engaged at 2026-06-10 12:19 AM CT",
+    "model_engaged_at":  "2026-06-10T18:00:05-05:00",
+    "model_engaged_at_local":  "2026-06-10 6:00 PM CT",
+    "model_engaged_label":  "model engaged at 2026-06-10 6:00 PM CT",
     "picks":  [
                   {
                       "player":  "Landry Shamet",
@@ -14,17 +14,17 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.8764843998943849
+                      "p_cal":  0.8764625267965477
                   },
                   {
                       "player":  "Julian Champagnie",
                       "team":  "SAS",
                       "opp":  "NYK",
-                      "stat":  "FTA",
-                      "line":  0.5,
+                      "stat":  "PA",
+                      "line":  10.5,
                       "dir":  "OVER",
                       "tier":  "STANDARD",
-                      "p_cal":  0.6657870494372369
+                      "p_cal":  0.6089184910413781
                   },
                   {
                       "player":  "Luke Kornet",
@@ -37,6 +37,16 @@
                       "p_cal":  0.6382771722827717
                   },
                   {
+                      "player":  "Stephon Castle",
+                      "team":  "SAS",
+                      "opp":  "NYK",
+                      "stat":  "PTS",
+                      "line":  11.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.831498306103206
+                  },
+                  {
                       "player":  "Josh Hart",
                       "team":  "NYK",
                       "opp":  "SAS",
@@ -44,17 +54,7 @@
                       "line":  5.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.830020669507114
-                  },
-                  {
-                      "player":  "Stephon Castle",
-                      "team":  "SAS",
-                      "opp":  "NYK",
-                      "stat":  "PTS",
-                      "line":  10.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.8193335916274178
+                      "p_cal":  0.8308644395841124
                   },
                   {
                       "player":  "Jordan Clarkson",
@@ -64,7 +64,7 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.8109897765800963
+                      "p_cal":  0.8008804043159782
                   },
                   {
                       "player":  "Jose Alvarado",
@@ -74,27 +74,17 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.8003383058925958
+                      "p_cal":  0.7996936912571349
                   },
                   {
-                      "player":  "Mikal Bridges",
-                      "team":  "NYK",
-                      "opp":  "SAS",
+                      "player":  "Devin Vassell",
+                      "team":  "SAS",
+                      "opp":  "NYK",
                       "stat":  "PR",
-                      "line":  11.5,
+                      "line":  12.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.796751419298788
-                  },
-                  {
-                      "player":  "Mitchell Robinson",
-                      "team":  "NYK",
-                      "opp":  "SAS",
-                      "stat":  "PTS",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.7955577763685032
+                      "p_cal":  0.7968631624805224
                   },
                   {
                       "player":  "OG Anunoby",
@@ -104,7 +94,17 @@
                       "line":  11.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7886528751955338
+                      "p_cal":  0.7933739356929654
+                  },
+                  {
+                      "player":  "Mitchell Robinson",
+                      "team":  "NYK",
+                      "opp":  "SAS",
+                      "stat":  "PTS",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.7929815940345823
                   },
                   {
                       "player":  "Jalen Brunson",
@@ -117,14 +117,14 @@
                       "p_cal":  0.7883235078097386
                   },
                   {
-                      "player":  "Devin Vassell",
-                      "team":  "SAS",
-                      "opp":  "NYK",
-                      "stat":  "PR",
-                      "line":  12.5,
+                      "player":  "Mikal Bridges",
+                      "team":  "NYK",
+                      "opp":  "SAS",
+                      "stat":  "PTS",
+                      "line":  7.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7792950003575784
+                      "p_cal":  0.7826616820726058
                   },
                   {
                       "player":  "Dylan Harper",
@@ -134,17 +134,17 @@
                       "line":  3.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7651274290153807
+                      "p_cal":  0.7648555338419262
                   },
                   {
                       "player":  "De\u0027Aaron Fox",
                       "team":  "SAS",
                       "opp":  "NYK",
-                      "stat":  "REB",
-                      "line":  1.5,
+                      "stat":  "RA",
+                      "line":  6.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7590554650613024
+                      "p_cal":  0.7636940516957353
                   },
                   {
                       "player":  "Victor Wembanyama",
@@ -154,7 +154,7 @@
                       "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7575854823851962
+                      "p_cal":  0.7603668213397797
                   },
                   {
                       "player":  "Karl-Anthony Towns",
@@ -170,11 +170,11 @@
                       "player":  "Keldon Johnson",
                       "team":  "SAS",
                       "opp":  "NYK",
-                      "stat":  "PTS",
-                      "line":  2.5,
+                      "stat":  "FTA",
+                      "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.686900784660554
+                      "p_cal":  0.691715061044386
                   },
                   {
                       "player":  "Miles McBride",
@@ -184,27 +184,17 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.6855561313016892
+                      "p_cal":  0.6798091501920074
                   },
                   {
-                      "player":  "Landry Shamet",
-                      "team":  "NYK",
-                      "opp":  "SAS",
-                      "stat":  "PTS",
-                      "line":  3.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.8184314368051966
-                  },
-                  {
-                      "player":  "Julian Champagnie",
+                      "player":  "Carter Bryant",
                       "team":  "SAS",
                       "opp":  "NYK",
                       "stat":  "PTS",
-                      "line":  6.5,
+                      "line":  0.5,
                       "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.8127413944472505
+                      "tier":  "STANDARD",
+                      "p_cal":  0.5650049418906634
                   },
                   {
                       "player":  "Julian Champagnie",
@@ -214,7 +204,27 @@
                       "line":  5.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.808901322146165
+                      "p_cal":  0.8292699684482547
+                  },
+                  {
+                      "player":  "Stephon Castle",
+                      "team":  "SAS",
+                      "opp":  "NYK",
+                      "stat":  "PTS",
+                      "line":  10.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.8212861820472629
+                  },
+                  {
+                      "player":  "Landry Shamet",
+                      "team":  "NYK",
+                      "opp":  "SAS",
+                      "stat":  "PTS",
+                      "line":  3.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.8165947126786163
                   },
                   {
                       "player":  "Josh Hart",
@@ -224,37 +234,7 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.8010270955834192
-                  },
-                  {
-                      "player":  "Julian Champagnie",
-                      "team":  "SAS",
-                      "opp":  "NYK",
-                      "stat":  "PA",
-                      "line":  7.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.8004461524469297
-                  },
-                  {
-                      "player":  "Julian Champagnie",
-                      "team":  "SAS",
-                      "opp":  "NYK",
-                      "stat":  "PR",
-                      "line":  10.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.796702886988419
-                  },
-                  {
-                      "player":  "Landry Shamet",
-                      "team":  "NYK",
-                      "opp":  "SAS",
-                      "stat":  "PR",
-                      "line":  5.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.7965956466695273
+                      "p_cal":  0.8053038579071866
                   },
                   {
                       "player":  "Stephon Castle",
@@ -264,17 +244,47 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7956373944375988
+                      "p_cal":  0.8034240405531601
                   },
                   {
-                      "player":  "Stephon Castle",
+                      "player":  "Julian Champagnie",
                       "team":  "SAS",
                       "opp":  "NYK",
                       "stat":  "PTS",
-                      "line":  11.5,
+                      "line":  6.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7914861436871483
+                      "p_cal":  0.8010365070543587
+                  },
+                  {
+                      "player":  "Julian Champagnie",
+                      "team":  "SAS",
+                      "opp":  "NYK",
+                      "stat":  "PA",
+                      "line":  7.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.7977021771993418
+                  },
+                  {
+                      "player":  "Landry Shamet",
+                      "team":  "NYK",
+                      "opp":  "SAS",
+                      "stat":  "PR",
+                      "line":  5.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.7967910029777389
+                  },
+                  {
+                      "player":  "Julian Champagnie",
+                      "team":  "SAS",
+                      "opp":  "NYK",
+                      "stat":  "PR",
+                      "line":  10.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.7946270240519234
                   },
                   {
                       "player":  "Mitchell Robinson",
@@ -284,17 +294,17 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7914216203650255
+                      "p_cal":  0.7913444754388125
                   },
                   {
-                      "player":  "Julian Champagnie",
-                      "team":  "SAS",
-                      "opp":  "NYK",
-                      "stat":  "PA",
-                      "line":  8.5,
+                      "player":  "OG Anunoby",
+                      "team":  "NYK",
+                      "opp":  "SAS",
+                      "stat":  "PTS",
+                      "line":  12.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7896096417261655
+                      "p_cal":  0.7911405970974241
                   },
                   {
                       "player":  "Landry Shamet",
@@ -304,57 +314,17 @@
                       "line":  6.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7885383141256797
+                      "p_cal":  0.7878474974233336
                   },
                   {
-                      "player":  "Mikal Bridges",
-                      "team":  "NYK",
-                      "opp":  "SAS",
-                      "stat":  "PRA",
-                      "line":  13.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.7884292744065983
-                  },
-                  {
-                      "player":  "Mikal Bridges",
-                      "team":  "NYK",
-                      "opp":  "SAS",
-                      "stat":  "PA",
-                      "line":  10.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.7882642314351823
-                  },
-                  {
-                      "player":  "Mikal Bridges",
-                      "team":  "NYK",
-                      "opp":  "SAS",
-                      "stat":  "AST",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.7878639908503947
-                  },
-                  {
-                      "player":  "Jose Alvarado",
-                      "team":  "NYK",
-                      "opp":  "SAS",
-                      "stat":  "PRA",
-                      "line":  3.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.786663571618954
-                  },
-                  {
-                      "player":  "Julian Champagnie",
+                      "player":  "Stephon Castle",
                       "team":  "SAS",
                       "opp":  "NYK",
-                      "stat":  "PRA",
+                      "stat":  "PTS",
                       "line":  12.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7865847265700378
+                      "p_cal":  0.7872392108764585
                   },
                   {
                       "player":  "Jalen Brunson",
@@ -367,14 +337,14 @@
                       "p_cal":  0.7862357593931699
                   },
                   {
-                      "player":  "Mikal Bridges",
+                      "player":  "Jose Alvarado",
                       "team":  "NYK",
                       "opp":  "SAS",
-                      "stat":  "PTS",
-                      "line":  7.5,
+                      "stat":  "PRA",
+                      "line":  3.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7826398089747686
+                      "p_cal":  0.7853015219633143
                   },
                   {
                       "player":  "OG Anunoby",
@@ -384,17 +354,37 @@
                       "line":  13.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7801643855557672
+                      "p_cal":  0.7838205147556867
                   },
                   {
-                      "player":  "Landry Shamet",
-                      "team":  "NYK",
-                      "opp":  "SAS",
-                      "stat":  "REB",
-                      "line":  0.5,
+                      "player":  "Julian Champagnie",
+                      "team":  "SAS",
+                      "opp":  "NYK",
+                      "stat":  "PRA",
+                      "line":  12.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.779025280072213
+                      "p_cal":  0.7827516460785304
+                  },
+                  {
+                      "player":  "Mikal Bridges",
+                      "team":  "NYK",
+                      "opp":  "SAS",
+                      "stat":  "PRA",
+                      "line":  13.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.7825845043602327
+                  },
+                  {
+                      "player":  "Mikal Bridges",
+                      "team":  "NYK",
+                      "opp":  "SAS",
+                      "stat":  "PA",
+                      "line":  10.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.7824656802591345
                   },
                   {
                       "player":  "Stephon Castle",
@@ -404,37 +394,27 @@
                       "line":  16.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7785524507385668
+                      "p_cal":  0.7812503419210975
+                  },
+                  {
+                      "player":  "Mikal Bridges",
+                      "team":  "NYK",
+                      "opp":  "SAS",
+                      "stat":  "AST",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.780392540228816
                   },
                   {
                       "player":  "Landry Shamet",
                       "team":  "NYK",
                       "opp":  "SAS",
-                      "stat":  "PTS",
-                      "line":  4.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.776048541855682
-                  },
-                  {
-                      "player":  "Devin Vassell",
-                      "team":  "SAS",
-                      "opp":  "NYK",
                       "stat":  "REB",
-                      "line":  3.5,
+                      "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7758411737792026
-                  },
-                  {
-                      "player":  "Devin Vassell",
-                      "team":  "SAS",
-                      "opp":  "NYK",
-                      "stat":  "PRA",
-                      "line":  14.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.7753059289845186
+                      "p_cal":  0.7769125326167912
                   },
                   {
                       "player":  "Stephon Castle",
@@ -444,27 +424,27 @@
                       "line":  17.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7734886437626376
+                      "p_cal":  0.7761132613294175
                   },
                   {
-                      "player":  "OG Anunoby",
-                      "team":  "NYK",
-                      "opp":  "SAS",
-                      "stat":  "PTS",
-                      "line":  12.5,
+                      "player":  "Devin Vassell",
+                      "team":  "SAS",
+                      "opp":  "NYK",
+                      "stat":  "PRA",
+                      "line":  14.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.769818202288648
+                      "p_cal":  0.7753130506424559
                   },
                   {
-                      "player":  "Mitchell Robinson",
-                      "team":  "NYK",
-                      "opp":  "SAS",
-                      "stat":  "PTS",
-                      "line":  2.5,
+                      "player":  "Devin Vassell",
+                      "team":  "SAS",
+                      "opp":  "NYK",
+                      "stat":  "REB",
+                      "line":  3.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.769395136877869
+                      "p_cal":  0.7752411737792025
                   },
                   {
                       "player":  "OG Anunoby",
@@ -474,39 +454,59 @@
                       "line":  18.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7690642250231625
+                      "p_cal":  0.7742994343003828
                   },
                   {
-                      "player":  "Luke Kornet",
-                      "team":  "SAS",
-                      "opp":  "NYK",
-                      "stat":  "PTS",
-                      "line":  0.5,
+                      "player":  "OG Anunoby",
+                      "team":  "NYK",
+                      "opp":  "SAS",
+                      "stat":  "PA",
+                      "line":  14.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7688364081052871
+                      "p_cal":  0.7741945499781503
                   },
                   {
                       "player":  "Landry Shamet",
                       "team":  "NYK",
                       "opp":  "SAS",
                       "stat":  "PTS",
-                      "line":  5.5,
+                      "line":  4.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.7680448329326083
+                      "p_cal":  0.7736481583173939
+                  },
+                  {
+                      "player":  "OG Anunoby",
+                      "team":  "NYK",
+                      "opp":  "SAS",
+                      "stat":  "PR",
+                      "line":  17.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.7724608500643679
                   },
                   {
                       "player":  "Jose Alvarado",
                       "team":  "NYK",
                       "opp":  "SAS",
-                      "stat":  "PTS",
+                      "stat":  "PA",
                       "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.767732985079259
+                      "p_cal":  0.7710148292328998
+                  },
+                  {
+                      "player":  "Stephon Castle",
+                      "team":  "SAS",
+                      "opp":  "NYK",
+                      "stat":  "REB",
+                      "line":  3.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.7694128427604426
                   }
               ],
-    "total_legs":  902,
+    "total_legs":  940,
     "total_slips":  2
 }
