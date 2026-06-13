@@ -1,10 +1,10 @@
 {
-    "generated_at":  "2026-06-13T22:39:57.321659Z",
-    "run_id":  "live_20260613_173246",
+    "generated_at":  "2026-06-13T23:00:11.854449Z",
+    "run_id":  "live_20260613_175153",
     "sport":  "MLB",
-    "model_engaged_at":  "2026-06-13T17:36:03.796607-05:00",
-    "model_engaged_at_local":  "2026-06-13 5:36 PM CT",
-    "model_engaged_label":  "model engaged at 2026-06-13 5:36 PM CT",
+    "model_engaged_at":  "2026-06-13T17:54:56.373679-05:00",
+    "model_engaged_at_local":  "2026-06-13 5:54 PM CT",
+    "model_engaged_label":  "model engaged at 2026-06-13 5:54 PM CT",
     "picks":  [
                   {
                       "player":  "Jonah Heim",
@@ -14,17 +14,17 @@
                       "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.911133
+                      "p_cal":  0.910645
                   },
                   {
-                      "player":  "Shea Langeliers",
+                      "player":  "Colby Thomas",
                       "team":  "ATH",
                       "opp":  "COL",
                       "stat":  "HITS+RUNS+RBIS",
-                      "line":  3.5,
+                      "line":  2.5,
                       "dir":  "UNDER",
                       "tier":  "STANDARD",
-                      "p_cal":  0.733887
+                      "p_cal":  0.732422
                   },
                   {
                       "player":  "Joey Estes",
@@ -84,7 +84,7 @@
                       "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.836426
+                      "p_cal":  0.835938
                   },
                   {
                       "player":  "Kyle Karros",
@@ -94,23 +94,13 @@
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.834473
+                      "p_cal":  0.834961
                   },
                   {
                       "player":  "José Soriano",
                       "team":  "LAA",
                       "opp":  "TB",
                       "stat":  "HITS ALLOWED",
-                      "line":  3.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.826172
-                  },
-                  {
-                      "player":  "Nick Kurtz",
-                      "team":  "ATH",
-                      "opp":  "COL",
-                      "stat":  "HITTER FANTASY SCORE",
                       "line":  3.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
@@ -127,14 +117,24 @@
                       "p_cal":  0.824219
                   },
                   {
-                      "player":  "Colby Thomas",
+                      "player":  "Nick Kurtz",
                       "team":  "ATH",
                       "opp":  "COL",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  3.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.824219
+                  },
+                  {
+                      "player":  "Sterlin Thompson",
+                      "team":  "COL",
+                      "opp":  "ATH",
                       "stat":  "HITTER FANTASY SCORE",
                       "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.822754
+                      "p_cal":  0.814453
                   },
                   {
                       "player":  "Trevor McDonald",
@@ -147,16 +147,6 @@
                       "p_cal":  0.814453
                   },
                   {
-                      "player":  "Sterlin Thompson",
-                      "team":  "COL",
-                      "opp":  "ATH",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.813965
-                  },
-                  {
                       "player":  "Kyle Freeland",
                       "team":  "COL",
                       "opp":  "ATH",
@@ -164,7 +154,7 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.811523
+                      "p_cal":  0.812012
                   },
                   {
                       "player":  "Willi Castro",
@@ -187,6 +177,16 @@
                       "p_cal":  0.805664
                   },
                   {
+                      "player":  "Shea Langeliers",
+                      "team":  "ATH",
+                      "opp":  "COL",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  3.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.805176
+                  },
+                  {
                       "player":  "Trea Turner",
                       "team":  "PHI",
                       "opp":  "MIL",
@@ -194,7 +194,7 @@
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.805664
+                      "p_cal":  0.805176
                   },
                   {
                       "player":  "Bryson Stott",
@@ -224,7 +224,7 @@
                       "line":  3.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.798828
+                      "p_cal":  0.79834
                   },
                   {
                       "player":  "Shane Drohan",
@@ -254,7 +254,7 @@
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.791504
+                      "p_cal":  0.793945
                   },
                   {
                       "player":  "Ben Brown",
@@ -264,7 +264,17 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.791016
+                      "p_cal":  0.790527
+                  },
+                  {
+                      "player":  "Mike Trout",
+                      "team":  "LAA",
+                      "opp":  "TB",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.790527
                   },
                   {
                       "player":  "Jose Altuve",
@@ -287,16 +297,6 @@
                       "p_cal":  0.789062
                   },
                   {
-                      "player":  "Mike Trout",
-                      "team":  "LAA",
-                      "opp":  "TB",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.788574
-                  },
-                  {
                       "player":  "Yordan Alvarez",
                       "team":  "HOU",
                       "opp":  "KC",
@@ -304,7 +304,7 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.788574
+                      "p_cal":  0.789062
                   },
                   {
                       "player":  "Jung Hoo Lee",
@@ -327,6 +327,16 @@
                       "p_cal":  0.782715
                   },
                   {
+                      "player":  "Oswald Peraza",
+                      "team":  "LAA",
+                      "opp":  "TB",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.776367
+                  },
+                  {
                       "player":  "J.T. Realmuto",
                       "team":  "PHI",
                       "opp":  "MIL",
@@ -337,16 +347,6 @@
                       "p_cal":  0.775879
                   },
                   {
-                      "player":  "Oswald Peraza",
-                      "team":  "LAA",
-                      "opp":  "TB",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.773926
-                  },
-                  {
                       "player":  "TJ Rumfield",
                       "team":  "COL",
                       "opp":  "ATH",
@@ -354,7 +354,7 @@
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.772949
+                      "p_cal":  0.772461
                   },
                   {
                       "player":  "Brandon Marsh",
@@ -394,7 +394,7 @@
                       "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.764648
+                      "p_cal":  0.76416
                   },
                   {
                       "player":  "Jonathan Aranda",
@@ -404,7 +404,7 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.764648
+                      "p_cal":  0.76416
                   },
                   {
                       "player":  "Cole Carrigg",
@@ -414,7 +414,7 @@
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.762695
+                      "p_cal":  0.763184
                   },
                   {
                       "player":  "Isaac Paredes",
@@ -507,6 +507,6 @@
                       "p_cal":  0.747559
                   }
               ],
-    "total_legs":  2413,
+    "total_legs":  2362,
     "total_slips":  2
 }
