@@ -1,10 +1,10 @@
 {
-    "generated_at":  "2026-06-28T16:57:47.633054Z",
-    "run_id":  "live_20260628_114348",
+    "generated_at":  "2026-06-28T17:14:30.414100Z",
+    "run_id":  "live_20260628_115902",
     "sport":  "MLB",
-    "model_engaged_at":  "2026-06-28T11:50:56.023604-05:00",
-    "model_engaged_at_local":  "2026-06-28 11:50 AM CT",
-    "model_engaged_label":  "model engaged at 2026-06-28 11:50 AM CT",
+    "model_engaged_at":  "2026-06-28T12:07:01.032486-05:00",
+    "model_engaged_at_local":  "2026-06-28 12:07 PM CT",
+    "model_engaged_label":  "model engaged at 2026-06-28 12:07 PM CT",
     "picks":  [
                   {
                       "player":  "Shane Bieber",
@@ -64,7 +64,7 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.899577
+                      "p_cal":  0.898434
                   },
                   {
                       "player":  "Cionel Pérez",
@@ -87,16 +87,6 @@
                       "p_cal":  0.897206
                   },
                   {
-                      "player":  "Brandon Woodruff",
-                      "team":  "MIL",
-                      "opp":  "CHC",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.896611
-                  },
-                  {
                       "player":  "Tyler Phillips",
                       "team":  "MIA",
                       "opp":  "STL",
@@ -105,6 +95,16 @@
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
                       "p_cal":  0.896344
+                  },
+                  {
+                      "player":  "Brandon Woodruff",
+                      "team":  "MIL",
+                      "opp":  "CHC",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.895681
                   },
                   {
                       "player":  "Kyle Leahy",
@@ -217,16 +217,6 @@
                       "p_cal":  0.860309
                   },
                   {
-                      "player":  "Emmet Sheehan",
-                      "team":  "LAD",
-                      "opp":  "SD",
-                      "stat":  "HITS ALLOWED",
-                      "line":  2.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.856785
-                  },
-                  {
                       "player":  "Merrill Kelly",
                       "team":  "AZ",
                       "opp":  "TB",
@@ -337,6 +327,16 @@
                       "p_cal":  0.814597
                   },
                   {
+                      "player":  "Shea Langeliers",
+                      "team":  "ATH",
+                      "opp":  "LAA",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.810309
+                  },
+                  {
                       "player":  "Evan Carter",
                       "team":  "TEX",
                       "opp":  "TOR",
@@ -397,6 +397,16 @@
                       "p_cal":  0.804227
                   },
                   {
+                      "player":  "Fernando Tatis Jr.",
+                      "team":  "SD",
+                      "opp":  "LAD",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.803723
+                  },
+                  {
                       "player":  "CJ Abrams",
                       "team":  "WSH",
                       "opp":  "BAL",
@@ -447,24 +457,14 @@
                       "p_cal":  0.799701
                   },
                   {
-                      "player":  "Will Wagner",
-                      "team":  "SD",
-                      "opp":  "LAD",
-                      "stat":  "HITS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "STANDARD",
-                      "p_cal":  0.798114
-                  },
-                  {
-                      "player":  "Shea Langeliers",
-                      "team":  "ATH",
-                      "opp":  "LAA",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
+                      "player":  "Emmet Sheehan",
+                      "team":  "LAD",
+                      "opp":  "SD",
+                      "stat":  "HITS ALLOWED",
+                      "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.79538
+                      "p_cal":  0.796172
                   },
                   {
                       "player":  "Jake Bauers",
@@ -487,16 +487,6 @@
                       "p_cal":  0.792418
                   },
                   {
-                      "player":  "Tyler Soderstrom",
-                      "team":  "ATH",
-                      "opp":  "LAA",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.790555
-                  },
-                  {
                       "player":  "Bryan Reynolds",
                       "team":  "PIT",
                       "opp":  "CIN",
@@ -505,8 +495,18 @@
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
                       "p_cal":  0.790334
+                  },
+                  {
+                      "player":  "Nathan Lukes",
+                      "team":  "TOR",
+                      "opp":  "TEX",
+                      "stat":  "HITS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.789554
                   }
               ],
-    "total_legs":  6421,
-    "total_slips":  0
+    "total_legs":  6370,
+    "total_slips":  2
 }
