@@ -753,6 +753,25 @@ def _load_marketed(run_dir: Path) -> list[dict[str, Any]]:
     return [s for s in (_normalize_slip(dict(item), "marketed") for item in (slips or [])) if s]
 
 
+def _load_systemev(run_dir: Path) -> list[dict[str, Any]]:
+    raw = (
+        _read_json(run_dir / "slips" / "system_ev_slips.json")
+        or _read_json(run_dir / "System" / "system_ev_slips.json")
+        or {}
+    )
+    slips = raw.get("slips") if isinstance(raw, dict) else raw
+    canonical = [
+        slip
+        for slip in (
+            _normalize_slip(dict(item), "system")
+            for item in (slips or [])
+            if isinstance(item, dict)
+        )
+        if slip
+    ]
+    return canonical if canonical else _load_family(run_dir, "system")
+
+
 def _load_family(run_dir: Path, family: str) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
     for name in FAMILY_FILES.get(family, ()):
@@ -1429,7 +1448,7 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
     all_legs = _load_all_legs(run_dir)
     _attach_recent_games_to_legs(all_legs, mlb_root / "data" / "mlb" / "season_gamelogs" / "latest.csv")
     marketed = _load_marketed(run_dir)
-    system = _load_family(run_dir, "system")
+    system = _load_systemev(run_dir)
     windfall = _load_family(run_dir, "windfall")
     demonhunter = _load_family(run_dir, "demonhunter")
     big_swings = _load_big_swings(run_dir)
