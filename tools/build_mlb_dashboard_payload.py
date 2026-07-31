@@ -444,6 +444,49 @@ def _normalize_leg(row: dict[str, Any]) -> dict[str, Any]:
         "dir": direction,
         "tier": tier,
         "p_cal": p_cal,
+        "probability_lower_bound": _num(
+            row.get("probability_lower_bound")
+        ),
+        "probability_upper_bound": _num(
+            row.get("probability_upper_bound")
+        ),
+        "push_probability": _num(row.get("push_probability")),
+        "atlas_conditional_win_probability": _num(
+            row.get("atlas_conditional_win_probability")
+        ),
+        "atlas_fair_decimal_odds": _num(
+            row.get("atlas_fair_decimal_odds")
+        ),
+        "atlas_fair_american_odds": _num(
+            row.get("atlas_fair_american_odds")
+        ),
+        "atlas_fair_price_lower_bound_american": _num(
+            row.get("atlas_fair_price_lower_bound_american")
+        ),
+        "atlas_fair_price_upper_bound_american": _num(
+            row.get("atlas_fair_price_upper_bound_american")
+        ),
+        "sportsbook_ev_available": row.get(
+            "sportsbook_ev_available"
+        ),
+        "best_book_key": row.get("best_book_key"),
+        "best_american_odds": _num(row.get("best_american_odds")),
+        "best_book_no_vig_probability": _num(
+            row.get("best_book_no_vig_probability")
+        ),
+        "best_model_edge_vs_no_vig_probability": _num(
+            row.get("best_model_edge_vs_no_vig_probability")
+        ),
+        "best_expected_net_value": _num(
+            row.get("best_expected_net_value")
+        ),
+        "best_expected_net_value_lower_bound": _num(
+            row.get("best_expected_net_value_lower_bound")
+        ),
+        "best_expected_net_value_upper_bound": _num(
+            row.get("best_expected_net_value_upper_bound")
+        ),
+        "atlas_fair_price_only": row.get("atlas_fair_price_only"),
         "atlas_ev": _num(row.get("atlas_ev") or row.get("ev_mult") or row.get("edge")),
         "edge": _num(row.get("edge")),
         "l10_hr": l10_rate,
@@ -810,6 +853,136 @@ def _load_big_swings(run_dir: Path) -> list[dict[str, Any]]:
             }
         )
     return out
+
+
+def _load_single_family_publication(
+    run_dir: Path,
+) -> dict[str, Any]:
+    raw = (
+        _read_json(
+            run_dir
+            / "slips"
+            / "single_family"
+            / "single_family_publication.json"
+        )
+        or {}
+    )
+    if (
+        not isinstance(raw, dict)
+        or raw.get("schema_version")
+        != "atlas_mlb_proper21v1_single_family_publication_v1"
+        or raw.get("status") != "pass"
+        or raw.get("model_identity") != "Proper21V1"
+        or raw.get("outcomes_opened") is not False
+    ):
+        return {}
+    return raw
+
+
+def _load_single_family(run_dir: Path) -> list[dict[str, Any]]:
+    raw = _load_single_family_publication(run_dir)
+    if not raw:
+        return []
+    out: list[dict[str, Any]] = []
+    for item in raw.get("slips") or []:
+        if not isinstance(item, dict):
+            continue
+        legs = [
+            _normalize_leg(dict(leg))
+            for leg in item.get("legs") or []
+            if isinstance(leg, dict)
+        ]
+        if len(legs) != int(item.get("n_legs") or 0):
+            continue
+        n_legs = int(item["n_legs"])
+        game_type = str(item.get("game_type") or "")
+        payout_schedule = item.get("payout_schedule") or {}
+        payout_variant = (
+            payout_schedule.get(game_type)
+            if isinstance(payout_schedule, dict)
+            else {}
+        )
+        payout_estimate = (
+            payout_variant.get("estimate")
+            if isinstance(payout_variant, dict)
+            else {}
+        )
+        payout_floor = (
+            payout_variant.get("floor")
+            if isinstance(payout_variant, dict)
+            else {}
+        )
+        out.append(
+            {
+                "sport": "MLB",
+                "product": "Proper21V1",
+                "family": "single_family",
+                "candidate_id": item.get("candidate_id"),
+                "policy_id": item.get("policy_id"),
+                "release_policy_id": item.get("release_policy_id"),
+                "n_legs": n_legs,
+                "label": f"{n_legs}-leg",
+                "game_type": game_type,
+                "tier_side_signature": item.get(
+                    "tier_side_signature"
+                ),
+                "legs": legs,
+                "legs_detail": legs,
+                "hit_prob": _num(
+                    item.get("joint_win_probability")
+                ),
+                "joint_probability": _num(
+                    item.get("joint_win_probability")
+                ),
+                "joint_probability_lower_bound": _num(
+                    item.get(
+                        "joint_win_probability_lower_bound"
+                    )
+                ),
+                "ev": _num(
+                    item.get("expected_net_value_estimate")
+                ),
+                "expected_net_value_floor": _num(
+                    item.get("expected_net_value_floor")
+                ),
+                "expected_net_value_lower_bound_estimate": _num(
+                    item.get(
+                        "expected_net_value_lower_bound_estimate"
+                    )
+                ),
+                "expected_net_value_lower_bound_floor": _num(
+                    item.get(
+                        "expected_net_value_lower_bound_floor"
+                    )
+                ),
+                "payout_mult": _num(
+                    payout_estimate.get(str(n_legs))
+                    if isinstance(payout_estimate, dict)
+                    else None
+                ),
+                "payout_mult_floor": _num(
+                    payout_floor.get(str(n_legs))
+                    if isinstance(payout_floor, dict)
+                    else None
+                ),
+                "payout_schedule": payout_schedule,
+                "probability_source": (
+                    "proper21v1_final_coherent_joint_qmc"
+                ),
+            }
+        )
+    return out
+
+
+def _proper21_publication_active(publication: Any) -> bool:
+    return bool(
+        isinstance(publication, dict)
+        and publication.get("schema_version")
+        == "atlas_mlb_proper21v1_single_family_publication_v1"
+        and publication.get("status") == "pass"
+        and publication.get("model_identity") == "Proper21V1"
+        and publication.get("outcomes_opened") is False
+    )
 
 
 def _load_source_context(run_dir: Path) -> dict[str, Any]:
@@ -1438,8 +1611,21 @@ def _public_picks(legs: list[dict[str, Any]], limit: int = 50) -> list[dict[str,
     return rows
 
 
-def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
-    run_dir = _latest_live_run(mlb_root) if run_id == "latest" else mlb_root / "data" / "mlb" / "live_runs" / run_id
+def build_payload(
+    mlb_root: Path,
+    run_id: str,
+    out_dir: Path,
+    *,
+    run_dir: Path | None = None,
+) -> Path:
+    if run_dir is None:
+        run_dir = (
+            _latest_live_run(mlb_root)
+            if run_id == "latest"
+            else mlb_root / "data" / "mlb" / "live_runs" / run_id
+        )
+    else:
+        run_dir = run_dir.resolve()
     if not run_dir.exists():
         raise SystemExit(f"MLB run not found: {run_dir}")
 
@@ -1447,13 +1633,44 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
     engagement = _model_engagement(run_dir, manifest)
     all_legs = _load_all_legs(run_dir)
     _attach_recent_games_to_legs(all_legs, mlb_root / "data" / "mlb" / "season_gamelogs" / "latest.csv")
-    marketed = _load_marketed(run_dir)
-    system = _load_systemev(run_dir)
-    windfall = _load_family(run_dir, "windfall")
-    demonhunter = _load_family(run_dir, "demonhunter")
-    big_swings = _load_big_swings(run_dir)
-    for slips in (marketed, system, windfall, demonhunter, big_swings):
+    single_family_publication = _load_single_family_publication(run_dir)
+    proper21_active = _proper21_publication_active(
+        single_family_publication
+    )
+    if proper21_active:
+        marketed: list[dict[str, Any]] = []
+        system: list[dict[str, Any]] = []
+        windfall: list[dict[str, Any]] = []
+        demonhunter: list[dict[str, Any]] = []
+        big_swings: list[dict[str, Any]] = []
+    else:
+        marketed = _load_marketed(run_dir)
+        system = _load_systemev(run_dir)
+        windfall = _load_family(run_dir, "windfall")
+        demonhunter = _load_family(run_dir, "demonhunter")
+        big_swings = _load_big_swings(run_dir)
+    single_family = _load_single_family(run_dir)
+    single_family_canonical = list(
+        single_family_publication.get("slips") or []
+    )
+    for slips in (
+        marketed,
+        system,
+        windfall,
+        demonhunter,
+        big_swings,
+        single_family,
+    ):
         _attach_model_engagement(slips, engagement)
+    single_family_3leg = [
+        slip for slip in single_family if slip.get("n_legs") == 3
+    ]
+    single_family_4leg = [
+        slip for slip in single_family if slip.get("n_legs") == 4
+    ]
+    single_family_5leg = [
+        slip for slip in single_family if slip.get("n_legs") == 5
+    ]
     source_context = _load_source_context(run_dir)
     injury_context = _load_injury_context(run_dir, all_legs, engagement)
     performance = _load_performance(mlb_root)
@@ -1472,6 +1689,43 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
         "demonhunter": demonhunter,
         "big_swings": big_swings,
         "marketed_slips": marketed,
+        "single_family": single_family_canonical,
+        "single_family_slips": single_family,
+        "single_family_3leg": single_family_3leg,
+        "single_family_4leg": single_family_4leg,
+        "single_family_5leg": single_family_5leg,
+        "single_family_status": {
+            "model_identity": (
+                "Proper21V1" if proper21_active else ""
+            ),
+            "active": proper21_active,
+            "policy_id": single_family_publication.get("policy_id"),
+            "slip_count": len(single_family),
+            "slip_counts_by_leg_count": {
+                "3": len(single_family_3leg),
+                "4": len(single_family_4leg),
+                "5": len(single_family_5leg),
+            },
+            "outcomes_opened": False,
+        },
+        "proper21v1": {
+            "active": proper21_active,
+            "model_identity": (
+                "Proper21V1" if proper21_active else ""
+            ),
+            "policy_id": single_family_publication.get("policy_id"),
+            "slip_count": len(single_family),
+            "slip_counts_by_leg_count": {
+                "3": len(single_family_3leg),
+                "4": len(single_family_4leg),
+                "5": len(single_family_5leg),
+            },
+            "bigswings_status": (
+                "deferred_required_followup_after_single_family_install"
+                if proper21_active
+                else ""
+            ),
+        },
         "gamescript": [],
         "all_legs": all_legs,
         "top_hit_list": _top_hit_list(all_legs),
@@ -1492,7 +1746,14 @@ def build_payload(mlb_root: Path, run_id: str, out_dir: Path) -> Path:
         **engagement,
         "picks": _public_picks(all_legs),
         "total_legs": len(all_legs),
-        "total_slips": len(system) + len(windfall) + len(demonhunter) + len(marketed),
+        "total_slips": (
+            len(single_family)
+            if single_family
+            else len(system)
+            + len(windfall)
+            + len(demonhunter)
+            + len(marketed)
+        ),
         "total_big_swings": len(big_swings),
     }
     (out_dir / "picks_today.json").write_text(json.dumps(picks_payload, indent=2), encoding="utf-8")
@@ -1510,12 +1771,18 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--mlb-root", default=r"C:\Users\13142\Atlas\MLB")
     parser.add_argument("--run-id", default="latest")
+    parser.add_argument("--run-dir", default="")
     parser.add_argument("--out-dir", default="")
     args = parser.parse_args()
 
     mlb_root = Path(args.mlb_root).resolve()
     out_dir = Path(args.out_dir).resolve() if args.out_dir else mlb_root / "data" / "mlb" / "output" / "dashboard"
-    payload = build_payload(mlb_root=mlb_root, run_id=args.run_id, out_dir=out_dir)
+    payload = build_payload(
+        mlb_root=mlb_root,
+        run_id=args.run_id,
+        out_dir=out_dir,
+        run_dir=Path(args.run_dir) if args.run_dir else None,
+    )
     print(f"Wrote MLB dashboard payload: {payload}")
 
 

@@ -333,12 +333,14 @@
       
       var content = document.getElementById('content');
       content.innerHTML = '';
-      
-      // System EV section
-      content.appendChild(makeSection('System (EV)', 'system', data.system || []));
-      
-      // System WinProb section
-      content.appendChild(makeSection('System (Win Prob)', 'system_winprob', data.system_winprob || []));
+
+      var proper21 = data.single_family_slips || data.single_family || [];
+      if (proper21.length > 0) {
+        content.appendChild(makeSection('Proper21V1 Slips', 'system', proper21));
+      } else {
+        content.appendChild(makeSection('System (EV)', 'system', data.system || []));
+        content.appendChild(makeSection('System (Win Prob)', 'system_winprob', data.system_winprob || []));
+      }
       
       // MLB high-upside flex pick board
       content.appendChild(makeSection('The Big Swings', 'big_swings', data.big_swings || []));

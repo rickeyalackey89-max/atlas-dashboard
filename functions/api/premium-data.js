@@ -252,6 +252,11 @@ function applyWatermark(data, watermark) {
     'demonhunter',
     'big_swings',
     'marketed_slips',
+    'single_family',
+    'single_family_slips',
+    'single_family_3leg',
+    'single_family_4leg',
+    'single_family_5leg',
     'all_legs',
   ];
   for (const name of collections) {

@@ -115,14 +115,9 @@ available as an OpenAI API model, the script keeps the lane name and uses the
 configured API fallback model; the review remains report-only and does not mutate
 payloads, evals, probabilities, or slips.
 
-Live automation also publishes current live payloads. MLB live refreshes are
-scheduled at 11:00 AM with NBA, then MLB-only at 1:30 PM and 4:30 PM daily, plus
-7:30 PM Central Monday-Saturday. NBA also has a first-tip runner registered from
-the umbrella root that
-fetches a fresh board and runs NBA live about 20 minutes before the first game.
-The Sunday MLB 7:30 PM task is guarded in `C:\Users\13142\Atlas\run-live-sports.ps1`;
-after 6:30 PM Central on Sundays it exits before running MLB or publishing, so
-it cannot overwrite the site after the Sunday slate has already started.
+Live automation also publishes current live payloads. Umbrella multi-sport live
+launchers have been removed; live refreshes should use sport-specific commands
+and scheduler wiring only.
 Eval automation is for prior-day performance results; it should not overwrite a
 current live slate with historical board data.
 
