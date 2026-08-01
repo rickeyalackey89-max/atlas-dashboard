@@ -12,6 +12,10 @@ const DATASETS = {
         kvKey: 'premium:mlb:dashboard:latest',
         assetPath: '/data/mlb/cloudflare_payload.json',
       },
+      wnba: {
+        kvKey: 'premium:wnba:dashboard:latest',
+        assetPath: '/data/wnba/cloudflare_payload.json',
+      },
     },
   },
 };

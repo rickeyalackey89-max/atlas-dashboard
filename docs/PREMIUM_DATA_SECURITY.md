@@ -5,12 +5,14 @@ served from public JSON paths. The current secure path is:
 
 1. Model writes `cloudflare_payload.json` locally.
 2. `publish-atlas.ps1` writes public preview data to `public/data/picks_today.json`
-   for NBA or `public/data/mlb/picks_today.json` for MLB.
+   for NBA, `public/data/mlb/picks_today.json` for MLB, or
+   `public/data/wnba/picks_today.json` for WNBA.
 3. When `ATLAS_PREMIUM_KV_NAMESPACE_ID` is configured, the full premium payload is
    uploaded to Cloudflare KV at `premium:<sport>:dashboard:latest`.
 4. Dashboard, Members, and Parlay Builder call:
    `/api/premium-data?dataset=dashboard&sport=nba` or
-   `/api/premium-data?dataset=dashboard&sport=mlb`.
+   `/api/premium-data?dataset=dashboard&sport=mlb` or
+   `/api/premium-data?dataset=dashboard&sport=wnba`.
 5. The Pages Function verifies the signed premium token, rate-limits/logs the
    request when `ATLAS_SECURITY_KV` is bound, watermarks the response, and returns
    the premium payload.
@@ -44,11 +46,16 @@ Then publish with:
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -AtlasRoot C:\Users\13142\Atlas\NBA
 powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -Sport mlb -AtlasRoot C:\Users\13142\Atlas\MLB
+py .\tools\build_wnba_dashboard_payload.py --wnba-root C:\Users\13142\Atlas\WNBA
+powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -Sport wnba -AtlasRoot C:\Users\13142\Atlas\WNBA
 ```
 
 If the KV namespace id is missing, the publisher keeps the old public premium JSON
 as a compatibility fallback and prints a warning. That fallback should be removed
 after the Cloudflare binding is live.
+
+WNBA is stricter: without the premium KV namespace the publisher fails closed
+instead of exposing its complete Builder Card-derived payload publicly.
 
 ## Protections In Repo
 

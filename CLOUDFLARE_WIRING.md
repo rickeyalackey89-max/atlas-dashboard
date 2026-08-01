@@ -19,18 +19,32 @@ Key outputs:
 - Last-5 audit file (written by refresh_nba_gamelogs.py):
   - C:\Users\13142\Atlas\NBA\data\gamelogs\audit_last5_board.csv
 
+### Atlas WNBA (engine workspace)
+
+The website payload is rebuilt only from the currently published, audit-clean
+WNBA Live pointer. `tools/build_wnba_dashboard_payload.py` reads the lossless
+Builder Card, exports source-playable roads, and fails closed on a failed Live
+audit, an unpublished runtime pointer, Demon Under, or Goblin Under.
+
+- Live source: `C:\Users\13142\Atlas\WNBA\data\wnba\runtime_state\live\latest_manifest.json`
+- Dashboard payload: `C:\Users\13142\Atlas\WNBA\data\wnba\output\dashboard\cloudflare_payload.json`
+- Dashboard status: `C:\Users\13142\Atlas\WNBA\data\wnba\output\dashboard\status_latest.json`
+
 ### AtlasDashboard (git repo, Cloudflare serves this)
 Publishes JSON to:
 - C:\Users\13142\Atlas\atlas-dashboard\public\data\
 - C:\Users\13142\Atlas\atlas-dashboard\public\data\mlb\
+- C:\Users\13142\Atlas\atlas-dashboard\public\data\wnba\
 
 Cloudflare serves:
 - /data/status_latest.json
 - /data/invalidations_latest.json
 - /data/picks_today.json                       (public homepage preview)
 - /data/mlb/picks_today.json                  (public MLB homepage preview)
+- /data/wnba/picks_today.json                 (public WNBA homepage preview)
 - /api/premium-data?dataset=dashboard&sport=nba (authenticated premium dashboard payload)
 - /api/premium-data?dataset=dashboard&sport=mlb (authenticated MLB dashboard payload)
+- /api/premium-data?dataset=dashboard&sport=wnba (authenticated WNBA dashboard payload)
 - /data/cloudflare_payload.json                (compatibility fallback only until KV is configured)
 
 Premium dashboard JSON should live in Cloudflare KV, not as a public file. The
@@ -85,6 +99,8 @@ Example:
 ```
 powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -AtlasRoot C:\Users\13142\Atlas\NBA
 powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -Sport mlb -AtlasRoot C:\Users\13142\Atlas\MLB
+py .\tools\build_wnba_dashboard_payload.py --wnba-root C:\Users\13142\Atlas\WNBA
+powershell -NoProfile -ExecutionPolicy Bypass -File .\publish-atlas.ps1 -Sport wnba -AtlasRoot C:\Users\13142\Atlas\WNBA
 ```
 
 The 6am evaluation automation is registered from the umbrella Atlas root:
@@ -136,12 +152,13 @@ Security files:
 
 - NBA: `public/data/picks_today.json`
 - MLB: `public/data/mlb/picks_today.json`
+- WNBA: `public/data/wnba/picks_today.json`
 
 Each sport preview is intentionally limited. It starts with one candidate from
 each tier (`GOBLIN`, `STANDARD`, `DEMON`) when available and avoids repeating a
 player in that sport's top preview rows.
 
-The landing page then combines NBA and MLB preview files and selects the final
+The landing page currently combines NBA and MLB preview files and selects the final
 three public cards:
 
 - one Goblin / below-alt;

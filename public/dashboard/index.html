@@ -118,7 +118,7 @@
     .pb-input{font-size:12px;padding:9px 14px;}
     .pb-input:focus,.pb-select:focus{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(0,229,255,.18),0 0 20px rgba(0,229,255,.12),inset 0 0 18px rgba(0,0,0,.22);}
     .pb-picker-grid{display:grid;grid-template-columns:.9fr 1.35fr 1.45fr;gap:10px;margin-bottom:10px;align-items:end;}
-    .pb-sport-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+    .pb-sport-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
     .pb-sport-btn{background:#151515;border:1px solid #333;color:var(--t2);font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:11px 8px;cursor:pointer;font-family:var(--font);border-radius:6px;}
     .pb-sport-btn:hover{color:var(--text);border-color:#555;}
     .pb-sport-btn.active{background:rgba(0,229,255,.12);border-color:var(--cyan);color:var(--cyan);}
@@ -369,6 +369,7 @@
   <div class="sport-tabs">
     <button class="sport-tab active" data-sport="nba" onclick="switchSport('nba')"><span class="live-dot"></span>NBA</button>
     <button class="sport-tab" data-sport="mlb" onclick="switchSport('mlb')"><span class="live-dot"></span>MLB</button>
+    <button class="sport-tab" data-sport="wnba" onclick="switchSport('wnba')"><span class="live-dot"></span>WNBA</button>
     <button class="sport-tab tool-tab" data-tool="parlay" onclick="switchGlobalTool('parlay')">Parlay Builder</button>
     <button class="sport-tab disabled">NFL <span class="coming-badge">Soon</span></button>
     <button class="sport-tab disabled">College <span class="coming-badge">Soon</span></button>
@@ -565,7 +566,7 @@
         <div class="lock-badge">
           <div class="lock-icon">&#128274;</div>
           <div class="lock-text">Premium Feature</div>
-          <div class="lock-sub">All optimized slips &#8212; Market, System, and The Big Swings picks with full leg detail</div>
+          <div class="lock-sub" id="slipsLockSub">All optimized slips &#8212; Market, System, and The Big Swings picks with full leg detail</div>
           <a href="/checkout/" class="btn btn-gold" style="margin-top:8px;font-size:11px;">Unlock Premium</a>
         </div>
       </div>
@@ -586,7 +587,7 @@
               <div style="font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-bottom:16px;">Add a Leg</div>
               <div style="margin-bottom:10px;">
                 <div class="pb-label">Filter Player</div>
-                <input type="text" id="pbPlayerSearch" class="pb-input" placeholder="Search players across NBA and MLB..." oninput="pbFilterPlayers()" autocomplete="off"/>
+                <input type="text" id="pbPlayerSearch" class="pb-input" placeholder="Search players across NBA, MLB, and WNBA..." oninput="pbFilterPlayers()" autocomplete="off"/>
               </div>
               <div class="pb-picker-grid">
                 <div>
@@ -595,6 +596,7 @@
                     <button type="button" class="pb-sport-btn active" data-sport="ALL" onclick="pbSetSportFilter('ALL')">All</button>
                     <button type="button" class="pb-sport-btn" data-sport="NBA" onclick="pbSetSportFilter('NBA')">NBA</button>
                     <button type="button" class="pb-sport-btn" data-sport="MLB" onclick="pbSetSportFilter('MLB')">MLB</button>
+                    <button type="button" class="pb-sport-btn" data-sport="WNBA" onclick="pbSetSportFilter('WNBA')">WNBA</button>
                   </div>
                 </div>
                 <div>
@@ -723,10 +725,11 @@
   var currentSport = 'nba';
   var currentSubTab = 'probability';
   var dashboardCache = {};
-  var parlayLegPools = { nba: [], mlb: [] };
+  var parlayLegPools = { nba: [], mlb: [], wnba: [] };
   var SPORT_CONFIG = {
     nba: { label: 'NBA 2025-26', publicPreview: '/data/picks_today.json' },
-    mlb: { label: 'MLB 2026', publicPreview: '/data/mlb/picks_today.json' }
+    mlb: { label: 'MLB 2026', publicPreview: '/data/mlb/picks_today.json' },
+    wnba: { label: 'WNBA 2026', publicPreview: '/data/wnba/picks_today.json' }
   };
 
   function switchSubTab(sub) {
@@ -751,6 +754,10 @@
     document.querySelectorAll('.sport-tab[data-tool]').forEach(function(t){ t.classList.remove('active'); });
     var eyebrow = document.getElementById('sportEyebrow');
     if(eyebrow) eyebrow.textContent = 'Live \u2014 ' + SPORT_CONFIG[key].label;
+    var slipsLockSub=document.getElementById('slipsLockSub');
+    if(slipsLockSub) slipsLockSub.textContent=key==='wnba'
+      ? 'WNBA Market Portfolio slips and From Deep picks with full leg detail'
+      : 'All optimized slips \u2014 Market, System, and The Big Swings picks with full leg detail';
     switchSubTab(currentSubTab || 'probability');
     loadDashboard(key);
   }
@@ -911,7 +918,7 @@
     var seen={};
     var sources=(data.system||[]).concat(data.system_winprob||[]).concat(data.windfall||[])
       .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.big_swings||[])
-      .concat(data.marketed_slips||[]).concat(data.single_family_slips||[]);
+      .concat(data.from_deep||[]).concat(data.marketed_slips||[]).concat(data.single_family_slips||[]);
     var count=0;
     for(var i=0;i<sources.length;i++){
       var ls=Array.isArray(sources[i].legs_detail)?sources[i].legs_detail:(Array.isArray(sources[i].legs)?sources[i].legs:[]);
@@ -1251,6 +1258,8 @@
   }
 
   function legUsageScore(leg){
+    var pct=numOrNull(leg.usage_pct);
+    if(pct!==null) return pct/100;
     var v=numOrNull(leg.usage_score);
     if(v===null) v=numOrNull(leg.usage_dep);
     return v;
@@ -1265,6 +1274,7 @@
   function usageColor(leg){
     var v=legUsageScore(leg);
     if(v===null) return 'var(--t2)';
+    if(numOrNull(leg.usage_pct)!==null) return v>=0.25 ? 'var(--green)' : (v>=0.18 ? 'var(--gold)' : '#f87171');
     return v>=1.03 ? 'var(--green)' : (v>=0.95 ? 'var(--gold)' : '#f87171');
   }
 
@@ -2168,17 +2178,35 @@
       body: '2 anchors, 2 market selections, and 1 above-market edge leg — the full package. Run it as a Flex and you only need 4 of 5 to cash. Higher ceiling, higher conviction across the board.'
     }
   };
+  var WNBA_SLIP_PREMIUM_DESC = {
+    2: {
+      tag: 'CORE TWO',
+      body: 'The strongest qualified two-leg combination from the promoted WNBA Market Portfolio builder, priced with candidate-local dependence and Atlas internal payout evidence.'
+    },
+    3: {
+      tag: 'MARKET THREE',
+      body: 'A qualified three-leg WNBA build selected from the current Live roads, with role, minutes, opportunity, fragility, environment, and market context carried into construction.'
+    },
+    4: {
+      tag: 'FULL COURT FOUR',
+      body: 'Published only when four legal WNBA roads form a qualified portfolio. A four-leg is never manufactured solely to fill the slate.'
+    }
+  };
   // Family-level summaries for public MLB slip/pick families
   var SLIP_FAMILY_DESC = {
     single_family: 'Proper21V1 builds the complete 3, 4, and 5-leg portfolio from coherent final probabilities, dependence-aware joint QMC, exact in-house payout evidence, and conservative EV floors.',
     system:      'Atlas\' core beam-search engine scores every possible leg combination for edge and probability, then assembles the highest-EV multi-leg slips of the day. No gut feel — pure model output.',
     windfall:    'Currently withheld from public MLB output while the model favors tighter Market and System construction.',
     demonhunter: 'Legacy high-upside slip family. Public MLB output now uses The Big Swings instead.',
-    big_swings:  'Ranked individual &#8593; Alt flex picks. These are not full slips — they are selective high-upside adds for small-stake portfolio play.'
+    big_swings:  'Ranked individual &#8593; Alt flex picks. These are not full slips — they are selective high-upside adds for small-stake portfolio play.',
+    from_deep:   'Individual WNBA Demon-over plays selected by the promoted From Deep policy. Each is a standalone option that can be added to a consumer-built parlay.'
   };
 
   function buildSlipsTab(data){
-    var families=[
+    var isWnba=String(currentSport||'').toLowerCase()==='wnba';
+    var families=isWnba?[
+      {key:'from_deep',label:'From Deep',desc:'Individual Demon-over upside picks',color:'var(--gold)',bc:'rgba(245,166,35,.35)'}
+    ]:[
       {key:'single_family',label:'Proper21V1 Slips',desc:'Coherent probability, joint QMC, and exact payout EV',color:'#60a5fa',bc:'rgba(96,165,250,.35)'},
       {key:'system',    label:'System',      desc:'Beam-search optimized for edge',   color:'#4ade80', bc:'rgba(74,222,128,.35)'},
       {key:'big_swings',label:'The Big Swings',desc:'Individual high-upside flex picks',color:'var(--gold)',bc:'rgba(245,166,35,.35)'},
@@ -2198,8 +2226,8 @@
       anySlips=true;
       var mktDiv=document.createElement('div'); mktDiv.className='slip-family';
       var mktHead=document.createElement('div'); mktHead.className='slip-family-header';
-      mktHead.innerHTML='<span class="sfh-title" style="color:var(--gold);">&#9733; Premium Slips</span>'+
-        '<span class="sfh-desc">Atlas\' most decorated selection — structured for consistency, upside, and daily winners.</span>'+
+      mktHead.innerHTML='<span class="sfh-title" style="color:var(--gold);">&#9733; '+(isWnba?'WNBA Market Portfolio':'Premium Slips')+'</span>'+
+        '<span class="sfh-desc">'+(isWnba?'Promoted WNBA builder selections from the current audited Live surface.':'Atlas\' most decorated selection — structured for consistency, upside, and daily winners.')+'</span>'+
         '<span class="sfh-count">'+mktSlips.length+' Slips</span>';
       mktDiv.appendChild(mktHead);
       var _lastMktN=-1;
@@ -2208,7 +2236,7 @@
         // Insert per-leg-count label row before first slip of each size
         if(nLegs!==_lastMktN){
           _lastMktN=nLegs;
-          var pd=SLIP_PREMIUM_DESC[nLegs]||{tag:'',body:''};
+          var pd=(isWnba?WNBA_SLIP_PREMIUM_DESC:SLIP_PREMIUM_DESC)[nLegs]||{tag:'',body:''};
           var legLabel=document.createElement('div');
           legLabel.style.cssText='padding:18px 0 10px;border-top:'+(ms===0?'none':'1px solid var(--b)')+';margin-top:'+(ms===0?'0':'10px')+';';
           legLabel.innerHTML='<div style="font-size:15px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--text);">'+nLegs+'-Leg'+(pd.tag?' <span style="color:var(--t2);font-weight:700;font-size:12px;">— '+pd.tag+'</span>':'')+' </div>'+
@@ -2262,7 +2290,7 @@
       var famDescFull=SLIP_FAMILY_DESC[fam.key]||fam.desc;
       famHead.innerHTML='<span class="sfh-title" style="color:'+fam.color+';">'+fam.label+'</span>'+
         '<span class="sfh-desc">'+famDescFull+'</span>'+
-        '<span class="sfh-count">'+slips.length+(fam.key==='big_swings'?' Picks':' Slips')+'</span>';
+        '<span class="sfh-count">'+slips.length+((fam.key==='big_swings'||fam.key==='from_deep')?' Picks':' Slips')+'</span>';
       famDiv.appendChild(famHead);
       for(var s=0;s<slips.length;s++){
         var slip=slips[s],legs=Array.isArray(slip.legs_detail)?slip.legs_detail:(Array.isArray(slip.legs)?slip.legs:[]),nLegs=slip.n_legs||legs.length;
@@ -2289,7 +2317,7 @@
         var card=document.createElement('div'); card.className='slip-card';
         card.innerHTML=
           '<div class="slip-header">'+
-            '<span class="slip-n-badge" style="color:'+nc+';border-color:'+nb+';">'+(fam.key==='big_swings'?'Flex Pick':(nLegs+'-Leg'))+'</span>'+
+            '<span class="slip-n-badge" style="color:'+nc+';border-color:'+nb+';">'+(fam.key==='big_swings'?'Flex Pick':fam.key==='from_deep'?'From Deep Pick':(nLegs+'-Leg'))+'</span>'+
             '<div class="slip-meta-row">'+
               '<span>Hit Prob&nbsp;<span class="slip-meta-val">'+hitPct+'%</span></span>'+
               (evX?'<span>EV&nbsp;<span class="slip-meta-val">'+evX+'</span></span>':'')+
@@ -2396,6 +2424,7 @@
       windfall_winprob:[],
       demonhunter:[],
       big_swings:[],
+      from_deep:[],
       marketed_slips:[],
       single_family:[],
       single_family_slips:[],
@@ -2483,7 +2512,7 @@
     if(!data||typeof data!=='object') data={};
     data.sport=data.sport||label;
     stampSportOnLegs(data.all_legs||[], label);
-    ['system','system_winprob','windfall','windfall_winprob','demonhunter','big_swings','marketed_slips','single_family','single_family_slips','single_family_3leg','single_family_4leg','single_family_5leg'].forEach(function(k){
+    ['system','system_winprob','windfall','windfall_winprob','demonhunter','big_swings','from_deep','marketed_slips','single_family','single_family_slips','single_family_3leg','single_family_4leg','single_family_5leg'].forEach(function(k){
       (data[k]||[]).forEach(function(slip){
         stampSportOnLegs(Array.isArray(slip.legs)?slip.legs:[], label);
         stampSportOnLegs(Array.isArray(slip.legs_detail)?slip.legs_detail:[], label);
@@ -2532,7 +2561,7 @@
         var seen2={},allLegsForCount=[];
         var allSrc=(data.system||[]).concat(data.system_winprob||[]).concat(data.windfall||[])
           .concat(data.windfall_winprob||[]).concat(data.demonhunter||[]).concat(data.big_swings||[])
-          .concat(data.marketed_slips||[]).concat(data.single_family_slips||[]);
+          .concat(data.from_deep||[]).concat(data.marketed_slips||[]).concat(data.single_family_slips||[]);
         for(var _i=0;_i<allSrc.length;_i++){
           var _ls=allSrc[_i].legs_detail||allSrc[_i].legs||[];
           for(var _j=0;_j<_ls.length;_j++){
@@ -2706,6 +2735,9 @@
     var ov = perf.overall || {};
     var byTier = perf.by_tier || {};
     var ys = perf.yesterday_slips || {};
+    var perfMeta=perf.meta||{};
+    var evalCadence=perfMeta.eval_cadence||'6AM';
+    var slipSizes=Array.isArray(perfMeta.slip_sizes)?perfMeta.slip_sizes.join('-leg, ')+'-leg':'3-leg, 4-leg, 5-leg';
     var tiers = ['GOBLIN', 'STANDARD', 'DEMON'];
     var tierColors = {GOBLIN:'var(--green)',STANDARD:'var(--cyan)',DEMON:'var(--red)'};
     var tierLabels = {GOBLIN:'Below Alts',STANDARD:'Standard',DEMON:'Above Alts'};
@@ -2742,12 +2774,14 @@
       html += '</div>';
       html += '</div>';
       // Per-family breakdown
-      var families = [
+      var families = String(currentSport||'').toLowerCase()==='wnba' ? [
+        {key:'market', label:'Market Portfolio', color:'var(--gold)'}
+      ] : [
         {key:'market',  label:'Market',   color:'var(--gold)'},
         {key:'system',  label:'System',   color:'var(--cyan)'},
         {key:'windfall',label:'Windfall', color:'var(--green)'},
       ];
-      html += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;max-width:520px;">';
+      html += '<div style="display:grid;grid-template-columns:repeat('+families.length+',1fr);gap:10px;max-width:520px;">';
       families.forEach(function(fam) {
         var fd = ys[fam.key] || {};
         var fw = fd.wins != null ? fd.wins : '—';
@@ -2762,9 +2796,9 @@
         html += '</div>';
       });
       html += '</div>';
-      html += '<div style="font-size:10px;color:var(--t2);margin-top:8px;">Selected 6AM eval report run · Voided slips (DNP leg) excluded from totals</div>';
+      html += '<div style="font-size:10px;color:var(--t2);margin-top:8px;">Selected '+evalCadence+' eval report run · Voided slips (DNP leg) excluded from totals</div>';
     } else {
-      html += '<div style="padding:18px;background:rgba(255,255,255,0.04);border:1px solid var(--b);max-width:480px;font-size:12px;color:var(--t2);">Slip results available after 6am — check back after today\'s eval runs.</div>';
+      html += '<div style="padding:18px;background:rgba(255,255,255,0.04);border:1px solid var(--b);max-width:480px;font-size:12px;color:var(--t2);">Slip results available after '+evalCadence+' — check back after today\'s eval runs.</div>';
     }
     html += '</div>';
 
@@ -2810,7 +2844,7 @@
     html += '</tbody></table></div>';
     var meta = perf.meta || {};
     var through = meta.latest_game_date ? ' Scored through '+meta.latest_game_date+'.' : '';
-    html += '<div style="font-size:10px;color:var(--t2);margin-top:14px;line-height:1.7;">Leg hit rate computed from unique scored board legs in the telemetry archive. Slip record uses the selected 6AM eval report run (3-leg, 4-leg, 5-leg). Performance and slip records update after the 6AM eval.'+through+'</div>';
+    html += '<div style="font-size:10px;color:var(--t2);margin-top:14px;line-height:1.7;">Leg hit rate computed from unique scored board legs in the telemetry archive. Slip record uses the selected '+evalCadence+' eval report run ('+slipSizes+'). Performance and slip records update after the '+evalCadence+' eval.'+through+'</div>';
 
     el.innerHTML = html;
   }
@@ -3222,7 +3256,7 @@
   }
 
   function pbAvailableSports(){
-    var counts={NBA:0,MLB:0};
+    var counts={NBA:0,MLB:0,WNBA:0};
     for(var i=0;i<_pb.allLegs.length;i++){
       var s=pbSportOf(_pb.allLegs[i]);
       if(counts[s]!==undefined) counts[s]++;
@@ -3241,7 +3275,7 @@
 
   function pbSetSportFilter(sport){
     _pb.sportFilter=String(sport||'ALL').toUpperCase();
-    if(['ALL','NBA','MLB'].indexOf(_pb.sportFilter)<0) _pb.sportFilter='ALL';
+    if(['ALL','NBA','MLB','WNBA'].indexOf(_pb.sportFilter)<0) _pb.sportFilter='ALL';
     pbUpdateSportTabs();
     pbBuildPlayerEntries();
     pbFilterPlayers();

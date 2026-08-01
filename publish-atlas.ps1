@@ -1,6 +1,6 @@
 ﻿param(
   [string]$AtlasRoot = "C:\Users\13142\Atlas\NBA",
-  [ValidateSet("nba","mlb")]
+  [ValidateSet("nba","mlb","wnba")]
   [string]$Sport = "nba",
   [string]$DashboardOutputDir = "",
   [switch]$NoGit,
@@ -27,6 +27,8 @@ if ([string]::IsNullOrWhiteSpace($PremiumKvKey)) {
 if ([string]::IsNullOrWhiteSpace($DashboardOutputDir)) {
   if ($Sport -eq "mlb") {
     $DashboardOutputDir = Join-Path $AtlasRoot "data\mlb\output\dashboard"
+  } elseif ($Sport -eq "wnba") {
+    $DashboardOutputDir = Join-Path $AtlasRoot "data\wnba\output\dashboard"
   } else {
     $DashboardOutputDir = Join-Path $AtlasRoot "data\output\dashboard"
   }
@@ -34,6 +36,8 @@ if ([string]::IsNullOrWhiteSpace($DashboardOutputDir)) {
 
 $LiveDir = if ($Sport -eq "mlb") {
   Join-Path (Join-Path $PublicDir "data") "mlb"
+} elseif ($Sport -eq "wnba") {
+  Join-Path (Join-Path $PublicDir "data") "wnba"
 } else {
   Join-Path $PublicDir "data"
 }
@@ -171,6 +175,24 @@ foreach ($k in @("all_legs","generated_at","run_id")) {
     throw "Payload missing key '$k' in cloudflare_payload.json"
   }
 }
+if ($Sport -eq "wnba") {
+  $illegalRoads = @($payload.all_legs | Where-Object {
+    $tier = (($_.tier + "").ToUpperInvariant())
+    $side = (($_.dir + "").ToUpperInvariant())
+    ($tier -in @("DEMON", "GOBLIN")) -and $side -ne "OVER"
+  })
+  if ($illegalRoads.Count -gt 0) {
+    throw "WNBA payload contains $($illegalRoads.Count) illegal alternate-tier UNDER roads."
+  }
+  foreach ($pick in @($payload.from_deep)) {
+    foreach ($leg in @($pick.legs_detail) + @($pick.legs)) {
+      if ($null -eq $leg) { continue }
+      if ((($leg.tier + "").ToUpperInvariant()) -ne "DEMON" -or (($leg.dir + "").ToUpperInvariant()) -ne "OVER") {
+        throw "WNBA From Deep payload contains a non-DEMON:OVER pick."
+      }
+    }
+  }
+}
 try {
   if ($payload.generated_at -is [datetime]) {
     $generatedAt = [datetime]$payload.generated_at
@@ -250,6 +272,7 @@ $systemCount    = if ($payload.system)        { @($payload.system).Count }      
 $windfallCount  = if ($payload.windfall)      { @($payload.windfall).Count }      else { 0 }
 $demonCount     = if ($payload.demonhunter)   { @($payload.demonhunter).Count }   else { 0 }
 $marketedCount  = if ($payload.marketed_slips){ @($payload.marketed_slips).Count } else { 0 }
+$fromDeepCount  = if ($payload.from_deep)      { @($payload.from_deep).Count }      else { 0 }
 $picksPayload  = [ordered]@{
     generated_at = $payload.generated_at
     run_id       = $payload.run_id
@@ -260,6 +283,7 @@ $picksPayload  = [ordered]@{
     picks        = @($picksRows)
     total_legs   = $allLegs.Count
     total_slips  = $systemCount + $windfallCount + $demonCount + $marketedCount
+    total_from_deep = $fromDeepCount
 }
 Write-JsonFile (Join-Path $StageDir "picks_today.json") $picksPayload
 Write-Host ("Built picks_today.json: {0} picks, {1} total_legs" -f @($picksRows).Count, $allLegs.Count)
@@ -290,7 +314,7 @@ if ($PremiumKvNamespaceId -and -not $ForcePublicPremiumPayload) {
     error = "premium_data_moved"
     message = "Premium dashboard payload is served through /api/premium-data after auth."
     api = "/api/premium-data?dataset=dashboard&sport=$Sport"
-    public_preview = if ($Sport -eq "mlb") { "/data/mlb/picks_today.json" } else { "/data/picks_today.json" }
+    public_preview = if ($Sport -eq "mlb") { "/data/mlb/picks_today.json" } elseif ($Sport -eq "wnba") { "/data/wnba/picks_today.json" } else { "/data/picks_today.json" }
     generated_at = $payload.generated_at
     run_id = $payload.run_id
     model_engaged_at = if ($payload.PSObject.Properties["model_engaged_at"]) { $payload.model_engaged_at } else { $null }
@@ -300,6 +324,9 @@ if ($PremiumKvNamespaceId -and -not $ForcePublicPremiumPayload) {
   Write-JsonFile $StagePayload $stub
   Write-Host "Public cloudflare_payload.json replaced with private-data stub."
 } else {
+  if ($Sport -eq "wnba" -and -not $ForcePublicPremiumPayload) {
+    throw "WNBA premium KV namespace is not configured; refusing to publish the full premium payload publicly."
+  }
   Write-Warning "Premium KV namespace not configured; publishing cloudflare_payload.json publicly as a compatibility fallback."
   Write-Warning "Set ATLAS_PREMIUM_KV_NAMESPACE_ID and bind ATLAS_PREMIUM_KV in Cloudflare Pages to remove the public premium payload."
 }
