@@ -474,44 +474,92 @@ def _injury_context(source_manifest: dict[str, Any], wnba_root: Path, selected_l
 
 
 def _performance(wnba_root: Path) -> dict[str, Any]:
+    """Return the corpus-bound identity of the active WNBA model and builder.
+
+    The compact performance snapshot is intentionally C-local so routine Live
+    publication never depends on the Drive archive.  Its identities and source
+    hashes are checked against the active promotion/package before anything is
+    exposed.  The most recent scored Live result is retained only as a separate
+    prospective observation; it is not the promoted model's headline record.
+    """
+    dashboard_root = Path(__file__).resolve().parents[1]
+    snapshot_path = dashboard_root / "config" / "wnba_corpus_performance.json"
+    snapshot = _read_json(snapshot_path)
+    if not snapshot:
+        raise RuntimeError(f"Missing WNBA corpus performance identity: {snapshot_path}")
+
+    promotion_path = wnba_root / "data" / "wnba" / "model_champion" / "builders" / "active_builder_promotion.json"
+    promotion = _read_json(promotion_path)
+    identity = snapshot.get("identity") or {}
+    promotion_policy = promotion.get("active_policy") or {}
+    evidence = promotion.get("evidence") or {}
+    expected_evidence = snapshot.get("source_evidence") or {}
+    identity_checks = {
+        "promotion_status": promotion.get("status") == "phase10_complete_promoted_live_verified",
+        "phase10_complete": _truthy(promotion.get("phase10_complete")),
+        "probability_package": promotion.get("probability_package_id") == identity.get("probability_package_id"),
+        "builder_package": promotion.get("package_id") == identity.get("builder_package_id"),
+        "builder_policy": promotion_policy.get("policy_id") == identity.get("builder_policy_id"),
+        "builder_promotion": promotion.get("promotion_id") == identity.get("builder_promotion_id"),
+        "protected_oos_hash": (evidence.get("protected_date_oos_manifest") or {}).get("sha256") == expected_evidence.get("protected_builder_oos_sha256"),
+        "full_corpus_hash": (evidence.get("final_policy_evaluation_manifest") or {}).get("sha256") == expected_evidence.get("full_exact_policy_corpus_sha256"),
+    }
+
+    probability_package = str(identity.get("probability_package_id") or "")
+    package_manifest_path = (
+        wnba_root
+        / "data"
+        / "wnba"
+        / "model_champion"
+        / "full_chain"
+        / probability_package
+        / "generation2_phase9_package_manifest.json"
+    )
+    package_manifest = _read_json(package_manifest_path)
+    phase8_input = ((package_manifest.get("evidence_inputs") or {}).get("phase8_protected_gate") or {})
+    identity_checks["phase8_protected_hash"] = phase8_input.get("sha256") == expected_evidence.get("phase8_protected_gate_sha256")
+    failed_checks = [name for name, passed in identity_checks.items() if not passed]
+    if failed_checks:
+        raise RuntimeError(
+            "WNBA corpus performance identity does not match the active package: "
+            + ",".join(failed_checks)
+        )
+
     waterfall = _read_json(wnba_root / "data" / "wnba" / "waterfall" / "latest_waterfall_manifest.json")
-    if not waterfall:
-        return {}
-    windows = waterfall.get("rolling_windows") or {}
-    seven = windows.get("last_7_game_dates") or {}
-    thirty = windows.get("last_14_game_dates") or {}
-    daily = waterfall.get("daily") or {}
-    slips = daily.get("slips") or {}
-
-    def model_window(value: dict[str, Any]) -> dict[str, Any]:
-        model = value.get("model") or {}
-        count = int(model.get("metric_count") or 0)
-        return {"hit_rate": model.get("side_win_rate") if count else None, "n": count}
-
-    slip_count = int(slips.get("metric_count") or slips.get("slip_count") or 0)
-    latest_dates = (windows.get("last_1_game_dates") or {}).get("dates") or []
-    return {
-        "overall": {"last_7d": model_window(seven), "last_30d": model_window(thirty)},
-        "by_tier": {},
-        "yesterday_slips": {
-            "date": latest_dates[-1] if latest_dates else None,
+    latest_live: dict[str, Any] = {}
+    active_model = waterfall.get("active_model") or {}
+    waterfall_matches = (
+        active_model.get("probability_package_id") == identity.get("probability_package_id")
+        and active_model.get("builder_policy_id") == identity.get("builder_policy_id")
+    )
+    if waterfall and waterfall_matches:
+        windows = waterfall.get("rolling_windows") or {}
+        latest_dates = (windows.get("last_1_game_dates") or {}).get("dates") or []
+        slips = (waterfall.get("daily") or {}).get("slips") or {}
+        slip_count = int(slips.get("metric_count") or slips.get("slip_count") or 0)
+        by_size: dict[str, Any] = {}
+        for size, value in (slips.get("by_size") or {}).items():
+            count = int(value.get("metric_count") or value.get("slip_count") or 0)
+            rate = value.get("win_rate") if count else None
+            by_size[str(size)] = {
+                "wins": round(float(rate or 0) * count) if count else 0,
+                "total": count,
+                "win_rate": rate,
+            }
+        latest_live = {
+            "scope": "prospective_scored_live_run",
+            "date": latest_dates[-1] if latest_dates else waterfall.get("target_date"),
             "wins": round(float(slips.get("win_rate") or 0) * slip_count) if slip_count else 0,
             "total": slip_count,
-            "pct": slips.get("win_rate") if slip_count else None,
-            "market": {
-                "wins": round(float(slips.get("win_rate") or 0) * slip_count) if slip_count else 0,
-                "total": slip_count,
-                "pct": slips.get("win_rate") if slip_count else None,
-            },
-        },
-        "meta": {
-            "sport": "WNBA",
+            "win_rate": slips.get("win_rate") if slip_count else None,
+            "by_size": by_size,
             "eval_cadence": "3AM",
-            "slip_sizes": [2, 3, 4],
-            "latest_game_date": latest_dates[-1] if latest_dates else None,
-            "metric_scope": waterfall.get("metric_scope"),
-        },
-    }
+        }
+
+    result = dict(snapshot)
+    result["identity_verified"] = True
+    result["latest_live"] = latest_live
+    return result
 
 
 def _engagement(manifest: dict[str, Any]) -> dict[str, Any]:

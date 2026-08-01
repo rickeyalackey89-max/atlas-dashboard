@@ -1,0 +1,133 @@
+{
+  "schema_version": "wnba_corpus_performance_v1",
+  "status": "promoted_current_identity",
+  "identity": {
+    "label": "WNBA Generation 2",
+    "probability_package_id": "gen2_phase9_full_chain_v1_20260731",
+    "builder_package_id": "wnba_builder_gen2_f89e3344861339f6e5659814",
+    "builder_policy_id": "wnba_market_portfolio_policy_853d7460e9286d36a43b4f2a",
+    "builder_promotion_id": "wnba_gen2_phase10_c620d22ae970e5797036"
+  },
+  "source_evidence": {
+    "phase8_protected_gate_sha256": "242bebd0afe9678b5040997eb081ed63b0b3ff33fae562c8d3599d565cc34b75",
+    "protected_builder_oos_sha256": "79d01662fab272da63fefbc3e94bb22379feb50df41c42d5b18390904d937952",
+    "full_exact_policy_corpus_sha256": "0a139cf1f479b321f7070881d565a68507201d96ffb91385613f139a37491fc8"
+  },
+  "probability_chain": {
+    "scope": "protected_phase8_full_chain_gate",
+    "scope_label": "Protected Probability-Chain Gate",
+    "surface_count": 10,
+    "unique_game_dates": 4,
+    "row_count": 10460,
+    "selected_side": {
+      "wins": 7036,
+      "total": 10460,
+      "win_rate": 0.6726577426
+    },
+    "metrics": {
+      "brier": 0.20742147,
+      "ece": 0.02476195,
+      "logloss": 0.6025246
+    },
+    "improvement_vs_prior_champion": {
+      "brier_delta": -0.00304906,
+      "ece_delta": -0.01194747,
+      "logloss_delta": -0.01197687
+    }
+  },
+  "protected_builder_oos": {
+    "scope": "protected_grouped_date_historical_oos",
+    "scope_label": "Protected Historical OOS",
+    "member_count": 25,
+    "heldout_date_count": 9,
+    "selected_slips": 55,
+    "strict_wins": 50,
+    "strict_win_rate": 0.9090909091,
+    "by_size": {
+      "2": {
+        "strict_wins": 22,
+        "released_slips": 22,
+        "run_strict_win_rate": 1.0,
+        "date_balanced_strict_win_rate": 1.0,
+        "unique_game_dates": 8,
+        "gate": 0.9,
+        "gate_pass": true
+      },
+      "3": {
+        "strict_wins": 15,
+        "released_slips": 15,
+        "run_strict_win_rate": 1.0,
+        "date_balanced_strict_win_rate": 1.0,
+        "unique_game_dates": 6,
+        "gate": 0.75,
+        "gate_pass": true
+      },
+      "4": {
+        "strict_wins": 13,
+        "released_slips": 18,
+        "run_strict_win_rate": 0.7222222222,
+        "date_balanced_strict_win_rate": 0.8,
+        "unique_game_dates": 6,
+        "gate": 0.5,
+        "gate_pass": true
+      }
+    },
+    "from_deep": {
+      "wins": 51,
+      "released_picks": 53,
+      "win_rate": 0.9622641509,
+      "unique_game_dates": 8
+    }
+  },
+  "full_exact_policy_corpus": {
+    "scope": "all_surface_exact_installed_policy_replay",
+    "scope_label": "Full Exact-Policy Corpus",
+    "member_count": 84,
+    "unique_game_dates": 30,
+    "selected_slips": 153,
+    "strict_wins": 147,
+    "strict_win_rate": 0.9607843137,
+    "promotion_authority": false,
+    "by_size": {
+      "2": {
+        "strict_wins": 63,
+        "released_slips": 64,
+        "run_strict_win_rate": 0.984375,
+        "date_balanced_strict_win_rate": 0.9814814815,
+        "unique_game_dates": 27,
+        "gate": 0.9,
+        "gate_pass": true
+      },
+      "3": {
+        "strict_wins": 47,
+        "released_slips": 47,
+        "run_strict_win_rate": 1.0,
+        "date_balanced_strict_win_rate": 1.0,
+        "unique_game_dates": 22,
+        "gate": 0.75,
+        "gate_pass": true
+      },
+      "4": {
+        "strict_wins": 37,
+        "released_slips": 42,
+        "run_strict_win_rate": 0.880952381,
+        "date_balanced_strict_win_rate": 0.9333333333,
+        "unique_game_dates": 18,
+        "gate": 0.5,
+        "gate_pass": true
+      }
+    },
+    "from_deep": {
+      "wins": 127,
+      "released_picks": 140,
+      "win_rate": 0.9071428571,
+      "unique_game_dates": 20
+    }
+  },
+  "display_contract": {
+    "primary_scope": "protected_builder_oos",
+    "secondary_scope": "full_exact_policy_corpus",
+    "latest_live_is_prospective_only": true,
+    "daily_result_must_not_replace_corpus_identity": true
+  }
+}
