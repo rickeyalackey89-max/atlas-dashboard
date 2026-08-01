@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import json
 import math
 import re
@@ -123,14 +122,6 @@ def _path(value: Any, root: Path) -> Path | None:
         return None
     candidate = Path(str(value))
     return candidate if candidate.is_absolute() else root / candidate
-
-
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def _latest_live_run(wnba_root: Path) -> Path:
@@ -338,7 +329,6 @@ def _load_market_portfolio(run_dir: Path, lookup: dict[str, dict[str, Any]]) -> 
                 "payout_mult": _float(row.get("payout_multiplier_estimate")),
                 "ev": _float(row.get("expected_return_estimate")),
                 "expected_net_value": _float(row.get("expected_net_value_estimate")),
-                "policy_option_id": row.get("policy_option_id"),
                 "legs": legs,
                 "legs_detail": legs,
             })
@@ -474,42 +464,56 @@ def _injury_context(source_manifest: dict[str, Any], wnba_root: Path, selected_l
 
 
 def _performance(wnba_root: Path) -> dict[str, Any]:
-    waterfall = _read_json(wnba_root / "data" / "wnba" / "waterfall" / "latest_waterfall_manifest.json")
-    if not waterfall:
+    summary = _read_json(wnba_root / "data" / "wnba" / "waterfall" / "latest_public_performance.json")
+    if summary.get("version") != "wnba_public_performance_v1" or summary.get("status") != "complete":
         return {}
-    windows = waterfall.get("rolling_windows") or {}
-    seven = windows.get("last_7_game_dates") or {}
-    thirty = windows.get("last_14_game_dates") or {}
-    daily = waterfall.get("daily") or {}
-    slips = daily.get("slips") or {}
+    source = summary.get("public") or {}
 
-    def model_window(value: dict[str, Any]) -> dict[str, Any]:
-        model = value.get("model") or {}
-        count = int(model.get("metric_count") or 0)
-        return {"hit_rate": model.get("side_win_rate") if count else None, "n": count}
+    def window(value: Any) -> dict[str, Any]:
+        item = value if isinstance(value, dict) else {}
+        count = int(item.get("n") or 0)
+        rate = _float(item.get("hit_rate"))
+        return {"hit_rate": rate if count else None, "n": count}
 
-    slip_count = int(slips.get("metric_count") or slips.get("slip_count") or 0)
-    latest_dates = (windows.get("last_1_game_dates") or {}).get("dates") or []
+    overall_source = source.get("overall") or {}
+    tier_source = source.get("by_tier") or {}
+    slip_source = source.get("yesterday_slips") or {}
+    slip_count = int(slip_source.get("total") or 0)
+    slip_wins = int(slip_source.get("wins") or 0)
+    slip_rate = _float(slip_source.get("pct")) if slip_count else None
+    market_source = slip_source.get("market") or {}
+    market_count = int(market_source.get("total") or 0)
+    market_wins = int(market_source.get("wins") or 0)
+    market_rate = _float(market_source.get("pct")) if market_count else None
+    meta_source = source.get("meta") or {}
     return {
-        "overall": {"last_7d": model_window(seven), "last_30d": model_window(thirty)},
-        "by_tier": {},
+        "overall": {
+            "last_7d": window(overall_source.get("last_7d")),
+            "last_30d": window(overall_source.get("last_30d")),
+        },
+        "by_tier": {
+            tier: {
+                "last_7d": window((tier_source.get(tier) or {}).get("last_7d")),
+                "last_30d": window((tier_source.get(tier) or {}).get("last_30d")),
+            }
+            for tier in ("GOBLIN", "STANDARD", "DEMON")
+        },
         "yesterday_slips": {
-            "date": latest_dates[-1] if latest_dates else None,
-            "wins": round(float(slips.get("win_rate") or 0) * slip_count) if slip_count else 0,
+            "date": str(slip_source.get("date") or "")[:10] or None,
+            "wins": slip_wins,
             "total": slip_count,
-            "pct": slips.get("win_rate") if slip_count else None,
+            "pct": slip_rate,
             "market": {
-                "wins": round(float(slips.get("win_rate") or 0) * slip_count) if slip_count else 0,
-                "total": slip_count,
-                "pct": slips.get("win_rate") if slip_count else None,
+                "wins": market_wins,
+                "total": market_count,
+                "pct": market_rate,
             },
         },
         "meta": {
             "sport": "WNBA",
             "eval_cadence": "3AM",
             "slip_sizes": [2, 3, 4],
-            "latest_game_date": latest_dates[-1] if latest_dates else None,
-            "metric_scope": waterfall.get("metric_scope"),
+            "latest_game_date": str(meta_source.get("latest_game_date") or "")[:10] or None,
         },
     }
 
@@ -567,14 +571,9 @@ def build_payload(wnba_root: Path, out_dir: Path, run_dir: Path | None = None) -
         "injury_context": _injury_context(source_manifest, wnba_root, selected_legs, engagement),
         "performance": _performance(wnba_root),
         "source_context": {
-            "run_mode": manifest.get("run_mode"),
+            "run_mode": "live",
             "decision_timestamp_utc": manifest.get("decision_timestamp_utc"),
-            "live_audit": {"ok": audit.get("ok"), "check_count": audit.get("check_count"), "fail_count": audit.get("fail_count"), "warn_count": audit.get("warn_count")},
-            "runtime_publication": manifest.get("runtime_publication"),
-            "probability_package_id": ((manifest.get("runtime_artifact_contract") or {}).get("probability_package_id") or (manifest.get("active_runtime_artifacts") or {}).get("probability_package_id")),
-            "builder_policy_id": ((manifest.get("builder_publication_contract") or {}).get("builder_policy_id") or (manifest.get("slips") or {}).get("builder_policy_id")),
-            "builder_card_sha256": _sha256(run_dir / "builder_card" / "builder_card.csv"),
-            "source_selection_manifest_sha256": _sha256(source_manifest_path),
+            "verified": bool(audit.get("ok")),
         },
     }
     illegal = [leg for leg in all_legs if leg.get("tier") in {"DEMON", "GOBLIN"} and leg.get("dir") != "OVER"]

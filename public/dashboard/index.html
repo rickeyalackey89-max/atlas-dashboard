@@ -2796,7 +2796,7 @@
         html += '</div>';
       });
       html += '</div>';
-      html += '<div style="font-size:10px;color:var(--t2);margin-top:8px;">Selected '+evalCadence+' eval report run · Voided slips (DNP leg) excluded from totals</div>';
+      html += '<div style="font-size:10px;color:var(--t2);margin-top:8px;">'+(String(currentSport||'').toLowerCase()==='wnba' ? 'Updated each morning · Voided slips (DNP leg) excluded from totals' : 'Selected '+evalCadence+' eval report run · Voided slips (DNP leg) excluded from totals')+'</div>';
     } else {
       html += '<div style="padding:18px;background:rgba(255,255,255,0.04);border:1px solid var(--b);max-width:480px;font-size:12px;color:var(--t2);">Slip results available after '+evalCadence+' — check back after today\'s eval runs.</div>';
     }
@@ -2844,7 +2844,7 @@
     html += '</tbody></table></div>';
     var meta = perf.meta || {};
     var through = meta.latest_game_date ? ' Scored through '+meta.latest_game_date+'.' : '';
-    html += '<div style="font-size:10px;color:var(--t2);margin-top:14px;line-height:1.7;">Leg hit rate computed from unique scored board legs in the telemetry archive. Slip record uses the selected '+evalCadence+' eval report run ('+slipSizes+'). Performance and slip records update after the '+evalCadence+' eval.'+through+'</div>';
+    html += '<div style="font-size:10px;color:var(--t2);margin-top:14px;line-height:1.7;">'+(String(currentSport||'').toLowerCase()==='wnba' ? 'Results update each morning after the prior day is scored.'+through : 'Leg hit rate computed from unique scored board legs in the telemetry archive. Slip record uses the selected '+evalCadence+' eval report run ('+slipSizes+'). Performance and slip records update after the '+evalCadence+' eval.'+through)+'</div>';
 
     el.innerHTML = html;
   }
