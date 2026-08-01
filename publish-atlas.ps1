@@ -109,9 +109,14 @@ function Invoke-Git([string[]]$GitArgs, [string]$Label) {
 }
 
 function Invoke-Wrangler([string[]]$WranglerArgs, [string]$Label) {
-  & npx wrangler @WranglerArgs
-  if ($LASTEXITCODE -ne 0) {
-    throw "Wrangler failed during ${Label}: npx wrangler $($WranglerArgs -join ' ')"
+  Push-Location $RepoRoot
+  try {
+    & npx wrangler @WranglerArgs
+    if ($LASTEXITCODE -ne 0) {
+      throw "Wrangler failed during ${Label}: npx wrangler $($WranglerArgs -join ' ')"
+    }
+  } finally {
+    Pop-Location
   }
 }
 
