@@ -28,6 +28,7 @@ class WnbaDashboardContractTests(unittest.TestCase):
             "final_probability": "0.61",
             "expected_stat": "14.0",
             "recent_last_10_decisions": "10",
+            "recent_last_10_complete": "true",
             "recent_last_10_hit_rate": "0.70",
             "recent_last_20_decisions": "20",
             "recent_last_20_hit_rate": "0.65",
@@ -45,6 +46,16 @@ class WnbaDashboardContractTests(unittest.TestCase):
         self.assertEqual((standard["tier"], standard["dir"]), ("STANDARD", "UNDER"))
         self.assertEqual((demon["tier"], demon["dir"]), ("DEMON", "OVER"))
         self.assertEqual(demon["sport"], "WNBA")
+
+    def test_wnba_l10_is_exported_only_for_exact_complete_ten(self) -> None:
+        complete = BUILDER._leg_from_card(self._card_row("STANDARD", "over"), {})
+        self.assertEqual((complete["l10_hr"], complete["l10_n"]), (0.70, 10))
+        partial_row = self._card_row("STANDARD", "over")
+        partial_row["recent_last_10_decisions"] = "2"
+        partial_row["recent_last_10_complete"] = "false"
+        partial = BUILDER._leg_from_card(partial_row, {})
+        self.assertIsNone(partial["l10_hr"])
+        self.assertIsNone(partial["l10_n"])
 
     def test_dashboard_exposes_wnba_and_all_eight_tabs(self) -> None:
         html = (ROOT / "public" / "dashboard" / "index.html").read_text(encoding="utf-8")

@@ -208,7 +208,11 @@ def _leg_from_card(row: dict[str, str], market_index: dict[tuple[str, str, float
     side_delta = -projection_delta if side == "UNDER" and projection_delta is not None else projection_delta
     l10 = _float(row.get("recent_last_10_hit_rate"))
     l20 = _float(row.get("recent_last_20_hit_rate"))
-    l10_n = min(10, _int(row.get("recent_last_10_decisions")) or 0)
+    l10_decisions = _int(row.get("recent_last_10_decisions")) or 0
+    l10_complete = str(row.get("recent_last_10_complete") or "").strip().lower()
+    l10_n = 10 if l10_decisions == 10 and l10_complete in {"1", "true", "yes"} else 0
+    if l10_n != 10:
+        l10 = None
     l20_n = min(20, _int(row.get("recent_last_20_decisions")) or 0)
     current_minutes = _float(row.get("current_minutes"))
     prior_minutes = _float(row.get("recent_last_20_minutes_mean"))
@@ -358,7 +362,7 @@ def _load_from_deep(run_dir: Path, lookup: dict[str, dict[str, Any]]) -> list[di
 
 
 def _top_hit_list(legs: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    supported = [leg for leg in legs if (leg.get("l10_n") or 0) >= 5 and leg.get("l10_hr") is not None]
+    supported = [leg for leg in legs if leg.get("l10_n") == 10 and leg.get("l10_hr") is not None]
     supported.sort(key=lambda leg: (-(leg.get("l10_hr") or 0), -(leg.get("p_cal") or 0)))
     seen: set[tuple[Any, ...]] = set()
     output: list[dict[str, Any]] = []
