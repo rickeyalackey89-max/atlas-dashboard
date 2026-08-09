@@ -1,513 +1,513 @@
 {
-    "generated_at":  "2026-08-09T19:36:25.396520Z",
-    "run_id":  "live_20260809_143142",
+    "generated_at":  "2026-08-09T20:43:13.748394Z",
+    "run_id":  "live_20260809_153854",
     "sport":  "MLB",
-    "model_engaged_at":  "2026-08-09T14:36:17.582114-05:00",
-    "model_engaged_at_local":  "2026-08-09 2:36 PM CT",
-    "model_engaged_label":  "model engaged at 2026-08-09 2:36 PM CT",
+    "model_engaged_at":  "2026-08-09T15:43:06.982696-05:00",
+    "model_engaged_at_local":  "2026-08-09 3:43 PM CT",
+    "model_engaged_label":  "model engaged at 2026-08-09 3:43 PM CT",
     "picks":  [
                   {
-                      "player":  "Troy Melton",
-                      "team":  "DET",
-                      "opp":  "SF",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
+                      "player":  "Randy Vásquez",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "PITCHES THROWN",
+                      "line":  66.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.851255
+                      "p_cal":  0.975439
                   },
                   {
-                      "player":  "Justin Wrobleski",
-                      "team":  "LAD",
-                      "opp":  "AZ",
-                      "stat":  "PITCHES THROWN",
-                      "line":  91.5,
-                      "dir":  "UNDER",
+                      "player":  "Cristian Javier",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "PITCHER FANTASY SCORE",
+                      "line":  19.5,
+                      "dir":  "OVER",
                       "tier":  "STANDARD",
-                      "p_cal":  0.681531
+                      "p_cal":  0.599455
                   },
                   {
-                      "player":  "Emerson Hancock",
-                      "team":  "SEA",
-                      "opp":  "TB",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  1.5,
+                      "player":  "Isaac Paredes",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "SINGLES",
+                      "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "DEMON",
-                      "p_cal":  0.500316
+                      "p_cal":  0.408982
                   },
                   {
-                      "player":  "Logan Webb",
-                      "team":  "SF",
-                      "opp":  "DET",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.834304
-                  },
-                  {
-                      "player":  "Eduardo Rodriguez",
-                      "team":  "AZ",
-                      "opp":  "LAD",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.809356
-                  },
-                  {
-                      "player":  "Dillon Dingler",
-                      "team":  "DET",
-                      "opp":  "SF",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.767116
-                  },
-                  {
-                      "player":  "Spencer Torkelson",
-                      "team":  "DET",
-                      "opp":  "SF",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.764549
-                  },
-                  {
-                      "player":  "Willy Adames",
-                      "team":  "SF",
-                      "opp":  "DET",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.76434
-                  },
-                  {
-                      "player":  "Shohei Ohtani",
-                      "team":  "LAD",
-                      "opp":  "AZ",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.762506
-                  },
-                  {
-                      "player":  "Max Clark",
-                      "team":  "DET",
-                      "opp":  "SF",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.754975
-                  },
-                  {
-                      "player":  "Ian Seymour",
-                      "team":  "TB",
-                      "opp":  "SEA",
-                      "stat":  "PITCHER STRIKEOUTS",
-                      "line":  3.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.751013
-                  },
-                  {
-                      "player":  "Rafael Devers",
-                      "team":  "SF",
-                      "opp":  "DET",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.737749
-                  },
-                  {
-                      "player":  "Gleyber Torres",
-                      "team":  "DET",
-                      "opp":  "SF",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.735977
-                  },
-                  {
-                      "player":  "Jung Hoo Lee",
-                      "team":  "SF",
-                      "opp":  "DET",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.735885
-                  },
-                  {
-                      "player":  "Osleivis Basabe",
-                      "team":  "SF",
-                      "opp":  "DET",
+                      "player":  "Manny Machado",
+                      "team":  "SD",
+                      "opp":  "HOU",
                       "stat":  "HITTER FANTASY SCORE",
                       "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.734179
+                      "p_cal":  0.746502
                   },
                   {
-                      "player":  "Riley Greene",
-                      "team":  "DET",
-                      "opp":  "SF",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.732826
-                  },
-                  {
-                      "player":  "Bryce Eldridge",
-                      "team":  "SF",
-                      "opp":  "DET",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.725955
-                  },
-                  {
-                      "player":  "Taylor Ward",
-                      "team":  "SEA",
-                      "opp":  "TB",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.725683
-                  },
-                  {
-                      "player":  "Cal Raleigh",
-                      "team":  "SEA",
-                      "opp":  "TB",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.724694
-                  },
-                  {
-                      "player":  "Kevin McGonigle",
-                      "team":  "DET",
-                      "opp":  "SF",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.717593
-                  },
-                  {
-                      "player":  "Grant McCray",
-                      "team":  "SF",
-                      "opp":  "DET",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.715773
-                  },
-                  {
-                      "player":  "Eduardo Valencia",
-                      "team":  "DET",
-                      "opp":  "SF",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.71524
-                  },
-                  {
-                      "player":  "Yandy Díaz",
-                      "team":  "TB",
-                      "opp":  "SEA",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.711756
-                  },
-                  {
-                      "player":  "Weston Wilson",
-                      "team":  "SEA",
-                      "opp":  "TB",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.710668
-                  },
-                  {
-                      "player":  "Jonathan Aranda",
-                      "team":  "TB",
-                      "opp":  "SEA",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.710429
-                  },
-                  {
-                      "player":  "Colt Emerson",
-                      "team":  "SEA",
-                      "opp":  "TB",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.709385
-                  },
-                  {
-                      "player":  "Julio Rodríguez",
-                      "team":  "SEA",
-                      "opp":  "TB",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.709081
-                  },
-                  {
-                      "player":  "Colt Keith",
-                      "team":  "DET",
-                      "opp":  "SF",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.708954
-                  },
-                  {
-                      "player":  "Randy Arozarena",
-                      "team":  "SEA",
-                      "opp":  "TB",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.708657
-                  },
-                  {
-                      "player":  "Corbin Carroll",
-                      "team":  "AZ",
-                      "opp":  "LAD",
+                      "player":  "Fernando Tatis Jr.",
+                      "team":  "SD",
+                      "opp":  "HOU",
                       "stat":  "HITTER FANTASY SCORE",
                       "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.706529
+                      "p_cal":  0.740347
                   },
                   {
-                      "player":  "Junior Caminero",
-                      "team":  "TB",
-                      "opp":  "SEA",
+                      "player":  "Yordan Alvarez",
+                      "team":  "HOU",
+                      "opp":  "SD",
                       "stat":  "HITS+RUNS+RBIS",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.682831
+                      "p_cal":  0.715078
                   },
                   {
-                      "player":  "Ketel Marte",
-                      "team":  "AZ",
-                      "opp":  "LAD",
+                      "player":  "Jeremy Peña",
+                      "team":  "HOU",
+                      "opp":  "SD",
                       "stat":  "HITS+RUNS+RBIS",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.681002
+                      "p_cal":  0.714025
                   },
                   {
-                      "player":  "Andy Pages",
-                      "team":  "LAD",
-                      "opp":  "AZ",
+                      "player":  "Yainer Diaz",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.708946
+                  },
+                  {
+                      "player":  "Cam Smith",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.706867
+                  },
+                  {
+                      "player":  "Xander Bogaerts",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.704107
+                  },
+                  {
+                      "player":  "Jackson Merrill",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.700406
+                  },
+                  {
+                      "player":  "Christian Walker",
+                      "team":  "HOU",
+                      "opp":  "SD",
                       "stat":  "HITS+RUNS+RBIS",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.679787
+                      "p_cal":  0.679726
                   },
                   {
-                      "player":  "Freddie Freeman",
-                      "team":  "LAD",
-                      "opp":  "AZ",
+                      "player":  "Ty France",
+                      "team":  "SD",
+                      "opp":  "HOU",
                       "stat":  "HITS+RUNS+RBIS",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.679708
+                      "p_cal":  0.678975
                   },
                   {
-                      "player":  "Dominic Canzone",
-                      "team":  "SEA",
-                      "opp":  "TB",
+                      "player":  "Jose Altuve",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.678821
+                  },
+                  {
+                      "player":  "Taylor Trammell",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.669779
+                  },
+                  {
+                      "player":  "Jake Cronenworth",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.659072
+                  },
+                  {
+                      "player":  "Luis Rengifo",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.649658
+                  },
+                  {
+                      "player":  "Gavin Sheets",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.641669
+                  },
+                  {
+                      "player":  "Daulton Varsho",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.622068
+                  },
+                  {
+                      "player":  "Freddy Fermin",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITS",
+                      "line":  0.5,
+                      "dir":  "UNDER",
+                      "tier":  "STANDARD",
+                      "p_cal":  0.570942
+                  },
+                  {
+                      "player":  "Cristian Javier",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "PITCHER STRIKEOUTS",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.900682
+                  },
+                  {
+                      "player":  "Randy Vásquez",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "PITCHING OUTS",
+                      "line":  11.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.860671
+                  },
+                  {
+                      "player":  "Randy Vásquez",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "PITCHES THROWN",
+                      "line":  73.5,
+                      "dir":  "OVER",
+                      "tier":  "STANDARD",
+                      "p_cal":  0.858499
+                  },
+                  {
+                      "player":  "Randy Vásquez",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "PITCHER FANTASY SCORE",
+                      "line":  12.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.825524
+                  },
+                  {
+                      "player":  "Cristian Javier",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "PITCHING OUTS",
+                      "line":  11.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.821538
+                  },
+                  {
+                      "player":  "Randy Vásquez",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "PITCHER STRIKEOUTS",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.819078
+                  },
+                  {
+                      "player":  "Randy Vásquez",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.815716
+                  },
+                  {
+                      "player":  "Cristian Javier",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "PITCHER FANTASY SCORE",
+                      "line":  13.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.796537
+                  },
+                  {
+                      "player":  "Randy Vásquez",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITS ALLOWED",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.793078
+                  },
+                  {
+                      "player":  "Cristian Javier",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "PITCHER STRIKEOUTS",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.792656
+                  },
+                  {
+                      "player":  "Cristian Javier",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "PITCHES THROWN",
+                      "line":  75.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.787469
+                  },
+                  {
+                      "player":  "Cristian Javier",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "HITS ALLOWED",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.787097
+                  },
+                  {
+                      "player":  "Cristian Javier",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "EARNED RUNS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.779063
+                  },
+                  {
+                      "player":  "Randy Vásquez",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "EARNED RUNS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.761694
+                  },
+                  {
+                      "player":  "Randy Vásquez",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "PITCHER STRIKEOUTS",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.732886
+                  },
+                  {
+                      "player":  "Randy Vásquez",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITS ALLOWED",
+                      "line":  3.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.730909
+                  },
+                  {
+                      "player":  "Cristian Javier",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.726295
+                  },
+                  {
+                      "player":  "Fernando Tatis Jr.",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.715998
+                  },
+                  {
+                      "player":  "Jackson Merrill",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.679135
+                  },
+                  {
+                      "player":  "Isaac Paredes",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.678723
+                  },
+                  {
+                      "player":  "Yordan Alvarez",
+                      "team":  "HOU",
+                      "opp":  "SD",
                       "stat":  "HITTER STRIKEOUTS",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.678995
+                      "p_cal":  0.675583
                   },
                   {
-                      "player":  "Tommy Edman",
-                      "team":  "LAD",
-                      "opp":  "AZ",
+                      "player":  "Manny Machado",
+                      "team":  "SD",
+                      "opp":  "HOU",
                       "stat":  "HITS+RUNS+RBIS",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.677762
+                      "p_cal":  0.675414
                   },
                   {
-                      "player":  "Teoscar Hernández",
-                      "team":  "LAD",
-                      "opp":  "AZ",
+                      "player":  "Christian Walker",
+                      "team":  "HOU",
+                      "opp":  "SD",
                       "stat":  "HITTER STRIKEOUTS",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.676987
+                      "p_cal":  0.674348
                   },
                   {
-                      "player":  "Victor Mesa Jr.",
-                      "team":  "TB",
-                      "opp":  "SEA",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.675956
-                  },
-                  {
-                      "player":  "Geraldo Perdomo",
-                      "team":  "AZ",
-                      "opp":  "LAD",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.674895
-                  },
-                  {
-                      "player":  "Mookie Betts",
-                      "team":  "LAD",
-                      "opp":  "AZ",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.674356
-                  },
-                  {
-                      "player":  "Nolan Arenado",
-                      "team":  "AZ",
-                      "opp":  "LAD",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.673895
-                  },
-                  {
-                      "player":  "Chandler Simpson",
-                      "team":  "TB",
-                      "opp":  "SEA",
+                      "player":  "Yordan Alvarez",
+                      "team":  "HOU",
+                      "opp":  "SD",
                       "stat":  "HITS",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.673421
+                      "p_cal":  0.664397
                   },
                   {
-                      "player":  "Ildemaro Vargas",
-                      "team":  "AZ",
-                      "opp":  "LAD",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.672871
-                  },
-                  {
-                      "player":  "Taylor Walls",
-                      "team":  "TB",
-                      "opp":  "SEA",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.671062
-                  },
-                  {
-                      "player":  "Christian Koss",
-                      "team":  "SF",
-                      "opp":  "DET",
-                      "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.670595
-                  },
-                  {
-                      "player":  "Cole Young",
-                      "team":  "SEA",
-                      "opp":  "TB",
+                      "player":  "Ty France",
+                      "team":  "SD",
+                      "opp":  "HOU",
                       "stat":  "HITTER STRIKEOUTS",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.670521
+                      "p_cal":  0.658471
                   },
                   {
-                      "player":  "Kyle Tucker",
-                      "team":  "LAD",
-                      "opp":  "AZ",
-                      "stat":  "HITS+RUNS+RBIS",
+                      "player":  "Jeremy Peña",
+                      "team":  "HOU",
+                      "opp":  "SD",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  3.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.658431
+                  },
+                  {
+                      "player":  "Fernando Tatis Jr.",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITS",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.66938
+                      "p_cal":  0.657299
                   },
                   {
-                      "player":  "Ryan Waldschmidt",
-                      "team":  "AZ",
-                      "opp":  "LAD",
+                      "player":  "Jake Cronenworth",
+                      "team":  "SD",
+                      "opp":  "HOU",
                       "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
+                      "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.668981
+                      "p_cal":  0.654957
                   },
                   {
-                      "player":  "Zach McKinstry",
-                      "team":  "DET",
-                      "opp":  "SF",
+                      "player":  "Jose Altuve",
+                      "team":  "HOU",
+                      "opp":  "SD",
                       "stat":  "HITTER FANTASY SCORE",
-                      "line":  1.5,
+                      "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.667436
+                      "p_cal":  0.653568
                   },
                   {
-                      "player":  "Drew Gilbert",
-                      "team":  "SF",
-                      "opp":  "DET",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
+                      "player":  "Ty France",
+                      "team":  "SD",
+                      "opp":  "HOU",
+                      "stat":  "HITTER FANTASY SCORE",
+                      "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.657613
+                      "p_cal":  0.653402
                   }
               ],
-    "total_legs":  1754,
+    "total_legs":  600,
     "total_slips":  0,
     "total_from_deep":  0
 }
