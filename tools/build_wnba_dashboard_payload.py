@@ -298,9 +298,14 @@ def _leg_from_card(row: dict[str, str], market_index: dict[tuple[str, str, float
 
 
 def _load_all_legs(run_dir: Path, market_index: dict[tuple[str, str, float], dict[str, Any]]) -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
-    rows = _read_csv(run_dir / "builder_card" / "builder_card.csv")
+    card_paths = (
+        run_dir / "builder_card" / "builder_card.csv",
+        run_dir / "rc1_candidate_compiler" / "builder_card" / "builder_card.csv",
+    )
+    card_path = next((path for path in card_paths if path.is_file()), card_paths[0])
+    rows = _read_csv(card_path)
     if not rows:
-        raise RuntimeError(f"Missing Builder Card: {run_dir / 'builder_card' / 'builder_card.csv'}")
+        raise RuntimeError(f"Missing Builder Card; checked: {', '.join(str(path) for path in card_paths)}")
     playable_rows = [
         row for row in rows
         if _truthy(row.get("side_playable")) and _truthy(row.get("probability_surface_eligible"))
