@@ -1,500 +1,290 @@
 {
-    "generated_at":  "2026-08-10T22:47:47.913210Z",
-    "run_id":  "live_20260810_173855",
+    "generated_at":  "2026-08-11T22:10:40.099575Z",
+    "run_id":  "live_20260811_165244",
     "sport":  "MLB",
-    "model_engaged_at":  "2026-08-10T17:47:27.814068-05:00",
-    "model_engaged_at_local":  "2026-08-10 5:47 PM CT",
-    "model_engaged_label":  "model engaged at 2026-08-10 5:47 PM CT",
+    "model_engaged_at":  "2026-08-11T17:09:48.015956-05:00",
+    "model_engaged_at_local":  "2026-08-11 5:09 PM CT",
+    "model_engaged_label":  "model engaged at 2026-08-11 5:09 PM CT",
     "picks":  [
                   {
-                      "player":  "Jacob Lopez",
-                      "team":  "ATH",
-                      "opp":  "TB",
+                      "player":  "Drew Anderson",
+                      "team":  "DET",
+                      "opp":  "CLE",
                       "stat":  "PITCHING OUTS",
-                      "line":  11.5,
+                      "line":  5.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.9264
+                      "p_cal":  0.999
                   },
                   {
-                      "player":  "Tarik Skubal",
-                      "team":  "LAD",
-                      "opp":  "KC",
-                      "stat":  "PITCHER FANTASY SCORE",
-                      "line":  46.5,
+                      "player":  "Cody Bradford",
+                      "team":  "TEX",
+                      "opp":  "LAA",
+                      "stat":  "PITCHER STRIKEOUTS",
+                      "line":  5.0,
                       "dir":  "UNDER",
                       "tier":  "STANDARD",
-                      "p_cal":  0.771674
+                      "p_cal":  0.859921
                   },
                   {
-                      "player":  "Ryan Vilade",
-                      "team":  "TB",
-                      "opp":  "ATH",
-                      "stat":  "PLATE APPEARANCES",
-                      "line":  3.5,
+                      "player":  "Jake Irvin",
+                      "team":  "WSH",
+                      "opp":  "CHC",
+                      "stat":  "PITCHER STRIKEOUTS",
+                      "line":  4.5,
                       "dir":  "OVER",
                       "tier":  "DEMON",
-                      "p_cal":  0.602501
+                      "p_cal":  0.664272
                   },
                   {
-                      "player":  "Andrew Painter",
-                      "team":  "PHI",
-                      "opp":  "STL",
+                      "player":  "Martín Pérez",
+                      "team":  "ATL",
+                      "opp":  "NYM",
+                      "stat":  "PITCHES THROWN",
+                      "line":  72.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.933562
+                  },
+                  {
+                      "player":  "Nick Lodolo",
+                      "team":  "CIN",
+                      "opp":  "CWS",
                       "stat":  "PITCHING OUTS",
                       "line":  11.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.894102
+                      "p_cal":  0.913374
                   },
                   {
-                      "player":  "Jameson Taillon",
-                      "team":  "TOR",
-                      "opp":  "BOS",
+                      "player":  "Patrick Sandoval",
+                      "team":  "BOS",
+                      "opp":  "TOR",
                       "stat":  "PITCHING OUTS",
                       "line":  11.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.87352
+                      "p_cal":  0.909737
                   },
                   {
-                      "player":  "Michael Soroka",
-                      "team":  "AZ",
-                      "opp":  "COL",
-                      "stat":  "PITCHING OUTS",
-                      "line":  11.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.872399
-                  },
-                  {
-                      "player":  "Gabriel Hughes",
+                      "player":  "Tomoyuki Sugano",
                       "team":  "COL",
                       "opp":  "AZ",
                       "stat":  "PITCHING OUTS",
                       "line":  11.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.864755
+                      "p_cal":  0.869024
                   },
                   {
-                      "player":  "Dean Kremer",
-                      "team":  "MIN",
-                      "opp":  "BAL",
-                      "stat":  "PITCHING OUTS",
-                      "line":  11.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.858593
-                  },
-                  {
-                      "player":  "Hayden Wesneski",
-                      "team":  "HOU",
-                      "opp":  "SF",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.848958
-                  },
-                  {
-                      "player":  "Hunter Dobbins",
-                      "team":  "STL",
-                      "opp":  "PHI",
-                      "stat":  "PITCHING OUTS",
-                      "line":  11.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.845336
-                  },
-                  {
-                      "player":  "Freddy Peralta",
-                      "team":  "TB",
-                      "opp":  "ATH",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.840695
-                  },
-                  {
-                      "player":  "Christian Scott",
-                      "team":  "NYM",
-                      "opp":  "ATL",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.840336
-                  },
-                  {
-                      "player":  "Bryce Elder",
-                      "team":  "ATL",
-                      "opp":  "NYM",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.839641
-                  },
-                  {
-                      "player":  "Casey Mize",
+                      "player":  "Walker Buehler",
                       "team":  "SD",
                       "opp":  "MIL",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
+                      "stat":  "PITCHER STRIKEOUTS",
+                      "line":  2.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.837455
+                      "p_cal":  0.867927
                   },
                   {
-                      "player":  "Reid Detmers",
-                      "team":  "LAA",
-                      "opp":  "TEX",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.834277
-                  },
-                  {
-                      "player":  "Sonny Gray",
-                      "team":  "BOS",
-                      "opp":  "TOR",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.831347
-                  },
-                  {
-                      "player":  "Noah Cameron",
-                      "team":  "KC",
-                      "opp":  "LAD",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.829868
-                  },
-                  {
-                      "player":  "MacKenzie Gore",
-                      "team":  "TEX",
-                      "opp":  "LAA",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.829867
-                  },
-                  {
-                      "player":  "Blade Tidwell",
-                      "team":  "SF",
-                      "opp":  "HOU",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.824146
-                  },
-                  {
-                      "player":  "Trevor Rogers",
-                      "team":  "BAL",
-                      "opp":  "MIN",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.813456
-                  },
-                  {
-                      "player":  "Carter Jensen",
-                      "team":  "KC",
-                      "opp":  "LAD",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.810146
-                  },
-                  {
-                      "player":  "Logan Henderson",
-                      "team":  "MIL",
-                      "opp":  "SD",
-                      "stat":  "WALKS ALLOWED",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.793914
-                  },
-                  {
-                      "player":  "Kyle Schwarber",
-                      "team":  "PHI",
-                      "opp":  "STL",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.770859
-                  },
-                  {
-                      "player":  "Jackson Merrill",
-                      "team":  "SD",
-                      "opp":  "MIL",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.767307
-                  },
-                  {
-                      "player":  "Austin Riley",
-                      "team":  "ATL",
-                      "opp":  "NYM",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.766693
-                  },
-                  {
-                      "player":  "Jac Caglianone",
-                      "team":  "KC",
-                      "opp":  "LAD",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.765291
-                  },
-                  {
-                      "player":  "Salvador Perez",
-                      "team":  "KC",
-                      "opp":  "LAD",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.762511
-                  },
-                  {
-                      "player":  "Yandy Díaz",
-                      "team":  "TB",
-                      "opp":  "ATH",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.762368
-                  },
-                  {
-                      "player":  "Corey Seager",
-                      "team":  "TEX",
-                      "opp":  "LAA",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.762004
-                  },
-                  {
-                      "player":  "Matt Olson",
-                      "team":  "ATL",
-                      "opp":  "NYM",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.761753
-                  },
-                  {
-                      "player":  "Jake Bauers",
-                      "team":  "MIL",
-                      "opp":  "SD",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.761608
-                  },
-                  {
-                      "player":  "Manny Machado",
-                      "team":  "SD",
-                      "opp":  "MIL",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.759342
-                  },
-                  {
-                      "player":  "Jonathan Aranda",
-                      "team":  "TB",
-                      "opp":  "ATH",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.756408
-                  },
-                  {
-                      "player":  "Zach Neto",
-                      "team":  "LAA",
-                      "opp":  "TEX",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.75633
-                  },
-                  {
-                      "player":  "Ty France",
-                      "team":  "SD",
-                      "opp":  "MIL",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.756269
-                  },
-                  {
-                      "player":  "Jackson Chourio",
-                      "team":  "MIL",
-                      "opp":  "SD",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.755898
-                  },
-                  {
-                      "player":  "Junior Caminero",
-                      "team":  "TB",
-                      "opp":  "ATH",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.752023
-                  },
-                  {
-                      "player":  "Jacob Wilson",
+                      "player":  "Mason Barnett",
                       "team":  "ATH",
                       "opp":  "TB",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.751858
-                  },
-                  {
-                      "player":  "Drake Baldwin",
-                      "team":  "ATL",
-                      "opp":  "NYM",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.751472
-                  },
-                  {
-                      "player":  "Shohei Ohtani",
-                      "team":  "LAD",
-                      "opp":  "KC",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.751077
-                  },
-                  {
-                      "player":  "Tyler Soderstrom",
-                      "team":  "ATH",
-                      "opp":  "TB",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.749672
-                  },
-                  {
-                      "player":  "Chandler Simpson",
-                      "team":  "TB",
-                      "opp":  "ATH",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.749298
-                  },
-                  {
-                      "player":  "Henry Bolte",
-                      "team":  "ATH",
-                      "opp":  "TB",
-                      "stat":  "HITTER FANTASY SCORE",
+                      "stat":  "PITCHER STRIKEOUTS",
                       "line":  1.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.744667
+                      "p_cal":  0.842484
                   },
                   {
-                      "player":  "Michael Harris II",
-                      "team":  "ATL",
-                      "opp":  "NYM",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
+                      "player":  "Ryan Johnson",
+                      "team":  "LAA",
+                      "opp":  "TEX",
+                      "stat":  "PITCHING OUTS",
+                      "line":  11.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.743835
+                      "p_cal":  0.836682
                   },
                   {
-                      "player":  "Bo Bichette",
-                      "team":  "NYM",
-                      "opp":  "ATL",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.743658
-                  },
-                  {
-                      "player":  "Jeff McNeil",
-                      "team":  "ATH",
-                      "opp":  "TB",
-                      "stat":  "HITS+RUNS+RBIS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.741599
-                  },
-                  {
-                      "player":  "Willson Contreras",
-                      "team":  "BOS",
-                      "opp":  "TOR",
-                      "stat":  "HITTER STRIKEOUTS",
-                      "line":  0.5,
-                      "dir":  "OVER",
-                      "tier":  "GOBLIN",
-                      "p_cal":  0.739864
-                  },
-                  {
-                      "player":  "Ivan Herrera",
+                      "player":  "Andre Pallante",
                       "team":  "STL",
                       "opp":  "PHI",
-                      "stat":  "HITS+RUNS+RBIS",
+                      "stat":  "WALKS ALLOWED",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.73408
+                      "p_cal":  0.829463
                   },
                   {
-                      "player":  "Gunnar Henderson",
+                      "player":  "Brandon Young",
                       "team":  "BAL",
                       "opp":  "MIN",
-                      "stat":  "HITS+RUNS+RBIS",
+                      "stat":  "WALKS ALLOWED",
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.733321
+                      "p_cal":  0.829208
+                  },
+                  {
+                      "player":  "Eury Pérez",
+                      "team":  "MIA",
+                      "opp":  "PIT",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.824204
+                  },
+                  {
+                      "player":  "Paul Skenes",
+                      "team":  "PIT",
+                      "opp":  "MIA",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.821484
+                  },
+                  {
+                      "player":  "Nolan McLean",
+                      "team":  "NYM",
+                      "opp":  "ATL",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.820665
+                  },
+                  {
+                      "player":  "Mitch Bratt",
+                      "team":  "AZ",
+                      "opp":  "COL",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.820137
+                  },
+                  {
+                      "player":  "Kyle Harrison",
+                      "team":  "MIL",
+                      "opp":  "SD",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.817732
+                  },
+                  {
+                      "player":  "Hunter Brown",
+                      "team":  "HOU",
+                      "opp":  "SF",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  1.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.813203
+                  },
+                  {
+                      "player":  "Bailey Ober",
+                      "team":  "MIN",
+                      "opp":  "BAL",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.811146
+                  },
+                  {
+                      "player":  "Ryan Weathers",
+                      "team":  "NYY",
+                      "opp":  "SEA",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.810622
+                  },
+                  {
+                      "player":  "Nick Martinez",
+                      "team":  "TB",
+                      "opp":  "ATH",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.809571
+                  },
+                  {
+                      "player":  "Sean Burke",
+                      "team":  "CWS",
+                      "opp":  "CIN",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.806808
+                  },
+                  {
+                      "player":  "Bryan Woo",
+                      "team":  "SEA",
+                      "opp":  "NYY",
+                      "stat":  "HITS ALLOWED",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.805729
+                  },
+                  {
+                      "player":  "Tanner Bibee",
+                      "team":  "CLE",
+                      "opp":  "DET",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.803696
+                  },
+                  {
+                      "player":  "Shota Imanaga",
+                      "team":  "CHC",
+                      "opp":  "WSH",
+                      "stat":  "WALKS ALLOWED",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.8029
+                  },
+                  {
+                      "player":  "Carson Whisenhunt",
+                      "team":  "SF",
+                      "opp":  "HOU",
+                      "stat":  "HITS ALLOWED",
+                      "line":  2.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.795916
+                  },
+                  {
+                      "player":  "Dylan Cease",
+                      "team":  "TOR",
+                      "opp":  "BOS",
+                      "stat":  "PITCHER STRIKEOUTS",
+                      "line":  5.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.794125
+                  },
+                  {
+                      "player":  "Cristopher Sánchez",
+                      "team":  "PHI",
+                      "opp":  "STL",
+                      "stat":  "HITS ALLOWED",
+                      "line":  3.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.794054
                   },
                   {
                       "player":  "Jarren Duran",
@@ -504,10 +294,220 @@
                       "line":  0.5,
                       "dir":  "OVER",
                       "tier":  "GOBLIN",
-                      "p_cal":  0.733321
+                      "p_cal":  0.784846
+                  },
+                  {
+                      "player":  "Wilyer Abreu",
+                      "team":  "BOS",
+                      "opp":  "TOR",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.77562
+                  },
+                  {
+                      "player":  "Kyle Schwarber",
+                      "team":  "PHI",
+                      "opp":  "STL",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.775173
+                  },
+                  {
+                      "player":  "Ceddanne Rafaela",
+                      "team":  "BOS",
+                      "opp":  "TOR",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.76482
+                  },
+                  {
+                      "player":  "Everson Pereira",
+                      "team":  "STL",
+                      "opp":  "PHI",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.764478
+                  },
+                  {
+                      "player":  "Esmerlyn Valdez",
+                      "team":  "PIT",
+                      "opp":  "MIA",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.761269
+                  },
+                  {
+                      "player":  "Brandon Lowe",
+                      "team":  "PIT",
+                      "opp":  "MIA",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.761094
+                  },
+                  {
+                      "player":  "Jordan Walker",
+                      "team":  "STL",
+                      "opp":  "PHI",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.760808
+                  },
+                  {
+                      "player":  "Eugenio Suárez",
+                      "team":  "CIN",
+                      "opp":  "CWS",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.759292
+                  },
+                  {
+                      "player":  "Munetaka Murakami",
+                      "team":  "CWS",
+                      "opp":  "CIN",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.758653
+                  },
+                  {
+                      "player":  "JJ Bleday",
+                      "team":  "CIN",
+                      "opp":  "CWS",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.758171
+                  },
+                  {
+                      "player":  "Bryce Harper",
+                      "team":  "PHI",
+                      "opp":  "STL",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.757915
+                  },
+                  {
+                      "player":  "Jonathan Aranda",
+                      "team":  "TB",
+                      "opp":  "ATH",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.7575
+                  },
+                  {
+                      "player":  "Yandy Díaz",
+                      "team":  "TB",
+                      "opp":  "ATH",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.757321
+                  },
+                  {
+                      "player":  "Junior Caminero",
+                      "team":  "TB",
+                      "opp":  "ATH",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.7573
+                  },
+                  {
+                      "player":  "Chandler Simpson",
+                      "team":  "TB",
+                      "opp":  "ATH",
+                      "stat":  "HITS+RUNS+RBIS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.757142
+                  },
+                  {
+                      "player":  "Zach Neto",
+                      "team":  "LAA",
+                      "opp":  "TEX",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.756084
+                  },
+                  {
+                      "player":  "Matt Olson",
+                      "team":  "ATL",
+                      "opp":  "NYM",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.755983
+                  },
+                  {
+                      "player":  "Austin Riley",
+                      "team":  "ATL",
+                      "opp":  "NYM",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.755379
+                  },
+                  {
+                      "player":  "Colson Montgomery",
+                      "team":  "CWS",
+                      "opp":  "CIN",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.75536
+                  },
+                  {
+                      "player":  "Cal Raleigh",
+                      "team":  "SEA",
+                      "opp":  "NYY",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.754777
+                  },
+                  {
+                      "player":  "Willy Adames",
+                      "team":  "SF",
+                      "opp":  "HOU",
+                      "stat":  "HITTER STRIKEOUTS",
+                      "line":  0.5,
+                      "dir":  "OVER",
+                      "tier":  "GOBLIN",
+                      "p_cal":  0.752732
                   }
               ],
-    "total_legs":  5565,
+    "total_legs":  8428,
     "total_slips":  0,
     "total_from_deep":  0
 }
