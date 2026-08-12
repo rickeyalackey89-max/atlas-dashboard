@@ -298,10 +298,14 @@ def _leg_from_card(row: dict[str, str], market_index: dict[tuple[str, str, float
 
 
 def _load_all_legs(run_dir: Path, market_index: dict[tuple[str, str, float], dict[str, Any]]) -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
-    card_paths = (
+    builder_manifest = _read_json(run_dir / "builder_manifest.json")
+    manifest_card_path = _path(builder_manifest.get("builder_card_path"), run_dir)
+    card_paths = tuple(path for path in (
+        manifest_card_path,
         run_dir / "builder_card" / "builder_card.csv",
         run_dir / "rc1_candidate_compiler" / "builder_card" / "builder_card.csv",
-    )
+        run_dir / "atlas_candidate_compiler" / "builder_card" / "builder_card.csv",
+    ) if path is not None)
     card_path = next((path for path in card_paths if path.is_file()), card_paths[0])
     rows = _read_csv(card_path)
     if not rows:

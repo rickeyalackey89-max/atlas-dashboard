@@ -1,3 +1,4 @@
+import csv
 import importlib.util
 import json
 import tempfile
@@ -56,6 +57,27 @@ class WnbaDashboardContractTests(unittest.TestCase):
         partial = BUILDER._leg_from_card(partial_row, {})
         self.assertIsNone(partial["l10_hr"])
         self.assertIsNone(partial["l10_n"])
+
+    def test_builder_card_path_is_resolved_from_live_builder_manifest(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_root:
+            run_dir = Path(raw_root)
+            card_path = run_dir / "atlas_candidate_compiler" / "builder_card" / "builder_card.csv"
+            card_path.parent.mkdir(parents=True)
+            row = self._card_row("STANDARD", "over")
+            row["side_playable"] = "true"
+            row["probability_surface_eligible"] = "true"
+            with card_path.open("w", encoding="utf-8", newline="") as handle:
+                writer = csv.DictWriter(handle, fieldnames=list(row))
+                writer.writeheader()
+                writer.writerow(row)
+            (run_dir / "builder_manifest.json").write_text(
+                json.dumps({"builder_card_path": str(card_path)}), encoding="utf-8"
+            )
+
+            legs, lookup = BUILDER._load_all_legs(run_dir, {})
+
+        self.assertEqual(len(legs), 1)
+        self.assertEqual(lookup["leg_1"]["player"], "Atlas Player")
 
     def test_dashboard_exposes_wnba_and_all_eight_tabs(self) -> None:
         html = (ROOT / "public" / "dashboard" / "index.html").read_text(encoding="utf-8")
