@@ -79,6 +79,60 @@ class WnbaDashboardContractTests(unittest.TestCase):
         self.assertEqual(len(legs), 1)
         self.assertEqual(lookup["leg_1"]["player"], "Atlas Player")
 
+    def test_atlas_scorer_slip_metrics_are_loaded_from_bound_score_ledger(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_root:
+            run_dir = Path(raw_root)
+            ledger_path = run_dir / "atlas_candidate_score_ledger.json"
+            ledger_path.write_text(
+                json.dumps(
+                    {
+                        "families": {
+                            "2L": [
+                                {
+                                    "candidate_id": "atlas_2l",
+                                    "ATLAS_SLIP_SCORE": 79.25,
+                                    "raw_metrics": {
+                                        "joint_qmc_probability": 0.586181640625,
+                                        "mean_EV": -0.0883703125,
+                                    },
+                                }
+                            ]
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (run_dir / "builder_manifest.json").write_text(
+                json.dumps({"candidate_score_ledger_path": str(ledger_path)}),
+                encoding="utf-8",
+            )
+            for size in (2, 3, 4):
+                path = run_dir / f"recommended_{size}leg.csv"
+                if size == 2:
+                    row = {
+                        "slip_id": "atlas_2l",
+                        "candidate_id": "atlas_2l",
+                        "slip_rank": "1",
+                        "leg_ids": "leg_1;leg_2",
+                    }
+                    with path.open("w", encoding="utf-8", newline="") as handle:
+                        writer = csv.DictWriter(handle, fieldnames=list(row))
+                        writer.writeheader()
+                        writer.writerow(row)
+                else:
+                    path.write_text("", encoding="utf-8")
+
+            slips = BUILDER._load_market_portfolio(
+                run_dir,
+                {"leg_1": {"id": "leg_1"}, "leg_2": {"id": "leg_2"}},
+            )
+
+        self.assertEqual(len(slips), 1)
+        self.assertAlmostEqual(slips[0]["hit_prob"], 0.586181640625)
+        self.assertAlmostEqual(slips[0]["ev"], 0.9116296875)
+        self.assertAlmostEqual(slips[0]["payout_mult"], 1.5552)
+        self.assertEqual(slips[0]["atlas_slip_score"], 79.25)
+
     def test_dashboard_exposes_wnba_and_all_eight_tabs(self) -> None:
         html = (ROOT / "public" / "dashboard" / "index.html").read_text(encoding="utf-8")
         self.assertIn('data-sport="wnba"', html)

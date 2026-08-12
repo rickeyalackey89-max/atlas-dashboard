@@ -327,21 +327,48 @@ def _load_all_legs(run_dir: Path, market_index: dict[tuple[str, str, float], dic
 
 
 def _load_market_portfolio(run_dir: Path, lookup: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    builder_manifest = _read_json(run_dir / "builder_manifest.json")
+    ledger_path = _path(builder_manifest.get("candidate_score_ledger_path"), run_dir)
+    ledger = _read_json(ledger_path) if ledger_path is not None else {}
+    scored_candidates: dict[str, dict[str, Any]] = {}
+    for candidates in (ledger.get("families") or {}).values():
+        for candidate in candidates or []:
+            candidate_id = str(candidate.get("candidate_id") or "")
+            if candidate_id:
+                scored_candidates[candidate_id] = candidate
     output: list[dict[str, Any]] = []
     for size in (2, 3, 4):
         for row in _read_csv(run_dir / f"recommended_{size}leg.csv"):
             legs = [lookup[leg_id] for leg_id in _split(row.get("leg_ids")) if leg_id in lookup]
             if len(legs) != size:
                 raise RuntimeError(f"WNBA {size}-leg dashboard slip cannot bind every legal Builder Card leg")
+            scored = scored_candidates.get(str(row.get("candidate_id") or row.get("slip_id") or ""), {})
+            raw_metrics = scored.get("raw_metrics") or {}
+            hit_probability = _float(
+                row.get("joint_strict_win_probability")
+                or row.get("slip_probability")
+                or raw_metrics.get("joint_qmc_probability")
+            )
+            expected_net = _float(
+                row.get("expected_net_value_estimate")
+                or raw_metrics.get("mean_EV")
+            )
+            expected_return = _float(row.get("expected_return_estimate"))
+            if expected_return is None and expected_net is not None:
+                expected_return = 1.0 + expected_net
+            payout = _float(row.get("payout_multiplier_estimate"))
+            if payout is None and hit_probability and expected_return is not None:
+                payout = expected_return / hit_probability
             output.append({
                 "slip_id": row.get("slip_id"),
                 "family": "market_portfolio",
                 "n_legs": size,
                 "rank": _int(row.get("slip_rank")),
-                "hit_prob": _float(row.get("joint_strict_win_probability") or row.get("slip_probability")),
-                "payout_mult": _float(row.get("payout_multiplier_estimate")),
-                "ev": _float(row.get("expected_return_estimate")),
-                "expected_net_value": _float(row.get("expected_net_value_estimate")),
+                "hit_prob": hit_probability,
+                "payout_mult": payout,
+                "ev": expected_return,
+                "expected_net_value": expected_net,
+                "atlas_slip_score": _float(row.get("atlas_slip_score") or scored.get("ATLAS_SLIP_SCORE")),
                 "legs": legs,
                 "legs_detail": legs,
             })
